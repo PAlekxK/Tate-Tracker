@@ -64,6 +64,12 @@
         so the chosen accent is never a playback row — it is the header. ─────────────────────── */
   header { background: var(--accent); color: #fff; padding: 22px 18px 18px; }
   header .inner { max-width: 660px; margin: 0 auto; }
+  .utility { display: flex; justify-content: space-between; align-items: center; margin: 0 0 10px; }
+  .ubtn { color: #fff; opacity: .8; text-decoration: none; font-size: .82rem; position: relative; }
+  .ubtn:hover, .ubtn:focus-visible { opacity: 1; }
+  /* 44px hit area without a 44px box — the shared pattern this repo already uses everywhere. */
+  .tap44::after { content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+                  width: 44px; height: 44px; min-width: 100%; }
   h1 { margin: 0; font-size: 1.5rem; line-height: 1.25; font-weight: 600; word-break: break-word; }
   /* ⚠️ WRAP, NEVER TRUNCATE. #pname promises 60 characters and the wide-eyed seat types 33 with a
      curly apostrophe; a masthead that ellipsises has edited her word. */
@@ -127,6 +133,20 @@
 <body>
 
 <header><div class="inner">
+  <!-- ⭐ THE UTILITY ROW, inside the masthead band and above the name `[ux-expert 2026-09-06]`.
+       Costs ~22px at A+ and that is the whole price. NOT the masthead-as-control (it double-books
+       §3b's standing job — the top bar always answers "where am I" — and a chevron on the place's
+       name routes on decoration). NOT a hamburger or a gear: glyph-only routing is SaaS chrome, and
+       this reader's measured depth is 1.
+       ⛔ EACH CONTROL NAMES ITS DESTINATION IN WORDS. That is what dissolves the origin problem
+       rather than solving it: place settings has exactly one parent (this page) and account
+       settings has exactly one (the shelf), so "back" is a word and never a stored value that can
+       be wrong. The constraint that keeps it true lives on the shelf — a row there does ONE thing,
+       enter the home. -->
+  <div class="utility">
+    <a class="ubtn tap44" href="/homes/">‹ Your homes</a>
+    <a class="ubtn tap44" href="/settings/place/">Settings</a>
+  </div>
   <h1 id="place">My Home</h1>
   <p class="who" id="who" hidden></p>
 </div></header>

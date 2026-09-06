@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Your homes</title>
+<!--
+  homes/index.html — THE SHELF. Every home this credential opens, and the only way to add another.
+
+  ⭐ THE NAME IS RATIFIED, NOT CHOSEN HERE: `[paul-stated 2026-09-02: "let's call it your homes for
+  now"]`, VOCABULARY §3b — "the product-level greeting, on the landing page and the selection
+  surface". ⚠️ A recommendation of "your places" was made on 2026-09-06 and RETRACTED on finding
+  §3b: the singular "your place" the setup flow speaks is about ONE home and does not compete with
+  the plural greeting for the shelf. `property` stays rejected (§4) either way.
+  ⛔ THE SHELL ITSELF IS NOT NAMED TO A READER (§4, in rejecting `profile` as a noun). The <title>
+  is the greeting, not a product name, and nothing here says "menu", "account page" or "dashboard".
+
+  ⭐ THE STOP IS CONDITIONAL; THE CONTROL IS NOT `[ux-expert 2026-09-06]`. Landing every reader here
+  at ONE home is R1-SC, which the 2026-09-02 work rejected in its own words — "a whole screen spent
+  on a BINARY" — and it breaks R1-B's criterion of never interposing anything between her and her
+  place. But applying R1-SA's "absent at one grant" is the OPPOSITE error, because this shelf holds
+  the only `+`: hiding it at one home makes founding unreachable for 100% of readers. So sign-in
+  branches on how many homes she has, and this page stays one tap away from the estate at any count.
+  ⭐ user-researcher put the same finding the other way round and it is worth keeping both: once
+  founding lives on the shelf, THE WAY BACK TO THE SHELF IS THE ONLY ROUTE TO FOUNDING.
+
+  ⛔ THE ROW DOES ONE THING — ENTER THE HOME. No per-row gear, no long-press edit, no badges, no
+  counts, no "last opened". That single constraint is what keeps the back control honest: each
+  settings surface has exactly ONE parent, so "back" is a word, never a stored origin that can be
+  wrong.
+  ⛔ AND NEVER THE FULL STREET ADDRESS. A shelf is the surface most likely to be read over a
+  shoulder or on a shared device; town and state identify a home to its owner without publishing
+  where she lives.
+-->
+<style>
+  :root { --ink:#23301f; --ink-soft:#5d6b57; --line:#d8eacc; --accent:#2f5d3a; --paper:#fff; }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; padding:0 0 56px;
+    font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color:var(--ink); background:linear-gradient(#edf7e6,#e2f0d8); background-attachment:fixed;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap { max-width:660px; margin:0 auto; padding:0 18px; }
+  header { background:var(--accent); color:#fff; padding:18px 18px 20px; }
+  header .inner { max-width:660px; margin:0 auto; }
+  h1 { margin:0; font-size:1.5rem; font-weight:600; }
+  .greet { margin:6px 0 0; font-size:.95rem; opacity:.85; }
+
+  /* ⛔ A ROW, NOT A CARD GRID. A shelf answers "which one", and a grid of tiles invites content
+     onto it — which turns the shelf into a dashboard and re-imports the task-manager register the
+     tone rule forbids. */
+  .home {
+    display:block; width:100%; text-align:left; background:var(--paper); border:1.5px solid var(--line);
+    border-left-width:0; border-radius:16px; padding:16px 16px 16px 20px; margin:14px 0;
+    position:relative; overflow:hidden; cursor:pointer; font:inherit; color:inherit;
+  }
+  /* the 4px rail is a SIGNIFIER: it wears this home's own colour, so the shelf predicts the screen
+     the next tap opens. The shelf itself belongs to no home and wears none of them. */
+  .home .rail { position:absolute; left:0; top:0; bottom:0; width:4px; background:var(--accent); }
+  .home .nm { font-size:1.15rem; font-weight:600; }
+  .home .where { margin:3px 0 0; font-size:.92rem; color:var(--ink-soft); }
+  .home .go { position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--ink-soft); }
+
+  /* ⛔ OUTLINED, NEVER FILLED + ✓. The affirmative grammar means RECORDED, and tapping this records
+     nothing — it opens a truthful explanation. Wearing the affirmative here would spend the one
+     signal this product has taught. */
+  .add {
+    display:block; width:100%; text-align:left; background:transparent; border:1.5px dashed #c6d6bb;
+    border-radius:16px; padding:16px; margin:14px 0; font:inherit; color:var(--ink); cursor:pointer;
+  }
+  .card { background:var(--paper); border:1.5px solid var(--line); border-radius:18px; padding:18px; margin:14px 0; }
+  .lede { margin:0 0 8px; }
+  .soft { color:var(--ink-soft); }
+  .quiet { font-size:.92rem; color:var(--ink-soft); }
+  textarea { width:100%; font:inherit; padding:10px; border:1.5px solid #c6d6bb; border-radius:12px; margin-top:8px; resize:vertical; }
+  button.send { font:inherit; cursor:pointer; border-radius:12px; padding:11px 16px; border:1.5px solid var(--accent); background:var(--accent); color:#fff; font-weight:600; }
+  .tick { margin-right:7px; }
+  .footlink { display:inline-block; margin-top:10px; color:var(--ink-soft); text-decoration:underline; font-size:.95rem; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+
+<header><div class="inner">
+  <h1>Your homes</h1>
+  <p class="greet" id="who" hidden></p>
+</div></header>
+
+<div class="wrap">
+  <div id="list"></div>
+
+  <!-- ⭐ THE `+` IS PRESENT AND HONEST. It cannot found a home yet: a credential resolves to exactly
+       one estate (grantFor rejects any other), so a home founded today would be one its owner could
+       never reach. ⛔ A control reporting a success it did not achieve is the failure this project
+       has broken twice — so this opens a card that says what is true, and captures what she would
+       have set up, as a message rather than as a record. Collecting a NAME AND ADDRESS here would
+       assert a home is being made; collecting a sentence does not. -->
+  <button type="button" class="add" id="addbtn">＋&nbsp; Add a home</button>
+
+  <div class="card" id="addcard" hidden>
+    <p class="lede"><strong>I can't set up a second home for you yet.</strong></p>
+    <p class="soft">Right now an account opens one home. Letting one person keep more than one is the
+      next thing I'm building, and it's the reason this button is here at all.</p>
+    <label class="quiet" for="note">If you tell me what you'd add, I'll start with that.</label>
+    <textarea id="note" rows="3" placeholder="Optional"></textarea>
+    <p><button type="button" class="send" id="send"><span class="tick">✓</span>Send</button></p>
+    <p class="quiet" id="thanks" hidden></p>
+  </div>
+
+  <!-- At the BOTTOM, deliberately: the shelf's job is the homes, and an account link at the top
+       would put administration above the thing she came for. -->
+  <p><a class="footlink" href="/settings/account/">Your account ›</a></p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var label = (location.hostname.split(".")[0] || "");
+  var WORKER = (/\.pages\.dev$/.test(location.hostname) && /^[a-z0-9-]{2,40}$/.test(label))
+    ? "https://" + label + ".paul-kirschenbauer.workers.dev"
+    : "https://fernwood.paul-kirschenbauer.workers.dev";
+
+  var K_GRANT = "fw-grant", K_NAME = "fw-onboard-name", K_COLOR = "fw-accent",
+      K_PARTS = "fw-onboard-parts", K_USER = "fw-username";
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function el(id) { return document.getElementById(id); }
+
+  // Same as the arrival surface: a link may carry the way in, and the credential is stripped from
+  // the URL immediately — it survives in history, in a screenshot, and in whatever she shares.
+  (function fromLink() {
+    try {
+      var u = new URL(location.href), g = u.searchParams.get("g");
+      if (!g) return;
+      localStorage.setItem(K_GRANT, g);
+      u.searchParams.delete("g");
+      history.replaceState(null, "", u.pathname + u.search + u.hash);
+    } catch (e) {}
+  })();
+
+  var grant = read(K_GRANT);
+  var user = read(K_USER);
+  if (user) { el("who").textContent = "Signed in as " + user; el("who").hidden = false; }
+
+  function townState(parts) {
+    try {
+      var p = typeof parts === "string" ? JSON.parse(parts) : parts;
+      if (!p) return "";
+      return [p.city, p.state].filter(Boolean).join(", ");
+    } catch (e) { return ""; }
+  }
+
+  function renderHomes(homes) {
+    var host = el("list");
+    host.innerHTML = "";
+    if (!homes.length) {
+      var p = document.createElement("p");
+      p.className = "soft";
+      p.textContent = grant
+        ? "Nothing here yet — open your invitation link to set your first home up."
+        : "Open this from your invitation link and your homes will be here.";
+      host.appendChild(p);
+      return;
+    }
+    homes.forEach(function (h) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "home";
+      var rail = document.createElement("span"); rail.className = "rail";
+      if (h.accent && /^#[0-9a-fA-F]{6}$/.test(h.accent)) rail.style.background = h.accent;
+      var nm = document.createElement("div"); nm.className = "nm";
+      nm.textContent = h.name || "My Home";       // her word, verbatim — never title-cased
+      b.appendChild(rail); b.appendChild(nm);
+      var where = townState(h.addressParts);
+      if (where) { var w = document.createElement("p"); w.className = "where"; w.textContent = where; b.appendChild(w); }
+      var go = document.createElement("span"); go.className = "go"; go.textContent = "›";
+      b.appendChild(go);
+      b.addEventListener("click", function () { location.href = "/estate/"; });
+      host.appendChild(b);
+    });
+  }
+
+  // Render what the device already knows, then reconcile against the record — same rule as the
+  // arrival surface: the server wins, and silence on a transport failure keeps the cached shelf
+  // rather than telling her she has no homes.
+  var cached = grant && read(K_NAME)
+    ? [{ name: read(K_NAME), accent: read(K_COLOR), addressParts: read(K_PARTS) }] : [];
+  renderHomes(cached);
+
+  if (grant) {
+    fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        // ⚠️ ONE HOME, AND THAT IS THE TRUTH RATHER THAN A LIMITATION OF THIS PAGE. A credential
+        // resolves to exactly one estate today; there is no person→estates index. Rendering an
+        // array of one keeps this page correct the day there are two, with no second shape to build.
+        renderHomes([{ name: d.name, accent: d.accent, addressParts: d.addressParts }]);
+      })["catch"](function () {});
+  }
+
+  el("addbtn").addEventListener("click", function () {
+    el("addcard").hidden = false;
+    try { el("note").focus(); } catch (e) {}
+  });
+
+  el("send").addEventListener("click", function () {
+    var note = (el("note").value || "").trim();
+    if (!note) { el("note").focus(); return; }      // an empty send does nothing, and says nothing
+    var h = { "Content-Type": "application/json" };
+    if (grant) h["X-Grant"] = grant;
+    fetch(WORKER + "/api/feedback", {
+      method: "POST", headers: h,
+      body: JSON.stringify({ id: "homes-second-home", note: note,
+                             context: { type: "second-home-ask", screen: "homes" } })
+    }).then(function (r) { done(r && r.ok); })["catch"](function () { done(false); });
+  });
+
+  // The same three-state ack the arrival surface uses, and for the same reason: her words are not
+  // cleared until the server has them, and a failure says what is true.
+  function done(ok) {
+    var t = el("thanks");
+    if (ok) {
+      el("note").value = "";
+      t.textContent = "Got it — that's what I'll build toward.";
+    } else {
+      t.textContent = "That didn't go through — your note is still here, tap Send once more.";
+    }
+    t.hidden = false;
+  }
+})();
+</script>
+</body>
+</html>

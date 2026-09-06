@@ -33,7 +33,20 @@ VIEWER = os.path.join(ROOT, "viewer.html")
 # the roster and nothing new has to be hand-maintained. estate/ may only READ what onboarding
 # declares; a key it reads that nothing writes is the near-miss this leg exists to catch.
 ONBOARDING = os.path.join(ROOT, "onboarding", "index.html")
-ESTATE = os.path.join(ROOT, "estate", "index.html")
+# ⛔ DISCOVERED, NOT LISTED — and this is the second time today the same blind spot bit. The leg was
+# added this morning naming onboarding/ and estate/ by hand; `homes/` shipped hours later and was
+# invisible to it, exactly as the ten fw-* keys had been invisible to the viewer-only scan it was
+# added to fix. A named list of surfaces is a roster that rots the next time a surface is added, so
+# the household surfaces are now FOUND: every index.html outside the build artefacts.
+def household_surfaces(root=ROOT):
+    import glob as _g
+    out = []
+    for d in sorted(_g.glob(os.path.join(root, "*", "index.html"))):
+        rel = os.path.relpath(d, root)
+        if rel.split(os.sep)[0] in ("node_modules", "engine", "tools", "guides", "worker"):
+            continue
+        out.append(d)
+    return out
 FW_DECL_RE = re.compile(r'var\s+K_[A-Z]+\s*=\s*["\'`](fw-[A-Za-z0-9_.-]+)["\'`]')
 FW_LIT_RE = re.compile(r'["\'`](fw-[A-Za-z0-9_.-]+)["\'`]')
 
@@ -85,7 +98,8 @@ def check(src, quiet=False):
     unused = sorted(k for k in roster if k not in used)
     declared, hh = check_household_keys()
     if not quiet:
-        print("household keys (onboarding + estate) — %d declared" % len(declared))
+        print("household keys — %d declared, %d surface(s) scanned"
+              % (len(declared), len(household_surfaces())))
         for problem in hh:
             print("  🔴 " + problem)
         if not hh and declared:
@@ -148,14 +162,18 @@ def check_household_keys():
     problems = []
     try:
         onb = open(ONBOARDING, encoding="utf-8").read()
-        est = open(ESTATE, encoding="utf-8").read()
+        surfaces = [(os.path.relpath(f, ROOT), open(f, encoding="utf-8").read())
+                    for f in household_surfaces()]
     except OSError as e:
         return set(), ["UNCHECKABLE — %s" % e]
+    if not surfaces:
+        return set(), ["UNCHECKABLE — no household surfaces found; a scan that finds nothing "
+                       "must never read as clean"]
     declared = set(FW_DECL_RE.findall(onb))
     if not declared:
         return set(), ["UNCHECKABLE — no `var K_x = \"fw-…\"` declarations found in onboarding; "
                        "the roster is derived from them, so finding none is not a pass"]
-    for name, src in (("onboarding", onb), ("estate", est)):
+    for name, src in surfaces:
         for lit in sorted(set(FW_LIT_RE.findall(src))):
             if lit not in declared:
                 problems.append("%s uses %r, which onboarding never declares" % (name, lit))

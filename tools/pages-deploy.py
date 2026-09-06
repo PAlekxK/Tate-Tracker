@@ -46,8 +46,9 @@ ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.p
 # not a disclosure. And the export is then CHECKED — the deploy refuses on any household-specific
 # token, so the allow-list cannot silently rot as files are added.
 HOUSEHOLD = {"bob"}
-HOUSEHOLD_ALLOW = ("onboarding/index.html", "estate/index.html", "qa-build.json",
-                   "favicon.ico", "index.html")
+HOUSEHOLD_ALLOW = ("onboarding/index.html", "estate/index.html", "homes/index.html",
+                   "settings/place/index.html", "settings/account/index.html",
+                   "qa-build.json", "favicon.ico", "index.html")
 # ⛔ NAMED FILES, NOT DIRECTORY PREFIXES. `onboarding/` as a prefix shipped
 # `onboarding/invite-message.md` — a DRAFT whose own first lines read "Nothing here has been sent,
 # and sending is Paul's own act" — and it is currently readable at
