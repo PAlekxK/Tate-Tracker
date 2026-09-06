@@ -696,6 +696,8 @@
          the shared estate visible, which is a reason to fix the tenancy, not to hide the door. -->
     <div id="handoff" hidden style="margin-top:20px">
       <a id="gohome" class="bigbtn" href="/viewer">Open my home</a>
+      <!-- instrumented below: crossing this is the difference between a finished setup and a
+           finished setup nobody walked out of -->
       <!-- ⭐ THE OFFER, NOT A RECEIPT `[paul-stated 2026-09-05]`: the foundation finishes, the
            personalising never does, and her willingness is the only throttle. The old line said she
            COULD come back without saying there was anything to come back FOR. ⛔ And it must not
@@ -879,6 +881,7 @@
     var hex = read(K_COLOR);
     if (hex) document.documentElement.style.setProperty("--accent", hex);
   }
+  wireHandoff();
   paintAccent();
   if (el.head) paintName();                                          // before any fetch resolves
 
@@ -897,6 +900,19 @@
   // The door appears only when there is a place behind it AND an account that owns it. An invited
   // reader who never made an account has no way back, so offering her a permanent home would be a
   // promise the next tap breaks.
+  // ⛔ THE LAST EVENT, AND THE ONE MOST LIKELY TO BE LOST. It fires on a NAVIGATION, so an ordinary
+  // fetch is cancelled mid-flight — this is precisely the case sendBeacon exists for. Without it the
+  // record cannot distinguish "finished setup and walked into her place" from "finished setup and
+  // closed the tab", which are the two outcomes the whole journey is built to tell apart.
+  function wireHandoff() {
+    if (!el.gohome) return;
+    el.gohome.addEventListener("click", function () {
+      ev("handoff", "tapped");
+      ev("complete", "reached-estate");
+      flushEv(true);
+    });
+  }
+
   function paintHandoff() {
     if (!el.handoff) return;
     el.handoff.hidden = !(read(K_USER) && read(K_GRANT));
@@ -963,6 +979,7 @@
     b.innerHTML = '<i style="background:' + c.hex + '"></i><span>' + c.name + '</span>';
     b.addEventListener("click", function () {
       chosen = c.hex;
+      ev("swatch", c.name);            // the NAME, so a palette nobody moves off the default is visible
       store(K_COLOR, c.hex);
       paintAccent();                                   // the page IS the preview
       [].forEach.call(el.swatches.children, function (n) { n.setAttribute("aria-pressed", "false"); });
@@ -1241,6 +1258,9 @@
     b.addEventListener("click", function () {
       var i = ranked.indexOf(it.id);
       if (i >= 0) { ranked.splice(i, 1); } else { ranked.push(it.id); }
+      // ⭐ the ITEM and the running count. Whether anyone ever discovers the second tap is a live
+      // question — wide-eyed found it by accident — and this is the only thing that can answer it.
+      ev("rank", (i >= 0 ? "remove:" : "add:") + it.id, ranked.length);
       paintInterests();
     });
     el.interests.appendChild(b);
