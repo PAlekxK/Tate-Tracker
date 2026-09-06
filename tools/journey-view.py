@@ -129,9 +129,9 @@ def main():
             print("  ⚠️  could not do %r — %s" % (s["action"], s.get("error")))
     sc = r["screen"]
     print("PAGE TITLE: %s" % sc["title"])
-    if data.get("console"):
+    if r.get("console"):
         print("CONSOLE ERRORS (the page's own diagnostics — why a write failed, not just that it did):")
-        for c in data["console"][:8]:
+        for c in r["console"][:8]:
             print("   " + c)
     print("ON SCREEN:")
     for t in sc["text"]:

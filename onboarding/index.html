@@ -240,6 +240,18 @@
   .pick span { flex: 1 1 auto; min-width: 0; }
   .pick:has(input:checked) { border-color: #3c5a72; background: #f4f7fa; }
 
+  /* ⛔ IN THE FIELD, RIGHT-ALIGNED — the convention. The reveal WAS on the page as an underlined link
+     under the second box, and Paul reported not seeing it at all. A control in an unconventional
+     place is a control that does not exist for the reader; "it was already there" is not a defence. */
+  .pwwrap { position: relative; }
+  .pwwrap input { padding-right: 70px; }
+  .peek {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    background: none; border: 0; padding: 8px; min-height: 0; width: auto;
+    color: #3c5a72; font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer;
+  }
+  .peek:focus-visible { outline: 2px solid var(--accent); border-radius: 8px; }
+
   .linky {
     background: none; border: 0; padding: 4px 0; margin-top: 8px;
     color: #3c5a72; font: inherit; font-size: .93rem; text-decoration: underline; cursor: pointer;
@@ -303,7 +315,10 @@
     <p id="unamestate" class="quiet" style="margin-top:4px" hidden></p>
 
     <label for="uword" style="margin-top:16px">Password</label>
-    <input id="uword" type="password" autocomplete="new-password" enterkeyhint="next">
+    <div class="pwwrap">
+      <input id="uword" type="password" autocomplete="new-password" enterkeyhint="next">
+      <button type="button" class="peek" data-for="uword" aria-pressed="false" aria-label="Show password">Show</button>
+    </div>
     <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody else ever sees this — not even Paul, so there's no email reset: if it's lost, he sorts it out by hand.</p>
 
     <!-- ⭐ THE PAIR SITS TOGETHER `[paul-stated 2026-09-05, walking it]`. "Password again" used to sit
@@ -313,12 +328,11 @@
          second. ⛔ ux-expert had DEFERRED this as invisible to the reader until the routing question
          was ruled. Paul hit it within about ninety seconds of walking the screen. Deferral was wrong. -->
     <label for="uword2" style="margin-top:16px">Password again</label>
-    <input id="uword2" type="password" autocomplete="new-password" enterkeyhint="next">
+    <div class="pwwrap">
+      <input id="uword2" type="password" autocomplete="new-password" enterkeyhint="next">
+      <button type="button" class="peek" data-for="uword2" aria-pressed="false" aria-label="Show password">Show</button>
+    </div>
     <p class="quiet" style="margin-top:5px">Just to be sure it's what you meant.</p>
-
-    <!-- One control for BOTH boxes, because the question it answers is "do these two match" — and a
-         reader who can see the characters can answer it herself instead of retyping blind. -->
-    <button type="button" id="showpw" class="linky" aria-pressed="false">Show what I've typed</button>
 
     <!-- ⭐ EMAIL AND PHONE `[paul-stated 2026-09-05]`: "capture their email address as well and make
          their phone number optional." ⚠️ THIS REVERSES the account-credential design, which recorded
@@ -703,7 +717,7 @@
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
-   "showpw", "unamestate", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
+   "unamestate", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
    "s5", "s5seam", "interests", "go5", "s5thanks", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
@@ -840,11 +854,17 @@
   // ---- s0 · SHOW WHAT I'VE TYPED -------------------------------------------------------------
   // One control for the PAIR. The question a confirm field asks is "do these match", and a reader
   // who can see both can answer it directly instead of retyping blind into two masked boxes.
-  el.showpw.addEventListener("click", function () {
-    var showing = el.uword.type === "text";
-    el.uword.type = el.uword2.type = showing ? "password" : "text";
-    el.showpw.setAttribute("aria-pressed", showing ? "false" : "true");
-    el.showpw.textContent = showing ? "Show what I've typed" : "Hide what I've typed";
+  // One per box, independent: a reader checking whether the two MATCH may want one visible and one
+  // not, and one control per field is what every other product does.
+  Array.prototype.forEach.call(document.querySelectorAll(".peek"), function (b) {
+    b.addEventListener("click", function () {
+      var f = el[b.getAttribute("data-for")];
+      var showing = f.type === "text";
+      f.type = showing ? "password" : "text";
+      b.textContent = showing ? "Show" : "Hide";
+      b.setAttribute("aria-pressed", showing ? "false" : "true");
+      b.setAttribute("aria-label", showing ? "Show password" : "Hide password");
+    });
   });
 
   // ---- s0 · IS THIS USERNAME FREE? -------------------------------------------------------------
