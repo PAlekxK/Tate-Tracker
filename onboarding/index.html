@@ -695,7 +695,7 @@
          first one's estate and can read and write her records with or without it. This just makes
          the shared estate visible, which is a reason to fix the tenancy, not to hide the door. -->
     <div id="handoff" hidden style="margin-top:20px">
-      <a id="gohome" class="bigbtn" href="/viewer">Open my home</a>
+      <a id="gohome" class="bigbtn" href="/estate/">Open my home</a>
       <!-- instrumented below: crossing this is the difference between a finished setup and a
            finished setup nobody walked out of -->
       <!-- ⭐ THE OFFER, NOT A RECEIPT `[paul-stated 2026-09-05]`: the foundation finishes, the
@@ -915,11 +915,18 @@
       // ⛔ AND IT MUST NEVER TRAP HER. If anything here throws, the fallback navigates anyway — an
       // instrument that can strand a reader on the last screen of her setup is worse than no
       // instrument at all.
-      var href = el.gohome.getAttribute("href") || "/viewer";
+      // ⛔ THE FALLBACK MUST NOT POINT AT /viewer. That is the built Fernwood — one household's
+      // canon inlined at build time — so a fallback there sends a brand-new reader into someone
+      // else's place, which is the exact defect this handoff was re-pointed to fix.
+      var href = el.gohome.getAttribute("href") || "/estate/";
       try {
         e.preventDefault();
+        // ⛔ `complete` NO LONGER FIRES HERE. It fired on this same tap, 120ms BEFORE navigation
+        // even began, with the detail "reached-estate" — so it recorded a TAP as an outcome and
+        // the record could not tell "walked into her place" from "closed the tab", which the
+        // comment above says is the whole point. It now fires on the arrival surface, which is the
+        // only place that can honestly claim she got there.
         ev("handoff", "tapped");
-        ev("complete", "reached-estate");
         flushEv(true);
       } catch (err) { location.href = href; return; }
       setTimeout(function () { location.href = href; }, 120);

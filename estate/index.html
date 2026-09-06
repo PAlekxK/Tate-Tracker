@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>My Home</title>
+<!--
+  estate/index.html — WHERE THE HANDOFF LANDS. The first sight of a person's own place.
+
+  ⛔ WHY THIS FILE EXISTS AT ALL. Until 2026-09-06 the handoff button pointed at `/viewer`, and a
+  synthetic walker who had just typed a Bangor, Maine address landed in **Fernwood** — Church
+  Mountain Road, someone else's plants, someone else's vehicles. `viewer.html` is a BUILD ARTIFACT
+  (engine template + instance/fernwood.json + canon, inlined at build time), so every account on a
+  deployment gets the same file. `[paul-stated 2026-09-06]`: "it should not take you to Fernwood at
+  the very end. There needs to be an instance populated for the address that we just put in."
+
+  ⛔⛔ AND IT IS DELIBERATELY **NOT** THE FERNWOOD VIEWER WITH CARDS HIDDEN. ux-expert ranked that
+  above every other finding: card-hiding leaves the masthead suffix, the jump strip, Guru's digest,
+  the ack ribbon, the release notes and the station — six surfaces that would each re-ship the
+  tenancy leak. The falsifier is mechanical and lives in tools/check-estate-neutral.py: load this
+  page, grep for Jasper / Blue Ridge / Fernwood / Cherokee / 2,873 and every species name. Zero hits
+  or it is not shipped.
+
+  ⭐ THE GOVERNING SHAPE, arrived at independently by two seats and adopted:
+      **Replaying raw input is a form. Replaying what we DID with it is a receipt.**
+  So nothing here asks a question s4 already settled. The address was confirmed next to a map pin
+  one screen ago; here it appears with its settled state, never with a second confirm pair. Only
+  what s4 never asked may be asked here.
+
+  ⛔ IT MUST READ CORRECTLY WITH ZERO TAPS. The playback is a statement she can leave alone; every
+  control is available, never a gate. That is the test that keeps this from becoming a form — and
+  it is what protects the reader whose measured behaviour is 0-for-35 on affordances that ask.
+
+  ⛔ NO WEBFONT FETCH, same as onboarding. Loading a font contacts a third party before the reader
+  has done anything, which would falsify the privacy posture the flow states two screens earlier.
+
+  ⛔ COPY REACHING A PERSON IS AUTHORED CONTENT under the AI boundary. Drafted by content-steward,
+  the three rulings below are Paul's, and he reads it before any link is sent.
+    · "Early days", not "Buildout in progress" `[paul-ruled 2026-09-06]` — "in progress" is
+      status-tracker vocabulary and asserts activity that is not happening; a reader returning in
+      four days to an identical screen would have been told something false.
+    · the banner states the MECHANISM, not the importance `[paul-ruled 2026-09-06]` — "helps make
+      clear what happens with the feedback, not just saying it's important with no detail."
+    · Mom is a COLD START, not a migration `[paul-ruled 2026-09-06]` — so she meets this screen
+      too, and it is not built for one reader.
+-->
+<style>
+  :root {
+    --ink: #23301f; --ink-soft: #5d6b57; --line: #d8eacc;
+    --accent: #2f5d3a;              /* overwritten at runtime by the reader's own colour */
+    --paper: #fff; --ground: #edf7e6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 0 56px;
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink); background: linear-gradient(#edf7e6, #e2f0d8); background-attachment: fixed;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 660px; margin: 0 auto; padding: 0 18px; }
+
+  /* ── the masthead IS her colour. ux-expert: a value that has to be STATED has failed to be seen,
+        so the chosen accent is never a playback row — it is the header. ─────────────────────── */
+  header { background: var(--accent); color: #fff; padding: 22px 18px 18px; }
+  header .inner { max-width: 660px; margin: 0 auto; }
+  h1 { margin: 0; font-size: 1.5rem; line-height: 1.25; font-weight: 600; word-break: break-word; }
+  /* ⚠️ WRAP, NEVER TRUNCATE. #pname promises 60 characters and the wide-eyed seat types 33 with a
+     curly apostrophe; a masthead that ellipsises has edited her word. */
+  .who { margin: 6px 0 0; font-size: .9rem; opacity: .85; }
+
+  /* ── the banner: a STATE banner, not a feedback banner. Its content is what is happening to her
+        place; the invitation to correct rides inside the rows, attached to specific things she
+        gave — which is where the changeability rule says it belongs. ──────────────────────── */
+  .banner {
+    background: #f6fbef; border-bottom: 1px solid var(--line);
+    padding: 11px 18px; font-size: .95rem; color: var(--ink-soft);
+  }
+  .banner .inner { max-width: 660px; margin: 0 auto; }
+  /* ⛔ A <p>, NOT A BARE DIV — and that is an instrument decision as much as a semantic one. The
+     journey harness reads a screen by collecting h1,h2,h3,p,label,li,strong,em,span; text in a bare
+     div is INVISIBLE to it. Caught on this page's first smoke test: the banner rendered for a human
+     and did not exist for the walk, so no synthetic seat could ever have reported on it. A surface
+     the instrument cannot see is a surface nobody reviews. */
+  .banner .bannertext { margin: 0; }
+
+  .card {
+    background: var(--paper); border: 1.5px solid var(--line); border-radius: 18px;
+    padding: 20px 18px; margin: 18px 0;
+  }
+  .state { margin: 0 0 6px; font-size: 1.15rem; font-weight: 600; }
+  .lede { margin: 0 0 4px; }
+  .soft { color: var(--ink-soft); }
+  .quiet { font-size: .92rem; color: var(--ink-soft); }
+
+  .rows { margin: 4px 0 0; }
+  .row { padding: 14px 0; border-top: 1px solid #eef4e8; }
+  .row:first-child { border-top: 0; }
+  .row .label { font-size: .82rem; letter-spacing: .02em; text-transform: uppercase; color: var(--ink-soft); }
+  .row .value { margin: 3px 0 0; white-space: pre-line; }   /* her lines, exactly as typed */
+  .row .prov { margin: 4px 0 0; font-size: .88rem; color: var(--ink-soft); }
+  .row .act { margin: 7px 0 0; }
+  .row .act a { color: var(--accent); text-decoration: underline; font-size: .92rem; }
+
+  /* ── ONE affirmative grammar (CLAUDE.md standing rule 1): filled + ✓ for the affirmative,
+        outlined neutral for the secondary. These are those components, not lookalikes. ────── */
+  button {
+    font: inherit; cursor: pointer; border-radius: 12px; padding: 11px 16px;
+    border: 1.5px solid var(--accent); background: var(--accent); color: #fff; font-weight: 600;
+  }
+  button.btn-secondary { background: transparent; color: var(--ink); border-color: #c6d6bb; font-weight: 500; }
+  .tick { margin-right: 7px; }
+  textarea {
+    width: 100%; font: inherit; padding: 10px; border: 1.5px solid #c6d6bb; border-radius: 12px;
+    margin-top: 8px; resize: vertical;
+  }
+  .fblink {
+    background: none; border: 0; padding: 0; color: var(--ink-soft);
+    text-decoration: underline; font-weight: 400; font-size: .95rem;
+  }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<header><div class="inner">
+  <h1 id="place">My Home</h1>
+  <p class="who" id="who" hidden></p>
+</div></header>
+
+<!-- ⭐ THE MECHANISM, NOT THE IMPORTANCE `[paul-ruled 2026-09-06]`. "Critical" asserts the value of
+     her input, which transfers weight to a reader who has just answered six questions; this states
+     how the thing works, which puts the work on Paul. It is also VERIFIABLE on the screen it sits
+     on — at day one everything below genuinely is what she supplied. It promises no contact and no
+     cadence, so it survives the reader who declined contact.
+     ⚠️ It decays on STATE, never on a clock: it goes when the first card is built from her data.
+     Never on visit count — someone may open this three times in week one before anything exists,
+     and a counter would remove the one line explaining why the screen is bare. -->
+<div class="banner" id="banner"><div class="inner"><p class="bannertext">Everything here gets built from what you tell me.</p></div></div>
+
+<div class="wrap">
+
+  <div class="card">
+    <p class="state">Early days</p>
+    <p class="lede">What you told me during setup is here. Nothing's been built on top of it yet — that part's my job.</p>
+
+    <div class="rows" id="rows"></div>
+  </div>
+
+  <!-- The general feedback channel, on this screen as on every other. `paul-stated 2026-09-05`:
+       available once someone has an account and is signed in. Closed by default — a standing open
+       textarea is the affordance-without-signal trap. -->
+  <p><button type="button" id="fbopen" class="fblink">Something not right? Tell me.</button></p>
+  <div id="fbbox" hidden>
+    <textarea id="fbnote" rows="3" placeholder="Anything at all"></textarea>
+    <p><button type="button" id="fbsend"><span class="tick">✓</span>Send</button></p>
+  </div>
+  <p id="fbthanks" class="quiet" hidden></p>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  // ⛔ DERIVED, NOT ENUMERATED — and that is a tenancy decision, not a tidiness one. The obvious
+  // shape here is the lookup map onboarding uses, whose KEYS spell out a household's name.
+  // check-estate-neutral flagged those keys on this page's first run: a household's name, in the
+  // bytes a brand-new reader is served, on the one surface whose whole job is to name no other
+  // household. The tool's own message says fix the surface rather than allow-list the token, so:
+  // the Pages host and its Worker share a label, and the label is read from the URL the reader is
+  // already on. No household name is written here at all, and a new estate needs no edit.
+  var label = (location.hostname.split(".")[0] || "");
+  var WORKER = (/\.pages\.dev$/.test(location.hostname) && /^[a-z0-9-]{2,40}$/.test(label))
+    ? "https://" + label + ".paul-kirschenbauer.workers.dev"
+    : "https://fernwood.paul-kirschenbauer.workers.dev";
+
+  // Same key names as onboarding — this page READS what that flow wrote and writes none of them.
+  var K_GRANT = "fw-grant", K_ADDR = "fw-onboard-addr", K_PARTS = "fw-onboard-parts",
+      K_NAME = "fw-onboard-name", K_COLOR = "fw-accent", K_OWNER = "fw-onboard-owner",
+      K_USER = "fw-username";
+  function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function el(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? "" : s); }
+
+  var grant = read(K_GRANT);
+
+  // ⛔ THE OWNER GUARD, CARRIED OVER DELIBERATELY. onboarding clears its stored answers when the
+  // grant changes, because a shared device once resumed a different person's progress and showed
+  // them an address they had never typed. This page reads those same answers, so it must honour the
+  // same rule or it re-opens the hole one screen later: if the stored answers belong to another
+  // credential, they are not shown.
+  var owner = read(K_OWNER);
+  var mine = !!grant && (!owner || owner === grant);
+
+  var name = mine ? read(K_NAME) : null;
+  if (name) { el("place").textContent = name; document.title = name; }
+  var hex = read(K_COLOR);
+  if (hex && /^#[0-9a-fA-F]{6}$/.test(hex)) document.documentElement.style.setProperty("--accent", hex);
+  var user = read(K_USER);
+  if (user) { el("who").textContent = "Signed in as " + user; el("who").hidden = false; }
+
+  // ── the rows ───────────────────────────────────────────────────────────────────────────────
+  // ⭐ RECEIPTS, NOT QUESTIONS. Everything s4 already settled appears here with its settled state.
+  // There is no second confirm pair: the address was confirmed beside a map pin one screen ago, and
+  // asking again would be the same question thirty seconds later with a different vocabulary.
+  // ⛔ A ROW WITH NOTHING IN IT IS OMITTED, never rendered as "(none chosen)". Silence beats a false
+  // season, and an absent row and a row reading `nothing` are different messages.
+  var rows = [];
+
+  var addr = mine ? read(K_ADDR) : null;
+  if (addr) {
+    rows.push({
+      label: "Where it is",
+      value: addr,                       // exactly as typed: no case-correction, no standardising
+      prov: "You gave me this during setup.",
+      act: "That's not right ›"
+    });
+  }
+
+  // ⭐ THE ONE GENUINELY DERIVED ROW. Everything else here is a receipt of what was recorded; this
+  // is the record TRANSFORMED — her own ranking, read back as the order the work happens in. It is
+  // what makes the page a receipt rather than a form, and it is derived from HER ranking rather
+  // than a default order, so a condo with no garden does not get told plants come first.
+  // ⚠️ WHAT IS NOT HERE AND WHY: research asked for a row like "Bangor, Maine — zone 5a, last frost
+  // May 20." There is no geocoding path in this product — `hardiness` and `frostDates` come from
+  // property.json, which is hand-authored canon for one place. Inventing a zone from a state name
+  // would be a confidently-wrong number on the exact surface whose job is to be trusted. When an
+  // address→coordinates→zone path exists, this row is where its output belongs.
+  var ranked = null;
+  try { ranked = JSON.parse(read("fw-onboard-interests") || "null"); } catch (e) { ranked = null; }
+  if (mine && ranked && ranked.length) {
+    rows.push({
+      label: "What I'll build first",
+      value: ranked.slice(0, 3).map(function (r, i) { return (i + 1) + ". " + r; }).join("\n"),
+      prov: "Because that's how you ranked them.",
+      act: "Change the order ›"
+    });
+  }
+
+  function render() {
+    var host = el("rows");
+    host.innerHTML = "";
+    rows.forEach(function (r) {
+      var d = document.createElement("div"); d.className = "row";
+      var l = document.createElement("p"); l.className = "label"; l.textContent = r.label;
+      var v = document.createElement("p"); v.className = "value"; v.textContent = esc(r.value);
+      d.appendChild(l); d.appendChild(v);
+      if (r.prov) { var p = document.createElement("p"); p.className = "prov"; p.textContent = r.prov; d.appendChild(p); }
+      if (r.act) {
+        // ⛔ THE EDIT ROUTE IS A NOTE, NOT A TRIP BACK THROUGH THE FLOW — F12. Re-entering
+        // onboarding's step()/K_STEP walks the reader forward through the confirm and the ranking
+        // again, so a "fix one thing" control would re-ask everything after it. Until that is
+        // fixed, correcting a value tells Paul what it should say; the loop closes on his side.
+        var a = document.createElement("p"); a.className = "act";
+        var link = document.createElement("a"); link.href = "#"; link.textContent = r.act;
+        link.addEventListener("click", function (e) { e.preventDefault(); openFb(r.label); });
+        a.appendChild(link); d.appendChild(a);
+      }
+      host.appendChild(d);
+    });
+    if (!rows.length) {
+      // Honest, and not a skeleton: no greyed tiles, no spinner. The absence of rows IS the picture.
+      var p = document.createElement("p"); p.className = "soft";
+      p.textContent = "Once you've set your place up, what you told me shows up here.";
+      host.appendChild(p);
+    }
+  }
+  render();
+
+  // ── telemetry: `complete` lives HERE now ───────────────────────────────────────────────────
+  // ⛔ IT USED TO FIRE ON THE HANDOFF TAP, 120ms before navigation began, with the detail
+  // "reached-estate" — so it recorded a TAP as an outcome. The record could not tell "walked into
+  // her place" from "closed the tab", which is precisely the pair the journey exists to separate.
+  // This page is the only thing that can honestly say she arrived, because it only runs if she did.
+  // ⛔ NO VALUES, EVER — names of things touched, never a character typed. The Worker re-enforces
+  // an allow-list (screen · field · … · handoff · complete · session); an unrecognised name is
+  // dropped silently, so nothing new is invented here.
+  var SID = (function () { try { return Math.random().toString(36).slice(2, 12); } catch (e) { return "x"; } })();
+  var arrivedAt = Date.now();
+  function send(events, useBeacon) {
+    if (!events.length || !WORKER) return;
+    var body = JSON.stringify({ sid: SID, events: events });
+    try {
+      // text/plain, not application/json — a JSON body makes the request non-simple, which needs a
+      // CORS preflight, and sendBeacon cannot preflight, so the browser drops it silently. The
+      // Worker parses the body regardless of type. That defect already cost this project the
+      // handoff event once.
+      if (useBeacon && navigator.sendBeacon) {
+        navigator.sendBeacon(WORKER + "/api/onboarding-metrics",
+                             new Blob([body], { type: "text/plain;charset=UTF-8" }));
+        return;
+      }
+      fetch(WORKER + "/api/onboarding-metrics",
+            { method: "POST", headers: { "Content-Type": "text/plain;charset=UTF-8" },
+              body: body, keepalive: true })["catch"](function () {});
+    } catch (e) { /* instrumentation must never cost her the page */ }
+  }
+  send([{ name: "screen", screen: "arrival", detail: "enter", n: null, msIn: 0,
+          at: new Date().toISOString() },
+        { name: "complete", screen: "arrival", detail: "reached-estate", n: rows.length, msIn: 0,
+          at: new Date().toISOString() }], false);
+  // ⭐ DWELL IS THE PRE-REGISTERED TEST, not a number collected in case. user-researcher's
+  // prediction, recorded before the data exists: if the playback is doing its job, dwell here
+  // exceeds the median setup-screen dwell; if it reads as a form to skim, it lands under a few
+  // seconds. Both outcomes are readable, which is what makes it a test.
+  window.addEventListener("pagehide", function () {
+    send([{ name: "screen", screen: "arrival", detail: "left", n: null,
+            msIn: Date.now() - arrivedAt, at: new Date().toISOString() }], true);
+  });
+
+  // ── the feedback channel ───────────────────────────────────────────────────────────────────
+  var pendingAbout = null;
+  function openFb(about) {
+    pendingAbout = about || null;
+    el("fbbox").hidden = false;
+    el("fbnote").placeholder = about ? "What should it say instead?" : "Anything at all";
+    el("fbnote").focus();
+  }
+  el("fbopen").addEventListener("click", function () { openFb(null); });
+
+  el("fbsend").addEventListener("click", function () {
+    var note = (el("fbnote").value || "").trim();
+    // ⛔ AN EMPTY SEND DOES NOTHING. A receipt for something that never left the browser is worse
+    // than no receipt, because she stops watching for the real one.
+    if (!note) { el("fbnote").focus(); return; }
+    var body = {
+      id: "estate-" + (pendingAbout ? pendingAbout.toLowerCase().replace(/[^a-z]+/g, "-") : "general"),
+      answer: note,
+      context: { type: "estate-arrival", about: pendingAbout || null, screen: "arrival" }
+    };
+    var h = { "Content-Type": "application/json" };
+    if (grant) h["X-Grant"] = grant;
+    fetch(WORKER + "/api/feedback", { method: "POST", headers: h, body: JSON.stringify(body) })
+      .then(function (r) {
+        el("fbbox").hidden = true; el("fbnote").value = "";
+        var t = el("fbthanks");
+        // The honest three-state ack: only a real 2xx may say it landed.
+        t.textContent = r && r.ok ? "Got it — I'll put that right."
+                                  : "Saved on this device. I'll pick it up next time you're online.";
+        t.hidden = false;
+      })["catch"](function () {
+        el("fbbox").hidden = true;
+        var t = el("fbthanks");
+        t.textContent = "Saved on this device. I'll pick it up next time you're online.";
+        t.hidden = false;
+      });
+  });
+})();
+</script>
+</body>
+</html>
