@@ -126,9 +126,62 @@ def stops(fresh, answers, run_tag=""):
     ]
 
 
+# ---- SELFTEST · the four false greens, as ASSERTIONS rather than as prose ----------------------
+# ⛔ THIS FILE CARRIED EIGHT COMMENTS EXPLAINING TONIGHT'S DEFECTS AND ZERO EXECUTABLE CHECKS. Its
+# sibling journey-logic.py carries 16 assertions and produced no defects; this one produced all four.
+# The learning was written into the exact file that would have caught it, in a form that cannot run.
+# A comment is a note to the next reader; an assertion is a note to the next RUN.
+def selftest():
+    fails = []
+
+    def check(name, ok, why):
+        print("  %s %-34s %s" % ("✅" if ok else "🔴", name, "" if ok else why))
+        if not ok:
+            fails.append(name)
+
+    # 1 · a stop that cannot run must not score as walked (the empty-action-list green)
+    st = dict(stops(fresh=False, answers={"username": "u", "password": "p", "email": "e",
+                                          "place": "P", "line1": "l", "city": "c",
+                                          "state": "GA", "zip": "3"}))
+    check("unreachable stop is None, not []", st.get("02-account") is None,
+          "02-account returned %r — an empty list scores 'walked' having done nothing" % (st.get("02-account"),))
+
+    # 2 · a replayed step must vary what the world remembers (the same-username green)
+    a = {"username": "syn", "password": "p", "email": "e", "place": "P",
+         "line1": "l", "city": "c", "state": "GA", "zip": "3"}
+    names = []
+    for stop, acts in stops(fresh=True, answers=a, run_tag="T"):
+        if not acts:
+            continue
+        names += [x.split("=", 1)[1] for x in acts if x.startswith("type:#uname=")]
+    check("each replayed stop mints its own username", len(names) == len(set(names)),
+          "reused: %r — after the first stop every later one hits 'username taken'" % (names,))
+
+    # 3 · the status must be DERIVED from the failures the harness already recorded
+    for got, want in ((   {"failedActions": ["click:#go3 — timeout"], "rateLimited": False}, "incomplete"),
+                      (   {"failedActions": None, "rateLimited": True},                     "rate-limited"),
+                      (   {"failedActions": None, "rateLimited": False, "error": "boom"},   "error"),
+                      (   {"failedActions": None, "rateLimited": False},                    "walked")):
+        f = got.get("failedActions") or []
+        st2 = "error" if got.get("error") else ("incomplete" if f else
+              ("rate-limited" if got.get("rateLimited") else "walked"))
+        check("status(%s)" % want, st2 == want, "got %r" % st2)
+
+    # 4 · the shot path must be per-process (the shared-screenshot contamination)
+    import subprocess as sp
+    out = sp.run([sys.executable, os.path.join(ROOT, "tools", "journey-view.py"), "--help"],
+                 capture_output=True, text=True).stdout
+    check("screenshot path is not a shared constant", "/tmp/journey-view.png" not in out,
+          "a fixed default path lets parallel walkers overwrite each other")
+
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 7 - len(fails), 7))
+    return 1 if fails else 0
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--role", required=True)
+    ap.add_argument("--selftest", action="store_true", help="prove the four false-green guards still bite")
+    ap.add_argument("--role")
     ap.add_argument("--fresh", action="store_true", help="sign up in-flow rather than arriving with a token")
     ap.add_argument("--answers", help="JSON file of what this walker types; defaults to the role's own")
     # ⭐ GATE 1 RUNS ON QA `[paul-approved 2026-09-05]`. The origin was HARDCODED to lab, so every
@@ -141,6 +194,10 @@ def main():
                     help="which origin to walk (default qa — gate 1). lab is gate 2. "
                          "⚠️ home is PRODUCTION and writes real rows into Mom's estate.")
     a = ap.parse_args()
+    if a.selftest:
+        return selftest()
+    if not a.role:
+        raise SystemExit("journey-walk: --role is required (or use --selftest)")
 
     v = refresh(a.role, a.origin) if not a.fresh else identity(a.role, a.origin)
     base = {"qa":   "https://fernwood-qa.pages.dev/onboarding/",
