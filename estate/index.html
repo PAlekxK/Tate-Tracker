@@ -185,6 +185,24 @@
   function el(id) { return document.getElementById(id); }
   function esc(s) { return String(s == null ? "" : s); }
 
+  // ⭐ THE LINK CARRIES THE WAY IN, HERE TOO. s0 promises "a way back in — so this is yours on any
+  // phone, not just this one", and until now only onboarding accepted `?g=`. So the promise held
+  // for setup and broke at the arrival: a second device landing straight here had no credential,
+  // no receipts, and no way to get either. Same handling as onboarding, deliberately — one
+  // mechanism, not a second one that drifts.
+  // ⛔ AND THE CREDENTIAL IS STRIPPED FROM THE URL IMMEDIATELY. A grant left in the address bar
+  // survives in history, in a screenshot, and in whatever she taps "share" on — a credential that
+  // outlives its one use in three places is a credential we handed out.
+  (function takeGrantFromLink() {
+    try {
+      var u = new URL(location.href);
+      var fromLink = u.searchParams.get("g");
+      if (!fromLink) return;
+      localStorage.setItem(K_GRANT, fromLink);
+      u.searchParams.delete("g");
+      history.replaceState(null, "", u.pathname + u.search + u.hash);
+    } catch (e) {}
+  })();
   var grant = read(K_GRANT);
 
   // ⛔ THE OWNER GUARD, CARRIED OVER DELIBERATELY. onboarding clears its stored answers when the
@@ -284,6 +302,8 @@
     });
   }
 
+  var fetching = false;
+
   function render() {
     var host = el("rows");
     host.innerHTML = "";
@@ -308,7 +328,14 @@
     if (!rows.length) {
       // Honest, and not a skeleton: no greyed tiles, no spinner. The absence of rows IS the picture.
       var p = document.createElement("p"); p.className = "soft";
-      p.textContent = "Once you've set your place up, what you told me shows up here.";
+      // ⛔ THREE EMPTY STATES, NOT ONE. This single line told a returning reader on a fresh device
+      // that she had never set her place up — which is false, and it is the reader most likely to
+      // see it. Now it distinguishes: no credential at all · a credential whose record is still
+      // being fetched · a credential whose record genuinely holds nothing yet.
+      p.textContent = !grant
+        ? "Open this from your invitation link and your place will be here."
+        : (fetching ? "Fetching your place…"
+                    : "Once you've set your place up, what you told me shows up here.");
       host.appendChild(p);
     }
   }
@@ -326,6 +353,7 @@
   // here because the property has no cell reception and Wi-Fi only near the house.
   (function reconcile() {
     if (!grant) return;
+    if (!rows.length) { fetching = true; render(); }
     fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
