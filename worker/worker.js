@@ -3149,6 +3149,22 @@ export default {
         return json({ ok: true, name: acct.placeName || null, accent: acct.accent || null });
       } catch (e) { return json({ error: "bad-json" }, 400); }
     }
+    // ⚠️ A USERNAME ORACLE, KNOWINGLY. This Worker deliberately avoids being one elsewhere — the
+    // sign-in 404 is byte-identical to a missing route for exactly this reason. It is accepted here
+    // because account creation ALREADY answers the same question with its 409, so this exposes
+    // nothing new; it only stops the answer costing her a bounced form. Rate-limited on the feedback
+    // bucket. If the oracle ever becomes a real concern this is the first thing to delete, and the
+    // client degrades to silence rather than blocking her. `paul-asked 2026-09-05`.
+    if (url.pathname === "/api/account/available" && request.method === "GET" && !authOk(request, env)) {
+      const u = (url.searchParams.get("u") || "").trim();
+      if (!/^[a-zA-Z0-9._-]{3,40}$/.test(u)) return json({ error: "bad-username" }, 400);
+      if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
+      const taken = await env.OBSERVATIONS.get(accountKey(scopeOf(env), u));
+      // ⚠️ KV is eventually consistent, so this NARROWS the race and never closes it. Creation's own
+      // 409 stays the authority; this is a courtesy, and it says so by never being trusted alone.
+      return json({ available: !taken, username: u });
+    }
+
     if (url.pathname === "/api/account/username" && request.method === "POST" && !authOk(request, env)) {
       try { return await handleUsernameChange(request, env, scopeOf(env)); }
       catch (e) { return json({ error: "rename-failed", detail: String(e && e.message || e).slice(0, 300) }, 500); }

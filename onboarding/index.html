@@ -219,6 +219,21 @@
     border: 1.5px solid #d9c9a4; border-radius: 13px;
     background: #fdf7e9; font-size: .96rem;
   }
+  .picks { display: flex; flex-direction: column; gap: 9px; margin-top: 9px; }
+  .pick {
+    display: flex; align-items: flex-start; gap: 10px; padding: 11px 13px;
+    border: 1.5px solid #dfe3e8; border-radius: 12px; cursor: pointer; font-size: .96rem;
+  }
+  .pick input { margin-top: 3px; flex: none; }
+  .pick:has(input:checked) { border-color: #3c5a72; background: #f4f7fa; }
+
+  .linky {
+    background: none; border: 0; padding: 4px 0; margin-top: 8px;
+    color: #3c5a72; font: inherit; font-size: .93rem; text-decoration: underline; cursor: pointer;
+  }
+  .ok  { color: #2f6b45; }
+  .bad-text { color: #b3402e; }
+
   /* the field the message is ABOUT — so "the state" doesn't send her hunting for which box */
   input.bad { border-color: #b3402e; background: #fdf3f1; }
   [hidden] { display: none !important; }
@@ -264,10 +279,27 @@
          re-keys it, so the sentence and the product now agree. ⛔ Email and phone still carry NO such
          clause: nothing re-keys those yet, and a clause is owed only where it is true. -->
     <p class="quiet" style="margin-top:5px">This is how you sign in. Anyone who shares a place with you will see it, so pick something you don't mind them seeing — and you can change it later if you'd rather.</p>
+    <!-- Answered WHILE she types, not after she commits. Finding out the name is taken by having the
+         whole form bounce is the expensive way to learn it. -->
+    <p id="unamestate" class="quiet" style="margin-top:4px" hidden></p>
 
     <label for="uword" style="margin-top:16px">Password</label>
     <input id="uword" type="password" autocomplete="new-password" enterkeyhint="next">
-    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody else ever sees this — not even Paul.</p>
+    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody else ever sees this — not even Paul, so there's no email reset: if it's lost, he sorts it out by hand.</p>
+
+    <!-- ⭐ THE PAIR SITS TOGETHER `[paul-stated 2026-09-05, walking it]`. "Password again" used to sit
+         AFTER email and phone, so the two halves of one question had two unrelated questions wedged
+         between them — and the reassurance was split across the gap, the frightening half ("not even
+         Paul") stranded on the first and the comforting half ("he sorts it out by hand") on the
+         second. ⛔ ux-expert had DEFERRED this as invisible to the reader until the routing question
+         was ruled. Paul hit it within about ninety seconds of walking the screen. Deferral was wrong. -->
+    <label for="uword2" style="margin-top:16px">Password again</label>
+    <input id="uword2" type="password" autocomplete="new-password" enterkeyhint="next">
+    <p class="quiet" style="margin-top:5px">Just to be sure it's what you meant.</p>
+
+    <!-- One control for BOTH boxes, because the question it answers is "do these two match" — and a
+         reader who can see the characters can answer it herself instead of retyping blind. -->
+    <button type="button" id="showpw" class="linky" aria-pressed="false">Show what I've typed</button>
 
     <!-- ⭐ EMAIL AND PHONE `[paul-stated 2026-09-05]`: "capture their email address as well and make
          their phone number optional." ⚠️ THIS REVERSES the account-credential design, which recorded
@@ -276,23 +308,47 @@
          the stated end goal. ⛔ But it does not create one yet — the Worker has no send capability by
          design, so today this is a way for Paul to reach her, not a self-service reset. The copy says
          only what is true today. -->
-    <label for="uemail" style="margin-top:16px">Email address</label>
-    <input id="uemail" type="email" autocapitalize="none" autocorrect="off" autocomplete="email" enterkeyhint="next">
-    <p class="quiet" style="margin-top:5px">So Paul can reach you if something needs sorting out. Nothing is ever sent to it automatically.</p>
+    <!-- ⭐ ASK FOR THE PERMISSION BEFORE THE DETAIL `[paul-stated 2026-09-05, walking it]`. This was a
+         REQUIRED email and an optional phone, which collects first and asks never. Now she says
+         whether Paul may contact her at all, and only then is she asked for the thing that makes it
+         possible — the secondary is always optional. "Please don't" is a real answer, not a dark
+         pattern's dead end, and it carries its own cost in plain words rather than hiding it. -->
+    <p class="soft" style="margin-top:20px">If something needs sorting out, how should Paul reach you?</p>
+    <div id="contactpick" class="picks">
+      <label class="pick"><input type="radio" name="contact" value="email" checked>
+        <span><strong>Email me</strong> — a phone number is optional</span></label>
+      <label class="pick"><input type="radio" name="contact" value="phone">
+        <span><strong>Call or text me</strong> — an email address is optional</span></label>
+      <label class="pick"><input type="radio" name="contact" value="none">
+        <span><strong>Please don't</strong> — I'd rather not be contacted</span></label>
+    </div>
 
-    <label for="uphone" style="margin-top:16px">Phone number <span class="optional">— optional</span></label>
-    <input id="uphone" type="tel" autocomplete="tel" enterkeyhint="next">
-    <p class="quiet" style="margin-top:5px">Only if you'd rather be called than emailed. You can leave this blank.</p>
+    <!-- ⛔ NAMES THE COST. There is no password reset; Paul resetting it by hand is the ONLY way back
+         in, and that requires a way to reach her. Choosing "please don't" is allowed and is HER call,
+         but a choice whose consequence is invisible is not a choice. -->
+    <p id="contactnone" class="quiet bad-text" style="margin-top:8px" hidden>
+      Then there's no way back in if you lose your password — there's no reset, and no way to reach
+      you to fix it. You can change this later.
+    </p>
 
-    <label for="uword2" style="margin-top:16px">Password again</label>
-    <input id="uword2" type="password" autocomplete="new-password" enterkeyhint="done">
-    <p class="quiet" style="margin-top:5px">Just to be sure it's what you meant. There's no email reset — if it's lost, Paul sorts it out by hand.</p>
+    <div id="emailrow">
+      <label for="uemail" style="margin-top:16px">Email address <span class="optional" id="emailopt" hidden>— optional</span></label>
+      <input id="uemail" type="email" autocapitalize="none" autocorrect="off" autocomplete="email" enterkeyhint="next">
+      <p class="quiet" style="margin-top:5px">Only ever used to reach you about your place. Nothing is sent to it automatically.</p>
+    </div>
+
+    <div id="phonerow">
+      <label for="uphone" style="margin-top:16px">Phone number <span class="optional" id="phoneopt">— optional</span></label>
+      <input id="uphone" type="tel" autocomplete="tel" enterkeyhint="next">
+      <p class="quiet" style="margin-top:5px">Only if you'd rather be called than emailed.</p>
+    </div>
+
     <!-- CLAUDE.md #5, "everything is changeable": one short VARIED clause attached to the thing just
          given — never a standing footer, and never the same phrasing twice running. ⛔ And only where
          it is TRUE. The colour is genuinely re-pickable here and later; the password is not casually
          changeable today, so nothing claims it is. -->
     <p class="quiet" style="margin-top:14px">Nothing here is set in stone — the colour especially. Pick one now and swap it whenever you fancy.</p>
-    <p class="soft" style="margin-top:18px">Pick a colour for your place</p>
+    <p class="soft" style="margin-top:18px">Pick a colour scheme for your digital home</p>
     <div id="swatches" class="swatches"></div>
     <div class="trouble" id="trouble0" hidden></div>
     <button type="button" id="go0"><span class="tick">✓</span>Create my account</button>
@@ -628,6 +684,7 @@
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
+   "showpw", "unamestate", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
    "s5", "s5seam", "interests", "go5", "s5thanks", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
@@ -761,12 +818,79 @@
     if (el[id]) el[id].addEventListener("input", function () { el[id].classList.remove("bad"); });
   });
 
+  // ---- s0 · SHOW WHAT I'VE TYPED -------------------------------------------------------------
+  // One control for the PAIR. The question a confirm field asks is "do these match", and a reader
+  // who can see both can answer it directly instead of retyping blind into two masked boxes.
+  el.showpw.addEventListener("click", function () {
+    var showing = el.uword.type === "text";
+    el.uword.type = el.uword2.type = showing ? "password" : "text";
+    el.showpw.setAttribute("aria-pressed", showing ? "false" : "true");
+    el.showpw.textContent = showing ? "Show what I've typed" : "Hide what I've typed";
+  });
+
+  // ---- s0 · IS THIS USERNAME FREE? -------------------------------------------------------------
+  // Answered WHILE she types. ⚠️ This is a username oracle, and the Worker deliberately avoids being
+  // one elsewhere (the sign-in 404 is byte-identical to a missing route for exactly this reason).
+  // It is accepted here ONLY because account creation already answers the same question with its 409
+  // — so this exposes nothing new, it just stops the answer costing her a bounced form. Rate-limited
+  // Worker-side. If the oracle ever becomes a real concern, this is the first thing to delete.
+  var unameTimer = null, lastAsked = "";
+  function sayUname(cls, text) {
+    el.unamestate.hidden = !text;
+    el.unamestate.className = "quiet" + (cls ? " " + cls : "");
+    el.unamestate.textContent = text || "";
+  }
+  el.uname.addEventListener("input", function () {
+    var u = el.uname.value.trim();
+    el.uname.classList.remove("bad");
+    if (unameTimer) clearTimeout(unameTimer);
+    if (!u) { sayUname("", ""); return; }
+    if (!/^[a-zA-Z0-9._-]{3,40}$/.test(u)) {
+      sayUname("bad-text", u.length < 3 ? "A bit longer — three characters or more."
+                                        : "Letters, numbers, dots, dashes and underscores only.");
+      return;
+    }
+    sayUname("", "Checking…");
+    unameTimer = setTimeout(function () {
+      lastAsked = u;
+      fetch(WORKER + "/api/account/available?u=" + encodeURIComponent(u))
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (res) {
+          if (el.uname.value.trim() !== lastAsked) return;      // she kept typing; this answer is stale
+          if (!res) { sayUname("", ""); return; }               // can't tell — say nothing rather than guess
+          if (res.available) sayUname("ok", "\u201c" + u + "\u201d is free.");
+          else sayUname("bad-text", "\u201c" + u + "\u201d is taken — try another.");
+        })
+        .catch(function () { sayUname("", ""); });              // never let a check failure block her
+    }, 450);
+  });
+
+  // ---- s0 · HOW SHOULD PAUL REACH YOU? ----------------------------------------------------------
+  function contactPref() {
+    var c = el.contactpick.querySelector("input[name=contact]:checked");
+    return c ? c.value : "email";
+  }
+  function paintContact() {
+    var v = contactPref();
+    el.contactnone.hidden = v !== "none";
+    el.emailrow.hidden = v === "none";
+    el.phonerow.hidden = v === "none";
+    el.emailopt.hidden = v === "email";        // the PRIMARY is the one not marked optional
+    el.phoneopt.hidden = v === "phone";
+  }
+  el.contactpick.addEventListener("change", paintContact);
+  paintContact();
+
   el.go0.addEventListener("click", function () {
     var u = el.uname.value.trim(), w = el.uword.value, w2 = el.uword2.value;
     var em = el.uemail.value.trim(), ph = el.uphone.value.trim();
     var need = [];
+    var pref = contactPref();
     if (!u) need.push("a username");
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) need.push("an email address");
+    // ⛔ ONLY THE CHOSEN PRIMARY IS REQUIRED. Demanding an email from someone who just said "please
+    // don't contact me" would make the question decorative.
+    if (pref === "email" && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) need.push("an email address");
+    if (pref === "phone" && ph.replace(/\D/g, "").length < 7) need.push("a phone number");
     if (w.length < 8) need.push("a password of eight characters or more");
     if (need.length) {
       el.trouble0.hidden = false;
@@ -778,7 +902,8 @@
       // and then pointing at the wrong box is worse than not pointing.
       [el.uname, el.uemail, el.uword, el.uword2].forEach(function (f) { f.classList.remove("bad"); });
       var firstBad = !u ? el.uname
-        : !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) ? el.uemail
+        : (pref === "email" && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) ? el.uemail
+        : (pref === "phone" && ph.replace(/\D/g, "").length < 7) ? el.uphone
         : el.uword;
       firstBad.classList.add("bad");
       try { el.trouble0.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (e) {}
@@ -798,7 +923,8 @@
     el.go0.disabled = true; el.go0.innerHTML = "Setting up…";
     fetch(WORKER + "/api/account", {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: u, word: w, email: em, phone: ph || null, accent: read(K_COLOR) })
+      body: JSON.stringify({ username: u, word: w, email: em || null, phone: ph || null,
+                             contactPref: pref, accent: read(K_COLOR) })
     })
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
       .then(function (res) {
