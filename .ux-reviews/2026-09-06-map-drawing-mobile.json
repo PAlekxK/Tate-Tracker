@@ -1,0 +1,395 @@
+{
+  "review_id": "ux-2026-09-06-map-drawing-mobile",
+  "project": "fernwood",
+  "subject": "The three map surfaces (tools/area-trace.html, tools/zone-capture.html, viewer.html .pmap-*), and the forward design for a multi-household product after Paul's 2026-09-06 ruling: WE DRAW, THEY CONFIRM. Includes the commissioned question 'what is a good-looking map' as a functional requirement.",
+  "review_date": "2026-09-06",
+  "reviewer_mode": "review",
+  "review_level": "flow / IA — the whole draw-to-confirm journey across three surfaces and two seats, not a single screen",
+  "amendment_note": "Brief was re-aimed mid-session by Paul. PART 2 was originally 'a stranger traces polygons on a phone.' It is now 'a person confirms and corrects a map someone else drew.' Everything in PART 1 stands; the two authoring tools are re-graded as OPERATOR tools, which relaxes their mobile constraints and raises the bar on speed and repeatability.",
+  "user_context": {
+    "primary_user": "TWO seats, and they are genuinely different users. (1) THE CONFIRMING RESIDENT — an older, less tech-friendly person on a phone at their own address, who did not draw anything and cannot be assumed to draw anything. Mom is the n=1 exemplar: iOS Safari, 414x848, served A+ text in 8 of 8 reports over 60 days, one-handed, half-engaged, possibly no reading glasses, 2-turn ceiling. (2) THE OPERATOR — Paul, desktop, terminal, drawing ~20 areas for a property he may never have stood on.",
+    "core_jobs_to_be_done": [
+      "RESIDENT: recognise my own place from above and see whether you got it right [inferred; the aerial-as-thinking-tool job was validated as Job 6 in the 2026-05-27 review]",
+      "RESIDENT: say what I call the parts of my place [VALIDATED — 16 areas named unprompted, in her own words, before anything was drawn: .plans/2026-08-31-zones-traced-with-mom.json]",
+      "RESIDENT: tell you when you got it wrong, without having to be good at phones [inferred — this is the job the ruling creates and no observation exists for it]",
+      "RESIDENT: feel good about it and be proud of it [paul-stated 2026-09-06, verbatim: 'so they can feel good about it and be PROUD of it']",
+      "OPERATOR: lay ~20 named areas over a property I have not stood on, fast, repeatably, without the record claiming precision I do not have"
+    ],
+    "context_of_use": "Resident: 414x848 at A+ text, one-handed, reclined or standing outdoors; iOS Safari. On the property there is NO cell reception, Wi-Fi only near the house, coverage falls off with distance, heavy canopy (GPS 3-11 m). Operator: desktop browser + a local Python server + terminal.",
+    "assumptions_made": [
+      "The confirming resident is modelled entirely on Mom. n=1, and she is the ONLY person who has ever interacted with this record. No stranger has ever seen a Fernwood map, confirmed a zone, or been asked to.",
+      "Behavioural asymmetry treated as load-bearing: affordances that MOVE her are taken 5/5 (jump strip); affordances that ASK her are taken 0/25 across four surfaces (ribbon 0/10, launcher 0/10, Perspective queue 0/10, look-for 0/5). A map confirm queue inherits the second record unless it is built differently.",
+      "Label-rendering claims (F6) are READ FROM CODE, not rendered. I did not open the app or run measure-nesting-width.js. They are hypotheses until herConditions() confirms them — see follow_up_research.",
+      "Paul's transcript ruling on points ('shut-off valves, where a repair happened') is transcript-UNVERIFIED and used for substance only.",
+      "Assuming the ratified affirmative grammar (filled green + check, gg-suggest-btn-yes) and MAX_VISIBLE=5 policy govern any new ask surface on the map, since both were stated about Mom's surfaces generally, not about one card."
+    ],
+    "user_context_confidence": "medium for the resident seat (very strong telemetry on Mom, zero on anyone else, and the ruling generalises to strangers); low for the operator seat (no time-trial, no second property has ever been drawn)"
+  },
+  "principles_applied": [
+    "The glance and the repository + the loop (Tate-Tracker/CLAUDE.md, governing)",
+    "Trust is the load-bearing emotion; measured signals stay visually distinct from modelled ones (CLAUDE.md)",
+    "One affirmative grammar, everywhere she taps (CLAUDE.md standing rule 1, paul-stated 2026-07-29)",
+    "Everything is changeable — and it must be TRUE (CLAUDE.md standing rule 5, paul-stated 2026-08-04)",
+    "Latch onto what she starts; prefer instrumenting a door she already uses over authoring another ask (CLAUDE.md, paul-stated 2026-09-01)",
+    "The site's physical premise — no cell, canopy, capture local and sync deferred (CLAUDE.md, paul-stated 2026-08-31)",
+    "One engine, one verdict (fernwood.md, canon)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Glyphs follow the journal voice, not the dashboard voice (fernwood.md)",
+    "Caution as noticing, not warning (fernwood.md)",
+    "Strip teases, card holds (fernwood.md)",
+    "Ask what she can SEE, never what she has to KNOW (fernwood.md candidate)",
+    "Give before you ask — a surface that only extracts gets ignored (fernwood.md candidate)",
+    "The loop-close belongs at the glance altitude (fernwood.md candidate)",
+    "Source-hierarchy drives layout (cross-project/ordering-and-layout.md)",
+    "Freshness sets altitude — with its governing clause: name the reader's top question first (cross-project/ordering-and-layout.md)",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md)",
+    "An artifact must carry its own status in its pixels (cross-project/honest-surfaces.md)",
+    "Save-success at the surface, not at the destination (cross-project/interaction-and-friction.md)",
+    "Scope is communicated by where you tap, not auto-detected (cross-project/interaction-and-friction.md)",
+    "A correct 'no' still owes a next move (cross-project/interaction-and-friction.md)",
+    "Friction kills — it just works (cross-project/interaction-and-friction.md)",
+    "Prefer the platform's native control over an app reimplementation (cross-project/interaction-and-friction.md)",
+    "Norman — signifiers, perceived affordance, conceptual model, feedback",
+    "Nielsen #1 visibility of system status, #2 match with the real world, #3 user control and freedom, #5 error prevention",
+    "Cartographic figure-ground, visual hierarchy and label-placement conventions (Esri/NPS/OS tradition — see the .md companion)"
+  ],
+  "triage_summary": "The ruling is right and the surfaces are aimed the wrong way for it. The viewer foregrounds AUTHORING at rest ('+ Add a place' -> 'Tap on the map' -> tap 3+ corners) — precisely the interaction Paul just ruled out for this demographic — and hides CONFIRMING one tap deep inside a per-zone bottom sheet whose four buttons all carry the same weight and one of which is DELETE. So the job the ruling makes primary has no affordance and the job it rules out has the most prominent one. Meanwhile the operator's tools cannot open a second property at all: the georeference bounds are literals in both HTML files and fetch-basemap.py reads Fernwood's own coordinates from property.json. And the two primitives Paul says matter most — lines (walls, paths, the driveway) and points (shut-off valves, repairs) — are already DRAWABLE in the operator tools and RECORDABLE nowhere: zones.json has no lines key and no points key, and the viewer can render neither. Three separate label-placement engines exist for one concept, and the one on the reading surface is the worst of them. The aesthetic question Paul commissioned has a clean answer that dissolves its own tension: stop drawing boundaries and start drawing PLACES. A soft-filled region with a feathered edge and a confidently-set name is simultaneously the handsome instrument and the honest one, because it claims 'this named place is around here' — which is exactly what a record with a +/-9.1 m budget actually knows. Every measured defect in the smoothing plan (93 sharp turns, 11 sub-metre slivers, over-vertexing at 2.57 m spacing) lives in the STROKE. Quiet the stroke and they stop being visible without a single coordinate moving or a single adjacency being asserted.",
+  "findings": [
+    {
+      "id": "F1",
+      "area": "flow",
+      "surface": "viewer.html — the map at rest",
+      "severity": "critical",
+      "observation": "Under the new ruling the resident's job is to CONFIRM. There is no confirm affordance anywhere on the map at rest. The one persistent control is '+ Add a place', which opens a popover offering 'Tap on the map' (enter draw mode, tap >= 3 corners, hint reads 'Tap each corner of the place') and 'Describe it'. Confirming requires the resident to independently discover that a polygon is tappable, tap it, and find 'Looks right' as one of four equally-weighted buttons in a bottom sheet — alongside 'Delete this place'. The surface therefore promotes the ruled-out job to the only visible button and demotes the ruled-in job to an undiscoverable one.",
+      "user_impact": "For a user whose only validated behaviour is opens-and-glances, an affordance that is not in line of sight does not exist (fernwood candidate, 2026-07-13). She will never confirm a zone, and the operator will never learn which of his 23 guesses is wrong. The whole we-draw-they-confirm model has no input channel.",
+      "principle_invoked": "Meet the user at the action (cross-project) + 'for a user whose only validated behavior is opens-and-glances, a new affordance must live where she already looks or it does not exist' (fernwood candidate) + Norman, perceived affordance",
+      "recommendation": "Replace the resting '+ Add a place' button with ONE entry to a guided walkthrough — a jump-strip over her own land. Full design in the .md companion, section 2A. Shape: one area at a time, map zoomed and centred on it with every other area ghosted, name in Crimson below it, then exactly one binary in the ratified grammar (filled green + check 'Yes, that's it' / outlined neutral \"Something's off\") plus a plain 'Skip for now' text link. Cap it at the operator's 5 least-certain areas, mirroring MAX_VISIBLE rather than inventing a second policy, and end on the whole map redrawn with her confirmations sharpened. Keep tap-a-zone-at-rest as the secondary path. Move 'Add a place' behind the operator seat entirely for now.",
+      "effort": "medium"
+    },
+    {
+      "id": "F2",
+      "area": "other",
+      "surface": "tools/area-trace.html + tools/zone-capture.html + tools/fetch-basemap.py — the operator seat",
+      "severity": "critical",
+      "observation": "Neither operator tool can open a property other than Fernwood. The georeference is a literal in both files — `const B={west:-84.36990044993301,south:34.54754054054054,east:-84.364899550067,north:34.55165945945946}` appears verbatim in area-trace.html:253 and zone-capture.html:216 — the base image src is a literal path, and fetch-basemap.py derives PROPERTY_LAT/PROPERTY_LON from momlib.config('location.coordinates.*'), i.e. Fernwood's property.json. There is no address input anywhere in the chain.",
+      "user_impact": "'We draw, they confirm' has no path for household 2. The operator cannot produce a basemap for a stranger's address without editing Python, and cannot open a tracer against it once he has. This is the top blocking constraint on the ruled direction, and it is invisible because Fernwood works perfectly.",
+      "principle_invoked": "Norman — conceptual model; and the repo's own C5 rule that canon values derive rather than being typed (the same derivation-leak shape ENGINE-MANIFEST.md exists to catch)",
+      "recommendation": "The operator tool needs one input it does not have: an address or a lat/lon, from which it derives bounds, fetches the NAIP frame, and writes an instance-scoped zones record. Note the honest limit while you are there: NAIP is US-only and leaf-off frames are luck, not policy (fetch-basemap.py says so in its own docstring) — so 'what basemap does a stranger get' is a real product question, not a plumbing one, and it should be answered before the second household, not during it.",
+      "effort": "high"
+    },
+    {
+      "id": "F3",
+      "area": "other",
+      "surface": "zones.json schema vs. the operator tools",
+      "severity": "critical",
+      "observation": "The two primitives Paul named as most important are drawable and unrecordable. LINES: area-trace.html has a full open-polyline mode with snapping, a Lines rail section, and three seeded features (The Path, Upper-Uber wall, Driveway) — and zones.json has no `lines` key. `_meta.fold_2026_08_31` deferred them 'until a schema v3 adds them'; schema v3 shipped, added `partOf`, and did not add lines. POINTS: zone-capture.html has a point mode with eight types and — the best unshipped idea in this repo — an honest precision primitive (`Exact` / `About here`, the latter rendering a dashed halo at r=40). Neither lines nor points can be written to canon, and viewer.html can render neither.",
+      "user_impact": "Operator: cannot record the wall that IS the border between two areas, which the record's own commit body (badf097) already established as the durable fix for the sliver class. Resident: cannot be shown or asked about the landmarks she navigates by, and cannot be given the thing a point is for — 'take me back to roughly here' for a shut-off valve.",
+      "principle_invoked": "A correct 'no' still owes a next move (cross-project) — the tool accepts the input and the record silently cannot hold it; and 'an unchecked box is not open work' inverted: a deferral whose named trigger has fired",
+      "recommendation": "Lines and points are the schema work that unblocks both the aesthetic (section 2E.1 in the .md — line weight is the language that makes a map read as designed) and the topology (a shared border stored once). Points should ship with zone-capture's precision primitive intact: `About here` with a visible halo is the single most honest control anywhere in this project and it must not be lost in the port. Do NOT let a coverage/topology model be attempted before lines exist — the smoothing plan already ruled that lines are a prerequisite, not an adjacent nicety.",
+      "effort": "high"
+    },
+    {
+      "id": "F4",
+      "area": "affordance",
+      "surface": "viewer.html — ZonePanel bottom sheet",
+      "severity": "important",
+      "observation": "'Delete this place' sits in the resident's zone panel with danger styling. Under the new model the resident did not create the zone; the operator did. Deletion writes a tombstone (saveDeletedTombstone) and syncs, so a half-engaged mis-tap on a 56px-tall button removes another person's work from the shared record.",
+      "user_impact": "It is the only irreversible act on a surface whose entire message is that everything is changeable. Nothing in 104+ revisits suggests anyone in this project deletes anything — the 2026-05-27 review already ruled 'do NOT ship delete' and it shipped anyway.",
+      "principle_invoked": "Nielsen #5 error prevention + #3 user control and freedom; 'Everything is changeable' must be TRUE (CLAUDE.md standing rule 5); defer affordances pending signal",
+      "recommendation": "Remove delete from the resident panel. The resident's strongest negative verdict should be 'this isn't a place' — which is a flag with her words attached, routed to the operator, not a destructive write. Keep delete in the operator seat where a mis-tap has a person watching it.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "surface": "viewer.html — ZonePanel action buttons",
+      "severity": "important",
+      "observation": "The four panel actions ('Looks right' with a check emoji, 'Different name', 'Not quite right', 'Delete this place') are all `.pmap-panel-btn` — same fill, same border, same weight — with only the destructive one differentiated. Standing rule 1 (paul-stated 2026-07-29) says the affirmative is a filled green + check and that the ribbon's buttons are LITERALLY those components, not lookalikes, so they cannot drift. This is a fourth button vocabulary on the one map surface that asks for a verdict.",
+      "user_impact": "The resident cannot route by weight, which is the only routing channel available at half-engagement with no glasses. An affirmative that looks like a decline is the exact failure the one-grammar rule was written to prevent, and it appears here on the surface where the whole product now depends on getting an affirmative.",
+      "principle_invoked": "One affirmative grammar, everywhere she taps (CLAUDE.md standing rule 1); consistency outranks semantic precision on Mom's surfaces",
+      "recommendation": "'Yes, that's it' becomes the literal gg-suggest-btn-yes component (filled green + check). Everything else drops to the outlined neutral. 'Different name' and 'Not quite right' collapse into one outlined 'Something's off' which opens the correction chooser (F8) — two precise buttons she has to tell apart is exactly the trade the 2026-07-29 rule already refused.",
+      "effort": "low"
+    },
+    {
+      "id": "F6",
+      "area": "hierarchy",
+      "surface": "viewer.html — zone labels (renderPropertyMap, .pmap-zone-label)",
+      "severity": "critical",
+      "observation": "Three defects in one element, and it is the element that most determines whether the map looks designed. (a) PLACEMENT: labels are drawn at the arithmetic mean of the vertices (`cx = px.reduce(...)/px.length`), which is neither the centroid nor the pole of inaccessibility — it is biased toward whichever side of the ring has more vertices, and the-bluff carries 46 vertices around 95 m². On a concave ring it can fall outside the zone entirely. (b) NO FIT TEST: font-size is a hardcoded `36` viewBox units for every zone regardless of whether the zone is 14 m2 or 2,000 m2, with no collision handling across 23 labels. (c) UNIT SWITCH BETWEEN TEXT MODES: `.pmap-zone-label` carries no CSS font-size, so at default text the SVG attribute governs (36 viewBox units ~= 9.9 CSS px on a 414 px stage against a 1500 px viewBox); at A+ the stylesheet rule `body.text-lg .pmap-zone-label { font-size: 19px }` overrides the presentation attribute, so labels become 19 SCREEN px and stop scaling with the map. The two text modes therefore use different units AND different zoom behaviour — and Mom is served A+ in 8 of 8 reports. NOTE: read from code; not rendered. Treat as a hypothesis until measured.",
+      "user_impact": "At A the resident's labels are around 9.9 px, below every legibility floor this project has set. At A+ they are all the same 19 px regardless of region size on a 414 px square containing 23 of them, which will collide. Either way she cannot read the names of her own places — which is the recognition step the entire confirm model depends on. It is also the single loudest signal that the map is a data dump rather than a designed artifact.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood); One engine, one verdict (fernwood — area-trace.html already has a correct pole-of-inaccessibility placer with a fit-or-omit rule and the reading surface doesn't); Ordering first, then type in service of it (cross-project)",
+      "recommendation": "Lift area-trace.html's `labelAnchor()` (pole of inaccessibility by grid search + hill-climb) and `fitLabel()` (balanced line-breaking, fit to the inscribed circle, refuse below MIN_LABEL_PX) into the shared render path so the operator's tool and the resident's map place labels by identity, not by agreement. On the reading surface change fit-or-OMIT to fit-or-DEFER: if a name will not fit legibly, draw a small marker and reveal the name on tap. Give the map exactly TWO type sizes drawn from Fernwood's existing bands (not new map sizes) so size encodes region importance. Fix the unit switch by choosing one unit — recommend CSS px in both modes so behaviour is identical, then verify in both.",
+      "effort": "medium"
+    },
+    {
+      "id": "F7",
+      "area": "consistency",
+      "surface": "viewer.html — .pmap-zone.is-draft; all 23 zones",
+      "severity": "important",
+      "observation": "Every zone is status: draft, so every zone renders `stroke-dasharray: 10 7` with `stroke-linecap: butt`. A distinction with no contrast partner communicates nothing (Norman: a signifier that never varies is not a signifier). Worse, the dash is carried in the one channel the aesthetic work needs quiet — the edge — and it puts gaps at exactly the corners the eye uses to check fit, which makes a 0.3 m sliver read as a deliberate opening. The CSS comment already concedes the round linecap is overridden everywhere, so half the corner-smoothing work that shipped is inert.",
+      "user_impact": "The map reads as wholly unsettled, which is not what the operator means and is the opposite of the pride Paul is asking for. And when a zone IS eventually confirmed, the change is a stroke-dash flip — nearly invisible at 414 px — so the reward for confirming is imperceptible.",
+      "principle_invoked": "An artifact must carry its own status in its pixels (cross-project) — with the corollary this case adds: a status carried identically by every instance carries nothing; Caution as noticing, not warning (fernwood)",
+      "recommendation": "Move provisionality OFF the stroke and onto the LABEL and FILL. Unconfirmed: softer fill, name at ~70% opacity with a light halo — it reads pencilled. Confirmed: firmer fill, full-opacity name with full halo weight. Her confirmation then visibly SHARPENS her own map, which makes the loop-close and the pride moment the same device at zero cost. Keep a broken outline in reserve for one rare state only — a zone she has flagged as wrong — so a dash means something again. And add what is missing upstream: the operator needs to stamp his own confidence at draw time, so 'draft' stops meaning 'all of it'. Three states minimum: operator-sure / operator-guessing / resident-confirmed. AUTHORING CALL — Paul's, not an agent's.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "error-handling",
+      "surface": "The correction path — does not exist beyond 'Not quite right'",
+      "severity": "critical",
+      "observation": "'Not quite right' currently sets a flag and nothing else. Under the ruling, correction by a person who cannot draw is the centre of the product, and there is no instrument for it. 'Wrong' is also not one thing: it is four — wrong NAME, wrong PLACE (right shape, wrong ground), wrong EXTENT (right place, wrong size), and shouldn't-exist-or-is-missing. Each has a different cost and a different cheapest fix, and asking one undifferentiated question about all four hands the resident a problem she cannot express.",
+      "user_impact": "She has an opinion and no way to state it. The operator gets a flag with no content and must guess. The flywheel that the whole model runs on never turns.",
+      "principle_invoked": "Ask what she can SEE, never what she has to KNOW (fernwood candidate) — decompose the verdict into the observation; A correct 'no' still owes a next move (cross-project); Scope is communicated by where you tap (cross-project)",
+      "recommendation": "\"Something's off\" opens ONE screen with four plain-language choices, each routing to a differently-priced instrument. (1) 'It's called something else' -> rename, already built. (2) 'It's in the wrong spot' -> DRAG THE WHOLE SHAPE: one finger, grabbable anywhere in the fill, no handles, valid at every instant, snap-back if dropped off the photo, plus a plain 'Put it back'. (3) 'It's bigger / smaller than that' -> two buttons, 'A bit bigger' / 'A bit smaller', ~10% about the ring's own centre, repeatable and undoable. Do NOT overload pinch, which already means zoom. (4) 'It's not right at all' or 'you've missed one' -> SPEAK IT, routed straight into the existing zone-audio channel with the zone as declared scope. Rulings: never vertex editing on the resident surface; DECLINE 'pick from candidates we generated' (it is an identification test with a right answer she can miss, and the record says the boundary of a garden bed is in neither the DEM nor the photo, so any candidate set is a guess dressed as options); photo-standing-in-it YES but as EVIDENCE attached to the zone, never as an edit. And every path must be able to terminate in 'I've told them' with nothing further asked of her. Governing rule over all of it: THE RESIDENT'S CORRECTION IS EVIDENCE; THE OPERATOR'S REDRAW IS THE EDIT — her drag and resize are recorded as her proposal with her name on it, never as a silent overwrite of the operator's ring.",
+      "effort": "high"
+    },
+    {
+      "id": "F9",
+      "area": "feedback",
+      "surface": "viewer.html — ZoneSyncStatus chip in quiet mode",
+      "severity": "important",
+      "observation": "The sync chip is hidden in every state except failure for the Mom-style audience. That was a defensible call for a browse surface. It is wrong for a CONFIRM surface: she taps 'Looks right', the record changes, and nothing visible tells her it reached anyone. On the property it will in fact reach nobody for some time, because there is no network away from the house.",
+      "user_impact": "An acknowledgment that cannot fail is not an acknowledgment — the same defect the describe-mode path was already fixed for (the code comment at saveZoneFeedback says so explicitly). A confirmation that vanishes silently teaches her the taps do nothing, which is the 0-for-25 ask record forming again.",
+      "principle_invoked": "Save-success at the surface, not at the destination (cross-project, 2 occurrences); Nielsen #1 visibility of system status",
+      "recommendation": "Confirming is a person-to-person act and needs an honest, in-place, non-chrome ack in journal voice, distinguishing the three real states: saved-and-sent, saved-on-this-phone-and-will-send ('it'll reach Paul when you're back near the house'), and couldn't-save-try-again. Not a spinner, not a toast that outruns her reading speed at A+. NOTE the good news, which should be preserved deliberately: the local-first write path (persistAndRerender -> localStorage -> debounced sync) and the comment 'navigator.onLine is NOT a route test' are exactly right for this property and are the strongest thing on this surface.",
+      "effort": "medium"
+    },
+    {
+      "id": "F10",
+      "area": "consistency",
+      "surface": "All three surfaces — label placement, projection, view state",
+      "severity": "important",
+      "observation": "Three implementations of one concept. Labels: area-trace uses pole-of-inaccessibility with fit-or-omit; zone-capture uses the polygon centroid unconditionally; the viewer uses the arithmetic mean of vertices. Projection: toLon/toLat/toX/toY and the r7 rounder are copy-pasted into both tools and reimplemented as ZoneGeo in the viewer. Pan/zoom, label-mode cycling, the nav pad and the save-state chip are each written twice.",
+      "user_impact": "Operator-facing: the tool shows Paul a label that fits and the resident gets one that does not — he cannot see what he is shipping. Product-facing: three places to fix every rendering improvement, which is how the 2026-08-31 snapping-and-smoothing work landed on the authoring surface and never reached the reading one.",
+      "principle_invoked": "One engine, one verdict (fernwood, canon) — and its sharpening clause: the tell is a shared INPUT SET plus a shared OUTPUT SLOT, not a shared call site",
+      "recommendation": "One shared module for projection + label anchoring + fit, consumed by all three. This is the structural precondition for the aesthetic work in section 2E — otherwise every device (feathered fill, tiered labels, text-on-path) has to be built three times and will diverge on the third.",
+      "effort": "medium"
+    },
+    {
+      "id": "F11",
+      "area": "other",
+      "surface": "tools/area-trace.html — the vertex primitive itself",
+      "severity": "important",
+      "observation": "Vertex tracing is the wrong primitive on the operator's DESKTOP too, and the amendment does not rescue it — it relocates it. The record already measured why: 437 vertices at 2.57 m median spacing against a +/-9.1 m budget, 38% of segments under 2 m, 93 vertices turning >60 degrees. Sampling a noisy signal more finely than its own error is how you draw a random walk. More clicking bought less accuracy AND worse looks. Separately, the tool can only snap vertex-to-vertex, while 9 of the 11 measured slivers are vertex-to-EDGE — so the operator physically cannot lay a correct shared border with the controls he has.",
+      "user_impact": "The operator spends the most effort on the mechanism that most degrades the artifact, and cannot produce the one thing (a clean shared seam) that would make the map read as fitting together.",
+      "principle_invoked": "Friction kills — it just works (cross-project); Prefer the platform's native control over a worse reimplementation (cross-project, generalised: prefer the primitive that matches the instrument's resolution)",
+      "recommendation": "Rank of primitives for the operator, in order: (1) a hard VERTEX BUDGET per ring (~8-14) with a live counter, which is free and is the single highest-leverage change to how the map looks; (2) SHAPE PRIMITIVES — a rounded rectangle and an ellipse he can drop, rotate and stretch by four handles, which produce smooth shapes by construction and claim no edge the imagery cannot show; (3) LINES FIRST, areas derived between them — Paul's own instinct and the only move that makes 'smooth shapes fitting together' structurally true; (4) walk-it GPS: DECLINE for boundaries (3-11 m under canopy is worse than the record's current budget, so it would degrade the record while feeling authoritative) but ADOPT for points, where 'take me back to roughly here' is the actual job; (5) paint-with-a-finger: decline — it is over-sampling with extra steps and makes seams impossible; (6) NAME-THEN-PLACE-LATER: adopt, and make it first-class — see F12.",
+      "effort": "medium"
+    },
+    {
+      "id": "F12",
+      "area": "flow",
+      "surface": "viewer.html — 'Describe it' path, and onboarding",
+      "severity": "important",
+      "observation": "The only observed behaviour in the entire corpus is that a person names places fluently with no map in front of them: 16 areas, unprompted, in her own words, and every recorded labelPosition is landmark-relative prose ('right, below Eastern Patio', 'left of the house'). The viewer already has the matching primitive — openDescribeMode(), a name plus a description with no polygon — and it dead-ends into Paul's feedback queue with nothing rendered back. Meanwhile onboarding ends at an address and a wait and never asks the one question the evidence says people will answer.",
+      "user_impact": "The product's cheapest, highest-yield input is unasked at the one moment the person is most engaged, and when it IS given it disappears. The operator, who now owns the drawing, gets no work queue.",
+      "principle_invoked": "Latch onto what she starts (CLAUDE.md, paul-stated 2026-09-01); Give before you ask (fernwood candidate); Meet the user at the action (cross-project)",
+      "recommendation": "Make 'a place with a name and no shape' a first-class record state, and render it on the map as a soft labelled marker with an honest halo — reusing zone-capture's 'About here' primitive, which is the correct visual for exactly this claim. Then geometry becomes an UPGRADE rather than a prerequisite. In onboarding, ask one question and no more: 'What do you call the different parts of your place?' — free text or mic, unlimited, skippable, no geometry. Do NOT put a map or a drawing step in onboarding; the person can do nothing useful about it in the first five minutes and a 'preparing your map' step is a latency promise nobody has measured.",
+      "effort": "medium"
+    },
+    {
+      "id": "F13",
+      "area": "other",
+      "surface": "The field / offline path for map correction",
+      "severity": "important",
+      "observation": "The site premise says capture must be entirely local with deferred sync. Zone EDITS already satisfy this (localStorage first, debounced sync, no reliance on navigator.onLine) — genuinely good. The correction instruments proposed in F8 do not: zone-audio posts to the Worker at the moment of speaking, and a photo attached to a zone would be a large binary in localStorage, which this app already shares with the zones store, the feedback outbox and metrics against a ~5 MB quota.",
+      "user_impact": "The sharpest consequence, and it follows from the premise but has not been stated: the areas most likely to be WRONG are the areas with no SIGNAL. Coverage falls off with distance from the house, and so does the operator's tracing confidence (canopy, no landmarks, sub-pixel features). So the far zones are simultaneously the most-wrong and the least-connected, and any design that assumes confirmation happens online fails exactly where it matters most.",
+      "principle_invoked": "The site's physical premise (CLAUDE.md, paul-stated 2026-08-31) + capture must not lie",
+      "recommendation": "Two constraints to write down before anything is built. (1) NEVER move this map to slippy tiles — the single committed 1500 px WebP is a deliberate advantage under this premise, and a tile server is the obvious 'upgrade' that would silently break the field path. (2) Any photo or audio correction path needs a durable local queue that survives a reload (IndexedDB for binaries), and an ack that is honest at the moment of capture: 'Saved on this phone — it'll reach Paul when you're back near the house.'",
+      "effort": "medium"
+    },
+    {
+      "id": "F14",
+      "area": "other",
+      "surface": "tools/area-trace.html — the operator's speed and repeatability",
+      "severity": "important",
+      "observation": "Nobody has measured how long it takes to draw a property. The tool has good bones for a queue (a roster rail, per-area tick states, a progress bar, nextUntraced(), autosave to disk with an honest NOT SAVED state, five basemap frames with their sun angles and shadow ratios stated on screen). What it lacks for volume work: any way to duplicate or offset a ring, any shape primitive, any vertex-to-edge snap, any per-zone confidence stamp at draw time, and any address input (F2).",
+      "user_impact": "The ruled model puts the operator on the critical path for every household. If drawing 20 areas takes two hours, the model caps at a handful of households; if it takes fifteen minutes it does not. That number is unknown and it is the real scaling constraint.",
+      "principle_invoked": "Meet the user at the action — the operator is a user too, and his action is 'lay 20 areas fast without lying'",
+      "recommendation": "Time-trial first (see follow-up 4), then build against what the trial shows. The confidence stamp is the one to add regardless of what the trial says, because it is what unblocks F7 and it costs a keystroke.",
+      "effort": "medium"
+    },
+    {
+      "id": "F15",
+      "area": "empty-state",
+      "surface": "tools/zone-capture.html — Draft zones pane",
+      "severity": "nice-to-have",
+      "observation": "The zones pane prints 'All 10 zones below are still status: draft' as a hardcoded string. The population is 23. A count typed beside a list that could compute it — the exact failure shape CLAUDE.md records repeatedly, failing in the direction that looks tidy.",
+      "user_impact": "Operator-only; small. Included because the class matters more than the instance.",
+      "principle_invoked": "Derive a gate's pending-count; don't list it (cross-project, promoted 2026-07-01)",
+      "recommendation": "Derive from zones.length, or drop the number.",
+      "effort": "low"
+    },
+    {
+      "id": "F16",
+      "area": "other",
+      "surface": "tools/area-trace.html footer — and what it says",
+      "severity": "nice-to-have",
+      "observation": "The tracer's footer reads: 'NAIP 2022-01-10 · ±20 ft. Boundaries are where the NAME applies, not a survey line.' That second sentence is the best statement of this project's accuracy posture anywhere in the repo, and it appears only on the surface the resident never sees. The resident's map states its provenance nowhere at all.",
+      "user_impact": "The person being asked to confirm a boundary is given no frame for what kind of claim she is confirming. She may correct a 3 m offset that the instrument cannot resolve, or accept one it could have.",
+      "principle_invoked": "A value's provenance and freshness must be shown as honestly as the value itself (cross-project); trust is the load-bearing emotion (CLAUDE.md)",
+      "recommendation": "Put one quiet line under the resident's map, in journal voice, once — not a badge, not a legend, not a scale bar. Something close to the tracer's own sentence: 'Drawn from an aerial photo — these are where the names go, not fence lines.' It is also the sentence that makes the soft-edged visual language (2E) read as deliberate rather than unfinished.",
+      "effort": "low"
+    },
+    {
+      "id": "F17",
+      "area": "other",
+      "surface": "BACKLOG.md L475 — 'An ILLUSTRATED map, not a photograph' [paul-raised 2026-08-31], adjudicated",
+      "severity": "critical",
+      "observation": "ADJUDICATION: the illustrated map is the right answer to 'what is a good-looking map', and the row under-argues its own case. It lists three benefits (zoom clarity, no shadows, Mom-legibility). The fourth is the one that decides it: AN AERIAL PHOTOGRAPH CANNOT BE COMPOSED. On a photograph the only lever is the overlay — contrast, value structure, figure-ground and where the eye travels are all fixed by a January flight at 32 degrees sun elevation. Paul's ask is that the map look good enough to be proud of, and on a photograph that outcome is not available; you can only make the overlay less bad. There is a fifth, deeper one: THE PHOTOGRAPH IS WHAT MAKES THE TRACE LOOK WRONG. Every deviation between a polygon and the visible edge underneath it is a visible error, which is why 2.57 m vertex spacing against a +/-9.1 m instrument reads as raggedness. Remove the photograph from the READING surface and the wobble has nothing left to disagree with — so the illustrated map makes every measured geometry defect (93 sharp turns, 11 slivers, over-vertexing) invisible without moving one coordinate or asserting one adjacency. That is also the answer to Paul's 'don't get bogged down': the illustrated map is the way to STOP working on geometry, not a reward for finishing it.",
+      "user_impact": "It is the only row on the list that delivers the pride outcome, and it is the only one that delivers it without a migration. It is also render-only, so it lives under the same proof obligation Chaikin already has (window.__pmapVertexIdentityOK) — a view, never a write.",
+      "principle_invoked": "Content and function first; form follows — and then form has to be excellent (cross-project, paul-stated); Make every surface read at half-engagement (fernwood); Norman — visceral level of emotional design, which is where pride lives",
+      "recommendation": "⭐ SHIP AN ILLUSTRATED MAP v0 WITH ZERO SCHEMA WORK, and do it before the other three rows. The record already holds 23 regions including a house and a pond; the four devices that carry most of the visual win — a paper ground, type-based fills (not per-zone colours), soft edges, and properly placed labels — need no new geometry at all. Lines make it much better and do not gate v0. ⚠️ ONE PRECONDITION THAT DOES GATE IT: the operator confidence stamp (F7/F14). An illustrated map draws all 23 of today's guesses with equal authority, and clean equals confident — that is the confidently-wrong instrument this project refuses. The stamp is one keystroke in the tracer and it is what lets the drawn map draw the sure things as regions and the guesses as markers.",
+      "effort": "medium"
+    },
+    {
+      "id": "F18",
+      "area": "other",
+      "surface": "The illustrated map's honesty language — the trap in F17",
+      "severity": "critical",
+      "observation": "The honesty problem gets HARDER on a drawn map, not softer, and this is the trap. A photograph with a wobbly line on it says 'somebody traced this.' A crisp drawn shape says 'somebody DECIDED this' — the reader upgrades the epistemic status of the boundary for free and nothing on the surface tells her not to. zones.json _meta.accuracyHonesty says outright that these polygons record WHERE A NAME APPLIES, at the resolution of a name, and are NOT survey lines. A clean drawn map silently contradicts its own record. Second cost the row does not state: on the aerial, a shed with no zone around it is visibly a shed with no zone; on the drawn map that shed does not exist, so the map is COMPLETE BY CONSTRUCTION and 'what's missing' becomes unaskable — which matters for a product whose most valuable onboarding line is exactly that.",
+      "user_impact": "A beautiful map that reads as a survey is worse than a ragged one, because trust is this project's load-bearing emotion and the resident cannot check the difference. And a map on which nothing can be missing cannot be corrected — it forecloses the very loop the confirm model runs on.",
+      "principle_invoked": "A value's provenance must be shown as honestly as the value itself (cross-project); An artifact must carry its own status in its pixels (cross-project); trust is the load-bearing emotion (CLAUDE.md)",
+      "recommendation": "The honesty is carried by EDGE, by SEAM, and by REFUSAL. Full treatment in the .md companion section 3. Headline: (1) EDGE — the boundary is a GRADIENT and the WIDTH OF THE SOFT BAND IS THE ACCURACY BUDGET RENDERED TO SCALE, derived from _meta.accuracyHonesty, never hand-picked for looks. It self-scales, so the map gets LESS certain-looking as you zoom in — which is the truth, and the opposite of what every zoomable map does. It is also the visual language of watercolour estate plans, so the handsome device and the honest device are the same device. (2) SEAM — three visually distinct treatments, because Paul ruled there are three cases (see F19). (3) REFUSAL — no scale bar, no north arrow, no grid, no coordinates; their ABSENCE is what reads pre-consciously as 'a picture of a place, not a plan of a parcel', and adding any one of them would undo the other two devices at a stroke. Plus: anything the operator is unsure of is NOT a region — it is a labelled marker with a halo. And the payoff that ties it to the confirm model: an unconfirmed region gets a wider soft band and a pencilled label; a confirmed one tightens and sharpens. HER MAP LITERALLY COMES INTO FOCUS AS SHE CONFIRMS IT.",
+      "effort": "medium"
+    },
+    {
+      "id": "F19",
+      "area": "other",
+      "surface": "The seams — 'smooth shapes fitting together'",
+      "severity": "important",
+      "observation": "Paul's phrase implies a jigsaw, and the record says it is not one. He ruled 2026-09-04: 'Some do have a wall or a trail or a strip of nothing, and some don't.' Today there are 24 touching-or-overlapping pairs and 11 gaps under 1 m, and the geometry is identical whether a gap is a wall, a trail, unclaimed ground, or a tracing error — so no global tolerance is correct at any value. Today's render has exactly one seam treatment (two dashed strokes near each other) for three different facts.",
+      "user_impact": "The resident cannot tell an intentional gap from a defect, and neither can the operator. A cleanup that closed the 'strip of nothing' case would not fix a sliver, it would INVENT a boundary on her land.",
+      "principle_invoked": "Juxtapose large differences; superpose small ones (cross-project); Norman — mapping; cartographic figure-ground",
+      "recommendation": "Three seam treatments, each legible without a legend. ABUTMENT (they touch): the two soft fills MERGE — no line at all, one continuous tone change from tint A to tint B. Nothing says 'one continuous piece of ground with two names' like the absence of a boundary, and it makes a 0.13 m sliver literally invisible without moving a coordinate. SOMETHING BETWEEN THEM (wall, path, drive): draw the LINE as a real feature with its own weight and tone, and let both fills stop softly against it. ⭐ Note what this buys — the line now carries a claim the record CAN support (there is a wall there; someone stood beside it) while the region edges stay soft, so the map's crisp elements are exactly the ones we are confident about and PRECISION BECOMES A SIGNAL THAT MEANS SOMETHING. UNCLAIMED GROUND: the paper/ground tone shows through between two soft fills — neither reaches, and a lay reader correctly reads 'the bit in between belongs to neither'. ⭐ The record must then SAY which of the three each pair is — the per-pair ruling the smoothing plan says only Paul can give, which now has a visible payoff instead of being a chore, and which makes an excellent confirm question because it asks what she can SEE: 'Is there anything between the lawn and the pond, or do they run together?'",
+      "effort": "medium"
+    },
+    {
+      "id": "F20",
+      "area": "other",
+      "surface": "BACKLOG.md L474-477 — ranking the four map rows for the pride outcome",
+      "severity": "important",
+      "observation": "Four rows, all paul-raised/paul-stated 2026-08-31, all still IDEATION eight days later, with a real dependency graph among them and no stated order. Paul's concern tonight is not getting bogged down, so the order matters more than the content.",
+      "user_impact": "Operator/planning. Included because an unordered set of four blocked-looking rows is why none of them moved.",
+      "principle_invoked": "Lead with the synthesis, not the rows (cross-project)",
+      "recommendation": "ORDER: (0) OPERATOR CONFIDENCE STAMP — one keystroke, gates everything below, because clean equals confident and today all 23 are guesses. (1) 🎨 ILLUSTRATED MAP v0, regions only, no schema work — the only row that delivers pride, testable in one exhibit, reversible by turning a layer off, and it retires the whole geometry-cleanup question rather than waiting on it. (2) 🗂 LAYERS, but only the MINIMUM: a two-state toggle labelled 'Photo / Drawn' in the map's own corner. Not a layer architecture — two states, one control. It must ship WITH the illustrated map rather than after it, because the row itself says the drawn map must not replace the aerial and a toggle is what makes that true; it is also what preserves the ability to notice what is MISSING (F18). Build the ordered opacity model when there are four layers, not two. ⚠️ The control says 'Photo' and 'Drawn' — 'Layers' is a GIS word. (3) 📏 ONE GEOMETRY (lines) — the second-biggest aesthetic lever and the only structural fix for the seams, plus it corrects a live mis-modelling (The Path stored as a 17-vertex polygon reporting a meaningless acreage). Schema work with consumers, so it follows the exhibit that proves the direction. (4) 📐 TATE LOT DRAWING — last, and honestly re-scoped: it is an OPERATOR verification source, not a pride source. It delivers nothing to the resident except a hard line that would contradict the entire soft-edge honesty language if it were on by default. Keep it in iCloud, off by default, and give it a deliberately distinct register when it lands — a hard thin dark line with its source stated, because it is the ONE line on the map that is a legal claim, and the contrast teaches the difference between 'a legal line' and 'where the name goes' in a single glance.",
+      "effort": "low"
+    },
+    {
+      "id": "F21",
+      "area": "hierarchy",
+      "surface": "viewer.html — the map's FRAME. Measured at 414x848, and confirmed by reading the rendered screenshot.",
+      "severity": "critical",
+      "observation": "MEASURED (coordinator's Playwright run, and I read the screenshot myself): the stage is 364 x 364 px, the union bounding box of all 23 zones is 183 x 108 px, so THE PROPERTY OCCUPIES 14.8% OF THE MAP. Roughly 85% of what she sees is undifferentiated forest carrying no information. The mechanism is exact and it is two lines: wirePropertyMap sets `stage.style.aspectRatio = ZoneGeo.imgW() + ' / ' + ZoneGeo.imgH()` — the frame is the BASEMAP's shape (1500x1500 square) — and the transform initialises at scale=1, tx=0, ty=0, which `pmap-reset` returns to. NOTHING EVER FITS THE VIEW TO THE ZONES. Fernwood's named ground is a long WNW-ESE ribbon; a square frame around a ribbon wastes most of its area by geometry alone, before any zoom question. ⭐ AND BOTH OPERATOR TOOLS ALREADY HAVE THE FIX: area-trace.html `fitAll()` and zone-capture.html `fitZones()` each compute the union of vertices, pad it, and set the view. The reading surface has neither.",
+      "user_impact": "This is the largest measured defect on the surface and it is not geometry. She opens the map and sees a county, not her garden. It also explains why no amount of vertex work has moved Paul's complaint: at 14.8% of the frame you cannot resolve the shapes well enough for raggedness to BE the defect.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood) — the essential read in 1.5 seconds; figure-ground, the first classical cartographic principle; One engine, one verdict (fernwood) — this is the THIRD capability the authoring tools have and the reading tool lacks, after vertex snapping and label fitting",
+      "recommendation": "⭐ CHEAPEST ITEM IN THIS ENTIRE REVIEW AND THE BIGGEST SINGLE WIN: fit the default view to the union of zone vertices with padding, and derive the stage's aspect ratio from THAT extent rather than from the basemap's shape. Lift fitAll() from area-trace.html — do not write a third one. `pmap-reset` should return to the fitted view, not to scale=1. ⚠️ It is required whatever else happens: an illustrated map on a 1:1 stage centred on nothing is still 85% empty, so this is not a step toward one answer, it is a prerequisite of every answer.",
+      "effort": "low"
+    },
+    {
+      "id": "F22",
+      "area": "hierarchy",
+      "surface": "viewer.html — .pmap-zone-label. CORRECTS MY OWN F6.",
+      "severity": "critical",
+      "observation": "⚠️ F6 GOT THIS BACKWARDS AND THE CORRECTION IS THE FINDING. I claimed A+ lifts labels to 19 SCREEN px. It does not. A CSS length applied to SVG content is expressed in USER UNITS, not screen pixels, so `body.text-lg .pmap-zone-label { font-size: 19px }` renders at 19 viewBox units — against the presentation attribute's 36. With a 1500-unit viewBox in a 364 px stage (scale 0.243): default text = 36 units = ~8.7 px on screen; A+ = 19 units = ~4.6 px. ⭐ SO THE ACCESSIBILITY TEXT-SIZE CONTROL MAKES HER MAP LABELS 47% SMALLER. The measured run is consistent: declared 19px, rendered label height 6 px. And 49 OVERLAPPING LABEL PAIRS were measured — concentrated exactly where the zones are densest, which is the garden, which is where she actually is (sample: 'The bank x Western Upper Patio', 'Eastern Woodlands x House'). ✅ VERIFIED on the coordinator's request: viewer.html's render path has NO fit test of any kind — no labelAnchor, no fitLabel, just `font-size=\"36\"` at the mean of the vertices. The fit-inside-its-own-zone rule lives in area-trace.html only, and even there it tests fit within its OWN polygon and never collision with a neighbour's label. So it passes while the result is unreadable, and on the reading surface it isn't present at all.",
+      "user_impact": "A user who turns on large text to read better gets a map she can read LESS well. That is the accessibility control actively harming the accessibility case, on the surface of the make-or-break user, in the text mode she is served in 8 of 8 reports. And 49 collisions in the garden cluster means the one part of the map that is about her daily life is a grey smear.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood); Nielsen #4 consistency and standards — a control must not invert its own promise; One engine, one verdict (fernwood)",
+      "recommendation": "Three fixes, all required on ANY basemap including a drawn one. (1) Delete the body.text-lg rule and scale labels UP with text size, in one unit system, verified in both modes. (2) Lift labelAnchor() + fitLabel() from area-trace.html into the shared render path — pole of inaccessibility, balanced line breaks, sized to the inscribed circle. (3) Add what neither surface has: NEIGHBOUR COLLISION handling, resolved as fit-or-DEFER — if a name cannot be drawn legibly and clear of its neighbours, draw a small marker and reveal the name on tap or at zoom. Plus two type sizes drawn from Fernwood's existing bands so size encodes importance. ⚠️ VERIFY the unit arithmetic with a live measurement before shipping; it is read from code and reconciled against one screenshot.",
+      "effort": "medium"
+    },
+    {
+      "id": "F23",
+      "area": "consistency",
+      "surface": "viewer.html — .pmap-zone.is-draft. THE DASH RULING, requested explicitly.",
+      "severity": "critical",
+      "observation": "I read before-all.png and after-all.png. Chaikin did exactly what it promised — the long south-eastern boundary is now a gentle arc instead of a zigzag, the western rings are visibly rounder — AND THE MAP IS NOT MEANINGFULLY BETTER. The dominant visual character is identical: heavy dark-green dashes on a blurry brown aerial. Two things the images show that no coordinate analysis could. (a) THE FILL DOES NOT RENDER AT ALL. rgba(122,149,104,0.08) over a green-brown January photograph is invisible, so the regions are ONLY their outlines — which is why there is no figure-ground and no hierarchy available on this surface at this alpha. A 'region' as a visual object does not currently exist on this map; there are only lines. (b) Where the zones are dense, the dashes of adjacent zones INTERLEAVE and you cannot tell which dash belongs to which shape. It does not read as provisional; it reads as debris. ⚠️ My read, offered as a read: corner-cutting slightly WORSENED (b) — sharp corners at least announced 'a shape turns here', and rounding them traded angularity for ambiguity without touching the stroke that was doing the damage.",
+      "user_impact": "The honesty device is invisible AS honesty and expensive AS legibility. It costs the map its entire edge channel and returns nothing, because 23 of 23 zones wear it.",
+      "principle_invoked": "An artifact must carry its own status in its pixels (cross-project) — with the correction this case forces: a status carried IDENTICALLY BY EVERY INSTANCE is not carried at all; Norman — a signifier that never varies is texture, not a signifier",
+      "recommendation": "⭐ RULING, in three parts, and the reasoning behind the dash is NOT reversed — it is re-sited. The rule ('drawing a guess identically to a confirmed boundary tells Mom a guess is settled fact') is a statement about A DIFFERENCE BETWEEN TWO THINGS ON ONE SCREEN. With 23 of 23 draft there is no second thing, so it cannot do the job it was written for while charging the full cost. (1) DROP THE DASH. Solid, rounded, and lighter — the edge channel is needed for the aesthetic and for the seam language (F19). (2) MOVE PROVISIONALITY TO THE NAME. An unconfirmed place's label renders pencilled — reduced weight and opacity, no full halo; a confirmed one is inked, full weight, full halo. The name is what she reads, a pencilled label is universally legible as not-settled without a legend, it survives any colour vision, and it costs zero legibility because it is a WEIGHT and not a TEXTURE. Today, with nothing confirmed, the map correctly reads as entirely pencilled — which is honest, and it stops being uniform the moment she confirms one. (3) PUT THE UNIVERSAL STATUS ON THE FRAME, ONCE, IN WORDS: 'Drawn from an aerial photo — nothing here is confirmed yet', becoming '12 of 18 confirmed by you'. A universal property belongs on the artifact, not on every instance. ⚠️ AND THE REAL FIX IS NEITHER OF THESE: `status` needs to be able to LEAVE draft, which is a product gap, not a render one, and section 4 of the .md is the mechanism for it. ⛔ This is an authoring call — put the three parts to Paul; do not let an agent ship it unasked.",
+      "effort": "low"
+    },
+    {
+      "id": "F24",
+      "area": "other",
+      "surface": "Method — .plans/2026-09-04-map-region-smoothing-PLAN.md, and the sequence after it",
+      "severity": "important",
+      "observation": "The plan's Tier 1 steps 1-2 SHIPPED the same day (6408706, 2026-09-04 14:57 ET — round joins + 2-iteration render-time Chaikin with a shipped identity assertion), and the plan still reads as unbuilt. The fix was correct, well-argued, well-proven — and the complaint survived it, because the raggedness was never mostly in the vertices. ⭐ THE INSTRUCTIVE PART: the plan's own section 8 says 'I did not render anything. Every number here is computed from coordinates.' The three quantities that turn out to dominate — what fraction of the frame the property occupies (14.8%), rendered label size (~5-9 px), and label collisions (49) — ARE NOT PROPERTIES OF THE RECORD AT ALL. They are properties of the record in a frame, at a viewport, at a text size. No coordinate analysis of any quality can produce them. The repo already owned the instrument: herConditions() exists and CLAUDE.md mandates it 'before every release' — it is in the loop's RELEASE procedure and absent from its DIAGNOSIS procedure, which is a near-miss of the exact shape CLAUDE.md already records three times.",
+      "user_impact": "Days of well-executed work aimed at the wrong defect, and a plan on disk that would have sent the next reader the same way.",
+      "principle_invoked": "A harness earns belief by reproducing a case you already know (cross-project candidate); A design rule must be a claim someone can check (cross-project)",
+      "recommendation": "SEQUENCE, revised on this evidence, and the first three are hours rather than days: (0) FIT THE FRAME to the property (F21) — biggest measured defect, cheapest fix, required by every downstream answer. (1) DROP THE DASH, provisionality to the label, status line on the frame (F23). (2) LABELS — unit fix, pole of inaccessibility, fit-or-defer with collision handling, two sizes (F22). ⭐ THOSE THREE FIX ALL FOUR MEASURED DEFECTS ON THE EXISTING AERIAL. Do them and let Paul look before spending anything on the illustrated map — the same discipline the smoothing plan correctly applied and then mis-aimed. (3) ILLUSTRATED MAP v0 with the Photo/Drawn toggle, the operator confidence stamp, and one to three lines (the driveway above all). ⚠️ AND THE ARGUMENT FOR THAT ORDER IS NOT CAUTION: steps 0-2 are PREREQUISITES OF THE ILLUSTRATED MAP, not a detour before it. A drawn map on an unfitted 1:1 stage is still 85% empty; a drawn map with 4.6 px colliding labels is still unreadable; a drawn map full of dashes is still debris. They are the illustrated map's own requirements wearing the aerial's clothes. ⭐ ALSO BUILD THE CHECK, in this repo's own idiom (numbers that move, flags never edits): assert at herConditions() that the property fills >= N% of the frame, that the smallest rendered label is >= N px in BOTH text modes, and that label collisions are zero.",
+      "effort": "low"
+    }
+  ],
+  "could_not_verify": [
+    "⚠️ I COULD NOT OPEN PAUL'S REFERENCE MAP. summershadefestival.org/map/ contains only a link to 'MAP_LINEUP_20x30.pdf' and the file 404s at the obvious path; I did not see the artifact. Everything I say about the illustrated-map DIRECTION is argued from the record and from the drawn-site-map genre generally — NOT from his chosen exhibit. Paul should stage that PDF (~/.claude/tools/stage_attachments.sh) before the visual language in section 3 of the .md is treated as matching what he had in mind. It is the one input this review is missing and it is the one he picked.",
+    "⭐ UPDATED MID-REVIEW: the map WAS rendered and measured at 414x848 by the coordinator, and I read three screenshots directly (the current 414 view, plus before-all.png / after-all.png from the Tier-1 work in .playwright-mcp/). F21-F24 rest on that evidence and on my own reading of the images. It corrected one of my own claims — see F22, where F6's A+ reasoning was backwards. The unit arithmetic in F22 is reconciled against one measurement and should be confirmed with a live A/A+ toggle before it is shipped against.",
+    "The rendered evidence is the DEFAULT view only. The map pans and zooms, so a determined reader can get closer. I weight the default heavily because lap 4 found she navigates by the jump strip and lap 8 found depth-2 and depth-3 engagement were both zero — but it is a default-view finding, not an all-views finding, and it should be stated that way.",
+    "The coordinator forced ancestor cards visible to make the stage render, which could in principle alter layout. The stage measured square at 364 and the numbers are self-consistent, but re-derive anything load-bearing.",
+    "I did not open lidar-hillshade-2018.png or the slope raster, so I have no independent read on whether a hillshade layer is worth its place in the stack.",
+    "No stranger has ever seen a Fernwood map. The entire resident model is Mom, n=1, and the ruling generalises it to a demographic nobody in this project has observed."
+  ],
+  "open_questions_for_user": [
+    "F7 is an authoring call and yours: do you want a THIRD state stamped at draw time (operator-sure / operator-guessing) so 'draft' stops meaning all 23? It is the cheapest thing that would make the map look better tomorrow, and no agent should choose it.",
+    "The 'About here' halo from zone-capture — do you want that visual to become the product's honest primitive for a place that has a name and no shape? I think it is the best unshipped idea in the repo, but it changes what the map is claiming and that is yours to decide.",
+    "What basemap does a stranger get? NAIP is US-only, 0.6 m at best, and leaf-off is luck. Before household 2 this needs an answer — including what the map does for an address with only a leaf-on frame, which is most of them.",
+    "Is the resident allowed to move a shape at all, or is EVERY correction routed as evidence to you? I have recommended drag + coarse resize as her proposals with her name on them, but a stricter 'she never touches geometry' is defensible and simpler.",
+    "How many areas does a stranger's place get on day one? Fernwood has 23 because Mom named 16 and the property is rich. Five well-drawn areas will look better than twenty ragged ones, and that is an editorial policy, not a technical one.",
+    "⭐ Stage the Summer Shade Festival map PDF so I can adjudicate against the actual exhibit you picked rather than the genre. It is the one input this review is missing.",
+    "The soft-band-equals-error-budget device (F18) makes the map look LESS certain the further you zoom in. That is honest and I believe it is beautiful, but it is the opposite of what every map anyone has used does, so it is a taste call as much as an honesty one. Do you want it?",
+    "Tree/canopy texture on the drawn map: it is the strongest 'this is my place' device available and it is decoration by definition. Fernwood's glyph rule says ornament must not read as data. Is a scatter of uncounted, unlabelled canopy marks in the wooded areas ornament you want, or register-leak you don't?"
+  ],
+  "follow_up_research_suggested": [
+    "⭐ CHEAPEST AND MOST DECISIVE, do this before any build: show Mom her own map zoomed to ONE area and ask 'is this right?' In person, on the phone or on paper. Watch whether she answers about the NAME or the SHAPE, whether she reaches to touch it, and whether her correction is directional ('a bit further over' — validates drag) or wholesale ('that's not right at all' — validates flag-and-speak). Fifteen minutes, and it settles the whole correction taxonomy in F8. n=1, which is 1 more than exists.",
+    "Measure the current map at her conditions BEFORE building on F6: herConditions() at 414x848 A+, counting label collisions, labels falling outside their own zone, and the A-vs-A+ font unit switch. My F6 claims are read from code and are hypotheses until this runs.",
+    "Aesthetic exhibit via the existing /design-options mechanism, at 414x848 A+: (a) today; (b) soft fill, no stroke, feathered edge; (c) + tiered labels with pole-of-inaccessibility placement and fit-or-defer; (d) + the cream wash and two-tier type. Paul picks from rendered exhibits, not from a number in a document — the smoothing plan already ruled this.",
+    "Operator time-trial: Paul draws 5 areas for a property he has never seen, from a fresh address, timed. That number is the scaling constraint on we-draw-they-confirm and it is currently unknown.",
+    "A field walk with the network OFF: airplane mode, walk to the far zones, confirm one, speak a correction, take a photo. walk-integrity.py already exists to make such a walk countable. The premise says this must work; nothing has ever been observed doing it."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "A place may exist before it has a shape",
+      "scope": "fernwood",
+      "rationale": "The only behaviour ever observed is that a person names places fluently with no map, and locates them relative to landmarks ('right, below Eastern Patio'). A name plus an approximate location is a complete, honest record; geometry is an upgrade. Making shape a prerequisite gates the product on the one act this demographic will not perform. Watch for a second occurrence on any other Fernwood record that currently requires a structure before it will accept content."
+    },
+    {
+      "principle": "Draw the place, not the boundary",
+      "scope": "fernwood",
+      "rationale": "This is the resolution of the handsome-vs-honest tension Paul asked about, and it is one move: a soft-filled region with a feathered edge and a confidently-set name claims 'this named place is around here', which is exactly what a +/-9.1 m record knows — while a hard outline claims a line the instrument cannot deliver. Every measured defect (93 sharp turns, 11 sub-metre slivers, 2.57 m over-sampling) lives in the stroke. Quieting the stroke fixes the look AND the honesty without moving a coordinate or asserting an adjacency the record has declined to assert."
+    },
+    {
+      "principle": "Render the error bar as an image, not as a caption",
+      "scope": "cross-project",
+      "rationale": "The strongest form of the honesty device this review lands on: where a value has a known uncertainty and is shown SPATIALLY, draw the uncertainty at the same scale as the value — a soft band whose width IS the error budget — rather than stating it in a disclaimer nobody reads. Two properties make it worth promoting: it is DERIVED, so it cannot be tuned for looks without failing a check; and it self-scales, so the artifact becomes visibly less certain as the reader looks closer, which is the truth and is the opposite of what a zoomable surface normally implies. Fernwood instance: region edges feathered to +/-9.1 m at render scale. Second occurrence to watch for: any Fernwood chart or reading with a stated confidence interval, and the financial-viewer's claim graph."
+    },
+    {
+      "principle": "A rendering defect cannot be diagnosed from the data that renders",
+      "scope": "cross-project",
+      "rationale": "The night's sharpest methodological finding, and it is cheap to state and expensive to learn. The smoothing plan measured 437 vertices, 2.57 m median spacing and 93 sharp turns with real rigour, shipped a correct fix, and the complaint survived — because the three quantities that actually dominated (14.8% of the frame, ~5-9 px labels, 49 collisions) are not properties of the record at all. They exist only in a frame, at a viewport, at a text size. Coordinate analysis will always be available and will always be more precise about the wrong thing. RULE: measure the artifact at the user's conditions BEFORE naming the cause. Fernwood already owns the instrument (herConditions()) and mandates it before every RELEASE while never invoking it during DIAGNOSIS — which is the checkable form of the rule."
+    },
+    {
+      "principle": "A universal property belongs on the frame, not on every instance",
+      "scope": "cross-project",
+      "rationale": "Sharpens 'An artifact must carry its own status in its pixels'. When every element on a surface shares a status, per-element signifiers stop signifying (nothing to contrast against) while still charging their full visual cost — Fernwood's map wears 23 dashed outlines that say nothing and cost the entire edge channel. State the universal fact ONCE at the artifact level, in words, and reserve per-instance treatment for the moment instances actually differ. Second occurrence to watch for: any Fernwood list where every row carries the same badge, and any exhibit where every column is CANDIDATE."
+    },
+    {
+      "principle": "Precision is a signal — spend it only where the record is confident",
+      "scope": "cross-project",
+      "rationale": "The seam finding generalises. On the drawn map the crisp elements (the house outline, a wall, the drive) are exactly the things someone stood next to or the imagery genuinely resolves, and the soft elements are the inferred ones — so sharpness itself carries meaning and a reader learns the code without a legend. The inverse is the failure: a surface that renders everything at the same crispness has spent its most powerful signal on nothing. This is the WEIGHT half of 'Source-hierarchy drives layout', which today governs ORDER only."
+    },
+    {
+      "principle": "Visual hierarchy should track epistemic hierarchy",
+      "scope": "cross-project",
+      "rationale": "Sharpens 'Source-hierarchy drives layout' from ORDER to WEIGHT. Draw most confidently the things you know best: on this map the house and the driveway (which the imagery genuinely resolves) become the frame at full ink and largest type, while a 14 m2 bed edge that exists in no dataset becomes the lightest whisper. The map then looks designed and is more honest by the same act. Second occurrence to watch for: any dashboard where a modelled value currently gets the same visual weight as a measured one — the weather card already fixed the ADJACENCY half of this and never addressed the WEIGHT half."
+    },
+    {
+      "principle": "The confirmation sharpens the artifact",
+      "scope": "cross-project",
+      "rationale": "When a user confirms something, the reward should be a visible improvement in the thing itself rather than a chip, a toast, or a tracker. Fernwood instance: a confirmed zone's name goes from pencilled to full-weight, so her map literally comes into focus as she works through it. This is the 2026-07-26 'loop-close belongs at the glance altitude' candidate given a mechanism, and it is strictly cheaper than the alternatives because the artifact was already going to be redrawn."
+    },
+    {
+      "principle": "On a surface whose premise is no-network, never adopt a control that needs one",
+      "scope": "fernwood",
+      "rationale": "Turns the site premise from a caveat into a checkable UI rule with named failure modes. Concrete prohibitions this generates today: do not move the property map to slippy tiles (a single committed image is the asset, not a limitation); do not put a geocoder, a live search or a server round-trip in the correction path; do not show an ack that implies a send when only a local write happened. The premise is permanent, so the rule is permanent."
+    }
+  ]
+}
