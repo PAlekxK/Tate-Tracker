@@ -36,13 +36,16 @@ def verdict(rundir):
     seat = os.path.basename(os.path.dirname(rundir))
     run = os.path.basename(rundir)
     out = {"seat": seat, "run": run, "dir": rundir, "refusals": [], "fingerprint": None,
-           "origin": None, "build": None}
+           "origin": None, "build": None, "answersSource": "unrecorded"}
     try:
         rec = json.load(open(tpath, encoding="utf-8"))
     except (OSError, ValueError) as e:
         out["refusals"].append(("no-transcript", "%s: %s" % (type(e).__name__, e)))
         return out
     out["origin"], out["fingerprint"] = rec.get("origin"), answers_fingerprint(rec)
+    # Recorded by journey-walk since 2026-09-06 so the collapse is legible in the record itself and
+    # not only inferable by comparing fingerprints across seats after the fact.
+    out["answersSource"] = rec.get("answersSource") or "unrecorded"
     out["build"] = (rec.get("buildBefore") or "")[:7] or None
 
     # R1 · the walker never wrote the experiential half. The whole reason a seat exists.
@@ -94,8 +97,9 @@ def report(rows, countable_only=False):
     if not countable_only:
         for r in sorted(rows, key=lambda x: (x["seat"], x["run"])):
             mark = "✅" if not r["refusals"] else "⛔"
-            print("  %s %-11s %-17s %-5s %s" % (mark, r["seat"], r["run"], r["origin"] or "?",
-                                                r["build"] or "build?"))
+            print("  %s %-11s %-17s %-5s %-8s answers=%s" % (mark, r["seat"], r["run"],
+                                                r["origin"] or "?", r["build"] or "build?",
+                                                r["answersSource"]))
             for kind, why in r["refusals"]:
                 print("        REFUSED · %-24s %s" % (kind, why))
     for r in sorted(counted, key=lambda x: (x["seat"], x["run"])):
@@ -112,6 +116,9 @@ def report(rows, countable_only=False):
     if not countable_only:
         print("\n  runs: %d · countable: %d · refused: %d" % (len(rows), len(counted), len(refused)))
         print("  seats with a countable run: %d · DISTINCT INPUTS AMONG THEM: %d" % (len(seats), effective))
+        shared = [r["seat"] for r in counted if r["answersSource"] == "shared-default"]
+        if len(shared) > 1:
+            print("  🔴 %d seats ran on the SHARED default answers: %s" % (len(shared), ", ".join(sorted(shared))))
         for fp, ss in by_fp.items():
             if len(ss) > 1:
                 print("  🔴 %d seats share one input fingerprint — they are ONE observation, not %d"

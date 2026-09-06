@@ -183,7 +183,8 @@ def main():
     ap.add_argument("--selftest", action="store_true", help="prove the four false-green guards still bite")
     ap.add_argument("--role")
     ap.add_argument("--fresh", action="store_true", help="sign up in-flow rather than arriving with a token")
-    ap.add_argument("--answers", help="JSON file of what this walker types; defaults to the role's own")
+    ap.add_argument("--answers", help="JSON file of what this walker types. Without it, .private/walk-answers/<role>.json "
+                         "is used when present; otherwise a SHARED default that makes every seat identical")
     # ⭐ GATE 1 RUNS ON QA `[paul-approved 2026-09-05]`. The origin was HARDCODED to lab, so every
     # gate-1 walk ran in gate 2's environment while the cascade said otherwise — and nothing could
     # report the mismatch because there was no parameter to disagree with. QA is the default because
@@ -205,10 +206,32 @@ def main():
             "home": "https://fernwood-home.pages.dev/onboarding/"}[a.origin]
     url = base if a.fresh else base + "?g=" + (v.get("token") or "")
 
+    # ⛔ THE SEATS MUST NOT TYPE THE SAME THING. Measured 2026-09-06: all four seats — mom, owner,
+    # strict, wide-eyed — typed "A place / 1 Example Road / Jasper / GA / 30143", because this
+    # default was shared and --answers was never passed. Four seats producing one observation is
+    # not four seats; it is one, at four times the rate-limit cost, and it is why the last battery
+    # yielded roughly one seat's worth of signal. The help text already CLAIMED a per-role default
+    # ("defaults to the role's own") and no such file existed anywhere in the repo — the promise
+    # was in the interface and the behaviour was a constant.
+    #
+    # Resolution order: --answers  >  .private/walk-answers/<role>.json  >  the shared default.
+    # The transcript RECORDS which one was used, so walk-integrity.py can refuse a battery whose
+    # seats collapse to one input instead of that fact being invisible after the fact.
     ans = {"username": v["username"], "password": v["word"], "email": v["email"],
            "place": "A place", "line1": "1 Example Road", "city": "Jasper", "state": "GA", "zip": "30143"}
+    answers_source = "shared-default"
+    role_file = os.path.join(ROOT, ".private", "walk-answers", "%s.json" % a.role)
     if a.answers:
         ans.update(json.load(open(a.answers, encoding="utf-8")))
+        answers_source = a.answers
+    elif os.path.exists(role_file):
+        ans.update({k: v2 for k, v2 in json.load(open(role_file, encoding="utf-8")).items()
+                    if not k.startswith("_")})
+        answers_source = os.path.relpath(role_file, ROOT)
+    else:
+        print("  \u26a0\ufe0f  NO PER-ROLE ANSWERS for %r \u2014 falling back to the SHARED default." % a.role)
+        print("      Every seat using this default types the same thing, so N seats are ONE")
+        print("      observation. Write %s to make this seat its own." % os.path.relpath(role_file, ROOT))
 
     run = dt.datetime.now().strftime("%Y-%m-%dT%H%M%S")
     d = os.path.join(OUT, a.role, run)
@@ -221,6 +244,7 @@ def main():
     # checked against the cascade, which is exactly how gate 1 ran in gate 2's environment unnoticed.
     record = {"role": a.role, "runAt": run, "origin": a.origin, "originUrl": base,
               "fresh": bool(a.fresh), "personId": v.get("personId"),
+              "answersSource": answers_source,
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
     for name, actions in stops(a.fresh, ans, run_tag=dt.datetime.now().strftime("%H%M%S")):
