@@ -14,7 +14,7 @@
     "addressLineSuffix": "",
     "propertyTileSub": "",
     "stationName": "",
-    "station": "absent",
+    "station": "declared-absent",
     "theme": {
       "main": "#2f5d3a",
       "_note": "the profile colour is chosen by the person at onboarding and stored on their account; this is only what an unconfigured build paints."

@@ -49,6 +49,17 @@ TEMPLATE = os.path.join(ROOT, "engine", "viewer.template.html")
 DEFAULT_INSTANCE = os.path.join(ROOT, "instance", "fernwood.json")
 
 # The identity strings the masthead carries, and how each derives.
+STATION_STATES = ("present", "declared-absent", "undeclared")
+
+
+def _station(ident):
+    v = ident.get("station", "undeclared")
+    if v not in STATION_STATES:
+        raise RuntimeError("instance declares station=%r, which is not one of %s — the viewer would "
+                           "treat it like a station that is present and not answering" % (v, STATION_STATES))
+    return v
+
+
 IDENTITY = {
     "title":       lambda ident, prop: ident["name"],
     "h1":          lambda ident, prop: ident["name"],
@@ -61,6 +72,14 @@ IDENTITY = {
     "journalTile":     lambda ident, prop: ident.get("journalTile") or (ident["name"] + " Almanac"),
     "propertyTile":    lambda ident, prop: ident["name"],
     "propertyTileSub": lambda ident, prop: ident.get("propertyTileSub", ""),
+    # ⛔ "Mama's Perspective" WAS AN ENGINE LITERAL and shipped to every household — a stranger
+    # opening their own home was shown one family's name for one family's card. Found 2026-09-06 by
+    # the first walk that ever reached the app (stop 12), and invisible to check-estate-neutral by
+    # construction: "Mama" is not a place, a species or an address, so no needle could match it.
+    # ⭐ THE LESSON IS THE CATEGORY, NOT THE STRING: the token checker sees a household's NAMES.
+    # It cannot see a household's VOICE. Only a reader — synthetic or real — looking at the rendered
+    # screen can, which is exactly what the reading pass is for.
+    "perspectiveTitle": lambda ident, prop: ident.get("perspectiveTitle") or "Your Perspective",
     "inputAria":       lambda ident, prop: "Note or ask the " + (ident.get("journalTile") or (ident["name"] + " Almanac")),
     # JS string consts (C4 5c) — json.dumps minus the quotes so a name with a quote cannot break the script
     "nameJs":          lambda ident, prop: json.dumps(ident["name"], ensure_ascii=False)[1:-1],
@@ -68,7 +87,15 @@ IDENTITY = {
     "stationName":     lambda ident, prop: json.dumps(ident.get("stationName") or "the weather station", ensure_ascii=False)[1:-1],
     # C7 1c — three-state station: "present" (fetch; offline → error dot) · "declared-absent" (no fetch; regional label, no error dot).
     # A missing key is NOT a default: it builds as "undeclared" and the viewer treats that like present, loudly labelled.
-    "station":         lambda ident, prop: ident.get("station", "undeclared"),
+    # ⛔ VALIDATED, 2026-09-06. The viewer compares this to the exact string "declared-absent";
+    # anything else it treats like a station that is PRESENT and merely not answering, so a
+    # household with no weather station sat on "Listening for the station…" forever with an error
+    # dot. Measured on my own neutral instance, which said "absent" — a value that is obviously
+    # right, is not one of the three states, and failed silently in the direction of looking broken.
+    # ⭐ A MISSING key already builds as "undeclared" deliberately (a station you never declared is
+    # not the same as one you declared absent). An INVALID key is a different thing and must stop
+    # the build: it means someone declared an intent the engine cannot honour.
+    "station":         lambda ident, prop: _station(ident),
 }
 IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "title":       re.compile(r"(<title>)(.*?)(</title>)"),
