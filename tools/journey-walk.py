@@ -396,6 +396,41 @@ def main():
     else:
         record["contaminated"] = False
 
+    # ⭐ A FRESH WALK CREATES AN ACCOUNT AND THEN CANNOT PROVE ANYTHING ABOUT IT. The credential
+    # lives in the walker's browser and dies with the context, so nothing downstream could sign in
+    # as the person the walk just made — which made the cross-device claim ("yours on any phone")
+    # untestable by the only instrument that walks the product. Signing in with what the walk TYPED
+    # closes that: it is the same act the reader would perform on a second phone.
+    # ⛔ Credentials, so .private only — the same place synthetic-identities.json already keeps them,
+    # and the directory is gitignored. The transcript records that a session was obtained and its
+    # personId, never the token itself.
+    if a.fresh:
+        try:
+            req = urllib.request.Request(
+                {"qa": "https://fernwood-qa", "lab": "https://fernwood-lab",
+                 "home": "https://fernwood-home"}[a.origin] + ".paul-kirschenbauer.workers.dev/api/session",
+                data=json.dumps({"username": ans["username"], "word": ans["password"]}).encode(),
+                headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"})
+            sess = json.loads(urllib.request.urlopen(req, timeout=30).read())
+            record["signedInAs"] = sess.get("personId")
+            record["sessionObtained"] = bool(sess.get("token"))
+            if sess.get("token"):
+                sp = os.path.join(ROOT, ".private", "walk-sessions.json")
+                try:
+                    store_j = json.load(open(sp, encoding="utf-8"))
+                except (OSError, ValueError):
+                    store_j = {}
+                store_j["%s@%s" % (a.role, a.origin)] = {
+                    "run": run, "username": ans["username"], "token": sess["token"],
+                    "personId": sess.get("personId"), "at": dt.datetime.now().isoformat()}
+                with open(sp, "w", encoding="utf-8") as f:
+                    json.dump(store_j, f, indent=2)
+                os.chmod(sp, 0o600)
+                print("  session obtained for the account this walk created (.private/walk-sessions.json)")
+        except Exception as e:
+            record["sessionObtained"] = False
+            print("  ⚠️  could not sign in as the account just created: %s" % e)
+
     with open(os.path.join(d, "transcript.json"), "w", encoding="utf-8") as f:
         json.dump(record, f, indent=2)
     open(os.path.join(d, "REPORT.md"), "w", encoding="utf-8").write(

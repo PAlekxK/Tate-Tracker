@@ -592,6 +592,18 @@ async function handleSession(request, env, scope) {
     capability: acct.capability === "administrator" ? "administrator" : "member",
     entry: true, vault: false, issuedAt: new Date().toISOString(), issuedBy: acct.personId, consent: [],
   };
+  // ⭐ THE PLACE'S FACTS RIDE ONTO THE GRANT AT SIGN-IN, and this is the cross-device path itself.
+  // /api/profile writes to the ACCOUNT row once a username exists, and /api/grant/whoami reads the
+  // GRANT row — so the facts were stored correctly and the read path could not see them, and a
+  // second device showed an empty place. Caught 2026-09-06 by signing in as the account a walk had
+  // just created and reading whoami: every field null while the account row held them.
+  // ⛔ COPIED, NOT MOVED. The account row stays the record of who she is; the grant is the
+  // credential-shaped VIEW of it, refreshed every time she signs in — which is precisely when a new
+  // device needs it. A field is carried only when the account HAS it, so an older account with no
+  // address does not overwrite anything with null.
+  for (const f of ["placeName", "accent", "address", "addressParts", "ranked", "contactPref"]) {
+    if (acct[f] !== undefined && acct[f] !== null) grantRow[f] = acct[f];
+  }
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
   if (acct.tokenHash && acct.tokenHash !== tokenHash) {
     await env.OBSERVATIONS.delete(keyFor(scope, "grant", acct.tokenHash));
