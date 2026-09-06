@@ -69,20 +69,26 @@ def served_sha(env):
         return None
 
 
-def view(url, actions, shot):
+def view(url, actions, shot, watch=False):
     cmd = [sys.executable, os.path.join(ROOT, "tools", "journey-view.py"), url, "--shot", shot]
+    if watch:
+        cmd.append("--watch")
     for a in actions:
         cmd += ["--do", a]
     t0 = dt.datetime.now()
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=2400 if watch else 600)
     # ⛔ journey-view is a HUMAN-READABLE tool: it prints prose to stdout and returns no JSON. An
     # earlier version of this function looked for a `steps` key that has never existed, so every
     # failed action evaluated to zero failures and every stop scored "walked" — the false-green class
     # closed by reading a field that was not there. Parse the two things it actually prints.
     out = r.stdout or ""
     failed = [l.split("could not do", 1)[1].strip() for l in out.splitlines() if "could not do" in l]
+    # The section the page was actually showing when the shot was taken — the join key between a
+    # feedback note (which records s0..s4) and the screenshot beside this record.
+    sid = next((l.split(":", 1)[1].strip() for l in out.splitlines() if l.startswith("SCREEN ID:")), None)
     return {"actions": actions, "seconds": round((dt.datetime.now() - t0).total_seconds(), 1),
-            "screen": out, "error": r.stderr[-400:] if r.returncode else None,
+            "screen": out, "screenId": None if sid in (None, "-") else sid,
+            "error": r.stderr[-400:] if r.returncode else None,
             "failedActions": failed or None,
             "rateLimited": ("429" in out) or ("rate-limited" in out)}
 
@@ -123,6 +129,23 @@ def stops(fresh, answers, run_tag=""):
                                  "type:#a1=" + a["line1"], "type:#city=" + a["city"],
                                  "type:#state=" + a["state"], "type:#zip=" + a["zip"],
                                  "click:#go2", "click:#go3"]),
+        # ⛔ NO WALK HAD EVER CROSSED THE HANDOFF. Measured 2026-09-06: every stop name ever
+        # recorded across all 20 runs stops at 06-confirm, so no synthetic seat has ever been a
+        # SIGNED-IN READER looking at the estate view. Two things were therefore untestable and
+        # nobody could see that they were:
+        #   · the persistent General-feedback RIBBON lives only in engine/viewer.template.html.
+        #     Paul asked for that channel to be available on every screen once someone has an
+        #     account and is logged in — and the battery meant to prove it stopped one click short
+        #     of the first screen that has it.
+        #   · a walker's answers only pay off past this door. wide-eyed types a Maine address
+        #     against shipped Georgia weather, frost and plant data; that is a different STRING
+        #     until a stop renders the place it describes, and then it is a different OBSERVATION.
+        # #gohome is an <a href="/viewer">, so this stop leaves the onboarding document entirely —
+        # which is exactly why it is the one stop that can prove the handoff rather than assert it.
+        ("07-handoff", signup_for("07-handoff") + ["type:#pname=" + a["place"], "click:#go1",
+                                 "type:#a1=" + a["line1"], "type:#city=" + a["city"],
+                                 "type:#state=" + a["state"], "type:#zip=" + a["zip"],
+                                 "click:#go2", "click:#go3", "click:#go5", "click:#gohome"]),
     ]
 
 
@@ -183,6 +206,11 @@ def main():
     ap.add_argument("--selftest", action="store_true", help="prove the four false-green guards still bite")
     ap.add_argument("--role")
     ap.add_argument("--fresh", action="store_true", help="sign up in-flow rather than arriving with a token")
+    # ⭐ `paul-stated 2026-09-06`: "I like being able to watch the walk through in chrome." Same
+    # viewport, same screenshots, same records — only visibility and pacing change, so a watched
+    # walk is admissible evidence rather than a demo of one.
+    ap.add_argument("--watch", action="store_true",
+                    help="open a VISIBLE browser and pace it so you can follow the walk")
     ap.add_argument("--answers", help="JSON file of what this walker types. Without it, .private/walk-answers/<role>.json "
                          "is used when present; otherwise a SHARED default that makes every seat identical")
     # ⭐ GATE 1 RUNS ON QA `[paul-approved 2026-09-05]`. The origin was HARDCODED to lab, so every
@@ -244,7 +272,7 @@ def main():
     # checked against the cascade, which is exactly how gate 1 ran in gate 2's environment unnoticed.
     record = {"role": a.role, "runAt": run, "origin": a.origin, "originUrl": base,
               "fresh": bool(a.fresh), "personId": v.get("personId"),
-              "answersSource": answers_source,
+              "answersSource": answers_source, "watched": bool(a.watch),
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
     for name, actions in stops(a.fresh, ans, run_tag=dt.datetime.now().strftime("%H%M%S")):
@@ -255,7 +283,7 @@ def main():
                                     "why": "arrived with a token; this stop exists only on the --fresh signup path"})
             print("  %-14s   ---   NOT REACHABLE on this path — re-run with --fresh to walk it" % name)
             continue
-        got = view(url, actions, os.path.join(d, name + ".png"))
+        got = view(url, actions, os.path.join(d, name + ".png"), watch=a.watch)
         # ⛔ CONSUME THE FAILURE THE HARNESS ALREADY RECORDED. journey-view reports ok:false per
         # action; this filed every stop as "walked" without ever reading it. All three false greens
         # tonight were the same shape — a plausible artifact produced having done nothing — and the

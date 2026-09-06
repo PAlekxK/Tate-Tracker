@@ -43,7 +43,15 @@ NODE = r"""
 const { chromium } = require('playwright');
 const cfg = JSON.parse(process.argv[2]);
 (async () => {
-  const b = await chromium.launch();
+  // ⭐ --watch OPENS A VISIBLE WINDOW `[paul-stated 2026-09-06]`: "I like being able to watch the
+  // walk through in chrome." slowMo is what makes it followable — without it a walk is a flicker.
+  // ⛔ AND IT STAYS BUNDLED CHROMIUM AT 414px, deliberately. The obvious reading of "watch it in
+  // Chrome" is channel:'chrome', and that would QUIETLY CHANGE THE EVIDENCE: real Chrome cannot be
+  // resized below ~606px, and at 606 two of 2026-09-05's real bugs vanish entirely because their
+  // mechanism is text wrapping at 414. A watched run and a headless run must be the same
+  // measurement or watching is not observation, it is a different experiment. Only headless and
+  // pacing change here; viewport, deviceScaleFactor, isMobile and hasTouch are untouched below.
+  const b = await chromium.launch(cfg.watch ? { headless: false, slowMo: 350 } : {});
   // ⭐ deviceScaleFactor 3 — HER DEVICE'S RESOLUTION, not a third of it. Every pixel review to date
   // read a 1x raster (36KB where 172KB was available), so hairline rules, sub-pixel misalignment and
   // small-type legibility were all being judged from an image that had thrown them away. isMobile +
@@ -106,7 +114,17 @@ const cfg = JSON.parse(process.argv[2]);
         placeholder: f.placeholder || null, value: f.value || null }));
       const buttons = [...document.querySelectorAll('button,a')].filter(vis).map((b) => ({
         id: b.id || null, text: (b.innerText || '').trim(), href: b.getAttribute('href') || null }));
-      return { title: document.title, url: location.href, text, fields, buttons };
+      // ⭐ THE SCREEN'S OWN ID, so a NOTE can be matched to a PICTURE `[paul-stated 2026-09-06]`:
+      // "it's probably helpful to be able to refer to the current state screenshots when looking at
+      // feedback." A general-feedback note records `screen` as the SECTION id (s0..s4 — see
+      // onboarding/index.html postAnswer), while a walk names its screenshots by STOP (03-named).
+      // Two vocabularies for one screen means a note and the picture of what she was looking at
+      // could not be joined by anything but a human remembering the mapping. Recording the id the
+      // page itself is showing closes that at the source instead of with a hand-kept table that
+      // would drift the first time a screen is renamed.
+      const openSection = document.querySelector('section.card:not([hidden])');
+      return { title: document.title, url: location.href, text, fields, buttons,
+               screenId: openSection ? openSection.id : null };
     });
     // ⛔ TWO FRAMES, AND THE SECOND IS THE ONE THAT CAN JUDGE THE FOLD. A full-page capture is
     // STITCHED, which (a) hides where the viewport actually ends, so a reviewer cannot say what is
@@ -136,6 +154,10 @@ def main():
     # assert its own destination.
     ap.add_argument("--shot", default=os.path.join(
         tempfile.gettempdir(), "journey-view-%d-%s.png" % (os.getpid(), uuid.uuid4().hex[:6])))
+    ap.add_argument("--watch", action="store_true",
+                    help="open a VISIBLE browser and pace the actions so a person can follow them. "
+                         "Same viewport (414x848 @3x, mobile) and same screenshots as a headless run — "
+                         "only visibility and pacing change, so a watched run is the same evidence.")
     a = ap.parse_args()
 
     mods = glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/playwright"))
@@ -144,8 +166,12 @@ def main():
     env = dict(os.environ); env["NODE_PATH"] = os.path.dirname(mods[0])
     js = "/tmp/.journey-view.js"
     open(js, "w").write(NODE)
-    cfg = {"url": a.url, "actions": a.do, "shot": a.shot, "cookie": access_cookie(a.url)}
-    p = subprocess.run(["node", js, json.dumps(cfg)], capture_output=True, text=True, env=env, timeout=300)
+    cfg = {"url": a.url, "actions": a.do, "shot": a.shot, "cookie": access_cookie(a.url),
+           "watch": bool(a.watch)}
+    # A watched run is paced for a human (slowMo), so the headless timeout would kill it mid-walk and
+    # the transcript would blame the product for the instrument's impatience.
+    p = subprocess.run(["node", js, json.dumps(cfg)], capture_output=True, text=True, env=env,
+                       timeout=1200 if a.watch else 300)
     if p.returncode != 0 or not p.stdout.strip():
         raise SystemExit("journey-view: could not open that link\n" + (p.stderr or "")[-800:])
     r = json.loads(p.stdout)
@@ -157,6 +183,8 @@ def main():
             print("  ⚠️  could not do %r — %s" % (s["action"], s.get("error")))
     sc = r["screen"]
     print("PAGE TITLE: %s" % sc["title"])
+    # Printed on its own line so journey-walk can parse it without re-running the browser.
+    print("SCREEN ID: %s" % (sc.get("screenId") or "-"))
     if r.get("console"):
         print("CONSOLE ERRORS (the page's own diagnostics — why a write failed, not just that it did):")
         for c in r["console"][:8]:
