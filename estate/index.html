@@ -377,19 +377,31 @@
     var h = { "Content-Type": "application/json" };
     if (grant) h["X-Grant"] = grant;
     fetch(WORKER + "/api/feedback", { method: "POST", headers: h, body: JSON.stringify(body) })
-      .then(function (r) {
-        el("fbbox").hidden = true; el("fbnote").value = "";
-        var t = el("fbthanks");
-        // The honest three-state ack: only a real 2xx may say it landed.
-        t.textContent = r && r.ok ? "Got it — I'll put that right."
-                                  : "Saved on this device. I'll pick it up next time you're online.";
-        t.hidden = false;
-      })["catch"](function () {
+      .then(function (r) { done(r && r.ok); })["catch"](function () { done(false); });
+
+    // ⛔ THIS TOLD HER HER NOTE WAS SAFE AND THREW IT AWAY. The textarea was cleared BEFORE the
+    // success branch, and on any non-2xx the message read "Saved on this device. I'll pick it up
+    // next time you're online" — while nothing wrote to localStorage and nothing retried. The note
+    // was gone. The comment above it said "only a real 2xx may say it landed", directly over the
+    // code that lied.
+    // ⛔ THAT IS THE ONE RULE THESE SURFACES CANNOT BREAK: capture must not lie. A receipt for
+    // something that never left the browser is worse than no receipt, because she stops watching
+    // for the real one — and this project has already paid for exactly that once.
+    // ⭐ So: her words are not cleared until the server has them, and a failure says what is true
+    // and leaves the note where she can send it again — the same shape onboarding already uses
+    // ("Your answers are still here — tap once more") rather than a second vocabulary for it.
+    function done(ok) {
+      var t = el("fbthanks");
+      if (ok) {
         el("fbbox").hidden = true;
-        var t = el("fbthanks");
-        t.textContent = "Saved on this device. I'll pick it up next time you're online.";
-        t.hidden = false;
-      });
+        el("fbnote").value = "";           // cleared ONLY once it is somebody else's problem
+        t.textContent = "Got it — I'll put that right.";
+      } else {
+        el("fbbox").hidden = false;        // stays open, with her words still in it
+        t.textContent = "That didn't go through — your note is still here, tap Send once more.";
+      }
+      t.hidden = false;
+    }
   });
 })();
 </script>

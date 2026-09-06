@@ -21,6 +21,21 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 VIEWER = os.path.join(ROOT, "viewer.html")
+# ⛔ THIS CHECK WAS GREEN OVER A SURFACE IT DOES NOT SCAN. It read viewer.html ONLY, and matched
+# literals shaped `tateTracker.*` — so the eight `fw-*` keys in onboarding/ and estate/ were
+# invisible to it TWICE OVER (wrong file, wrong prefix) and it printed ✅ anyway. Found by
+# engineering-partner 2026-09-06, after this session had run it three times and read its green as
+# covering keys it had just added.
+# ⚠️ Those are precisely the keys that now travel to a SECOND HOUSEHOLD's origin, and this file's
+# own reason for existing is "a key the origin-move migration does not know about is a key she
+# loses". It was blind in exactly the place it was written to see.
+# ⭐ onboarding/index.html is the canonical DECLARER — `var K_x = "fw-…"` — so the declarations are
+# the roster and nothing new has to be hand-maintained. estate/ may only READ what onboarding
+# declares; a key it reads that nothing writes is the near-miss this leg exists to catch.
+ONBOARDING = os.path.join(ROOT, "onboarding", "index.html")
+ESTATE = os.path.join(ROOT, "estate", "index.html")
+FW_DECL_RE = re.compile(r'var\s+K_[A-Z]+\s*=\s*["\'`](fw-[A-Za-z0-9_.-]+)["\'`]')
+FW_LIT_RE = re.compile(r'["\'`](fw-[A-Za-z0-9_.-]+)["\'`]')
 
 LITERAL_RE = re.compile(r'["\'`](tateTracker\.[A-Za-z0-9_.]+)["\'`]')
 ROSTER_RE = re.compile(r'const STORAGE_KEYS = Object\.freeze\(\{(.*?)\}\);', re.S)
@@ -68,7 +83,14 @@ def check(src, quiet=False):
                 if not pre.endswith("estateKey("):
                     bare[lit] = "used bare (not estateKey(…)) at viewer.html:%d" % (outside[:mm.start()].count("\n") + 1 + (1 if mm.start() >= _.start() else 0))
     unused = sorted(k for k in roster if k not in used)
+    declared, hh = check_household_keys()
     if not quiet:
+        print("household keys (onboarding + estate) — %d declared" % len(declared))
+        for problem in hh:
+            print("  🔴 " + problem)
+        if not hh and declared:
+            print("  ✅ every fw-* key both surfaces touch is declared by onboarding.")
+        print()
         print("storage keys — %d rostered · %d distinct literals in use" % (len(roster), len(used)))
         if unused:
             print("  · rostered but no usage literal outside the roster: %s" % ", ".join(unused))
@@ -90,6 +112,13 @@ def check(src, quiet=False):
         return 1
     if not quiet:
         print("  ✅ every browser-storage literal is rostered.")
+    # ⛔ A CHECK THAT PRINTS RED AND EXITS 0 IS NOT A CHECK. The household leg was added and
+    # mutation-tested the same hour: it correctly printed 🔴 for a key `estate/` reads that
+    # onboarding never declares — and returned 0, so every caller would have read it as clean. That
+    # is the exact shape practice-steward flagged in check-backlog-ready this morning (123 flags,
+    # exit 0), reproduced within the hour by the session that had just read the finding.
+    if hh:
+        return 1
     return 0
 
 
@@ -112,6 +141,25 @@ def selftest(src):
     print("  %s a missing roster fails CLOSED (exit %d)" % ("✅" if rc == 2 else "🔴", rc))
     print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed."))
     return 0 if ok else 1
+
+
+def check_household_keys():
+    """→ (declared, problems). The onboarding flow's own keys, which viewer.html never sees."""
+    problems = []
+    try:
+        onb = open(ONBOARDING, encoding="utf-8").read()
+        est = open(ESTATE, encoding="utf-8").read()
+    except OSError as e:
+        return set(), ["UNCHECKABLE — %s" % e]
+    declared = set(FW_DECL_RE.findall(onb))
+    if not declared:
+        return set(), ["UNCHECKABLE — no `var K_x = \"fw-…\"` declarations found in onboarding; "
+                       "the roster is derived from them, so finding none is not a pass"]
+    for name, src in (("onboarding", onb), ("estate", est)):
+        for lit in sorted(set(FW_LIT_RE.findall(src))):
+            if lit not in declared:
+                problems.append("%s uses %r, which onboarding never declares" % (name, lit))
+    return declared, problems
 
 
 def main():
