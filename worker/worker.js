@@ -3187,6 +3187,49 @@ export default {
     // nothing new; it only stops the answer costing her a bounced form. Rate-limited on the feedback
     // bucket. If the oracle ever becomes a real concern this is the first thing to delete, and the
     // client degrades to silence rather than blocking her. `paul-asked 2026-09-05`.
+    // ⭐ ONBOARDING BEHAVIOUR, WRITE-ONLY AND UNAUTHENTICATED — the /api/door doctrine, for the same
+    // reason. /api/metrics needs a grant, and a person who taps the invite and gives up at the
+    // account screen HAS no grant: the one reader we most need to learn from is the one that gate
+    // silently excludes. An abandoned journey would otherwise be indistinguishable from a link never
+    // tapped, which is `an empty answer record is not a quiet user` arriving on a new surface.
+    // ⛔ EVENTS CARRY NO VALUES. Names of things she touched, never what she typed. Enforced here as
+    // well as client-side, because a capture path that trusts its caller is not a boundary.
+    if (url.pathname === "/api/onboarding-metrics" && request.method === "POST" && !authOk(request, env)) {
+      const len = parseInt(request.headers.get("Content-Length") || "0", 10);
+      if (len > 24000) return json({ error: "too-large" }, 413);
+      if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
+      let body;
+      try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
+      const evs = Array.isArray(body && body.events) ? body.events.slice(0, 100) : null;
+      if (!evs || !evs.length) return json({ error: "missing-events" }, 400);
+      const ALLOW = ["screen", "field", "validation", "swatch", "contact", "reveal",
+                     "feedback_open", "feedback_sent", "rank", "handoff", "complete", "session"];
+      const clean = [];
+      for (const e of evs) {
+        if (!e || ALLOW.indexOf(e.name) < 0) continue;
+        // a strict allow-list per field — anything unrecognised is DROPPED, never stored "just in case"
+        clean.push({
+          name: String(e.name).slice(0, 24),
+          screen: typeof e.screen === "string" ? e.screen.slice(0, 12) : null,
+          detail: typeof e.detail === "string" ? e.detail.slice(0, 32) : null,
+          n: typeof e.n === "number" && isFinite(e.n) ? Math.round(e.n) : null,
+          msIn: typeof e.msIn === "number" && isFinite(e.msIn) ? Math.round(e.msIn) : null,
+          at: typeof e.at === "string" ? e.at.slice(0, 32) : null,
+        });
+      }
+      if (!clean.length) return json({ error: "no-recognised-events" }, 400);
+      const sc = scopeOf(env);
+      const key = dateKey(sc, "onboarding-metrics", new Date().toISOString().slice(0, 10));
+      const raw = await env.OBSERVATIONS.get(key);
+      let arr = [];
+      if (raw) { try { arr = JSON.parse(raw); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
+      arr.push({ receivedAt: new Date().toISOString(),
+                 sid: typeof body.sid === "string" ? body.sid.slice(0, 24) : null,
+                 events: clean });
+      await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+      return json({ stored: clean.length, dropped: evs.length - clean.length, total: arr.length });
+    }
+
     if (url.pathname === "/api/account/available" && request.method === "GET" && !authOk(request, env)) {
       const u = (url.searchParams.get("u") || "").trim();
       if (!/^[a-zA-Z0-9._-]{3,40}$/.test(u)) return json({ error: "bad-username" }, 400);

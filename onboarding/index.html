@@ -826,7 +826,10 @@
     ["s-wait", "s-nolink", "s0", "s1", "s2", "s3", "s4"].forEach(function (id) {
       el[id].hidden = (id !== which);
     });
+    if (currentScreen && currentScreen !== which) ev("screen", "left:" + currentScreen);
     currentScreen = which;
+    screenAt = Date.now();
+    ev("screen", "enter");
     window.scrollTo(0, 0);
   }
 
@@ -966,8 +969,13 @@
 
   // A field stops being wrong the moment she edits it. Leaving the mark on a corrected box is how a
   // form ends up covered in red that no longer means anything.
-  [ "uname", "uemail", "uword", "uword2", "a1", "city", "state", "zip" ].forEach(function (id) {
-    if (el[id]) el[id].addEventListener("input", function () { el[id].classList.remove("bad"); });
+  [ "uname", "uemail", "uword", "uword2", "uphone", "a1", "a2", "city", "state", "zip", "pname" ].forEach(function (id) {
+    if (!el[id]) return;
+    var touched = false;
+    el[id].addEventListener("input", function () {
+      el[id].classList.remove("bad");
+      if (!touched) { touched = true; ev("field", id); }   // ONCE per field, and only its NAME
+    });
   });
 
   // ---- s0 · SHOW WHAT I'VE TYPED -------------------------------------------------------------
@@ -980,6 +988,7 @@
       var f = el[b.getAttribute("data-for")];
       var showing = f.type === "text";
       f.type = showing ? "password" : "text";
+      if (!showing) ev("reveal", b.getAttribute("data-for"));
       b.textContent = showing ? "Show" : "Hide";
       b.setAttribute("aria-pressed", showing ? "false" : "true");
       b.setAttribute("aria-label", showing ? "Show password" : "Hide password");
@@ -1063,15 +1072,55 @@
     el.emailopt.hidden = v === "email";        // the PRIMARY is the one not marked optional
     el.phoneopt.hidden = v === "phone";
   }
-  el.contactpick.addEventListener("change", paintContact);
+  el.contactpick.addEventListener("change", function () { ev("contact", contactPref()); paintContact(); });
   paintContact();
+
+  // ---- BEHAVIOUR, NOT JUST ANSWERS -------------------------------------------------------------
+  // ⛔ THE JOURNEY RECORDED NOTHING SHE DID — only what she SUBMITTED. So a reader who tapped the
+  // link and gave up at the account screen produced total silence, indistinguishable from a link
+  // never opened, and the one person we most need to learn from was the one we could not see. That
+  // is `an empty answer record is not a quiet user`, arriving on a brand-new surface.
+  // ⛔ NO VALUES, EVER. Names of things she touched — never a character she typed. The Worker
+  // re-enforces this on an allow-list, because a capture path that trusts its caller is not a
+  // boundary. Fire-and-forget: instrumentation must never be the thing that costs her the page.
+  var SID = (function () { try { return Math.random().toString(36).slice(2, 12); } catch (e) { return "x"; } })();
+  var evBuf = [], screenAt = Date.now();
+
+  function ev(name, detail, n) {
+    evBuf.push({ name: name, screen: currentScreen, detail: detail || null,
+                 n: (typeof n === "number" ? n : null),
+                 msIn: Date.now() - screenAt, at: new Date().toISOString() });
+    if (evBuf.length >= 12) flushEv();
+  }
+
+  function flushEv(useBeacon) {
+    if (!evBuf.length || !WORKER) return;
+    var body = JSON.stringify({ sid: SID, events: evBuf.splice(0, evBuf.length) });
+    try {
+      // ⭐ sendBeacon ON THE WAY OUT. A normal fetch is cancelled when the page goes away, which is
+      // exactly the moment an ABANDONMENT needs to be recorded — the event we most want is the one
+      // an ordinary request is least able to deliver.
+      if (useBeacon && navigator.sendBeacon) {
+        navigator.sendBeacon(WORKER + "/api/onboarding-metrics", new Blob([body], { type: "application/json" }));
+        return;
+      }
+      fetch(WORKER + "/api/onboarding-metrics",
+            { method: "POST", headers: { "Content-Type": "application/json" }, body: body, keepalive: true })
+        ["catch"](function () {});
+    } catch (e) {}
+  }
+
+  window.addEventListener("pagehide", function () { ev("session", "left"); flushEv(true); });
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "hidden") flushEv(true);
+  });
 
   // ---- THE GENERAL FEEDBACK CHANNEL ------------------------------------------------------------
   el.fbopen.addEventListener("click", function () {
     var opening = el.fbbox.hidden;
     el.fbbox.hidden = !opening;
     el.fbopen.hidden = opening;                    // the invitation gets out of the way once accepted
-    if (opening) el.fbnote.focus();
+    if (opening) { ev("feedback_open"); el.fbnote.focus(); }
   });
 
   el.fbsend.addEventListener("click", function () {
@@ -1086,6 +1135,7 @@
       .then(function () {
         el.fbbox.hidden = true;
         el.fbopen.hidden = false;
+        ev("feedback_sent");
         el.fbopen.textContent = "Thanks — say something else?";
         el.fbnote.value = "";
         el.fbsend.disabled = false; el.fbsend.innerHTML = '<span class="tick">\u2713</span>Send';
@@ -1111,6 +1161,7 @@
     if (w.length < 8) need.push("a password of eight characters or more");
     if (need.length) {
       el.trouble0.hidden = false;
+      ev("validation", need.length === 1 ? "one" : "many", need.length);
       el.trouble0.innerHTML = "Still needs " + (need.length === 1 ? need[0]
         : need.slice(0, -1).join(", ") + " and " + need[need.length - 1]) + ".";
       // ⛔ FOCUS THE FIELD THAT IS ACTUALLY MISSING. This read `(!u ? el.uname : el.uword)`, so a
@@ -1371,6 +1422,7 @@
     if (!p.zip)   need.push("the ZIP code");
     if (need.length) {
       el.trouble.hidden = false;
+      ev("validation", need.length === 1 ? "one" : "many", need.length);
       el.trouble.innerHTML = "Still needs " + (need.length === 1 ? need[0]
         : need.slice(0, -1).join(", ") + " and " + need[need.length - 1]) + ".";
       // Mark the field ITSELF, not just the prose. A message that names "the state" still leaves the
