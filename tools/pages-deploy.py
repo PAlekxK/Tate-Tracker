@@ -112,6 +112,7 @@ def main():
         subprocess.run(["tar", "-x", "-C", export], input=tar.stdout, check=True)
 
         if a.env in HOUSEHOLD:
+            pruned = []
             # Prune to the allow-list, then REPLACE index.html — the tracked one is a redirect to
             # viewer.html, which is the very file a household must never be handed.
             for dirpath, dirnames, filenames in os.walk(export, topdown=False):
@@ -120,10 +121,39 @@ def main():
                     rel = os.path.relpath(full, export)
                     if not any(rel == k or rel.startswith(k) for k in HOUSEHOLD_ALLOW):
                         os.remove(full)
+                        pruned.append(rel)      # ⭐ DERIVED, so the tombstone set can never drift
+                                                #    from what was actually removed.
                 for n in list(dirnames):
                     d = os.path.join(dirpath, n)
                     if not os.listdir(d):
                         os.rmdir(d)
+
+            # ⛔⛔ TOMBSTONE EVERY PRUNED PATH. Deleting a file from the export does NOT remove it
+            # from the ORIGIN. Measured 2026-09-06: after two correct deploys of the pruned export,
+            # `fernwood-home.pages.dev` was still serving BACKLOG.md (531 KB), plants.json (314 KB),
+            # CLAUDE.md, property.json and — the one that matters — `onboarding/invite-message.md`,
+            # an UNSENT outbound draft, all `cf-cache-status: HIT`, `age≈24500`, `s-maxage=604800`.
+            # Cloudflare Pages purges only assets the NEW deployment CONTAINS, so a path that no
+            # longer exists has nothing to invalidate it and serves the stale object for 7 days.
+            # ⭐ SO A REMOVED PATH IS RE-CREATED AS A TOMBSTONE. The URL exists, the deploy replaces
+            # the cached object, and the content is inert. The invariant this buys is checkable in
+            # one sentence: A HOUSEHOLD ORIGIN SERVES THE ALLOW-LIST, AND A TOMBSTONE EVERYWHERE
+            # ELSE. Nothing is left to expire on its own schedule.
+            # ⚠️ The deeper lesson, and it is why the check below exists: neutrality was proven of
+            # the EXPORT and never of the ORIGIN. A cache-busted fetch — which is how this was first
+            # (wrongly) verified as fixed — cannot see this class of leak at all.
+            tomb = ('{"tombstone":true,"note":"This path is not part of this home. '
+                    'It was removed deliberately; this file exists only so the edge cannot keep '
+                    'serving what used to be here."}\n')
+            made = 0
+            for rel in sorted(pruned):
+                full = os.path.join(export, rel)
+                os.makedirs(os.path.dirname(full), exist_ok=True)
+                if not os.path.exists(full):
+                    with open(full, "w", encoding="utf-8") as f:
+                        f.write(tomb)
+                    made += 1
+            print("  tombstoned %d removed path(s) — the origin cannot keep serving them" % made)
             with open(os.path.join(export, "index.html"), "w", encoding="utf-8") as f:
                 f.write('<!DOCTYPE html>\n<html><head><meta charset="UTF-8">'
                         '<meta name="robots" content="noindex, nofollow">'
