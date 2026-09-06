@@ -34,8 +34,13 @@ ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.p
            "paul": "https://myhome-paul.pages.dev"}
 
 # ⛔⛔ A HOUSEHOLD IS NOT AN ENVIRONMENT, AND SHIPPING IT LIKE ONE MOVES THE LEAK RATHER THAN FIXING
-# IT. `lab`/`qa`/`home` are OUR environments — every one of them may carry Fernwood's canon, because
-# every one of them IS Fernwood. A household origin belongs to a different person.
+# IT. `lab` and `qa` are OUR environments and may carry Fernwood's canon, because they ARE Fernwood.
+# A household origin belongs to a different person.
+# ⚠️ `home` MOVED SIDES 2026-09-06 and this line used to name it with lab and qa. Paul ruled the
+# hand-built Fernwood Mom uses stays exactly where it is and that production is a BLANK SLATE, so
+# `home` stopped being an environment that is Fernwood and became the first household on the new
+# product. It is Mom's, not ours. Nothing about the old sentence was wrong when written; the
+# deployment changed hands.
 #
 # Measured 2026-09-06 before the first household existed: `git archive` ships every tracked file, so
 # a household deployment would serve `/viewer.html` — 2MB carrying "282 Church Mountain Road", every
@@ -46,7 +51,19 @@ ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.p
 # that we thought of everything; an allow-list fails toward serving too little, which is a 404 and
 # not a disclosure. And the export is then CHECKED — the deploy refuses on any household-specific
 # token, so the allow-list cannot silently rot as files are added.
-HOUSEHOLD = {"bob", "paul"}
+# ⭐ `home` JOINED THE HOUSEHOLDS 2026-09-06 `[paul-ruled]`: *"Fernwood as it exists that mom has
+# access to just stays as it is. The production home is her blank slate."* Production therefore
+# stops shipping the hand-built Fernwood and ships the new product only — the same eight neutral
+# files every other household gets, checked by the same falsifier.
+# ⛔ WHAT THIS FIXES TODAY, MEASURED: `fernwood-home.pages.dev/onboarding/invite-message.md`
+# answered 200 — an UNSENT outbound draft, whose own first line reads "Nothing here has been sent,
+# and sending is Paul's own act", publicly readable on the origin a reader is sent to. `home` was
+# not in this set, so it shipped all 798 files including that draft and `viewer.html`.
+# ✅ SAFE BECAUSE MOM IS NOT SERVED FROM HERE, and that was checked rather than assumed: her live
+# app is https://palekxk.github.io/Tate-Tracker/viewer.html (CLAUDE.md:540), a NON-`.pages.dev`
+# origin, which viewer.html:7041 resolves to the TOP-LEVEL worker (est-3c9f1a). Pruning this Pages
+# project cannot reach her instance.
+HOUSEHOLD = {"bob", "paul", "home"}
 HOUSEHOLD_ALLOW = ("onboarding/index.html", "estate/index.html", "homes/index.html",
                    "settings/place/index.html", "settings/account/index.html",
                    "qa-build.json", "favicon.ico", "index.html")
