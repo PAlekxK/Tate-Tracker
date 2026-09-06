@@ -66,6 +66,12 @@ ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.p
 HOUSEHOLD = {"bob", "paul", "home"}
 HOUSEHOLD_ALLOW = ("onboarding/index.html", "estate/index.html", "homes/index.html",
                    "settings/place/index.html", "settings/account/index.html",
+                   # ⭐ viewer.html IS SHIPPED, AND IT IS NOT THE TRACKED ONE `[paul-ruled 2026-09-06,
+                   # R4]`: "production ships the full app, built from its own instance, as the same
+                   # artifact QA certified." The tracked viewer.html is FERNWOOD'S build and must
+                   # never reach another household — so the export's copy is REBUILT below from
+                   # `instance/<env>.json` before the neutrality falsifier runs over it.
+                   "viewer.html",
                    "qa-build.json", "favicon.ico", "index.html")
 # ⛔ NAMED FILES, NOT DIRECTORY PREFIXES. `onboarding/` as a prefix shipped
 # `onboarding/invite-message.md` — a DRAFT whose own first lines read "Nothing here has been sent,
@@ -154,6 +160,26 @@ def main():
                         f.write(tomb)
                     made += 1
             print("  tombstoned %d removed path(s) — the origin cannot keep serving them" % made)
+
+            # ⛔ REBUILD THE APP FOR THIS HOUSEHOLD. `git archive` hands us Fernwood's viewer.html —
+            # 2 MB carrying its address, its plants and its whole fleet. Shipping that to another
+            # household is the leak this file exists to prevent, and the allow-list alone would have
+            # let it straight through now that viewer.html is on it.
+            # ⭐ The instance is REQUIRED, never defaulted: a household with no declared instance is
+            # a household we cannot build an app for, and falling back to the tracked file would
+            # ship exactly the wrong one. Refuse.
+            inst = os.path.join(ROOT, "instance", "%s.json" % a.env)
+            if not os.path.exists(inst):
+                raise SystemExit("pages-deploy: ⛔ REFUSING — %s is a household origin and has no "
+                                 "instance/%s.json. Falling back to the tracked viewer.html would "
+                                 "ship another household's app." % (a.env, a.env))
+            r = run(["python3", os.path.join(ROOT, "tools", "build-viewer.py"),
+                     "--instance", inst, "--out", os.path.join(export, "viewer.html")])
+            if r.returncode != 0:
+                raise SystemExit("pages-deploy: ⛔ build-viewer failed for %s\n%s"
+                                 % (a.env, (r.stderr or r.stdout)[-800:]))
+            print("  built this household's own app from instance/%s.json (%d bytes)"
+                  % (a.env, os.path.getsize(os.path.join(export, "viewer.html"))))
             with open(os.path.join(export, "index.html"), "w", encoding="utf-8") as f:
                 f.write('<!DOCTYPE html>\n<html><head><meta charset="UTF-8">'
                         '<meta name="robots" content="noindex, nofollow">'
