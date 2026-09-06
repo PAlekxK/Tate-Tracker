@@ -72,7 +72,12 @@ const cfg = JSON.parse(process.argv[2]);
     await page.waitForTimeout(1200);
     for (const act of cfg.actions) {
       try {
-        if (act.startsWith('click:')) { await page.click(act.slice(6)); }
+        // ⭐ `goto:` CROSSES THE HANDOFF. Every stop until now ended at the last onboarding screen, so
+        // the seam between onboarding and the estate view — the thing the whole journey builds toward
+        // — was walked by nobody, and whatever a brand-new person sees on the other side was untested.
+        // Same browser context, so localStorage survives the navigation exactly as it does for her.
+        if (act.startsWith('goto:')) { await page.goto(act.slice(5), { waitUntil: 'load', timeout: 45000 }); await page.waitForTimeout(1200); }
+        else if (act.startsWith('click:')) { await page.click(act.slice(6)); }
         else if (act.startsWith('type:')) {
           const rest = act.slice(5); const i = rest.indexOf('=');
           await page.fill(rest.slice(0, i), rest.slice(i + 1));

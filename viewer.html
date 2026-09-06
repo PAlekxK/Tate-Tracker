@@ -341,8 +341,19 @@
   .qa-banner-subject { font-weight: 400; opacity: .8; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
   body.text-lg .qa-banner { font-size: 15px; }
 
+  /* ⭐ THE CHOSEN COLOUR CARRIES THROUGH FROM ONBOARDING `[paul-stated 2026-09-05]`. The accent she
+     picks while setting her place up used to stop at the onboarding page, so the first thing she saw
+     after choosing a colour was a screen that ignored it. These three tokens default to the exact
+     greens this header has always used, so a reader who has never chosen — which today is everyone,
+     including Mom's live app — sees no change whatsoever. Only a stored choice moves them. */
+  :root {
+    --hdr-1: #183524;
+    --hdr-2: #2a6040;
+    --hdr-3: #3a8a58;
+  }
+
   .header {
-    background: linear-gradient(135deg, #183524 0%, #2a6040 50%, #3a8a58 100%);
+    background: linear-gradient(135deg, var(--hdr-1) 0%, var(--hdr-2) 50%, var(--hdr-3) 100%);
     padding: 32px 18px 26px;
     position: relative;
     overflow: hidden;
@@ -6344,6 +6355,28 @@
 </style>
 </head>
 <body>
+<script>
+/* ⛔ RUNS BEFORE PAINT, DELIBERATELY. Applied later — in the main init, after data loads — the header
+   renders green and then jumps to her colour, which reads as a glitch on the one surface that is
+   supposed to feel like hers. Same-origin localStorage, so the value onboarding wrote is simply here.
+   ⛔ FAILS SILENT AND FAILS TO THE DEFAULT: a missing, malformed or non-hex value changes nothing,
+   because a broken personalisation must never cost a reader the working page underneath it. */
+(function () {
+  try {
+    var hex = localStorage.getItem("fw-accent");
+    if (!/^#[0-9a-fA-F]{6}$/.test(hex || "")) return;
+    var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+    var mix = function (t) {            // t<0 darkens toward black, t>0 lightens toward white
+      var f = function (c) { return Math.round(t < 0 ? c * (1 + t) : c + (255 - c) * t); };
+      return "#" + [f(r), f(g), f(b)].map(function (v) { return ("0" + v.toString(16)).slice(-2); }).join("");
+    };
+    var s = document.documentElement.style;
+    s.setProperty("--hdr-1", mix(-0.45));   // the same hue, three depths — never three unrelated colours
+    s.setProperty("--hdr-2", hex);
+    s.setProperty("--hdr-3", mix(0.28));
+  } catch (e) {}                            /* storage can throw in a private window; the page is fine */
+})();
+</script>
 
 <!-- QA BANNER (C4 3b follow-up, paul-asked 2026-09-03). Rendered ONLY on the QA origin
      (*.pages.dev) from /qa-build.json, which the QA deploy writes into its export and prod

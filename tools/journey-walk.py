@@ -75,8 +75,16 @@ def view(url, actions, shot):
         cmd += ["--do", a]
     t0 = dt.datetime.now()
     r = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
+    # ⛔ journey-view is a HUMAN-READABLE tool: it prints prose to stdout and returns no JSON. An
+    # earlier version of this function looked for a `steps` key that has never existed, so every
+    # failed action evaluated to zero failures and every stop scored "walked" — the false-green class
+    # closed by reading a field that was not there. Parse the two things it actually prints.
+    out = r.stdout or ""
+    failed = [l.split("could not do", 1)[1].strip() for l in out.splitlines() if "could not do" in l]
     return {"actions": actions, "seconds": round((dt.datetime.now() - t0).total_seconds(), 1),
-            "screen": r.stdout, "error": r.stderr[-400:] if r.returncode else None}
+            "screen": out, "error": r.stderr[-400:] if r.returncode else None,
+            "failedActions": failed or None,
+            "rateLimited": ("429" in out) or ("rate-limited" in out)}
 
 
 # The journey as a sequence of STOPS. Each stop is what the walker has done so far — replayed from
@@ -171,17 +179,14 @@ def main():
         # action; this filed every stop as "walked" without ever reading it. All three false greens
         # tonight were the same shape — a plausible artifact produced having done nothing — and the
         # evidence to refuse two of them was sitting in the record, unconsumed.
-        failed = [x for x in (got.get("steps") or []) if not x.get("ok")]
-        status = "walked"
-        if got.get("error"):
-            status = "error"
-        elif failed:
-            status = "incomplete"
-        record["stops"].append(dict(got, stop=name, status=status,
-                                    failedActions=[x.get("action") for x in failed] or None))
+        failed = got.get("failedActions") or []
+        status = "error" if got.get("error") else ("incomplete" if failed else
+                 ("rate-limited" if got.get("rateLimited") else "walked"))
+        record["stops"].append(dict(got, stop=name, status=status))
         if status != "walked":
-            print("       ⛔ %s — %d action(s) did not happen: %s"
-                  % (status.upper(), len(failed), ", ".join(x.get("action","?") for x in failed[:3])))
+            print("       \u26d4 %s%s" % (status.upper(),
+                  (" — did not happen: " + "; ".join(f[:60] for f in failed[:2])) if failed
+                  else " — the Worker refused a write during this stop"))
         first = next((l for l in got["screen"].splitlines() if l.startswith("PAGE TITLE")), "")
         print("  %-14s %5.1fs  %s%s" % (name, got["seconds"], first, "  ⛔ " + (got["error"] or "") if got["error"] else ""))
 
