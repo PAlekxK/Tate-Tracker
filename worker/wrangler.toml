@@ -135,3 +135,33 @@ FAMILY_HOSTS = "fernwood-home.pages.dev"
 [[env.home.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "79464451e3a7497594b17d8c60c7254d"
+
+# ⛔ A HOUSEHOLD, NOT AN ENVIRONMENT — and that distinction is load-bearing here.
+# `qa`, `lab` and `home` are OUR environments; every one of them is Fernwood wearing a different
+# stamp. This one belongs to somebody else. Its own KV namespace, its own estate id, and a Pages
+# origin that carries NO household name (myhome-bob.pages.dev, `paul-ruled 2026-09-06`) — because
+# VOCABULARY says an estate name never reaches a user-facing surface, and a hostname is one.
+# ⭐ The isolation model is the one already proven four times: one estate per deployment. It does
+# NOT yet cover two houses with per-heir access — that needs scopeFor() wired through its ~30
+# call sites, which is not a job to rush beside a live onboarding.
+# ⚠️ tools/pages-deploy.py treats this env as a HOUSEHOLD: the export is an allow-list of three
+# files and is refused if any of them names another household.
+[env.bob.limits]
+cpu_ms = 5000
+
+[env.bob]
+# ⛔ THE WORKER IS NAMED TOO. Without this it deploys as `fernwood-bob` (top-level name + env), and
+# the pages derive their endpoint from the Pages HOST — so `myhome-bob.pages.dev` would look for
+# `myhome-bob.workers.dev` and find nothing. Naming it here keeps the derivation honest AND keeps
+# another household's name out of the one URL Bob's browser talks to.
+name = "myhome-bob"
+[env.bob.vars]
+ENV_NAME = "bob"
+ESTATE_ID = "est-9a74df"
+# A brand-new estate has no pre-cutover era, so no key may route to the unprefixed legacy reads.
+LEGACY_BEFORE = "1970-01-01"
+CHAT_DAILY_BUDGET_USD = "5.00"
+FAMILY_HOSTS = "myhome-bob.pages.dev"
+[[env.bob.kv_namespaces]]
+binding = "OBSERVATIONS"
+id = "22250acec6fe42e696fe7dc7936b6a2d"
