@@ -583,3 +583,38 @@ Make it flexible."*
   `2574916` during the readings (the estate window's docs commit; no app surface changed), so the
   candidate stays `ca9161e` and a home deploy must pass `--sha ca9161e`. Production: still `6ee2e48`.
 - **Next: Paul confirms the UX clause → `pages-deploy.py --env home --sha ca9161e` → beat 3, his walk.**
+
+### 10:12 ET (Sep 7) — Paul confirmed the UX clause; `ca9161e` DEPLOYED TO HOME; beat 3 is his
+- `paul-stated` (~10:05 ET): *"Confirmed. Go for it."* → `pages-deploy.py --env home --sha ca9161e`:
+  gate ① re-run inside the deploy (4 of 4), household export pruned to the neutral allow-list
+  (845 files, 311 needles, zero hits), headless load zero page errors, edge verified —
+  **`https://fernwood-home.pages.dev` serves `ca9161e`.** Production moves off `6ee2e48` for the
+  first time since lap 1 opened. `cycle-state.json`: beat 3 · owner paul (written at 10:03).
+- `paul-asked`: *"Home is what we are calling the dev environment for the estate manager
+  myhome.place, right?"* — **No, and the confusion is a documented trap** (one-environment
+  DECISIONS F4): `home` = `est-e6696a`, the PRODUCTION household on the new product (Mom's blank
+  slate, `[paul-ruled 2026-09-06]`), origin `fernwood-home.pages.dev`; `lab` = `est-lab0001` is
+  Paul's playground; `qa` = `est-qa0001` the synthetics; the Worker's top-level `prod` binding is
+  the DEV worker. `myhome.place` is the ruled apex `[paul-ruled 2026-09-03]` and serves nothing yet
+  (curl 000, no A record); `kirschenbauer.myhome.place` is C4 2d's future origin.
+- `paul-stated`: *"I want an invite link for myself and one for mom."* Two mints against
+  `est-e6696a` env `home`, register `fernwood-private/grants.json`:
+  - **Paul: minted, `--rotate`.** The 9/06 token had left once into a scratch dir that no longer
+    exists (the register holds the hash only, by design), so the old credential `bd291bab…` was
+    revoked in KV and `9e45a41d…` issued. Link written to a mode-600 scratch file and OPENED in his
+    browser; the token never entered the transcript. `did-not`: a token file in a session
+    scratchpad does not survive the session → a hand-off that is not delivered the same session is
+    lost; **rotate is the recovery, and it costs a link that was never sent.**
+  - **Mom: REFUSED by G2** — *"the administrator holds no relationship at est-e6696a, so a
+    non-administrator grant needs an `administrator-reads` consent entry (self, or attested by the
+    owner)."* Two things underneath: ① `gated()` walks every administrator id, and Paul is TWO ids
+    in the register — `p-7f3a2c` (people.json, est-3c9f1a + lab) and `p-paul` (est-e6696a) — so the
+    administrator it finds without a row is Paul's other self. ② Even with one id, a member grant
+    for Mom at a gated estate needs HER consent to Paul reading what she enters: `agreedOn`,
+    `consentSource` self|attested, `how`. **Not fabricated.** Held for Paul: when and how did Mom
+    agree, or does she agree at the visit? Mom is gate 3 regardless — her link is minted for
+    sending, never sent by a session.
+- `finding` — **`p-vfy` holds a LIVE administrator credential on production** (`est-e6696a`,
+  issued 2026-09-06 03:49 by p-paul, the verification seat). A second working administrator token on
+  Mom's estate; should be revoked before her link goes out. → Paul's call; `grant-mint.py revoke`.
+- Next: **Paul walks home** (beat 3). Clear → `release-state.py --cleared ca9161e`; failure → beat 4.
