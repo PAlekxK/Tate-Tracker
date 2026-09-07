@@ -13871,23 +13871,33 @@ function renderProperty() {
   html += '<div class="prop-grid">';
 
   // ── Location & Elevation ──
-  html += '<div class="prop-panel">';
-  html += '<div class="prop-panel-title">Location &amp; Elevation</div>';
+  // ⛔ THE PANEL OUTLIVED ITS LAST ROW. Every row here is canon-gated and the title was not, so once
+  // the neutral canon stopped typing a zero elevation (598cba3) this rendered as the words
+  // "LOCATION & ELEVATION" with nothing under them — measured 2026-09-07 on the combined build.
+  // Third appearance of this shape on this one card today (Local Resources, Climate, here), which is
+  // why the rows are collected and the panel gated rather than each case patched: a panel is present
+  // because it has something in it, never because the code reached it.
   const pp = p.property || {};
+  let locRows = '';
   const shortAddress = String(pp.address || "").replace(/\bRoad\b/, "Rd");
   const shortCounty = String(pp.county || "").replace(/\bCounty\b/, "Co.");
   const shortRegion = String(pp.region || "").split(",")[0].trim();
-  if (pp.address) html += '<div class="prop-row"><span class="prop-label">Address</span><span class="prop-value">' + escapeHtml(shortAddress) + '</span></div>';
-  if (pp.county) html += '<div class="prop-row"><span class="prop-label">County</span><span class="prop-value">' + escapeHtml(shortCounty + (pp.state ? ", " + pp.state : "")) + '</span></div>';
-  if (pp.region) html += '<div class="prop-row"><span class="prop-label">Region</span><span class="prop-value">' + escapeHtml(shortRegion) + '</span></div>';
-  if (Number.isFinite(elev.estimated_ft)) html += '<div class="prop-row"><span class="prop-label">Elevation</span><span class="prop-value">~' + elev.estimated_ft.toLocaleString() + ' ft' + elevConf + '</span></div>';
+  if (pp.address) locRows += '<div class="prop-row"><span class="prop-label">Address</span><span class="prop-value">' + escapeHtml(shortAddress) + '</span></div>';
+  if (pp.county) locRows += '<div class="prop-row"><span class="prop-label">County</span><span class="prop-value">' + escapeHtml(shortCounty + (pp.state ? ", " + pp.state : "")) + '</span></div>';
+  if (pp.region) locRows += '<div class="prop-row"><span class="prop-label">Region</span><span class="prop-value">' + escapeHtml(shortRegion) + '</span></div>';
+  if (Number.isFinite(elev.estimated_ft)) locRows += '<div class="prop-row"><span class="prop-label">Elevation</span><span class="prop-value">~' + elev.estimated_ft.toLocaleString() + ' ft' + elevConf + '</span></div>';
   // Both halves are named because a household can plausibly acquire one without the other, and half
   // a zone row is worse than none — "6b (official) · undefined (at elevation)" reads as a bug.
-  if (hard && hard.officialZone && hard.elevationAdjustedZone) html += '<div class="prop-row"><span class="prop-label">USDA Zone</span><span class="prop-value">' + hard.officialZone + ' (official) · ' + hard.elevationAdjustedZone.split('(')[0].trim() + ' (at elevation)</span></div>';
-  if (loc.naturalCommunity) html += '<div class="prop-row"><span class="prop-label">Natural Community</span><span class="prop-value">' + escapeHtml(loc.naturalCommunity) + '</span></div>';
+  if (hard && hard.officialZone && hard.elevationAdjustedZone) locRows += '<div class="prop-row"><span class="prop-label">USDA Zone</span><span class="prop-value">' + hard.officialZone + ' (official) · ' + hard.elevationAdjustedZone.split('(')[0].trim() + ' (at elevation)</span></div>';
+  if (loc.naturalCommunity) locRows += '<div class="prop-row"><span class="prop-label">Natural Community</span><span class="prop-value">' + escapeHtml(loc.naturalCommunity) + '</span></div>';
   const stnId = (p.resources && p.resources.nearestWeatherStation && p.resources.nearestWeatherStation.id) || "the reference station";
-  if (Number.isFinite(elev.valleyFloorRef_ft) && Number.isFinite(elev.airportRef_ft)) html += '<div class="prop-note">Valley floor ref: ' + elev.valleyFloorRef_ft.toLocaleString() + ' ft (' + escapeHtml(pp.city || "valley") + ' city center) · Airport: ' + elev.airportRef_ft.toLocaleString() + ' ft (' + escapeHtml(stnId) + '). Community typology from <a href="https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html" target="_blank" rel="noopener">Natural Communities of Georgia</a>.</div>';
-  html += '</div>';
+  if (Number.isFinite(elev.valleyFloorRef_ft) && Number.isFinite(elev.airportRef_ft)) locRows += '<div class="prop-note">Valley floor ref: ' + elev.valleyFloorRef_ft.toLocaleString() + ' ft (' + escapeHtml(pp.city || "valley") + ' city center) · Airport: ' + elev.airportRef_ft.toLocaleString() + ' ft (' + escapeHtml(stnId) + '). Community typology from <a href="https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html" target="_blank" rel="noopener">Natural Communities of Georgia</a>.</div>';
+  if (locRows) {
+    html += '<div class="prop-panel">';
+    html += '<div class="prop-panel-title">Location &amp; Elevation</div>';
+    html += locRows;
+    html += '</div>';
+  }
 
   // ── Frost Dates ──
   if (fd && fdv) {
@@ -16887,6 +16897,20 @@ async function fetchClimateNormals() {
 
   } catch (err) {
     console.warn('Climate normals fetch failed:', err);
+    // ⛔ THE FALLBACK MESSAGE PROMISED DATA THAT DOES NOT EXIST FOR A HOUSEHOLD. "⚠ ERA5 unavailable —
+    // showing the reference station estimates" is true at Fernwood, which HAS a reference station and
+    // a canon climate record to fall back to. A household has neither: `siteStationId()` degrades to
+    // the literal words "the reference station", and `renderClimateInner({})` returns an empty
+    // string — so the panel was a heading, a warning about estimates, and nothing at all.
+    // MEASURED 2026-09-07 on the combined build, for a condo in Roswell, when the archive API
+    // rate-limited. A household's climate comes ENTIRELY from this fetch; if it fails there is no
+    // second source, and the honest render is no panel rather than a promise of one.
+    const fellBackTo = renderClimateInner(PROPERTY_DATA.climate || {});
+    if (!fellBackTo) {
+      const panel = document.getElementById('prop-climate-panel');
+      if (panel) panel.style.display = 'none';
+      return;
+    }
     if (badge) badge.innerHTML = '<span style="color:#c08020;">⚠ ERA5 unavailable — showing ' + escapeHtml(siteStationId()) + ' estimates</span>';
   }
 }
