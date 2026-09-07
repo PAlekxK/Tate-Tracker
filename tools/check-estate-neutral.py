@@ -273,7 +273,32 @@ def main():
         worst = max(worst, 1 if rendered else 0)
 
     if worst == 0:
-        print("\n✅ every shipped surface names no other household — rendered content and source alike.")
+        # ⛔ NEVER A BARE ✅. The old line read *"every shipped surface names no other household"* —
+        # a WHOLE-SURFACE claim from a scan that deliberately excludes `viewer.html` (see
+        # `_shipped_pages`), which is the generated file and the one a real leak was found in on
+        # 2026-09-07: Fernwood's own rain gauge, "0.01\" past 7d here" and "at OUR gauge", served to
+        # a household in Bangor, Maine.
+        #
+        # ⭐ THE FAILURE THAT MADE THIS NECESSARY WAS READING A GREEN RATHER THAN A SCOPE `[lane-F,
+        # 2026-09-07, on its own mistake]`. The scope was already stated — in a comment, in capitals,
+        # with the word "optional" in it — and the bare form is what CLAUDE.md's session-start block
+        # prints, so the green most sessions ever see says nothing about the viewer. A tick that
+        # looks like coverage is worse than no tick.
+        #
+        # ⚠️ OUTPUT ONLY. Exit codes are untouched: `pages-deploy.py:246` imports this module's
+        # NEEDLES and walks the export itself, so nothing that gates a deploy changes here.
+        scanned = ", ".join((u if u else os.path.relpath(pg, ROOT)) for u, pg in targets)
+        print("\n✅ NO OTHER HOUSEHOLD IS NAMED IN WHAT THIS RUN SCANNED — and that is not the whole surface.")
+        print("   scanned (%d): %s" % (len(targets), scanned))
+        if not a.url:
+            print("   ⛔ NOT scanned: `viewer.html` — generated per instance, excluded by design, and")
+            print("      the file the 2026-09-07 leak was in. This run says NOTHING about it.")
+            print("      Complete it, and neither is optional:")
+            print("        python3 tools/check-estate-neutral.py --url https://<origin>/viewer.html")
+            print("        python3 tools/check-estate-neutral.py --page /tmp/<neutral build>")
+        print("   ⚠️ AND IT TESTS FOR NAMES. Measured 2026-09-07: a household's own gauge readings and")
+        print("      first-person-plural prose (\"at OUR gauge\", \"0.01\" past 7d here\") passed 311")
+        print("      needles with rendered=0. Numbers and pronouns are outside this roster.")
         return 0
     if total:
         print("\n🔴 %d household-specific token(s) REACH THE READER." % total)
