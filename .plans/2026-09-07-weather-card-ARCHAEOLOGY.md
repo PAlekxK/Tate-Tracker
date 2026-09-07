@@ -1,5 +1,6 @@
 # weather-card · ARCHAEOLOGY — what it took to get Fernwood's weather to its current state
 
+- kind: archaeology
 - row: none — evidence file for `.plans/2026-09-07-weather-card-PLAN.md` (same posture as the 09-06 STATE / CENSUS files: it is graded, not ranked)
 - objective: O3 (evidence for an O3 row; it ranks nothing)
 - class: instance · Fernwood's build-out, read so the ENGINE row can be scoped

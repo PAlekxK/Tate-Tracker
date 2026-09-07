@@ -9,7 +9,7 @@
 - depends-on: .plans/2026-09-06-cascade-and-release-state-AUDIT.md
 - depends-on: .plans/2026-09-06-state-and-next-steps-AUDIT.md
 - ready: agent-proposed 2026-09-06 — **Paul rules**
-- stage: design — ⚠️ **fifth file to need a stage word that does not exist.** `tools/check-backlog-ready.py:46` reads `STAGES = ["ready","concept","build","qa","shipped","retro"]`. Four files now sit at `audit`/`draft`/`design`, all illegal, all self-flagged, the enum unmoved since 09-03.
+- kind: design
 
 > **Method only.** Nothing here ranks a feature or moves a date. Where a call turns on real-world
 > context only Paul holds, it is named and declined — §7.

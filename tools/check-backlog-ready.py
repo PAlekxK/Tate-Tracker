@@ -43,13 +43,73 @@ import os, re, sys, glob, subprocess, tempfile, time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CLASSES = {"engine", "config", "instance"}
 TIERS = {"free", "declared", "must-not-diverge"}
-STAGES = ["ready", "concept", "build", "qa", "shipped", "retro"]
+# ⭐ `draft` `[paul-ruled 2026-09-07, R4 → B + draft]`. It is a real PRE-CONCEPT item state and five
+# PROPOSALs were already carrying it — `journey-as-prioritizer` · `journey-test-cycle` ·
+# `process-registry` · `release-cascade-tracking` · `state-of-the-work`, one of which wrote its own
+# caveat into the value: *"⚠️ not a legal `stage:` word until process-wiring-AUDIT §B.1 is ruled."*
+# It is now ruled. `draft` sits BEFORE `ready`, so it is not "past ready" and needs no approval stamp.
+STAGES = ["draft", "ready", "concept", "build", "qa", "shipped", "retro"]
+
+# ⛔ `stage:` IS THE ITEM'S STAGE. `kind:` IS WHAT THE DOCUMENT *IS* `[paul-ruled 2026-09-07, R4 → B]`.
+# Seven process documents had reached for a document TYPE through the item's stage key — five
+# `-AUDIT` files wrote `stage: audit`, a `-DESIGN` wrote `stage: design` — and `audit` is not a stage
+# of anything: no `-AUDIT` file tracks an item through build → shipped. The falsifier stated with the
+# ruling: if one ever legitimately does, it IS an item and option A was right.
+KINDS = {"audit", "process", "design", "state", "census", "charter", "practice",
+         "decisions", "scan", "requirement", "archaeology", "mine", "queue"}
+# Only documents whose FILENAME declares a type are graded here. The 16 pre-convention files in
+# `.plans/` carry no suffix and are left alone — a control that is red on every legacy file is one
+# nobody reads, which this repo has ruled against.
+DOC_SUFFIXES = ("-AUDIT", "-PROCESS", "-DESIGN", "-STATE", "-CENSUS", "-CHARTER", "-PRACTICE",
+                "-DECISIONS", "-SCAN", "-REQUIREMENT", "-ARCHAEOLOGY", "-MINE")
 REPEATABLE = {"stage-note"}   # a dated LOG line, appended per event — many is the design, not a disagreement
 IN_FLIGHT = {"concept", "build", "qa"}
 REQUIRED_SECTIONS = ["## Files touched", "## Sequence", "## Falsifier", "## QA"]
 POINTER_PAT = re.compile(r"→\s*READY\s*·\s*(\.plans/[^\s`|)]+)")
 OBJ_PAT = re.compile(r"^\|\s*\**(O\d+)\**\s*\|", re.M)
 SEAT_PAT = re.compile(r"^\s*([a-z\-]+)\s*→\s*(.+?)\s*$")
+# What a CITATION looks like: a path, optionally `~`- or `.`-anchored, ending in a real extension.
+# Anything else on a seat line is prose — a deferral or a waiver — and is graded as a declaration.
+PATHLIKE = re.compile(r"^[~\w./-]+\.(?:md|json|py|html|js|mjs|toml|yml|sh)$")
+
+
+def _roots(root):
+    """Every tree a plan's citation may legitimately point into, worktree-correct.
+
+    ⛔ MEASURED 2026-09-07 (lane D): a `../fernwood-private/…` citation resolves relative to the
+    PROCESS's cwd, so the SAME file graded one way from `~/Developer/Tate-Tracker` and another from
+    a worktree — 4 false *"the review is asserted"* flags (c6-door x2, c7-condo x2) against a trail
+    that plainly exists. The sibling is located from `git rev-parse --git-common-dir`, whose dirname
+    is the MAIN worktree whatever tree this runs in. The fragility predates the worktrees: resolving
+    against cwd means where you stand changes the verdict."""
+    out = [root]
+    common = subprocess.run(["git", "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                            cwd=root, capture_output=True, text=True).stdout.strip()
+    main = os.path.dirname(common) if common else ""
+    if main and main != root:
+        out.append(main)
+    for base in filter(None, {os.path.dirname(root), os.path.dirname(main) if main else ""}):
+        if os.path.isdir(os.path.join(base, "fernwood-private")):
+            out.append(base)
+    return out
+
+
+def resolve_cited(target, root):
+    """→ (abs path, True) when it resolves anywhere; (None, False) when this checker cannot see it.
+
+    ⛔ THE SECOND HALF IS THE RULE, and it matters more than the lookup: **a checker that cannot
+    resolve a path must report UNRESOLVABLE, never asserted-but-missing.** Those are different
+    claims and only one of them accuses the author. Same shape as `product-steward.py`'s citation
+    states and `check-storage-keys.py`'s unparseable key names — three instances on 2026-09-07, so
+    it is a shape, not three coincidences."""
+    if target.startswith("~") or os.path.isabs(target):
+        full = os.path.normpath(os.path.expanduser(target))
+        return (full, True) if os.path.exists(full) else (None, False)
+    for r in _roots(root):
+        cand = os.path.normpath(os.path.join(r, target))
+        if os.path.exists(cand):
+            return cand, True
+    return None, False
 
 
 def file_date(path, root):
@@ -75,11 +135,15 @@ def file_date(path, root):
                 return dt.date.fromtimestamp(os.path.getmtime(full))
             except OSError:
                 return None
-    abs_path = os.path.normpath(os.path.join(root, path))
+    # ⚠️ Worktree-correct: a `../fernwood-private/…` path is rebased onto the tree that actually
+    # holds it (see `_roots`), never onto this worktree's parent, which does not contain it.
     if path.startswith("../"):
         parts = os.path.normpath(path).split(os.sep)
-        root = os.path.normpath(os.path.join(root, parts[0], parts[1]))
-        path = os.sep.join(parts[2:])
+        for r in _roots(root):
+            cand = os.path.normpath(os.path.join(r, parts[0], parts[1]))
+            if os.path.isdir(cand):
+                root, path = cand, os.sep.join(parts[2:])
+                break
     try:
         out = subprocess.run(["git", "log", "--diff-filter=A", "--format=%ct", "-1", "--", path],
                              cwd=root, capture_output=True, text=True, timeout=10).stdout.strip()
@@ -94,10 +158,38 @@ def file_date(path, root):
 
 
 def parse_plan(text):
-    """Header keys (with seats: continuation lines) + the set of ## section titles present."""
+    """Header keys (with seats: continuation lines) + the set of ## section titles present.
+
+    ⛔ TWO BOUNDS, and R5's own falsifier decided their shape `[paul-ruled 2026-09-07, R5 → yes]`.
+    The ruling was *"bound the parse to the block before the first `##`"*, with the falsifier
+    *"if any current plan legitimately declares header keys below its first ##, bounding silently
+    drops them. Count before cutting."* **Counted at 32 plans, and it fires:** 19 `- key:` lines sit
+    below the first `##` — and they split perfectly.
+
+      · **8 are inside CODE FENCES** — `.plans/2026-09-03-backlog-readiness-PROPOSAL.md:167-174`
+        (the template the file DOCUMENTS, which is why the spec was graded on its own illustration
+        and carried the placeholder `ready: [paul-approved 2026-09-xx]`), plus a `journey:` and a
+        `gates:` in two proposals' fenced examples. **All 8 are documentation, never claims.**
+      · **11 are `stage-note`, none fenced** — 9 in `guru-retrieval-PLAN`, 2 in `c5-record-prep-PLAN`
+        — real dated log lines appended under the step they describe. `stage-note` is REPEATABLE by
+        design and `qa-divergence.py` greps `- stage-note:` across the WHOLE file, so bounding it
+        would silently drop 11 true records and desynchronise two tools.
+
+    **So: skip fenced lines everywhere, and bound the CLAIM keys to the header block, while the
+    REPEATABLE keys stay readable anywhere.** That removes every false positive and loses nothing —
+    which is the ruling's intent, reached without the loss its falsifier warned of."""
     keys, seats, deps, cur = {}, [], [], None
-    for line in text.split("\n"):
+    head_lines = len(text.split("\n## ", 1)[0].split("\n"))
+    fenced = False
+    for lineno, line in enumerate(text.split("\n"), 1):
+        if line.lstrip().startswith("```"):
+            fenced = not fenced
+            continue
+        if fenced:
+            continue
         m = re.match(r"^- ([a-z\-]+):\s*(.*)$", line)
+        if m and lineno > head_lines and m.group(1) not in REPEATABLE:
+            continue                      # a claim key below the first `##` is not this file's header
         if m:
             cur = m.group(1)
             if cur == "seats":
@@ -123,9 +215,13 @@ def parse_plan(text):
     return keys, seats, deps, sections
 
 
+HEADERLESS = []
+
+
 def check(root):
     """Returns (findings, in_flight) — findings are (plan-or-row, message)."""
     findings, in_flight = [], []
+    del HEADERLESS[:]
     backlog = open(os.path.join(root, "BACKLOG.md"), encoding="utf-8").read() if os.path.exists(os.path.join(root, "BACKLOG.md")) else ""
     obj_text = open(os.path.join(root, "OBJECTIVES.md"), encoding="utf-8").read() if os.path.exists(os.path.join(root, "OBJECTIVES.md")) else ""
     objectives = set(OBJ_PAT.findall(obj_text))
@@ -141,6 +237,48 @@ def check(root):
     for p in pointers:
         if not os.path.exists(os.path.join(root, p)):
             findings.append((p, "BACKLOG.md points at a plan that does not exist — the pointer is a claim"))
+
+    # ── R4 · non-item documents declare a `kind:`, never a `stage:` ───────────────────────────
+    # ⚠️ DELIBERATELY NOT FOLDED INTO THE READINESS GRADE. These files are not items; requiring a
+    # plan's header of them is what would turn 31 invisible files into 200 flags. Exactly two
+    # questions are asked, and both are R4's.
+    for path in sorted(glob.glob(os.path.join(root, ".plans", "*.md"))):
+        base = os.path.basename(path)[:-3]
+        if not base.endswith(DOC_SUFFIXES):
+            continue
+        rel = os.path.relpath(path, root)
+        try:
+            head = open(path, encoding="utf-8", errors="replace").read().split("\n## ", 1)[0]
+        except OSError:
+            findings.append((rel, "UNREADABLE — not graded, and not clean either"))
+            continue
+        km = re.search(r"^- kind:\s*(\S+)", head, re.M)
+        sm = re.search(r"^- stage:\s*(\S+)", head, re.M)
+        if not re.search(r"^- [a-z-]+:", head, re.M):
+            # ⛔ NOT AN R4 FLAG, AND THE DISTINCTION IS THE RULING'S. R4 says a non-item document
+            # takes `kind:` INSTEAD OF `stage:` — it is about documents that reached for the item's
+            # key. A document with no header block at all never reached for anything, and demanding
+            # one of it is stricter than what was ruled. Whether every `.plans/` document should
+            # carry a header is a real question and it is NOT ruled, so it is NAMED, not graded.
+            HEADERLESS.append(rel)
+            continue
+        if sm:
+            suffix = base.rsplit("-", 1)[-1]
+            if sm.group(1).strip("`") in STAGES:
+                # ⚠️ AMBIGUOUS, AND SAID SO RATHER THAN RESOLVED. `concept` IS a legal stage, this
+                # document is in the in-flight count on the strength of it, and R4's own falsifier is
+                # *"if a `-AUDIT` file ever legitimately tracks an item through build → shipped, then
+                # it is an item and A was right."* Deciding which this is would be deciding, and the
+                # instrument's job is to name the fork.
+                findings.append((rel, f"a `-{suffix}` document carries `stage: {sm.group(1)}`, which IS a "
+                                      f"legal stage — is it a document or an item? [R4, unresolved]"))
+            else:
+                findings.append((rel, f"a `-{suffix}` document carries `stage: {sm.group(1)}` — that is a "
+                                      f"document TYPE, not a stage of anything; it wants `kind:` [R4]"))
+        if not km:
+            findings.append((rel, "a non-item document with no `kind:` — say what it IS [R4]"))
+        elif km.group(1).strip("`") not in KINDS:
+            findings.append((rel, f"`kind: {km.group(1)}` is not one of {'/'.join(sorted(KINDS))}"))
 
     for path in plans:
         rel = os.path.relpath(path, root)
@@ -186,9 +324,27 @@ def check(root):
                     findings.append((rel, f"{seat} waived with no reason — a declared-optional element needs its declaration"))
                 continue
             target = target.strip("`")
-            resolved = os.path.expanduser(target) if (target.startswith("~") or os.path.isabs(target)) else os.path.join(root, target)
-            if not os.path.exists(resolved):
-                findings.append((rel, f"{seat} cites `{target}` which does not exist — the review is asserted"))
+            # ⛔ A SEAT LINE IS NOT ALWAYS A CITATION, and reading one as a path is how this check
+            # accused thirteen authors of asserting a review. `deferred: nothing is built until Paul
+            # rules`, `cited, not commissioned: …`, `**owed, not waived**: …` are DECLARATIONS with
+            # their reason attached — the same grammar as `waived:`, which this check already
+            # understands. A target only counts as a citation if it LOOKS like a path.
+            if not PATHLIKE.match(target):
+                if ":" in target and target.split(":", 1)[1].strip():
+                    continue                      # a declaration that carries its reason
+                findings.append((rel, f"{seat} names neither a trail nor a reason — `{target}`"))
+                continue
+            resolved, found = resolve_cited(target, root)
+            if not found:
+                # ⛔ UNRESOLVABLE ≠ ASSERTED. Only the second accuses the author, and this checker
+                # earned the distinction the hard way (see `resolve_cited`).
+                if "/" in target and any(os.path.isdir(os.path.join(r, target.split("/", 1)[0]))
+                                         for r in _roots(root)):
+                    findings.append((rel, f"{seat} cites `{target}` which does not exist — the review is asserted"))
+                else:
+                    findings.append((rel, f"{seat} cites `{target}` — UNRESOLVABLE from this tree "
+                                          f"(not in the repo, the private sibling or ~/.claude). "
+                                          f"NOT a claim that the review is missing."))
                 continue
             sd = file_date(target, root)
             if sd and plan_date and sd > plan_date:
@@ -233,8 +389,10 @@ def main():
     if in_flight:
         print("🧭 In flight: " + " · ".join(f"{n} @ {s}" + (" (declared exception)" if e else "") for n, s, e in in_flight))
     if not findings:
+        _headerless_note()
         print(f"✅ Readiness — {len(plans)} plan(s), every claim has its trail.")
         return 0
+    _headerless_note()
     print(f"🔴 Readiness — {len(findings)} flag(s) across {len(plans)} plan(s). Flags, never edits.")
     for where, msg in findings:
         print(f"   · {where}: {msg}")
@@ -242,6 +400,15 @@ def main():
 
 
 # ---------------------------------------------------------------------------------------------
+def _headerless_note():
+    if HEADERLESS:
+        print("   ⬜ %d typed document(s) carry NO header block at all — not graded, and NOT clean:"
+              % len(HEADERLESS))
+        print("      %s" % ", ".join(os.path.basename(h) for h in HEADERLESS))
+        print("      Whether every `.plans/` document owes a header is a real question and is NOT")
+        print("      ruled. R4 governs documents that reached for `stage:`; these reached for nothing.")
+
+
 def selftest():
     passed = failed = 0
     def ok(label, cond):
@@ -275,6 +442,78 @@ def selftest():
     with tempfile.TemporaryDirectory() as td:
         os.makedirs(os.path.join(td, ".plans")); open(os.path.join(td, "BACKLOG.md"), "w").write("x")
         f, _ = check(td); ok("silent at zero — an untouched backlog produces no flag", f == [])
+
+    # ── R5 · the header parse is BOUNDED, and fenced lines are documentation ──────────────────
+    FENCED = GOOD_PLAN + """
+## The template this file documents
+
+```
+- row: BACKLOG.md § X
+- objective: O9
+- ready: [paul-approved 2026-09-xx]
+- stage: not-a-stage
+```
+"""
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=FENCED))
+        ok("a header key inside a CODE FENCE is documentation, not a claim",
+           not any("O9" in m or "not-a-stage" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN + "\n## Later\n\n- objective: O9\n"))
+        ok("a CLAIM key below the first `##` is not read as the header",
+           not any("O9" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN + "\n## Step 1\n\n- stage-note: shipped 2026-09-07\n"))
+        ok("a `stage-note:` below the first `##` is still READ (11 real ones live there)",
+           not any("stage-note" in m for _, m in f))
+
+    # ── the worktree/sibling rule · UNRESOLVABLE is not ASSERTED ──────────────────────────────
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN.replace(".ux-reviews/demo.md", ".ux-reviews/gone.md")))
+        ok("a seat trail missing from a directory that EXISTS is `asserted`",
+           any("the review is asserted" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN.replace(".ux-reviews/demo.md", "nowhere-at-all.md")))
+        ok("a trail this checker cannot LOCATE reads UNRESOLVABLE, never `asserted`",
+           any("UNRESOLVABLE" in m for _, m in f) and not any("asserted" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN.replace(".ux-reviews/demo.md",
+                                                     "deferred: nothing is built until Paul rules")))
+        ok("a seat DEFERRAL with its reason is a declaration, not a broken citation",
+           not any("ux-expert" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN.replace(".ux-reviews/demo.md", "deferred")))
+        ok("a seat line naming neither a trail nor a reason IS flagged",
+           any("neither a trail nor a reason" in m for _, m in f))
+
+    # ── R4 · `draft` is a stage; a document type is not ───────────────────────────────────────
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN.replace("- stage: ready", "- stage: draft")))
+        ok("`draft` is a legal stage and needs no approval stamp (R4 → B + draft)",
+           not any("not one of" in m or "without the gate" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td)
+        open(os.path.join(td, ".plans", "2026-09-07-x-AUDIT.md"), "w").write("# x\n- stage: audit\n")
+        f, _ = check(td)
+        ok("an `-AUDIT` document wearing `stage: audit` is flagged — that is a TYPE, not a stage",
+           any("document TYPE, not a stage" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td)
+        open(os.path.join(td, ".plans", "2026-09-07-x-AUDIT.md"), "w").write("# x\n- stage: concept\n- kind: audit\n")
+        f, _ = check(td)
+        ok("a typed document wearing a LEGAL stage is named UNRESOLVED, never silently resolved",
+           any("is it a document or an item" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td)
+        open(os.path.join(td, ".plans", "2026-09-07-x-AUDIT.md"), "w").write("# x\n- kind: audit\n")
+        f, _ = check(td)
+        ok("an `-AUDIT` with `kind:` and no `stage:` is CLEAN", not any("x-AUDIT" in p for p, _ in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td)
+        open(os.path.join(td, ".plans", "2026-09-07-x-AUDIT.md"), "w").write("# x\n\nprose only, no keys.\n")
+        f, _ = check(td)
+        ok("a typed document with NO header block is NAMED, not graded (R4 does not reach it)",
+           not any("x-AUDIT" in p for p, _ in f) and any("x-AUDIT" in h for h in HEADERLESS))
     with tempfile.TemporaryDirectory() as td:
         make(td, plan=GOOD_PLAN.replace("- stage: ready", "- stage: build\n- stage: ready", 1))
         f, fl = check(td)

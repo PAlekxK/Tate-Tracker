@@ -1,0 +1,4 @@
+{
+  "_comment": "Per-record dispositions for feedback arrivals, keyed (env|estate|channel|record id). ⛔ THIS FILE IS TRACKED IN A PUBLIC REPO. No note text and no personId ever land here — the words live in .private/ and person ids live in the private sibling's grants.json. A `why` is written by a human and goes public with it: say where the record went, never what anybody said. A batch may never be cleared by one of its members, so there is no bulk write and no watermark.",
+  "dispositions": {}
+}

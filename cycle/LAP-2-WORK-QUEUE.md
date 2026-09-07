@@ -144,6 +144,43 @@ canon" design, because both are questions about what a household surface IS.
 
 ---
 
+## ⏳ THE SUNSET CLOCK — frozen, and the acts it obliges `[paul-decided 2026-09-07 12:36 ET]`
+
+> *"Mom and I just discussed and agreed that the current full Fernwood will remain live for her to be
+> able to check the weather for 24 hours… a banner at the top of that page with the 24 hour countdown
+> running until the site gets shut down, and a reminder to set up her profile in the new production
+> environment. That's a frozen decision. We're not going back on it and it helps us with all of our
+> sequencing as well."* Then: *"start the clock now, shutdown means redirect to the new origin"* →
+> *"redirect to mom's account page, but we keep all the data for reference. So mom loses access, we
+> still can access the info."*
+
+**DEADLINE: 2026-09-08 13:00:00 EDT · epoch ms `1788886800000`.** 24h from 12:36, rounded up to the
+hour; she loses nothing by the rounding.
+
+| # | act | owner | state |
+|---|---|---|---|
+| S1 | the banner + self-enforcing redirect on her live page | **lane E** (`prod-sunset` ← `origin/main`) | building |
+| S2 | approve the exact copy — **it reaches Mom** | **Paul** | owed |
+| S3 | `git push origin prod-sunset:main` — the classifier blocks an agent | **Paul** | owed |
+| S4 | ⏰ **RE-SEND HER THE INVITE LINK near the deadline** | **Paul** | owed, **and nothing will remind him but this row** |
+| S5 | W0 on production, so a placed household actually has weather | **lane F** → lane A | building |
+
+⭐ **S4 is the one with no mechanism behind it.** Paul ruled the redirect lands on the bare origin —
+`https://fernwood-home.pages.dev/` → `estate/`, which says *"Open your invitation link and your place
+will be here."* That is honest and cannot dead-end her, but it depends on her having a link. Her
+invite `p-b91e4d` was texted ~12:05 ET on 09-07 and is **still unspent**, so at 13:00 on 09-08 she
+would be looking for a message a day old. ⛔ The link is a **live single-use credential and must never
+appear on the public page**; re-sending it is therefore an outbound act only Paul can do.
+
+⚠️ **The redirect target was MEASURED, not assumed** (lane E, three candidates): `/onboarding/` was
+rejected because with no stored grant it renders the full account-creation form and then fails at
+`POST /api/account` with `invite-required` 403 — *a form she can complete and be rejected by, at a
+deadline*. The bare origin was chosen for that reason.
+
+⛔ **NOTHING IS DELETED.** *"We keep all the data for reference."* Her records stay in the legacy
+Worker (`est-3c9f1a`) and in git; the redirect removes her ACCESS, not the record. No surface may
+imply erasure, and the frozen page remains the **data control** the 09-06 ruling made it.
+
 ## OPEN — PAUL'S, NOT A BUILD
 
 - ✅ **RULED 2026-09-07:** the freeze's *"hold all Mom's feedback"* was written for the **frozen**
