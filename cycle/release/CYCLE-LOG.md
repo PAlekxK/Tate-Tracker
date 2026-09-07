@@ -920,3 +920,75 @@ Make it flexible."*
   written for the frozen estate. Does it bind her arrivals on `est-e6696a`? The sweep must not
   settle it by existing.
 - Seam: lap 2 brief at `handoff/handoff-fernwood-lap2-geocoding.md`; the fresh window opens on W0.
+
+---
+
+## 2026-09-07 afternoon → evening — LAP 2: W0 geocoding, and four instances of one assumption
+
+**Outcome: `1e2748d` DEPLOYED TO PRODUCTION**, verified at the origin (`fernwood-home.pages.dev`
+serving it, read back by `pages-deploy` itself). Gate ① **4 of 4**. ⚠️ The deploy printed *"every seat
+passes — but the UX clause is UNCHECKABLE, so this is NOT a bare pass. Gate ① exits beat 2 only when a
+human confirms the UX clause too."* **Paul's walk IS that confirmation and had not been given when this
+session closed** — beat 2 is not recorded as exited.
+
+**~8 rounds.** QA moved `c821051 → bebdc7a → 24564e6 → 34cb103 → 6584c9b → 1cd3fb8 → 56735d3 → 1e2748d
+→ 4a3a61b`. Six parallel lanes (machinery · watcher · plan-record · W0-hardening · sunset-banner ·
+door-scoping), all merged, all closed.
+
+### ⭐⭐ THE FINDING THAT ORGANISES THE LAP — four defects were ONE assumption
+Fernwood's rain gauge served to households in Roswell, Dahlonega and **Bangor** · Georgia's burn ban
+rendered **in Maine**, sourced GA EPD · an **April-in-Jasper weather placeholder shown as live
+conditions, with alerts generated from it** · Fernwood's 23 zone names reachable via an unguarded
+`zones.json` fetch. Every one was **correct code, carefully written, with a comment explaining why it
+was safe** — and every one became false the moment a second household existed. Found by four different
+seats, none looking for the others.
+
+⭐ **And all three of the biggest were masked BY ACCIDENT** — the gauge by the deploy allow-list, the
+zones by deploy-time pruning, and a predicate defect by a falsy check *in another file*. **Accidental
+safety is not safety.** Search pattern for the fifth: a comment saying *"this is safe because…"* whose
+premise is about Fernwood.
+
+⭐ **That is what W0 actually did.** Geocoding is a small feature; what it really did was make the
+app's single-instance assumptions **falsifiable**.
+
+### Shipped alongside
+The **sunset banner** on Mom's frozen page (`origin/main`, live, counting to 2026-09-08 13:00 EDT) —
+a separate track, not this lap. Account + feedback **watchers**. The `product-steward` seat and its
+charter. `qa-divergence --live`. The readiness parser bounded (**R5's falsifier FIRED** — bounding as
+literally written would have destroyed 11 real `stage-note` records). The plan-of-record repair. 34
+dead citations. The geocode's own instrumentation and `tools/read-geocodes.py`.
+
+### ⛔ SHIPPED KNOWINGLY WITH TWO DEFECTS
+`[paul-ruled: "ship as is, you're out of time"]`. Both in `estate/index.html`, both authored ~40
+minutes before the deploy, **both fixed in `4a3a61b` which is on `main`, unwalked, and therefore not
+shipped**: `isFinite(Number(null))` is `true` (so the predicate passed a half-coordinate and turned a
+null pair into *"Your place is set up"* — a regression on the test it replaced), and the owner guard
+reached **4 of 7** person-scoped reads. Merging `4a3a61b` and certifying it is lap 3's first item.
+
+### What the round proved, and how
+- **The garden gate credited by SUBSTITUTION, not absence** — two seats, two branches of one ternary,
+  lead lines byte-identical, only the instruction gone. Absence alone cannot tell *the gate works*
+  from *the rule never fired*.
+- **W0 certified by RECOMPUTATION** — coordinates matched to 11 decimals, 17/17 forecast values,
+  sunset exact three ways, against a Fernwood counterfactual **wrong by 55 minutes and 16°F**.
+- **A two-line change proved by a ZERO-PIXEL delta** across 14 screenshots.
+
+### Method notes worth keeping
+An **allow-list** of good states survives a writer changing its vocabulary; a **deny-list** of bad
+states silently stops matching (`walk-integrity`'s went dead while `release-gate`'s twin kept working).
+A **word list can only find badness someone already imagined** (a fix was nearly scored clean because
+*"check stressed plants by midday"* was on nobody's list). **Grep for the GUARD, not the symptom** — it
+found 12 garden sites where the report named 1, and a second `ZONES_DATA` writer. **A harness that
+under-serves the origin cannot see a whole class** — twice, the same day.
+
+### ⛔ Open at close, all recorded
+`4a3a61b` unwalked · `sun-horizon.json` wrong by 60 minutes at 18 `:00` entries (**Paul's own dashboard
+sunset tile**, and the lake's fishing windows) · every *"in N days"* countdown +1, and
+`Math.round(-0.5)===0` makes **yesterday render "Tonight"** · visibility fetched in feet, labelled km ·
+the 7-day rain window ending the day before yesterday · the door card's second-device timing hole
+(**and its comment overstates 3 ways, understates 2**) · `onboarding`'s *"what grows there"*
+`[paul-ruled: hold to next lap]` · the Open-Meteo proxy `[paul-approved, queued]` · the client-side
+gates uninstrumented.
+
+⚠️ **`strict` can certify none of a placed-household build** — it says so every run. **`wide-eyed`'s
+reason for existing is UNREACHED after 7 runs.** **"Please don't" has never been tapped by any seat.**
