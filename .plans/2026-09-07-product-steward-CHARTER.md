@@ -199,6 +199,47 @@ which is the one outcome R7 exists to prevent. Ledger:
 `.private/product-steward-ledger.json` — runtime state, gitignored, beside every other watcher state
 file in this repo.
 
+## 6a · How this seat's instruments MISGRADE — four shapes, all measured on 2026-09-07
+
+⭐ **A checker's failures are not random; they have shapes, and the shapes come in PAIRS.** All four
+below were found in one day, three of them in the seat's own tools, and each one was reported as a
+substantive finding before it was caught.
+
+| # | the misgrade | what it actually was | measured |
+|---|---|---|---|
+| **1** | *"cites a file that does not exist — the review is asserted"* | the path was **UNRESOLVABLE from this tree** — the private sibling, `~/.claude`, or a bare basename | 54 false citations in `product-steward --cite`; 19 more in `check-backlog-ready` |
+| **2** | *"onboarding never declares this key"* | the declaration was **UNPARSEABLE** — `K_[A-Z]+` cannot match `K_CONTACT_CHOSEN` | 5 false rows in `check-storage-keys` |
+| **3** | *"line past EOF"* | a bare basename **RESOLVED TO THE WRONG FILE** — `index.html:505` against the repo's 12-line root file | a wrong resolution dressed as a finding, which is worse than a miss |
+| **4** | ⭐ *"unknown provenance — the defect may predate today and merely have been invisible"* | it was **KNOWABLE**: `renderCelestial()` opens `if (!SITE_PLACED) return;`, so the path was unreachable before W0 | `engine/viewer.template.html:16469` · `:16453` |
+
+**1–3 share one rule** `[lane-A, 2026-09-07]`: **a checker that cannot parse or resolve something
+must not report it as a substantive failure.** Unresolvable is not missing; unparseable is not
+undeclared; a guess that is usually right is not a resolution. Only one member of each pair accuses
+the author.
+
+⛔ **AND 4 IS THE INVERSE, WHICH IS WHY IT HAS ITS OWN ROW** `[lane-A, 2026-09-07]`: *"you have been
+rightly refusing to call unparseable things broken. This was calling a knowable thing unknowable, and
+it is just as wrong, in the direction that looks like caution."* The seat over-generalised from a
+**real** instrument limit (pre-fix walks captured a median of 21 lines at stop 12, ceiling 33, against
+~180 after) to a claim about a **specific** defect the engine could settle in one grep. That is the
+same shape as reading a searched-negative as a finding — and it cost the record a wrong provenance
+that had to be retracted from Paul.
+
+⭐ **The test that separates them, and it is one question: CAN THIS BE KNOWN BY LOOKING?** If yes,
+look — hedging is not caution, it is an unmade measurement wearing caution's clothes. If no, say
+UNRESOLVABLE and name what would settle it. **Both halves are the same discipline; only the direction
+of the error differs.**
+
+### 6b · A check must never fail the thing it exists to protect
+
+The dangling-label shape (§ `tools/product-steward.py:shapes`) fires on *"Tuesday, September 1 — what
+you asked for:"* — **the acknowledgment ribbon's own title**, correct by design, its content in a
+sibling element. The transcript cannot tell that from a label with nothing after it, so the shape is
+graded 🟡 **REVIEW, never a failure**. Graded RED, the one surface built to tell Mom she was heard
+would fail every gate it ever met. Fail-open where the instrument genuinely cannot distinguish is
+this repo's existing posture (`rationalize-bench`): wrongly hiding a finding loses it silently;
+wrongly showing one costs a line in a report someone reads.
+
 ## 7 · The one-lap expiry, and what it takes to become a real seat
 
 ⛔ **R7 ruled a TRIAL FOR ONE LAP, not a team member.** This charter is therefore an **in-repo
