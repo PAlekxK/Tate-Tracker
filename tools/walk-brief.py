@@ -82,6 +82,19 @@ def brief(rundir):
             out.append("   SCREENSHOT: %s" % s["shot"])
     out.append("")
     out.append("=" * 78)
+    # The page's own errors, beside the screens — the objective record a reader could not otherwise
+    # see. Read from _view.json for runs recorded before journey-walk copied them into the transcript.
+    errs = rec.get("pageErrors")
+    if errs is None:
+        try:
+            v = json.load(open(os.path.join(rundir, "_view.json"), encoding="utf-8"))
+            errs = [c for c in (v.get("console") or []) if str(c).startswith("PAGEERROR:")]
+        except (OSError, ValueError):
+            errs = []
+    if errs:
+        out.append("⛔ THE PAGE THREW — a script error is a screen that could not finish drawing itself:")
+        for e in errs:
+            out.append("   %s" % e[:220])
     if rec.get("failedActions"):
         out.append("⛔ ACTIONS THAT DID NOT HAPPEN — the journey stopped short of what it intended:")
         for f in rec["failedActions"]:

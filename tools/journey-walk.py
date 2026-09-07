@@ -382,6 +382,20 @@ def main():
              "ONE account created" if a.fresh else "arriving on a token (no account created)"))
     got = view(url, acts, os.path.join(d, "final.png"), watch=a.watch, shot_dir=d)
     failed_all = got.get("failedActions") or []
+    # ⛔ A PAGE THAT THREW IS NOT A PAGE THAT WAS WALKED. journey-view has recorded every PAGEERROR into
+    # _view.json since it was built, and nobody read them: on 2026-09-06 four seats "walked" stop 12
+    # with zero failed actions while the app's main script had died on its first line — five spinners
+    # forever, no ranking, no name — and the cause sat in the run's own console record. A script
+    # error is an action the product could not take, so it counts as one.
+    page_errors = []
+    try:
+        _v = json.load(open(os.path.join(d, "_view.json"), encoding="utf-8"))
+        page_errors = [c for c in (_v.get("console") or []) if str(c).startswith("PAGEERROR:")]
+    except (OSError, ValueError):
+        pass
+    if page_errors:
+        record["pageErrors"] = page_errors
+        failed_all = list(failed_all) + ["pageerror — " + e[len("PAGEERROR:"):].strip()[:160] for e in page_errors]
     seen = {c["stop"]: c for c in got.get("checkpoints") or []}
 
     for name in STOP_NAMES:

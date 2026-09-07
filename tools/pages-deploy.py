@@ -92,6 +92,37 @@ def fetch(url, timeout=30):
         return f.status, f.read()
 
 
+def page_errors_on_load(export):
+    """Serve the export on a loopback port, load viewer.html headless via journey-view, count PAGEERRORs.
+    ⛔ UNCHECKABLE IS A REFUSAL, NOT A PASS: no browser → raise, never return 0."""
+    import http.server, socketserver, threading
+    class Quiet(http.server.SimpleHTTPRequestHandler):
+        def __init__(self, *a, **k): super().__init__(*a, directory=export, **k)
+        def log_message(self, *a, **k): pass
+    class QuietServer(socketserver.TCPServer):
+        allow_reuse_address = True
+        def handle_error(self, *a, **k): pass   # the browser resets connections it no longer needs
+    httpd = QuietServer(("127.0.0.1", 0), Quiet)
+    port = httpd.server_address[1]
+    t = threading.Thread(target=httpd.serve_forever, daemon=True); t.start()
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            js = os.path.join(tmp, "view.json")
+            r = run([sys.executable, os.path.join(HERE, "journey-view.py"),
+                     "http://127.0.0.1:%d/viewer.html" % port, "--shot", os.path.join(tmp, "s.png"), "--json", js])
+            if r.returncode != 0 or not os.path.exists(js):
+                raise SystemExit("pages-deploy: ⛔ UNCHECKABLE — could not load the built app headless "
+                                 "(journey-view rc=%s). Refusing rather than deploying unverified.\n%s"
+                                 % (r.returncode, (r.stderr or "")[-300:]))
+            errs = [c for c in (json.load(open(js, encoding="utf-8")).get("console") or [])
+                    if str(c).startswith("PAGEERROR:")]
+            for e in errs[:4]:
+                print("     %s" % e[:160])
+            return len(errs)
+    finally:
+        httpd.shutdown(); httpd.server_close()
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--env", required=True, choices=sorted(PROJECT))
@@ -234,6 +265,17 @@ def main():
                 raise SystemExit("pages-deploy: ⛔ REFUSING — %d file(s) in a HOUSEHOLD export name "
                                  "another household. Fix the surface or widen nothing." % len(bad))
             print("  household export is neutral — %d needle(s), zero hits" % len(needles))
+            # ⭐ THE GRADUATION DOUBLE-CHECK `[paul-stated 2026-09-06]`: "assumptions can be made on
+            # build paths if they're confident, but they need to be double checked before production
+            # deploy or QA deploy." The token sweep above reads the bytes; nothing ever LOADED them.
+            # On 2026-09-06 every neutral build died on its first script line (an unguarded coordinate
+            # read) and four seats walked the corpse. A headless load with zero page errors is the
+            # cheapest check there is, and it is wired into the act rather than listed in a document.
+            n_err = page_errors_on_load(export)
+            if n_err:
+                raise SystemExit("pages-deploy: ⛔ REFUSING — the built app throws %d page error(s) on "
+                                 "load. Fix the template; a deploy that ships a dead script ships nothing." % n_err)
+            print("  household app loads headless with zero page errors")
 
         stamp = {"sha": sha, "short": sha[:7], "branch": BRANCH[a.env], "env": a.env,
                  "subject": subject, "builtAt": time.strftime("%Y-%m-%dT%H:%M:%S%z"),

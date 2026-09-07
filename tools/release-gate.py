@@ -40,12 +40,23 @@ def head_sha():
     return r.stdout.strip() if r.returncode == 0 else ""
 
 
+def is_seat(path):
+    """A seat is a directory holding at least one RUN — a subfolder with a transcript.json.
+    ⛔ Measured 2026-09-06: `wide-eyed-2026-09-05-first/` holds one retrospective REPORT.md and no
+    run. Counted as a seat, it could never pass, so the gate could never go green and nothing said
+    why. A retained record is evidence (the two-classes ruling keeps it); it is not a seat."""
+    if not os.path.isdir(path):
+        return False
+    return any(os.path.exists(os.path.join(path, r, "transcript.json"))
+               for r in os.listdir(path) if os.path.isdir(os.path.join(path, r)))
+
+
 def seats():
     """⭐ DERIVED from what exists on disk, never a typed roster — the control this project has now
     been bitten by four times (check-storage-keys 3x, household-export's --env list)."""
     if not os.path.isdir(WALKS):
         return []
-    return sorted(d for d in os.listdir(WALKS) if os.path.isdir(os.path.join(WALKS, d)))
+    return sorted(d for d in os.listdir(WALKS) if is_seat(os.path.join(WALKS, d)))
 
 
 def runs_for(seat):
@@ -198,6 +209,14 @@ def selftest():
         v = judge(os.path.join(tmp, "nothing"), "a" * 7)
         bit = v["watched"][0] is None
         print("  %s M6 a missing transcript reads UNCHECKABLE, never pass" % ("✅" if bit else "🔴")); ok &= bit
+
+        # M7 — a folder with a REPORT.md and no run is a retained record, not a seat.
+        os.makedirs(os.path.join(tmp, "seatlike", "2026-01-01T000000"), exist_ok=True)
+        open(os.path.join(tmp, "seatlike", "2026-01-01T000000", "transcript.json"), "w").write("{}")
+        os.makedirs(os.path.join(tmp, "record-only"), exist_ok=True)
+        open(os.path.join(tmp, "record-only", "REPORT.md"), "w").write("second-hand")
+        bit = is_seat(os.path.join(tmp, "seatlike")) and not is_seat(os.path.join(tmp, "record-only"))
+        print("  %s M7 a record-only folder is NOT a seat; a folder with a run is" % ("✅" if bit else "🔴")); ok &= bit
 
     print("\n%s selftest" % ("✅" if ok else "🔴"))
     return 0 if ok else 1

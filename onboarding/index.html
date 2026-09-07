@@ -1070,6 +1070,12 @@
   // A screen you can see and cannot use is worse than one that fails to load. Caught by walking it.
   // ---- ACCOUNT CREATION ----
   var chosen = read(K_COLOR) || PALETTE[0].hex;
+  // ⛔ THE SWATCH SHOWN PRESSED MUST BE THE ONE THAT IS STORED. It used to show PALETTE[0] pressed
+  // while storing nothing, so `accent` posted as null and the place opened in the build default —
+  // "Stone" ringed on this screen, "Pine" ringed in Settings, green everywhere after. Four seats,
+  // four identical reports: "the sentence I was given — it's the one your place will open in — was
+  // not true of my walk." A default she can see is a choice she has made until she changes it.
+  if (!read(K_COLOR)) { store(K_COLOR, chosen); paintAccent(); }
   PALETTE.forEach(function (c) {
     var b = document.createElement("button");
     b.type = "button"; b.className = "swatch"; b.setAttribute("aria-pressed", String(c.hex === chosen));
