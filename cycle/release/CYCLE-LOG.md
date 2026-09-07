@@ -744,3 +744,28 @@ Make it flexible."*
   read the OLD sha once as current. → trigger: `pages-deploy --env qa` should poll the served sha
   (it says it cannot, behind Access — `qa_access.py` has the header) before returning; until then
   the procedure carries a sleep. Pre-registered for lap 2.
+
+### 11:00 ET (Sep 7) — `b0ce794` read by four seats: GATE ① 4 of 4; two of their findings fixed and back in the loop
+- `measured` — `release-gate.py --sha b0ce794`: **4 of 4 seats pass every clause**; UX clause
+  UNCHECKABLE as always. Every reader: NEW-AND-WAITING, and — their words — *calmer*, *finished, not
+  abandoned*, *"the first screen now makes one promise it can keep instead of three it cannot"*
+  (owner). Paul's ruling landed as stated on every seat's stop 12.
+- What they found on the new screen, and what happened to each:
+  · **the address wrapped as one run** ("Apt" stranded, "3B Roswell" jammed; "87 Quarry Hill Rd
+    Bangor,") — mom · wide-eyed · owner. **Fixed at `e0ed846`**: street / town on two lines, as 06
+    and 07 render it.
+  · **a box number gets a weather promise the receipt already withdrew** — strict, the seat that
+    exists to find it. **Fixed at `50f28ff`**: the box branch says where the post goes is not where
+    the place is, and asks for where it is.
+  · **"Open ▲" on a card that is already open** — all four. The label is static on every card in
+    the engine (Fernwood's convention since May); the arrow alone rotates. Not changed here — a
+    Fernwood-wide control, held for Paul.
+  · **the ranking is not echoed on the first screen** — mom · owner · wide-eyed ("Gardening first,
+    as you asked" would close it). Paul ruled 11:05 that preferences do not populate a card; whether
+    ONE clause may acknowledge the order is his — held.
+  · "what grows here" rings false for a balcony (mom); the voice shifts from "I" on 07 to "we" on 12
+    (owner); the name appears three times in one viewport (owner) — held for the copy pass.
+  · instrumentation: `jumpstrip_viewed` fires on a screen with no strip (strict · wide-eyed);
+    `walk-brief.py`'s text extractor misses the place card entirely, so a reader working from the
+    brief alone would not know it exists (mom · wide-eyed) — both pre-registered for lap 2.
+- `50f28ff` deployed to QA 11:00 ET, 25 s wait, four seats walking.
