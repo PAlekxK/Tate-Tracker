@@ -253,6 +253,46 @@ the section warning about it.
 examples.** Two files, two instruments, one day. The next reader should not have to rediscover it:
 when writing about a convention, either fence the example or write it so it cannot parse.
 
+### ⛔ A SEVENTH SHAPE, AND IT IS THE ONLY ONE NO INSTRUMENT HERE CAN CATCH — a GRADING is a claim too
+
+`[lane-D, 2026-09-07, brought directly]`. Shapes 1–6 are all **countable**: a checker or a re-read
+bites on them because there is a number to diff. This one has no number.
+
+**The worked instance** — lane D verified a defect on the sunset banner (`prod-sunset` `f0b6f25`,
+finding 3: `go.textContent` set in `arrive()` and never restored by `paint()`, so the guard's
+recovery path recovers the text but not the control) and graded it *"cosmetic · reachable only on the
+clock-anomaly path · self-heals at the real deadline."* Every clause was defensible. Lane E pushed
+back, lane D re-measured, and **two of the three were wrong in the same direction — toward *leave
+it***:
+
+| | the grading | what was actually true |
+|---|---|---|
+| **a** | *"reachable only on the anomaly path"* — an **absolute** probability, which is low | the decision-relevant number is **conditional**: P(defect \| the guard fires) = **1.0**, and the guard exists *because* the anomaly already happened once |
+| **b** | *"self-heals at the real deadline"* — **true** | it sat in a sentence that read as reassurance while omitting the **magnitude**: the heal is the *next* state transition, up to **24 hours** later on the realistic path |
+
+⚠️ **(a) HAS A DIRECTION, which is what makes it a shape rather than a slip:** an absolute
+probability where a conditional one is called for always makes a **certainty inside a rare branch**
+look like a rarity — so it always argues for inaction. It cannot err toward doing too much.
+
+⭐ **(b) is the sharper one and the durable form is lane A's: STATE THE WINDOW, NOT THE WORD.** A
+true adjective that omits its magnitude is not a lie and is not a measurement either.
+
+⛔ **WHY THIS CLASS SURVIVES WHERE 1–6 DIE.** A grading looks like *judgement*, not *measurement*, so
+nobody re-runs it: there is no number to diff, no tool that can bite, and **the author's own re-read
+slides over it because it still reads as reasonable.** Lane D caught its own countable error (a table
+header claiming seven `paul-approved` stamps where two were absent, `28a9115`) within the hour, on
+re-read. It says it would **not** have caught this one — *"it took a peer with a stake in the outcome
+disagreeing."*
+
+🟡 **A CANDIDATE HEURISTIC, AND IT IS DELIBERATELY NOT A CONTROL.** Lane D's proposal: *any adjective
+that licenses inaction — "cosmetic", "rare", "self-heals", "only on X", "edge case" — must carry its
+magnitude beside it; a grading with no number attached is the tell.* **Recorded at the grade lane D
+gave it and not promoted:** there is no evidence it generalises past today's three instances, and *a
+rule that fires on every cautious sentence would be worse than nothing.* It wants a real falsifier
+before anything is wired to it. **Writing it down at its own confidence is the point** — this corpus's
+measured leak is that an alternative considered and rejected never gets recorded, so the next reader
+re-proposes it.
+
 ⭐ **The test that separates them, and it is one question: CAN THIS BE KNOWN BY LOOKING?** If yes,
 look — hedging is not caution, it is an unmade measurement wearing caution's clothes. If no, say
 UNRESOLVABLE and name what would settle it. **Both halves are the same discipline; only the direction
