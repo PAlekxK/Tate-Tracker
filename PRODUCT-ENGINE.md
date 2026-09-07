@@ -321,7 +321,7 @@ is not a wall in front of the box; it is a step the box can request mid-conversa
 ### 🗳 PANEL RAN 2026-09-02 — three seats converged. **AT PAUL'S GATE; nothing is ruled.**
 
 Seats: `user-researcher` · `engineering-partner` · `ai-advisor`. Brief:
-`.plans/2026-09-02-estate-manager-scoping-brief.md`. `ux-expert` and `content-steward` **held** —
+`../fernwood-private/.plans/2026-09-02-estate-manager-scoping-brief.md`. `ux-expert` and `content-steward` **held** —
 copy is surface-coupled and shape depends on where the personalization boundary lands.
 
 ⭐⭐ **UNANIMOUS, from three independent lenses: do not build an estate-manager loop or owner
@@ -415,7 +415,7 @@ onward). If a claim here looks unsupported, `git log` before assuming it was inv
 
 | # | Step | Note |
 |---|---|---|
-| 1 | **Modularize the renderer** — standard engines, per-property data | The migration in `.plans/2026-09-02-data-model-design.md` |
+| 1 | **Modularize the renderer** — standard engines, per-property data | The migration in `../fernwood-private/.plans/2026-09-02-data-model-design.md` |
 | 2 | **Fernwood becomes Mom's profile** — she logs in and selects Fernwood from it | *"a great first step"* |
 | 3 | **Add her Atlanta condo** as the second property | Urban, gardenless, community-facing |
 
@@ -805,7 +805,7 @@ that can ship before her credential question is answered.
 ⭐⭐ **AND EITHER MAY BE TURNED OFF. That lands auth squarely in the divergence contract's `config`
 tier** — declared as data, per estate or per person, never a fork. It is not an engine property.
 
-⭐ **It also dissolves the sharpest objection on the table.** `.ux-reviews/2026-09-02-login-door-and-selector.md`
+⭐ **It also dissolves the sharpest objection on the table.** `../fernwood-private/.ux-reviews/2026-09-02-login-door-and-selector.md`
 holds that *the app must render its glance to completion with zero authorization round-trips* — the
 weather card is both of Mom's card opens since lap 4, and a lobby puts it behind a door. **With the
 entry password optional and hers OFF, her glance is never gated** while Bob's estate can require one.
@@ -842,7 +842,7 @@ The axis he has found is: **does this module belong to a PLACE, or to a PERSON?*
 | **finance** | **person** | not about a place at all |
 
 ⛔ **AND THIS CONTRADICTS A RULING FROM EARLIER THE SAME DAY, WHICH IS THE POINT OF SAYING SO.**
-`.plans/2026-09-02-data-model-design.md:153` records **"A MACHINE BELONGS TO THE ESTATE"**
+`../fernwood-private/.plans/2026-09-02-data-model-design.md` § *Whose is the fleet?* records **"A MACHINE BELONGS TO THE ESTATE"**
 `[paul-ratified 2026-09-02]`, chosen from three options — the rejected one was *"to a person, sited at
 an estate."* **He is now feeling the pull of the option he did not pick**, and that is a legitimate
 reason to revisit: the ruling was made on simplicity and accepted two consequences (his Bronco is
