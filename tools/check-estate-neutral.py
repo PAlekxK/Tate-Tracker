@@ -287,10 +287,27 @@ def main():
         #
         # ⚠️ OUTPUT ONLY. Exit codes are untouched: `pages-deploy.py:246` imports this module's
         # NEEDLES and walks the export itself, so nothing that gates a deploy changes here.
-        scanned = ", ".join((u if u else os.path.relpath(pg, ROOT)) for u, pg in targets)
-        print("\n✅ NO OTHER HOUSEHOLD IS NAMED IN WHAT THIS RUN SCANNED — and that is not the whole surface.")
-        print("   scanned (%d): %s" % (len(targets), scanned))
-        if not a.url:
+        def _show(u, pg):
+            if u:
+                return u
+            r = os.path.relpath(pg, ROOT)
+            return pg if r.startswith("..") else r        # an out-of-tree build reads as its own path
+        scanned = ", ".join(_show(u, pg) for u, pg in targets)
+        # ⛔ THE ⛔ MUST KNOW WHETHER IT WAS SATISFIED, and until 2026-09-07 it did not: the condition
+        # was `if not a.url`, so a run with `--page /tmp/<neutral build>` — THE INVOCATION THIS
+        # FOOTER TELLS PEOPLE TO USE — scanned the generated artifact and was then told it had not,
+        # and pointed back at the command it was already running. Found by lane F running it.
+        # ⚠️ The failure is worse than a wrong line: a warning that prints identically whether or not
+        # you did the right thing carries NO INFORMATION, and teaches the next reader to skip the
+        # block — landing them back at the original mistake with a louder tick above it. That is the
+        # same argument as keeping `—` out of the needle roster.
+        # ⭐ The signal needs no classifier: THE DEFAULT PAGE SET NEVER CONTAINS A BUILT VIEWER, so
+        # `--url` or an explicit `--page` being supplied at all is the whole test.
+        answered = bool(a.url) or a.page != PAGE
+        if answered:
+            print("   ✅ the generated file WAS answered for by: %s" % scanned)
+            print("      (the default set never contains a built viewer; you supplied one.)")
+        else:
             print("   ⛔ NOT scanned: `viewer.html` — generated per instance, excluded by design, and")
             print("      the file the 2026-09-07 leak was in. This run says NOTHING about it.")
             print("      Complete it, and neither is optional:")
