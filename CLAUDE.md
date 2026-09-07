@@ -14,7 +14,7 @@ python3 tools/instance-recipe.py --check   # INSTANCE-RECIPE.md still says what 
 python3 tools/check-public-build.py        # private-tier values in the PUBLIC build + the supplied-names NEEDLE row (exit 3 = UNCHECKABLE: the sibling is absent — never green by absence)
 python3 tools/build-library-index.py --check  # Guru 6a: the prose library index (7,330 chunks in KV) still matches its sources; says where it is LOADED (a fresh manifest with a stale KV is still possible)
 python3 tools/place-claims.py --check      # shared engine prose that claims a PLACE (engine/place-claims.json): red while any row is unclassified or the condo count grows [paul-stated 2026-09-04: track it systematically]
-python3 tools/check-qa-fixtures.py --check # no registered QA-only value at origin/main (tools/qa-fixtures.json; fails closed when missing)
+python3 tools/check-qa-fixtures.py --check # no QA-only value at origin/main. ⚠️ Reads INLINE `_qaFixture` markers in instance/*.json — the tools/qa-fixtures.json REGISTER was retired 2026-09-04 (dd0b08d); its absence is the design, not a fault to repair
 python3 tools/qa-divergence.py --check     # what QA has that the live Fernwood (Mom) does not — origin/main..origin/staging by surface class; a SURFACE commit no plan stage-note names is RED [paul-stated 2026-09-04: additions must be trackable]
 python3 tools/check-digest-fresh.py        # Garden Guru's digest vs source JSON
 python3 tools/check-mom-ack.py             # is the ack ribbon current, and did it ship?
@@ -39,6 +39,7 @@ python3 tools/read-mom-funnel.py --rotation # ⭐ WHICH CARD IS SHE ACTUALLY SEE
 python3 tools/read-onboarding.py --env qa  # ⭐ WHAT PEOPLE SAID WHILE SETTING UP — and ⭐ WHAT'S MISSING first: the only line where someone can name a need we never anticipated. Reports real · synthetic · unknown, and which RUN is authoritative
 python3 tools/walk-integrity.py            # ⭐ WHICH SYNTHETIC WALKS MAY BE COUNTED — refuses a run with an unwritten report, a stop that scored "walked" over its own `could not do`, a build that moved mid-walk, or seats that collapse to one input
 python3 tools/release-gate.py              # ⭐ HAS GATE ① BEEN PASSED AT HEAD — every seat walked THIS sha in Chrome, read its walk, zero failed actions (per-sha; evidence expires when the build moves). Production deploys call it and refuse
+python3 tools/product-steward.py           # ⭐ the citation-bound carrier's door — rulings nothing carries, the round's four seat reports, and the trial's own falsifier ledger (ONE-LAP TRIAL, R7→C; `.plans/2026-09-07-product-steward-CHARTER.md`)
 python3 tools/release-state.py             # ⭐ WHICH BEAT the release loop is on and WHOSE it is (derived; `beat.owner: paul` = a human gate is open) — `cycle/release/CYCLE-MAP.md`
 python3 tools/qa-behind.py                 # is QA serving HEAD? one line only when it is behind (the post-commit hook prints the same)
 python3 tools/check-estate-neutral.py      # ⭐ DOES A HOUSEHOLD SURFACE NAME ANOTHER HOUSEHOLD — 311 needles, species read FROM CANON; exit 3 = UNCHECKABLE (never green by absence). `--url` checks what an origin actually serves
