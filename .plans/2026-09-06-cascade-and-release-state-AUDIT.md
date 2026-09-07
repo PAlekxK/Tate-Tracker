@@ -12,7 +12,7 @@
 - depends-on: .plans/2026-09-05-release-cascade-tracking-PROPOSAL.md
 - depends-on: .plans/2026-09-06-user-feedback-cycle-PROPOSAL.md
 - ready: agent-proposed 2026-09-06 — **Paul rules**
-- stage: audit — ⚠️ **fourth file to need a word that does not exist.** `tools/check-backlog-ready.py:46`
+- kind: audit
   reads `STAGES = ["ready", "concept", "build", "qa", "shipped", "retro"]`. Two of the files that
   would turn today's work into a process (`2026-09-05-release-cascade-tracking-PROPOSAL.md`,
   `2026-09-05-journey-test-cycle-PROPOSAL.md`) are parked at `stage: draft`, also illegal, unruled
