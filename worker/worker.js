@@ -3362,8 +3362,11 @@ export default {
           // a home and anything derived from it. Named by SURFACE, each has a territory the other
           // never enters.
           if (typeof b.profileAccent === "string") grow.profileAccent = b.profileAccent.slice(0, 9);
-          try { await applyGeocode(env, sc, grow); } catch (e) {}   // W0 · same rule on the grant-only path
+          // Same ordering rule as the account branch above: durable first, enrichment after.
           await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
+          try {
+            if (await applyGeocode(env, sc, grow)) await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
+          } catch (e) {}
           return json({ ok: true, on: "grant", name: grow.placeName || null, accent: grow.accent || null,
                         coordinates: grow.coordinates || null });
         }
@@ -3385,11 +3388,26 @@ export default {
         if (b.addressParts && typeof b.addressParts === "object") acct.addressParts = b.addressParts;
         if (Array.isArray(b.ranked)) acct.ranked = b.ranked.slice(0, 20);
 
-        // W0 · the address just landed, so place it. Never blocks the save: a geocode that throws
-        // leaves the row exactly as the person typed it, and whoami retries on the next load.
-        try { await applyGeocode(env, sc, acct); } catch (e) {}
-
+        // ⛔ THE PERSON'S OWN WORDS ARE MADE DURABLE BEFORE ANYTHING SLOW HAPPENS, and the ordering
+        // here is the entire lesson of 2026-09-07. W0 first ran the geocode BETWEEN the assignment
+        // and this put — inserting a live call to a third-party geocoder into the critical path of a
+        // write. onboarding's saveProfile is deliberately fire-and-forget (`fetch(...).catch()`, no
+        // await), so the page advanced to s3 and the browser CANCELLED the request while the Worker
+        // was still waiting on Census. The address was never written.
+        //   MEASURED by the mom seat at 05f1830: the screen said "Got it — that's the address down."
+        //   and the account row had no address at all. Walks from 11:02, before W0, stored it fine.
+        //   That is capture lying, caused by making capture slow.
+        // ⭐ THE RULE: never put a network call between a person's input and the write that keeps it.
+        //   Geocoding is an ENRICHMENT of a stored fact, never a precondition for storing it.
         await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
+
+        // Now the slow part, on an already-durable row. If this is cancelled, killed or throws, the
+        // address survives and /api/grant/whoami's retry places the household on the next load.
+        try {
+          if (await applyGeocode(env, sc, acct)) {
+            await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
+          }
+        } catch (e) {}
         // ⭐ AND THE CALLER'S OWN GRANT IS REFRESHED IN THE SAME BREATH. The grant row is the
         // credential-shaped VIEW of the account, and it was only ever rebuilt at SIGN-IN — so
         // within the session that created the account, /api/grant/whoami still answered with the
