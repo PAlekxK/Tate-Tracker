@@ -421,6 +421,78 @@ would fail every gate it ever met. Fail-open where the instrument genuinely cann
 this repo's existing posture (`rationalize-bench`): wrongly hiding a finding loses it silently;
 wrongly showing one costs a line in a report someone reads.
 
+## 6c · WHERE THE FIX GOES — measured 3:1 across one afternoon
+
+Nine failure shapes are above. This is the only thing learned about **remedies**, and it is countable.
+
+**Three times the fix was in the OUTPUT OF THE THING BEING TRUSTED, not in a new thing to consult:**
+
+| | the trusted output | what it now says |
+|---|---|---|
+| 1 | `product-steward --round` | the SCOPE of its own evidence — which origin, and that QA green proves nothing about `home` |
+| 2 | `check-estate-neutral` success line | what it scanned, what it did **not**, and whether the generated file was answered for |
+| 3 | lane F's warning, written **at the fix site** rather than only in a report | the next reader meets it where the code is |
+
+**Once the fix was a NEW INSTRUMENT to consult, and it was reverted:** a `--sources` classifier
+telling a reader which checks read a build and which read an origin. It misclassified itself from a
+comment explaining what it greps for, misclassified a sibling-imported network read **in the
+flattering direction**, and its correction destroyed the one row that mattered.
+
+⭐ **Lane F's verdict on it is the general rule, and it is why the ratio is the finding:** *"a
+classifier wouldn't have saved me — the answer was in a comment in the file, in capitals, with the
+word 'optional' in it. I ran the form the pickup block prints and trusted the tick."* **A new
+instrument tells a reader something at the moment they are not reading. The output of the thing they
+already trust reaches them at the moment they are.**
+
+### ⭐ 6c.1 · A THIRD remedy shape — a fact handed over with no accusation attached
+
+`[lane-F, 2026-09-07, correcting this file's account of it]`. An earlier draft of §6d claimed *"this
+seat read `check-estate-neutral` and found lane F's 'all green' claim hollow."* **That is not what
+happened, and it was too generous to this seat.** What was actually sent was a general fact about the
+tool — *"the network path is opt-in, so a bare run is a claim about a local artifact"* — with no
+accusation and no reference to lane F's commit. **Lane F connected it to `fd77248` itself**, and what
+told it was the tool's own comment, in capitals, saying *"neither is optional."*
+
+⛔ **The accurate version is a better row, because it is a distinct remedy shape:** not *a second seat
+caught it*, and not *the author caught it* — **a peer handed over a fact with no accusation attached,
+and the author applied it to their own work.**
+
+⭐ **It is cheaper than review and it lands better.** This seat spent no time on lane F's commit at
+all; and the fact reached **the one person who knows which of their own claims depends on it**, which
+a reviewer would have had to discover. Review scales badly and accuses; a fact costs one sentence and
+accuses nobody.
+
+🟡 **A CANDIDATE FOURTH, at n=2 and not promoted** `[lane-F, 2026-09-07]`: **the record already
+contained the answer; the failure was not consulting it.** Both of today's instances are ours and
+neither cost anything — lane F read `9f7ecd6` instead of a summary of it; this seat re-read its own
+sent messages instead of accepting lane F's account of them, and found both attribution errors that
+way. Set against the two places the answer was *also* already written and walked past: the
+`--extract` comment saying *"neither is optional"*, and `check-estate-neutral`'s own capitals.
+**Neither of us re-derived anything; we both just read what was already written down.** ⚠️ Recorded
+at the grade lane D's heuristic got — un-evaluated, n=2, both from one afternoon and one pair of
+seats — because the alternative is that the next reader re-proposes it.
+
+### 6d · And the honest form of "a second seat caught it"
+
+⛔ **The asymmetric version — *"the fixes that landed clean are the ones a second seat ran"* — was
+this seat's, and lane F corrected it as too flattering to everyone else.** The symmetric version is
+true and more useful:
+
+> **Nobody had a clean run.** Lane F verified this seat **twice — one defect, one clean**
+> (`f41338b`'s footer fired on the correct invocation; `c6c7bf3` was clean, nothing found). Lane D
+> byte-diffed lane F's build and found two claims stated wider than the behaviour. Lane E's own
+> measurement went stale and lane D caught it; lane D's grading went soft and lane E caught it;
+> lane D's count and this seat's count were **both** re-derived rather than read.
+
+⚠️ **ONE CLEAN IN TWO IS THE HONEST RATE, and the row keeps it deliberately** `[lane-F, correcting an
+earlier draft of this row that recorded two defects in two]`. **If verification only ever found
+defects, "always get a second seat" would read as rhetoric.** A future reader can calibrate against
+one-in-two; they cannot calibrate against a claim that always pays.
+
+⭐ **The pattern is not that any one seat's work needed checking. It is that UNCHECKED work did not
+survive contact, whoever wrote it** — and the cheap thing that kept catching it was a second seat
+spending two minutes on someone else's claim **rather than re-deriving it from scratch**.
+
 ## 7 · The one-lap expiry, and what it takes to become a real seat
 
 ⛔ **R7 ruled a TRIAL FOR ONE LAP, not a team member.** This charter is therefore an **in-repo

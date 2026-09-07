@@ -17,7 +17,7 @@ Absence of a refusal is not a pass — a corpus with zero runs exits NONZERO her
 printing a clean line, because "nothing to refuse" and "nothing to count" are the same state and
 only one of them looks like success.
 """
-import argparse, glob, json, os, sys
+import argparse, glob, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WALKS = os.path.join(ROOT, ".private", "synthetic-walks")
@@ -49,9 +49,18 @@ def verdict(rundir):
     out["build"] = (rec.get("buildBefore") or "")[:7] or None
 
     # R1 · the walker never wrote the experiential half. The whole reason a seat exists.
+    # ⛔ THE MARKER MUST BE DISCUSSABLE IN THE DOCUMENT IT GOVERNS. A bare substring match scored a
+    # report that QUOTES the marker while explaining it as unwritten — a trap a reader hit on
+    # 2026-09-07 and noticed only by running the check. Occurrences inside `backticks` or on a `>`
+    # blockquote line are a seat TALKING ABOUT the marker; the placeholder itself is neither.
+    def _placeholder_present(text):
+        stripped = re.sub(r"`[^`]*`", "", text)
+        stripped = "\n".join(l for l in stripped.splitlines() if not l.lstrip().startswith(">"))
+        return MARKER in stripped
+
     rpath = os.path.join(rundir, "REPORT.md")
     try:
-        if MARKER in open(rpath, encoding="utf-8").read():
+        if _placeholder_present(open(rpath, encoding="utf-8").read()):
             out["refusals"].append(("report-unwritten", "REPORT.md still carries " + MARKER))
     except OSError:
         out["refusals"].append(("report-missing", "no REPORT.md beside the transcript"))
@@ -84,8 +93,36 @@ def verdict(rundir):
                                 "the transcript predates build recording — no origin, no sha, "
                                 "no mid-walk-deploy verdict, so nothing about it can be checked"))
 
+    # ⛔ R5 · THE RUN HIT A 429. This is the refusal that could not fire before 2026-09-07: R4 below
+    # reads a PER-STOP status, `journey-walk.py:423` hardcodes every stop `"walked"`, and nothing
+    # anywhere writes `"rate-limited"`. The guard was real, its selftest was green, and **no walk
+    # this harness has ever produced could trip it** — the fixture asserted a state the writer cannot
+    # emit. Measured at `34cb103`: 3 of 4 seats carried `rateLimited: True` with every stop reading
+    # `walked`, and the gate would have certified them for a production build.
+    #
+    # ⚠️ IT REFUSES THE RUN, NOT A STOP, AND THAT IS THE HONEST LEVEL. `rateLimited` is computed over
+    # the whole of one continuous journey's stdout (`journey-walk.py:120`), and `_view.json`'s console
+    # carries the 429 lines with **no timestamps and no interleaving with the CHECKPOINT lines** — so
+    # which stop was hit is NOT DERIVABLE from what is recorded. Marking every stop rate-limited
+    # would refuse runs that are mostly good and would assert something the record cannot support;
+    # marking none was the bug. Refusing the run says exactly what is known.
+    # → to make it per-stop, the console would have to be recorded interleaved with checkpoints, or
+    #   a 429 read taken at each checkpoint. Neither exists today; this is stated, not assumed.
+    if rec.get("rateLimited") is True:
+        out["refusals"].append(("rate-limited",
+                                "the origin returned 429 during this walk; which stop is not derivable"))
+
     # R4 · a stop that never ran is not a stop that passed.
-    bad = [s.get("stop") for s in (rec.get("stops") or []) if s.get("status") in ("error", "rate-limited")]
+    # ⛔ THE PREDICATE WAS A DENY-LIST AND IT WENT DEAD. It named `("error", "rate-limited")` — and
+    # measured across all 131 runs, the writer has emitted exactly `walked` (1522), `not-reachable`
+    # (7), `not-reached` (4) and `None` (6). **Neither value R4 rejected has ever been written.**
+    # `release-gate.py`'s equivalent clause names the values it ACCEPTS — `not in ("walked",
+    # "skipped", "n/a")` — and kept working through the same vocabulary change, catching all 10.
+    # ⭐ AN ALLOW-LIST OF GOOD STATES SURVIVES A WRITER CHANGING ITS VOCABULARY; A DENY-LIST OF BAD
+    # STATES SILENTLY STOPS MATCHING. Flipped to the allow-list, which also aligns the two tools —
+    # they disagreed about `not-reached`, and only one of them was refusing it.
+    bad = [s.get("stop") for s in (rec.get("stops") or [])
+           if s.get("status") not in ("walked", "skipped", "n/a")]
     if bad:
         out["refusals"].append(("stops-did-not-complete", ", ".join(str(b) for b in bad)))
     return out
@@ -172,11 +209,41 @@ def selftest():
         check("R3 · an unverifiable build refuses the run",
               any(k == "build-unverifiable" for k, _ in verdict(d)["refusals"]))
 
+        # ⛔ THE OLD FIXTURE HAND-WROTE `status: "rate-limited"`, WHICH NO WRITER EMITS. It proved the
+        # refusal against a state `journey-walk.py:423` cannot produce — green, real, and unable to
+        # fire on any run this harness has ever made. Measured 2026-09-07: 3 of 4 seats at `34cb103`
+        # carried `rateLimited: True` with every stop reading `walked`. **A fixture that asserts a
+        # state the writer cannot emit tests the fixture.** Both clauses below now use the shape the
+        # writer ACTUALLY produces: run-level `rateLimited`, per-stop `walked`.
         rl = json.loads(json.dumps(clean))
-        rl["stops"] = [{"stop": "05", "status": "rate-limited", "screen": "429"}]
+        rl["rateLimited"] = True                     # exactly what journey-walk records
+        rl["stops"] = [{"stop": "05", "status": "walked", "screen": "ok"}]   # exactly what it writes
         d = mk("rl", "R1", rl, "# written\n")
-        check("R4 · a rate-limited stop refuses the run",
+        check("R5 · a run the origin 429'd is refused, in the shape the writer really emits",
+              any(k == "rate-limited" for k, _ in verdict(d)["refusals"]))
+
+        ok_run = json.loads(json.dumps(clean))
+        ok_run["rateLimited"] = False
+        ok_run["stops"] = [{"stop": "05", "status": "walked", "screen": "ok"}]
+        d = mk("rlok", "R1", ok_run, "# written\n")
+        check("  and a run that was NOT rate-limited is not refused for it",
+              not any(k == "rate-limited" for k, _ in verdict(d)["refusals"]))
+
+        # R4 keeps its own clause — a per-stop status a FUTURE writer may emit.
+        r4 = json.loads(json.dumps(clean))
+        r4["stops"] = [{"stop": "05", "status": "error", "screen": "boom"}]
+        d = mk("r4", "R1", r4, "# written\n")
+        check("R4 · a stop that did not complete still refuses the run",
               any(k == "stops-did-not-complete" for k, _ in verdict(d)["refusals"]))
+
+        # ⛔ THE MARKER MUST BE DISCUSSABLE IN THE DOCUMENT IT GOVERNS.
+        d = mk("quoted", "R1", json.loads(json.dumps(clean)),
+               "# written\n\nI checked that my report does not still say `" + MARKER + "`.\n")
+        check("a report that QUOTES the unwritten-marker is not scored unwritten",
+              not any(k == "report-unwritten" for k, _ in verdict(d)["refusals"]))
+        d = mk("placeholder", "R1", json.loads(json.dumps(clean)), MARKER + "\n")
+        check("  and the bare placeholder still refuses",
+              any(k == "report-unwritten" for k, _ in verdict(d)["refusals"]))
 
         legacy = json.loads(json.dumps(clean)); legacy.pop("contaminated"); legacy.pop("buildBefore")
         d = mk("legacy", "R1", legacy, "# written\n")

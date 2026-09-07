@@ -91,7 +91,14 @@ def judge(run_dir, sha):
         out["countable"] = (False, "no REPORT.md")
     else:
         body = open(rpath, encoding="utf-8", errors="replace").read()
-        out["countable"] = (UNWRITTEN not in body, "unread" if UNWRITTEN in body else "read")
+        # ⛔ THE MARKER MUST BE DISCUSSABLE IN THE DOCUMENT IT GOVERNS — a bare substring match
+        # scored a report that QUOTES the marker while explaining it as unwritten (found
+        # 2026-09-07). Occurrences inside `backticks` or on a `>` blockquote line are a seat TALKING
+        # ABOUT the marker, not the placeholder. Same fix as `walk-integrity.py`.
+        import re as _re
+        _clean = _re.sub(r"`[^`]*`", "", body)
+        _clean = "\n".join(l for l in _clean.splitlines() if not l.lstrip().startswith(">"))
+        out["countable"] = (UNWRITTEN not in _clean, "unread" if UNWRITTEN in _clean else "read")
 
     stops = t.get("stops") or []
     bad = [s for s in stops if s.get("status") not in ("walked", "skipped", "n/a")]
@@ -104,6 +111,18 @@ def judge(run_dir, sha):
 
     if t.get("contaminated"):
         out["uncontaminated"] = (False, "run marked contaminated")
+
+    # ⛔ THE GATE READ NO RATE-LIMIT SIGNAL AT ALL, and this is the instrument that certifies a build
+    # for production. Measured 2026-09-07 at `34cb103`: 3 of 4 seats carried `rateLimited: True`
+    # while every stop read `walked`, so all four clauses above were satisfiable and the gate would
+    # have passed three contaminated walks. `walk-integrity.py` owns the refusal; this reads the same
+    # field rather than minting a second opinion about it.
+    # ⚠️ RUN-LEVEL, because that is the level the record supports: `_view.json`'s console carries the
+    # 429 lines with no timestamps and no interleaving with the CHECKPOINT lines, so which stop was
+    # hit is not derivable.
+    out["not-rate-limited"] = (not t.get("rateLimited"),
+                               "the origin returned 429 during this walk" if t.get("rateLimited")
+                               else "no 429 recorded")
 
     # ⭐ `instrumented` `[paul-stated 2026-09-06]`: "for everything that we do and see and observe that
     # we're capturing on the user side, there needs to also be as much as possible instrumentation on
@@ -128,6 +147,7 @@ CLAUSES = [
     ("watched", "driven in visible Chrome  (\"gone through it in Chrome\")"),
     ("countable", "the seat READ its own walk  (\"documented their experiences\")"),
     ("no-failed-actions", "zero failed actions  (\"until it no longer fails\")"),
+    ("not-rate-limited", "the origin did not 429 during the walk  (a throttled walk is not a walk)"),
 ]
 
 
@@ -223,6 +243,23 @@ def selftest():
         v = mk(os.path.join(tmp, "othersha"), dict(base, buildBefore="b" * 40, buildAfter="b" * 40))
         print("  %s M4 a run at ANOTHER build → 'at-sha' goes red (evidence expires)" % ("✅" if v["at-sha"][0] is False else "🔴"))
         ok &= v["at-sha"][0] is False
+
+        # ⛔ M7a/M7b · THE RATE-LIMIT CLAUSE, in the shape the writer really emits: run-level
+        # `rateLimited`, per-stop `walked`. The old walk-integrity fixture hand-wrote a per-stop
+        # `"rate-limited"` status that `journey-walk.py:423` cannot produce, which is why an
+        # equivalent guard was green and unable to fire for the life of the harness.
+        v = mk(os.path.join(tmp, "ratelimited"), dict(base, rateLimited=True))
+        bit = v["not-rate-limited"][0] is False
+        print("  %s M7a a run the origin 429'd fails the gate (run-level, as recorded)" % ("✅" if bit else "🔴")); ok &= bit
+        v = mk(os.path.join(tmp, "notlimited"), dict(base, rateLimited=False))
+        bit = v["not-rate-limited"][0] is True
+        print("  %s M7b a run with no 429 passes that clause" % ("✅" if bit else "🔴")); ok &= bit
+
+        # M7c · the marker must be discussable in the report it governs
+        v = mk(os.path.join(tmp, "quotesmarker"), base,
+               "I checked my report no longer says `" + UNWRITTEN + "`.")
+        bit = v["countable"][0] is True
+        print("  %s M7c a report QUOTING the unwritten-marker is not scored unread" % ("✅" if bit else "🔴")); ok &= bit
 
         v = mk(os.path.join(tmp, "moved"), dict(base, buildAfter="c" * 40))
         bit = v["at-sha"][0] is False and "moved mid-walk" in v["at-sha"][1]

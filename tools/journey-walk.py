@@ -261,15 +261,27 @@ def selftest():
     check("the journey crosses the handoff", "click:#gohome" in fresh,
           "nothing clicks #gohome, so no seat is ever a signed-in reader")
 
-    # 5 · the status derivation the old harness lacked, which scored every stop 'walked'
-    for got, want in ((   {"failedActions": ["click:#go3 — timeout"], "rateLimited": False}, "incomplete"),
-                      (   {"failedActions": None, "rateLimited": True},                     "rate-limited"),
-                      (   {"failedActions": None, "rateLimited": False, "error": "boom"},   "error"),
-                      (   {"failedActions": None, "rateLimited": False},                    "walked")):
-        f = got.get("failedActions") or []
-        st = "error" if got.get("error") else ("incomplete" if f else
-             ("rate-limited" if got.get("rateLimited") else "walked"))
-        check("status(%s)" % want, st == want, "got %r" % st)
+    # 5 · ⛔ THIS CLAUSE TESTED AN EXPRESSION WRITTEN INSIDE ITSELF. It computed `st` from a literal
+    #     dict and asserted its own arithmetic — a derivation THIS FILE DOES NOT PERFORM. The writer
+    #     at :423 hardcodes `"status": "walked"`, and measured across all 131 recorded runs the only
+    #     per-stop statuses ever written are `walked` (1522), `not-reachable` (7), `not-reached` (4)
+    #     and `None` (6). `"error"` and `"rate-limited"` have NEVER been emitted — while
+    #     `walk-integrity` carried a refusal keyed on exactly those two words and a green selftest
+    #     that hand-wrote them. The fake tested the fake, in two files at once.
+    #
+    #     ⭐ WHAT REPLACES IT is the property that actually holds end to end: the run-level
+    #     `rateLimited` this file DOES record must reach the tools that refuse on it. Asserted
+    #     against the real readers rather than against a literal.
+    import importlib.util as _ilu
+    for _name, _mod in (("walk-integrity", "wi"), ("release-gate", "rg")):
+        _p = os.path.join(ROOT, "tools", _name + ".py")
+        if not os.path.exists(_p):
+            check("%s exists to consume rateLimited" % _name, False, "missing")
+            continue
+        _s = _ilu.spec_from_file_location(_mod, _p); _m = _ilu.module_from_spec(_s); _s.loader.exec_module(_m)
+        check("%s refuses a run this file records as rateLimited" % _name,
+              "rateLimited" in open(_p, encoding="utf-8").read(),
+              "the field this walker writes is read by nobody, so the refusal cannot fire")
 
     # 6 · the shared-screenshot contamination
     import subprocess as sp
@@ -420,6 +432,14 @@ def main():
                                     "why": "the journey did not get this far; see the earlier failure"})
             print("  %-14s   ---   ⛔ NOT REACHED" % name)
             continue
+        # ⚠️ `status` HERE MEANS "THE CHECKPOINT WAS REACHED", NOT "THE STOP SUCCEEDED", and it is a
+        # literal because nothing per-stop is measured: one continuous journey produces one stdout,
+        # so `failedActions` and `rateLimited` are RUN-LEVEL facts (:120) and cannot be attributed to
+        # a stop — `_view.json`'s console carries the 429 lines with no timestamps and no
+        # interleaving with the CHECKPOINT lines. Run-level outcomes live at the top of the
+        # transcript and the readers refuse on them there. ⛔ Do not read this literal as a
+        # derivation; it was mistaken for one, and a refusal keyed on `"rate-limited"` sat green and
+        # unfirable for the life of the harness because of it.
         record["stops"].append({"stop": name, "status": "walked", "screenId": cp.get("screen"),
                                 "title": cp.get("title"), "shot": cp.get("shot"),
                                 "url": cp.get("url"),
