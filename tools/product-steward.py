@@ -117,30 +117,73 @@ def gate_module():
 
 
 # ── citations ──────────────────────────────────────────────────────────────────
-def resolve_target(target, index=None):
-    """→ (path|None, state). state ∈ ok · missing · ambiguous.
+def search_roots():
+    """Every tree a citation in this repo may legitimately point into.
 
-    ⚠️ An unqualified basename is AMBIGUOUS, not resolved-by-guess. `worker.js` appears 63 times as a
-    citation target across the register and lives at `worker/worker.js`; guessing is right there and
-    wrong the first time two files share a name. A guess that is usually right is the shape this repo
-    has paid for repeatedly, so a tie reports 🟡 and names the candidates."""
+    ⛔ WORKTREE-CORRECT BY CONSTRUCTION, and that is not a detail. A sibling citation written
+    `../fernwood-private/…` resolves relative to the PROCESS's cwd, so the same file grades one way
+    from `~/Developer/Tate-Tracker` and another from a worktree — lane D measured 4 false flags from
+    exactly that in `check-backlog-ready.py` on 2026-09-07. The sibling is located from
+    `git rev-parse --git-common-dir`, whose dirname is the MAIN worktree whatever tree you run in."""
+    roots = [ROOT]
+    common = git("rev-parse", "--path-format=absolute", "--git-common-dir").strip()
+    main = os.path.dirname(common) if common else ""
+    for base in filter(None, {os.path.dirname(ROOT), os.path.dirname(main) if main else ""}):
+        sib = os.path.join(base, "fernwood-private")
+        if os.path.isdir(sib):
+            roots.append(sib)
+    portfolio = os.path.expanduser("~/.claude")
+    if os.path.isdir(portfolio):
+        roots.append(portfolio)
+    return roots
+
+
+def resolve_target(target, index=None):
+    """→ (path|None, state). state ∈ ok · dead · ambiguous · unresolvable.
+
+    ⛔ THREE FAILURE STATES, NOT ONE, and the distinction is the whole point
+    `[lane-A rule, 2026-09-07]`: **a citation checker that cannot resolve a path must report
+    UNRESOLVABLE, never "asserted-but-missing." Those are different claims and only one of them
+    accuses the author.**
+
+      · `dead`         — the target names a DIRECTORY inside a tree this checker searches, and there
+                         is no such file. A real defect with a location.
+      · `ambiguous`    — a bare basename matching more than one tracked file. 🟡, never resolved by
+                         guess. `worker.js` is cited 63 times and lives at `worker/worker.js`.
+      · `unresolvable` — a bare basename this checker has no root for (a portfolio memory, an agent
+                         foundation, a file that moved to a tree it cannot see). NOT a finding, and
+                         NOT green either.
+
+    ⚠️ A BARE BASENAME NEVER RESOLVES TO A ROOT-LEVEL FILE WHEN OTHERS SHARE ITS NAME. Measured
+    2026-09-07: `index.html:505` was resolving to the repo's 12-line root `index.html` and reporting
+    "line past EOF" against an author who plainly meant `onboarding/index.html` — a WRONG resolution
+    dressed as a finding, which is worse than a miss."""
     if target.startswith("~") or os.path.isabs(target):
         full = os.path.normpath(os.path.expanduser(target))
-        return (full, "ok") if os.path.exists(full) else (None, "missing")
-    direct = os.path.normpath(os.path.join(ROOT, target))
-    if os.path.exists(direct) and os.path.isfile(direct):
-        return direct, "ok"
-    base = os.path.basename(target)
+        return (full, "ok") if os.path.exists(full) else (None, "unresolvable")
     if index is None:
         index = {}
         for p in tracked():
             index.setdefault(os.path.basename(p), []).append(p)
+    base = os.path.basename(target)
+    bare = "/" not in target.strip("./")
+    if bare and len(index.get(base, [])) > 1:
+        return None, "ambiguous"
+    for root in search_roots():
+        direct = os.path.normpath(os.path.join(root, target))
+        if os.path.isfile(direct):
+            return direct, "ok"
     hits = index.get(base, [])
-    if len(hits) == 1:
+    if len(hits) == 1 and bare:
         return os.path.join(ROOT, hits[0]), "ok"
     if len(hits) > 1:
         return None, "ambiguous"
-    return None, "missing"
+    # Does the target name a directory this checker actually searches? If yes, its absence is a
+    # DEAD citation. If no, this checker simply cannot see where it points.
+    head = target.split("/", 1)[0].lstrip(".")
+    if not bare and any(os.path.isdir(os.path.join(r, target.split("/", 1)[0])) for r in search_roots()):
+        return None, "dead"
+    return None, "unresolvable"
 
 
 def check_citations(paths):
@@ -148,17 +191,17 @@ def check_citations(paths):
     index = {}
     for p in tracked():
         index.setdefault(os.path.basename(p), []).append(p)
-    rows, counts = [], {"ok": 0, "missing": 0, "ambiguous": 0, "past-eof": 0}
+    rows, counts = [], {"ok": 0, "dead": 0, "ambiguous": 0, "unresolvable": 0, "past-eof": 0}
     for src in paths:
         if not os.path.exists(src):
-            rows.append((src, 0, "?", "unreadable", "the citing file does not exist"))
-            counts["missing"] += 1
+            rows.append((src, 0, "?", "dead", "the citing file does not exist"))
+            counts["dead"] += 1
             continue
         try:
             lines = open(src, encoding="utf-8", errors="replace").read().splitlines()
         except Exception as e:
-            rows.append((src, 0, "?", "unreadable", str(e)))
-            counts["missing"] += 1
+            rows.append((src, 0, "?", "dead", str(e)))
+            counts["dead"] += 1
             continue
         for i, line in enumerate(lines, 1):
             for m in CITE_PAT.finditer(line):
@@ -166,15 +209,18 @@ def check_citations(paths):
                 path, state = resolve_target(tgt, index)
                 if state != "ok":
                     counts[state] += 1
-                    rows.append((src, i, "%s:%d" % (tgt, ln), state,
-                                 "no such file" if state == "missing" else
-                                 "basename matches %d tracked files" % len(index.get(os.path.basename(tgt), []))))
+                    why = {"dead": "no such file in any tree this checker searches",
+                           "ambiguous": "basename matches %d tracked files"
+                                        % len(index.get(os.path.basename(tgt), [])),
+                           "unresolvable": "not in this repo, the private sibling or ~/.claude — "
+                                           "UNRESOLVABLE here, which is not the same claim as missing"}[state]
+                    rows.append((src, i, "%s:%d" % (tgt, ln), state, why))
                     continue
                 try:
                     n = sum(1 for _ in open(path, encoding="utf-8", errors="replace"))
                 except Exception as e:
-                    counts["missing"] += 1
-                    rows.append((src, i, "%s:%d" % (tgt, ln), "unreadable", str(e)))
+                    counts["dead"] += 1
+                    rows.append((src, i, "%s:%d" % (tgt, ln), "dead", str(e)))
                     continue
                 if ln > n or ln < 1:
                     counts["past-eof"] += 1
@@ -184,20 +230,100 @@ def check_citations(paths):
     return rows, counts
 
 
-def cmd_cite(paths, quiet=False):
+MARKS = {"dead": "🔴", "past-eof": "🔴", "ambiguous": "🟡", "unresolvable": "⬜"}
+
+# A POINTER is a bare path with NO line number. ⛔ It is NOT a citation and is never counted as one:
+# the charter's bound is `file:line`, and a pointer cannot locate a ruling. It is checked under its
+# own name because a pointer that has gone dead is still a real defect — lane D found ~10 dead
+# `.user-research/2026-09-02-estate-manager-scoping.md` pointers by hand on 2026-09-07, and `--cite`
+# structurally could not see one of them. An instrument that cannot find what a human already found
+# is worth saying so out loud rather than reporting a clean line.
+POINTER_PAT = re.compile(r"(?<![\w/:])((?:\.{0,2}/)?(?:[A-Za-z0-9_.-]+/)+[A-Za-z0-9_.-]+"
+                         r"\.(?:md|py|json|html|js|mjs|toml|sh|yml))(?![\w/:])")
+
+
+def ever_existed(path):
+    """Did this path EVER exist in this repo's history? The discriminator that separates a pointer
+    that has GONE DEAD from one that was never alive.
+
+    ⛔ MEASURED 2026-09-07, and it is the difference between an instrument and an accusation: the
+    first pointer sweep reported **127 dead**. `git log --all` says **0 commits** ever touched
+    `tools/catchup-ledger.py`, `tools/freeze.py`, `tools/estate-export.py` or
+    `.plans/2026-09-06-path-estate-read-and-tenancy.md` — they are things a plan PROPOSES to build,
+    not things that vanished. Reporting a forward reference as a defect would have sent a reader
+    hunting 120-odd files that were never supposed to be there."""
+    return bool(git("log", "--all", "--oneline", "-1", "--", path).strip())
+
+
+def check_pointers(paths):
+    index = {}
+    for p in tracked():
+        index.setdefault(os.path.basename(p), []).append(p)
+    rows, counts = [], {"ok": 0, "moved-or-deleted": 0, "not-yet-built": 0,
+                        "ambiguous": 0, "unresolvable": 0}
+    for src in paths:
+        if not os.path.isfile(src):
+            continue
+        for i, line in enumerate(open(src, encoding="utf-8", errors="replace").read().splitlines(), 1):
+            for m in POINTER_PAT.finditer(line):
+                tgt = m.group(1)
+                _, state = resolve_target(tgt, index)
+                if state == "dead":
+                    state = "moved-or-deleted" if ever_existed(tgt) else "not-yet-built"
+                counts[state] = counts.get(state, 0) + 1
+                if state != "ok":
+                    rows.append((src, i, tgt, state))
+    return rows, counts
+
+
+def cmd_pointers(paths):
+    """The POINTER sweep — bare paths with no line number. Named and counted apart from citations."""
+    if not paths:
+        print("🔴 UNCHECKABLE: no file given.")
+        return 3
+    rows, c = check_pointers(paths)
+    dead = [r for r in rows if r[3] == "moved-or-deleted"]
+    fwd = [r for r in rows if r[3] == "not-yet-built"]
+    print("pointer sweep — bare paths, NO line number (⛔ these are not citations)\n")
+    print("  🔴 GONE DEAD — the path existed in this repo's history and does not exist now:")
+    for src, i, tgt, _ in sorted(dead):
+        print("     %s:%d  →  %s" % (os.path.relpath(src, ROOT), i, tgt))
+    if not dead:
+        print("     none")
+    print("\n  ✅ resolves %d   🔴 gone dead %d   ⬜ never existed (a plan proposing it) %d"
+          "   ⬜ unresolvable %d   🟡 ambiguous %d"
+          % (c["ok"], c["moved-or-deleted"], c["not-yet-built"],
+             c.get("unresolvable", 0), c.get("ambiguous", 0)))
+    print("  ⬜ NEVER EXISTED IS NOT A DEFECT. `git log --all` says no commit ever touched it, so it")
+    print("     is a FORWARD REFERENCE — a plan naming the tool it proposes to build. Reporting one")
+    print("     as dead sends a reader hunting a file that was never supposed to be there.")
+    print("  ⬜ UNRESOLVABLE means outside this repo, the private sibling and ~/.claude. Not a")
+    print("     finding, not a pass — a different claim from \"the file is missing\".")
+    return 1 if dead else 0
+
+
+def cmd_cite(paths, quiet=False, strict=False):
+    """`strict` — for the seat's OWN writes, where an unresolvable citation is not good enough:
+    the charter says it may write nothing it cannot cite, and "I cannot check this" is not a cite.
+    Off (the default) for scanning somebody else's corpus, where ⬜ is a report, not an accusation."""
     if not paths:
         print("🔴 UNCHECKABLE: no file given. Refusing to grade nothing.")
         return 3
     rows, c = check_citations(paths)
-    bad = [r for r in rows if r[3] != "ok"]
+    bad = [r for r in rows if r[3] in ("dead", "past-eof")]
+    soft = [r for r in rows if r[3] in ("ambiguous", "unresolvable")]
     total = sum(c.values())
     if not quiet:
         print("citation bound — %d citation(s) across %d file(s)\n" % (total, len(paths)))
-        for src, i, cite, state, why in bad:
-            mark = "🟡" if state == "ambiguous" else "🔴"
-            print("  %s %s:%d  →  %s  — %s" % (mark, os.path.relpath(src, ROOT), i, cite, why))
-        print("\n  ✅ resolves %d   🔴 file missing %d   🔴 line past EOF %d   🟡 ambiguous %d"
-              % (c["ok"], c["missing"], c["past-eof"], c["ambiguous"]))
+        for src, i, cite, state, why in bad + soft:
+            print("  %s %s:%d  →  %s  — %s" % (MARKS[state], os.path.relpath(src, ROOT), i, cite, why))
+        print("\n  ✅ resolves %d   🔴 dead %d   🔴 line past EOF %d   🟡 ambiguous %d   ⬜ unresolvable %d"
+              % (c["ok"], c["dead"], c["past-eof"], c["ambiguous"], c["unresolvable"]))
+        if c["unresolvable"]:
+            print("  ⬜ UNRESOLVABLE IS NOT A FINDING AND NOT A PASS. It means the target is outside")
+            print("     this repo, the private sibling and ~/.claude — so this checker cannot see")
+            print("     where it points. That is a different claim from \"the file is missing\", and")
+            print("     only one of them accuses the author.")
     if total == 0:
         if not quiet:
             print("\n🔴 UNCHECKABLE: not one `file:line` citation found. A write with no citation is\n"
@@ -205,11 +331,18 @@ def cmd_cite(paths, quiet=False):
         return 3
     if bad:
         if not quiet:
-            print("\n🔴 %d citation(s) do not resolve. Under the charter these are DEFECTS WITH A\n"
-                  "   LOCATION, not judgment calls — fix the citation or withdraw the write." % len(bad))
+            print("\n🔴 %d citation(s) are DEAD or past EOF. Under the charter these are DEFECTS WITH\n"
+                  "   A LOCATION, not judgment calls — fix the citation or withdraw the write." % len(bad))
+        return 1
+    if strict and soft:
+        if not quiet:
+            print("\n🔴 STRICT: %d citation(s) could not be VERIFIED (ambiguous or unresolvable).\n"
+                  "   For the seat's own writes that is not good enough — \"I cannot check this\" is\n"
+                  "   not a citation. Qualify the path so it resolves." % len(soft))
         return 1
     if not quiet:
-        print("\n✅ every citation resolves.")
+        print("\n✅ every citation resolves." if not soft else
+              "\n✅ no dead citation. %d could not be verified and are listed above." % len(soft))
     return 0
 
 
@@ -366,7 +499,7 @@ def cmd_round(sha=None, quiet=False):
             else:
                 print("\n  ✅ consolidation accounts for every report at this round: %s"
                       % os.path.relpath(cp, ROOT))
-            sub = cmd_cite([cp], quiet=True)
+            sub = cmd_cite([cp], quiet=True, strict=True)
             print("  %s consolidation citations: %s"
                   % ({0: "✅", 1: "🔴", 3: "🔴"}[sub],
                      {0: "all resolve", 1: "at least one does not resolve — run --cite on it",
@@ -651,6 +784,39 @@ def selftest():
 
         say(cmd_cite([], quiet=True) == 3, "M4 no file given → UNCHECKABLE, refuses to grade nothing")
 
+        # M4a-M4c · the three failure states are NOT one state
+        amb = os.path.join(tmp, "amb.md")
+        open(amb, "w").write("cited at `index.html:505`\n")
+        r, _ = check_citations([amb])
+        say(r and r[0][3] == "ambiguous",
+            "M4a a bare basename shared by many tracked files is AMBIGUOUS, never resolved to the root one")
+        say(cmd_cite([amb], quiet=True) == 0 and cmd_cite([amb], quiet=True, strict=True) == 1,
+            "M4b ambiguous does not accuse in a corpus scan, and DOES fail --strict on the seat's own write")
+
+        unr = os.path.join(tmp, "unr.md")
+        open(unr, "w").write("cited at `some-file-nobody-has-anywhere-xyz.md:12`\n")
+        r, _ = check_citations([unr])
+        say(r and r[0][3] == "unresolvable",
+            "M4c a basename with no root reads UNRESOLVABLE, not `missing` — it does not accuse the author")
+
+        dead = os.path.join(tmp, "dead.md")
+        open(dead, "w").write("cited at `tools/no-such-tool-at-all.py:3`\n")
+        r, _ = check_citations([dead])
+        say(r and r[0][3] == "dead" and cmd_cite([dead], quiet=True) == 1,
+            "M4d a path INTO a searched directory that does not exist is DEAD, and fails")
+
+        # M4e · a POINTER is not a citation, and --cite is blind to one BY DESIGN
+        ptr = os.path.join(tmp, "ptr.md")
+        open(ptr, "w").write("see .user-research/no-such-trail-file-xyz.md for the trail\n")
+        say(cmd_cite([ptr], quiet=True) == 3,
+            "M4e a bare PATH is invisible to --cite (no line number) — it reports UNCHECKABLE, not clean")
+        pr, _ = check_pointers([ptr])
+        say(pr and pr[0][3] == "not-yet-built",
+            "M4f a bare path git NEVER knew reads `not-yet-built` — a forward reference, not a defect")
+        pr2, _ = check_pointers([os.path.join(ROOT, "CLAUDE.md")])
+        say(any(st == "moved-or-deleted" for _, _, _, st in pr2),
+            "M4g a path git DID know and that is now gone reads `moved-or-deleted` — a real dead pointer")
+
         # M5-M7 · report states, and the two failures are never collapsed
         r_read, r_unw, r_abs = (os.path.join(tmp, x) for x in ("rr", "ru", "ra"))
         for d in (r_read, r_unw, r_abs):
@@ -711,6 +877,10 @@ def main():
     ap.add_argument("--sha")
     ap.add_argument("--triggers", action="store_true")
     ap.add_argument("--cite", nargs="*")
+    ap.add_argument("--pointers", nargs="*",
+                    help="sweep bare PATH references (no line number) — a different predicate from --cite")
+    ap.add_argument("--strict", action="store_true",
+                    help="an ambiguous or unresolvable citation also fails (the seat's own writes)")
     ap.add_argument("--record", action="store_true")
     ap.add_argument("--carried", type=int, default=0)
     ap.add_argument("--already", type=int, default=0)
@@ -722,8 +892,10 @@ def main():
     a = ap.parse_args()
     if a.selftest:
         return selftest()
+    if a.pointers is not None:
+        return cmd_pointers(a.pointers)
     if a.cite is not None:
-        return cmd_cite(a.cite)
+        return cmd_cite(a.cite, strict=a.strict)
     if a.record:
         return cmd_record(a.sha, a.carried, a.already, a.questions, a.unwritten, a.note)
     if a.ledger:
