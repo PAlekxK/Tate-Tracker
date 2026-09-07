@@ -777,6 +777,27 @@ async function storeDoorRecord(env, record) {
   return arr.length;
 }
 
+// ---- W0 · THE GEOCODE'S OWN RECORD `[paul-stated 2026-09-07: "definitely make sure everything we
+// built for this lap is instrumented"]` ----
+// MEASURED the day this was added: the geocode module emitted ZERO events while this Worker carried
+// 23 telemetry writers elsewhere. The capability existed; the feature did not use it. So nothing in
+// the app could say whether a household's address had been placed, or why not — the only way to know
+// was to read the account row by hand, which is an administrator inferring from the store rather than
+// the thing itself reporting.
+//   ⛔ NO ADDRESS, NO COORDINATES, NO personId-BEARING DETAIL. The OUTCOME is the record — `placed` ·
+//   `refused:box` · `failed:no-match` · `failed:cached-miss` — plus the provider and how long it took.
+//   A household's address is its own; what we may count is that we succeeded or failed, never where
+//   anybody lives. Same daily-key shape as the door record, so it is readable by the same tools.
+async function storeGeocodeRecord(env, scope, outcome, extra) {
+  try {
+    const key = dateKey(scope, "geocode", new Date().toISOString().slice(0, 10));
+    const existing = await env.OBSERVATIONS.get(key);
+    let arr = []; if (existing) { try { const a = JSON.parse(existing); if (Array.isArray(a)) arr = a; } catch (e) {} }
+    arr.push(Object.assign({ outcome: outcome, at: new Date().toISOString() }, extra || {}));
+    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+  } catch (e) { /* instrumentation must never be the reason a geocode fails */ }
+}
+
 // ---- C6 3b/3c · the GRANT (2026-09-03, under the privacy seat's four conditions) ----
 // A grant is presented in `X-Grant` (never X-Tate-Token — seat discipline 2), hashed, and looked
 // up as ONE KV row `<estate>:grant:<sha256(presented)>`: {personId, estateId, relationship,
@@ -878,10 +899,18 @@ async function applyGeocode(env, scope, row) {
   //   and broke the one promise the placed/unplaced split exists to keep.
   if (have) delete row.coordinates;
 
+  const t0 = Date.now();
   const r = await geocodeAddress(env, scope, row.address, row.addressParts);
-  if (r.coordinates) { row.coordinates = r.coordinates; return "placed"; }
+  const ms = Date.now() - t0;
+  if (r.coordinates) {
+    row.coordinates = r.coordinates;
+    await storeGeocodeRecord(env, scope, "placed", { source: r.coordinates.source || null, ms: ms });
+    return "placed";
+  }
   // Unplaced, and honestly so: a box number is a permanent S0, a miss is retried on the next load.
-  return r.refused ? "refused:" + r.refused : "failed:" + (r.failed || "unknown");
+  const why = r.refused ? "refused:" + r.refused : "failed:" + (r.failed || "unknown");
+  await storeGeocodeRecord(env, scope, why, { ms: ms });
+  return why;
 }
 
 async function geocodeAddress(env, scope, address, parts) {
