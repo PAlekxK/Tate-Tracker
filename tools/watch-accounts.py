@@ -4,6 +4,8 @@
     python3 tools/watch-accounts.py                       # every declared environment
     python3 tools/watch-accounts.py --env home
     python3 tools/watch-accounts.py --ack 'home|est-e6696a|account|pkirsch' --as "Paul's own production walk"
+    python3 tools/watch-accounts.py --env lab --all       # print the backlog too, not just arrivals
+    python3 tools/watch-accounts.py --deep                # refetch every row instead of using the cache
     python3 tools/watch-accounts.py --json
     python3 tools/watch-accounts.py --selftest            # offline; no network, no state written
 
@@ -195,16 +197,31 @@ def destination_agrees(env):
                          "the destination disagree" % (env, got, declared))
 
 
-def read_env(env, estate):
-    """What the store holds for one (env, estate). Raises Unreadable — never returns a zero."""
+def read_env(env, estate, cached=None, deep=False):
+    """What the store holds for one (env, estate). Raises Unreadable — never returns a zero.
+
+    ⭐ THE LISTING IS THE ARRIVAL SIGNAL; the row fetch is only for detail. So a row already read
+    once is served from the state file and a repeat run costs THREE calls per environment instead of
+    one per row — 219 subprocess invocations against QA on the first run, three on the next. That
+    matters because this is meant to be run often, and a watcher expensive enough to think twice
+    about is a watcher that gets run less.
+    ⚠️ WHAT A CACHED ROW CANNOT TELL YOU, stated rather than glossed: an ACCOUNT row is mutable —
+    `/api/profile` writes `placeName`, `accent` and `capability` onto it — so a cached line shows the
+    values AS FIRST READ, beside the "first seen" stamp that dates them. `--deep` refetches every
+    row. A GRANT row is not mutated in place at all: `grant-mint.py:revoke` DELETES the KV row
+    (`:210`), so revocation shows up as the key leaving the listing, which no cache can hide.
+    """
     destination_agrees(env)
+    cached = cached or {}
     accounts, grants = {}, {}
-    for key in kv_list(env, "%s:account:" % estate):
-        username = key.split(":", 2)[2] if key.count(":") >= 2 else key
-        accounts[username] = project(kv_get(env, key) or {}, ACCOUNT_FIELDS)
-    for key in kv_list(env, "%s:grant:" % estate):
-        tokhash = key.split(":", 2)[2] if key.count(":") >= 2 else key
-        grants[tokhash[:8]] = project(kv_get(env, key) or {}, GRANT_FIELDS)
+    for kind, prefix, fields, out in (("account", "account", ACCOUNT_FIELDS, accounts),
+                                      ("grant", "grant", GRANT_FIELDS, grants)):
+        for key in kv_list(env, "%s:%s:" % (estate, prefix)):
+            ident = key.split(":", 2)[2] if key.count(":") >= 2 else key
+            if kind == "grant":
+                ident = ident[:8]
+            hit = None if deep else cached.get((kind, ident))
+            out[ident] = hit if hit else project(kv_get(env, key) or {}, fields)
     return accounts, grants
 
 
@@ -274,7 +291,7 @@ def ago(iso):
 
 
 # ---- the sweep ---------------------------------------------------------------------------------
-def sweep(envs, state, write=True, reader=read_env):
+def sweep(envs, state, write=True, reader=read_env, deep=False):
     """Read every named environment. Returns a per-env report. An Unreadable env is REPORTED and its
     records are left exactly as they were — an unreadable run may never look like a disappearance."""
     try:
@@ -296,8 +313,11 @@ def sweep(envs, state, write=True, reader=read_env):
             row["why"] = "the environment declares no ESTATE_ID in worker/wrangler.toml — it has no key prefix, so it cannot be watched"
             report.append(row)
             continue
+        cached = {(st.get("kind"), st.get("id")): st["row"]
+                  for st in state["records"].values()
+                  if st.get("env") == env and st.get("row")}
         try:
-            accounts, grants = reader(env, estate)
+            accounts, grants = reader(env, estate, cached, deep)
         except Unreadable as e:
             row["result"], row["why"] = "UNREADABLE", str(e)
             report.append(row)
@@ -331,9 +351,11 @@ def sweep(envs, state, write=True, reader=read_env):
                     st = {"firstSeenAt": now_iso(), "kind": kind, "env": env, "estate": estate,
                           "id": ident, "personId": rec.get("personId"),
                           "createdAt": rec.get("createdAt") or rec.get("issuedAt"),
-                          "acknowledgedAt": None, "acknowledgedAs": None}
+                          "row": rec, "acknowledgedAt": None, "acknowledgedAs": None}
                     if write:
                         state["records"][k] = st
+                elif write and (deep or not st.get("row")):
+                    st["row"] = rec
                 st.pop("absentSince", None)
                 if not st.get("acknowledgedAt"):
                     born = rec.get("createdAt") or rec.get("issuedAt")
@@ -523,12 +545,23 @@ def selftest():
                                     "revokedAt": None, "issuedBy": "p-known"}})}
     dead = set()
 
-    def fake(env, estate):
+    fetches = {"n": 0}
+
+    def fake(env, estate, cached=None, deep=False):
         if env in dead:
             raise Unreadable("pretend outage")
         if env not in store:
             raise Unreadable("no fixture for %s" % env)
-        return store[env]
+        cached = cached or {}
+        accts, grnts = store[env]
+        out = ({}, {})
+        for i, (kind, items) in enumerate((("account", accts), ("grant", grnts))):
+            for ident, rec in items.items():
+                hit = None if deep else cached.get((kind, ident))
+                if hit is None:
+                    fetches["n"] += 1
+                out[i][ident] = hit if hit is not None else rec
+        return out
 
     tmpdir = tempfile.mkdtemp()
     STATE = os.path.join(tmpdir, "state.json")
@@ -617,6 +650,20 @@ def selftest():
     check("the environment roster is derived from wrangler.toml, not restated",
           "home" in ENVIRONMENTS and ENVIRONMENTS["home"]["estate"])
 
+    # ⭐ THE LISTING IS THE SIGNAL; the row fetch is detail, so a row read once is not read again.
+    # ⚠️ The property that matters is not the saving — it is that caching NEVER changes what the
+    # report says. A cache that quietly altered a count would be worse than no cache at all.
+    fetches["n"] = 0
+    rep_cached = sweep(["home"], st, write=True, reader=fake)
+    check("a repeat sweep refetches nothing", fetches["n"] == 0)
+    rep_deep = sweep(["home"], st, write=True, reader=fake, deep=True)
+    check("--deep refetches every row", fetches["n"] > 0)
+    check("and the cached report is identical to the deep one",
+          [(r["env"], len(r["accounts"]), len(r["grants"]), len(r["new"]), len(r["predating"]))
+           for r in rep_cached] ==
+          [(r["env"], len(r["accounts"]), len(r["grants"]), len(r["new"]), len(r["predating"]))
+           for r in rep_deep])
+
     # ⛔ THE FAIL-CLOSED PROOF, exercised directly because `fake` above bypasses the real reader.
     # An empty listing may only mean "empty" after the destination has said who it is.
     global kv
@@ -661,6 +708,8 @@ def main():
     ap.add_argument("--as", dest="why", action="append",
                     help="what that record was — one per --ack, in the same order")
     ap.add_argument("--all", action="store_true", help="print every row instead of the first %d per env" % DETAIL_CAP)
+    ap.add_argument("--deep", action="store_true",
+                    help="refetch every row instead of serving known ones from the state file")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--no-write", action="store_true", help="report without recording first-seen")
     ap.add_argument("--selftest", action="store_true")
@@ -702,7 +751,7 @@ def main():
                   % (e, ", ".join(sorted(ENVIRONMENTS))), file=sys.stderr)
             return 2
 
-    report = sweep(envs, state, write=not a.no_write)
+    report = sweep(envs, state, write=not a.no_write, deep=a.deep)
     if not a.no_write:
         save_state(state)
 
