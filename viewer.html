@@ -16567,12 +16567,21 @@ function renderCelestial() {
   h += '<div class="cel-sky-sub">Sun 18° below horizon — sky fully dark</div>';
   h += '</div>';
 
-  // Site quality
-  h += '<div class="cel-sky-cell">';
-  h += '<div class="cel-sky-val">Bortle ' + prop.bortleEstimate + ' — ' + prop.bortleLabel + '</div>';
-  h += '<div class="cel-sky-key">Sky Darkness</div>';
-  h += '<div class="cel-sky-sub">~' + prop.sqmEstimate + ' mag/arcsec² · Milky Way visible May–Sep</div>';
-  h += '</div>';
+  // Site quality — ⛔ CANON, NOT COORDINATES. SITE_PLACED conflates two facts that were always
+  // true together until W0: "has a point on the earth" and "has a researched record". Fernwood has
+  // both; a geocoded household has only the first. This cell needs the SECOND, so it tests for it.
+  //   MEASURED 2026-09-07, on screen, for a condo in Roswell: "Bortle undefined — undefined" and
+  //   "~undefined mag/arcsec²". The whole app switched on when W0 flipped SITE_PLACED, and every
+  //   consumer that reads canon without checking for it printed the word `undefined` at a person.
+  // The meteor-shower tips in CELESTIAL_DATA already guard this exact field with `|| '?'`; the cell
+  // did not. A cell with no darkness record omits itself — a declared absence, not a broken card.
+  if (prop.bortleEstimate && prop.bortleLabel) {
+    h += '<div class="cel-sky-cell">';
+    h += '<div class="cel-sky-val">Bortle ' + prop.bortleEstimate + ' — ' + prop.bortleLabel + '</div>';
+    h += '<div class="cel-sky-key">Sky Darkness</div>';
+    if (prop.sqmEstimate) h += '<div class="cel-sky-sub">~' + prop.sqmEstimate + ' mag/arcsec² · Milky Way visible May–Sep</div>';
+    h += '</div>';
+  }
 
   h += '</div>'; // cel-sky-grid
 
@@ -16728,14 +16737,18 @@ function renderClimateInner(climate) {
     h += '</tr>';
     h += '</tbody></table></div>';
   } else {
-    // Fallback: hardcoded KJZP-extrapolated values
-    h += '<div class="prop-row"><span class="prop-label">Annual Rain</span><span class="prop-value">~' + climate.annualPrecipitation_in + ' in/yr (valley); ~62–65 at elevation</span></div>';
-    h += '<div class="prop-row"><span class="prop-label">Jan Avg</span><span class="prop-value">H ' + climate.temperature.janAvgHigh_F + '° / L ' + climate.temperature.janAvgLow_F + '°F</span></div>';
-    h += '<div class="prop-row"><span class="prop-label">Jul Avg</span><span class="prop-value">H ' + climate.temperature.julAvgHigh_F + '° / L ' + climate.temperature.julAvgLow_F + '°F</span></div>';
+    // Fallback: hardcoded KJZP-extrapolated values. Same rule as the sky cell — each row needs its
+    // own canon and omits itself without it. `climate.temperature` is absent for a household that
+    // has coordinates and no record, which threw here (`reading 'janAvgHigh_F'`) at top level.
+    const ct = climate.temperature;
+    if (climate.annualPrecipitation_in) h += '<div class="prop-row"><span class="prop-label">Annual Rain</span><span class="prop-value">~' + climate.annualPrecipitation_in + ' in/yr (valley); ~62–65 at elevation</span></div>';
+    if (ct && ct.janAvgHigh_F != null && ct.janAvgLow_F != null) h += '<div class="prop-row"><span class="prop-label">Jan Avg</span><span class="prop-value">H ' + ct.janAvgHigh_F + '° / L ' + ct.janAvgLow_F + '°F</span></div>';
+    if (ct && ct.julAvgHigh_F != null && ct.julAvgLow_F != null) h += '<div class="prop-row"><span class="prop-label">Jul Avg</span><span class="prop-value">H ' + ct.julAvgHigh_F + '° / L ' + ct.julAvgLow_F + '°F</span></div>';
   }
 
-  h += '<div class="prop-row"><span class="prop-label">Ice Storm Risk</span><span class="prop-value">' + escapeHtml(climate.wind.iceStormRisk) + '</span></div>';
-  h += '<div class="prop-row"><span class="prop-label">Avg Snowfall</span><span class="prop-value">' + escapeHtml(climate.wind.snowfall_in_avg) + '</span></div>';
+  const cw = climate.wind || {};
+  if (cw.iceStormRisk) h += '<div class="prop-row"><span class="prop-label">Ice Storm Risk</span><span class="prop-value">' + escapeHtml(cw.iceStormRisk) + '</span></div>';
+  if (cw.snowfall_in_avg) h += '<div class="prop-row"><span class="prop-label">Avg Snowfall</span><span class="prop-value">' + escapeHtml(cw.snowfall_in_avg) + '</span></div>';
   // humidity is a small record in canon (summer · fallWinter); it rendered "[object Object]" on prod until 2026-09-03
   const hum = climate.humidity;
   const humText = typeof hum === "string" ? hum : (hum && typeof hum === "object" ? Object.values(hum).filter(x => typeof x === "string").join(" ") : "");
