@@ -876,3 +876,10 @@ Make it flexible."*
   product owner to team up."* → a deterministic door onto `est-e6696a:feedback:*` (no model needed
   to learn what a person said) and a standing user-researcher + product-owner pairing. ⚠️ No
   product-owner agent exists; who holds the seat is in the steward's design, Paul's to ratify.
+- `paul-stated` (~12:15 ET): *"We should have an automatic feedback check for production that
+  sweeps all accounts for feedback to consolidate and action, like we had for the mom cycle. The
+  challenge will be correctly labelling all feedback so we know what to action on which page and
+  who was submitting feedback when."* → handed to the steward as a §C requirement: a deterministic
+  per-record sweep of every household estate (the `read-mom-feedback` + `check-arrival-dispositions`
+  shape), and a labelling contract — person · estate · surface · screen/step · timestamp · control —
+  measured against what the store carries today.
