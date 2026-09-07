@@ -1,4 +1,5 @@
 # Handoff: Fernwood production readiness
+<!-- clearing-state: CLEARED executed 2026-09-06 evening; the thread's record is cycle/release/CYCLE-LOG.md -->
 <!-- generated 2026-09-06 ~20:15 ET · sources: ~/Developer/Tate-Tracker@600a71f · RECEIVER: verify shas vs HEAD before trusting any status below -->
 
 ## 1 · Mission
