@@ -8896,11 +8896,22 @@ function precipVerdict(pct) {
 // day at OUR gauge", "Since May 2 · 30.83" · the whole record", and a note about "the mountain" and
 // "the gauge's sheltered spot by the pond", in the first person plural, to a stranger.
 //
-// ⚠️⚠️ `check-estate-neutral.py` IS GREEN ON THIS, and was green against the very origin the seats
-// walked (311 needles, rendered=0, ✅). IT TESTS FOR NAMES. This leak is made of NUMBERS AND
-// POSSESSIVE PRONOUNS — Fernwood's data reached a stranger's house without Fernwood's name on it.
-// ⛔ DO NOT READ A GREEN NEUTRALITY CHECK AS COVERAGE FOR THIS CLASS. Whoever reads this next will
-// trust that green, which is exactly why it is written here and not only in a report.
+// ⚠️⚠️ `check-estate-neutral.py` IS GREEN ON THIS, FOR TWO INDEPENDENT REASONS, and only the second
+// is the tool's doing. Whoever reads this next will trust that green, which is why it is written
+// here and not only in a report.
+//   1. A BARE RUN DOES NOT EXAMINE THIS FILE AT ALL. `_shipped_pages()` deliberately EXCLUDES
+//      `viewer.html` (check-estate-neutral.py:61) because pages-deploy rebuilds it per instance, so
+//      the tracked copy is Fernwood's and is supposed to name Fernwood. A bare run scans
+//      onboarding · estate · homes · settings/place · settings/account — five static pages, none of
+//      them this one. The tool says so itself: the only honest check for a generated file is
+//      `--url <origin>` or `--page /tmp/<neutral build>`, and "Both are used; neither is optional."
+//      ⛔ The session-start block in CLAUDE.md lists the BARE form, so the green most people see
+//      says nothing whatever about the viewer. Measured 2026-09-07: I made exactly this mistake and
+//      reported its green as coverage for a change I had made to this file.
+//   2. RUN CORRECTLY IT IS STILL GREEN — verified with `--page` on the household build: 311
+//      needles, rendered=0, ✅. IT TESTS FOR NAMES. This leak was NUMBERS AND POSSESSIVE PRONOUNS;
+//      Fernwood's data reached a stranger's house without Fernwood's name on it. That is a real
+//      blind spot in the roster, not a misuse, and the seats' own `--url` run hit it too.
 //
 // The estate already DECLARES whether it has a station (C7 1c, `identity.station`) and the weather
 // card already honours it — "No station here — regional readings" sat four lines above "OUR GAUGE"
