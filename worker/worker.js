@@ -602,7 +602,7 @@ async function handleSession(request, env, scope) {
   // device needs it. A field is carried only when the account HAS it, so an older account with no
   // address does not overwrite anything with null.
   for (const f of ["placeName", "accent", "address", "addressParts", "ranked", "contactPref",
-                   "profileAccent"]) {
+                   "profileAccent", "coordinates"]) {
     if (acct[f] !== undefined && acct[f] !== null) grantRow[f] = acct[f];
   }
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
@@ -784,6 +784,122 @@ async function storeDoorRecord(env, record) {
 // on the row MUST equal this deploy's binding (seat finding 1 — two estates in one request is the
 // failure): a row for another estate is treated as no grant. Nothing on the path, query or body
 // is ever read as an estate (C5 6a's rule, still grep-checked).
+// ---- W0 · GEOCODING — an address becomes coordinates, or honestly does not (2026-09-07) ----
+// `[paul-ruled 2026-09-07: "Go on geocoding as lap 2's first build"]`
+//
+// WHY THE WORKER AND NOT THE BROWSER: one place for the provider, the rate and the cache, and the
+// coordinates become a RECORD FACT rather than browser state. A second device that signs in gets a
+// placed household without re-geocoding anything.
+//
+// ⛔ THE AI BOUNDARY HOLDS AND IS WORTH STATING HERE, because a geocoder looks like an exception
+// and is not: the household's VERBATIM address stays the record. `matchedAddress` is the provider's
+// standardized PROPOSAL and is stored beside the address, never over it. Nothing here rewrites what
+// a person typed.
+//
+// ⛔ NO DEFAULT COORDINATE, EVER. A failed geocode stores nothing and the household stays S0
+// (unplaced). Falling back to Fernwood's own coordinates is precisely the leak
+// `tools/check-config-derivation.py` and `tools/check-estate-neutral.py` exist to catch — a second
+// household would silently be told Jasper's weather.
+
+// ⚠️ THIRD COPY OF ONE PREDICATE, DECLARED. The same test lives at `estate/index.html:296` and
+// `engine/viewer.template.html:17554`, and the Worker cannot import from either — different
+// deploy artifacts, no shared build. It is irreducible, so it is AGREED BY A CHECK rather than by
+// hand: `tools/check-box-test-agreement.py` compares all three and fails on divergence. That is the
+// same posture `entity_map_divergence()` takes for the one `ENTITY_DATA` copy JavaScript forces.
+// If you change this regex, change it in three places and the check will tell you if you missed one.
+const BOX_ADDRESS_RE = /\b(p\.?\s?o\.?\s*box|post\s*office\s*box|postal\s*box)\b/i;
+function addressIsBox(addr) { return BOX_ADDRESS_RE.test(String(addr || "")); }
+
+// One line from the structured parts, falling back to the verbatim string. The parts are what the
+// person typed into separate fields, so they geocode better than a blob — the unit rides in line 1
+// exactly as `.private/walk-answers/mom.json` puts it, and the provider drops it on its own.
+function addressOneLine(address, parts) {
+  const p = parts && typeof parts === "object" ? parts : null;
+  if (p && (p.line1 || p.a1)) {
+    const line1 = p.line1 || p.a1, city = p.city || "", st = p.state || "", zip = p.zip || "";
+    return [line1, city, [st, zip].filter(Boolean).join(" ")].filter(Boolean).join(", ");
+  }
+  return String(address || "").trim();
+}
+
+// PROVIDER-PLUGGABLE. Census first: keyless, public-domain, and it returns the county FIPS the
+// drought and burn-ban readers need. A provider returns a result or NULL — never a guess, and never
+// a partial row. Adding one is adding an entry here.
+const GEOCODERS = {
+  async census(oneline) {
+    const url = "https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress"
+              + "?address=" + encodeURIComponent(oneline)
+              + "&benchmark=Public_AR_Current&vintage=Current_Current&format=json";
+    // Census requires a User-Agent; without one the request is rejected before it is served.
+    const r = await fetch(url, { headers: { "User-Agent": "Fernwood/1.0 (+household geocode)" } });
+    if (!r.ok) return null;
+    const d = await r.json();
+    const m = ((d.result || {}).addressMatches || [])[0];
+    if (!m || !m.coordinates) return null;
+    const lat = Number(m.coordinates.y), lon = Number(m.coordinates.x);
+    if (!isFinite(lat) || !isFinite(lon)) return null;
+    const cty = (((m.geographies || {})["Counties"]) || [])[0] || {};
+    const fips = ((cty.STATE || "") + (cty.COUNTY || "")) || null;
+    return { latitude: lat, longitude: lon, source: "census",
+             matchedAddress: m.matchedAddress || null, countyFips: fips };
+  },
+};
+const GEOCODER_ORDER = ["census"];
+
+// Resolve an address to coordinates, cached per estate under the address itself.
+// Returns {coordinates} | {refused:"box"} | {failed:<why>} — THREE OUTCOMES, never two. A refusal
+// and a failure must never print the same thing: a box number is a correct, permanent S0 and a
+// provider miss is a retryable unknown. Collapsing them is how "capture must not lie" gets broken.
+// Apply a geocode to a row IN PLACE, only when it is needed. Called on every /api/profile write
+// and on whoami, so a household placed once is never re-queried, and one that failed is retried the
+// next time its address is touched.
+//   ⚠️ IT ONLY EVER WRITES `coordinates` WHEN IT HAS THEM. A miss leaves the field untouched rather
+//   than writing null over a good value — a provider outage must not un-place a household that was
+//   correctly placed yesterday.
+//   ⚠️ AND IT RE-GEOCODES WHEN THE ADDRESS CHANGED. `queriedAddress` is compared against the
+//   current one-line; without that, correcting a wrong address would keep the old coordinates
+//   forever and the map would quietly disagree with the words under it.
+async function applyGeocode(env, scope, row) {
+  const oneline = addressOneLine(row.address, row.addressParts);
+  if (!oneline) return null;
+  const have = row.coordinates;
+  if (have && have.latitude && have.queriedAddress === oneline) return null;   // already placed, unchanged
+  const r = await geocodeAddress(env, scope, row.address, row.addressParts);
+  if (r.coordinates) { row.coordinates = r.coordinates; return "placed"; }
+  return r.refused ? "refused:" + r.refused : "failed:" + (r.failed || "unknown");
+}
+
+async function geocodeAddress(env, scope, address, parts) {
+  const oneline = addressOneLine(address, parts);
+  if (!oneline) return { failed: "no-address" };
+  if (addressIsBox(oneline)) return { refused: "box" };
+
+  const cacheKey = keyFor(scope, "geocode", await sha256Hex(oneline.toLowerCase()));
+  try {
+    const hit = await env.OBSERVATIONS.get(cacheKey);
+    if (hit) {
+      const c = JSON.parse(hit);
+      // A cached MISS is honoured too, so a bad address is not re-sent to the provider on every
+      // load — but it carries its own timestamp so it can be aged out deliberately later.
+      return c && c.latitude ? { coordinates: c } : { failed: "cached-miss" };
+    }
+  } catch (e) { /* a cache read must never be the reason a geocode fails */ }
+
+  for (const name of GEOCODER_ORDER) {
+    let got = null;
+    try { got = await GEOCODERS[name](oneline); }
+    catch (e) { got = null; }                       // a provider outage is a MISS, never a throw
+    if (got) {
+      got.geocodedAt = new Date().toISOString();
+      got.queriedAddress = oneline;                 // what we ASKED, beside what came back
+      try { await env.OBSERVATIONS.put(cacheKey, JSON.stringify(got)); } catch (e) {}
+      return { coordinates: got };
+    }
+  }
+  try { await env.OBSERVATIONS.put(cacheKey, JSON.stringify({ miss: true, at: new Date().toISOString() })); } catch (e) {}
+  return { failed: "no-match" };
+}
+
 const GRANT_HEADER = "X-Grant";
 async function grantFor(request, env) {
   const presented = request.headers.get(GRANT_HEADER);
@@ -3231,8 +3347,10 @@ export default {
           // a home and anything derived from it. Named by SURFACE, each has a territory the other
           // never enters.
           if (typeof b.profileAccent === "string") grow.profileAccent = b.profileAccent.slice(0, 9);
+          try { await applyGeocode(env, sc, grow); } catch (e) {}   // W0 · same rule on the grant-only path
           await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
-          return json({ ok: true, on: "grant", name: grow.placeName || null, accent: grow.accent || null });
+          return json({ ok: true, on: "grant", name: grow.placeName || null, accent: grow.accent || null,
+                        coordinates: grow.coordinates || null });
         }
         const raw = await env.OBSERVATIONS.get(accountKey(sc, uname));
         if (!raw) return json({ error: "not-found" }, 404);
@@ -3251,6 +3369,10 @@ export default {
         if (typeof b.address === "string") acct.address = b.address.slice(0, 300);
         if (b.addressParts && typeof b.addressParts === "object") acct.addressParts = b.addressParts;
         if (Array.isArray(b.ranked)) acct.ranked = b.ranked.slice(0, 20);
+
+        // W0 · the address just landed, so place it. Never blocks the save: a geocode that throws
+        // leaves the row exactly as the person typed it, and whoami retries on the next load.
+        try { await applyGeocode(env, sc, acct); } catch (e) {}
 
         await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
         // ⭐ AND THE CALLER'S OWN GRANT IS REFRESHED IN THE SAME BREATH. The grant row is the
@@ -3419,6 +3541,25 @@ export default {
       }
       // the one read a grant unlocks TODAY: what the credential itself is. 6a widens this.
       if (url.pathname === "/api/grant/whoami") {
+        // ⭐ W0 · THE RETRY. A household whose address arrived before geocoding existed — or whose
+        // geocode missed while the provider was down — is placed on its next load, once, here.
+        // Without this, every account created before today stays permanently unplaced and only a
+        // profile re-save would ever fix it.
+        //   ⚠️ scopeOf(env), NOT the `requestScope` resolved above, and deliberately. That line's
+        //   own comment sequences the conversion: read-only handlers move onto scopeFor FIRST, and
+        //   writers LAST, because `assertScope` catches a forgotten conversion and never a wrong
+        //   one. This branch WRITES, so it stays on the binding until the writers' slice.
+        //   ⚠️ Failure is silent BY DESIGN: whoami is the door. A provider outage must never be the
+        //   reason someone cannot read who they are.
+        try {
+          if (grant.address && !(grant.coordinates && grant.coordinates.latitude)) {
+            const placed = await applyGeocode(env, scopeOf(env), grant);
+            if (placed === "placed") {
+              await env.OBSERVATIONS.put(keyFor(scopeOf(env), "grant", await sha256Hex(request.headers.get(GRANT_HEADER))),
+                                         JSON.stringify(grant));
+            }
+          }
+        } catch (e) { /* the door opens regardless */ }
         return json({ personId: grant.personId, estateId: grant.estateId, capability: grant.capability,
                       relationship: grant.relationship || [], entry: !!grant.entry, vault: !!grant.vault,
                       // her place, so a return on a cleared browser is a RESUME and not a fresh start
@@ -3432,7 +3573,12 @@ export default {
                       // never reads what somebody else said.
                       address: grant.address || null, addressParts: grant.addressParts || null,
                       ranked: grant.ranked || null, contactPref: grant.contactPref || null,
-                      profileAccent: grant.profileAccent || null });
+                      profileAccent: grant.profileAccent || null,
+                      // W0 · the place's own coordinates, so the viewer can paint weather/sky/place
+                      // from THIS household before first paint. Null is DECLARED, never absent: a
+                      // null here means "we could not place it", which the cards render as S0 —
+                      // it never means "not asked yet", and it is never a default coordinate.
+                      coordinates: grant.coordinates || null });
       }
     }
     if (url.pathname === "/api/grant/whoami") return json({ error: "not-found", path: url.pathname }, 404);   // no grant presented → the same 404
