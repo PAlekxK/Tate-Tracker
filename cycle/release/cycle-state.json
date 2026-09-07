@@ -1,70 +1,56 @@
 {
- "state": "ARMED",
- "generated_at": "2026-09-07T11:34:20-04:00",
+ "state": "FIRED",
+ "generated_at": "2026-09-07T19:18:21-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "c821051",
+ "candidate_sha": "fbd5072",
  "beat": {
-  "n": 5,
+  "n": 2,
   "of": 5,
-  "owner": "paul",
-  "name": "Paul cleared it"
+  "owner": "session",
+  "name": "the synthetic loop"
  },
  "gate_1": {
-  "seats_pass": true,
+  "seats_pass": false,
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "mom": {
-    "run": "2026-09-07T110051",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "instrumented": true
+    "run": null
    },
    "owner": {
-    "run": "2026-09-07T110154",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "instrumented": true
+    "run": null
    },
    "strict": {
-    "run": "2026-09-07T110257",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "instrumented": true
+    "run": null
    },
    "wide-eyed": {
-    "run": "2026-09-07T110358",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "instrumented": true
+    "run": null
    }
   }
  },
+ "lap_count": 2,
  "last_lap": {
-  "lap": 1,
-  "opened": "2026-09-06",
-  "outcome": "cleared",
-  "cleared_sha": "c821051"
+  "lap": 2,
+  "opened": "2026-09-07",
+  "outcome": "closed",
+  "closed_at": "2026-09-07T23:30:00Z",
+  "cleared_sha": "1e2748d"
  },
+ "lap_heading_anomalies": [],
  "pre_registered": [
   {
    "id": "instrumented-counted",
    "question": "at the lap-1 candidate sha, does every seat's capture.json show ≥1 app event via grant?",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "closed",
+   "evidence": "4 of 4 seats at the lap-1 candidate c821051 show app.events=5 via ['grant'] (mom 110051 · owner 110154 · strict 110257 · wide-eyed 110358); mirrored by gate_1.seats.*.instrumented. Retro .plans/2026-09-07-lap2-RETRO.md §5.",
+   "outcome": "yes",
+   "caveat": "⚠️ ANSWERED, NOT PROMOTED. The five events are generic app telemetry (session_start · text_size_served · jumpstrip_viewed · card_section_viewed · session_end), so a green `instrumented` proves the app phoned home, NOT that this lap's feature is instrumented. Promoting it into release-gate.CLAUSES as written would satisfy the letter and miss Paul's ask (A2). → retro C-6."
   },
   {
    "id": "second-viewport",
    "question": "does a laptop-width walk find what 414 hides (Paul found one on 2026-09-06)?",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "blocked-on-paul",
+   "evidence": "journey-view.py:64 hardcodes viewport 414x848 with NO CLI flag, so zero laptop-width walks exist and none can be produced by the loop's own tooling. It would read `open` forever — a permanently-red control by another name.",
+   "awaiting": "Paul rules ONE of: (a) BUILD a --viewport WxH flag defaulting to 414x848, run one four-seat battery at laptop width against a single sha, diff against the 414 battery; or (b) KILL it — 414 x A+ is Mom's measured condition and a laptop is nobody's confirmed device. ⛔ What is NOT legitimate is a third lap at `open`: an undischargeable pre-registration teaches the loop that pre-registrations need not be answered."
   }
  ]
 }

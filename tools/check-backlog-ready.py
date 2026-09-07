@@ -48,7 +48,16 @@ TIERS = {"free", "declared", "must-not-diverge"}
 # `process-registry` · `release-cascade-tracking` · `state-of-the-work`, one of which wrote its own
 # caveat into the value: *"⚠️ not a legal `stage:` word until process-wiring-AUDIT §B.1 is ruled."*
 # It is now ruled. `draft` sits BEFORE `ready`, so it is not "past ready" and needs no approval stamp.
-STAGES = ["draft", "ready", "concept", "build", "qa", "shipped", "retro"]
+# ⭐ `design` + `journey` `[paul-ruled 2026-09-07, A-2]`. `concept → build` had nothing between it,
+# so an item that had been designed but not built read as `concept` forever. Paul named both states.
+# ⚠️ TWO CAVEATS, both stated rather than solved:
+#   ① The comparison is by LIST INDEX, so `design` and `journey` will read as strictly sequential and
+#      they are not. The honest reading is that the ladder records the FURTHEST rung reached, not the
+#      last one worked on.
+#   ② `design` is now legal in BOTH enums — a KIND (what the document is) and a STAGE (where the item
+#      is). That is coherent (a design document about an item at the design stage) but it is exactly
+#      the collision the 09-07 R4 ruling separated, so it is named here rather than discovered later.
+STAGES = ["draft", "ready", "concept", "design", "journey", "build", "qa", "shipped", "retro"]
 
 # ⛔ `stage:` IS THE ITEM'S STAGE. `kind:` IS WHAT THE DOCUMENT *IS* `[paul-ruled 2026-09-07, R4 → B]`.
 # Seven process documents had reached for a document TYPE through the item's stage key — five
@@ -63,7 +72,20 @@ KINDS = {"audit", "process", "design", "state", "census", "charter", "practice",
 DOC_SUFFIXES = ("-AUDIT", "-PROCESS", "-DESIGN", "-STATE", "-CENSUS", "-CHARTER", "-PRACTICE",
                 "-DECISIONS", "-SCAN", "-REQUIREMENT", "-ARCHAEOLOGY", "-MINE")
 REPEATABLE = {"stage-note"}   # a dated LOG line, appended per event — many is the design, not a disagreement
-IN_FLIGHT = {"concept", "build", "qa"}
+IN_FLIGHT = {"concept", "design", "journey", "build", "qa"}
+
+# ⭐ WIP BANDS `[paul-ruled 2026-09-07, A-3]` — the cap is per BAND, not one cap across the ladder.
+# The numbers are argued from the measured bottleneck, not from Kanban: the queue backs up at Paul's
+# ruling, so the design band is really a cap on things awaiting his word.
+# ⛔ `concept` is DELIBERATELY UNCAPPED and that is the load-bearing half — a concept costs nothing to
+# hold, and capping it pushes ideas out of the record, the one failure this corpus cannot afford
+# (`.plans/2026-09-07-dropped-ideas-MINE.md` exists because ideas leaked once already).
+# FALSIFIER: if lap 3 closes and no band ever blocked anything, the limits are not binding and the
+# numbers are wrong. Read it at the close, not by argument.
+WIP_BANDS = [
+    ("design", {"design", "journey"}, 2),   # these consume Paul's attention in a discussion
+    ("build",  {"build", "qa"},       1),   # unchanged — the pre-existing one-at-a-time default
+]
 REQUIRED_SECTIONS = ["## Files touched", "## Sequence", "## Falsifier", "## QA"]
 POINTER_PAT = re.compile(r"→\s*READY\s*·\s*(\.plans/[^\s`|)]+)")
 OBJ_PAT = re.compile(r"^\|\s*\**(O\d+)\**\s*\|", re.M)
@@ -373,10 +395,13 @@ def check(root):
         if stage in IN_FLIGHT:
             in_flight.append((name, stage, bool(keys.get("wip-exception"))))
 
-    if len(in_flight) > 1:
-        undeclared = [n for n, _, exc in in_flight if not exc]
-        if len(undeclared) > 1 or (len(undeclared) == 1 and len(in_flight) > 1 and not any(exc for _, _, exc in in_flight)):
-            findings.append(("WIP", f"{len(in_flight)} items between concept and qa and not every extra one carries `wip-exception:` — the one-at-a-time default was crossed silently"))
+    for band, stages, limit in WIP_BANDS:
+        rows = [(n, exc) for n, st, exc in in_flight if st in stages]
+        uncapped = [n for n, exc in rows if not exc]
+        if len(uncapped) > limit:
+            findings.append(("WIP", f"band `{band}` ({'/'.join(sorted(stages))}): {len(uncapped)} items "
+                                    f"without a `wip-exception:` against a limit of {limit} — "
+                                    f"{', '.join(sorted(uncapped))}"))
     return findings, in_flight
 
 
@@ -388,6 +413,19 @@ def main():
         return 0  # silent at zero — nothing claims readiness
     if in_flight:
         print("🧭 In flight: " + " · ".join(f"{n} @ {s}" + (" (declared exception)" if e else "") for n, s, e in in_flight))
+        # ⭐ Print the BAND OCCUPANCY even when every band is clean `[paul-ruled 2026-09-07, A-3]`.
+        # A-3's falsifier is *"if the cap blocked nothing this lap, the number is wrong"*, and that
+        # cannot be read at the close unless the occupancy is on the page when it is legal. This is
+        # also the lap-2 retro's finding #2 in the other direction: a limit whose only output is an
+        # alarm is a limit nobody can calibrate.
+        bands = []
+        for band, stages, limit in WIP_BANDS:
+            rows = [(n, e) for n, st, e in in_flight if st in stages]
+            uncapped = sum(1 for _, e in rows if not e)
+            mark = "⚠️" if uncapped > limit else "·"
+            bands.append(f"{mark} {band} {uncapped}/{limit}" + (f" (+{len(rows) - uncapped} excepted)" if len(rows) > uncapped else ""))
+        n_concept = sum(1 for _, st, _ in in_flight if st == "concept")
+        print("   🚦 WIP bands: " + " · ".join(bands) + f" · concept {n_concept} (uncapped by ruling)")
     if not findings:
         _headerless_note()
         print(f"✅ Readiness — {len(plans)} plan(s), every claim has its trail.")

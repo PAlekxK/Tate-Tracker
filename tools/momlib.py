@@ -1774,6 +1774,36 @@ def lap_outcomes(log_path=None):
     return laps
 
 
+def lap_heading_anomalies(log_path=None):
+    """Lines that LOOK like a lap heading but do not parse — the loud-failure half.
+
+    ⭐ WHY `[paul-ruled 2026-09-07, J-c]`. The chronicle is now the SOURCE of lap
+    state rather than a narrative beside it, and the headings are hand-typed. A
+    heading with a stray character — an en dash where an em dash belongs, a
+    missing date — does not raise: `LAP_HEADING_RX.match` simply returns None and
+    `lap_outcomes` skips the line, so **a whole lap disappears from the count and
+    nothing says so.** That is the same failure shape as the state artifact this
+    ruling just demoted, only harder to see, and ratifying the chronicle without
+    this check would move the silent-loss bug rather than fix it.
+
+    Returns [(lineno, line)] for every `## Lap …` line the parser rejected.
+    ⛔ An empty list is NOT proof the chronicle is complete — it proves only that
+    nothing shaped like a heading was rejected. A lap nobody wrote a heading for
+    is invisible to this check by construction.
+    """
+    path = log_path or os.path.join(ROOT, "MOM-CYCLE-LOG.md")
+    try:
+        with open(path, encoding="utf-8") as fh:
+            lines = fh.read().split("\n")
+    except OSError:
+        return []
+    out = []
+    for i, ln in enumerate(lines, 1):
+        if ln.lstrip().startswith("## Lap") and not LAP_HEADING_RX.match(ln):
+            out.append((i, ln.strip()))
+    return out
+
+
 def lap_state(log_path=None):
     """(lap_count, last_lap) for the state artifact's machine-readable fields.
 

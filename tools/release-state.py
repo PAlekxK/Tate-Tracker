@@ -17,6 +17,12 @@ import argparse, datetime as dt, importlib.util, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "cycle", "release", "cycle-state.json")
+LOG = os.path.join(ROOT, "cycle", "release", "CYCLE-LOG.md")
+
+
+def momlib_module():
+    spec = importlib.util.spec_from_file_location("momlib", os.path.join(ROOT, "tools", "momlib.py"))
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
 
 
 def gate_module():
@@ -46,15 +52,48 @@ def derive(cleared=None, prior=None, sha=None):
             seats[seat] = {"run": None}
     seats_pass = bool(seats) and all(all(s.get(k) is True for k, _ in rg.CLAUSES) for s in seats.values())
     prior = prior or {}
-    last = prior.get("last_lap") or {"lap": 1, "opened": "2026-09-06", "outcome": "open"}
-    cleared_sha = cleared or last.get("cleared_sha")
+    # ⭐⭐ J-c `[paul-ruled 2026-09-07]` — THE CHRONICLE IS THE SOURCE OF LAP STATE, not this JSON.
+    # WHAT THIS REPLACED AND WHY: the line here read
+    #     last = prior.get("last_lap") or {"lap": 1, "opened": "2026-09-06", "outcome": "open"}
+    # — a DERIVED cache seeded from a hardcoded default and then carried forward from its own prior
+    # copy, with no path back to what actually happened. It lost lap 2 and Paul's clear: on 2026-09-07
+    # the chronicle recorded two closed laps while this file still read `lap: 1, cleared_sha: c821051`.
+    # That is the second time this artifact has misreported the lap count.
+    # ⛔ THE ASYMMETRY THAT MAKES THIS SAFE: the chronicle is where a human writes what happened, so it
+    # is the only record that can be WRONG IN A WAY SOMEONE NOTICES. A cache that silently reverts is
+    # wrong in a way nobody notices, which is the failure this ruling removes.
+    # ⭐ `mom-cycle-status.py:661` already did exactly this; the release loop was the laggard.
+    # ⚠️ `cleared_sha` is NOT derived from the chronicle and must not be. It is S4b — written only by
+    # `--cleared <sha>` on Paul's word. The chronicle's heading mentions a sha in PROSE and parsing it
+    # out would make a human gate machine-derivable, which is the one thing S2/S4b exist to prevent.
+    lap_count, chron, anomalies = None, None, []
+    try:
+        _ml = momlib_module()
+        lap_count, chron = _ml.lap_state(LOG)
+        anomalies = _ml.lap_heading_anomalies(LOG)
+    except Exception as exc:                       # noqa: BLE001
+        lap_count = None                           # UNMEASURED, never 0
+        anomalies = [(0, f"lap census unreadable: {type(exc).__name__}")]
+    prior_last = prior.get("last_lap") or {}
+    if chron:
+        last = {"lap": chron["n"], "opened": chron["date"],
+                "outcome": chron["outcome"] or "unknown", "closed_at": chron.get("closed_at")}
+    else:
+        last = {"lap": None, "opened": None, "outcome": "unknown"}
+    cleared_sha = cleared or prior_last.get("cleared_sha")
     if cleared_sha and sha.startswith(cleared_sha):
         beat, owner, state, outcome = 5, "paul", "ARMED", "cleared"
     elif seats_pass:
         beat, owner, state, outcome = 3, "paul", "FIRED", "open"       # a human gate is open
     else:
         beat, owner, state, outcome = 2, "session", "FIRED", "open"
-    last = dict(last, outcome=outcome, **({"cleared_sha": cleared_sha} if cleared_sha else {}))
+    # ⛔ `outcome` (computed just above) is about the CURRENT CANDIDATE; `last_lap.outcome` is about
+    # the LAST LAP IN THE CHRONICLE. They are different questions and the old code conflated them by
+    # overwriting one with the other — which is how this field came to publish `"cleared"`, a value
+    # that is not in the CYCLE-SPINE's enum at all (noted at CYCLE-LOG.md:922). The chronicle's enum
+    # (`closed` · `abandoned` · unmarked→`unknown`) now stands, and the candidate's story is carried
+    # by `beat`/`state`, which is what those fields were always for.
+    last = dict(last, **({"cleared_sha": cleared_sha} if cleared_sha else {}))
     return {
         "state": state,
         "generated_at": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
@@ -64,7 +103,11 @@ def derive(cleared=None, prior=None, sha=None):
                  "name": {2: "the synthetic loop", 3: "Paul walks it", 5: "Paul cleared it"}[beat]},
         "gate_1": {"seats_pass": seats_pass, "ux_clause": "UNCHECKABLE — no artifact convention",
                    "seats": seats},
+        "lap_count": lap_count,
         "last_lap": last,
+        # ⛔ Non-empty means a hand-typed heading did not parse and A LAP IS MISSING FROM THE COUNT.
+        # Empty is not proof of completeness — only that nothing heading-shaped was rejected.
+        "lap_heading_anomalies": [{"line": n, "text": t} for n, t in anomalies],
         "pre_registered": prior.get("pre_registered") or [
             {"id": "instrumented-counted", "question": "at the lap-1 candidate sha, does every seat's capture.json show ≥1 app event via grant?",
              "disposition": "open", "evidence": None},
@@ -108,6 +151,13 @@ def main():
           % (st["state"], st["beat"]["n"], st["beat"]["of"], st["beat"]["name"], st["beat"]["owner"],
              st["candidate_sha"], st["gate_1"]["seats_pass"]))
     if note: print(note)
+    # ⭐ The loud half of J-c: a heading that did not parse means a lap silently vanished from the
+    # count, so it prints at the top level rather than living only in the JSON nobody opens.
+    for ln, txt in [(a["line"], a["text"]) for a in st.get("lap_heading_anomalies", [])]:
+        print("  ⛔ CYCLE-LOG.md:%s — heading did not parse; THIS LAP IS MISSING FROM THE COUNT: %s" % (ln, txt[:90]))
+    print("  laps closed in the chronicle: %s · last: lap %s (%s) %s"
+          % (st.get("lap_count"), st["last_lap"].get("lap"), st["last_lap"].get("outcome"),
+             ("cleared_sha " + st["last_lap"]["cleared_sha"]) if st["last_lap"].get("cleared_sha") else "(no cleared_sha)"))
     if a.write:
         # ⛔ A WRITE THAT CHANGES ONLY THE TIMESTAMP IS NOT A WRITE. Hooked to post-commit (R3), an
         # unconditional dump re-dirtied the tree after every commit and the seam gate never read clean.

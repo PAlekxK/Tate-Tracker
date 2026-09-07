@@ -50,6 +50,53 @@ expectations unmet. *"Until it no longer fails"* had no surface that could repor
 
 **Beats 2→3→4→2 repeat.** There is no bound on the number of turns; there is only the exit condition.
 
+### ⭐ BEATS 0 and 6–11 — the estate-manager beats, INSIDE this loop `[paul-ruled 2026-09-07, A-1]`
+
+⛔ **Not a fourteenth loop.** A second cadence for a solo operator is a loop that will not get run,
+and the state artifact (`cycle-state.json`) is already shared. These beats live here.
+
+| # | beat | who | exit condition |
+|---|---|---|---|
+| **0** | OPEN THE LAP | main session | the prior lap is closed and machine-readable · its pre-registrations are disposed · the gate sweep is done · the three sweeps have run and their output is recorded (**including UNREADABLE, which is never zero**) · a dated lap heading exists |
+| **6** | DISPOSE | ⭐ **Paul** | every swept record has been given `act` · `fold` · `hold` · `not-a-finding` |
+| **7** | READ | user-researcher | only `act`/`fold` records are read; it says **what matters most to the customer** `[J-b]` |
+| **8** | CARRY | product-steward | each finding reaches a row it can **cite**, or opens a question where it cannot |
+| **9** | BUCKET | product-steward | the board is laid out on **two axes** — kind-shaped buckets it owns, carried severity it cites `[paul-ruled 2026-09-07]` |
+| **10** | ⭐ COMMIT THE SCOPE | ⭐ **Paul** | he picks. **This is a human gate and no instrument is ever built for it** |
+| **11** | ARM | main session | zero records undisposed; the next beat 0 may open |
+
+⭐ **Where the three sweeps fire, and what each gates** — the important half is that they gate
+DIFFERENT things and one of them gates nothing at all:
+
+| sweep | fires | gates |
+|---|---|---|
+| health (`health-probe.py --only fernwood`) | beat 0 | ⛔ **nothing, by design.** A red is an AGENDA ITEM, not a block. Blocking a lap on it would make the loop unable to open in order to fix the thing that is broken |
+| accounts (`tools/watch-accounts.py`) | beat 0 | ⭐ the **CONSOLIDATION** beat. ⚠️ its `exit 3` — *an unreadable namespace is UNREADABLE, never "no new accounts"* — must never be read as clean |
+| feedback (`tools/watch-feedback.py`) | beat 0, and again at close | ⭐ the **COMMITMENT POINT (beat 10)**. The board may not be laid out while records nobody has read are sitting in the store |
+
+### ⭐ WHEN A LAP CLOSES — two halves `[paul-ruled 2026-09-07, A-5]`
+
+> A lap closes when **(a)** gate ① and Paul's clear are satisfied for whatever shipped — **including
+> the case where nothing shipped** — and **(b)** every item in the committed scope is at or past its
+> target rung, or its shortfall is recorded with a reason.
+
+⭐ **This is what makes a SHIPLESS lap a successful lap.** The stage ladder
+(`check-backlog-ready.STAGES`) exists so a concept can advance `concept → design → journey` without a
+deploy; without half (b) that advance has nothing to close against and reads as a failed lap. **Zones
+is the named test case.**
+
+⛔ **It is NOT the same as "the lap succeeded."** That judgement is Paul's. The closing condition only
+makes it *checkable*.
+
+### ⛔ WHO LAYS OUT THE BOARD `[paul-ruled 2026-09-07, A-6]`
+
+**Agents lay out the board; Paul picks.** No seat mints a ranking. Each seat surfaces what is critical
+**in its own lane, with its evidence** `[J-b]`; product-steward buckets by kind and carries severity
+with a citation; the ordering across lanes is Paul's and is made in a discussion, not in a file.
+
+⚠️ **The falsifier, to be read at cycle 2 and not argued now:** if the board is consistently so long
+that picking from it is itself the bottleneck, a bounded ranking seat becomes a real question.
+
 ---
 
 ## GATE ① — the synthetic loop's exit, written so it can FAIL

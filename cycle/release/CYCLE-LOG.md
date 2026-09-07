@@ -1029,3 +1029,93 @@ direction — an unfinished lap 1 looks like work in progress, never like a lost
 **⛔ NOT FIXED — the state contract is Paul's.** Two candidate shapes, his call: `last_lap` becomes an
 append-only list of closed laps with `lap` incrementing on `--cleared`, or `outcome` is renamed to
 `candidate_is_cleared` and a separate `laps_closed` count is kept. **Lap 3 item, first thing.**
+
+---
+
+## Lap 3 — 2026-09-07 · 🔓 **OPEN** — the proving lap: sweeps first, consolidate, options board last
+<!-- outcome:open -->
+
+Opened at `e6c6090`, main, clean. ⛔ **This lap opens on a BRIEFING, not on a re-derivation** —
+`.plans/2026-09-07-lap3-BRIEFING.md` is the entry document.
+
+### Beat 0 · opened — what Paul ruled, and what the sweeps returned
+
+**Nine rulings taken this session** (`paul-ruled 2026-09-07`), each now applied:
+
+| # | ruling | where it landed |
+|---|---|---|
+| **A-1** | Estate-manager beats fold in as beats **0 and 6–11**. ⛔ Not a fourteenth loop | `CYCLE-MAP.md` § beats |
+| **A-2** | `design` + `journey` join `STAGES` | `check-backlog-ready.py:51` |
+| **A-3** | WIP **2** in design/journey · **1** in build/qa · `concept` **uncapped** | `check-backlog-ready.WIP_BANDS` |
+| **A-5** | The closing condition gets **two halves**, so a shipless lap closes clean | `CYCLE-MAP.md` § when a lap closes |
+| **A-6** | Agents lay out the board **unranked**; Paul picks | `CYCLE-MAP.md` § who lays out the board |
+| **J-c** | ⭐ **The CHRONICLE is the source of lap state**, not `cycle-state.json` | `release-state.py` · `momlib.lap_heading_anomalies` |
+| **J-d** | One colour concept — **a colour belongs to a thing**; a property has one, the account has one, neither inherits | *pending: reading confirmed with Paul* |
+| **charters** | `user-researcher` and `practice-steward` need **no edit** — reporting demand is not pitching, and building a forum is not ranking. Only `product-steward` changed: it may **BUCKET**, on **two axes** (kind it owns · severity it carries with a citation) | `product-steward-CHARTER.md` §3, §5 |
+
+⭐ **A-4 was not ruled because it was already answered** — the procedure proposal asked whether the
+FOCUS FREEZE binds Mom's arrivals on `est-e6696a`, and J-a had settled it the same evening: it does
+not. The proposal was written before the ruling; the question was stale, not open.
+
+**Lap 2 closed in the record.** `release-state.py --cleared 1e2748d` run; `lap_count: 2`,
+`last_lap: {lap 2, closed, cleared_sha 1e2748d}`. ⭐ The state artifact and the chronicle now agree
+for the first time.
+
+**Pre-registrations disposed** (both, per the two-sided rule):
+- `instrumented-counted` → **closed, outcome yes.** 4 of 4 seats at `c821051` show `app.events=5` via
+  `["grant"]`. ⚠️ Answered, **not promoted** — the five events are generic app telemetry, so a green
+  clause proves the app phoned home, not that the lap's feature is instrumented.
+- `second-viewport` → **blocked-on-paul.** `journey-view.py:64` hardcodes 414×848 with no flag, so it
+  would read `open` forever. ⛔ A third lap at `open` is not legitimate; Paul rules build-the-flag or
+  kill-it.
+
+**The three sweeps, run 2026-09-07 ~19:20 ET:**
+
+| sweep | result | reading |
+|---|---|---|
+| health | 🟡 **1 amber**, 8 green — Fernwood build check (viewer) last run failed | ⭐ **`measured`: `tools/build-viewer.py` succeeds locally at `e6c6090` and leaves the tree clean.** The failure is CI-side, not source-side. Agenda item; gates nothing, by design |
+| accounts | 79 arrived since watching began · 264 predate · **0 unreadable** | ⭐ Mom's invite **`p-b91e4d` is still in the store — she has still not arrived.** `exit 3` did not fire, so "no new" is trustworthy this once |
+| feedback | **480** awaiting disposition across 6 envs · **0 unreadable**. Production: **10 records, 10 awaiting, 1 of 10 fully labelled** | ⛔ Gates the commitment point. The board may not be laid out while these sit |
+
+### 🔎 A NEW FINDING, from the feedback sweep — a second personId on production
+
+`measured`: production (`home` · `est-e6696a`) holds three onboarding records — `onboard-name-10ws5c9`,
+`onboard-address-sfkst2`, `onboard-interests-kgw378` — written **2026-09-07T14:22Z** by
+**`p-lnxakyzniuwk`**, *"a personId the local register does not know at est-e6696a."*
+
+⚠️ **The briefing says production has ONE account.** It does — but someone reached step 5 of onboarding
+54 minutes before `pkirsch` was created at 15:16Z and **no account exists for them.** So production
+holds an onboarding that started and did not finish.
+
+⭐⭐ **CHECKED, AND IT IS NOW `measured` — IT IS PAUL'S OWN FIRST ATTEMPT, AND IT PRODUCED NO ACCOUNT.**
+Read from `.private/feedback-sweep/home-2026-09-07.json`, the two runs are byte-identical where it
+counts:
+
+| | `p-lnxakyzniuwk` — 14:22Z | `p-yjnw9lt41nww` — 15:17Z (the account that exists) |
+|---|---|---|
+| name | `Grant Park Condo` | `Grant Park Condo` |
+| address | `655 mead street southeast, Unit 6\nAtlanta, GA 30312` | *identical* |
+| step 4 · address-confirm | ⛔ **ABSENT** | ✅ `confirmed: 655 mead street southeast…` |
+| step 5 | `house-systems > papers > motor-pool > equipment > wildlife > other` | `Houseplants!` (interests-other) |
+| account created | ⛔ **NO** | ✅ `pkirsch` |
+
+⛔ **THE FINDING: a run that reached the LAST STEP of onboarding on PRODUCTION created no account, and
+nothing anywhere reported a failure.** Paul had to do the whole thing twice, 55 minutes apart. The
+first attempt is in the feedback store as three orphaned records under a personId **the register does
+not know**, which is the only reason it is visible at all.
+
+⭐ **This is the identity seam (F4/F6), caught in production with a timestamp** — *"an account's facts
+and its credential are two separate records, and exactly one code path reconciles them — the one with
+no door."* Here the facts were written and the credential never was, and **the facts are the only
+survivors.**
+
+⚠️ **The discriminating detail, and it is a lead rather than a conclusion:** the failed run has **no
+step-4 `address-confirm` record** and the successful one does. That is where the two runs diverge.
+Whether the run died AT the confirm step or merely skipped it is **not established** — the store shows
+absence, and absence of a record is not evidence of the step failing `[[reference_parts_record_under_reports]]`.
+
+⭐⭐ **WHAT IT DOES TO GAP 1 — it raises it from useful to urgent.** The builder, on his own machine,
+with every credential available to him, **did not get through the door on the first try and got no
+error.** Mom's invite is unspent and the likeliest device it opens on is one that has held Paul's
+grant. GAP 1 asks *"does a real person who is not the builder get through the door at all?"* — and the
+answer for the person who **is** the builder is already **not the first time.**

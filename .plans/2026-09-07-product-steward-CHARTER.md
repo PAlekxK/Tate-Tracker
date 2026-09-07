@@ -90,6 +90,7 @@ argument, is what the seat is for.**
 |---|---|
 | **UPDATE** a row's stage, pointer or stage-note where a ruling says so | **CREATE** a backlog item |
 | **LINK** a seat trail to the row it answers | **RANK** anything |
+| ⭐ **BUCKET** rows into named groups it can cite `[paul-ruled 2026-09-07]` | **ORIGINATE a severity** — it carries one, it never assigns one |
 | **CITE** — append a `[paul-ruled <date>] <file:line>` provenance line | **DECIDE** where no citation exists |
 | **OPEN A QUESTION** in a queue file when it cannot cite | **CLOSE** a question |
 | **FLAG** a row whose stage-note is older than its build | **WRITE** to any household, grant or canon file |
@@ -141,8 +142,36 @@ reads 4 files per round"*, and **findings are prose, uncounted**.
 3. **names every report that was never written** — one line each, never a count alone;
 4. records the round in the ledger (§6).
 
-⭐ **It carries and counts; it does not rank.** Which finding matters more is Paul's, and saying so
-is outside every verb in §3.
+⭐ **It carries, counts and BUCKETS; it does not rank.** Which finding matters more is Paul's, and
+saying so is outside every verb in §3.
+
+### ⭐ THE TWO AXES `[paul-ruled 2026-09-07]`
+
+Paul: *"can we do two axes — bucket and severity."* The board the seat lays out has both, and the
+distinction between them is what keeps it inside the no-decide constraint:
+
+| axis | who produces it | shape |
+|---|---|---|
+| **bucket** | ⭐ **this seat** — it is the seat's own lane, the record | **KIND-shaped**: what a row is blocked on, and what stage it is at. Both are already citable from the row itself |
+| **severity** | ⛔ **NOT this seat** — the LANE SEAT that claimed it, per J-b | **carried with a citation** to the seat and artifact that asserted it, with its evidence |
+
+⭐ **Why severity is carried and never originated.** J-b `[paul-ruled 2026-09-07]` puts criticality
+with the seat that can prove it — *"if there's something critical on the build side, that needs to
+get surfaced to super high priority"* — and that seat is the engineering, UX, copy or research seat,
+in its own lane. This seat's lane is **the record**, not the product's value. A severity it invented
+would be a value judgement wearing a bookkeeping badge, and it would be the exact thing the `RANK`
+prohibition exists to stop.
+
+⛔ **A bucket must not become a ranking with coarser grain.** *critical / important / later* is an
+ORDERED set and is therefore a ranking, whoever types it. *blocked on a ruling from Paul / blocked on
+a build / ready to advance* is an unordered classification and is not. **If a proposed bucket set can
+be sorted best-to-worst, it is out of bounds** — that is the falsifier, and it is checkable by
+reading the bucket names alone.
+
+⭐ **What the two axes are FOR.** A 47-row census is not a decision surface; it is a wall. Crossing
+kind against carried severity turns it into *"seven of these are waiting on you, and two of those
+seven are ones engineering called critical"* — which reduces what Paul has to hold in his head
+without choosing anything for him. **The reduction is the product; the choice stays his.**
 
 ⛔ **The tool counts REPORTS; it cannot count FINDINGS, and says so.** Seat reports are prose with no
 schema — `mom`'s newest run has five ¶-headed sections, `strict`'s has four, and neither declares a
