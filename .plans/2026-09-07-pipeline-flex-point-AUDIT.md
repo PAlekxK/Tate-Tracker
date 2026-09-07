@@ -25,6 +25,12 @@ and two were re-measured mid-audit rather than left standing (§1.4, §2.1).
 
 ## 0 · FOR PAUL — the rulings, and nothing else
 
+> ⭐ **RULED 2026-09-07 ~12:45 ET** `[paul-stated: "I go with your recommendations on the other items… For 6 I'd like
+> to limit my reading right now… Let's see how much we can learn by doing now rather than discussing."]`
+> **R1 A (struck, `tools/qa-divergence.py`) · R2 yes, pair-of-shas · R3 A (post-commit hook writes the state; derives
+> against the QA-served sha) · R4 B + `draft` · R5 yes → engineering-partner · R6 B, expiry at lap close · R7 C, a
+> `product-steward` trial for one lap.** R1 and R3 applied the same hour; R2 · R4 · R5 · R7 are lap-2 work.
+
 Seven. Each is yes/no or A/B, with my answer, its falsifier, and where it sits relative to **G0**
 (Mom positively identified on production `home`/`est-e6696a`). **Placement is by dependency, not by
 value** — "BEFORE" means the first clean production push structurally needs it, not that it matters more.

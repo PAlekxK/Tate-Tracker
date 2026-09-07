@@ -73,8 +73,9 @@ def main():
     behind = git("rev-list", "--count", "origin/staging..origin/main").strip()
     print("\n  migration fast-forward: %s" % ("✅ available (main has nothing staging lacks)" if behind == "0" else "🔴 BLOCKED — %s commit(s) on main not on staging: %s → back-merge origin/main" % (behind, git("log", "--oneline", "origin/staging..origin/main").strip().replace("\n", " · ")[:200])))
     unrec = [r for r in rows if r["class"] == "SURFACE" and not r["recorded"]]
-    if a.check and behind != "0":
-        print("\n🔴 the migration cannot fast-forward — back-merge origin/main into the staging line before anything else"); return 1
+    # ⭐ STRUCK 2026-09-07 `[paul-ruled, flex-point audit R1]`: this clause gated a fast-forward migration the
+    # 09-06 rulings retired (Mom's frozen page stays as a control; she gets a NEW household), and the weather
+    # bot re-redded it every six hours. The line above stays as information; it no longer fails --check.
     if a.check and unrec:
         print("\n🔴 %d SURFACE commit(s) on QA are not named in any plan stage-note — record the addition where its plan lives" % len(unrec)); return 1
     if not rows:

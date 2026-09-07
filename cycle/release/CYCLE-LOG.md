@@ -889,3 +889,9 @@ Make it flexible."*
   (the Worker spends the invite at account creation — verified on Paul's own link today); "spent"
   tracking is a derived column for `access-map.py`, pre-registered.
 - `paul-stated` (~12:30 ET): *"Go on geocoding as lap 2's first build."* → lap 2 opens on W0.
+- `paul-ruled` (~12:45 ET) on the flex-point audit's seven: *"I go with your recommendations on the
+  other items. For 6 I'd like to limit my reading right now. Let's see how much we can learn by
+  doing now rather than discussing."* → R1 struck (`qa-divergence.py` no longer fails `--check` on
+  the retired fast-forward) · R3 applied (post-commit hook runs `release-state.py --write`, deriving
+  against the QA-served sha) · R2 · R4 · R5 · R7 queued for lap 2 · R6: unruled process proposals
+  expire at lap close.
