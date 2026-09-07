@@ -654,6 +654,71 @@ calendar that binds them. Whereas *vehicles* maps cleanly to one domain, and *to
 declaration's shape.** ⚠️ Do not settle it by picking whichever is convenient when the code is
 written — a bundle chosen implicitly is how a second vocabulary starts.
 
+
+### 📓 TWO CLASSES OF RELEASE NOTES — and today there is one, so four estates of five have none `[paul-raised 2026-09-07]`
+
+> *"We should have release notes. And there are probably two classes… one is general updates to the
+> overall system, and then there are individual updates to households or estates. So there's probably
+> multiple release logs — one kind of overall for the estate manager, then release logs for each
+> individual estate."*
+
+**`measured 2026-09-07 at a96d931`, and it is a live surface, not a tidiness item.** The lookup is
+single-class and instance-scoped: `tools/build-viewer.py:325` reads `<canon>/RELEASE_NOTES.md`; a
+missing file builds `[]`, and `engine/viewer.template.html:19146` then hides the *Recent updates* card
+outright.
+
+| instance | `canon` | `RELEASE_NOTES.md` | what the card does |
+|---|---|---|---|
+| `fernwood.json` (`est-3c9f1a`) | `..` | ✅ exists | renders, latest 5 |
+| `home.json` (`est-e6696a`) | `neutral-canon` | ⛔ none | **hides** |
+| `qa.json` · `bob.json` · `paul.json` | `neutral-canon` | ⛔ none | **hides** |
+
+⭐ **THIS IS RULED BEHAVIOUR, NOT A BUG, AND THAT IS THE POINT.** `build-viewer.py:320` carries
+`[paul-stated 2026-09-03: nothing to display → no indication of it]`. The 09-03 ruling answered *"what
+if an instance has no notes of its own"* — correctly. **It never reached the question Paul is asking
+now:** an engine change that every estate should see has no log to land in, because the only log class
+that exists is the instance's. Nothing is being reversed here.
+
+⛔ **AND IT UNDERCUTS A PREMISE WRITTEN INTO `CLAUDE.md`.** The acknowledgment ribbon is permitted to be
+pure attribution on stated grounds: *"✅ The premise is verified: the app carries a changelog… The
+ribbon therefore never has to inform; that job is already taken."* On four of five instances that job
+is taken by **nothing**. ⚠️ **The premise did not rot — it was narrowed.** It was verified on
+2026-08-04, when Fernwood was the only instance, and became false for households the moment the engine
+gained them. Nothing re-ran it. Same shape as every measured-once-inherited-as-current failure this
+corpus records.
+
+**The split maps onto machinery that already exists:**
+
+| log | scope | who reads it, and in whose words | example |
+|---|---|---|---|
+| **engine** | the product, every estate | everyone, identical text | *the door got faster* · *you can name your place* |
+| **instance** | one estate | only that household | *added the yellow flag iris* · *Mom confirmed the hydrangea* |
+
+⭐ **The routing rule is already written and must not be re-minted.** `ENGINE-MANIFEST.md` classifies
+every tracked file `engine` · `config` · `instance`, so a change's class already decides its log. This
+is the same classifier lane B is defining once for app-surface — **they share it, or the repo acquires
+a third opinion about what "engine" means**, which is this corpus's most-repeated failure.
+
+✅ **One correction to the estate-neutral worry, in its favour.** `check-estate-neutral.py` does **not**
+need a per-log row: it greps the **served surface** for tokens **derived from canon**, so a Fernwood log
+leaking into another estate's build is caught generically today, and its docstring already names the
+release notes as one of the six leak surfaces. ⚠️ The residual gap is narrower and real: **an instance
+log whose prose names its own estate in words canon does not declare would pass**, because the needles
+come from canon.
+
+### 🔴 OPEN — Q-RN, and it is Paul's
+
+**Does a household see BOTH logs, or only its own?** ⛔ Not answered here. It is a reader question, not
+a plumbing one: one merged list is simplest and puts *"the door got faster"* beside *"Mom confirmed the
+hydrangea"*; two lists are honest about scope and cost a reader a second place to look; engine-only-on-
+request keeps her card quiet but hides the thing she is most likely to notice changing. Each is
+defensible and none follows from the measurement.
+
+⚠️ **A deadline touches this, so it is stated rather than assumed.** `home.json` is `est-e6696a` — the
+production estate Mom is migrating to. She is moving **off the one instance that has a changelog onto
+one that has none**, arriving at a ribbon designed on the premise that a changelog is there. Whether
+that is acceptable for the first day is Paul's call and is separable from the architecture above.
+
 ### 🧭 THE SETUP JOURNEY — invite → account → profile → devices joined `[paul-stated 2026-09-03]` — CAPTURE ONLY
 
 Raised while ruling C5 Q3 (Mom's `personId`). Verbatim: *"we need to have within the journey a set-up phase and allow
