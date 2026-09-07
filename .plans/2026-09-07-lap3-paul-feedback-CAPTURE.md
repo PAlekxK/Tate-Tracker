@@ -122,3 +122,63 @@ Not ruled — flag to Paul.
 **Also to place:** the zones dedicated session is the FIRST item in the design lane, and it is the
 test case for whether the ladder is real: it must be possible for zones to advance a stage this lap
 and produce NO production deploy, without that reading as a failed lap.
+
+## F4 — 🔴 THE OWNER GUARD DISOWNS FRESHLY-RECONCILED SERVER DATA (regression, live in production)
+`measured 2026-09-07, walking production at 1e2748d with Paul`
+
+**Three independent records must agree before a person can see their own place, and tonight all
+three disagreed.** Paul's production walk needed THREE repairs to reach his own account:
+
+| # | what was wrong | where | fix used |
+|---|---|---|---|
+| 1 | the browser held a **dead grant** — `/api/grant/whoami` → **404** | KV grant row absent | minted a fresh grant |
+| 2 | the fresh grant was **born blank** — whoami 200, every place field `null` | `mint()` carries identity only; the 8 place facts ride on at SIGN-IN (`worker.js:595`) and there is no sign-in door | built `grant-mint.py hydrate` |
+| 3 | 🔴 **the data arrived and was then hidden** | `estate/index.html:269` | re-stamped `fw-onboard-owner` |
+
+**F4 is #3, and it is a NEW regression from lap 2's own door-card work (`1e2748d`, "the door card:
+an owner guard").**
+
+    estate/index.html:269   var mine = !!grant && (!owner || owner === grant);
+
+Every row on the card is gated on `mine` (`:330 :336 :343 :354 :380 :410 :415`). The reconcile
+(`:480-507`) writes the server's answer into `fw-onboard-name`, `-addr`, `-contact`, `-interests`
+— **and never re-stamps `fw-onboard-owner`.** So on any device whose owner stamp names a PREVIOUS
+grant, the page fetches the correct record, stores it, and then suppresses every row of it. Measured
+live: whoami returned `name: "Grant Park Condo"` + address + ranked while the screen read
+*"Empty so far."*
+
+⭐ **And it makes the stuck spinner permanent for a THIRD reason.** `if (changed) location.reload()`
+is the only exit from `fetching`. Once the values are written, a second load finds them equal,
+`changed` is false, no reload — and `mine` is still false, so the rows are still empty. Dead grant,
+blank grant, and disowned-but-correct data all produce the identical dead screen.
+
+⭐⭐ **THIS IS THE ONE THAT WILL BITE MOM.** Her invite `p-b91e4d` is out and unspent. If she opens
+it on any device that has ever held a different grant — Paul's phone, a shared iPad — she gets a
+permanently empty place **with someone else's name printed on it**, because `fw-username` at `:343`
+is read WITHOUT the guard (shipped defect #2, fixed in `4a3a61b`, still not in production). Measured
+tonight: the screen said *"Signed in as PaulKirsch"* — a username belonging to no account — through
+all three repairs.
+
+**Falsifier:** on a device holding grant A's owner stamp, present grant B via `?g=`. The card must
+either render B's place or say it cannot confirm who this is. It must never render zero rows under
+another person's name.
+
+## F5 — coordinates are absent on Paul's account, so the household is still unplaced
+`measured 2026-09-07` — the hydrate carried `placeName · accent · address · ranked · contactPref ·
+profileAccent` and reported `addressParts` and **`coordinates`** absent on the account row. Without
+coordinates a household stays S0: no weather, no sky, nothing about what grows there.
+`inferred`, cheap to test: the account was created **11:16 ET on `c821051`**; W0 geocoding reached
+production **17:15 ET on `1e2748d`** — the account predates geocoding in production by six hours.
+Predicts that re-saving the address populates it. NOT YET TESTED.
+
+## F6 — ⭐ the cohesive framing Paul asked for
+`paul-stated 2026-09-07` — *"make sure that we address this in the next lap more cohesively."*
+
+> **An account's facts and its credential are two separate records, and exactly one code path
+> reconciles them — the one with no door.**
+
+Everything above falls out of that single seam: the missing login screen (row 20), a minted grant
+born blank, a spinner with three causes and no exit, a stale identity that nulls can never correct,
+no sign-out, the owner guard fighting the reconcile, and Mom's invite carrying the same blankness
+right now. ⛔ Not six tickets. One architectural seam — and a candidate for the FIRST item to move
+concept → design → journey in the staged pipeline (F3), rather than a fix queued behind a deploy.

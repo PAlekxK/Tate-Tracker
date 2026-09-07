@@ -175,6 +175,129 @@ def run_kv(env, verb, key, value=None, dry=False):
     return ok
 
 
+def kv_get(env, key):
+    """The raw value at `key`, or None when the store does not hold it."""
+    if KV_OFFLINE:
+        raise Refuse("kv_get is a live read and this run is offline")
+    r = subprocess.run(kv_cmd(env, "get", key), cwd=os.path.join(ROOT, "worker"),
+                       capture_output=True, text=True, timeout=120)
+    return r.stdout if r.returncode == 0 else None
+
+
+def kv_list_keys(env, prefix):
+    """Every key under `prefix`. Borrowed in shape from watch-accounts.kv_list."""
+    if KV_OFFLINE:
+        raise Refuse("kv_list_keys is a live read and this run is offline")
+    wr = sorted(glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/wrangler/bin/wrangler.js")),
+                key=os.path.getmtime)
+    cmd = ["node", wr[-1] if wr else "wrangler", "kv", "key", "list", "--binding", "OBSERVATIONS", "--remote"]
+    if env != "prod":
+        cmd += ["--env", env]
+    cmd += ["--prefix", prefix]
+    r = subprocess.run(cmd, cwd=os.path.join(ROOT, "worker"), capture_output=True, text=True, timeout=120)
+    if r.returncode != 0:
+        raise Refuse("kv key list failed: %s" % r.stderr[-300:])
+    try:
+        rows = json.loads(r.stdout[r.stdout.index("["):])
+    except Exception:
+        raise Refuse("kv key list did not return JSON — got %r" % r.stdout[:120])
+    return [x["name"] for x in rows if isinstance(x, dict) and "name" in x]
+
+
+# ── the place's facts, carried onto a credential ───────────────────────────────────────────────
+# ⭐ WHY THIS EXISTS `[paul-walked 2026-09-07, production]`. Paul opened production on a browser
+# whose grant had died, minted a fresh one with this tool, and STILL saw an empty place. The reason
+# is that `mint()`'s kv_row carries identity only — personId · estateId · relationship · capability ·
+# entry · vault · issuedAt · issuedBy. The eight fields that make a place a PLACE ride onto a grant
+# in exactly one code path: `worker.js:595`, i.e. SIGNING IN. And there is no sign-in door
+# (BACKLOG row 20, "designed and recommended, never built"), so a minted grant could not be
+# hydrated by ANY route a person could reach. Three visible symptoms, one missing copy:
+# whoami answered 200 with every field null · the door card's reconcile only re-renders
+# `if (changed)`, so "Fetching your place…" never cleared · and the stale `fw-username` could never
+# be corrected, because `put()` skips nulls.
+#
+# ⛔ COPIED, NOT MOVED. The account row stays the record of who they are; the grant is the
+#    credential-shaped VIEW of it. Same contract the Worker states in its own comment.
+# ⛔ ABSENT IS NOT NULL. A field is carried only when the account HAS it, so an account that never
+#    set an address cannot overwrite a good one with null — the regression the selftest pins.
+# ⛔ AN EMPTY STRING IS CARRIED. `acct[f] !== undefined && acct[f] !== null` lets "" through, so
+#    this must too: "" is a value someone chose, and dropping it here would make the administrative
+#    path quietly disagree with the sign-in path — the exact class of divergence that produced this.
+PLACE_FACTS = ("placeName", "accent", "address", "addressParts", "ranked", "contactPref",
+               "profileAccent", "coordinates")
+
+
+def carry_place_facts(acct, grant):
+    """Pure. Returns (new_grant, carried, absent). Never mutates its arguments."""
+    out = dict(grant)
+    carried, absent = [], []
+    for f in PLACE_FACTS:
+        v = acct.get(f, None)
+        if v is None:
+            absent.append(f)
+        else:
+            out[f] = v
+            carried.append(f)
+    return out, carried, absent
+
+
+def hydrate(reg_path, person, estate, env, dry):
+    """Run the sign-in copy loop administratively, for a credential no sign-in can reach."""
+    estate_agrees(estate, env)
+    env_agrees(env, dry)
+    reg = load_register(reg_path)
+    row = find_row(reg, person, estate)
+    if not row:
+        raise Refuse("the register holds no row for (%s, %s) — mint first" % (person, estate))
+    cred = row.get("credential") or {}
+    if not cred.get("hash") or cred.get("revokedAt"):
+        raise Refuse("(%s, %s) holds no LIVE credential — there is nothing to hydrate" % (person, estate))
+    h = cred["hash"]
+    # The account row is keyed by USERNAME, which the register does not hold, so the account is
+    # found by personId. Zero and many are both refusals: hydrating from nothing would write a place
+    # nobody set up, and guessing between two would bind the wrong place to a live credential.
+    keys = kv_list_keys(env, "%s:account:" % estate)
+    matches = []
+    for k in keys:
+        raw = kv_get(env, k)
+        if not raw:
+            continue
+        try:
+            acct = json.loads(raw)
+        except Exception:
+            continue
+        if acct.get("personId") == person:
+            matches.append((k, acct))
+    if not matches:
+        raise Refuse("no account at %s carries personId %s (%d account row(s) listed) — refusing to "
+                     "hydrate a credential from nothing" % (estate, person, len(keys)))
+    if len(matches) > 1:
+        raise Refuse("%d accounts at %s carry personId %s (%s) — refusing to guess whose place this is"
+                     % (len(matches), estate, person, ", ".join(k for k, _ in matches)))
+    akey, acct = matches[0]
+    graw = kv_get(env, "%s:grant:%s" % (estate, h))
+    if not graw:
+        raise Refuse("the register calls (%s, %s) live but the store holds no grant row at that hash — "
+                     "that is the divergence watch-accounts.py reports, and hydrating cannot repair it"
+                     % (person, estate))
+    grant = json.loads(graw)
+    new, carried, absent = carry_place_facts(acct, grant)
+    if new == grant:
+        print("  already current: (%s, %s) already carries %s — nothing written"
+              % (person, estate, ", ".join(carried) or "no place facts"))
+        return 0
+    if dry:
+        print("  dry-run: would carry %s onto (%s, %s) · absent on the account: %s · NOTHING WRITTEN"
+              % (", ".join(carried) or "nothing", person, estate, ", ".join(absent) or "none"))
+        return 0
+    if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(new, separators=(",", ":")), dry=dry):
+        raise Refuse("KV put failed — the grant is unchanged")
+    # ⛔ FIELD NAMES ONLY, NEVER VALUES. An address is the household's, not this log's.
+    print("  hydrated (%s, %s) from %s · carried: %s · absent on the account: %s"
+          % (person, estate, akey, ", ".join(carried) or "nothing", ", ".join(absent) or "none"))
+    return 0
+
+
 def env_agrees(env, dry=False):
     """G3b — ASK THE DESTINATION WHO IT IS, before writing to it.
 
@@ -406,6 +529,29 @@ def selftest():
           check("--dry-run mint writes no row at all", find_row(load_register(reg), "p-ghost", "est-A") is None)
           revoke(reg, "p-mom", "est-A", "envA", True)
           check("--dry-run revoke leaves the register BYTE-IDENTICAL", open(reg, "rb").read() == before)
+          # ── carry_place_facts — the copy that was missing, and the four ways it must not misbehave
+          g0 = {"personId": "p-mom", "estateId": "est-A", "capability": "member"}
+          a0 = {"personId": "p-mom", "placeName": "A Place", "address": "", "accent": None}
+          new, carried, absent = carry_place_facts(a0, g0)
+          check("carry: a present field is carried", new.get("placeName") == "A Place")
+          check("carry: an EMPTY STRING is carried, exactly as the sign-in path does",
+                new.get("address") == "" and "address" in carried)
+          check("carry: a null field is not carried, and is REPORTED absent",
+                "accent" not in new and "accent" in absent)
+          check("carry: identity fields are left alone",
+                new["personId"] == "p-mom" and new["capability"] == "member" and new["estateId"] == "est-A")
+          check("carry: neither argument is mutated",
+                g0 == {"personId": "p-mom", "estateId": "est-A", "capability": "member"}
+                and a0.get("accent") is None and "placeName" not in g0)
+          # THE REGRESSION THIS EXISTS TO PREVENT: an account that never set a field must not blank
+          # a grant that already carries one. This is the mutation that would look harmless.
+          g1 = {"personId": "p-mom", "address": "a real address"}
+          new1, _, absent1 = carry_place_facts({"personId": "p-mom", "address": None}, g1)
+          check("carry: a null on the ACCOUNT does not overwrite a good value on the GRANT",
+                new1["address"] == "a real address" and "address" in absent1)
+          check("carry: every field the Worker copies is in PLACE_FACTS, in its order",
+                PLACE_FACTS == ("placeName", "accent", "address", "addressParts", "ranked",
+                                "contactPref", "profileAccent", "coordinates"))
     finally:
         ENVIRONMENTS, KV_OFFLINE = real_envs, False
     pub = subprocess.run(["git", "-C", ROOT, "ls-files", "--", "grants.json", "**/grants.json"], capture_output=True, text=True).stdout.strip()
@@ -416,7 +562,7 @@ def selftest():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("verb", nargs="?", choices=("mint", "revoke", "init-schema"))
+    ap.add_argument("verb", nargs="?", choices=("mint", "revoke", "hydrate", "init-schema"))
     ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--register", default=REGISTER, help="the grant register (default: the private sibling's grants.json)")
     ap.add_argument("--person"); ap.add_argument("--estate"); ap.add_argument("--env", choices=tuple(sorted(ENVIRONMENTS)))
@@ -440,6 +586,10 @@ def main():
             raise Refuse("--person, --estate and --env are required")
         if a.verb == "revoke":
             revoke(a.register, a.person, a.estate, a.env, a.dry_run); return 0
+        # hydrate takes no --issued-by: it issues nothing. It copies what the account already holds
+        # onto a credential that already exists, so there is no new authority to attribute.
+        if a.verb == "hydrate":
+            return hydrate(a.register, a.person, a.estate, a.env, a.dry_run)
         consents = [parse_consent(c) for c in a.consent]
         issued_by = a.issued_by
         if not issued_by:
