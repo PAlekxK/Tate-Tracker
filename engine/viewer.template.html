@@ -8497,7 +8497,9 @@ function generateGardenerInsight() {
       return {
         key: "rain-now",
         observation: "Rain coming down now.",
-        action: rainRate > 0.3 ? "Heavy rain — watch low beds for standing water." : "Plants getting watered naturally; skip irrigation."
+        action: hasGroundCanon()
+          ? (rainRate > 0.3 ? "Heavy rain — watch low beds for standing water." : "Plants getting watered naturally; skip irrigation.")
+          : (rainRate > 0.3 ? "Coming down hard." : null)
       };
     }
     // Saturated soil (cumulative daily rain)
@@ -8505,7 +8507,7 @@ function generateGardenerInsight() {
       return {
         key: "saturated",
         observation: "Soils saturated after today's rain.",
-        action: "Let beds drain a day before working low areas."
+        action: hasGroundCanon() ? "Let beds drain a day before working low areas." : null
       };
     }
     // Muggy / fungal pressure (needs station dew point)
@@ -8535,9 +8537,12 @@ function generateGardenerInsight() {
       return {
         key: "muggy",
         observation: "Muggy " + partOfDay + " — heavy air, slow to dry.",
+        // `susceptible` is derived from plant canon, so the NAMED variant is already gated; the
+        // fallback was not — "water at the base, not the leaves" is still advice to someone tending
+        // something.
         action: susceptible.length
           ? "Fungal weather for the " + susceptible[0].toLowerCase() + " and anything crowded — water at the base, not the leaves."
-          : "Fungal weather — water at the base, not the leaves."
+          : (hasGroundCanon() ? "Fungal weather — water at the base, not the leaves." : null)
       };
     }
   }
@@ -8550,7 +8555,9 @@ function generateGardenerInsight() {
       // else on the card, and for a frost the number is the meaning.
       key: "frost",
       observation: tonightLow < 33 ? "Hard freeze tonight (low " + tonightLow + "°F)." : "Frost possible tonight (low " + tonightLow + "°F).",
-      action: "Cover frost-tender plants by sunset; mulch tender shrubs."
+      // the FROST is real from coordinates and the observation keeps it; only what to do about
+      // plants is withheld
+      action: hasGroundCanon() ? "Cover frost-tender plants by sunset; mulch tender shrubs." : null
     };
   }
   // Heat
@@ -8558,7 +8565,7 @@ function generateGardenerInsight() {
     return {
       key: "heat",
       observation: "Hot day ahead.",
-      action: "Water deeply at dawn; check stressed plants by midday."
+      action: hasGroundCanon() ? "Water deeply at dawn; check stressed plants by midday." : null
     };
   }
   // Rain coming today (forecast-only, fires when station not actively raining)
@@ -8566,7 +8573,7 @@ function generateGardenerInsight() {
     return {
       key: "rain-today",
       observation: "Rain likely today.",
-      action: "Hold off on watering; bring sensitive containers under cover if storms come."
+      action: hasGroundCanon() ? "Hold off on watering; bring sensitive containers under cover if storms come." : null
     };
   }
   // Rain coming tomorrow
@@ -8584,7 +8591,7 @@ function generateGardenerInsight() {
     return {
       key: "damp-morning",
       observation: "Cool damp morning.",
-      action: "Let surfaces dry before working in beds."
+      action: hasGroundCanon() ? "Let surfaces dry before working in beds." : null
     };
   }
   // Ideal garden window — temp-and-wind threshold; dewPt check only when station present
@@ -8599,9 +8606,12 @@ function generateGardenerInsight() {
     return {
       key: "garden-window",
       observation: lead,
-      action: dryTomorrow
-        ? "Excellent garden window — looks similar tomorrow, good for planting."
-        : "Excellent garden window for planting, transplanting, or mowing."
+      // the day is still a good one on a balcony; only what to DO with the ground is withheld
+      action: hasGroundCanon()
+        ? (dryTomorrow
+            ? "Excellent garden window — looks similar tomorrow, good for planting."
+            : "Excellent garden window for planting, transplanting, or mowing.")
+        : (dryTomorrow ? "Looks similar tomorrow." : "A good day to be outside.")
     };
   }
 
@@ -8977,6 +8987,24 @@ function precipVerdict(pct) {
 // ⛔ A PLACEHOLDER IS NOT DATA. Until the real forecast lands, this app says it has nothing —
 // which is true — rather than asserting somebody else's April as your afternoon. Trust is the
 // load-bearing emotion here and this is the card the whole feature exists to produce.
+// ⛔⛔ ADVICE THAT ASSUMES A GARDEN HAS TO KNOW THERE IS ONE. Gating the planting alert on FROST
+// canon fixed the TIMING question and left the PREMISE: "Excellent garden window for planting,
+// transplanting, or mowing." still reached the mom seat — a condo with a balcony and no ground —
+// measured 2026-09-07. That seat is C7's approved falsifier (BACKLOG.md §C7, paul-approved
+// 2026-09-03) and exists precisely to catch a land assumption. The seat's own phrasing is the
+// sharpest form: the weather NUMBERS learned to say regional; the ADVICE line still assumed land.
+// ⭐ THE TWO AXES ARE INDEPENDENT and both are canon, never coordinates: a household in Georgia
+// WITH ground needs the frost gate; a condo in Georgia needs this one; Bangor needs both.
+// ⛔ THE WEATHER IS NEVER WITHHELD. "Rain coming" is true on a balcony. What withholds is the
+// recommendation about what to do in the dirt.
+// ⚠️ FAIL CLOSED: no plants and no zones means the engine has no basis to assume ground, not that
+// there is none. A household that adds either starts getting the advice, from its own record.
+function hasGroundCanon() {
+  const plants = ((typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) || []).length;
+  const zones  = ((typeof ZONES_DATA  !== "undefined" && ZONES_DATA.zones)  || []).length;
+  return plants > 0 || zones > 0;
+}
+
 function weatherIsReal() {
   return ((WEATHER_DATA || {})._meta || {}).isPlaceholder !== true;
 }
@@ -9620,7 +9648,9 @@ function generateAlerts() {
     if (station.tempf != null && station.tempf > 88) {
       alerts.push({ key: "heat", severity: "warning", source: "station", icon: "🥵",
         title: "It's " + Math.round(station.tempf) + "° at the property — hot afternoon",
-        text: "Broad-leaved shrubs in full sun stress fast above 88°F. Worth deep-watering and checking shaded plants for wilting."
+        text: hasGroundCanon()
+          ? "Broad-leaved shrubs in full sun stress fast above 88°F. Worth deep-watering and checking shaded plants for wilting."
+          : "Hot enough to matter for anything in full sun, and for being out in it."
       });
       stationCovers.heat = true;
     }
@@ -9704,7 +9734,9 @@ function generateAlerts() {
   if (heatDays >= 3 && !stationCovers.heat) {
     alerts.push({ key: "heat", severity: "warning", source: "forecast", icon: "🥵",
       title: "Hot stretch ahead — " + heatDays + " days above 92°",
-      text: "Broad-leaved shrubs will wilt visibly in the afternoons; worth deep-watering before the heat hits. Anything in more sun than it wants will scorch."
+      text: hasGroundCanon()
+        ? "Broad-leaved shrubs will wilt visibly in the afternoons; worth deep-watering before the heat hits. Anything in more sun than it wants will scorch."
+        : "Worth planning around the afternoons."
     });
   }
 
@@ -9764,7 +9796,8 @@ function generateAlerts() {
       }
       alerts.push({ key: "storm", severity: "warning", source: "forecast", icon: "⛈️",
         title: "Heavy rain coming through " + (i === 0 ? "today" : "soon"),
-        text: "Significant rain expected " + when + rainCtx + ". Worth watching low-lying beds for standing water — shrubs in ground that drains poorly are especially susceptible to root rot."
+        text: "Significant rain expected " + when + rainCtx + "."
+              + (hasGroundCanon() ? " Worth watching low-lying beds for standing water — shrubs in ground that drains poorly are especially susceptible to root rot." : "")
       });
       break;
     }
@@ -9806,7 +9839,10 @@ function generateAlerts() {
         // estate's own vehicles.json filling it. That is a bigger change than this afternoon
         // allows, so the engine now names nothing at all, which is correct everywhere and merely
         // plainer at Fernwood.
-        text: "High " + d.high + "°F, light winds, dry. Good window for mowing, mulching, splitting firewood, or any project that needs steady weather."
+        text: "High " + d.high + "°F, light winds, dry. "
+              + (hasGroundCanon()
+                  ? "Good window for mowing, mulching, splitting firewood, or any project that needs steady weather."
+                  : "Good window for anything outdoors that needs steady weather.")
       });
       break;
     }
