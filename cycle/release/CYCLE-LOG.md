@@ -10,9 +10,18 @@ didn't as we go through all of this — and especially things I'm finding that w
 that in the past I've had to trigger by asking questions. Let's see how we can build those into these
 processes in a sequential, logical and deterministic manner."*
 
+<!-- ⚠️ HEADING CONTRACT — a lap heading MUST start with the word "Lap".
+     `cycle-docs-check.py` (and `field_log.cycle_last_lap`, byte-identically) read the
+     `## ` headings of this file and count one ONLY if it matches /^\s*(\*\*)?\s*Laps?\b/i.
+     MEASURED 2026-09-07: lap 2 was written up in full under `## 2026-09-07 … — LAP 2: …`
+     and the control still reported "newest chronicled lap 2026-09-06" — a complete,
+     committed entry was INVISIBLE, and the tool's answer was the reassuring one.
+     Also: the words DECLARED · NO LAP · NOT A LAP · META ONLY · BETWEEN-LAPS in a heading
+     mark it as explicitly NOT a lap. Put them in the body, never the `## ` line. -->
+
 ---
 
-## Lap 1 — candidate build 6ee2e48 → (next sha) · opened 2026-09-06 evening
+## Lap 1 — candidate build 6ee2e48 → c821051 · opened 2026-09-06 evening · cleared by Paul 2026-09-07 11:50 ET
 
 ### Where the lap stood when this log opened (measured 2026-09-06 ~20:25 ET)
 - QA and production both serve `6ee2e48` (read from each origin's `qa-build.json`). HEAD is `cf4c04b`,
@@ -923,7 +932,7 @@ Make it flexible."*
 
 ---
 
-## 2026-09-07 afternoon → evening — LAP 2: W0 geocoding, and four instances of one assumption
+## Lap 2 — W0 geocoding, and four instances of one assumption · opened and deployed 2026-09-07, beat 2 NOT exited
 
 **Outcome: `1e2748d` DEPLOYED TO PRODUCTION**, verified at the origin (`fernwood-home.pages.dev`
 serving it, read back by `pages-deploy` itself). Gate ① **4 of 4**. ⚠️ The deploy printed *"every seat
