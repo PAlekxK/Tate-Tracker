@@ -1314,6 +1314,11 @@
     var need = [];
     var pref = contactPref();
     if (!u) need.push("a username");
+    // ⛔ THE SERVER'S USERNAME RULE, MIRRORED — found by Paul at beat 3 on 2026-09-07: the Worker
+    // refuses anything outside [a-zA-Z0-9._-]{3,40} with a bare 400, and this page turned every 400
+    // into "That didn't go through", so four taps in a row told him nothing. Name the rule here,
+    // before the round trip, the way the password length already is.
+    else if (!/^[a-zA-Z0-9._-]{3,40}$/.test(u)) need.push("a username of 3\u201340 letters, numbers, dots, dashes or underscores \u2014 no spaces or @");
     // ⛔ ONLY THE CHOSEN PRIMARY IS REQUIRED. Demanding an email from someone who just said "please
     // don't contact me" would make the question decorative.
     if (pref === "email" && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) need.push("an email address");
@@ -1361,9 +1366,19 @@
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
       .then(function (res) {
         if (!res.ok) {
-          var msg = res.b && res.b.error === "username-taken"
-            ? "That username is taken — try another."
+          // ⛔ A REFUSAL WITH A REASON MUST SAY THE REASON. The Worker names every 400; this page
+          // said "didn't go through" for all of them, which is the copy for a failed delivery, not
+          // a refused one. "Tap once more" on a validation error is an instruction to repeat the
+          // same mistake (beat 3, 2026-09-07).
+          var code = res.b && res.b.error;
+          var msg = code === "username-taken" ? "That username is taken — try another."
+            : code === "bad-username" ? "Usernames are 3–40 letters, numbers, dots, dashes or underscores — no spaces or @."
+            : code === "word-too-short" ? "The password needs eight characters or more."
+            : code === "bad-email" ? "That email address doesn't look right — have another look."
+            : code === "bad-phone" ? "That phone number doesn't look right — it needs at least seven digits."
+            : code === "invite-required" ? "This link isn't valid any more — ask Paul for a fresh one."
             : "That didn't go through. Your answers are still here — tap once more.";
+          ev("account-refused", code || "unknown");
           el.trouble0.hidden = false; el.trouble0.innerHTML = msg;
           el.go0.disabled = false; el.go0.innerHTML = '<span class="tick">\u2713</span>Create my account';
           return;
