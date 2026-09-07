@@ -146,7 +146,31 @@ Mom can be **compared against it** — the 23 hand-traced zones become an answer
 `cron: "0 */6 * * *"`) pushes to `origin/main`, and GitHub Pages rebuilds from it — **her "frozen" site
 has republished every six hours since the ruling.** `BACKLOG.md` blamed the digest bot (38 commits,
 event-driven); wrong owner, which is why it survived. Not to be stated as achieved until that cron is
-dealt with. **Open — Paul's call, it is his weather history.**
+dealt with. ~~**Open — Paul's call, it is his weather history.**~~
+
+> ### ✅ CLOSED 2026-09-07 — **LEAVE THE BOT RUNNING** `[paul-ruled: "leave the bot running"]`
+>
+> Asked at the moment it stopped being theoretical: the sunset banner is the first artifact whose
+> deploy actually depends on the answer, because every bot push makes
+> `git push origin prod-sunset:main` a non-fast-forward reject.
+>
+> ⭐ **WHAT THE RULING MEANS, so it is not re-litigated: the freeze was always about not shipping
+> FEATURES to her, never about bytes not moving.** The three axes above (WORK · PUSH · CHANNEL) already
+> said so; this settles that a data pipeline republishing her page is not a PUSH in the sense the freeze
+> governs. Her live weather comes from the Ambient station and Open-Meteo, not from
+> `weather-history.json` — so stopping the cron would have protected nothing she sees and would have
+> stopped the on-site record accruing, which is the very thing `health-probe`'s completeness check
+> exists to protect.
+>
+> ⚠️ **THE OPERATIONAL CONSEQUENCE, which is now permanent rather than a surprise:** ~4 bot pushes land
+> before the 09-08 13:00 EDT sunset (`0 */6 * * *` → 18:00Z · 00:00Z · 06:00Z · 12:00Z). Any push to
+> `origin/main` must expect a reject and answer it with
+> `git fetch && git rebase origin/main prod-sunset && git push origin prod-sunset:main`. A rollup
+> touches `weather-history.json` and the banner touches the viewer, so it replays clean. **Pushing
+> shortly after 12:00Z on 09-08 gives a ~5-hour clean window.**
+>
+> Found by lane D and independently confirmed by lane E while verifying the banner — neither was looking
+> for it, which is the argument for a second measurer on anything that reaches her.
 
 **⭐ 2. PARTIAL UNFREEZE — Track B vehicles & equipment** `[paul-stated 2026-09-06]` — *"let's lift that
 freeze at least on vehicles and equipment that I provided feedback on in a very targeted and intentional
