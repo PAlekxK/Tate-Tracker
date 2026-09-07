@@ -864,8 +864,23 @@ async function applyGeocode(env, scope, row) {
   if (!oneline) return null;
   const have = row.coordinates;
   if (have && have.latitude && have.queriedAddress === oneline) return null;   // already placed, unchanged
+
+  // ⛔ WE ONLY REACH HERE IF THE ADDRESS CHANGED (or was never placed), and that is what makes the
+  // next line correct rather than destructive. Any coordinates on the row describe the PREVIOUS
+  // address, so they are STALE — not merely unconfirmed — and they must not survive the change.
+  //   MEASURED 2026-09-07 on QA, which is why this exists: a profile whose address was edited from
+  //   "38 Hill St, Roswell GA" to "PO Box 417, Cartersville GA" kept the ROSWELL coordinates. The
+  //   household then asserted a point on the earth that contradicted the address printed beneath it
+  //   — the same shape as P29, where a stranger named an Atlanta place and landed on Fernwood.
+  //   The earlier guard ("never write null over good coordinates") was written for a PROVIDER
+  //   OUTAGE, and that case never reaches this line: an unchanged address returns above, so an
+  //   outage cannot un-place a household. Keeping stale coordinates here protected nothing real
+  //   and broke the one promise the placed/unplaced split exists to keep.
+  if (have) delete row.coordinates;
+
   const r = await geocodeAddress(env, scope, row.address, row.addressParts);
   if (r.coordinates) { row.coordinates = r.coordinates; return "placed"; }
+  // Unplaced, and honestly so: a box number is a permanent S0, a miss is retried on the next load.
   return r.refused ? "refused:" + r.refused : "failed:" + (r.failed || "unknown");
 }
 
