@@ -9299,6 +9299,12 @@ function renderWeather() {
   // ⛔ The whole card — current conditions, the 7-day, the hour-by-hour — is the forecast. Without
   // one it says so, in the app's own empty vocabulary, rather than drawing April.
   if (!weatherIsReal()) {
+    // ⚠️ THE ID IS THE WHOLE FIX AND IT WAS WRONG FIRST TIME. This was `weather-card-content`, which
+    // does not exist — `getElementById` returns null, the `if (body)` swallows it, and the card
+    // keeps whatever was already painted: THE PLACEHOLDER. A fix that fails into the appearance of
+    // success is the worst failure mode available on this card, because it looks exactly like the
+    // bug it fixes. Caught by grepping the id rather than trusting it. Verify this element exists
+    // before editing this block.
     const body = document.getElementById("weather-content");
     if (body) body.innerHTML = '<div class="prop-lead">' +
       (WEATHER_DATA.weatherFetchFailed
@@ -16625,6 +16631,11 @@ function dialAMoonUrl(date) {
 // Low clouds block the sky outright; mid clouds heavy; high cirrus least.
 // Returns the same shape as skyFromWMO so renderCelestial can swap it in.
 function stargazingFromClouds(cur) {
+  // ⛔ THE THIRD SURFACE FED BY THE PLACEHOLDER, and the one a person acts on by carrying a
+  // telescope outside. "Tonight: Excellent" was computed from the cloud cover over Jasper on
+  // 2026-04-27. Fixing the sentence that says it will rain and not the one that says the sky is
+  // clear would be an arbitrary line — same root, same test (see weatherIsReal).
+  if (!weatherIsReal()) return null;
   if (cur == null) return null;
   const { cloudLow, cloudMid, cloudHigh, visibilityKm } = cur;
   if (cloudLow == null && cloudMid == null && cloudHigh == null) return null;
@@ -16714,7 +16725,10 @@ function updateCelestialSkyDetails(date) {
 
 function renderCelestialSummary() {
   if (!SITE_PLACED) return;   // no point on the earth yet — see SITE_PLACED
-  const sky     = stargazingFromClouds(WEATHER_DATA.current) || skyFromWMO(WEATHER_DATA.current.weatherCode);
+  // ⚠️ `skyFromWMO` reads the placeholder's weather CODE, so the fallback is the same lie by another
+  // route — it is gated too, not just the cloud-layer path.
+  const sky = stargazingFromClouds(WEATHER_DATA.current)
+            || (weatherIsReal() ? skyFromWMO(WEATHER_DATA.current.weatherCode) : null);
   const moonAge = calcMoonAge(new Date());
   const info    = moonPhaseLabel(moonAge);
   const upcoming = CELESTIAL_DATA.events
@@ -16724,8 +16738,11 @@ function renderCelestialSummary() {
   const nextStr = next
     ? " · Next: " + next.shortName + " in " + Math.max(0, daysUntil(next.date)) + "d"
     : "";
+  // The moon and the event countdown are COMPUTED from coordinates and stay; only the sky verdict,
+  // which needs a forecast, drops out. A line with one true half is better than a line with a
+  // fabricated one.
   document.getElementById("celestial-summary").textContent =
-    sky.emoji + " Tonight: " + sky.label + " · " + info.emoji + " " + info.label + nextStr;
+    (sky ? sky.emoji + " Tonight: " + sky.label + " · " : "") + info.emoji + " " + info.label + nextStr;
 }
 
 function renderCelestial() {
@@ -16736,7 +16753,7 @@ function renderCelestial() {
   const info    = moonPhaseLabel(moonAge);
   const illuminPct = Math.round((1 - Math.cos(moonAge / 29.53058867 * 2 * Math.PI)) / 2 * 100);
   const stargaze = stargazingFromClouds(wd.current);
-  const sky     = stargaze || skyFromWMO(wd.current.weatherCode);
+  const sky     = stargaze || (weatherIsReal() ? skyFromWMO(wd.current.weatherCode) : null);
   const prop    = CELESTIAL_DATA.property;
 
   let h = "";
@@ -16760,11 +16777,14 @@ function renderCelestial() {
 
   // Stargazing (cloud-layer + visibility) — falls back to WMO sky when live cloud data unavailable
   h += '<div class="cel-sky-cell">';
-  h += '<div class="cel-sky-icon">' + sky.emoji + '</div>';
-  h += '<div class="cel-sky-val cel-sky-' + sky.cls + '">' + sky.label + '</div>';
+  // No forecast → the cell says what it has, in the same em dash the rest of the app uses, rather
+  // than rating a sky it cannot see.
+  h += '<div class="cel-sky-icon">' + (sky ? sky.emoji : '\u2014') + '</div>';
+  h += '<div class="cel-sky-val' + (sky ? ' cel-sky-' + sky.cls : '') + '">' + (sky ? sky.label : '\u2014') + '</div>';
   h += '<div class="cel-sky-key">' + (stargaze ? "Stargazing" : "Transparency") + '</div>';
-  h += '<div class="cel-sky-sub">' + (stargaze ? escapeHtml(stargaze.breakdown) :
-        (sky.score >= 4 ? "Excellent viewing" : sky.score >= 2 ? "Partial viewing" : "Closed out tonight")) + '</div>';
+  h += '<div class="cel-sky-sub">' + (stargaze ? escapeHtml(stargaze.breakdown) : (sky ?
+        (sky.score >= 4 ? "Excellent viewing" : sky.score >= 2 ? "Partial viewing" : "Closed out tonight")
+        : "No forecast for tonight yet.")) + '</div>';
   h += '</div>';
 
   // Moon
