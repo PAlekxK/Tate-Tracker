@@ -462,6 +462,16 @@ all; and the fact reached **the one person who knows which of their own claims d
 a reviewer would have had to discover. Review scales badly and accuses; a fact costs one sentence and
 accuses nobody.
 
+🟡 **A CANDIDATE FOURTH, at n=2 and not promoted** `[lane-F, 2026-09-07]`: **the record already
+contained the answer; the failure was not consulting it.** Both of today's instances are ours and
+neither cost anything — lane F read `9f7ecd6` instead of a summary of it; this seat re-read its own
+sent messages instead of accepting lane F's account of them, and found both attribution errors that
+way. Set against the two places the answer was *also* already written and walked past: the
+`--extract` comment saying *"neither is optional"*, and `check-estate-neutral`'s own capitals.
+**Neither of us re-derived anything; we both just read what was already written down.** ⚠️ Recorded
+at the grade lane D's heuristic got — un-evaluated, n=2, both from one afternoon and one pair of
+seats — because the alternative is that the next reader re-proposes it.
+
 ### 6d · And the honest form of "a second seat caught it"
 
 ⛔ **The asymmetric version — *"the fixes that landed clean are the ones a second seat ran"* — was
