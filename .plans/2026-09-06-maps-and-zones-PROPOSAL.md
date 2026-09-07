@@ -1,7 +1,7 @@
 # Maps & zones — the proposal
 
-- **status:** PROPOSAL. Nothing built, nothing deployed, nothing committed by this session.
-  Paul rules; §7 is the numbered list.
+- **status:** ⏸ **PROPOSAL — CLOSED FOR PICKUP, 2026-09-06.** Nothing built, nothing deployed.
+  Paul rules; §7 is eight tiered rulings and only three block. **Read §0 first.**
 - **raised:** `[paul-stated 2026-09-06]`, voice, across five messages — *"everything having to do
   with maps... I think that's a critical next feature."*
 - **companions:** `.plans/2026-09-06-maps-and-zones-STATE.md` (where we are + the backlog comb) ·
@@ -13,6 +13,49 @@
 - **labelling rule, applied throughout** `[per the tenancy session, 2026-09-06]`: **FERNWOOD** =
   work on the frozen hand-built instance. **ENGINE** = work a stranger can use on their own land.
   Every recommendation says which.
+
+---
+
+## 0 · ⏸ PICKING THIS UP LATER — read this first
+
+**State at close, 2026-09-06 evening ET.** Session closed cleanly. Nothing in flight, nothing
+half-built, no agent still running. **Six expert seats reported and all seven artifacts are on disk.**
+
+### Start here
+1. **This file, §7** — eight tiered rulings. **Only three block anything** (A · B · C).
+2. `.plans/2026-09-06-maps-and-zones-STATE.md` — where we are, the seven-phase progression of how zone
+   work has actually gone, and the full backlog comb with Paul-voiced vs agent-proposed tagged.
+3. Then whichever seat you need: `-PROCESS-AUDIT` (method) · `-ai-mapping-capability-SCAN` (what
+   imagery and models can derive from an address) · `-map-design-research` (cartographic practice) ·
+   `.user-research/…-defining-your-place-research` and `…-what-a-map-is-for` · `.engineering/…-multihousehold-zones-path` ·
+   `.ux-reviews/2026-09-06-map-drawing-mobile.{md,json}`.
+
+### ⛔ Blocked on Paul, and nothing should start without these
+- **A** — does a slice of the freeze lift so Mom can be shown her map? *(Also settles the 07-31 zone hold.)*
+- **B** — does "confirmation" mean her tap or Paul's transcription? *(Different builds.)*
+- **C** — approve the technical direction: lines/points into the schema · geometry leaves git · a place
+  field on the nine domains that have none.
+
+### ⚠️ Verify before trusting, because these will have moved
+- **`BACKLOG.md` § FOCUS FREEZE is being rewritten** by the vehicles/equipment session, and was already
+  a **floor rather than a census** — anchor `475872f` (09-03 14:11), last touched 09-04 06:23, with at
+  least four rulings since that exist in no file. **Re-read it by heading, never by line number.**
+- **The tenancy conversion had not started** beyond a proven no-op at close. Do not sequence map work
+  as though multi-tenancy lands soon.
+- **`sanitizeZone` was fixed at `79a31c8` and deliberately NOT deployed**, so the defect is fixed in the
+  repo and still live on Mom's frozen instance. **Routed to the session that owns the freeze process —
+  do not re-route it here.**
+- ⭐ This repo's standing rule applies to this file too: **verify the world, not the checkbox.** Three
+  artifacts were found stale in the safe-looking direction during this session, including one that
+  misled a seat into a wrong finding.
+
+### The three things most worth not losing
+1. **The kitchen table returned 16 names; the app's zone journey returned 0 taps in 10 offers.** That
+   single contrast is the evidence base for the whole proposal.
+2. **A better rendering of this exact data already exists and runs** — in `tools/zone-capture.html`. We
+   do not have to invent a good-looking map; we have to port one. §3b.
+3. **A map is a JOIN, and nine of eleven domains have no place field at all** — including the one
+   holding household systems. §4b.
 
 ---
 
@@ -193,6 +236,73 @@ the one line on the map that is a legal claim.
 loop-close, the pride moment and the honesty marker are one device, and it costs nothing because the
 artifact is being redrawn anyway.
 
+### ⭐ RE-GROUNDED AGAINST PUBLISHED PRACTICE `[paul-stated: "don't over-rely on my little map"]`
+
+The language above survives the pushback, and it is **not our invention**. **MacEachren (1995)** proposed
+**clarity** as a visual variable, decomposed into transparency, **crispness** and resolution — features
+drawn on a crisp→blurry continuum, less certain = blurrier, illustrated **specifically with areal-unit
+boundaries**. **MacEachren et al. (2012)** ranked **fuzziness among the top-performing** uncertainty
+variables tested. So EDGE is canonical technique with a citation, not a designer's flourish.
+
+⚠️ **AND THE RESEARCH PRODUCED A FINDING AGAINST US, which is reported rather than buried.** User
+studies find readers rate uncertainty-encoded maps as **less trustworthy** — *the more honestly you
+show the limits of your data, the less people trust it.* The resolution is argued, not waved away:
+those studies test **strangers reading choropleths they cannot check.** Mom is the one reader who **can
+falsify the map, and has** — the 14× rainfall incident.
+
+> **Crispness buys trust only from readers who cannot check. Softness costs perceived authority and
+> buys survivability.**
+
+Three consequences: the **frame sentence becomes mandatory** rather than nice (the literature is
+explicit that intrinsic encodings need explanation); uncertainty is encoded **redundantly** (edge +
+label weight + words); and ⭐ **the feather width becomes a genuine A/B for Paul in front of the
+pictures** — three widths including **zero** — because the literature predicts the crisp one will *feel*
+most trustworthy and be least honest. That is his call, not a designer's.
+
+### ⭐⭐ THE ARITHMETIC THAT SETTLES THREE ARGUMENTS AT ONCE
+Fitted to the property, the map renders at **~1.58 px/m — 0.63 m/px.** From that one number:
+
+1. **The fitted default lands exactly on the imagery's own resolution** (a 0.6 m sensor). `MAX_SCALE=6`
+   allows **six times past it, into mush.** ⭐ Elegant consequence: **past that limit, drop the
+   photograph** — the drawn map is the only view not lying up there, so zooming walks you toward it on
+   its own.
+2. **The ±9.1 m error budget is ±14.4 px — 4% of the frame.** So keep the soft band's **width** at the
+   true budget (derived, checkable) and put the taste knob on the **alpha falloff curve**.
+3. ⭐⭐ **COLLAPSE IS ARITHMETIC, NOT CONVENIENCE.** Nine zones render **4–10 px** while their own honest
+   error band is **14 px**.
+   > **A feature smaller than its own error bar must not be drawn as a shape.**
+   Checkable in one line. They do not vanish — **collapse ≠ elimination**; they become points. ⭐ **And
+   it is also the label fix**: 8–12 labelled things instead of 23 should take **49 collisions to zero**.
+   *One operation, two measured defects.*
+
+### ⭐ AND THE HYBRID QUESTION — both of us were wrong, and the answer is better than either
+I proposed a **Photo / Drawn toggle**; my own research then argued for Google's `hybrid`. **Both fail.**
+A toggle *presumes a tap*, and this user does not tap — **0 of 35** asks, depth-2 and depth-3 zero — so
+falsifiability behind a toggle means she never sees the photograph. And Google's default is `roadmap`
+because Google is a **wayfinding** tool; borrowing it reasons from a different job.
+
+> **Default = the drawn map over the aerial, muted to ~20–30% and desaturated. The photograph becomes
+> the paper.**
+
+Composability returns; the real canopy texture comes free **and is true**; a shed with no zone is still
+faintly there — **falsifiability without a tap.** It also mops up the residual forest after the frame is
+fitted. ⚠️ Whether 25% reads as *paper* or as *mud* is an exhibit question — carry it as a variant.
+
+### ⭐ Imhof rule 4 is a gift, not a constraint
+Five of his six rules are broken, not four. But *"placed to show the extent of the object"* means
+**letterspacing a name across its district** — **carrying extent through the LABEL instead of through
+the boundary.** For a project that cannot honestly draw the line, that convention is worth a great
+deal, and it promotes letterspacing from *looks designed* to *carries extent honestly*.
+
+### ⭐ Lynch, adopted — but four primitives, not five
+The fit is **predicted rather than coincidental**: Lynch's method was interviewing people about how they
+*describe* a place, which is exactly what Mom did. ⛔ **`node` is declined** — at 2.6 acres a shut-off
+valve is a **landmark**, not a junction you enter. **Do not mint a primitive to complete someone else's
+set.** So: **district · edge · path · landmark** → polygon, line, line, point.
+⭐ And the framework predicts our defect precisely: legibility comes from the elements working
+*together*, and **a districts-only map is close to the least legible subset — because districts are what
+people are worst at bounding and best at naming.**
+
 ### ⭐⭐ The editorial rule that beats every render change
 > **The map will look as good as its worst-drawn region.** Six confidently-drawn, well-labelled regions
 > look better than twenty-three ragged ones. **If the operator is unsure about a region, it should not be a
@@ -203,6 +313,75 @@ construction. It also means the first thing to build is not a renderer: it is **
 confidence stamp** — *operator-sure · operator-guessing · resident-confirmed* — because an illustrated map
 draws all 23 of today's guesses with **equal authority**, which is precisely the confidently-wrong
 instrument this project refuses.
+
+---
+
+## 3b · ⭐⭐ I OPENED THE OPERATOR TOOLS, AND THEY CHANGE THE ANSWER
+
+*Added after Paul said: "I'm just watching what you're pulling up and it's all within Fernwood, but
+there was also a separate HTML zone developer tool that we built — make sure you pull that up too and
+look at it." He was right. I had been reading those files, not running them.*
+
+Served locally and opened both. **They are substantially more capable than this proposal credited,
+and one comparison settles the good-looking-map question far more cheaply than designing a new map.**
+
+### ⛔ First: three things I said were unbuilt are BUILT — on the authoring surface
+
+| I / the backlog said | what the tool actually has |
+|---|---|
+| **"LAYERS — IDEATION, the structural prerequisite"** | **Built and working.** `area-trace.html` ships **eight ground frames** (2010-08 · 2015-09 · 2019-10 · 2023-10 · 2022-01 · 2018 DEEP ⭐⭐ · 2018 ZOOM ⭐ · 2018 WIDE · HI-RES), keys `1`–`9`, `G` cycles; a **terrain overlay** (Off / Hillshade / Slope) with an **opacity slider** and hold-`Space`-to-peek; and a **property plat overlay** with Show / Align / **Save fit**. |
+| **"Lines are drawable but the tool is only half there"** | A dedicated **`Lines — LANDMARKS & DIVIDERS, NOT AREAS`** panel listing The Path (*"paul: a landmark, not a zone"*), Upper-Uber wall (*"paul: a dividing line · name inherited, confirm it"*) and Driveway (*"the plat's anchor feature"*) — **with Paul's own rulings carried inline as annotations** — plus an `Add…` control offering **`Area`** or **`Line`**. |
+| **"Point annotations — Paul asked for these on 2026-09-04"** | `zone-capture.html` already has an **eight-type point taxonomy**, colour-coded and number-keyed: **Structure · Water · Road/gate · Utility · Tree/bed · Boundary · Terrain · Story.** ⭐ **`Utility` is the shut-off valve. `Story` is "where that repair happened."** Both were built *before* he asked for them. |
+
+⚠️ **So this is the authoring-vs-reading split for the third and fourth time in one feature** — after
+snapping and Chaikin. The capability exists, is good, and is pointed at a surface only Paul can open.
+**Layers should be re-tagged in the backlog from IDEATION to "built, not ported."**
+
+⭐ And the tools are **more honest than the viewer**: *"NAIP 2022-01-10 · ±20 ft. Boundaries are where
+the **name** applies, not a survey line."* · *"PROPERTY PLAT — EYE-FIT, NOT A SURVEY"* · *"Her names,
+transcribed from your annotated image — **unverified**"* · *"Type the name she uses — **hers, not the
+one on a deed**."* ⭐ `area-trace.html` also keeps **her actual annotated aerial from the 08-30
+conversation** as a toggleable inset — the primary artifact, preserved beside the trace.
+
+### ⭐⭐ Second, and this is the decisive measurement: the same data renders beautifully already
+
+Same 23 zones, same NAIP frame, two renderers, measured the same way:
+
+| | `viewer.html` (hers, 414×848) | `zone-capture.html` (his, laptop) |
+|---|---|---|
+| stroke | **dashed `10 7`**, 2.5px | **solid**, 2.09px |
+| label treatment | plain | **white fill + 2.9px black halo** |
+| label rendered height | **6 px** | **18 px** |
+| label collisions | **49** | 23 |
+| **property's share of the stage** | **14.8%** | **15.2%** |
+
+⭐⭐ **THE SHARE OF THE STAGE IS THE SAME. That kills my own earlier diagnosis and replaces it with a
+better one.** I told the design seat the map "opens on the county, not the garden." It does — **but so
+does the tool that looks fine.** The difference is the *stage*: 15% of a 1796 px canvas is 907 px wide
+and perfectly readable; **15% of a 364 px phone stage is 183 px and hopeless.**
+
+> **The map is not badly zoomed. It is a laptop map being served to a phone.**
+> The viewBox was never re-fit for a small stage — and on a small stage, the map must crop to the
+> property rather than show the whole basemap.
+
+**And the other two differences are free.** The capture tool proves, on this exact shadowed January
+basemap, that **solid strokes and haloed labels are legible** where dashed strokes and bare labels are
+not. The halo is the standard cartographic casing technique. Neither requires an illustrated map, a
+schema change, or a single coordinate moving.
+
+### What this changes in the recommendation
+1. ⭐ **We do not have to invent a good-looking map first. We have to PORT one.** A better rendering of
+   this exact data already exists and is running. That is hours, not a project, and it de-risks the
+   illustrated map by proving the direction on the real basemap first.
+2. **The three cheap render fixes are now evidenced rather than argued:** crop to the property on a
+   small stage · drop the dash · halo the labels.
+3. ⚠️ **It does not retire the illustrated map** — 23 collisions at 1796 px still breaks Imhof, the
+   basemap is still a shadowed January frame, and the type-based fills and seam language still have no
+   implementation anywhere. It reorders it: **port, look, then draw.**
+4. ⛔ **And it sharpens the real problem.** None of this capability can leave Paul's laptop. Both tools
+   read `.private/` files through a local Python server, and `area-trace.html:253` /
+   `zone-capture.html:216` carry the **same hardcoded Fernwood bounds**. **The best map in this project
+   is the one nobody but Paul can open.**
 
 ---
 
@@ -242,6 +421,95 @@ remote-sensing-tuned model. Use one to **label and critique**, never to locate.
 **ask the householder to CORRECT, never to APPROVE.** A finished map shown to an older, agreeable
 person returns a yes and measures nothing. Every affordance that asked Mom to answer returned zero;
 the sixteen names came from a conversation over a map, not a form.
+
+---
+
+## 4b · ⭐⭐ WHAT A MAP IS FOR — and the field that is missing everywhere `[user-researcher]`
+
+Paul commissioned a broad-and-deep pass on this. **The answer reframes the whole feature:**
+
+> **A map is not a picture of a place. It is a JOIN — the thing that lets every other record answer
+> *"where?"* and be found by it.**
+
+**So the map's value is capped by how many domains can name a place. I measured it at HEAD:**
+
+| domain | place field | populated |
+|---|---|---|
+| `plants` | `zones[]` | 27 / 40 |
+| `turf` | `zoneId` | 2 / 2 |
+| **weeds · birds · amphibians · mammals · fish · insects · lizards · snakes · vehicles** | ⛔ **NONE** | **0** |
+
+**Nine of eleven domains have no place field at all.** ⭐⭐ **And `vehicles.json` is one of them — which
+is the file that holds vehicles, equipment AND household systems: the furnace, the water heater, the
+breaker panel.** So *"where is the water shut-off valve"* — the job that ranks first — **sits in the one
+domain that cannot express a place.**
+
+⭐ **Therefore the highest-leverage map work is not cartography. It is putting a place field on the
+domains that lack one** — and under *names outlive shapes* that field wants a **name**, so it needs no
+polygon, no GPS and no accuracy budget. It is buildable now.
+
+⚠️ **And the field must be PLURAL and TYPED**, which the record already proves twice: the moss is in
+two places, and the mower blades were sharpened **707 m off-property at Herman's shop**. *Where a thing
+lives ≠ where the work happened.* One singular `zoneId` cannot hold both, and collapsing them files a
+mower repair in a garden. (`plants` has already moved to a plural `zones[]`; the backlog row still
+saying *"zoneId is singular"* is stale.)
+
+### ⭐ The condo does not kill the primitive — it corrects it
+The outdoor, boundary-drawn, aerial map is **void** at a condo: there is no land, and an aerial shows a
+roof belonging to sixty people. Roughly 3 of 12 use cases survive. **But the containers are not
+absent** — rooms, balcony, storage cage, parking space, breaker panel, water-heater closet. And
+`VERIFIED`: home-inventory apps built for insurance claims organise **room by room, not by floor plan**.
+
+> ⭐⭐ **The engine primitive is not "a zone with vertices." It is a NAMED PLACE, GEOMETRY OPTIONAL.**
+> Fernwood's `western-garden` and the condo's `guest bathroom` are the same object at different
+> scales, and only one will ever have polygons.
+
+That is *names outlive shapes* reached **independently from the condo side** — and it is the single
+change that lets one engine serve both planned instances.
+
+### "Map" means three different things here, and building one thing that is all three does none
+**portfolio** (*which* place — Bob has several) · **place** (*where in it*) · **container** (*what is in
+here*).
+
+### Three findings worth having
+- ⭐ **Defensible space is a zone set nobody has to draw.** `VERIFIED` — CAL FIRE/FEMA define Zone 0/1/2
+  purely by **distance from the structure** (0–5 / 5–30 / 30–100 ft), derived from the building
+  footprint, which comes free from parcel data. **Zero drawing, zero confirmation, zero user input.**
+  ⭐ And it inverts the site's own constraint: connectivity falls off with distance from the house, and
+  these zones are *defined* by distance from the house.
+- **Photo points defeat the ±9 m floor by not using coordinates.** `VERIFIED` — the USFS practice frames
+  **a permanent landmark** so the view is relocated *by eye*. Human visual relocation beats consumer GPS
+  under canopy, and costs nothing.
+- **The handover job has a century-old professional practice.** Land Trust Alliance **Baseline
+  Documentation Reports** — maps, prose and dated photo points, produced by a professional at the moment
+  of transfer, explicitly serving *"successor owners."* **That is the confirm-first ruling arriving from
+  a third industry.**
+
+### ⚠️ THE UNCOMFORTABLE FINDING, and it should change what we build for her
+> **For the resident steward, a map's job is not retrieval — she knows where everything is. That is
+> *why* she can name it.**
+
+Depth 2 and depth 3 are zero for her. **A map built to help her find things solves a problem she does
+not have**, and every retrieval use case serves someone who **is not there** — the absent owner, the
+adult child, the contractor, the successor. For her the map is an **artifact, not a tool**: the pride
+job and the Z-ACK debt, not navigation.
+
+### The ranked jobs
+| | job | what it demands |
+|---|---|---|
+| 🥇 | **"Where is the thing someone would need to find?"** — household systems as named points | a `point` primitive · a place field on the `household-system` group, **which has none** · an offline read path · ⚠️ **a privacy ruling before the first commit** |
+| 🥈 | **The map as index** | `placeId` on every domain, **plural and typed** · never GPS-derived at garden scale · ⚠️ **must also render as a list**, or the one reader we have never sees it |
+| 🥉 | **The portrait + handover artifact** — one build, two jobs | nothing new in schema; geometry made **optional**; an export. ⭐ Do it with Mom's map, now, as the Z-ACK acknowledgment |
+| 4 | **Photo points** | the same `point` primitive as #1 — which is why it is cheap |
+
+⛔ **Not to build:** plant↔zone GPS attribution (below the floor, permanently) · wildlife on the map
+(false precision — the **observation** is the honest unit, not the species) · a householder drawing
+tool · a second walk surface.
+
+⚠️ **One number NOT to cite:** the claim that homeowners do not know where their shutoff is could not be
+verified — the sources are plumber advisories asserting it qualitatively. **The cheap probe is better:
+ask Paul, then ask Mom.** If both know, the premise under job #1 weakens at the only place we can check
+it. Likewise the onboarding interest rankings remain **0 real · 69 synthetic**.
 
 ---
 
@@ -310,14 +578,40 @@ and it is the most attributive form the ribbon doctrine could ask for.
   names; and `status` finally having a reason to leave `draft`, which is also the fix for the ugliest
   thing on the map.
 
-**B · THE OPERATOR PIPELINE.** *(ENGINE. The long pole. Independent of the tenancy conversion —
-start now.)*
+**B · THE OPERATOR PIPELINE.** *(ENGINE. The long pole. The operator half is independent and can
+start now; the delivery half has a prerequisite nobody had named — see the box.)*
+
+> ### ⛔ ADDED 2026-09-06 LATE, AND IT RE-PRICES B — **there is no map in production, and the deploy gate enforces it**
+> Verified by reading `tools/pages-deploy.py` at HEAD, not taken on trust. A household origin ships an
+> **allow-list of eight named files**: `onboarding/index.html` · `estate/index.html` ·
+> `homes/index.html` · `settings/place/index.html` · `settings/account/index.html` · `qa-build.json` ·
+> `favicon.ico` · `index.html`. Measured across the three page files: **zero `pmap-` classes, zero
+> polygon/vertex/`ZONES_DATA` references.** `viewer.html` is not shipped there at all.
+>
+> ⭐ **And the sharper half: `images/` is not on the allow-list either, so a household origin cannot
+> serve a basemap image at all today** — and the list is **checked, not trusted** (the deploy *refuses*
+> on a violation, by design). So "put Bob's basemap somewhere his phone can read it" is not a missing
+> feature, it is a deliberate gate that has to be opened on purpose.
+>
+> **Consequences for B, and they are real:** the map surface must be **built into the neutral journey**,
+> not inherited from the Fernwood viewer — there is nothing to inherit. And ⚠️ **the tenancy conversion
+> has not started beyond a proven no-op**, so anything requiring per-household identity is downstream of
+> work that has not begun. **Do not sequence B as though multi-tenancy lands soon.**
+>
+> ⭐ **This strengthens rather than weakens the recommendation.** It is one more reason C goes first: C
+> runs on Fernwood, which is the only place a map exists, and it needs none of this. And it means the
+> genuinely independent, start-tonight part of B is the **operator half** — imagery acquisition, the
+> canopy height model, the assembly of public sources — none of which touches an origin, a household or
+> a deploy.
+
 Address in → deterministic assembly of public sources (parcel, building footprint, road, water,
 canopy, slope) → you refine in the tracer → loaded into that household's store → rendered on their
 phone → they correct it in words.
-- **The read path needs no work** — `handleZonesGet` already reads the right per-estate key. What is
-  missing is a basemap store, a map view on the household origin (which ships 8 files today and
-  `viewer.html` is not among them), deleting the git fallback, and **geometry leaving git.**
+- **The API read path needs no work** — `handleZonesGet` already reads the right per-estate key.
+  ⚠️ **But "the read path" and "a map on her phone" are not the same thing**, and I had them too close
+  together: the API is ready and the *surface* does not exist. Missing: a basemap store, `images/` on
+  the deploy allow-list, a map view built into the neutral journey, deleting the git fallback, and
+  **geometry leaving git.**
 - **Start with the cheap wins ai-advisor ranked:** the canopy height model from the 2018 lidar
   (shadow-free, season-free, free, no model, and it draws the 74%) — already sitting in
   `LAND-SOURCES.md` marked *"not yet built."*
@@ -363,21 +657,146 @@ frozen rather than migrated.
 
 ---
 
-## 7 · ⭐ RULE THIS — numbered so a ruling is a reply
+## 7 · ⭐ RULE THIS
+
+*Restructured after counting: this was 14 rows, which is a backlog wearing a decision list's clothes.
+Paul's stated concern is **not getting bogged down**, so it is tiered by what actually blocks work.*
+
+### 🔴 TIER 1 — three that block, and nothing moves until they are answered
 
 | # | the decision | recommendation |
 |---|---|---|
-| **1** | **Does a slice of the freeze lift so Mom can be shown her map?** It collides two ways: her feedback is held (*"don't ingest or action anything"*), and her instance is now a **data control** — showing her the map and taking corrections changes the control. ⚠️ Note that **§ FOCUS FREEZE is a floor, not a census**: its anchor is `475872f` (09-03 14:11), it was last touched 09-04 06:23, and at least four rulings since — including both of tonight's — exist in **no file**. | **Lift it, narrowly** — the same shape as tonight's vehicles lift. But it is genuinely yours: the control argument is real and I will not talk you out of it. ⭐ **If a mom-cycle catch-up runs, this belongs inside that lap**, not as a separate act — running the lap without it would be the loop passing over the biggest thing it owes her for a second time. |
-| **2** | **Does "present for confirmation" mean her tap, or your transcription of what she says?** | **Her words, your transcription.** §2d. The two are completely different builds and everything downstream depends on it. |
-| **3** | **Does the 07-31 zone hold lift?** Its own un-park trigger — *"a zone named or corrected in her own words"* — **fired on 2026-08-30** and the row still reads HELD with its 07-31 evidence line intact. | Lift · restate the trigger · or record that the trigger was wrong. **Only silence is not valid.** |
-| **4** | **Lines and points into the schema** — one `geometry: {kind, coordinates}`, three validators. | **Yes, and before a second household's geometry exists** — which makes it earlier than the conversion, not later. |
-| **5** | **Geometry leaves git.** | **Yes.** There is no path to a second household's map otherwise. Must land with the `build-digest.py` fix in the same commit. |
-| **6** | **The illustrated map** — promote from IDEATION to the rendering layer? | **Yes**, in §6-A's order: confidence stamp → illustrated v0 (regions only) → Photo/Drawn toggle → lines → lot drawing. **Not** the full layer architecture first. |
-| **6b** | **The operator confidence stamp** — three states, one keystroke, stamped as you draw. | **Yes, and it is the true first build.** Without it a drawn map states 23 guesses with equal authority. It is also what makes §3's editorial rule enforceable: *unsure ⇒ a named marker, not a region.* |
-| **7** | **Deploy the `sanitizeZone` fix to Mom's frozen instance?** Fixed in the repo, live on hers. | Yours. The defect is bounded (one zone, two fields) but it is silent and it is armed. |
-| **8** | **Should `+ Add a place` be behind the operator flag** on a reader's surface? | Probably yes under the we-draw ruling — but it is a Mom-facing change and therefore yours. |
-| **9** | **`features/maps-zones.md`** — the vision / current-state / improvements-and-investigations artifact you asked for, per practice-steward §4c. | **Yes**, and this feature is the worked case. Held to its own test: *it must remove more `BACKLOG.md` lines than it adds.* |
-| **10** | **`onboarding/index.html` says `map-zones` = "A map you draw yourself"** — which now describes a product we are not building near-term, and **ranking answers are already recorded against that sentence.** | Reword — but say what happens to the answers already collected, or it silently rewrites data you are about to start reading. |
+| **A** | **Does a slice of the freeze lift so Mom can be shown her map?** ⛔ This blocks the top recommendation. It collides two ways: her feedback is held (*"don't ingest or action anything"*), and her instance is now a deliberate **data control** — showing her the map and taking corrections changes the control. ⚠️ § FOCUS FREEZE is a **floor, not a census**: anchor `475872f` (09-03), last touched 09-04 06:23, and at least four rulings since exist in no file. **This also settles the 07-31 zone hold**, whose own un-park trigger — *"a zone named in her own words"* — fired on 2026-08-30 and was never re-read. | **Lift it, narrowly** — the shape of tonight's vehicles lift. But the control argument is real and I will not talk you out of it. ⭐ If a mom-cycle catch-up runs, this belongs **inside that lap**. |
+| **B** | **Does "present for confirmation" mean her TAP, or your TRANSCRIPTION of what she says?** The near-term build is completely different either way. | **Her words, your transcription.** Every ask-shaped surface is 0-for-35; the one channel that has ever produced canon is free text. |
+| **C** | **Approve the technical direction** — three structural moves that travel together: **lines and points into the schema** (one `geometry: {kind, coordinates}`, three validators) · **geometry leaves git** (there is no path to a second household's map otherwise; must land with the `build-digest.py` fix in the same commit) · **a place field on the nine domains that have none**, plural and typed. | **Yes to all three.** ⭐ The schema move must land **before a second household's geometry exists**, which puts it *earlier* than the tenancy conversion, not later. |
+
+### 🟡 TIER 2 — the rendering sequence. One approval, not six.
+
+| # | the decision | recommendation |
+|---|---|---|
+| **D** | **The order for making the map good.** | **① Port the capture tool's rendering** (solid strokes, haloed labels, fit the frame) — hours, proven on the real basemap. **② Collapse** the nine zones smaller than their own error bar into points — one operation, fixes both the shapes and all 49 label collisions. **③** The operator confidence stamp. **④** Drawn-over-muted-aerial as the default. **⑤** Lines. **⑥** The plat, last. ⛔ **No Photo/Drawn toggle** — a toggle presumes a tap. |
+| **E** | ⭐ **The feather width — an A/B only you can settle.** Three soft-band widths including **zero**, in front of the pictures. The literature predicts the crisp one will *feel* most trustworthy and be least honest. | **Yours, deliberately.** This is the honesty-vs-authority trade made visible, and neither a designer nor I should decide it. |
+
+### 🟢 TIER 3 — doctrine, when you have appetite (§9 has the full argument)
+
+| # | the decision | recommendation |
+|---|---|---|
+| **F** | **Is "we draw, they confirm" the practical form of a durable rule?** As practicality it dies at N=2 — both tracing tools carry the same hardcoded Fernwood bounds. | **Adopt the durable form:** *the division of labour follows who holds which knowledge.* Same behaviour tonight; different thing built first. |
+| **G** | **Does the app have to be the CHANNEL, or the RECORD?** The 07-26 doctrine bet the app would earn her input; six weeks on it is **0-for-35** against a kitchen table's **16**. | **The record.** Make paul-relayed input a first-class capture path with an arrival record. ⛔ The AI boundary's ingress clause is untouched and stands. |
+| **H** | **`features/maps-zones.md`** — the vision / current-state / improvements-and-investigations artifact you asked for. | **Yes**, this feature as the worked case, held to its own test: *it must remove more `BACKLOG.md` lines than it adds.* |
+
+### ⚪ NOT DECISIONS — routed, so they stop occupying a decision list
+- **The `sanitizeZone` deploy** — fixed at `79a31c8`, undeployed, still live on her instance. **Routed to the session that owns the freeze process.** Not mine, not yours to chase here.
+- **Gating `+ Add a place`** behind the operator flag — follows automatically from B if you rule "transcription"; no separate decision.
+- **The `map-zones` onboarding wording** — reword when convenient, but say what happens to the answers already recorded against the old sentence. ⚠️ The instrument currently reads **0 real · 69 synthetic**, so nothing is lost yet.
+
+---
+
+## 9 · ⭐ RULINGS WORTH RE-OPENING — practicality that hardened into principle
+
+*Added at Paul's instruction, 2026-09-06: "feel free to challenge previous rulings as assumptions we
+made at the time... you can record the logic, but if it was just a matter of practicality, you should
+propose a more durable path forward."*
+
+Three. In each case the ruling was **right for its moment**, the logic is recorded, and the durable
+form is different from the practical one.
+
+### ⭐ CHALLENGE 1 — "We draw, they confirm" · *today's own ruling*
+
+**The logic, recorded.** `[paul-stated 2026-09-06]` Three reasons were given: the demographic is older
+and less tech-friendly; mobile-first drawing is hard unless heavily automated; and AI is ceilinged
+because it needs knowledge of the land. **All three are true.**
+
+**But two of the three are facts about today's tooling, not about the world** — and the ruling as
+stated has an expiry date nobody has named:
+
+⛔ **As practicality, it dies at N = 2.** Verified at HEAD: `tools/area-trace.html:253` and
+`tools/zone-capture.html:216` both carry the **same hardcoded literal** —
+`const B={west:-84.3699…, south:34.5475…, east:-84.3648…, north:34.5516…}`. Neither operator tool can
+open a second property. And *"Paul draws every household's map by hand"* is a **services business, not
+a product** — it is the one shape that cannot survive the thing this whole quarter is building toward.
+
+⭐ **The durable form, and it is a better sentence:**
+> **The division of labour follows who holds which knowledge — not who is good at phones.**
+> An extent can be proposed by a sensor, a model, or an operator. **An identity can only come from
+> someone who has stood there.** So: automation drafts the extents, the operator curates, the resident
+> names and corrects — in words.
+
+**Why this is not a rewording.** It changes what to build. Under *practicality*, the next investment is
+a better tracer for Paul. Under the durable form, the next investment is **the automated first draft**,
+and the tracer is a curation tool that stays deliberately cheap. It also survives every way the premise
+could move: a younger household, a better model, a resident who *does* want to draw. And it is exactly
+ai-advisor's independently-derived line — *imagery can propose an extent; only a person can supply an
+identity* — reached from the capability side rather than the demographic side.
+
+✅ **And the remedy is cheaper than the ux review claimed.** It reported that the acquisition path is
+Fernwood-bound too. **That is not correct, and the correction is good news:** `tools/fetch-basemap.py`
+already reads `momlib.config("location.coordinates.latitude")` / `.longitude` — it is **config-driven,
+not literal-bound**, and would work for another place that had a config. **So the hard half —
+imagery acquisition and registration — is already parameterised. Only the two tracing pages carry
+literals.** The operator pipeline is closer to per-household than anyone in this session said.
+
+⚠️ **Near-term behaviour does not change.** Paul still draws, the householder still confirms. What
+changes is the destination, and therefore what gets built first.
+
+### ⭐⭐ CHALLENGE 2 — "The app is the feedback channel. Text is not." · *standing doctrine, 2026-07-26*
+
+**The logic, recorded, and it was good.** *"Paul's goal is to bring Mom into the app, and a parallel
+channel that quietly works just as well removes the reason to."* The doctrine **stated its own cost
+honestly at the time** — *"today's richest findings arrived by text. Closing that channel means the app
+has to earn that input instead."*
+
+**That was a bet with a condition, and the condition has resolved. Against.**
+
+| affordance | offered → taken |
+|---|---|
+| every ask-shaped surface in the app, across lap 8 | **0 for 35** |
+| one evening at a kitchen table, with a pen | **16 area names** — the largest single contribution she has ever made |
+
+Six weeks on, the app has not earned it. And the richest capture in this project's history happened
+**indoors, at a table, over a photograph, with a second person in the room** — which is also the only
+arrangement the property's own no-signal premise permits.
+
+⛔ **BE PRECISE ABOUT WHICH HALF IS BEING CHALLENGED.** The AI boundary's **INGRESS clause** — *an agent
+may read only what was routed to the project; Paul relays, the model does not fetch* — is a **safety
+rule and it stands, untouched.** So does QUARANTINE. What is being challenged is the separate **product**
+doctrine that the app must be the *transport*.
+
+⭐ **The durable form:**
+> **The app does not have to be the CHANNEL. It has to be the RECORD.**
+
+A conversation at a table, transcribed into the record by the administrator, is **not a parallel
+channel** — it is the same loop with a human transport layer. That preserves the doctrine's real intent
+(*don't let the record fragment*) and drops the part the evidence has falsified (*she will come to the
+app to answer*). It also removes an incoherence nobody had named: the 08-30 naming session was already
+this, it is already folded to canon, and **the doctrine as written has no place to put it** — which is
+precisely why `Z-ACK` records that her biggest contribution *"has no arrival record — no id, no
+timestamp, no channel; it happened on paper at a kitchen table."*
+
+**What it changes:** paul-relayed input stops being an exception the doctrine tolerates and becomes a
+**first-class capture path with an arrival record**, which is the thing lap 4 flagged as missing and
+nobody built.
+
+### CHALLENGE 3 — the draft dash as the honesty device · *2026-07-28*
+
+**The logic, recorded, and it is sound:** drawing a guess identically to a confirmed boundary *"tells
+Mom a guess about her own land is settled fact."*
+
+⛔ **But it is a CONTRAST rule being applied as a CONSTANT** `[ux-expert]`. "Don't draw a guess like a
+confirmed thing" describes a *difference between two things on one screen*. With 23 of 23 draft there is
+no second thing, so it carries no information and costs the entire edge channel — see §3.
+
+⭐ **The durable form:** provisionality belongs on the **name** (pencilled → inked on confirmation — a
+*weight*, not a *texture*, so it costs zero legibility), and the universal state belongs **on the frame,
+in words, once**. And the real fix is not a render change at all: **`status` must be able to leave
+`draft`.** The ugliest thing on the map is a symptom of the missing confirm act.
+
+### ⚠️ One doctrine that is NOT blocking, and is widely misread as if it were
+**"Capture stays deterministic and AI-free"** does not forbid a model proposing a boundary. The AI
+boundary already permits **draft-for-approval on the way in**; ai-advisor's mechanical form of it is the
+one to adopt — *the segmentation tool emits GeoJSON to scratch, and the human's accept **is** the write.*
+Nothing needs relaxing here. Recorded because a correct reading of it is what makes Challenge 1's
+durable path legal.
 
 ---
 

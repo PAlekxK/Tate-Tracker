@@ -189,6 +189,237 @@ sentence about accuracy anywhere in this repo, and it appears only on the surfac
 
 ## 3 · ⭐ WHAT IS A GOOD-LOOKING MAP
 
+### 3.0 The research base — and what it changed
+
+⚠️ **Re-grounded 2026-09-06 on Paul's own instruction:** *"don't over-rely on my little map. It's just,
+like, a little local festival."* He is right, and I couldn't open it anyway. §3 is now argued from
+published practice. **Claims marked `[VERIFIED]` were retrieved this session; `[RECALLED]` is from
+training and has not been re-checked — treat the second class as a lead, not a citation.**
+
+**Four things the research changed. Three sharpened the language; one challenges it.**
+
+---
+
+**① ⭐ Kevin Lynch validates the schema, and I tested it rather than accepting it.** `[VERIFIED]`
+Lynch's *The Image of the City* (1960, from a five-year study of Boston, Jersey City and Los Angeles)
+found people build mental images of a place out of **five elements: paths · edges · districts · nodes ·
+landmarks**, and that a place is *legible* when those five work together coherently.
+
+Paul's independently-derived vocabulary, across three separate voice memos:
+
+| Paul said | Lynch's element |
+|---|---|
+| zones / named areas | **districts** |
+| *"the barriers… walls and dividing lines"* | **edges** |
+| *"the path"* | **paths** |
+| *"a shut-off valve, where a repair happened"* | **landmarks** |
+
+**Verdict: a real fit, not a coincidence — and not a total one.** It isn't surprising, it is *predicted*:
+Lynch's method was interviewing people about how they describe and navigate a place, which is exactly
+what Mom did when she named 16 areas and located every one of them **relative to a landmark**
+(`"right, below Eastern Patio"`, `"left of the house"`). Her `labelPosition` strings are literally
+Lynch-style navigation descriptions. The framework reproduced itself on 2.6 acres instead of Boston.
+
+⚠️ **One element I decline.** At this scale **node** has no distinct job — a shut-off valve is a
+*landmark* (an external reference point) rather than a *node* (a junction you enter and decide in). **Do
+not mint a fifth primitive just to complete the set.** Four: districts, edges, paths, landmarks.
+
+⭐ **And the framework makes a prediction that our own evidence confirms.** Lynch's claim is that
+legibility comes from the five working *together*. Fernwood's map today has **districts and nothing
+else** — and districts are the element people are *worst* at bounding and *best* at naming. So a
+districts-only map is close to the least legible subset available, which is a strikingly precise
+description of the defect we measured. **This is the strongest argument yet for the lines row** — not
+"a drawn map needs paths to look nice," but "a map of districts alone cannot be legible."
+
+---
+
+**② ⭐ View modes are a task question, and prior art settles the one I got thin.** `[VERIFIED]`
+Google Maps ships **Default** (light earthy tones, roads — navigate and find), **Satellite** (see real
+natural features), **Terrain** (elevation, incline, vegetation — plan a hike), plus **Traffic / Transit /
+Biking**. Apple ships **Explore** (default, "clear and easy-to-read"), **Driving**, **Transit**,
+**Satellite**.
+
+Two patterns, and both are transferable:
+
+- ⭐ **The default is always the DRAWN map. Never the photograph.** Both products open on an abstracted,
+  designed base and make satellite an opt-in. That is prior art settling *which view we open on*, and it
+  says: **the illustrated map is the default and the aerial is the check view** — stronger than my
+  earlier "Photo / Drawn as two peers."
+- ⭐ **Base styles are mutually exclusive; thematic layers are additive.** Google separates map *type*
+  (Default / Satellite / Terrain — pick one) from *layers* (Traffic / Transit — toggle on top).
+  **Fernwood's LAYERS row has not made that distinction and needs to**, or it becomes eight flat
+  checkboxes. Aerial · drawn · lidar are **bases (pick one)**; zones, the plat line and future landmark
+  pins are **overlays (toggle)**.
+- Apple names its default by the **job** ("Explore"), not by the technology. Fernwood's control should
+  too.
+
+**So the answer to "what are the two or three genuinely different jobs a household map has to do":**
+
+| job | view |
+|---|---|
+| **Recognise it / take pleasure in it** — *this is my place* | **drawn — the default** |
+| **Check it** — *is the fern garden really there?* | **the aerial** (the only surface on which anything can be falsified) |
+| **Find a thing** — *where's the water shut-off?* | an **overlay**, on either base |
+| *(operator)* **understand the ground** — slope, drainage | lidar, an operator base |
+
+---
+
+**③ Cartographic generalisation gives the vertex problem its proper name — and a better fix.**
+`[VERIFIED]` Generalisation is the discipline of deliberately showing **less** as scale decreases, via
+*selection* (drop features), *simplification* (reduce shape detail), aggregation and collapse. The
+governing idea: a map is a reduced representation, and scale determines how much information can be
+shown.
+
+⭐ **So our 437 vertices are not a tracing failure — they are a generalisation failure.** The record is
+at one level of detail; a 364 px frame needs another. And this yields a recommendation the smoothing plan
+did not reach: **make simplification SCALE-DEPENDENT at render time.** Today `CHAIKIN_ITERATIONS = 2`
+runs at a fixed value regardless of zoom. It should be a function of zoom — more generalisation when
+zoomed out, less when zoomed in. It stays render-only, so the record is untouched, and it composes
+neatly with ① below: as you zoom in, detail increases *and* the soft band widens. Both move together,
+and both are honest.
+
+**Colour count** `[VERIFIED]`: ColorBrewer's qualitative schemes run 3–12 classes; the practical
+cartographic recommendation is **5–7**, and recent work suggests the real limit for a feature-search task
+is **under 7**. **23 per-zone colours is far past every published limit** — the §3.4 recommendation of
+3–4 fills *by type* is comfortably inside it. `[VERIFIED]`
+
+---
+
+**④ ⚠️⚠️ THE FINDING THAT CHALLENGES MY OWN PROPOSAL — and I am not burying it.**
+
+The good news first: **the EDGE device is not something I invented, it is the canonical published
+technique.** `[VERIFIED]` MacEachren (1995) proposed **clarity** as a visual variable, decomposed into
+**transparency, crispness and resolution**; features are drawn on a continuum from crisp to blurry, with
+**less certain = blurrier**, and this is described in the teaching literature as *"a particularly
+intuitive way of visualizing uncertainty,"* specifically illustrated with **crisp vs. blurry areal-unit
+boundaries.** MacEachren et al. (2012) ranked **fuzziness among the top-performing visual variables** for
+uncertainty. So: soft-edged regions with the softness meaning *"we don't know exactly where"* is
+textbook.
+
+**And then the bad news, which is directly on point** `[VERIFIED]`: user studies find that
+**participants consistently rated maps with uncertainty built in — data softened or blurred — as LESS
+TRUSTWORTHY** than the crisp versions. *"The more honestly you show the limits of your data, the less
+people trust it."* Researchers do not conclude "don't show uncertainty"; they conclude that **how** it is
+shown matters as much as whether, and a separate strand stresses that **explanation is crucial** —
+readers need to be taught how to read the encoding.
+
+See §3.3 for how I resolve it. **I do not think it overturns the recommendation, and I will say why in
+detail rather than waving it away** — but it changes the dosage and it promotes one element from
+optional to mandatory.
+
+---
+
+**⑤ The lineage to follow is NPS, and the reason is precise.** `[VERIFIED]` Tom Patterson spent 26 years
+as NPS senior cartographer at Harpers Ferry Center; the Unigrid system (Vignelli, 1977) gives every park
+map a black title band, shaded relief and uniform text on an invisible grid. Patterson's own stated aim
+is *"to combine the best characteristics of imagery and maps into a more intuitive hybrid product"* and
+to make maps *"more inviting and understandable"*, portraying terrain *"in a beautiful and idealized
+manner… with control and restraint."*
+
+⚠️ **And here is the conflict the coordinator asked me to name.** **Most cartographic standards assume
+surveyed data.** Their conventions — crisp boundaries, scale bars, north arrows, stated scale — all
+encode a precision claim we cannot back at ±30 ft. **NPS is the exception, and that is exactly why it is
+our lineage:** park maps are openly, deliberately generalised and idealised for non-expert visitors, and
+nobody accuses them of lying. That tradition already separated *looks authoritative* from *is
+survey-accurate*, which is the separation this project needs.
+
+> **Which wins here: the trust rule.** It is Paul's ratified doctrine, and Fernwood has a fact most
+> cartography does not — **the reader can falsify the map.** Where a professional convention would buy
+> authority by implying precision we don't have, we decline the convention.
+
+---
+
+**⑥ ⭐⭐ RE-ADJUDICATING "PHOTO / DRAWN" AGAINST HYBRID — and I think we were both answering the wrong
+question.**
+
+`[VERIFIED]` Google's Maps API defines four base types: `roadmap` — *"the default road map view with
+basemap labels"* · `satellite` — *"a photorealistic map based on aerial imagery"* · **`hybrid` — *"the
+satellite map view with basemap labels"*** · `terrain` — *"a physical map based on terrain information."*
+So hybrid is a **first-class type**, not a compromise.
+
+**First, I have to retract my own inference.** I argued "the default is always the drawn map, so ours
+should be too." That reasoned from a product with a **different job**: Google's default is `roadmap`
+because Google Maps is primarily a **wayfinding** tool. Fernwood's primary job is *recognise my place*.
+**A default borrowed from a different job is not evidence.** The coordinator is right to push.
+
+**The case for hybrid is strong, and one leg of it is new to this review:**
+1. Our measured defect is **not that the aerial is present** — it is that the drawn layer is too weak to
+   read against it (4.6–8.7 px labels, 49 collisions, and a 0.08-alpha fill that does not render at all).
+   Fix the drawn layer and the aerial stops being the problem.
+2. ⭐⭐ **A toggle presumes a tap, and this user does not tap.** 0 of 35 asks taken; depth-2 and depth-3
+   engagement both zero across lap 8. **If falsifiability lives behind a toggle, she will never see the
+   photo, and the drawn map — which by §3.2 cannot show what is missing — becomes the only map that
+   exists for her.** That is a serious objection to my own §3.7 and it is grounded in this project's own
+   telemetry rather than in cartographic theory.
+3. It is cheaper: no invented ground, no authored canopy, no drawn water — the photo *is* the ground, and
+   it is real.
+
+**The case against it is Paul's own diagnosis, and it is equally strong:** the illustrated-map row exists
+because of ① zoom sharpness, ② shadows, ③ a dim brown-grey January ground being the hardest possible
+surface for a reader with difficulty. **Hybrid answers none of the three** — it keeps the raster, keeps
+the shadows, keeps the ground. And you still cannot *compose* it (§3.1 ①); you can only shout louder over
+it, which is how we got debris.
+
+> #### ⭐ The resolution: hybrid is not a third base — it is what you get when the ground is MUTED rather than removed
+>
+> Both of us framed this as *"which artifact wins."* But §3.0 ② already established there are two jobs
+> with opposite requirements. The move is to stop treating photo and drawing as alternatives:
+>
+> **Default — "Fernwood": the drawn map over the aerial MUTED to ~20–30%, desaturated and lightened.
+> The photograph becomes the PAPER.**
+>
+> This gets all of it at once:
+> - **Composability returns.** At 25% the photo's contrast can no longer fight the overlay, so we control
+>   value structure and figure–ground again — Paul's ③, answered.
+> - **The ground texture and the real tree canopy come free, and they are TRUE.** I wanted canopy texture
+>   in §3.4 and flagged it as ornament-that-must-not-read-as-data. **A muted real aerial is the same
+>   visual gift with none of that problem**, because it is the actual trees.
+> - ⭐ **Falsifiability survives without a tap.** A shed with no zone around it is still faintly there.
+>   §3.2's worst objection to the drawn map — *you cannot see what is missing* — is answered **in the
+>   default view**, which is the only place it matters for this user.
+> - **It is the published technique, not an invention.** `[VERIFIED]` Patterson's own stated aim at NPS
+>   is *"to combine the best characteristics of imagery and maps into a more intuitive hybrid product,"*
+>   and the NPS toolkit includes **"outside land muting"** — muting ground that is not the subject.
+>   ⭐ Which also solves the leftover **85%-forest** problem: even after fitting the frame there will be
+>   forest at the edges, and muting outside the property line is exactly the published move.
+>
+> **Alternate — "Photo": the aerial at full strength, drawn layer reduced to thin labels.** The check
+> view, for Paul and for anyone who wants to look at the real ground.
+>
+> ⚠️ **Whether a 25% aerial reads as *paper* or as *mud* is an EXHIBIT question, not an argument
+> question.** It could easily look bad. §7.3's exhibit must carry it as a variant beside pure-drawn-on-
+> cream, and Paul picks. I am recommending a direction, not asserting a result I have seen.
+>
+> **On terrain:** Google keeps `terrain` a separate **type**, not an overlay — so the lidar hillshade is
+> a base, not a blend. Agreed, with one addition: at 2.6 acres terrain is an **operator** base (slope,
+> drainage, where the earth was moved), not one of hers.
+
+---
+
+**⑦ Imhof, measured against our render — and rule 4 is a gift.**
+
+The coordinator counts four of six rules broken. **Reading the render code, I make it five, and possibly
+six.** Legible ❌ (4.6–8.7 px) · easily associated ❌ (mean-of-vertices can fall outside its own polygon;
+49 collisions destroy association) · not overlapping other content ❌ (49 collisions) · **placed to show
+the feature's extent ❌** · hierarchy by type style ❌ (one size, one style, 23 times) · neither densely
+clustered nor evenly dispersed ❌ by my read (dense cluster in the garden, nothing elsewhere).
+
+⭐ **Rule 4 is the one nobody has attempted, and for us it is worth more than the other five.** *"Placed
+to show extent"* is the convention of **letterspacing a name across its district** — communicating how
+far a place reaches **through the label instead of through a boundary.** For a project whose entire
+problem is that it cannot honestly draw the line, **a convention that carries extent without drawing one
+is exactly the tool we need.** This promotes §3.4's letterspacing recommendation from *"it looks
+designed"* to *"it carries extent honestly"* — and it means a wide, tracked, softly-set name may be doing
+more honest work than the polygon underneath it.
+
+---
+
+`[RECALLED, not re-verified this session]`: Imhof's 1962/1975 name-placement rules as the canonical
+label-placement source (the retrieved sources confirm the work exists and is canonical, and that his
+model favours top-right for point labels, but **I could not retrieve the area-label rules themselves**);
+Ordnance Survey's line-weight conventions; the specifics of planting-plan and estate-plan drawing
+practice. Treat those as leads.
+
 ### 3.1 The illustrated map is the right answer, and the row under-argues its own case
 
 `BACKLOG.md` L475 gives three reasons: zoom clarity, no shadows, Mom-legibility. All true. **Two more
@@ -259,6 +490,49 @@ Every region is a fill whose alpha falls off over a band at its edge. The band's
 ⚠️ Failure mode to guard: soft can read *unfinished*. The guard is a **confidently-set label**. Softness +
 a beautifully set name reads deliberate; softness + a weak label reads broken. Which is why §3.4's label
 work is not polish — it is what makes the honesty device survive.
+
+> #### ⚠️ Resolving the trust cost (§3.0 ④) — the device survives, at a lower dose, with one addition
+>
+> The research says two things at once: **crispness is the canonical variable for exactly this**
+> (MacEachren's clarity → crispness; fuzziness among the top-ranked uncertainty variables), **and readers
+> rate uncertainty-encoded maps as less trustworthy.** Four reasons I keep it, in descending strength —
+> and the two changes it forces.
+>
+> **1. The studies measure a different trust, from readers who cannot check.** They test strangers
+> reading thematic choropleths of crime or housing data. Fernwood has the opposite situation: **Mom is
+> the one reader who can falsify the map**, and she has done it — the rainfall incident, where she was
+> right by 14× and the recorded lesson was that a confidently-wrong number cost more than an
+> honestly-unsure one *because she checked it against the sky*. **Crispness buys trust only from readers
+> who cannot check.** She can.
+>
+> **2. But state the trade honestly rather than winning the argument:** *softness costs perceived
+> authority and buys survivability.* If she never checks, crisp wins. If she ever checks, crisp loses
+> catastrophically. She checks.
+>
+> **3. What I propose is a narrower application than what was tested.** Those studies blur **the data
+> marks themselves** — softened circles, blurred values. I am softening **only the extent**, while the
+> name, the house and any drawn line stay crisp. The *claim* ("this is The Bluff, and it's here") remains
+> fully legible; only its *boundary* is soft. That is MacEachren's areal-boundary case rather than the
+> blur-the-symbol case. ⚠️ **I did not find a study on this specific variant — that step is my inference,
+> and it should be labelled as one.**
+>
+> **THE TWO CHANGES:**
+>
+> ⭐ **(a) The frame sentence is now MANDATORY, not nice.** The literature is explicit that intrinsic
+> uncertainty encodings need explanation to be read correctly. §3.3 ③'s one line stops being a courtesy
+> and becomes **the thing that makes the edge device legible at all** — and its wording is now
+> load-bearing enough to be Paul's call, not an agent's.
+>
+> ⭐ **(b) Lower the dose, and encode redundantly.** A **modest** feather reads as *drawn* to a casual
+> eye while still being derived and still being honest — where a heavy blur reads as *broken data* and
+> triggers exactly the distrust the studies measured. Then carry the uncertainty **three ways at once**:
+> softly in the edge, explicitly in the **label weight** (pencilled vs inked — the text channel, which
+> readers demonstrably parse), and in **words on the frame**. Redundant encoding is standard practice and
+> it is the accepted mitigation for "readers misread intrinsic encodings."
+>
+> ⛔ **And this is now a genuine A/B for the exhibit (§7.3), not a designer's preference.** Show Paul the
+> same map at three feather widths including zero. The literature predicts the crisp one will *feel* most
+> trustworthy and be least honest. **That is the trade, and it is his to make, in front of the pictures.**
 
 **② SEAM — three treatments, because Paul ruled there are three cases.**
 
@@ -360,38 +634,162 @@ better than twenty-three ragged ones. **If the operator is unsure about a region
 yet — it should be a named marker with a halo.** That rule alone would improve the current map more than
 every visual change in §3.4 combined, and it is honest by construction.
 
-### 3.6 Ranking the four backlog rows
+### 3.6 ⭐ Ruling on the dash — how do you carry provisionality when it is universal?
 
-Paul's stated concern is not getting bogged down, so the order matters more than the content.
+The reasoning behind the dash is **sound and is not reversed here.** `.pmap-zone.is-draft`'s own comment is
+right: drawing a guess identically to a confirmed boundary *"tells Mom a guess about her own land is
+settled fact."*
 
-**(0) The operator confidence stamp — one keystroke, and it gates everything below.**
-Clean = confident. An illustrated map draws all 23 of today's guesses with equal authority, which is the
-confidently-wrong instrument. Three states minimum: *operator-sure · operator-guessing · resident-confirmed*.
-**This must land before the illustrated map, not after.**
+But it contains a hidden premise that is now false. **It is a CONTRAST rule being applied as a CONSTANT.**
+"Don't draw a guess like a confirmed thing" is a statement about *a difference between two things on one
+screen*. With 23 of 23 draft **there is no second thing** — so the dash cannot do the job it was written
+for, while charging the full legibility cost.
 
-**(1) 🎨 ILLUSTRATED MAP v0 — regions only, zero schema work. Do this first.**
-The record already holds 23 regions including a house and a pond. The four devices that carry most of the
-win — paper ground, type-based fills, soft edges, real label placement — need **no new geometry**. Lines
-make it much better; they do not gate v0. It is the only row that delivers pride, it is one exhibit to
-evaluate, it is reversible by turning a layer off, and it retires the geometry-cleanup question rather than
-waiting on it.
+**Ruling, three parts:**
 
-**(2) 🗂 LAYERS — but only the minimum: a two-state toggle.**
-Not a layer architecture. **Two states, one control, in the map's corner: "Photo" / "Drawn."** It must ship
-*with* #1, because the row itself says the drawn map must not replace the aerial — and a toggle is what
-makes that true. It is also what preserves the ability to see what's **missing** (§3.2). Build the ordered
-opacity model when there are four layers, not two. ⚠️ The control says *Photo* and *Drawn*; **"Layers" is a
-GIS word** and doesn't belong on her surface.
+**① Drop the dash.** Solid, rounded, lighter. The edge channel is needed for the seam language (§3.3) and
+for the aesthetic, and it is currently spent on a signal that carries nothing.
 
-**(3) 📏 ONE GEOMETRY — lines.**
-Second-biggest aesthetic lever, and the only *structural* fix for the seams. It also corrects a live
-mis-modelling: The Path is stored as a 17-vertex polygon reporting a meaningless acreage. But it is schema
-work with seven consumers, so it follows the exhibit that proves the direction is right.
+**② Move provisionality to the NAME.** An unconfirmed place's label renders **pencilled** — reduced weight
+and opacity, no full halo. A confirmed one is **inked** — full weight, full halo. Why the name:
 
-**(4) 📐 TATE LOT DRAWING — last, and honestly re-scoped.**
-It is an **operator verification source, not a pride source.** It delivers nothing to the resident except a
-hard line that would contradict the entire soft-edge language if it were on by default. Keep it in iCloud,
-off by default, distinct register when it lands.
+- it is the thing she actually reads, so it is where meaning already lives;
+- a pencilled label is universally legible as *not settled* with no legend, and it survives any colour
+  vision;
+- ⭐ it costs **zero legibility**, because it is a **weight**, not a **texture** — which is the whole
+  problem with the dash;
+- today, with nothing confirmed, the map correctly reads as entirely pencilled. That is honest. And it
+  stops being uniform the instant she confirms one.
+
+**③ Put the universal status on the FRAME, once, in words.**
+> *"Drawn from an aerial photo — nothing here is confirmed yet."* → *"…12 of 18 confirmed by you."*
+
+**A universal property belongs on the artifact, not on every instance.** That is the correction this case
+forces on *"an artifact must carry its own status in its pixels"*: a status carried identically by every
+instance is not carried at all.
+
+⚠️ **And the real fix is none of the three.** `status` needs to be able to **leave `draft`** — that is a
+product gap, not a render one, and §4's walkthrough is the mechanism for it. The render ruling above is
+what makes the map legible *in the meantime*, and it makes the first confirmation visible the day it
+happens.
+
+⛔ **Authoring call.** Put the three parts to Paul; an agent should not ship this unasked.
+
+### 3.7 The sequence — revised on the rendered evidence
+
+Paul's concern is not getting bogged down. **Yes: the illustrated map is the recommendation, not an
+option.** Four independent lines point at it — the 14.8%/6 px/49-collisions measurement, Tier 1 shipping
+and failing, the fact that the fill does not render at all on a January aerial, and the structural one
+(you cannot compose a photograph). **But three cheaper things come first, and the argument is not
+caution.**
+
+**(0) Fit the frame to the property.** `F21`. Biggest measured defect, cheapest fix on the list, and
+`fitAll()` already exists in `area-trace.html` — lift it, don't write a third one. `pmap-reset` should
+return to the *fitted* view, not to `scale=1`.
+
+**(1) Drop the dash · provisionality to the label · status line on the frame.** `F23`, §3.6 above.
+
+**(2) Labels — fix the unit, lift `labelAnchor()`/`fitLabel()`, add neighbour-collision handling as
+fit-or-defer, two type sizes.** `F22`.
+
+> ⭐ **Those three fix all four measured defects on the existing aerial, and they are hours rather than
+> days. Do them and let Paul look before spending anything on the illustrated map** — the same discipline
+> the smoothing plan correctly applied and then mis-aimed.
+>
+> **And the reason they come first is not caution: they are the illustrated map's own prerequisites
+> wearing the aerial's clothes.** A drawn map on an unfitted 1:1 stage is still 85% empty. A drawn map with
+> 4.6 px colliding labels is still unreadable. A drawn map full of dashes is still debris.
+
+**(3) 🎨 ILLUSTRATED MAP v0.** The pride move. With three things attached:
+- **the operator confidence stamp** (one keystroke, three states: *operator-sure · operator-guessing ·
+  resident-confirmed*) — because clean reads as confident, and today all 23 are guesses;
+- **the "Photo / Drawn" toggle** — two states, one control, shipping *with* it, because the row itself says
+  the drawn map must not replace the aerial and a toggle is what makes that true, and because it preserves
+  the ability to notice what is **missing** (§3.2). ⚠️ *"Layers"* is a GIS word and doesn't belong on her
+  surface;
+- ⚠️ **one to three lines — the driveway above all.** Here is the honest price nobody has stated: regions
+  render from the record for free, but a drawn map with no drive, no house edge and no pond margin is
+  **23 blobs on cream**, which may look *worse* than the aerial, because the aerial at least shows a real
+  place. The driveway is the most drawable and most anchoring line on the property, it is already seeded in
+  the tracer, and it is the plat's own anchor feature. **Draw one line and v0 is a real map.**
+
+**(4) 📏 ONE GEOMETRY — lines properly, in the schema.** The only *structural* fix for the seams, and it
+corrects a live mis-modelling (The Path stored as a 17-vertex polygon reporting a meaningless acreage).
+Schema work with seven consumers, so it follows the exhibit that proves the direction.
+
+**(5) 📐 TATE LOT DRAWING — last, and honestly re-scoped.** An **operator verification source, not a pride
+source.** It delivers nothing to the resident except a hard line that would contradict the entire soft-edge
+language if it were on by default. iCloud, off by default, deliberately distinct register when it lands.
+
+**What the illustrated map does NOT fix, stated plainly so this doesn't repeat the smoothing plan's
+mistake:** not the frame (0), not the labels (2), not "the most prominent object is an edit button" (§4),
+and it **cannot be checked** — the aerial is the only surface on which anyone can tell whether a zone is in
+the right place. *(Which §3.0 ⑥ now answers better than a toggle does: mute the photo, don't remove it.)*
+
+### 3.8 ⭐ Scale-dependent rendering — what it should actually do for 2.6 acres on a 364 px stage
+
+Generalisation has four operations — **elimination · simplification · aggregation · collapse** — and the
+09-04 plan reached for exactly one of them. Here is what the arithmetic says the others should do. **All
+of it is render-only; no coordinate moves.**
+
+**The numbers.** The basemap's bounds span ~458 m across 1500 px (**0.305 m/px in image space** — already
+2× upsampled from NAIP's 0.6 m sensor). The zone union measured 183 × 108 stage-px of a 364 px stage, so
+in ground terms the named property is about **230 × 136 m**. Fit that to a 364 px-wide stage with modest
+padding:
+
+> **≈ 1.58 px per metre — that is 0.63 m/px.**
+
+⭐ **Three consequences fall straight out of that one number, and each settles an argument.**
+
+**① The fitted default view lands almost exactly on the imagery's own resolution.** 0.63 m/px against
+NAIP's 0.6 m sensor. So **the correctly-fitted map is the maximum honest zoom for the photograph** — and
+`MAX_SCALE = 6` currently lets her zoom **six times past it** into interpolation mush. That is a
+measured, non-obvious finding: the zoom ceiling is not a preference, it is set by the sensor.
+⭐ **And it produces an elegant behaviour rather than a restriction:** past the photo's limit, *drop the
+photo and show the drawn map alone.* Not as a penalty — because above that scale the drawn map is
+**the only view that isn't lying.** SVG genuinely has more detail; the raster genuinely does not. Zooming
+in therefore walks you *toward* the illustrated map on its own.
+
+**② The error budget is 4% of the frame, and that changes the feather.** ±9.1 m × 1.58 px/m = **±14.4
+px** on a 364 px stage. A rigorously-derived soft band would be 14 px wide — enormous by any cartographic
+standard, and it quantifies the coordinator's *"the craft transfers, the epistemics do not."*
+⭐ **Resolution, and it is better than my earlier "lower the dose":** keep the band's **width** at the
+true budget — derived, checkable, never hand-picked — and put the taste knob on the **alpha falloff
+curve** instead. A 14 px gradient that drops steeply in its first few pixels reads as a *soft edge*, not
+as a blur, while remaining geometrically honest. **The geometry stays derived; only the ramp is tuned.**
+That preserves the one property that made the device defensible.
+
+**③ ⭐ `collapse` is not a rendering convenience here — it is the only honest representation, and it is
+arithmetic.** Nine zones are under 50 m², 2.8–6.6 m across → **4.4–10.4 px at the fitted default.** At
+that size a polygon is indistinguishable from a dot — **and its honest error band (±14 px) is wider than
+the zone itself.**
+
+> **A feature smaller than its own error bar must not be drawn as a shape.**
+
+We do not know where a 5 m bed is to better than its own size, so the honest rendering *is* a labelled
+point with a halo. That is not a compromise for legibility; it is what the record actually claims. It is
+also **checkable in one line**: `if (extent < k × errorBudget × scale) render as point`.
+
+⚠️ **And they must not vanish** — `collapse` is precisely not `elimination`. A collapsed zone stays
+named, stays tappable, stays present. It changes dimension, not existence.
+
+**The ladder, then:**
+
+| view | what renders |
+|---|---|
+| **fitted default** (≈1.6 px/m) | the ~9 small zones as **labelled points**; the large districts as heavily generalised shapes; only names that fit; photo muted to paper |
+| **~2–3×** | small zones **promote** point → polygon as they pass a legibility floor (≈24 px across); simplification eases; more names appear as they start to fit |
+| **beyond ~3×** | past the sensor's limit — **drop the photo, drawn map only** (see ①) |
+
+⭐ **The durable statement, and it is the one to take away:** *the map should show a different number of
+things at different zooms. Today it shows 23 at all of them.* At the fitted default she should meet
+roughly **8–12 named things**, which also lands inside the reading limits (`[VERIFIED]` 5–7 recommended,
+8–9 ceiling, 4 for colour-vision-deficient readers).
+
+⭐ **And collapse is simultaneously the label fix.** Labelling ~8–12 things instead of 23, in a frame the
+property actually fills, with pole-of-inaccessibility placement and fit-or-defer, should take the
+measured **49 collisions to zero** — Imhof's rules being a constraint-solving problem, the cheapest way
+to solve the constraints is to have fewer of them. **One operation, two measured defects.**
 
 ---
 
@@ -579,9 +977,10 @@ guaranteed to be about *their* place on day one.
    whether her correction is **directional** (*"a bit further over"* — validates drag) or **wholesale**
    (*"that's not right at all"* — validates flag-and-speak). **Fifteen minutes, and it settles the entire
    correction taxonomy in §4.2.** n=1, which is one more than exists.
-2. **Measure the current map at her conditions** — `herConditions()` at 414 × 848 A+ — before building on
-   F6. Count label collisions, labels falling outside their zone, and confirm the A-vs-A+ unit switch. My
-   claims there are read from code and are hypotheses until this runs.
+2. ✅ **DONE mid-review — see §2.0.** The one residual: **toggle A ↔ A+ live and measure the label height
+   in both**, to confirm the user-units arithmetic behind *"A+ makes her labels 47% smaller."* Then turn
+   the three numbers into a standing check (`property fill % · min rendered label px in both modes · label
+   collisions = 0`), because this is the class of defect that only exists in a frame.
 3. **The aesthetic exhibit, through the existing `/design-options` mechanism**, at 414 × 848 A+:
    (a) today; (b) drawn, soft fills, no ground texture; (c) + paper ground, type-based fills, three seam
    treatments; (d) + tiered labels, letterspaced leads, canopy texture. **Paul picks from rendered
@@ -620,8 +1019,44 @@ guaranteed to be about *their* place on day one.
 7. **On a surface whose premise is no-network, never adopt a control that needs one** *(fernwood)* — turns
    the site premise into a checkable UI rule. Today it forbids slippy tiles, a geocoder in the correction
    path, and any ack that implies a send when only a local write happened.
+8. ⭐ **A rendering defect cannot be diagnosed from the data that renders** *(cross-project)* — measure the
+   artifact at the user's conditions before naming the cause. Coordinate analysis will always be available
+   and will always be more precise about the wrong thing. Checkable form: `herConditions()` belongs in the
+   *diagnosis* procedure, not only the *release* one.
+9. ⭐ **A universal property belongs on the frame, not on every instance** *(cross-project)* — sharpens
+   *"an artifact must carry its own status in its pixels."* When every element shares a status, per-element
+   signifiers stop signifying while still charging full visual cost. State it once at the artifact level;
+   reserve per-instance treatment for the moment instances actually differ.
 
-Sources consulted for §3.4's prior art:
-[Esri — Primary design principles for cartography](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/primary-design-principles-for-cartography) ·
-[NPS Harpers Ferry Center — Map Information](https://www.nps.gov/subjects/hfc/map-information.htm) ·
-[Summer Shade Festival — Map](https://summershadefestival.org/map/) *(page reached; the PDF itself 404s — not seen)*
+10. ⭐ **A feature smaller than its own error bar must not be drawn as a shape** *(cross-project)* — the
+    cartographic `collapse` operation arriving from the honesty side. Checkable in one line, and it
+    generalises past maps to any chart drawing an extent, range or duration below its own resolution.
+11. ⭐ **A borrowed default is not evidence — match the JOB, not the product** *(cross-project)* — I made
+    this mistake in this very review and had to retract it. Name the job the source product's default was
+    optimised for before you copy it. Likely the second occurrence of the existing *"patterns port,
+    defaults don't"* candidate.
+
+---
+
+## Sources
+
+**Retrieved this session `[VERIFIED]`:**
+[Kevin Lynch — the five elements](https://www.architecturecourses.org/design/kevin-lynchs-5-elements-city-guide-urban-design) ·
+[Google Maps API — the four base map types, incl. `hybrid`](https://developers.google.com/maps/documentation/javascript/maptypes) ·
+[Apple Maps — Explore / Driving / Transit / Satellite](https://support.apple.com/guide/iphone/set-your-location-and-map-view-iph10d7bdf26/ios) ·
+[MacEachren — visualizing uncertain information](https://www.sci.utah.edu/~kpotter/Library/Papers/maceachren:1992:VUI/index.html) ·
+[The visualization of uncertainty — clarity, crispness, fuzziness](https://wustl.pressbooks.pub/digitalcartography/chapter/the-visualization-of-uncertainty/) ·
+[Uncertainty visualisation reduces perceived trust (ASU)](https://news.engineering.asu.edu/2026/06/the-map-that-finds-the-truth-and-loses-you/) ·
+[Cartographic generalization — selection, simplification, aggregation, collapse](https://documentation.maptiler.com/hc/en-us/articles/8665699082385-Generalization-in-maps) ·
+[ColorBrewer — scheme types and class counts](https://colorbrewer2.org/learnmore/schemes_full.html) ·
+[Patterson / NPS — "a more intuitive hybrid product"](https://cartographicperspectives.org/index.php/journal/article/view/cp43-patterson) ·
+[NPS Harpers Ferry Center — map information](https://www.nps.gov/subjects/hfc/map-information.htm) ·
+[Imhof — *Positioning Names on Maps*](https://www.tandfonline.com/doi/abs/10.1559/152304075784313304) ·
+[Esri — primary design principles for cartography](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/primary-design-principles-for-cartography)
+
+**Not retrieved:**
+[Summer Shade Festival — Map](https://summershadefestival.org/map/) *(page reached; its PDF 404s — never seen)* ·
+NPS granular specs (line weights, palettes, type sizes) ·
+Imhof's area-label rules in his own words ·
+Ordnance Survey line-weight conventions ·
+planting-plan / estate-plan drawing practice
