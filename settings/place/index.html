@@ -167,7 +167,8 @@
   try {
     el("colournote").textContent = (read("fw-accent-chosen") === "1")
       ? "The colour this home opens in."
-      : "The colour this home opens in — the default, since you didn't pick one.";
+      // Same correction as estate/index.html 2026-09-07: a default nobody changed is not an omission.
+      : "The colour this home opens in — the default, change it whenever you like.";
   } catch (e) {}
 
   function paint() {

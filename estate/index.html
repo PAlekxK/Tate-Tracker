@@ -267,8 +267,21 @@
 
   // content-steward 2026-09-06 (drafted for Paul's read): the door's lede is anchored in the one thing we
   // know about them. Two variants, whole or nothing — never a template with a hole in it.
+  // ⛔ THIS SENTENCE WAS TRUE UNTIL W0 AND IS NOW FALSE FOR A PLACED HOUSEHOLD. Measured 2026-09-07
+  // by three seats: "Nothing's been built on it yet" / "Empty so far." sat one tap in front of an app
+  // carrying a 7-day forecast, an hourly strip, a rainfall panel and eight dated sky events. It
+  // undersells the product at the exact moment a person decides whether to go in.
+  //   ⭐ AND THE HONEST LINE DEPENDS ON WHETHER THEY ARE PLACED, which is the whole point of W0: a
+  //   household with coordinates already has weather and sky, derived from the address they gave and
+  //   nothing else. A household we could not place — a box number — genuinely has nothing yet, and
+  //   for them the original sentence is still exactly right.
+  // Two variants, whole or nothing, never a template with a hole in it (the steward's rule above).
   try {
-    el("doorlede").textContent = "Empty so far.";
+    var placed = false;
+    try { var c = JSON.parse(read(K_COORDS) || "null"); placed = !!(c && c.latitude != null); } catch (e) {}
+    el("doorlede").textContent = placed
+      ? "Your weather and sky are in there already \u2014 the rest fills in as you add it."
+      : "Empty so far.";
   } catch (e) {}
   var name = mine ? read(K_NAME) : null;
   if (name) { el("place").textContent = name; document.title = name; }
@@ -319,8 +332,13 @@
            : pref === "phone" ? "By phone." : "By email.",
       prov: pref === "none"
         ? "I'll keep to that. If you lose your password, email me."
+        // ⛔ "you didn't pick one" reported the PRODUCT'S OWN PRE-SELECTION as the reader's omission
+        // — three seats, three runs, 2026-09-07. The option was ticked before they arrived; not
+        // changing a default is not a failure to answer, and telling someone they left something
+        // undone when they did not is the small dishonesty that makes the honest lines harder to
+        // believe. It still says the value is a default, which is the true and useful half.
         : (read("fw-onboard-contact-chosen") === "1" ? ""
-                                                       : "The default — you didn't pick one."),
+                                                       : "The default \u2014 change it whenever you like."),
       act: "Change that ›"
     });
   }
