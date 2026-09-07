@@ -28,10 +28,34 @@ reported four seats as having walked a sha they had never walked.
 ⛔ AND IT NEVER PRINTS A BARE PASS WHILE A CLAUSE IS UNCHECKABLE. A gate that cannot see one of its
 own clauses and says PASS is worse than no gate.
 """
-import argparse, importlib.util, json, os, subprocess, sys
+import argparse, importlib.util, json, os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WALKS = os.path.join(ROOT, ".private", "synthetic-walks")
+
+# ⭐ THE COVERAGE LINE `[paul-ruled 2026-09-07]` — the disposition of the `second-viewport`
+# pre-registration, and the retro's finding #2 in its general form.
+# ⛔ WHY THIS EXISTS. Lap 2's gate printed **4 of 4** while the intersection of "can test a placed
+# household" and "had undegraded data" was EMPTY. A verdict is not coverage. What the battery DID NOT
+# reach has to be on the page next to the pass, or the pass reads as a claim about the whole product.
+# ⭐ Viewport is the first entry because it is the one we know is a gap and can state exactly: every
+# synthetic walk this loop has ever run was 414×848. Paul found a defect at laptop width on 2026-09-06
+# that the phone battery missed, and the harness cannot reproduce it — so the honest move is to DECLARE
+# the gap every lap rather than build a flag nobody has a confirmed user for. If a laptop defect bites
+# again, this line is where it will already have been admitted.
+# ⛔ READ, NEVER TYPED. The number comes out of the instrument itself, so it cannot drift away from
+# what the walks actually did; an unreadable constant prints UNREADABLE and never a remembered value.
+VIEWPORT_RX = re.compile(r"viewport:\s*\{\s*width:\s*(\d+)\s*,\s*height:\s*(\d+)")
+
+
+def walk_viewport():
+    """(width, height) every synthetic walk ran at, read from `journey-view.py`. None if unreadable."""
+    try:
+        with open(os.path.join(ROOT, "tools", "journey-view.py"), encoding="utf-8") as fh:
+            m = VIEWPORT_RX.search(fh.read())
+    except OSError:
+        return None
+    return (int(m.group(1)), int(m.group(2))) if m else None
 UNWRITTEN = "WALK-REPORT-UNWRITTEN"
 
 
@@ -223,6 +247,15 @@ def report(sha, seats_only=False):
         print("        %s instrumented (reported, counted from lap 2) — %s" % ("✅" if st is True else ("🔴" if st is False else "⬜"), detail))
 
     print("\n  seats passing every clause: %d of %d" % (len(passing_seats), len(ss)))
+    # ⛔ COUNTED, NEVER GRADED — this line states what the battery did not reach. It refuses nothing
+    # and it must never gain a pass/fail, or it becomes a second gate nobody ruled on.
+    vp = walk_viewport()
+    print("  📐 coverage — %s" % (
+        ("viewport %d×%d ONLY — no seat has ever walked at another width, and the harness cannot "
+         "produce one (hardcoded in journey-view.py, no flag). ⛔ A pass here says NOTHING about "
+         "laptop width." % vp) if vp else
+        "viewport UNREADABLE — journey-view.py's constant could not be parsed, so what these walks "
+        "covered is UNKNOWN, not assumed."))
     # ⬜ The UX sweep has no artifact convention yet. DECLARED, never silently omitted.
     print("  ⬜ UX sweep for this build — UNCHECKABLE: no artifact convention exists yet.")
 

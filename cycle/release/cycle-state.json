@@ -48,9 +48,11 @@
   {
    "id": "second-viewport",
    "question": "does a laptop-width walk find what 414 hides (Paul found one on 2026-09-06)?",
-   "disposition": "blocked-on-paul",
-   "evidence": "journey-view.py:64 hardcodes viewport 414x848 with NO CLI flag, so zero laptop-width walks exist and none can be produced by the loop's own tooling. It would read `open` forever — a permanently-red control by another name.",
-   "awaiting": "Paul rules ONE of: (a) BUILD a --viewport WxH flag defaulting to 414x848, run one four-seat battery at laptop width against a single sha, diff against the 414 battery; or (b) KILL it — 414 x A+ is Mom's measured condition and a laptop is nobody's confirmed device. ⛔ What is NOT legitimate is a third lap at `open`: an undischargeable pre-registration teaches the loop that pre-registrations need not be answered."
+   "disposition": "retired",
+   "evidence": "journey-view.py hardcodes viewport 414x848 with no flag, so zero laptop-width walks exist and none can be produced by the loop's own tooling. The question was addressed to an instrument that cannot answer it.",
+   "outcome": "not-answered-by-design",
+   "ruling": "paul-ruled 2026-09-07: retire the pre-registration; do NOT build the flag; DECLARE the gap instead. release-gate.py now prints a coverage line reading the viewport constant out of journey-view.py, so every gate states that a pass says nothing about laptop width. Counted, never graded — the line refuses nothing.",
+   "why_not_build": "Mom is the make-or-break user and she is on a phone at A+; 414 is the design centre and a laptop has no confirmed user but Paul. ⛔ But 'Paul will catch it' is not coverage — a channel he already covers is a LEADING INDICATOR, not a safety net — so the gap is stated every lap rather than left silently absent. The flag stays available if it ever earns itself."
   }
  ]
 }

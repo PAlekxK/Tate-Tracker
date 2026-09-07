@@ -1137,3 +1137,54 @@ cannot explain. The chronicle had the answer under a heading that names it.
 3. ⛔ **GAP 1's urgency is NOT raised by this.** The builder did get through the door at 10:22 ET on
    the first attempt. GAP 1 remains what the briefing said it was — cheap, unblocked, and worth doing
    on its own merits, at the visit already ruled to happen.
+
+### Beat 0 step 4 · THE GATE SWEEP — ⛔ it has NO INPUT, and that is a finding, not a clean sweep
+
+The spine's 08-31 amendment: *"A lap OPENS with a gate sweep. Before beat 1, read the loop's fired
+item-gates — **they are named on the loop board's row** (`cycles.py`, `⚡ gate:` lines) — and dispose
+each one: act · fold · snooze · kill."*
+
+⛔ **This loop has no row on that board.** `measured` — three state artifacts exist in this repo and
+the board is reading the wrong one for this loop:
+
+| artifact | state | published | on the board? |
+|---|---|---|---|
+| `data/cycle-state.json` | ARMED | 2026-09-01T23:24 | ✅ **this is the "Fernwood" row** — the board's *"its `ARMED` was published 6d ago (limit 2d)"* matches it exactly |
+| `cycle/fleet/cycle-state.json` | FIRED | 2026-09-05T14:31Z | no row of its own |
+| ⭐ `cycle/release/cycle-state.json` | FIRED | **2026-09-07T19:25** | ⛔ **no row.** Written minutes before this sweep and the board does not read it |
+
+⭐ **So the release loop — the loop being lapped right now — does not render as a loop.** Its fired
+item-gates cannot be swept by the mechanism the spine names, because the mechanism reads a board row
+that does not exist. The 33 ⚡ on the "Fernwood" row belong to the **mom cycle** and are that loop's
+to dispose at its own lap, not this one's.
+
+⛔ **THE THING NOT TO DO IS REPORT "0 GATES — CLEAN."** That is lap 2's finding #2 exactly — *a green
+gate can be structurally meaningless* — and it would be the same error in the same lap that recorded
+it: an empty result from an instrument that was never connected reads identically to an empty result
+from a loop with nothing due. **Step 4 is UNCHECKABLE for lap 3 and is recorded as such.**
+
+⚠️ **NOT FIXED HERE, deliberately.** Registering this loop on the portfolio board is a change to
+`~/.claude` infrastructure, it is nobody's assigned task tonight, and the right fix depends on whether
+the release loop should be its OWN row or fold into Fernwood's — which is a question about how Paul
+wants the portfolio to read, not a bug with one correct answer. **→ Paul.**
+
+⭐ **What it costs to leave open:** one lap. Nothing is blocked; the sweep simply cannot run until the
+loop is visible to the sweeper. But it must not be silently skipped again at lap 4 — an
+undischargeable step teaches the loop that steps need not be discharged, which is the same argument
+that just retired `second-viewport`.
+
+### Beat 0 · CLOSED
+
+| step | state |
+|---|---|
+| 1 · close lap 2 in the record | ✅ `lap_count 2` · `cleared_sha 1e2748d` |
+| 2 · apply R-E | ✅ already applied `590a551`; chronicle parses 3 laps, 0 heading anomalies |
+| 3 · dispose both lap-1 pre-registrations | ✅ `instrumented-counted` closed/yes (**not promoted**) · `second-viewport` **retired**, replaced by the coverage line |
+| 4 · gate sweep | ⛔ **UNCHECKABLE — no board row for this loop.** Recorded, not skipped |
+| 5 · run the three sweeps | ✅ health 1 amber (CI-side) · accounts 0 unreadable, Mom's invite still unspent · feedback 480 awaiting, 0 unreadable |
+| 6 · open lap 3 | ✅ this heading |
+
+⭐ **Beat 1 (consolidate) is next**, and its first record is already chosen: the three orphaned
+production feedback rows, disposed `not-a-finding` citing the 11:05 ET deletion. That is the §3.1
+end-to-end proof — F1 → F2 → F3 → F5 → F6 — on a record whose right answer is already known, which is
+the cheapest possible first trip through a path that has never carried anything.
