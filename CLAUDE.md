@@ -51,7 +51,19 @@ python3 tools/watch-feedback.py            # ⭐ WHAT ARRIVED AND HAS ANYONE DIS
 python3 tools/product-steward.py           # ⭐ the citation-bound carrier's door — rulings nothing carries, the round's four seat reports, and the trial's own falsifier ledger (ONE-LAP TRIAL, R7→C; `.plans/2026-09-07-product-steward-CHARTER.md`)
 python3 tools/release-state.py             # ⭐ WHICH BEAT the release loop is on and WHOSE it is (derived; `beat.owner: paul` = a human gate is open) — `cycle/release/CYCLE-MAP.md`
 python3 tools/qa-behind.py                 # is QA serving HEAD? one line only when it is behind (the post-commit hook prints the same)
-python3 tools/check-estate-neutral.py      # ⭐ DOES A HOUSEHOLD SURFACE NAME ANOTHER HOUSEHOLD — 311 needles, species read FROM CANON; exit 3 = UNCHECKABLE (never green by absence). `--url` checks what an origin actually serves
+python3 tools/check-estate-neutral.py      # ⭐ DOES A HOUSEHOLD SURFACE NAME ANOTHER HOUSEHOLD — 311 needles, species read FROM CANON; exit 3 = UNCHECKABLE (never green by absence)
+# ⚠️⚠️ THE BARE FORM ABOVE DOES NOT SCAN `viewer.html` — `_shipped_pages()` (`:61`) drops it on purpose,
+#   because pages-deploy rebuilds it per instance and the tracked copy is Fernwood's and is SUPPOSED to
+#   name Fernwood. So a bare run covers five static pages and says NOTHING about the app itself. The
+#   tool's own comment: `--url <origin>` or `--page /tmp/<neutral build>` — "Both are used; neither is
+#   optional." This block printed only the bare form, so anyone running the pickup got a ✅ that did not
+#   cover the file they changed. Measured 2026-09-07.
+# ⛔⛔ AND EVEN RUN CORRECTLY IT IS NOT COVERAGE FOR A DATA LEAK. On 09-07 Fernwood's own gauge record —
+#   123 days, 30.83", "OUR GAUGE", "the gauge's sheltered spot by the pond" — rendered at households in
+#   Roswell, Dahlonega and Bangor, and this check read ✅ 311 needles / rendered=0 against the very origin
+#   four seats walked. IT TESTS FOR NAMES. That leak was NUMBERS AND POSSESSIVE PRONOUNS, and Fernwood's
+#   data reached a stranger's house without Fernwood's name on it. A green here is evidence about names
+#   and about nothing else.
 ```
 
 ### ⭐ THE THREE NEW LINES ABOVE EXIST BECAUSE A CAPABILITY THE LOOP CANNOT REACH IS NOT A CAPABILITY
