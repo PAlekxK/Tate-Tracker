@@ -337,11 +337,63 @@ def build(template_text, instance_path):
     return out
 
 
-def cmd_extract():
+PH_RE = re.compile(r"\{\{[^}\n]{1,80}\}\}")
+
+
+def placeholders(text):
+    return set(PH_RE.findall(text or ""))
+
+
+def cmd_extract(force=False):
+    """⛔ IT VERIFIES BEFORE IT OVERWRITES, and until 2026-09-07 it did neither.
+
+    `--extract` re-derives the template from `viewer.html` and WROTE IT UNCONDITIONALLY, returning 0.
+    Run against a tree whose viewer was already template-shaped it **silently dropped
+    `{{IDENTITY:perspectiveTitle}}` and `{{IDENTITY:propertyImage}}`**, leaving a template that
+    cannot build — and it had already destroyed the good one. Found by lane F, 2026-09-07, and only
+    because it happened to run `--check` in the same minute; a session that ran `--extract` and
+    stopped there would have committed an unbuildable template.
+
+    Three gates now, and the write happens after all three:
+      · every placeholder the CURRENT template has must survive — a LOST one is refused by name;
+      · the new template must BUILD;
+      · the build must leave NO `{{` behind (an unfilled placeholder is a literal on Mom's screen).
+
+    ⚠️ `--force` exists because a placeholder can be retired deliberately. It is an escape for a
+    human who has read the names, never a way past a surprise."""
     t = extract(open(VIEWER, encoding="utf-8").read())
+    old_text = open(TEMPLATE, encoding="utf-8").read() if os.path.exists(TEMPLATE) else ""
+    lost = sorted(placeholders(old_text) - placeholders(t))
+    problems = []
+    if lost:
+        problems.append("%d placeholder(s) present in the current template and ABSENT from the "
+                        "extraction: %s" % (len(lost), ", ".join(lost)))
+    try:
+        built = build(t, DEFAULT_INSTANCE)
+        left = sorted(placeholders(built))
+        if left:
+            problems.append("the extracted template does not fully build — %d placeholder(s) survive "
+                            "into the output: %s" % (len(left), ", ".join(left[:6])))
+    except Exception as e:
+        problems.append("the extracted template does not build: %s: %s" % (type(e).__name__, e))
+
+    if problems and not force:
+        print("🔴 REFUSING TO WRITE %s — the extraction would lose something.\n"
+              % os.path.relpath(TEMPLATE, ROOT))
+        for pr in problems:
+            print("   · %s" % pr)
+        print("\n   NOTHING WAS WRITTEN; the template on disk is untouched. This is the state that")
+        print("   used to be a silent overwrite followed by exit 0.")
+        print("   If a placeholder was retired on purpose, re-run with --force after reading the names.")
+        return 1
+    if problems and force:
+        print("⚠️ --force: writing anyway, over %d refusal(s):" % len(problems))
+        for pr in problems:
+            print("   · %s" % pr)
     os.makedirs(os.path.dirname(TEMPLATE), exist_ok=True)
     open(TEMPLATE, "w", encoding="utf-8").write(t)
-    print("template written: %s (%d placeholders)" % (os.path.relpath(TEMPLATE, ROOT), t.count("{{")))
+    print("template written: %s (%d placeholders, verified to build)"
+          % (os.path.relpath(TEMPLATE, ROOT), len(placeholders(t))))
     return 0
 
 
@@ -377,17 +429,49 @@ def cmd_check(instance):
 
 
 def selftest():
+    """⛔ IT REPORTS OR IT FAILS LOUD; it never dies mid-suite. Measured at HEAD 2026-09-07: this
+    suite exited 1 having printed ZERO clauses, because `build()` raised on its first check. Every
+    later clause — including the two that guard the `--check` red path and the one that guards a
+    canon file going silently missing — never ran, and nothing said so. `--check` is in CLAUDE.md's
+    session-start block; `--selftest` is not, so nothing ran the thing that could have reported it."""
+    try:
+        return _selftest()
+    except Exception as e:
+        print("\n🔴 SUITE ABORTED — a clause raised instead of failing: %s: %s" % (type(e).__name__, e))
+        print("   Every clause after it did NOT RUN. Treat this as unmeasured, not as passing.")
+        return 1
+
+
+def _selftest():
     print("build-viewer selftest\n")
     ok = True
 
     def check(name, cond, detail=""):
+        """⛔ `cond` MAY BE A THUNK, and where it can raise it MUST be one. A selftest that raises
+        reports NOTHING — measured at HEAD 2026-09-07: this suite exited 1 having printed zero
+        clauses, because `build()` threw on its first check and every later clause, including the two
+        that guard the --check red path, never ran."""
         nonlocal ok
+        if callable(cond):
+            try:
+                cond, auto = bool(cond()), ""
+            except Exception as e:
+                cond, auto = False, "%s: %s" % (type(e).__name__, e)
+            detail = detail or auto
         ok &= bool(cond)
         print("  %s %s%s" % ("✅" if cond else "🔴", name, ("  → " + detail) if detail and not cond else ""))
 
     viewer = open(VIEWER, encoding="utf-8").read()
     t = extract(viewer)
-    check("extract → build round-trips the live viewer byte for byte", build(t, DEFAULT_INSTANCE) == viewer)
+    # ⛔ A SELFTEST THAT RAISES REPORTS NOTHING, and this one had been raising. Measured at HEAD on
+    # 2026-09-07: `--selftest` exited 1 having printed **ZERO** clauses — `build()` throws
+    # `RuntimeError: template has no identity placeholder perspectiveTitle` on this very line, and
+    # every clause after it, including the ones that guard the 1 MB cliff and the --check red path,
+    # never ran. `--check` is in CLAUDE.md's session-start block and is green; `--selftest` is not in
+    # it, so nothing ran the thing that could have said so. Sixth instance of the shape this repo has
+    # now recorded all day: a capability the loop cannot reach is not a capability the loop has.
+    check("extract → build round-trips the live viewer byte for byte",
+          lambda: build(t, DEFAULT_INSTANCE) == viewer)
     check("template carries %d DATA + 15 IDENTITY + 2 ESTATE + 1 DISPLAY placeholders" % len(roster()),
           t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 15 and t.count("{{ESTATE:") == 2 and t.count("{{DISPLAY:") == 1)
     # a changed source must change the build (so --check can go red)
@@ -402,7 +486,8 @@ def selftest():
         cfg_path = os.path.join(inst, "x.json"); json.dump(cfg, open(cfg_path, "w"))
         os.remove(os.path.join(d, "turf.json"))
         json.dump({"_meta": {"planted": True}}, open(os.path.join(d, "turf.json"), "w"))
-        check("a changed source JSON changes the build (--check would go red)", build(t, cfg_path) != viewer)
+        check("a changed source JSON changes the build (--check would go red)",
+              lambda: build(t, cfg_path) != viewer)
         os.remove(os.path.join(d, "weeds.json"))
         try:
             build(t, cfg_path); check("a MISSING canon file that is not declared absent FAILS LOUD", False)
@@ -447,6 +532,33 @@ def selftest():
     except RuntimeError:
         check("a template that is not the app THROWS", True)
     print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed."))
+    # ── the --extract write gate, proven on the REAL template ─────────────────────────────────
+    # ⛔ THE INVARIANT, not the current state: `--extract` may refuse or it may write, but it must
+    # NEVER write a template that loses a placeholder the current one has. Asserting the invariant
+    # rather than "it refuses today" means this test keeps biting after the underlying literals are
+    # fixed. (Today it does refuse: `{{IDENTITY:perspectiveTitle}}` and `{{IDENTITY:propertyImage}}`
+    # would both be dropped — lane F's defect, live at HEAD.)
+    import hashlib
+    def digest():
+        return hashlib.md5(open(TEMPLATE, "rb").read()).hexdigest() if os.path.exists(TEMPLATE) else ""
+    before_d, before_ph = digest(), placeholders(open(TEMPLATE, encoding="utf-8").read()) if os.path.exists(TEMPLATE) else set()
+    import io, contextlib
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        rc = cmd_extract()
+    after_d = digest()
+    if rc != 0:
+        check("--extract REFUSED and wrote nothing (the template is byte-identical)",
+              after_d == before_d, "the template changed on a refusal")
+        check("  and it NAMED what would be lost", "placeholder(s)" in buf.getvalue() or "does not build" in buf.getvalue())
+    else:
+        check("--extract wrote, and lost no placeholder",
+              not (before_ph - placeholders(open(TEMPLATE, encoding="utf-8").read())),
+              "a placeholder present before the extraction is gone after it")
+    check("placeholders() finds a {{…}} token and ignores prose",
+          placeholders("a {{DATA:X}} b {{IDENTITY:y}} c") == {"{{DATA:X}}", "{{IDENTITY:y}}"}
+          and placeholders("no braces here") == set())
+
     return 0 if ok else 1
 
 
@@ -454,6 +566,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--extract", action="store_true")
+    ap.add_argument("--force", action="store_true",
+                    help="write even if the extraction loses a placeholder — after reading the names")
     ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--instance", default=DEFAULT_INSTANCE)
     ap.add_argument("--out", default=VIEWER)
@@ -461,7 +575,7 @@ def main():
     if a.selftest:
         return selftest()
     if a.extract:
-        return cmd_extract()
+        return cmd_extract(force=a.force)
     if a.check:
         return cmd_check(a.instance)
     return cmd_build(a.instance, a.out)
