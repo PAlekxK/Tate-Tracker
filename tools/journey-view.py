@@ -94,9 +94,20 @@ const cfg = JSON.parse(process.argv[2]);
       // every walk — the harness reported a screen with no error while the screen plainly showed
       // one. A journey walk exists to catch exactly that copy, so the instrument was blind in the
       // one place it most needed to see.
-      document.querySelectorAll('h1,h2,h3,p,label,li,strong,em,span,.trouble,[role="alert"]').forEach((n) => {
+      // ⛔ AND `div` IS IN THIS LIST FOR THE SAME REASON, added 2026-09-07. The tag list above was
+      // extended by NAMING one class (`.trouble`) when a bare <div> turned out to be invisible. That
+      // fixed one div and left the shape: the place card at stop 12 writes its address into
+      // `div.main-card-summary` and its lead sentence into `div.prop-lead`, so **the card the whole
+      // build was about was absent from every brief**, and mom · strict · wide-eyed each reported
+      // reading it off the PNG instead (cycle/release/CYCLE-LOG.md:769). Naming three more classes
+      // would repeat the fix; the rule is that a TEXT LEAF is a text leaf whatever tag it wears.
+      // The leaf test below is what keeps a layout wrapper from dragging the whole page in: a node
+      // qualifies only if it contains no element other than inline formatting.
+      const LEAFY = 'br,span,strong,em,b,i,a,small,code,abbr,time,sup,sub';
+      document.querySelectorAll('h1,h2,h3,h4,p,label,li,strong,em,span,div,.trouble,[role="alert"]').forEach((n) => {
         if (!vis(n)) return;
-        if (n.querySelector('h1,h2,h3,p,label,li')) return;      // keep leaves only
+        if (n.tagName === 'DIV' && [...n.children].some((c) => !LEAFY.split(',').includes(c.tagName.toLowerCase()))) return;
+        if (n.querySelector('h1,h2,h3,h4,p,label,li')) return;      // keep leaves only
         const t = (n.innerText || '').replace(/\s+/g, ' ').trim();
         if (t && !text.includes(t)) text.push(t);
       });

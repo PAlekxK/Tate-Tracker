@@ -52,7 +52,14 @@ def household_surfaces(root=ROOT):
             continue
         out.append(d)
     return out
-FW_DECL_RE = re.compile(r'var\s+K_[A-Z]+\s*=\s*["\'`](fw-[A-Za-z0-9_.-]+)["\'`]')
+# ⛔ `K_[A-Z]+` EXCLUDED THE UNDERSCORE, so a multi-segment name could not be PARSED at all — and the
+# check then reported the file as never DECLARING keys it plainly contains (K_CONTACT_CHOSEN,
+# K_COLOR_CHOSEN, K_SYN_RUN at onboarding/index.html:773-775). Five false accusations, measured
+# 2026-09-07 by lane A. ⭐ THE RULE, and this is its third instance in one day (check-backlog-ready's
+# worktree-relative paths · product-steward's unresolvable citations · this): **a checker that cannot
+# PARSE something must not report it as a substantive failure.** Unparseable is not undeclared, the
+# same way UNRESOLVABLE is not missing — only one of the two accuses the author.
+FW_DECL_RE = re.compile(r'var\s+K_[A-Z0-9_]+\s*=\s*["\'`](fw-[A-Za-z0-9_.-]+)["\'`]')
 FW_LIT_RE = re.compile(r'["\'`](fw-[A-Za-z0-9_.-]+)["\'`]')
 
 LITERAL_RE = re.compile(r'["\'`](tateTracker\.[A-Za-z0-9_.]+)["\'`]')
