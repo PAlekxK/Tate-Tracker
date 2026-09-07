@@ -17308,17 +17308,71 @@ function renderPlantPeakPanel() {
 // is OFF here exactly as it is for the Python consumers (momlib.module_state), so
 // a typo in estate.json hides a tile rather than silently showing one; an unreadable
 // set (no const) renders everything — the loud direction on a static page.
-function applyModuleTiles() {
+// ⭐⭐ ONE ANSWER TO "WHAT IS ON, AND WHAT HOLDS ANYTHING" `[paul-ruled 2026-09-06]`:
+// "all the menus and summary menus all need to link in to a common sense of what's populated and
+// what's turned on within a given estate." Found by WATCHING a walk — the jump strip and the
+// summary tiles were offering every module on a household that had just been created and held
+// nothing, so every option led to an empty card.
+//
+// ⛔ THE RULE THE TWO RULINGS PRODUCE TOGETHER — and they are not the same rule:
+//   NAVIGATION requires CONTENT.  A tile or a jump link is a shortcut TO something; with nothing
+//                                 there it is a dead end, and a menu full of dead ends reads as
+//                                 broken however carefully each card explains itself.
+//   PRESENCE requires only ON.    R5, "empty not absent": a card with nothing in it stays, so the
+//                                 person can see what their place can hold and be invited in.
+// One source, two consumers, and the difference between them is deliberate.
+//
+// ⚠️ POPULATION IS COUNTED FROM CANON, NEVER FROM THE RENDERED DOM. Counting the DOM would make
+// this depend on render order and would flip as cards lazily fill.
+const MODULE_POPULATION = {
+  "garden":         () => ((typeof PLANTS_DATA !== "undefined" && PLANTS_DATA.plants) || []).length,
+  "motor-pool":     () => vehiclesInGroup("vehicle"),
+  "equipment":      () => vehiclesInGroup("equipment"),
+  "house-systems":  () => vehiclesInGroup("household-system"),
+  "place":          () => ((typeof ZONES_DATA !== "undefined" && ZONES_DATA.zones) || []).length,
+  "wildlife":       () => ["BIRDS_DATA","MAMMALS_DATA","AMPHIBIANS_DATA","SNAKES_DATA",
+                           "LIZARDS_DATA","INSECTS_DATA","FISHING_DATA"]
+                            .reduce((n, k) => n + (((window[k] || {}).species) || []).length, 0),
+  // Weather and sky are REGIONAL, not collected: they come from the address the person gave, so a
+  // household that has told us where it is already has them. They are populated by construction.
+  "weather":        () => 1,
+  "sky":            () => 1,
+};
+
+function vehiclesInGroup(g) {
+  const rows = ((typeof VEHICLES_DATA !== "undefined" && VEHICLES_DATA.vehicles) || []);
+  return rows.filter(v => (v.group || "") === g).length;
+}
+
+// → "off" | "empty" | "populated". ⚠️ An UNKNOWN module counts as populated: this hides navigation,
+// and hiding something that does have content is the worse error. Same loud direction as an
+// unreadable module set rendering everything.
+function moduleState(name) {
   const mods = (typeof ESTATE_MODULES === "object" && ESTATE_MODULES) ? ESTATE_MODULES : null;
-  // every element that declares its module: strip tiles, main cards, the Mama's Perspective master card
-  document.querySelectorAll("[data-module]").forEach(cell => {
-    const st = mods ? mods[cell.dataset.module] : "on";
-    cell.style.display = (st === "on" || st === "on-minimal") ? "" : "none";
+  const declared = mods ? mods[name] : "on";
+  if (!(declared === "on" || declared === "on-minimal")) return "off";
+  const counter = MODULE_POPULATION[name];
+  if (!counter) return "populated";
+  let n = 0;
+  try { n = counter(); } catch (e) { return "populated"; }
+  return n > 0 ? "populated" : "empty";
+}
+
+function applyModuleTiles() {
+  // PRESENCE — cards and the master card stay unless the module is OFF.
+  document.querySelectorAll("[data-module]").forEach(el => {
+    el.style.display = (moduleState(el.dataset.module) === "off") ? "none" : "";
   });
-  // the jump strip follows the cards it points at — a link to a hidden card is a dead end
+  // NAVIGATION — the summary tiles at the top are shortcuts, so they need something to point at.
+  document.querySelectorAll(".dash-cell[data-module]").forEach(cell => {
+    cell.style.display = (moduleState(cell.dataset.module) === "populated") ? "" : "none";
+  });
+  // NAVIGATION — the jump strip, same rule, read from the card it targets rather than restated.
   document.querySelectorAll(".jump-strip a[data-jump]").forEach(a => {
     const target = document.getElementById(a.dataset.jump);
-    a.style.display = (target && getComputedStyle(target).display === "none") ? "none" : "";
+    const mod = target && target.dataset ? target.dataset.module : null;
+    const st = mod ? moduleState(mod) : (target ? "populated" : "off");
+    a.style.display = (st === "populated") ? "" : "none";
   });
 }
 

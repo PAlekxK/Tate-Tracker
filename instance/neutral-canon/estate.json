@@ -1,12 +1,26 @@
 {
   "_meta": {
-    "neutral": true
+    "neutral": true,
+    "rule": "Module NAMES are derived from the markup's own data-module attributes, never retyped. Values are the strings the viewer compares against ('on' / 'on-minimal' / 'off') -- a boolean here reads as OFF, which is how a neutral build ended up with a module set that matched nothing (2026-09-06).",
+    "vocabulary": [
+      "equipment",
+      "garden",
+      "house-systems",
+      "motor-pool",
+      "place",
+      "sky",
+      "weather",
+      "wildlife"
+    ]
   },
   "modules": {
-    "garden": true,
-    "wildlife": true,
-    "vehicles": true,
-    "zones": true,
-    "journal": true
+    "equipment": "on",
+    "garden": "on",
+    "house-systems": "on",
+    "motor-pool": "on",
+    "place": "on",
+    "sky": "on",
+    "weather": "on",
+    "wildlife": "on"
   }
 }
