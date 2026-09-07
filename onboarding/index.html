@@ -773,6 +773,12 @@
   var K_CONTACT_CHOSEN = "fw-onboard-contact-chosen";   // she TAPPED a contact option (a default sat on is not a choice)
   var K_COLOR_CHOSEN   = "fw-accent-chosen";            // she TAPPED a swatch
   var K_SYN_RUN        = "fw-synthetic-run";            // the walk's run id, for the app's capture-side batches
+  // W0 · DECLARED HERE, WRITTEN BY NOBODY ON THIS PAGE — the same deliberate pattern as the account
+  // keys below. The household's coordinates are DERIVED: the Worker geocodes the address and the
+  // estate page mirrors them out of whoami, so no screen in this flow ever types or computes them.
+  // It is declared here because this file is the canonical roster of every browser key the household
+  // surfaces touch, and a key nothing declares is a key the origin move loses.
+  var K_COORDS = "fw-onboard-coords";
   // ⛔ THE HIGHEST-STAKES FIELD IN THE FLOW WAS SHOWN BACK NOWHERE. It is pre-selected by default,
   // answered once, and never seen again — and its "please don't contact me" branch closes the only
   // route to a forgotten password. Two seats noticed independently that it vanishes, and ux-expert

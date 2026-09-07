@@ -229,7 +229,10 @@
   var K_GRANT = "fw-grant", K_ADDR = "fw-onboard-addr", K_PARTS = "fw-onboard-parts",
       K_NAME = "fw-onboard-name", K_COLOR = "fw-accent", K_OWNER = "fw-onboard-owner",
       K_USER = "fw-username", K_RANK = "fw-onboard-interests",
-      K_PREF = "fw-onboard-contact";
+      K_PREF = "fw-onboard-contact",
+      // W0 · the household's own coordinates, mirrored from the record so the viewer can paint
+      // weather/sky/place from THIS place before first paint. Derived, never typed by anyone.
+      K_COORDS = "fw-onboard-coords";
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function el(id) { return document.getElementById(id); }
   function esc(s) { return String(s == null ? "" : s); }
@@ -423,6 +426,10 @@
         put(K_PREF, d.contactPref);
         if (d.addressParts) put(K_PARTS, JSON.stringify(d.addressParts));
         if (d.ranked) put(K_RANK, JSON.stringify(d.ranked));
+        // W0 · coordinates come from the RECORD only — nothing here ever computes or defaults them.
+        // A household the Worker could not place has `coordinates: null` and stays S0; `put` ignores
+        // null, so a provider outage leaves a previously-placed household placed.
+        if (d.coordinates) put(K_COORDS, JSON.stringify(d.coordinates));
         // Re-render only if the record actually disagreed, so the common case costs nothing and a
         // reader never sees her own screen flicker for no reason.
         if (changed) location.reload();
