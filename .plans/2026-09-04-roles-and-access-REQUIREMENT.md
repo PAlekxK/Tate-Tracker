@@ -181,3 +181,20 @@ already-shipped consequence is only the removal of the presumed type from the on
 whether a node's *containment* is a property of the node (the vehicle knows it sits at Fernwood) or of
 the grant (a person's grant says where their view is rooted). Those look identical at n=1 and diverge
 the moment two people see the same vehicle at different depths — which is precisely the example above.
+
+## Ruling 2026-09-07 — forwarded links `[paul-stated 2026-09-07 ~12:40 ET]`
+
+> *"For now, we assume no forwarding and I will ask people not to forward. We can make invite links
+> single use for tracking if that's doable."*
+
+- **Assumed:** a grant link is not forwarded; Paul asks each invitee not to. The 09-05 requirement
+  (*"a forwarded grant does not grant access — only the person identified"*) stays DEFERRED; its
+  release condition is a real person outside the three named (Paul · Mom · Bob).
+- **Single-use is already true by construction** `measured 2026-09-07`: `worker.js` "SPEND THE INVITE"
+  deletes the invite's grant row at account creation; Paul's own invite `9e45a41d…` was gone from KV
+  after his account existed, and a second use answers `invite-required` 403, which the page now
+  renders as *"This link isn't valid any more — ask Paul for a fresh one."*
+- **Tracking, the doable form:** the Worker cannot write the private register, so "spent" is DERIVED —
+  a register row whose credential hash is absent from KV while an `account:` row exists for that
+  person = spent at that account's `createdAt`. → `access-map.py` gains a `spent` column; the register
+  row gets no hand-typed stamp. Pre-registered for lap 2; not built today.

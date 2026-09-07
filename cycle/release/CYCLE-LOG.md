@@ -883,3 +883,9 @@ Make it flexible."*
   per-record sweep of every household estate (the `read-mom-feedback` + `check-arrival-dispositions`
   shape), and a labelling contract — person · estate · surface · screen/step · timestamp · control —
   measured against what the store carries today.
+- `paul-stated` (~12:40 ET): *"For now, we assume no forwarding and I will ask people not to forward.
+  We can make invite links single use for tracking if that's doable."* → recorded in
+  `.plans/2026-09-04-roles-and-access-REQUIREMENT.md` § Ruling 2026-09-07. Single-use already holds
+  (the Worker spends the invite at account creation — verified on Paul's own link today); "spent"
+  tracking is a derived column for `access-map.py`, pre-registered.
+- `paul-stated` (~12:30 ET): *"Go on geocoding as lap 2's first build."* → lap 2 opens on W0.
