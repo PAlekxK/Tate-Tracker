@@ -80,6 +80,29 @@ def tracked():
 
 
 # ── the seat roster, borrowed rather than re-derived ────────────────────────────
+def integrity_module():
+    """⭐ COUNTABILITY IS NOT THIS TOOL'S QUESTION AND IS NOT RE-ANSWERED HERE.
+
+    `walk-integrity.py` owns *"may this run be COUNTED toward the gate"* — eight named refusals, and
+    it reads `contaminated`, the verdict `journey-walk` WRITES, rather than re-deriving it. This tool
+    owns a different question: *"which BUILD did this run walk"*, i.e. which review ROUND it belongs
+    to. Two predicates, and they are allowed to differ — a run can be legitimately uncountable and
+    still be a member of no round, and both instruments are right.
+
+    ⛔ WHERE THEY OVERLAP, THIS FILE DEFERS. `no-transcript`, a build that moved mid-walk and a build
+    that was never recorded are facts walk-integrity already names, in its own words. Minting a second
+    vocabulary for them is the shape `momlib.question_state()` was extracted to end (three definitions
+    of "pending" produced divergent behaviour and a real wrong claim) — so the orphan buckets below
+    carry walk-integrity's refusal KEYS, never strings invented here."""
+    p = os.path.join(ROOT, "tools", "walk-integrity.py")
+    if not os.path.exists(p):
+        return None
+    spec = importlib.util.spec_from_file_location("wi", p)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
 def gate_module():
     """⭐ IMPORTED, NOT RE-DERIVED. `release-gate.py` already answers "what is a seat" and refuses a
     retrospective folder that holds a report and no run (its `is_seat`, line 40). A second definition
@@ -215,26 +238,32 @@ def report_state(run_dir):
     return "unwritten" if UNWRITTEN in body else "read"
 
 
-def rounds(rg, limit=None):
-    """Group every run on disk by the build it walked. A ROUND is one build sha the seats walked.
+def rounds(rg, wi, limit=None):
+    """Group every run on disk by the BUILD it walked. A ROUND is one build sha the seats walked.
 
-    ⚠️ A run whose build MOVED mid-walk belongs to no round — it is not a walk of either sha
-    (`release-gate.py:82`). It is carried in its own bucket so it is named, never dropped."""
+    ⚠️ Runs that belong to no round are bucketed under `walk-integrity`'s OWN refusal keys, not under
+    words invented here — see `integrity_module`. Countability is its verdict; membership is this
+    one's."""
     by_sha = {}
     for seat in rg.seats():
         for run in rg.runs_for(seat):
             d = os.path.join(rg.WALKS, seat, run)
+            v = wi.verdict(d) if wi else None
+            refusals = [k for k, _ in (v or {}).get("refusals", [])]
             t = read_transcript(d)
-            if t is None:
-                key = "no-transcript"
-            elif not t:
-                key = "unreadable-transcript"
+            if t is None or not t:
+                key = "no-transcript"                      # walk-integrity's key, verbatim
             else:
                 before, after = (t.get("buildBefore") or ""), (t.get("buildAfter") or "")
-                key = "moved-mid-walk" if (before and after and before != after) else (before or "unknown")
-            by_sha.setdefault(key, []).append((seat, run, d))
+                if before and after and before != after:
+                    key = "contaminated"                   # walk-integrity's key, verbatim
+                elif not before:
+                    key = "build-unrecorded"               # walk-integrity's key, verbatim
+                else:
+                    key = before
+            by_sha.setdefault(key, []).append((seat, run, d, (None if v is None else not refusals), refusals))
     order = sorted((k for k in by_sha if len(k) == 40),
-                   key=lambda k: max(r for _, r, _ in by_sha[k]), reverse=True)
+                   key=lambda k: max(r for _, r, _, _, _ in by_sha[k]), reverse=True)
     order += [k for k in by_sha if len(k) != 40]
     if limit:
         order = order[:limit]
@@ -257,7 +286,11 @@ def cmd_round(sha=None, quiet=False):
     if not seats:
         print("🔴 UNCHECKABLE: no seats found on disk — refusing to report on an empty roster.")
         return 3
-    rs = rounds(rg)
+    wi = integrity_module()
+    if wi is None:
+        print("⚠️ tools/walk-integrity.py is absent — COUNTABILITY IS UNCHECKABLE HERE and is not\n"
+              "   guessed at. Round membership below is still computed.\n")
+    rs = rounds(rg, wi)
     real = [(k, v) for k, v in rs if len(k) == 40]
     if sha:
         full = git("rev-parse", sha).strip() or sha
@@ -276,20 +309,24 @@ def cmd_round(sha=None, quiet=False):
     for build, runs in pick:
         print("review round — build %s   (seats derived from disk: %s)\n" % (build[:7], ", ".join(seats)))
         newest = {}
-        for seat, run, d in runs:
+        for seat, run, d, countable, refusals in runs:
             if seat not in newest or run > newest[seat][0]:
-                newest[seat] = (run, d)
+                newest[seat] = (run, d, countable, refusals)
         census = {"read": [], "unwritten": [], "absent": [], "unreadable": []}
         for seat in seats:
             if seat not in newest:
                 print("  🔴 %-11s no run at this build — this seat did not walk it" % seat)
                 rc = 1
                 continue
-            run, d = newest[seat]
+            run, d, countable, refusals = newest[seat]
             st = report_state(d)
             census[st].append((seat, run))
             mark = {"read": "✅", "unwritten": "🔴", "absent": "🔴", "unreadable": "🔴"}[st]
-            print("  %s %-11s %s   REPORT.md: %s" % (mark, seat, run, st))
+            # ⛔ The countability column is walk-integrity's verdict, quoted — not re-derived.
+            cnt = ("⬜ countable: UNCHECKABLE (walk-integrity absent)" if countable is None
+                   else ("✅ countable (walk-integrity)" if countable
+                         else "🔴 walk-integrity refuses: " + ", ".join(refusals)))
+            print("  %s %-11s %s   REPORT.md: %-10s %s" % (mark, seat, run, st, cnt))
 
         print("\n  reports the seat can READ:      %d" % len(census["read"]))
         # ⛔ PAUL'S OWN REQUIREMENT, and it is the deterministic half of the consolidation:
@@ -342,7 +379,8 @@ def cmd_round(sha=None, quiet=False):
     if orphan:
         print("\n  ⚠️ runs that belong to no round (not a walk of any single build):")
         for k, v in orphan:
-            print("       %s — %d run(s): %s" % (k, len(v), ", ".join("%s/%s" % (s, r) for s, r, _ in v[:4])))
+            print("       %s (walk-integrity's own key) — %d run(s): %s"
+                  % (k, len(v), ", ".join("%s/%s" % (s, r) for s, r, _, _, _ in v[:4])))
     return rc
 
 
