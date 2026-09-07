@@ -618,3 +618,27 @@ Make it flexible."*
   issued 2026-09-06 03:49 by p-paul, the verification seat). A second working administrator token on
   Mom's estate; should be revoked before her link goes out. → Paul's call; `grant-mint.py revoke`.
 - Next: **Paul walks home** (beat 3). Clear → `release-state.py --cleared ca9161e`; failure → beat 4.
+
+### 10:25 ET (Sep 7) — BEAT 3, PAUL'S FIRST FAILURE: a new invite in a browser that already holds an account skips account creation
+- `paul-stated` (verbatim, on opening his link): *"I want to start out onboarding link from scratch
+  in production. This looks like a dev onboarding link and it takes me to home set up not account
+  set up."*
+- `finding` — **mechanism, read from `onboarding/index.html`, not guessed.** The grant link stores
+  `K_GRANT` and strips `?g=` from the address bar (by design). A changed grant runs `clearAnswers()`
+  — but that list is `K_STEP · K_ADDR · K_PARTS · K_NAME · K_RANK · K_PREF` and **does not include
+  `K_USER`**, and `K_USER` is the one test for "does she already have an account" (line ~1758).
+  Paul's browser holds `K_USER` from the account he created on this origin on 9/06 (build `6ee2e48`),
+  so the page skipped `s0`, asked the Worker `whoami` with the NEW grant, got OK, and landed him at
+  step 1 — the naming screen. **A rotated or re-issued invite on a browser with a prior account
+  resumes as the old account under the new credential.** The 2026-09-05 comment above `clearAnswers`
+  named exactly this class ("a new person must not inherit the last one's session") and fixed the
+  answers, not the identity. Every synthetic seat opens a fresh browser context, so no seat can
+  find it — it is a Paul-only finding by construction, which is what beat 3 is for.
+- `finding` — *"looks like a dev onboarding link"*: the production household is served from
+  `fernwood-home.pages.dev` until C4 2d moves it under `myhome.place` (ruled apex, nothing served
+  there yet). A `.pages.dev` URL reads as staging to a person; the naming-trap row (DECISIONS F4)
+  now has a user-facing instance.
+- **Remedy for the walk, now:** his link opened in an incognito Chrome window (fresh storage, the
+  token read from the mode-600 file, never printed). The product fix — clear `K_USER` (and the
+  stored session) when the grant changes or when `whoami` names a different person — **re-enters
+  beat 2 after his walk**, per the map: never patched under Paul and handed back.
