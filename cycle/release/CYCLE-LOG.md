@@ -445,3 +445,59 @@ Make it flexible."*
   step at founding (the journal name is already a per-instance identity field, `journalTile`, and
   the app already follows the household's name at runtime); the copy is the point — content-steward
   drafts the moment in the crisp register; not built mid-convergence tonight.
+- `paul-ruled` (~23:05 ET): *"There were a bunch of modules showing — house systems and so on — where
+  it said nothing here yet. Let's not display things that are empty, especially this early."* then
+  *"Ask them what they want to see next. Ask questions about what to show rather than show empty
+  stuff."* → R5 stays the DATA model; PRESENCE on a household's first screens is their picks. Built:
+  unranked empty modules hidden; one card after their picks — "What would you like to see next?" —
+  with the remaining modules as chips; a tap adds the module (its card appears with its invitation),
+  updates the stored ranking, and posts a `ranking-add` record with the account. Verified by tap.
+- `paul-ruled` (~23:08 ET): *"When we ask how to reach them we have to record the value too."*
+  Measured: the Worker has stored email/phone with the account since signup and returns them on
+  whoami; no screen showed them. The account page now shows "Email on file / Phone on file".
+- `paul-ruled` (~23:15 ET): *"'Your sign-in first, your place comes next' — you don't need that;
+  they're already creating their account. There's room for further reduction."* Cut. Principle:
+  **don't narrate the sequence** — a screen that is the step does not announce the step.
+- `paul-stated` (~23:20 ET, strategy, verbatim): *"One really important thing to get right early on —
+  and from a strategy and product point of view I hope the team will agree — is to also name the
+  almanac and define it when they're setting up the property: 'what do you want to call the
+  record?' This is where I want content-steward to figure out how to ask the question… 'what do you
+  want to name your property's almanac, which is a memory and a log and so much more.' Do some
+  research on the role of an almanac for properties, how they're managed, what it means to
+  different people, what names they'd give it to make it their own — that's something we can ask
+  for, to help make it feel even more personalised."* → user-researcher (research) + content-steward
+  (the ask) spawned; the founding step is scoped from their returns, not built tonight.
+- `paul-stated` (~23:25 ET, verbatim): *"All the emojis that are being used — now is a good time to
+  really double-check, now that we've refined how we look at everything and our overall tone: are
+  these emojis right? Is there another kind of icon library we can use — a little more modern and
+  clean and personalised? I don't know what the options are, but we should consider it."* →
+  ux-expert options review (inventory · candidate libraries · the no-fetch constraint · icons in the
+  scheme colour); a decision for Paul, not a change tonight.
+- content-steward's second pass (§13): −87 words on onboarding + the receipt page; ten cuts of the
+  shape Paul named (step labels, counts of steps remaining, reasons for controls, a sentence said
+  three times). Its own note: *a crisp pass creates its own next findings* — the biggest cuts were
+  only visible after pass 1. Applying in QA for round 9.
+- `paul-ruled` (~23:30 ET): *"'Your mailing address — the name for it doesn't change' — that's awkward
+  and room for reduction."* Cut; "Where is your place?" over labelled fields needs no gloss.
+- content-steward's naming ask → `.content/2026-09-06-naming-the-almanac-ASK.md`: on s1 beneath the
+  place name, default "<place> Record" built live from their word; 16-word ask ("Everything kept
+  about it — notes, manuals, what the weather did. What do you call the record?"); skip records the
+  default as `by: engine`, never as a choice. ⛔ the engine's default pattern is "<place> Record",
+  not "Almanac" (VOCABULARY §4: a genre promise false at a condo) — Fernwood's "Almanac" is a
+  supplied name. Test first: can a seat say what each of s1's two fields named? Open for Paul: does
+  Fernwood answer the question like every household, and do save confirmations take the word.
+
+### 23:35 ET — round 8 walked at `551b132`; the naming research returned
+- round 8: mom · strict · wide-eyed clean with capture events; **owner: one failed action —
+  `shot:07-handoff` "execution context was destroyed… navigation"** — the checkpoint raced the page
+  load after the handoff click. Harness, not product; the walk driver now waits for load before
+  a checkpoint. Readers spawned for the three clean seats.
+- user-researcher → `.user-research/2026-09-06-naming-the-almanac.md`: recommends **B — name-only,
+  one field, pre-filled with the derived default, skippable** (a give-us-your-word ask, which is the
+  shape that returned inside 24h twice at Fernwood, vs the 0-for-35 adjudication asks; a pre-filled
+  field cannot leave the IKEA labour unfinished). content-steward's ask independently landed on B.
+  Metric: named-and-finished rate, which needs an `accepted-default` enum value. Questions for Paul:
+  founding or first return (tenure precedes the name) · is Fernwood's own name settled ("Journal",
+  07-29) · the engine default string · does the name ride into Guru's prompt.
+- second copy pass applied: 16 of 16, none skipped; three HTML comments now describe lines that no
+  longer exist beneath them (left; history, not description).

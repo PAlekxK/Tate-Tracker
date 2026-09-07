@@ -329,7 +329,6 @@
          a gate in front of it. It also promised "two things" above six asks — flagged independently
          by two seats — and the fix is not a better count but no count at all: name the step, say what
          comes after, and the reader can see the shape without being given a number to check. -->
-    <p class="step">Account setup</p>
     <!-- Shown only to someone who arrived on a link. Without it she taps an invitation and meets a
          signup form with no explanation of why the thing she was invited to is asking her to join. -->
     <p id="s0invite" class="soft" style="margin-bottom:10px" hidden><strong>You've been invited.</strong> Create your account.</p>
@@ -338,7 +337,6 @@
          stranger with her address. It used to sit on s2, three screens late; the invite-routing
          ruling made everyone meet s0, so it becomes a one-line fix. Inclusive "let's" — Paul and her
          together — is the register; the corporate "we" (the app as an entity) is what goes. -->
-    <p class="soft">Your sign-in first. Your place comes next.</p>
     <!-- ⭐ THE WORDS ARE `username` AND `password` `[paul-stated 2026-09-05]`. Not "a word only you
          know" — that was mine, and it was a euphemism for a thing everyone already has a name for.
          Every box says underneath what it is and who can see it, because that is the question a
@@ -367,7 +365,7 @@
     <!-- ⛔ IT CONTRADICTED ITSELF ALOUD: nobody sees it, not even him … and he'll set you a new one.
          If he cannot see it, how does he set it? He RESETS it, he does not READ it — and that was
          never on the page. -->
-    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody sees this, not even Paul — if you lose it, email him and he'll set a new one.</p>
+    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody sees this, not even Paul — if you lose it, email him.</p>
 
     <!-- ⭐ THE PAIR SITS TOGETHER `[paul-stated 2026-09-05, walking it]`. "Password again" used to sit
          AFTER email and phone, so the two halves of one question had two unrelated questions wedged
@@ -409,9 +407,7 @@
     <!-- ⛔ NAMES THE COST. There is no password reset; Paul resetting it by hand is the ONLY way back
          in, and that requires a way to reach her. Choosing "please don't" is allowed and is HER call,
          but a choice whose consequence is invisible is not a choice. -->
-    <p id="contactnone" class="quiet" style="margin-top:8px" hidden>
-      Then if you lose your password, email Paul to get back in.
-    </p>
+    <p id="contactnone" class="quiet" style="margin-top:8px" hidden></p>
 
     <div id="emailrow">
       <label for="uemail" style="margin-top:16px">Email address <span class="optional" id="emailopt" hidden>— optional</span></label>
@@ -457,7 +453,7 @@
          name on it rather than one we are still calling "My Home".
          ⚠️ COPY IS INTERIM — content-steward has not read this screen since it changed shape, and
          "starting with one question" now sits above the FIRST of two. That sentence is on its list. -->
-    <p class="soft">Nothing in it yet — it gets built from what you tell me, starting with a name.</p>
+    <p class="soft">Nothing in it yet — it gets built from what you tell me.</p>
     <label for="pname">What do you call it?</label>
     <input id="pname" type="text" enterkeyhint="next" autocapitalize="words" autocomplete="off" maxlength="60">
     <p class="quiet" style="margin-top:8px">Anything you like. You can rename it later.</p>
@@ -497,7 +493,6 @@
          field labelled "Street address", for a real address that has no street name of its own
          (48 Hwy 136 W). Two address-shaped strings, one screen, and the app never said which was
          which. This says it once, quietly, and only where the confusion actually happens. -->
-    <p class="soft">The mailing address — your name for it doesn't change.</p>
 
     <div class="field">
       <label for="a1">Street address</label>
@@ -535,7 +530,7 @@
          ~200px below the fold and behind the keyboard. That is the one line Paul most wants read
          (`paul-stated 2026-09-05`), rendering where she would almost certainly never meet it.
          A disclosure that arrives after the commit is not a disclosure. -->
-    <p class="quiet" style="margin-top:4px">We work out your weather and what grows there from this address. Paul — who built this — is the only other person who sees it. You can put it right on the next screen.</p>
+    <p class="quiet" style="margin-top:4px">We work out your weather and what grows there from this address. Paul — who built this — is the only other person who sees it. You can fix it on the next screen.</p>
     <!-- ⭐ ABOVE THE BUTTON, not below it (2026-09-05). It rendered under the commit control, so a
          reader who tapped and saw nothing move had to scroll PAST the button to find out why. Both
          walkers who met it thought the button was broken; one would have abandoned. The answer to
@@ -560,8 +555,7 @@
          the screen whose only job is making the wait feel safe. It also promised a CADENCE nothing
          schedules (Paul sends by hand; "a few days" has been wrong before) and said "one more
          question" over more than one. Says only what is true for every reader. -->
-    <p class="soft">Two last things and you're done.</p>
-    <button type="button" id="go3">Check the address ›</button>
+    <button type="button" id="go3">Next ›</button>
   </section>
 
   <!-- ── SCREEN 4 · HER PLACE, on day one ─────────────────────────────────────────
@@ -688,7 +682,7 @@
            INTO it, making the overload worse while fixing something real. Three short paragraphs: the
            question, how to answer it, and what it is for. -->
       <p class="soft" style="margin-bottom:2px">What matters most at your place?</p>
-      <p class="quiet" style="margin-top:0">Tap them in the order they matter. Tap again to take one off.</p>
+      <p class="quiet" style="margin-top:0">Tap them in the order they matter — tap again to remove.</p>
       <p class="quiet" style="margin-top:7px">Your order decides what I build next.</p>
       <div id="interests" class="swatches"></div>
       <!-- ⛔ "SAY WHAT" HAD NOWHERE TO SAY IT. "Something else" described itself as *"Rank this if
@@ -734,7 +728,6 @@
            personalising never does, and her willingness is the only throttle. The old line said she
            COULD come back without saying there was anything to come back FOR. ⛔ And it must not
            imply her answers have already shaped what she is opening — they have not. -->
-      <p class="quiet" style="margin-top:8px">It fills out as you tell me more.</p>
     </div>
     <p class="quiet" id="s4placeholder">Called “My Home” until you name it.</p>
   </section>
@@ -1450,13 +1443,6 @@
     el.renameLink.textContent = "Call it something else ›";
   });
 
-  // Reads the door's own label rather than restating it — the button says "Open <her name>" once
-  // she has named the place, and a hard-coded copy here would drift from it the moment she renames.
-  function doorLine() {
-    var t = (el.gohome && (el.gohome.textContent || "").trim()) || "";
-    return t ? "When you're ready, " + t.charAt(0).toLowerCase() + t.slice(1) + " below." : "";
-  }
-
   el.go5.addEventListener("click", function () {
     // Nothing chosen is a legitimate answer and is recorded as one — an empty ranking and an unasked
     // question are different observations, and only the first says she looked.
@@ -1507,8 +1493,8 @@
         // without walking out — so they are not merged. What was missing is that nothing said the
         // door was the next thing, so the sentence now points at it by name.
         el.s5thanks.textContent = ranked.length
-          ? "Got it — that's noted. Change the order any time; the last one wins. " + doorLine()
-          : "Noted — nothing yet. " + doorLine();
+          ? "Got it — your place is below."
+          : "Noted — nothing yet. Your place is below.";
         el.s5thanks.hidden = false;
       })
       ["catch"](function () {
@@ -1625,7 +1611,7 @@
       // "read oddly" is our internal reviewing vocabulary rather than hers, and "that's the useful
       // bit" tells her which of her own answers we value before she has given any.
       ? "Anything else to add?"
-      : "Tell me what it should say and I'll put it right.";
+      : "What should it say?";
     el.s4note.setAttribute("data-kind", kind);
     el.s4note.focus();
   }

@@ -100,6 +100,7 @@
     <div class="radio"><input type="radio" name="contact" id="c-email" value="email"><label for="c-email" style="text-transform:none;font-size:1rem;margin:0">By email</label></div>
     <div class="radio"><input type="radio" name="contact" id="c-phone" value="phone"><label for="c-phone" style="text-transform:none;font-size:1rem;margin:0">By phone</label></div>
     <div class="radio"><input type="radio" name="contact" id="c-none" value="none"><label for="c-none" style="text-transform:none;font-size:1rem;margin:0">Please don't</label></div>
+    <p class="quiet" id="contactvalue" hidden></p>
     <p class="quiet" id="nonenote" hidden>I'll keep to that. If you lose your password, email me and I'll sort it.</p>
   </div>
 
@@ -201,6 +202,14 @@
       .then(function (d) {
         if (!d) return;
         if (d.contactPref) { store(K_PREF, d.contactPref); setPref(d.contactPref); }
+        // ⭐ THE VALUE, NOT JUST THE CHANNEL `[paul-ruled 2026-09-06]`: "when we ask how to reach them we have
+        // to record the value too." The Worker has held it since signup; this is the first screen to show it.
+        try {
+          var cv = el("contactvalue"); var parts = [];
+          if (d.email) parts.push("Email on file: " + d.email);
+          if (d.phone) parts.push("Phone on file: " + d.phone);
+          if (cv) { cv.textContent = parts.join(" · "); cv.hidden = !parts.length; }
+        } catch (e) {}
         if (d.profileAccent) {
           chosen = d.profileAccent; store(K_PROFILE, d.profileAccent);
           document.documentElement.style.setProperty("--accent", d.profileAccent);

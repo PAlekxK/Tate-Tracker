@@ -126,6 +126,10 @@ const cfg = JSON.parse(process.argv[2]);
         if (act.startsWith('shot:')) {
           // A checkpoint is a RECORD, not a pause: full state + both frames, named by the caller.
           const nm = act.slice(5);
+          // A checkpoint LOOKS at a page that has finished arriving. Round 8 (2026-09-06): the handoff
+          // shot ran while the click before it was still navigating — "execution context was
+          // destroyed" — and a clean product walk scored a failed action. Wait for load, then look.
+          try { await page.waitForLoadState('load', { timeout: 8000 }); } catch (e) {}
           const sc = await describe();
           const base = cfg.shotDir + '/' + nm;
           await page.screenshot({ path: base + '.png', fullPage: true });

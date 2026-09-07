@@ -187,7 +187,7 @@
 
   <div class="card">
     <p class="state">Early days</p>
-    <p class="lede">Here's what you told me. Nothing's been built on it yet — that's my job.</p>
+    <p class="lede">Nothing's been built on it yet — that's my job.</p>
 
     <div class="rows" id="rows"></div>
     <!-- ⭐ THE DOOR. Until R4 (2026-09-06) `/viewer` on every origin was Fernwood's build, so this page
@@ -265,10 +265,7 @@
   // content-steward 2026-09-06 (drafted for Paul's read): the door's lede is anchored in the one thing we
   // know about them. Two variants, whole or nothing — never a template with a hole in it.
   try {
-    var _rk = JSON.parse((mine && read(K_RANK)) || "[]");
-    el("doorlede").textContent = (Array.isArray(_rk) && _rk.length)
-      ? "Your picks come first. Everything's empty so far."   // "a card for each thing you ranked" was false: eight cards for one pick (strict, round 5) — content-steward to re-read
-      : "All empty so far.";
+    el("doorlede").textContent = "Empty so far.";
   } catch (e) {}
   var name = mine ? read(K_NAME) : null;
   if (name) { el("place").textContent = name; document.title = name; }
@@ -318,7 +315,7 @@
       value: pref === "none" ? "You asked me not to."
            : pref === "phone" ? "By phone." : "By email.",
       prov: pref === "none"
-        ? "I'll keep to that. If you lose your password, email me and I'll sort it."
+        ? "I'll keep to that. If you lose your password, email me."
         : (read("fw-onboard-contact-chosen") === "1" ? ""
                                                        : "The default — you didn't pick one."),
       act: "Change that ›"
@@ -392,7 +389,7 @@
       p.textContent = !grant
         ? "Open your invitation link and your place will be here."
         : (fetching ? "Fetching your place…"
-                    : "Once your place is set up, it shows up here.");
+                    : "Nothing here yet.");
       host.appendChild(p);
     }
   }

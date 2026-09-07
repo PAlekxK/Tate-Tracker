@@ -294,7 +294,75 @@ Paul's ruling: *"We don't need to include 'if your phone offers to fill this in,
 
 ---
 
-## 13 · Principle proposed for the library — **not written, awaiting your confirm**
+## 13 · Second pass — `onboarding/index.html` and `estate/index.html` only
+
+> Read against the files **as they stand now**: pass 1 applied, plus two lines already cut on Paul's
+> word (`Paul built this — let's set up your account`, and `Your sign-in first. Your place comes next`).
+
+**Two new principles, applied to every remaining line** `[paul-ruled 2026-09-06, reading QA live]`:
+
+1. **Don't narrate the sequence.** *"'Your sign-in first, your place comes next' — you don't need
+   that; they're already creating their account."* A screen that **is** the step does not announce
+   the step. Step names, counts of what's left, and pointers to the screen after this one are the
+   shape.
+2. **The reason for a control is not copy unless it changes what the person does.** *"You can just
+   say you've been invited to create an account; you don't need to explain that it allows it across
+   phones — we don't need to over-explain."* Test each explanatory clause against a single question:
+   *does knowing this change her next action?* If not, it is the surface talking about itself.
+
+⛔ **Unchanged and protected:** every who-sees-what disclosure, and the one "everything is
+changeable" clause at s1.
+
+### 13a · `onboarding/index.html` · **500 → 435**
+
+| current | w | proposed | w | why |
+|---|---|---|---|---|
+| `Account setup` *(s0 step label)* | 2 | **cut** | 0 | ⭐ Principle 1, textbook. It was added because a reader typing a password couldn't tell whether this *was* the setup — and the line directly below now reads `You've been invited. Create your account.`, which answers that by naming the act. The step label survived the sentence that made it redundant. |
+| `…if you lose it, email him and he'll set a new one.` *(password)* | 22 | `…if you lose it, email him.` | 17 | The route is the action; "he'll set a new one" is its outcome. |
+| `Then if you lose your password, email Paul to get back in.` *(shown only on "Please don't")* | 11 | **cut** | 0 | ⭐ **Two lines converged as each got shorter.** The password line above now says this to *every* reader, unconditionally — so choosing "Please don't" no longer changes it, and a consequence-of-choice line that states no consequence is furniture. ⚠️ It removes a line whose whole job was naming a cost; the alternative is to keep it and drop the password line's recovery clause instead. I prefer this way round — 100% of readers see the password line. **Your call if you disagree.** |
+| `Nothing in it yet — it gets built from what you tell me, starting with a name.` *(s1)* | 16 | `Nothing in it yet — it gets built from what you tell me.` | 11 | Principle 1 — it sits directly above a field labelled *What do you call it?* |
+| `Two last things and you're done.` *(s3)* | 6 | **cut** | 0 | ⭐ Principle 1 — a count of steps remaining, which is the exact shape Paul named. |
+| `Check the address ›` *(s3 button)* | 3 | `Next ›` | 1 | With the line above gone, nothing promises "a look at your place" any more, so `owner`'s take-a-look-to-a-form mismatch is closed at the source rather than by the label. ⚠️ **s3 is now one line and a button.** Whether it deserves to be a screen is a ux question, not a copy one — flagged. |
+| `Tell me what it should say and I'll put it right.` *(after "Not quite")* | 11 | `What should it say?` | 4 | "I'll put it right" is the reason for the control. `Got it — that's with Paul.` already lands after Send. |
+| `Tap them in the order they matter. Tap again to take one off.` | 13 | `Tap them in the order they matter — tap again to remove.` | 10 | Both halves change what she does; the second is undiscoverable otherwise (`wide-eyed` found it by accident). Trimmed only. |
+| `You can put it right on the next screen.` *(inside the s2 disclosure)* | 33 total | `You can fix it on the next screen.` | 30 total | Reversibility clause kept whole — it changes what she does *now*, which is the test. |
+| `Got it — that's noted. Change the order any time; the last one wins. When you're ready, open the condo below.` | 20 | `Got it — your place is below.` | 6 | ⚠️ **Pass 1's rewrite of this string was never applied** — it is still the original. Three faults at once: `Got it` + `that's noted` is one thing twice; the changeable clause is spent at s1 and the button below already flips to `Update these`; and `When you're ready, open the condo below` narrates a control 40px away. **The pointer stays, minimal** — `mom`'s "two presses for what feels like one decision" was a real sequence gap, so this is the one place a pointer earns its words. `doorLine()` can be retired with it. |
+| `Noted — nothing yet. When you're ready, open the condo below.` | 11 | `Noted — nothing yet. Your place is below.` | 7 | |
+| `It fills out as you tell me more.` *(under the handoff button)* | 7 | **cut** | 0 | ⭐ **Third saying of one sentence.** s1 now says *"it gets built from what you tell me"*; the estate banner one tap later says *"Everything here gets built from what you tell me"* — on the screen where it is true and where the reader is standing when it matters. This copy sits above a door and narrates what is behind it. |
+| tile descriptions ×11 | 141 | *(unchanged)* | 141 | Already at the floor after pass 1. `Missing something? Say what.` is deliberately kept: it is the only thing telling her that ranking that tile opens a box. |
+| every error / validation string | — | *(unchanged)* | — | Crispness is cheap there and trust is not. |
+
+**By screen:** s0 103 → 85 · s1 39 → 34 · s2 59 → 56 · s3 15 → 7 · s4+s5 chrome 125 → 94 · tiles 141 → 141 · feedback wrap 18 → 18.
+
+### 13b · `estate/index.html` · **184 → 162**
+
+| current | w | proposed | w | why |
+|---|---|---|---|---|
+| `Here's what you told me. Nothing's been built on it yet — that's my job.` | 14 | `Nothing's been built on it yet — that's my job.` | 9 | ⭐ **Three stacked lines said one thing**: `Early days`, then the banner *"Everything here gets built from what you tell me"*, then this. The first sentence narrates a page whose rows are already labelled `Where it is` · `How to reach you` · `What I'll build first`. `that's my job` survives — it is the only clause that says whose turn it is, and it appears nowhere else. |
+| `Your picks come first. Everything's empty so far.` *(door lede, ranked)* | 8 | `Empty so far.` | 3 | ⭐ Principle 1 at its sharpest: **the app enacts the ordering** — the #1 card leads the page and opens already open. Narrating it is the surface reading its own layout aloud. The load-bearing half is the one that stops emptiness reading as breakage, and that half is three words. |
+| `All empty so far.` *(door lede, unranked)* | 4 | `Empty so far.` | 3 | One string for both states — the branch disappears with the difference. |
+| `I'll keep to that. If you lose your password, email me and I'll sort it.` | 15 | `I'll keep to that. If you lose your password, email me.` | 10 | Same trim as the s0 password line, same wording, so the two surfaces stay one sentence. |
+| `Once your place is set up, it shows up here.` *(third empty state)* | 9 | `Nothing here yet.` | 3 | Principle 1 — it narrates a sequence to a reader whose place *is* set up and whose record is simply empty. Adopts the app's own vocabulary, and stays distinguishable from the other two empty states, which is what that block's comment requires. |
+| banner `Everything here gets built from what you tell me.` | 9 | *(keep verbatim)* | 9 | Paul's mechanism ruling. |
+| box prov · `Add where it is ›` · `The default — you didn't pick one.` · `(an idea — not built yet)` | — | *(all keep)* | — | Every one changes what the reader does. |
+
+### 13c · What this pass resolves
+
+- **The shape Paul keeps finding is one shape, and it has two halves.** Every line cut above is either
+  a **step announced by the screen that is the step** (`Account setup`, `Two last things and you're
+  done`, `When you're ready, open the … below`, `Once your place is set up…`) or a **reason given for
+  a control that would be tapped identically without it** (`and he'll set a new one`, `and I'll put it
+  right`, `and I'll sort it`, `Your picks come first`).
+- **Two of tonight's biggest cuts were only visible after pass 1.** The s0 contact-none line and the
+  password line converged as both got shorter; the s1/handoff/banner sentence became a *third* saying
+  only once s1 was rewritten to the banner's own words. **A crisp pass creates its own next findings** —
+  worth one more read after these land, not a third round of the same tables.
+- **Still open from §12**, untouched by this pass: `Set it down` → `Send`, the account page's
+  never-chosen contact preference, the Gardening box caveat, and the notes-vs-"any phone" seam.
+
+---
+
+## 14 · Principles proposed for the library — **not written, awaiting your confirm**
 
 Destination: `~/.claude/content-principles/cross-project/voice-and-stance.md`, plus one index line in `cross-project.md`.
 
@@ -320,7 +388,43 @@ not also need a sentence saying it leads the page.
 - Pass: *"You put Gardening first."*
 ```
 
-⚠️ **Scope caution, and it is the half that bites.** This does **not** license cutting a *disclosure*.
-"Who sees this," "what this is used for," and "you can undo it" are not obvious from any control, and
-the same 2026-09-06 pass had to **add** one (`homes/` add-a-home). The test is: *does the reader
-already know this from the screen?* — not *is this sentence short?*
+```
+## Don't narrate the sequence — a screen that IS the step does not announce it  [paul-ruled 2026-09-06]
+**Statement**: A surface may not name the step it is, count the steps remaining, or point at the
+screen after this one. Position in a flow is carried by the flow, not by a caption on it.
+**Why**: Fernwood, 2026-09-06, Paul reading QA live: *"'Your sign-in first, your place comes next' —
+you don't need that; they're already creating their account. There's room for further reduction."*
+Four lines across two surfaces failed it the same way, and three of them had been added deliberately
+to fix a real orientation problem — then survived the sentence that solved it. `Account setup` sat
+above `You've been invited. Create your account.`; `Two last things and you're done` sat on a screen
+whose only control named what it opened.
+**When it applies**: Any multi-screen flow — setup, checkout, onboarding, a wizard. Fires hardest on
+a step label added early and never re-read after the screen below it changed.
+**Avoid**: Step names over a screen whose first sentence already names the act. Counts of what is
+left. "Next you'll…" / "When you're ready, tap X below" where X is on screen. Success copy that
+recaps the sequence rather than the state.
+**Exception that earns its words**: a pointer to a control the reader has demonstrably missed. On
+this flow one seat read two adjacent buttons as "two presses for what feels like one decision", so
+`Got it — your place is below.` stays. Six words, once, on measured evidence — not by default.
+
+## The reason for a control is not copy unless it changes what the person does  [paul-ruled 2026-09-06]
+**Statement**: Test every explanatory clause with one question — *does knowing this change her next
+action?* If not, cut it. The surface is talking about itself.
+**Why**: Same session. Paul: *"You can just say you've been invited to create an account; you don't
+need to explain that it allows it across phones — we don't need to over-explain."* The clauses this
+kills are all true, all well-meant, and all trailing: *"and he'll set a new one," "and I'll put it
+right," "and I'll sort it," "Your picks come first"* — outcomes of an action already named, or a
+description of a layout the layout already performs.
+**When it applies**: Every explanatory sentence attached to a button, field, link or receipt.
+**Avoid**: Stating an action's outcome after stating the action. Justifying why a control exists
+("…and it's the reason this button is here at all"). Describing an ordering the page already renders.
+**Example**:
+- Fail: *"Your picks come first. Everything's empty so far."* — on a page that already puts them first.
+- Pass: *"Empty so far."*
+```
+
+⚠️ **Scope caution across all three, and it is the half that bites.** None of these licenses cutting a
+*disclosure*. "Who sees this," "what this is used for," and "you can undo it" are not obvious from
+any control and rarely from any layout — and the same 2026-09-06 pass had to **add** one (`homes/`
+add-a-home). The tests are *does the reader already know this from the screen* and *does knowing it
+change her next action* — never *is this sentence short?*
