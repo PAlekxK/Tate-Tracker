@@ -610,7 +610,7 @@ Q8 · assent · Does Mom go through the setup phase, or is her retrofit the exce
   and what may print it — not whether asking for one is kind.**
 - **`content-steward`** owns: what the setup surface says, and the standing verdict that the shell is
   called nothing to a reader (`VOCABULARY.md` §3b). Q1's third option depends on that verdict holding.
-- **`ux-expert`** owns: `.ux-reviews/2026-09-02-login-door-and-selector.md` F1a — *the glance renders to
+- **`ux-expert`** owns: `../fernwood-private/.ux-reviews/2026-09-02-login-door-and-selector.md` F1a — *the glance renders to
   completion with zero authorization round-trips* — which is the constraint that kills any design where a
   profile fetch precedes first paint. §1 (b) and §2's *"device is authoritative for render"* are both built
   to satisfy it; **verifying they do is that seat's, not mine.**

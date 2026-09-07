@@ -19,7 +19,7 @@ type, the palette, the viewport and the data.
 **"Midtown condo"** is a placeholder second estate at Paul's instruction — *"we don't have to have any
 content behind it, but that can be a placeholder there just to help make the design feel right."*
 
-**Constrained by** `.ux-reviews/2026-09-02-login-door-and-selector.md` (same-day norms pass; it
+**Constrained by** `../fernwood-private/.ux-reviews/2026-09-02-login-door-and-selector.md` (same-day norms pass; it
 constrained the option set rather than ratifying it). **Credential shape is held constant** across all
 three door options so placement is the single variable — it is its own later round, and it is the one
 question only she can answer.

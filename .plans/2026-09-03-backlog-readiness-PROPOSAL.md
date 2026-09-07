@@ -112,7 +112,7 @@ to them do not.** That is the whole data-scheme problem in one sentence.
   without a brief would advise for the May product.
 - ⭐ **This is the same drift shape yesterday measured on auth**: `_about-paul.md:58` held the May
   position, `PRODUCT-ENGINE.md` grew a September paraphrase, and the two disagreed for a day
-  (`.plans/2026-09-02-data-model-design.md` §7). The shared base and the repo drift *against each
+  (`../fernwood-private/.plans/2026-09-02-data-model-design.md` §7). The shared base and the repo drift *against each
   other*, in both directions.
 - **Can a row be traced to an objective today? No** — there is nothing with an identifier to cite.
   Rows cite Paul's words and tiers. A trace line cannot be written until the objectives have names.
@@ -167,8 +167,8 @@ convention is minted:
 - row: BACKLOG.md § <section> · <row label>
 - objective: O3
 - class: engine · must-not-diverge
-- seats: ux-expert → .ux-reviews/2026-09-02-login-door-and-selector.md
-         user-researcher → .user-research/2026-09-02-activation-journeys.md
+- seats: ux-expert → ../fernwood-private/.ux-reviews/2026-09-02-login-door-and-selector.md
+         user-researcher → ../fernwood-private/.user-research/2026-09-02-activation-journeys.md
          content-steward → waived: no Mom-facing copy in this item
 - ready: [paul-approved 2026-09-xx]
 - stage: ready

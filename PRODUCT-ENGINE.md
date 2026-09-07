@@ -5,10 +5,24 @@
 engine that explicitly transcends Fernwood**. Different grain, so a different file — the same move
 this repo already made for `MOM-CYCLE-MAP.md` and `cycle/fleet/CYCLE-MAP.md`.
 
-> ⛔ **STILL CAPTURE-ONLY. Nothing is scoped, nothing is decided, no build has started.**
-> `paul-stated 2026-09-01`: *"that's a whole nother big work stream that will need to involve a lot
-> of research probably in all the experts weighing in, but I wanna capture that for a backlog for
-> later."*
+> 📜 **HOW IT OPENED** — `paul-stated 2026-09-01`: *"that's a whole nother big work stream that will
+> need to involve a lot of research probably in all the experts weighing in, but I wanna capture that
+> for a backlog for later."* This file said **"STILL CAPTURE-ONLY — nothing is scoped, nothing is
+> decided, no build has started"** from that day until **2026-09-07**, when lane D measured it false
+> on three counts and corrected it here rather than leaving the plan of record opening on a sentence
+> nobody could act on:
+>
+> - **Scoped and decided:** five plans carry `ready: [paul-approved 2026-09-03]` — C4 · C5 · C6 · C7 ·
+>   Guru (§ THE SEQUENCE below). Paul ruled the tenancy unit and the login on **2026-09-02** (§ PAUL
+>   RULED, below).
+> - **Built:** `.plans/2026-09-03-c4-environments-PLAN.md` is `stage: build`;
+>   `.plans/2026-09-03-c5-record-prep-PLAN.md` is `stage: retro`.
+> - **Shipped:** `.plans/2026-09-05-production-promotion-PLAN.md` is `stage: executed` — *"PRODUCTION
+>   PROMOTED AND VERIFIED @ bce212a (2026-09-05 ~23:00)"*.
+>
+> ⚠️ **What IS still capture-only is most of the material BELOW § THE SEQUENCE** — the expansion model,
+> personalization, the one-box vision, C0's six questions. Those sections say so on their own faces.
+> **Read the sequence for the plan; read the rest for the capture.**
 
 ---
 
@@ -94,17 +108,134 @@ be invited at all · have an address standardised. That list is the backlog this
 
 ## ▶️ THE SEQUENCE — read this before anything below it
 
-> 🧊 **FOCUS FREEZE `[paul-stated 2026-09-03]` — this workstream is the ONLY active Fernwood work.** Instance work (mom-cycle proactive legs, fleet laps, new content) rests until the release condition in `BACKLOG.md` § FOCUS FREEZE. ✅ Both edges RULED 2026-09-03: **Mom's arrivals are HELD unread (nothing ingested, nothing actioned) and the freeze lifts on Paul's word only** — shipping C4/C5 does not lift it.
+> 🧊 **THE FREEZE, as it actually stands.** ✅ **The half that holds, and it is the load-bearing half:**
+> **Mom's arrivals are HELD unread** — nothing ingested, nothing actioned — **and the freeze lifts on
+> Paul's word only**; shipping C4/C5 does not lift it `[both edges RULED 2026-09-03]`. Instance work
+> (mom-cycle proactive legs, new content) rests. Release condition: `BACKLOG.md` § FOCUS FREEZE.
+>
+> ⚠️ **CORRECTED 2026-09-07 (lane D). This banner said *"this workstream is the ONLY active Fernwood
+> work"* and that has been false since 2026-09-04** — reported as 🔴 STALE on 09-04 in
+> `.plans/2026-09-04-process-wiring-AUDIT.md` §A.5 item 1 and unfixed for three days, which mattered
+> because it was the first sentence a reader met in the plan of record. Superseded three times, each in
+> `BACKLOG.md`: the **migration is deferred and not open work** `[paul-stated 2026-09-04 ~10:45 AM ET]` ·
+> the **features hold is LIFTED on QA** `[paul-stated 2026-09-04 ~11:50 AM ET]` · **Track B vehicles &
+> equipment are partially unfrozen — WORK lifted, PUSH frozen** `[paul-stated 2026-09-06]`. Since then
+> the release loop has run lap 1 (`cycle/release/CYCLE-LOG.md`) and lap 2 is running four lanes
+> (`cycle/LAP-2-WORK-QUEUE.md`). **The freeze is on her CHANNELS, not on the work.**
 
-The findings below are evidence, not a plan. **This is the plan.** The dependencies are real: do
-not start at step 3.
+The findings below are evidence, not a plan. **This is the plan.** The dependencies are real, and
+each one is READ from its plan's own `depends-on:` field rather than asserted here.
+
+> ⚠️ **REPAIRED 2026-09-07 (lap 2, lane D). What stood here until today was the SCOPING RUN, not the
+> plan.** Five closed rows — fleet laps · conversation mines · the interview · PM artifacts ·
+> architecture options — that **named none of C4 · C5 · C6 · C7**, while `BACKLOG.md` § FOCUS FREEZE
+> pointed at this section as *"the plan of record"* for exactly those four. Finding, `measured`:
+> `.plans/2026-09-07-pipeline-flex-point-AUDIT.md` §0 (Alignment row) · §4.1. The scoping run is kept
+> verbatim below as **§ THE SCOPING RUN THAT PRECEDED IT** — it is closed evidence, not the sequence.
+>
+> ⛔ **Nothing below is a new decision.** Each row's ORDER comes from its plan's `depends-on:`, its
+> OBJECTIVE from that plan's `objective:`, its STATE from that plan's `stage:`. This table **points at
+> those fields; it does not restate them** — a build-state column typed beside the file that derives it
+> is precisely what rots (AUDIT §3). Where an ordering was never ruled, it is written below as a
+> **question**, not filled in.
+
+### The migration path — what O3 actually consists of
+
+Read `BACKLOG.md` § FOCUS FREEZE for what rests around this — **O1 · O2 · O4 are frozen except Guru,
+which is active as an engine item.** Rows **1 – 3c** carry `ready: [paul-approved 2026-09-03]` and row
+**5** carries `[paul-approved 2026-09-05]`. ⚠️ **Row 4 is the exception and it is load-bearing:**
+`vocabulary-nicknames` reads `ready: DRAFT — … Paul has not stamped`, and row 5 declares it as its
+dependency. **A stamped plan already on QA depends on an unstamped one** — see Q-S4 ⓐ.
+
+⚠️ **The `stage:` words below are a READ, not a register** — taken 2026-09-07 at `38e6e8a`. The state
+is the field in each plan; re-read all five with
+`grep -H '^- stage:' .plans/2026-09-03-c[4-7]*-PLAN.md .plans/2026-09-03-guru-*-PLAN.md` and believe
+that over this table.
+
+| # | item | plan — **state lives in its `stage:`** | dep | obj | the row that specifies it |
+|---|---|---|---|---|---|
+| **1** | **C4 · Environments + repo structure + the rename** | `.plans/2026-09-03-c4-environments-PLAN.md` · `stage: build` | — | O3 | `BACKLOG.md` § 🏗 C4 |
+| **2** | **C5 · Record prep** — KV prefix · ids as data · the module-set declaration · engine manifest · config derived from canon | `.plans/2026-09-03-c5-record-prep-PLAN.md` · `stage: retro` | 1 | O3 | `BACKLOG.md` § 🧱 C5 |
+| **3a** | **C6 · The door for Paul** — entry + vault, her surface untouched | `.plans/2026-09-03-c6-door-for-paul-PLAN.md` · `stage: build` | 2 | O3 | `BACKLOG.md` § 🚪 C6 |
+| **3b** | **C7 · The condo as a paper model** — the *"no garden"* falsifier | `.plans/2026-09-03-c7-condo-paper-model-PLAN.md` · `stage: ready` | 1 + 2 | O3 | `BACKLOG.md` § 🏙 C7 |
+| **3c** | **Guru — core + lookups + retrieval**, harness first | `.plans/2026-09-03-guru-retrieval-PLAN.md` · `stage: build` | 2 | **O2** | `BACKLOG.md` § A6 |
+| **4** | **Vocabulary / nicknames** — the words an instance is named with | `.plans/2026-09-04-vocabulary-nicknames-PLAN.md` · `stage: concept` | 2 | O3 | `BACKLOG.md` § THE DEVELOPMENT GOAL · § C7 |
+| **5** | **Onboarding** — account from a link, first run at 414 × A+, her data server-side | `.plans/2026-09-05-onboarding-PLAN.md` · `stage: qa` | 4 | O3 | `BACKLOG.md` § THE DEVELOPMENT GOAL |
+
+⭐ **3a · 3b · 3c FORK.** All three declare C5 and nothing else; none declares another. Their order
+among themselves has never been ruled — **Q-S2**.
+
+**Deferred or declared, and deliberately not in the path:** **C8** the condo build-out (`BACKLOG.md`
+§ 🏙 C8 — gated on C4 · C5 · C7 shipped *and* the freeze lifted) · **C9** the invite flow (§ 🎟 C9 —
+*"raised to be findable, not to be scheduled"*; no plan file).
+
+**Has a plan, has no ruling** (`ready: agent-proposed … Paul rules`):
+`.plans/2026-09-03-c3-trace-query-PLAN.md` (O5 · `stage: ready`) ·
+`.plans/2026-09-03-product-name-PLAN.md` (O3 · `stage: ready` · depends on C4). See **Q-S1**.
+
+### 🔴 OPEN — four questions this repair FOUND and did not answer
+
+⛔ Written as questions on purpose. A sequence row invented here would be the same failure the repair
+exists to correct.
+
+**Q-S1 · The old pointer's glob resolves to SEVEN files, not five.** `measured 2026-09-07 at 38e6e8a`:
+`ls .plans/2026-09-03-*-PLAN.md` → **7** — c3-trace-query · c4-environments · c5-record-prep ·
+c6-door-for-paul · c7-condo-paper-model · guru-retrieval · product-name. Five carry
+`[paul-approved 2026-09-03]`; **c3-trace-query and product-name carry `agent-proposed … Paul rules`.**
+Are those two in the plan of record? `BACKLOG.md` § FOCUS FREEZE now names its five explicitly instead
+of globbing, so the glob can no longer answer this by accident. **Paul's.**
+
+**Q-S2 · 3a · 3b · 3c have no ruled order among themselves.** C6 is called *"on the critical path"*
+(`BACKLOG.md` § THE DEVELOPMENT GOAL); C7 is *"model it, don't ship it to her"* (§ 🏙 C7); Guru is O2
+rather than O3. Three different kinds of claim, and none of them a ranking. **Paul's.**
+
+**Q-S3 · Step 4 of the scoping run — *"Agile PM artifacts"* — has been 🟡 since 09-02, and seat 1
+already argued against enlarging it.** `../fernwood-private/.user-research/2026-09-02-estate-manager-scoping.md`
+§4 returns, plainly: *"For Paul today, an estate-manager PRODUCT surface has no job to do"*
+(`evidence_level: assumption`; its release condition is one observable event — **an owner misses
+something at one place because he was looking at another**). And §2.2 argues he asked for **sense (ii),
+the build-management loop**, not a product surface — *"'manage the project and the product' is
+unambiguously build management."*
+
+⛔ **THE TWO SENSES MUST NOT CLOSE TOGETHER, and a fast answer will close both.** They have different
+users, different triggers and different evidence (§2.1's table), so step 4 splits in two and each half
+needs its own answer:
+
+| sense | what it is | who | evidence today | who can close it |
+|---|---|---|---|---|
+| **(ii) build-management** | *"keep the instances from diverging"* — a **seat with no decision authority**, a citation-bound carrier | `paul-at-the-gate`, structurally only ever Paul | ✅ he asked for it, in these words, twice | lap 2's `product-steward` trial (`cycle/LAP-2-WORK-QUEUE.md` B1) **is** this sense — the trial can answer it |
+| **(i) owner product surface** | *"tell me which of my places needs me"* — a **screen** | R1 owner-steward, and Bob | ⚠️ **none — nobody has asked for it** | **only the observable event above.** No trial and no artifact can close it |
+
+**So Q-S3 is:** does step 4's *build-management* half close as ANSWERED by the trial? ⛔ **If it does,
+the product-surface half does NOT close with it** — it stays open, on its own row, held by
+`[[feedback_defer_affordances_pending_signal]]` and released by that one event. **Paul's, and it is
+two answers, not one.**
+
+**Q-S4 · Two ordering facts reported here without resolving.** ⓐ **The dependency is behind the thing
+that depends on it, and unstamped.** `onboarding` is `ready: [paul-approved 2026-09-05]` at
+`stage: qa` — built and deployed — while its own declared `depends-on:`, `vocabulary-nicknames`, is
+`ready: DRAFT — … Paul has not stamped` at `stage: concept`. Either the dependency is real, in which
+case a QA surface is standing on an unruled naming decision, or it is not a dependency and the field
+should say so. ⚠️ A second disagreement rides along, reported not resolved: `BACKLOG.md` § THE
+DEVELOPMENT GOAL says of the onboarding plan *"**Paul rules on the plan**"*, while the plan's own
+header says he stamped it on 09-05. **One of those two is stale and only Paul knows which.** ⓑ The C4 · C6 · Guru `stage-note:` lines have not moved since
+**2026-09-04**, while the audit measures **287 commits since 09-04** (AUDIT §4.2) and the surfaces
+actually built in that window — `onboarding/`, `estate/`, `homes/`, `settings/` — are tracked by the
+release loop (`cycle/release/CYCLE-MAP.md`), by no C-row. **Is the C-series still the unit of work, or
+has the release loop become it?** That is not a documentation question. **Paul's.**
+
+### 📕 THE SCOPING RUN THAT PRECEDED IT — closed evidence, 2026-09-01 → 09-02
+
+Commissioned by § HOW C0 OPENS (*"a user-researcher INTERVIEW first, then agile artifacts"*). It is
+**not** the sequence and never named a C-row; it is preserved because four of its five rows are the
+evidence the C-series was built on.
 
 | # | Do | Gated on | State |
 |---|---|---|---|
-| **1** | ~~Fleet laps 1-2~~ | — | ✅ **BOTH CLOSED 2026-09-01.** ⚠️ This row read *"OPEN at beats 4 + 6"* until 2026-09-02 — **beat 6 RAN** (Paul ruled; 5 Bolores items closed) and lap 2 closed after it. Beat 4 is **carried to lap 3 on Paul's instruction**, held by a signal (STALE-OPEN fires ~2026-10-29), not by a promise. 🟠 **The loop is FIRED again today** — SEASON + INBOX |
+| **1** | ~~Fleet laps 1-2~~ | — | ✅ **BOTH CLOSED 2026-09-01.** ⚠️ This row read *"OPEN at beats 4 + 6"* until 2026-09-02 — **beat 6 RAN** (Paul ruled; 5 Bolores items closed) and lap 2 closed after it. Beat 4 is **carried to lap 3 on Paul's instruction**, held by a signal (STALE-OPEN fires ~2026-10-29), not by a promise. 🟠 **The loop is FIRED again** — SEASON + INBOX |
 | **2** | ~~Review the two conversation mines~~ | — | ✅ **BOTH LANDED 2026-09-01**, reviewed. 6 material findings · **217 images staged** · 4 new door entries. See below |
-| **3** | ~~`user-researcher` interview~~ | step 2 | ✅ **RAN 2026-09-02** as seat 1 of a 5-seat panel → `.user-research/2026-09-02-estate-manager-scoping.md` |
-| **4** | Agile PM artifacts | step 3 | 🟡 **partly delivered** by seat 1 (persona set + JTBD). ⛔ Its JTBD verdict is that the owner surface has **no evidenced job** — read it before commissioning more |
+| **3** | ~~`user-researcher` interview~~ | step 2 | ✅ **RAN 2026-09-02** as seat 1 of a 5-seat panel → `../fernwood-private/.user-research/2026-09-02-estate-manager-scoping.md` ⚠️ **path corrected 2026-09-07** — C4's privacy scrub moved it to the private sibling; the in-repo path cited here since 09-02 has not resolved since |
+| **4** | Agile PM artifacts | step 3 | 🟡 **partly delivered** by seat 1 (persona set + JTBD). ⛔ Its JTBD verdict is that the owner surface has **no evidenced job** — read it before commissioning more. **→ Q-S3** |
 | **5** | Architecture options, priced | step 4 | ✅ **RAN 2026-09-02** → `.engineering/…` + `.ai-advisor/…`. Options only; nothing decided |
 
 ### ✅ PAUL RULED, 2026-09-02 — three answers, and one of them OVERRIDES WRITTEN DOCTRINE
@@ -190,7 +321,7 @@ is not a wall in front of the box; it is a step the box can request mid-conversa
 ### 🗳 PANEL RAN 2026-09-02 — three seats converged. **AT PAUL'S GATE; nothing is ruled.**
 
 Seats: `user-researcher` · `engineering-partner` · `ai-advisor`. Brief:
-`.plans/2026-09-02-estate-manager-scoping-brief.md`. `ux-expert` and `content-steward` **held** —
+`../fernwood-private/.plans/2026-09-02-estate-manager-scoping-brief.md`. `ux-expert` and `content-steward` **held** —
 copy is surface-coupled and shape depends on where the personalization boundary lands.
 
 ⭐⭐ **UNANIMOUS, from three independent lenses: do not build an estate-manager loop or owner
@@ -284,7 +415,7 @@ onward). If a claim here looks unsupported, `git log` before assuming it was inv
 
 | # | Step | Note |
 |---|---|---|
-| 1 | **Modularize the renderer** — standard engines, per-property data | The migration in `.plans/2026-09-02-data-model-design.md` |
+| 1 | **Modularize the renderer** — standard engines, per-property data | The migration in `../fernwood-private/.plans/2026-09-02-data-model-design.md` |
 | 2 | **Fernwood becomes Mom's profile** — she logs in and selects Fernwood from it | *"a great first step"* |
 | 3 | **Add her Atlanta condo** as the second property | Urban, gardenless, community-facing |
 
@@ -523,6 +654,109 @@ calendar that binds them. Whereas *vehicles* maps cleanly to one domain, and *to
 declaration's shape.** ⚠️ Do not settle it by picking whichever is convenient when the code is
 written — a bundle chosen implicitly is how a second vocabulary starts.
 
+
+### 📓 TWO CLASSES OF RELEASE NOTES — and today there is one, so four estates of five have none `[paul-raised 2026-09-07]`
+
+> *"We should have release notes. And there are probably two classes… one is general updates to the
+> overall system, and then there are individual updates to households or estates. So there's probably
+> multiple release logs — one kind of overall for the estate manager, then release logs for each
+> individual estate."*
+
+⭐ **READ THIS FIRST: PAUL IS NOT REVERSING HIMSELF — HE IS REACHING A QUESTION HIS OWN RULING DID NOT
+CONTEMPLATE.** `tools/build-viewer.py:320` carries `[paul-stated 2026-09-03: nothing to display → no
+indication of it]`. That ruling answered *"what if an instance has no notes of its own"*, and answered
+it correctly. It never reached *"an engine change every estate should see has no log to land in"* —
+because the only log class that exists is the instance's. **This is an extension, not a correction**,
+and the distinction is this project's own rule: *reversing a decision is fine; reversing it without
+noticing we are reversing it is not.*
+
+**`measured 2026-09-07 at a96d931` — a real gap on a live surface, though NOT an urgent one; the
+release condition is at the foot of this section.** The lookup is
+single-class and instance-scoped: `tools/build-viewer.py:325` reads `<canon>/RELEASE_NOTES.md`; a
+missing file builds `[]`, and `engine/viewer.template.html:19146` then hides the *Recent updates* card
+outright.
+
+| instance | `canon` | `RELEASE_NOTES.md` | what the card does |
+|---|---|---|---|
+| `fernwood.json` (`est-3c9f1a`) | `..` | ✅ exists | renders, latest 5 |
+| `home.json` (`est-e6696a`) | `neutral-canon` | ⛔ none | **hides** |
+| `qa.json` · `bob.json` · `paul.json` | `neutral-canon` | ⛔ none | **hides** |
+
+⛔ **AND IT UNDERCUTS A PREMISE WRITTEN INTO `CLAUDE.md`.** The acknowledgment ribbon is permitted to be
+pure attribution on stated grounds: *"✅ The premise is verified: the app carries a changelog… The
+ribbon therefore never has to inform; that job is already taken."* On four of five instances that job
+is taken by **nothing**. ⚠️ It is not *biting* today only because those instances also declare the
+ribbon absent — which is why the release condition below is an event, not a date. ⚠️ **And the premise
+did not rot — it was narrowed.** It was verified on
+2026-08-04, when Fernwood was the only instance, and became false for households the moment the engine
+gained them. Nothing re-ran it. Same shape as every measured-once-inherited-as-current failure this
+corpus records.
+
+**The split maps onto machinery that already exists:**
+
+| log | scope | who reads it, and in whose words | example |
+|---|---|---|---|
+| **engine** | the product, every estate | everyone, identical text | *the door got faster* · *you can name your place* |
+| **instance** | one estate | only that household | *added the yellow flag iris* · *Mom confirmed the hydrangea* |
+
+⭐ **The routing rule is already written and must not be re-minted.** `ENGINE-MANIFEST.md` classifies
+every tracked file `engine` · `config` · `instance`, so a change's class already decides its log. This
+is the same classifier lane B is defining once for app-surface — **they share it, or the repo acquires
+a third opinion about what "engine" means**, which is this corpus's most-repeated failure.
+
+✅ **One correction to the estate-neutral worry, in its favour.** `check-estate-neutral.py` does **not**
+need a per-log row: it greps the **served surface** for tokens **derived from canon**, so a Fernwood log
+leaking into another estate's build is caught generically today, and its docstring already names the
+release notes as one of the six leak surfaces. ⚠️ The residual gap is narrower and real: **an instance
+log whose prose names its own estate in words canon does not declare would pass**, because the needles
+come from canon.
+
+### ✅ Q-RN — RULED 2026-09-07: THE SURFACE DECIDES `[paul-stated]`
+
+> *"A household, an individual household, should see release notes specific to that household. And if
+> you're in your account view, then you see the engine release notes."*
+
+⭐ **He answered it by refusing the premise.** Q-RN asked whether a household sees both logs or only its
+own — and both readings assumed **one surface** had to carry both, interleaved or chosen between. Paul
+split them by **surface**: the place shows what changed about the place; the account shows what changed
+about the product. Each is read where it answers the question the reader is already asking, so neither
+needs filtering, no field journal carries product-release noise, and **nobody has to rank two kinds of
+note against each other, because they never meet.**
+
+⚠️ **What is already true and what is not:** `<canon>/RELEASE_NOTES.md` is instance-scoped and renders
+per household today — that half exists. **The engine log does not exist at all, and neither does the
+account-view surface to put it on.** Sequenced after the sunset; not lap-2 work. Full ruling and its
+reasoning: `cycle/LAP-2-WORK-QUEUE.md` (`162969b`).
+
+### ⏳ NOT URGENT, AND THE RELEASE CONDITION IS EXACT
+
+⚠️ **`home.json` is `est-e6696a`, the estate Mom migrates to — so this was checked against tomorrow
+before being filed, and it does NOT land on arrival.** A first reading (mine, and lane A's for about
+ninety seconds) was that she arrives at a ribbon whose premise is a changelog that is not there.
+**Measured, that is wrong, and the reason is better than the fear:**
+
+`instance/home.json` declares `"ack"` in its **`absent`** list (`instance/fernwood.json` declares
+`absent: []`). `build-viewer.py:268` reads that key — its own comment at `:270` says *"template-literal
+records (`MOM_ACK_DATA`) can be switched off per instance"* — and the render guard at
+`viewer.template.html:11971` tests `ABSENT_DOMAINS.includes("ack")` **before it ever looks at the
+message**. ⭐ **So the household's silence on both surfaces is a DECLARATION, not an accident**, which
+is this repo's own *declared absence is not drift* doctrine working exactly as designed. An empty
+message would have been luck and could change the moment somebody wrote one; a declaration holds.
+
+⭐ **THE RELEASE CONDITION, therefore, is not a date — it is an event:** *the tension bites the moment
+`ack` stops being declared absent at a household.* That is when a ribbon renders on a surface whose
+changelog does not exist, and it is checkable rather than remembered.
+
+### 🧩 A SECOND WORKED EXAMPLE ON THE SAME AXIS — instance content living in engine code
+
+`MOM_ACK_DATA` is a **hardcoded literal in `engine/viewer.template.html`** (`:11438-11639`, zero
+`{{…}}` placeholders), and it carries `acknowledgedThrough` — **a Fernwood timestamp** — into every
+instance's build, `est-e6696a` included. It is inert today only because those instances declare `ack`
+absent. ⛔ **Named, not fixed:** whether that record should be instance canon rather than engine code
+is an engine decision, and it belongs to whoever owns the declaration axis — not to this file. It is
+recorded here because it is the *same* engine-vs-instance question as the release notes, one layer
+down, and the two should be answered together rather than twice.
+
 ### 🧭 THE SETUP JOURNEY — invite → account → profile → devices joined `[paul-stated 2026-09-03]` — CAPTURE ONLY
 
 Raised while ruling C5 Q3 (Mom's `personId`). Verbatim: *"we need to have within the journey a set-up phase and allow
@@ -674,7 +908,7 @@ that can ship before her credential question is answered.
 ⭐⭐ **AND EITHER MAY BE TURNED OFF. That lands auth squarely in the divergence contract's `config`
 tier** — declared as data, per estate or per person, never a fork. It is not an engine property.
 
-⭐ **It also dissolves the sharpest objection on the table.** `.ux-reviews/2026-09-02-login-door-and-selector.md`
+⭐ **It also dissolves the sharpest objection on the table.** `../fernwood-private/.ux-reviews/2026-09-02-login-door-and-selector.md`
 holds that *the app must render its glance to completion with zero authorization round-trips* — the
 weather card is both of Mom's card opens since lap 4, and a lobby puts it behind a door. **With the
 entry password optional and hers OFF, her glance is never gated** while Bob's estate can require one.
@@ -711,7 +945,7 @@ The axis he has found is: **does this module belong to a PLACE, or to a PERSON?*
 | **finance** | **person** | not about a place at all |
 
 ⛔ **AND THIS CONTRADICTS A RULING FROM EARLIER THE SAME DAY, WHICH IS THE POINT OF SAYING SO.**
-`.plans/2026-09-02-data-model-design.md:153` records **"A MACHINE BELONGS TO THE ESTATE"**
+`../fernwood-private/.plans/2026-09-02-data-model-design.md` § *Whose is the fleet?* records **"A MACHINE BELONGS TO THE ESTATE"**
 `[paul-ratified 2026-09-02]`, chosen from three options — the rejected one was *"to a person, sited at
 an estate."* **He is now feeling the pull of the option he did not pick**, and that is a legitimate
 reason to revisit: the ruling was made on simplicity and accepted two consequences (his Bronco is
