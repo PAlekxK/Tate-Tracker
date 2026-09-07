@@ -6460,6 +6460,16 @@
         lede.textContent = "Fernwood is moving to a new home.";
         body.innerHTML = line + ".";
         prim.textContent = PRIMER;
+        /* ⛔ THE BUTTON IS RESTORED HERE, and this line is only ever reached on a fault.
+           arrive() relabels it "Go there now ›" and paint() never wrote it back, so the
+           guard's recovery path left the body correctly reading "keeps working until 1:00
+           PM" above a button reading "Go there now ›" — the screen contradicting itself.
+           That path is reached ONLY during a clock anomaly: the one moment it is ever seen
+           is the moment someone is trying to work out whether the app is broken, and its
+           truthfulness is the only thing they have to go on. A confidently-wrong surface is
+           worse than an honestly-unsure one; a self-contradicting one during a fault is
+           worse still. Found by lane D on f0b6f25, pre-existing since 840130a. */
+        go.textContent = "See the new home ›";
         shown = line;
       }
       el.hidden = false;
