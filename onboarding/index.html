@@ -332,14 +332,13 @@
     <p class="step">Account setup</p>
     <!-- Shown only to someone who arrived on a link. Without it she taps an invitation and meets a
          signup form with no explanation of why the thing she was invited to is asking her to join. -->
-    <p id="s0invite" class="soft" style="margin-bottom:10px" hidden><strong>You've been invited.</strong> First, a way back in — so this is yours on any phone, not just this one.</p>
+    <p id="s0invite" class="soft" style="margin-bottom:10px" hidden><strong>You've been invited.</strong> An account keeps this yours on any phone, not just this one.</p>
     <!-- ⭐ THE INTRODUCTION `[paul-ruled 2026-09-05: "we" in general]`. Three "Paul"s appear further
          down this screen and nothing said who he was — on the screen where she is asked to trust a
          stranger with her address. It used to sit on s2, three screens late; the invite-routing
          ruling made everyone meet s0, so it becomes a one-line fix. Inclusive "let's" — Paul and her
          together — is the register; the corporate "we" (the app as an entity) is what goes. -->
-    <p class="lede">Paul built this — let's set up your account.</p>
-    <p class="soft">This part is just the account — who you are and how you sign back in. Your place comes next.</p>
+    <p class="soft">Your sign-in first. Your place comes next.</p>
     <!-- ⭐ THE WORDS ARE `username` AND `password` `[paul-stated 2026-09-05]`. Not "a word only you
          know" — that was mine, and it was a euphemism for a thing everyone already has a name for.
          Every box says underneath what it is and who can see it, because that is the question a
@@ -351,7 +350,7 @@
          genuinely unchangeable and a clause would have been a false promise. `/api/account/username`
          re-keys it, so the sentence and the product now agree. ⛔ Email and phone still carry NO such
          clause: nothing re-keys those yet, and a clause is owed only where it is true. -->
-    <p class="quiet" style="margin-top:5px">This is how you sign in. Anyone who shares a place with you will see it, so pick something you don't mind them seeing. It can change later if you'd rather.</p>
+    <p class="quiet" style="margin-top:5px">Anyone who shares a place with you sees this.</p>
     <!-- Answered WHILE she types, not after she commits. Finding out the name is taken by having the
          whole form bounce is the expensive way to learn it. -->
     <p id="unamestate" class="quiet" style="margin-top:4px" hidden></p>
@@ -368,7 +367,7 @@
     <!-- ⛔ IT CONTRADICTED ITSELF ALOUD: nobody sees it, not even him … and he'll set you a new one.
          If he cannot see it, how does he set it? He RESETS it, he does not READ it — and that was
          never on the page. -->
-    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody else ever sees this — not even Paul. If you lose it he can't look it up, but email him and he'll set you a new one.</p>
+    <p class="quiet" style="margin-top:5px">Eight characters or more. Nobody sees this, not even Paul — if you lose it, email him and he'll set a new one.</p>
 
     <!-- ⭐ THE PAIR SITS TOGETHER `[paul-stated 2026-09-05, walking it]`. "Password again" used to sit
          AFTER email and phone, so the two halves of one question had two unrelated questions wedged
@@ -381,7 +380,6 @@
       <input id="uword2" type="password" autocomplete="new-password" enterkeyhint="next">
       <button type="button" class="peek" data-for="uword2" aria-pressed="false" aria-label="Show password">Show</button>
     </div>
-    <p class="quiet" style="margin-top:5px">Just to be sure it's what you meant.</p>
     <!-- Answered WHILE she types, like the username. The submit-time check stays and is still the
          authority — this only stops her discovering a typo by having the whole form bounce. -->
     <p id="uword2state" class="quiet" style="margin-top:4px" hidden></p>
@@ -398,28 +396,27 @@
          whether Paul may contact her at all, and only then is she asked for the thing that makes it
          possible — the secondary is always optional. "Please don't" is a real answer, not a dark
          pattern's dead end, and it carries its own cost in plain words rather than hiding it. -->
-    <p class="soft" style="margin-top:20px">If something needs sorting out, how should Paul reach you?</p>
+    <p class="soft" style="margin-top:20px">How should Paul reach you?</p>
     <div id="contactpick" class="picks">
       <label class="pick"><input type="radio" name="contact" value="email" checked>
-        <span><strong>Email me</strong> — a phone number is optional</span></label>
+        <span><strong>Email me</strong></span></label>
       <label class="pick"><input type="radio" name="contact" value="phone">
-        <span><strong>Call or text me</strong> — an email address is optional</span></label>
+        <span><strong>Call or text me</strong></span></label>
       <label class="pick"><input type="radio" name="contact" value="none">
-        <span><strong>Please don't</strong> — I'd rather not be contacted</span></label>
+        <span><strong>Please don't</strong></span></label>
     </div>
 
     <!-- ⛔ NAMES THE COST. There is no password reset; Paul resetting it by hand is the ONLY way back
          in, and that requires a way to reach her. Choosing "please don't" is allowed and is HER call,
          but a choice whose consequence is invisible is not a choice. -->
     <p id="contactnone" class="quiet" style="margin-top:8px" hidden>
-      Then if you ever lose your password, getting back in is on you to start — email Paul at the
-      address below and he'll sort it out. Change this whenever you like.
+      Then if you lose your password, email Paul to get back in.
     </p>
 
     <div id="emailrow">
       <label for="uemail" style="margin-top:16px">Email address <span class="optional" id="emailopt" hidden>— optional</span></label>
       <input id="uemail" type="email" autocapitalize="none" autocorrect="off" autocomplete="email" enterkeyhint="next">
-      <p class="quiet" style="margin-top:5px">Only ever used to reach you about your place. Nothing is sent to it automatically.</p>
+      <p class="quiet" style="margin-top:5px">Only used to reach you about your place. Nothing is sent automatically.</p>
     </div>
 
     <div id="phonerow">
@@ -431,7 +428,7 @@
          given — never a standing footer, and never the same phrasing twice running. ⛔ And only where
          it is TRUE. The colour is genuinely re-pickable here and later; the password is not casually
          changeable today, so nothing claims it is. -->
-    <p class="soft" style="margin-top:18px">Pick a colour — it's the one your place will open in. Swap it whenever you like.</p>
+    <p class="soft" style="margin-top:18px">Your place opens in this colour — Stone unless you pick another.</p>
     <div id="swatches" class="swatches"></div>
     <div class="trouble" id="trouble0" hidden></div>
     <button type="button" id="go0"><span class="tick">✓</span>Create my account</button>
@@ -440,7 +437,7 @@
          this page is served publicly AND lives in a public repo, so the address is scrapeable from
          both. It is also the only route a person has when the password is lost, because there is no
          reset — which is the end-goal's own word-of-mouth dependency, written down. -->
-    <p class="quiet" style="margin-top:16px">If anything goes wrong, or you get stuck, email Paul at
+    <p class="quiet" style="margin-top:16px">If you get stuck, email
       <a href="mailto:paul.kirschenbauer@gmail.com">paul.kirschenbauer@gmail.com</a>.</p>
   </section>
 
@@ -460,11 +457,10 @@
          name on it rather than one we are still calling "My Home".
          ⚠️ COPY IS INTERIM — content-steward has not read this screen since it changed shape, and
          "starting with one question" now sits above the FIRST of two. That sentence is on its list. -->
-    <p class="lede">This is the start of a place of your own.</p>
-    <p class="soft">There's nothing in it yet. We'll build it around what you tell us, a piece at a time — starting with what to call it.</p>
-    <label for="pname">What would you like to call it?</label>
+    <p class="soft">Nothing in it yet — it gets built from what you tell me, starting with a name.</p>
+    <label for="pname">What do you call it?</label>
     <input id="pname" type="text" enterkeyhint="next" autocapitalize="words" autocomplete="off" maxlength="60">
-    <p class="quiet" style="margin-top:8px">Anything you like — it's yours. Rename it later if a better one turns up.</p>
+    <p class="quiet" style="margin-top:8px">Anything you like. You can rename it later.</p>
     <div class="trouble" id="trouble1" hidden></div>
     <button type="button" id="go1"><span class="tick">✓</span>That's it</button>
   </section>
@@ -501,14 +497,14 @@
          field labelled "Street address", for a real address that has no street name of its own
          (48 Hwy 136 W). Two address-shaped strings, one screen, and the app never said which was
          which. This says it once, quietly, and only where the confusion actually happens. -->
-    <p class="soft">The mailing address — what you called your place stays as it is.</p>
+    <p class="soft">The mailing address — your name for it doesn't change.</p>
 
     <div class="field">
       <label for="a1">Street address</label>
       <input id="a1" type="text" autocomplete="address-line1" autocapitalize="words" enterkeyhint="next">
     </div>
     <div class="field">
-      <label for="a2">Apartment or unit <span class="optional">— if you have one</span></label>
+      <label for="a2">Apartment or unit <span class="optional">— optional</span></label>
       <input id="a2" type="text" autocomplete="address-line2" autocapitalize="words" enterkeyhint="next">
     </div>
     <div class="field">
@@ -539,7 +535,7 @@
          ~200px below the fold and behind the keyboard. That is the one line Paul most wants read
          (`paul-stated 2026-09-05`), rendering where she would almost certainly never meet it.
          A disclosure that arrives after the commit is not a disclosure. -->
-    <p class="quiet" style="margin-top:4px">We use this to build your place around where you actually are — your weather, and what grows in your spot. Paul — who built this — is the only other person who sees it. If it comes out wrong, you can put it right on the next screen.</p>
+    <p class="quiet" style="margin-top:4px">We work out your weather and what grows there from this address. Paul — who built this — is the only other person who sees it. You can put it right on the next screen.</p>
     <!-- ⭐ ABOVE THE BUTTON, not below it (2026-09-05). It rendered under the commit control, so a
          reader who tapped and saw nothing move had to scroll PAST the button to find out why. Both
          walkers who met it thought the button was broken; one would have abandoned. The answer to
@@ -559,14 +555,13 @@
          is a promise to a person whose documented fear is getting things wrong. ───── -->
   <section id="s3" class="card" hidden>
     <p class="lede">Got it — that's the address down.</p>
-    <p>Now it's our turn. We'll build your place around that address: the weather where you actually are, what grows there, what's worth keeping an eye on.</p>
     <!-- ⛔ THIS PROMISED CONTACT SHE MAY HAVE JUST DECLINED. It read "Paul will send you the first
          piece in a few days" — two screens after she may have chosen "Please don't contact me", on
          the screen whose only job is making the wait feel safe. It also promised a CADENCE nothing
          schedules (Paul sends by hand; "a few days" has been wrong before) and said "one more
          question" over more than one. Says only what is true for every reader. -->
-    <p class="soft">Next, a look at your place — and the setup's done.</p>
-    <button type="button" id="go3">Take a look</button>
+    <p class="soft">Two last things and you're done.</p>
+    <button type="button" id="go3">Check the address ›</button>
   </section>
 
   <!-- ── SCREEN 4 · HER PLACE, on day one ─────────────────────────────────────────
@@ -627,8 +622,8 @@
          she was shown one screen earlier ("Paul is the only other person who sees it") FALSE, and
          a disclosure falsified by the next screen is worse than none. A link sends nothing until she
          taps it, and the label says where it goes before she does. The promise stays true. -->
-    <a id="maplink" class="maplink" href="#" target="_blank" rel="noopener noreferrer" hidden>Verify address on Google Maps ›</a>
-    <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Nothing goes to Google unless you tap. If the pin looks wrong, tell Paul.</p>
+    <a id="maplink" class="maplink" href="#" target="_blank" rel="noopener noreferrer" hidden>See it on Google Maps ›</a>
+    <p id="mapnote" class="quiet" style="margin-top:2px" hidden>Nothing goes to Google unless you tap.</p>
     <!-- ⭐ THE RENAME PATH EXISTS BECAUSE THE PROMISE DOES. s1 says "rename it later if a better one
          turns up", and CLAUDE.md #5 allows that sentence only where it is TRUE. Without this the
          place could never be renamed at all — a point of no return on the very first thing she was
@@ -636,7 +631,7 @@
          point of no return really." -->
     <p class="quiet" style="margin-top:2px"><a href="#" id="renameLink">Call it something else ›</a></p>
     <div id="renameBox" hidden>
-      <label for="rename2">A new name for it</label>
+      <label for="rename2">New name</label>
       <input id="rename2" type="text" autocapitalize="words" maxlength="60">
       <button type="button" id="renameGo"><span class="tick">✓</span>Use this name</button>
     </div>
@@ -693,8 +688,8 @@
            INTO it, making the overload worse while fixing something real. Three short paragraphs: the
            question, how to answer it, and what it is for. -->
       <p class="soft" style="margin-bottom:2px">What matters most at your place?</p>
-      <p class="quiet" style="margin-top:0">Tap them in the order they matter to you — skip anything you don't care about, and tap one again to take it back off.</p>
-      <p class="quiet" style="margin-top:7px">Some of these already work; some are only ideas. How you rank them is how I decide what to build next.</p>
+      <p class="quiet" style="margin-top:0">Tap them in the order they matter. Tap again to take one off.</p>
+      <p class="quiet" style="margin-top:7px">Your order decides what I build next.</p>
       <div id="interests" class="swatches"></div>
       <!-- ⛔ "SAY WHAT" HAD NOWHERE TO SAY IT. "Something else" described itself as *"Rank this if
            something's missing — say what, and it gets looked at"* and shipped with no field behind
@@ -720,7 +715,6 @@
          the deployment, not from her answers — so the promise now sits directly above the control
          that disproves it. Third instance tonight of a sentence going false because something grew
          beside it; none of the three was touched by the edit that broke it. -->
-    <p class="soft">That's the setup done — nothing more needed from you today.</p>
 
     <!-- ⭐ THE HANDOFF `[paul-stated 2026-09-05]`: "at some point we have to transfer from the
          onboarding process to the main estate view." Until now the journey DEAD-ENDED — she finished
@@ -740,9 +734,9 @@
            personalising never does, and her willingness is the only throttle. The old line said she
            COULD come back without saying there was anything to come back FOR. ⛔ And it must not
            imply her answers have already shaped what she is opening — they have not. -->
-      <p class="quiet" style="margin-top:8px">This is yours now. It fills out as you tell me more — as much or as little as you like, whenever you like.</p>
+      <p class="quiet" style="margin-top:8px">It fills out as you tell me more.</p>
     </div>
-    <p class="quiet" id="s4placeholder">I'm calling it “My Home” until you name it.</p>
+    <p class="quiet" id="s4placeholder">Called “My Home” until you name it.</p>
   </section>
   <!-- ⭐ THE GENERAL FEEDBACK CHANNEL, ON EVERY SCREEN `[paul-stated 2026-09-05]`: "I want her to
        have the general feedback mechanism we've established for Fernwood tracker throughout all
@@ -783,6 +777,9 @@
   // had nothing to read and rendered a receipt with its only derived row missing. Found 2026-09-06
   // by walking it. Same owner guard as the other answers: it is cleared when the grant changes.
   var K_RANK  = "fw-onboard-interests";
+  var K_CONTACT_CHOSEN = "fw-onboard-contact-chosen";   // she TAPPED a contact option (a default sat on is not a choice)
+  var K_COLOR_CHOSEN   = "fw-accent-chosen";            // she TAPPED a swatch
+  var K_SYN_RUN        = "fw-synthetic-run";            // the walk's run id, for the app's capture-side batches
   // ⛔ THE HIGHEST-STAKES FIELD IN THE FLOW WAS SHOWN BACK NOWHERE. It is pre-selected by default,
   // answered once, and never seen again — and its "please don't contact me" branch closes the only
   // route to a forgotten password. Two seats noticed independently that it vanishes, and ux-expert
@@ -864,37 +861,37 @@
       // place someone has, and the list was REORDERED for that reason — but the DESCRIPTIONS were
       // never re-read under the new rule. Found by content-steward drafting the in-app copy, which
       // is the second time a ruling has been applied to a list's order and not to its words.
-      desc: "Water, heat, power — what they are and when they were last seen to.",
+      desc: "Water, heat, power — and when each was last seen to.",
       builds: ["house-systems", "service-history"] },
     { id: "papers", label: "Papers and documents",
-      desc: "Warranties, manuals, deeds — the things someone would need if you weren't there.",
+      desc: "Warranties, manuals, deeds.",
       builds: ["papers", "succession"], soon: true },
     { id: "equipment", label: "Equipment and tools",
-      desc: "What you own, where it lives, and what it needs.",
+      desc: "What you own, where it lives, what it needs.",
       builds: ["equipment"] },
     { id: "garden", label: "Gardening",
-      desc: "What's planted where, when to prune, what's coming into season.",
+      desc: "What's planted, when to prune, what's coming into season.",
       builds: ["plant", "weed", "zone", "care-calendar"] },
     { id: "motor-pool", label: "Vehicles",
-      desc: "Cars, mowers, anything with an engine — and what's been done to them.",
+      desc: "Cars, mowers, anything with an engine.",
       builds: ["motor-pool", "service-history"] },
     { id: "wildlife", label: "Wildlife",
-      desc: "Birds, frogs, what's around your place and when.",
+      desc: "Birds, frogs — what's around, and when.",
       builds: ["bird", "amphibian", "mammal", "fish"] },
     { id: "map-points", label: "Marking spots on the map",
-      desc: "Where the shut-off valve is. Where that repair happened. Things you'd forget.",
+      desc: "The shut-off valve. That repair. Things you'd forget.",
       builds: ["zone", "point-annotation"], soon: true },
     { id: "map-zones", label: "A map you draw yourself",
-      desc: "Trace your own areas onto a photo of your place, then fill them in.",
+      desc: "Trace your own areas onto a photo of your place.",
       builds: ["zone", "basemap"], soon: true },
     { id: "ask", label: "Asking questions about your place",
-      desc: "Ask about your own place and get answers out of its own record.",
+      desc: "Ask it about your own place.",
       builds: ["guru", "library"], soon: true },
     { id: "handover", label: "Handing it all over",
-      desc: "Everything organised well enough that someone else could pick it up.",
+      desc: "Organised well enough that someone else could pick it up.",
       builds: ["papers", "succession", "export"], soon: true },
     { id: "other", label: "Something else",
-      desc: "Rank this if something's missing — say what, and it gets looked at.", builds: [] }
+      desc: "Missing something? Say what.", builds: [] }
   ];
   var el = {};
   ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
@@ -1089,7 +1086,7 @@
       chosen = c.hex;
       ev("swatch", c.name);            // the NAME, so a palette nobody moves off the default is visible
       store(K_COLOR, c.hex);
-      store("fw-accent-chosen", "1");                  // a tap is a choice; the pre-selected default is not (strict, round 5)
+      store(K_COLOR_CHOSEN, "1");                  // a tap is a choice; the pre-selected default is not (strict, round 5)
       paintAccent();                                   // the page IS the preview
       [].forEach.call(el.swatches.children, function (n) { n.setAttribute("aria-pressed", "false"); });
       b.setAttribute("aria-pressed", "true");
@@ -1204,7 +1201,7 @@
   }
   el.contactpick.addEventListener("change", function () {
     ev("contact", contactPref()); paintContact();
-    store("fw-onboard-contact-chosen", "1");   // a tap is a choice; a default sat on is not (strict + owner, round 4)
+    store(K_CONTACT_CHOSEN, "1");   // a tap is a choice; a default sat on is not (strict + owner, round 4)
   });
   paintContact();
 
@@ -1236,7 +1233,7 @@
   // ⭐ AND THE RUN ID OUTLIVES THIS PAGE. The app the walk opens next has no `?syn=` on its URL, so
   // its telemetry could not say which walk it belonged to. Stored here, read by the viewer's device
   // block, so a capture-side batch joins its run folder on disk (`instrumented`, 2026-09-06).
-  if (SYN_RUN) { try { localStorage.setItem("fw-synthetic-run", SYN_RUN); } catch (e) {} }
+  if (SYN_RUN) { try { localStorage.setItem(K_SYN_RUN, SYN_RUN); } catch (e) {} }
   var evBuf = [], screenAt = Date.now();
 
   var evTimer = null;
@@ -1627,8 +1624,8 @@
       // through? That's the useful bit — or leave it blank." — three clauses to ask one question,
       // "read oddly" is our internal reviewing vocabulary rather than hers, and "that's the useful
       // bit" tells her which of her own answers we value before she has given any.
-      ? "Good — that's settled. Any other thoughts?"
-      : "No problem — you don't have to do it again. Tell me what it should say and I'll put it right.";
+      ? "Anything else to add?"
+      : "Tell me what it should say and I'll put it right.";
     el.s4note.setAttribute("data-kind", kind);
     el.s4note.focus();
   }
@@ -1653,7 +1650,7 @@
     postAnswer("onboard-" + kind, note, { type: "onboarding", field: kind, step: 4 })
       .then(function () {
         el.s4ask.hidden = true;
-        el.s4thanks.textContent = "Got it — that goes straight to Paul.";
+        el.s4thanks.textContent = "Got it — that's with Paul.";
         el.s4thanks.hidden = false;
       })
       ["catch"](function () {

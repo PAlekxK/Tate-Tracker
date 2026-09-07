@@ -140,9 +140,11 @@
   }
   /* `[paul-ruled 2026-09-06]` the general-feedback bubble: on every signed-in screen, pinned to the
      side, in the colour this page already wears. The same shape as the app's ribbon. */
-  .fbbubble { position:fixed; right:0; bottom:14px; z-index:900; display:inline-flex; align-items:center; gap:6px;
-              padding:9px 11px 9px 12px;   /* lower and slimmer: at bottom:40 it still touched the ranked line at the fold (round 5) */ background:var(--accent); color:#fff; border:0; border-radius:12px 0 0 12px;
-              box-shadow:-2px 2px 10px rgba(0,0,0,.22); font:inherit; font-size:.9rem; font-weight:600; text-decoration:none; cursor:pointer; }
+  /* icon-only: a labelled pill of any length covered the ranked list's tail at the fold on every seat's
+     walk (rounds 4–6); a 46px circle in the corner is the smallest footprint a persistent control can have */
+  .fbbubble { position:fixed; right:12px; bottom:14px; z-index:900; display:inline-flex; align-items:center; justify-content:center;
+              width:46px; height:46px; padding:0; background:var(--accent); color:#fff; border:0; border-radius:50%;
+              box-shadow:0 2px 10px rgba(0,0,0,.25); font:inherit; font-size:1.25rem; text-decoration:none; cursor:pointer; }
   .fblink {
     background: none; border: 0; padding: 0; color: var(--ink-soft);
     text-decoration: underline; font-weight: 400; font-size: .95rem;
@@ -185,7 +187,7 @@
 
   <div class="card">
     <p class="state">Early days</p>
-    <p class="lede">What you told me during setup is here. Nothing's been built on top of it yet — that part's my job.</p>
+    <p class="lede">Here's what you told me. Nothing's been built on it yet — that's my job.</p>
 
     <div class="rows" id="rows"></div>
     <!-- ⭐ THE DOOR. Until R4 (2026-09-06) `/viewer` on every origin was Fernwood's build, so this page
@@ -265,8 +267,8 @@
   try {
     var _rk = JSON.parse((mine && read(K_RANK)) || "[]");
     el("doorlede").textContent = (Array.isArray(_rk) && _rk.length)
-      ? "What you ranked comes first in there, and there are a few more cards besides — all of them empty so far."   // "a card for each thing you ranked" was false: eight cards for one pick (strict, round 5) — content-steward to re-read
-      : "The cards are all in here, empty so far.";
+      ? "Your picks come first. Everything's empty so far."   // "a card for each thing you ranked" was false: eight cards for one pick (strict, round 5) — content-steward to re-read
+      : "All empty so far.";
   } catch (e) {}
   var name = mine ? read(K_NAME) : null;
   if (name) { el("place").textContent = name; document.title = name; }
@@ -299,9 +301,9 @@
       label: "Where it is",
       value: addr,                       // exactly as typed: no case-correction, no standardising
       prov: boxy
-        ? "A box number tells me where your post goes, not where your place is — so the weather and what grows there are the parts I can't work out yet."
-        : "You gave me this during setup.",
-      act: boxy ? "Add where it actually is ›" : "That's not right ›"
+        ? "A box number is where your post goes, not where your place is — so I can't work out your weather or what grows there."
+        : "",
+      act: boxy ? "Add where it is ›" : "That's not right ›"
     });
   }
 
@@ -313,12 +315,12 @@
   if (pref) {
     rows.push({
       label: "How to reach you",
-      value: pref === "none" ? "You asked me not to get in touch."
+      value: pref === "none" ? "You asked me not to."
            : pref === "phone" ? "By phone." : "By email.",
       prov: pref === "none"
-        ? "I'll keep to that. It also means I can't send you a new password if you lose yours — email me and I'll sort it."
-        : (read("fw-onboard-contact-chosen") === "1" ? "You chose this when you made your account."
-                                                       : "The usual choice — I went with it since you didn't pick. Change it if you'd rather."),
+        ? "I'll keep to that. If you lose your password, email me and I'll sort it."
+        : (read("fw-onboard-contact-chosen") === "1" ? ""
+                                                       : "The default — you didn't pick one."),
       act: "Change that ›"
     });
   }
@@ -353,7 +355,6 @@
         var soon = !!(r && r.soon);
         return (i + 1) + ". " + label + (soon ? "  (an idea — not built yet)" : "");
       }).join("\n"),
-      prov: "Because that's how you ranked them.",
       act: "Change the order ›"
     });
   }
@@ -389,9 +390,9 @@
       // see it. Now it distinguishes: no credential at all · a credential whose record is still
       // being fetched · a credential whose record genuinely holds nothing yet.
       p.textContent = !grant
-        ? "Open this from your invitation link and your place will be here."
+        ? "Open your invitation link and your place will be here."
         : (fetching ? "Fetching your place…"
-                    : "Once you've set your place up, what you told me shows up here.");
+                    : "Once your place is set up, it shows up here.");
       host.appendChild(p);
     }
   }
@@ -521,7 +522,7 @@
       if (ok) {
         el("fbbox").hidden = true;
         el("fbnote").value = "";           // cleared ONLY once it is somebody else's problem
-        t.textContent = "Got it — I'll put that right.";
+        t.textContent = "Got it.";
       } else {
         el("fbbox").hidden = false;        // stays open, with her words still in it
         t.textContent = "That didn't go through — your note is still here, tap Send once more.";

@@ -377,6 +377,12 @@
      happens on tap. Per-device localStorage persistence. */
   /* a long place name wraps under the text-size pill, not behind it (wide-eyed seat, 2026-09-06) */
   .header h1 { padding-right: 96px; }
+  /* household mode: the ribbon is a corner circle — the slim tab still covered the tail of "so this is
+     where we start" at 414 × A+ (wide-eyed, round 6). Mom's page keeps the bookmark tab. */
+  .feedback-ribbon.is-corner { right: 12px; bottom: 14px; width: 46px; height: 46px; padding: 0; border-radius: 50%;
+                               justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+  .feedback-ribbon.is-corner .feedback-ribbon-label { display: none; }
+  .feedback-ribbon.is-corner .feedback-ribbon-icon { font-size: 20px; }
   .hh-utility { display: flex; gap: 16px; font-family: "DM Sans", sans-serif; font-size: 14px; margin-bottom: 10px; }
   .hh-utility a { color: #fff; opacity: .92; text-decoration: underline; text-underline-offset: 3px; }
   .text-size-toggle {
@@ -3677,7 +3683,7 @@
   /* ⭐ The empty-card invitation. Deliberately NOT styled as a warning or an error: this is the
      card speaking in its ordinary voice about what it will hold. Same measure as body copy so it
      reads at A+ without the reader doing anything. */
-  .empty-invite { margin: 2px 0 4px; }
+  .empty-invite { margin: 2px 0 4px; padding: 0 16px 12px; }   /* flush to the card edge once the body's other children hide (owner, round 6) */
   .empty-invite p { margin: 0 0 8px; line-height: 1.55; }
   .empty-invite-holds { color: var(--ink, #23301f); }
   .empty-invite-source { color: var(--ink-soft, #5d6b57); }
@@ -10792,7 +10798,7 @@ async function queueZoneAudio(payload, zid, flowId) {
 // The ✓ stays: its ratified meaning here is "we have your words", which is true
 // of both. Paul: "Mom understands WiFi and the connectivity situation."
 const ZONE_AUDIO_HELD =
-  "Saved on your phone — it'll reach the record next time you're near the house Wi-Fi. ✓";
+  "Saved on your phone — it'll reach the record next time you're back on Wi-Fi. ✓";
 
 // The two genuine-loss lines. Wording by content-steward, 2026-08-31.
 // NO ✓ on either, deliberately: the tick's ratified meaning here is "we have your
@@ -10805,7 +10811,7 @@ const ZONE_AUDIO_CANNOT_HOLD =
   "This phone can't hold recordings — that one didn't get saved. Worth letting Paul know.";
 const ZONE_AUDIO_FULL =
   "The phone is holding all it can, so that one didn't get saved. The ones waiting will " +
-  "go when you're near the house Wi-Fi, and there'll be room again.";
+  "go when you're back on Wi-Fi, and there'll be room again.";
 function zoneAudioLossMessage(res) {
   return (res && res.reason === "full") ? ZONE_AUDIO_FULL : ZONE_AUDIO_CANNOT_HOLD;
 }
@@ -10987,14 +10993,14 @@ const ZonePanel = (function () {
     setGrowStatus("");
     // Back in range? Send whatever she recorded out of range, and if any is still
     // waiting, say so — she should never have to wonder whether it survived.
-    // One consistent world, three nouns — your phone · the record · the house Wi-Fi.
+    // One consistent world, three nouns — your phone · the record · Wi-Fi.
     // No ✓ on the waiting line: a tick answers something she just did, and this is
     // the panel telling her where things stand before she has done anything.
     ZoneAudioOutbox.flush().then(async (sent) => {
       const left = await ZoneAudioOutbox.count();
       if (left > 0) setGrowStatus(left === 1
-        ? "1 recording is still on your phone — it'll go to the record when you're near the house Wi-Fi."
-        : left + " recordings are still on your phone — they'll go to the record when you're near the house Wi-Fi.");
+        ? "1 recording is still on your phone — it'll go to the record when you're back on Wi-Fi."
+        : left + " recordings are still on your phone — they'll go to the record when you're back on Wi-Fi.");
       else if (sent > 0) setGrowStatus(sent === 1
         ? "The recording you made earlier has reached the record. ✓"
         : "Your " + sent + " recordings from earlier have reached the record. ✓");
@@ -12531,8 +12537,8 @@ const MomQueue = (function () {
   // words on screen where she can see them.
   function ackFor(result) {
     if (result === "sent") return showAck("Noted — it's in the record. ✓");
-    if (result === "queued") return showAck("Saved on your phone — it'll reach the record next time you're near the house Wi-Fi. ✓");
-    return showAck("That didn't get through — your words are still here. Worth trying again when you're near the house Wi-Fi.", true);
+    if (result === "queued") return showAck("Saved on your phone — it'll reach the record next time you're back on Wi-Fi. ✓");
+    return showAck("That didn't get through — your words are still here. Worth trying again when you're back on Wi-Fi.", true);
   }
 
   // Deterministic capture — her tap + her verbatim words. No AI in the loop.
@@ -12991,10 +12997,11 @@ const FeedbackRibbon = (function () {
     tab.type = "button";
     tab.id = "feedback-ribbon";
     tab.className = "feedback-ribbon";
-    tab.setAttribute("aria-label", "General feedback — tell Paul about the app");
+    tab.setAttribute("aria-label", "Tell Paul about the app");
     tab.setAttribute("aria-expanded", "false");
+    if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) tab.classList.add("is-corner");
     tab.innerHTML = '<span class="feedback-ribbon-icon" aria-hidden="true">💬</span>' +
-                    '<span class="feedback-ribbon-label">General feedback</span>';
+                    '<span class="feedback-ribbon-label">Tell me</span>';
     tab.addEventListener("click", open);
     document.body.appendChild(tab);
     initSlimOnScroll(tab);
@@ -13060,7 +13067,7 @@ const FeedbackRibbon = (function () {
     const label = document.createElement("div");
     label.className = "feedback-panel-label";
     label.textContent = pendingLabel
-      || "Something to tell Paul about the app? Set it down here.";
+      || "Tell Paul anything about the app.";
 
     const ta = document.createElement("textarea");
     ta.className = "feedback-panel-input";
@@ -13070,7 +13077,7 @@ const FeedbackRibbon = (function () {
     const send = document.createElement("button");
     send.type = "button";
     send.className = "feedback-send";
-    send.textContent = "Set it down";
+    send.textContent = "Send";
 
     const status = document.createElement("div");
     status.className = "feedback-status";
@@ -13089,17 +13096,17 @@ const FeedbackRibbon = (function () {
         status.className = "feedback-status ok";
         status.style.display = "block";
         status.textContent = result === "sent"
-          ? "Noted — it's in the record. ✓"
-          : "Saved on your phone — it'll reach the record next time you're near the house Wi-Fi. ✓";
+          ? "Got it. ✓"
+          : "Saved on your phone — it'll send next time you're online. ✓";
         ta.disabled = true;
         setTimeout(close, 2400);
       } else {
         // Failed — keep her words on screen and claim nothing (W1 doctrine).
         status.className = "feedback-status err";
         status.style.display = "block";
-        status.textContent = "That didn't get through — your words are still here. Worth trying again when you're near the house Wi-Fi.";
+        status.textContent = "That didn't get through — your words are still here. Try again when you're online.";
         send.disabled = false;
-        send.textContent = "Set it down";
+        send.textContent = "Send";
       }
     });
 
@@ -17490,31 +17497,26 @@ function moduleState(name) {
 const EMPTY_CARD_COPY = {
   "garden": {
     label: "Gardening",
-    a: "Nothing here yet. This is where what's planted will live — what's coming into season, what needs cutting back.",
-    b: "Nothing here yet. If there's anything growing at your place — beds, a few pots, one tree you keep an eye on — this is where it would live."
+    holds: "Nothing here yet. What's planted, what's coming into season, what needs cutting back."
   },
   "wildlife": {
     label: "Wildlife",
-    a: "Nothing here yet. This is where what shows up at your place will live — what's around, and when.",
-    b: "Nothing here yet. If you notice what comes and goes — at a feeder, in the yard, over the water — this is where it would go."
+    holds: "Nothing here yet. What shows up at your place, and when."
   },
   // ⚠️ the reader-facing word is VEHICLES, which is what they ranked. `motor-pool` is schema only.
   "motor-pool": {
     label: "Vehicles",
-    a: "Nothing here yet. This is where anything with an engine will live — what it is, and what's been done to it.",
-    b: "Nothing here yet. Anything with an engine belongs here — a car, a mower, a tractor — along with what's been done to it."
+    holds: "Nothing here yet. Anything with an engine, and what's been done to it."
   },
   "equipment": {
     label: "Equipment and tools",
-    a: "Nothing here yet. This is where your tools will live — what you own, where it's kept, and what it needs.",
-    b: "Nothing here yet. What you own, where it's kept and what it needs — that's what this holds, whenever you're ready to put it down."
+    holds: "Nothing here yet. What you own, where it's kept, what it needs."
   },
   // ⛔ "Household systems" is Mom's own coined phrase and is protected — do not normalise it. And
   // deliberately NOT "the well, the septic, the heating", which presumes a kind of place.
   "house-systems": {
     label: "Household systems",
-    a: "Nothing here yet. This is where the things that keep the place running will live — water, heat, power — and when each was last seen to.",
-    b: "Nothing here yet. Water, heat, power, whatever else keeps the place running — this is where what they are and when they were last seen to would live."
+    holds: "Nothing here yet. Water, heat, power — and when each was last seen to."
   }
 };
 
@@ -17523,14 +17525,14 @@ const EMPTY_CARD_COPY = {
 // the app). `box` reuses the estate page's own sentence for a mail drop, one screen apart.
 const UNPLACED_COPY = {
   "weather": {
-    holds: "Nothing here yet. This is where the weather at your place will live — what it's doing now, what the week looks like, and what the rain has been doing.",
-    street: "We have your address; we haven't put it on the map yet, so there's no weather to show you here.",
-    box: "A box number tells us where your post goes, not where your place is — so the weather is the part we can't work out yet."
+    holds: "Nothing here yet. What it's doing now, the week ahead, what the rain has been doing.",
+    street: "Your address isn't on the map yet, so there's no weather to show.",
+    box: "A box number is where your post goes, not where your place is — so I can't work out the weather."
   },
   "sky": {
-    holds: "Nothing here yet. This is where the sky over your place will live — the moon, what's up tonight, how dark it gets.",
-    street: "We have your address; we haven't put it on the map yet, and what's overhead depends on exactly where \"here\" is.",
-    box: "A box number tells us where your post goes, not where your place is — so we can't say yet what's overhead at yours."
+    holds: "Nothing here yet. The moon, what's up tonight, how dark it gets.",
+    street: "Your address isn't on the map yet, and what's overhead depends on exactly where you are.",
+    box: "A box number is where your post goes, not where your place is — so I can't say what's overhead."
   }
 };
 function addressIsBox() {
@@ -17593,9 +17595,9 @@ function emptyCardSource(mod) {
   const c = EMPTY_CARD_COPY[mod];
   if (!c) return null;
   const i = READER_RANKING.indexOf(mod);
-  if (i === 0) return "You put " + c.label + " first, so this is where we start.";
-  if (i === 1 || i === 2) return "You put " + c.label + " near the top, so it's one of the first we're working on.";
-  if (i > 2) return "You put " + c.label + " on the list, so we know it belongs here.";
+  if (i === 0) return "You put " + c.label + " first.";
+  if (i === 1 || i === 2) return "You put " + c.label + " near the top.";
+  if (i > 2) return "You put " + c.label + " on the list.";
   return null;
 }
 
@@ -17614,9 +17616,9 @@ function renderIdeaCards() {
     const c = document.createElement("div");
     c.className = "main-card idea-card";
     c.setAttribute("data-idea", it.id || it.label);
-    const src = i === 0 ? "You put " + it.label + " first, so this is where we start."
-              : (i <= 2 ? "You put " + it.label + " near the top, so it's one of the first we're working on."
-                        : "You put " + it.label + " on the list, so we know it belongs here.");
+    const src = i === 0 ? "You put " + it.label + " first."
+              : (i <= 2 ? "You put " + it.label + " near the top."
+                        : "You put " + it.label + " on the list.");
     // the same header shape as a real card — without the icon and meta wrapper the title column
     // squeezed to one word per line (wide-eyed seat, round 5)
     c.innerHTML = '<div class="main-card-header"><div class="main-card-icon">💡</div><div class="main-card-meta">'
@@ -17699,12 +17701,12 @@ function renderEmptyCards() {
     const source = emptyCardSource(mod);
     const el = document.createElement("div");
     el.className = "empty-invite";
-    const holds = source ? copy.a : copy.b;
+    const holds = copy.holds;
     // ⭐ Ask-A only where line 2 exists: on a card echoing nothing, "have we got this right" refers
     // to nothing. Ask-B asks the only question available there — does this belong at your place.
     const ask = source
-      ? "Have we got this right — and is there more we should know?"
-      : "Is there anything like this at your place?";
+      ? "Right so far? Anything to add?"
+      : "Anything like this at your place?";
     // ⭐ THE ASK ONLY WHERE THERE IS SOMETHING OF THEIRS TO CONFIRM (content-steward 2026-09-06; the
     // one measured reader is 0-for-35 on affordances that ask). Unranked cards sit quiet on one line.
     el.innerHTML = '<p class="empty-invite-holds"></p>'
@@ -19736,7 +19738,7 @@ const ObservationStore = (function () {
     // (a member cannot write observations — Worker capability, logged for engineering), so the
     // sentence says that plainly and instructs nothing.
     if (!isConfigured() && typeof window !== "undefined" && window.__HOUSEHOLD_NAME)
-      return { mode: "household-local", message: "Notes stay on this phone for now — they don't travel between devices yet." };
+      return { mode: "household-local", message: "Notes don't travel between devices yet." };
     if (!isConfigured()) return { mode: "local-only", message: "Local only — set up Sync to follow you between devices." };
     if (lastError) return { mode: "error", message: lastError };
     const last = getLastSyncedAt();

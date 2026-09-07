@@ -86,9 +86,11 @@
   [hidden] { display:none !important; }
   /* `[paul-ruled 2026-09-06]` the general-feedback bubble: on every signed-in screen, pinned to the
      side, in the colour this page already wears. The same shape as the app's ribbon. */
-  .fbbubble { position:fixed; right:0; bottom:14px; z-index:900; display:inline-flex; align-items:center; gap:6px;
-              padding:9px 11px 9px 12px;   /* lower and slimmer: at bottom:40 it still touched the ranked line at the fold (round 5) */ background:var(--accent); color:#fff; border:0; border-radius:12px 0 0 12px;
-              box-shadow:-2px 2px 10px rgba(0,0,0,.22); font:inherit; font-size:.9rem; font-weight:600; text-decoration:none; cursor:pointer; }
+  /* icon-only: a labelled pill of any length covered the ranked list's tail at the fold on every seat's
+     walk (rounds 4–6); a 46px circle in the corner is the smallest footprint a persistent control can have */
+  .fbbubble { position:fixed; right:12px; bottom:14px; z-index:900; display:inline-flex; align-items:center; justify-content:center;
+              width:46px; height:46px; padding:0; background:var(--accent); color:#fff; border:0; border-radius:50%;
+              box-shadow:0 2px 10px rgba(0,0,0,.25); font:inherit; font-size:1.25rem; text-decoration:none; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -110,11 +112,11 @@
   <button type="button" class="add" id="addbtn">＋&nbsp; Add a home</button>
 
   <div class="card" id="addcard" hidden>
-    <p class="lede"><strong>I can't set up a second home for you yet.</strong></p>
-    <p class="soft">Right now an account opens one home. Letting one person keep more than one is the
-      next thing I'm building, and it's the reason this button is here at all.</p>
-    <label class="quiet" for="note">If you tell me what you'd add, I'll start with that.</label>
+    <p class="lede"><strong>One account, one home — for now.</strong></p>
+    <p class="soft">More than one is the next thing I'm building.</p>
+    <label class="quiet" for="note">What would you add?</label>
     <textarea id="note" rows="3" placeholder="Optional"></textarea>
+    <p class="quiet" style="margin-top:5px">Goes to Paul, nobody else.</p>
     <p><button type="button" class="send" id="send"><span class="tick">✓</span>Send</button></p>
     <p class="quiet" id="thanks" hidden></p>
   </div>
@@ -174,8 +176,8 @@
       var p = document.createElement("p");
       p.className = "soft";
       p.textContent = grant
-        ? "Nothing here yet — open your invitation link to set your first home up."
-        : "Open this from your invitation link and your homes will be here.";
+        ? "Open your invitation link to set up your first home."
+        : "Open your invitation link and your homes will be here.";
       host.appendChild(p);
       return;
     }
@@ -247,7 +249,7 @@
     var t = el("thanks");
     if (ok) {
       el("note").value = "";
-      t.textContent = "Got it — that's what I'll build toward.";
+      t.textContent = "Got it.";
     } else {
       t.textContent = "That didn't go through — your note is still here, tap Send once more.";
     }
@@ -255,6 +257,6 @@
   }
 })();
 </script>
-<a class="fbbubble" href="/estate/?fb=1&from=homes">💬 Tell me</a>
+<a class="fbbubble" aria-label="Something not right? Tell me." href="/estate/?fb=1&from=homes">💬</a>
 </body>
 </html>

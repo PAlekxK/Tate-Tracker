@@ -390,3 +390,43 @@ Make it flexible."*
   in, do this.' They will just do that. Don't include obvious instructions like that."* → into the
   crisp-register pass; principle for the library: **an instruction the device already gives is
   noise** (the autofill line is a measured example).
+
+### 22:20 ET — round 6 read; the copy pass landed
+- `worked` — round 6 (`203d234`): three of four readers in (owner · strict · wide-eyed): new-and-
+  waiting; the only failures named are the feedback bubble covering text on 07 and 12 (even slim,
+  even lowered) and the username in the naming screen's title slot. → the bubble is an icon-only
+  corner circle on every household surface (Mom's page keeps its tab); the username-as-title is a
+  ruling for Paul (it follows his 09-05 top-bar rule; three seats read it as "the app named my place
+  my login").
+- content-steward's crisp-register pass → `.content/2026-09-06-crisp-register.md`: **1,903 → 1,128
+  words**; "Paul built this" gone; "That's the setup done" cut outright; ten empty-card strings →
+  five; a who-reads-it line ADDED on add-a-home; a tenancy leak found in an engine string ("near the
+  house Wi-Fi" — a place assumption, which the name sweep cannot see). Applied in QA for round 7 as
+  the loop's material; Paul reads QA live. Five questions for Paul are in §12.
+- mom, round 6: new-and-waiting — **"FAILURES: none."** First zero from any seat. Its edge is a
+  design tension, not a defect: a pre-filled control (email, Stone) LOOKS chosen, beside copy that
+  says "since you didn't pick." Either the default is not pre-filled (she taps) or the copy stops
+  attributing. Content-steward's Q3 is the same question. → Paul.
+- harness note: the walk log's "WALK <seat> HH:MM:SS" line and the run folder's id can differ by
+  one second (the folder is minted a beat later); readers were briefed from the log line and
+  self-corrected. Brief from the folder name.
+
+### 22:35 ET — GATE ① GREEN at `203d234` (round 6): the synthetic loop's exit condition met
+- `measured` — four seats × four clauses at the deployed sha, plus `instrumented` green for each.
+  The first sha tonight to exit beat 2. Production is held one round: the ground scheme, the
+  corner bubble and the crisp-register copy — all Paul-ruled tonight — are in round 7, and shipping
+  `203d234` would hand him a build he has already said is wrong in three ways.
+- `did-not` — **a commit I did not make appeared at HEAD** (`9fc28e3`, 22:02 ET: "the ground follows
+  the seed; an instruction the phone already gives is cut"). Its files and its message are my own
+  in-flight tranche-2 and autofill work, in my voice; a `SessionStart:fork` banner had fired minutes
+  before. Reading: the platform forked this session and the fork committed the tree, then ended —
+  no process, deploy or walk from it is running, and the only other live session is a read-only
+  pickup started later. Proceeding, and saying so here and to Paul. The concurrent-session guard
+  wants a rule for forks: a fork must not commit a tree its parent is still editing.
+
+### 22:45 ET — round 7 graduating: the crisp register + the scheme's ground + the corner bubble
+- Applied by a fresh agent from content-steward's tables: 102 replacements, 1 already gone, 2
+  cuts converted to blanks (ternary branches), every page loading clean, build byte-identical.
+  `check-storage-keys` went red on my three new keys (used as literals, never declared) — declared.
+  "near the house Wi-Fi" ×7 in engine strings → "back on Wi-Fi": a place premise the name sweep
+  cannot see, found by a copy pass. Chain: checks → commit → QA deploy → four watched walks.
