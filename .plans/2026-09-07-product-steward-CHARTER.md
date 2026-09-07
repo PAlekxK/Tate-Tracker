@@ -19,6 +19,14 @@
   below either restates a ruling with its citation, or is a mechanism in `tools/product-steward.py`.
 - stage-note: 2026-09-07 — written in lane B of lap 2 at `ff49ff3`, the commit that landed the
   deterministic door. The seat's first round is `c821051`, lap 1's cleared candidate.
+- stage-note: **ROUND 1 RUN 2026-09-07** — `c821051`, all four reports read
+  (`.private/synthetic-walks/CONSOLIDATION-c821051.md`; `--round` verifies it accounts for every
+  report and that all 26 of its citations resolve). **12 already carried · 7 carried this round · 14
+  questions opened · 0 reports unwritten.** Redundancy **63%**, below R7's 80% — not falsified there.
+  🔴 **The SECOND falsifier fired: 14 questions against 7 writes.** ⚠️ Confounded at round 1 and the
+  confound is recorded with the number, not argued away: this is the first consolidation ever run, so
+  it drains a backlog no round has consolidated. **Read the trend across the lap, not round 1.** If
+  questions still exceed writes at round 3, the confound is exhausted and the falsifier stands.
 
 ---
 
@@ -167,6 +175,11 @@ python3 tools/product-steward.py --record --sha <build> \
     --carried N --already N --questions N --unwritten N --note "…"
 python3 tools/product-steward.py --ledger
 ```
+
+⚠️ **A LIMIT OF THE INSTRUMENT, found by using it on the round-1 consolidation:** `--cite` verifies
+that a citation RESOLVES; it cannot verify that a citation is **apt**. That draft carried five `:1`
+citations — line 1 of a real file, which resolves cleanly and points at nothing. **The check is a
+floor, not a proof**, and a reviewer still has to open what a row cites.
 
 ⭐ **An EMPTY ledger exits 3 and says so.** A trial that is not instrumented is renewed by inertia,
 which is the one outcome R7 exists to prevent. Ledger:
