@@ -845,3 +845,34 @@ Make it flexible."*
     household to add where the place is — Paul's, held
 - Still gated on Paul, outside this loop: Mom's grant needs the administrator-reads consent record
   (when/how she agreed); her link is sent by him, never by a session.
+
+### 12:10 ET (Sep 7) — after the clear: Mom's invite minted and SENT; Paul's production feedback read; two rulings
+- **Mom's grant** (`p-b91e4d` @ `est-e6696a`, owner · member, entry) minted on Paul's attestation —
+  `paul-stated`: *"Yes I can read what she enters"* → `administrator-reads` consent, `consentSource:
+  attested`, `agreedOn: 2026-09-07`, to confirm with her at the visit. Link written to a mode-600
+  file and opened for him; **he sent it by text ~12:05 ET** (*"OK I sent the invite to mom via
+  text"*). Cascade gate 3 is open: her first arrival on the NEW product is now possible.
+- `measured` — Paul's feedback on the production store, `est-e6696a:feedback:2026-09-07`, 10 records
+  across his two runs (10:22 and 11:17 ET), read directly from KV. The substantive four:
+  · `onboard-onboarding-note`: *"It's a condo property type. I'm right by the beltline and Grant
+    Park itself!"*
+  · `onboard-interests-other`: *"Houseplants!"* — a twelfth item, the class no seat can produce.
+  · `homes-second-home`: *"We want to show roles on this page — I am the owner for Grant Park and
+    you can see Home members. Down the road I will want to invite mom to have access to my condo and
+    she will invite me to the house that she sets up."* → rows 19/19b (roles on the places list;
+    cross-invitation between two real households).
+  · `fb-…` from the place card: *"Let's keep brainstorming how specifically to populate each card
+    and say what's in it. This card should be more focused on the property and things you can glean
+    from it: local events, festivals, etc. — especially since it's a condo in the city."* → the
+    place card's content is a domain question (C7 Q4: events/neighbourhood needs the AI-boundary
+    ruling first).
+  ⚠️ The general-feedback record carries no `surface`/`screen`/`step` fields in the store as read —
+  the 9/06 ruling says it must. Handed to practice-steward to measure.
+- `paul-stated`: *"Let's have the process steward check in here since we have our first full green
+  light, to mark how we collect and consolidate feedback for the next build cycle."* → spawned,
+  design mode, output `.plans/2026-09-07-feedback-consolidation-lap2-PRACTICE.md`.
+- `paul-stated`: *"Production store feedback needs to be accessible for backlog seeding,
+  rationalization, quality-of-life improvements — good opportunity for customer researcher and
+  product owner to team up."* → a deterministic door onto `est-e6696a:feedback:*` (no model needed
+  to learn what a person said) and a standing user-researcher + product-owner pairing. ⚠️ No
+  product-owner agent exists; who holds the seat is in the steward's design, Paul's to ratify.
