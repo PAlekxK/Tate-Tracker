@@ -769,3 +769,29 @@ Make it flexible."*
     `walk-brief.py`'s text extractor misses the place card entirely, so a reader working from the
     brief alone would not know it exists (mom · wide-eyed) — both pre-registered for lap 2.
 - `50f28ff` deployed to QA 11:00 ET, 25 s wait, four seats walking.
+
+### 11:20 ET (Sep 7) — `50f28ff` read 4 of 4; the last edges; Paul's production account reset on his word
+- `measured` — gate ① at `50f28ff`: 4 of 4. Readers: the two-line address landed for owner ·
+  wide-eyed · strict (*"exactly what I typed at 04, and exactly how 06 and 07 read it back"*); the
+  box line landed for strict (*"the card stopped lying to me, which was my finding"*); mom found the
+  **unit still splitting from its word** beside the Open pill at A+ ("Apt" / "3B") → **fixed at
+  `499aa47`** (a non-breaking space inside "Apt 3B" and its kin). Strict asked the box line to make
+  the receipt's whole claim (weather AND what grows) → **fixed at the next commit**. Both in the
+  loop as one round, 11:20 ET.
+- Held, unchanged: "Open ▲" on an open card (engine-wide label); the ranking not echoed on stop 12;
+  "Add where it is" is prose on 12 and a `#` link on 07 — the door for a box-number household is
+  row 19c's estate settings, not built; the name three times in one viewport (owner).
+- `paul-stated` (~11:05 ET): *"Let me ask whether my account from that sign-up run in production
+  still exists. I'd expect it's wiped from production but we keep the data log for analysis. So I can
+  reset my account up in production with the same username."* `measured` first (wrangler kv key list,
+  remote): the account DID exist — `est-e6696a:account:pkirsch` + its grant, both created 10:22 ET
+  (the third tap) — nothing had wiped it. On his word: those two keys deleted; kept: onboarding-
+  metrics ×2, metrics, feedback, door, cost-log, chat-budget. p-paul's invite rotated a third time
+  (the account creation had consumed the second); fresh link opened in a new incognito window.
+  ⚠️ Every credential rotated today: `bd291bab…` → `9e45a41d…` → (consumed by the account, `77ec4071…`
+  deleted with it) → `75cb3db3…` live. The register holds hashes only; the token file is in this
+  session's scratchpad and dies with it — same failure as this morning if his walk slips a session.
+- `finding` — the account's grant row was minted under a NEW personId (`p-lnxakyzniuwk`), not
+  `p-paul`: account creation mints its own person, so the register's p-paul and the store's person
+  for the same human diverge by construction. Paul is now three ids across the register and the
+  store. → tenancy row 19's journey work; not fixed here.
