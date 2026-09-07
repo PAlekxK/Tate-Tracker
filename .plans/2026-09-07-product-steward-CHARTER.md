@@ -225,6 +225,18 @@ it is just as wrong, in the direction that looks like caution."* The seat over-g
 same shape as reading a searched-negative as a finding — and it cost the record a wrong provenance
 that had to be retracted from Paul.
 
+⚠️ **AND A FIFTH, COMMITTED TWICE WHILE WRITING THIS SECTION, so it is recorded here rather than
+lost in a commit message.** `8c2f456`'s message claimed *"every citation in the file resolves, 8 of
+8"*; the run on screen said **5 resolve, 1 ambiguous**. The correction commit `5cc1401` then claimed
+*"now 6 of 6"*; the run said **5**. Twice, a number was written from intent instead of copied from
+the output that was already printed. **The true figure is 5 citations, all resolving.**
+
+⛔ **It is the same defect as 1–4 with a shorter reach:** a claim about a measurement, made without
+re-reading the measurement. The instrument was right both times and was standing in the terminal.
+**Copy the number; never retype it.** That is not a style note — it is the CYCLE-SPINE's own recorded
+failure mode (*"a hand-typed count beside a tool that computes the same count"*) reproduced inside
+the section warning about it.
+
 ⭐ **The test that separates them, and it is one question: CAN THIS BE KNOWN BY LOOKING?** If yes,
 look — hedging is not caution, it is an unmade measurement wearing caution's clothes. If no, say
 UNRESOLVABLE and name what would settle it. **Both halves are the same discipline; only the direction
