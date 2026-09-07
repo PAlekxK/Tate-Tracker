@@ -2403,6 +2403,42 @@ name in Mom-read prose is a **content** decision) · **derive config from canon*
 
 ## 🚪 C6 · THE DOOR FOR PAUL — entry + vault on his device, her surface untouched; M3 fixed first ⚙️ engine · declared
 
+> ### 🔑 THE SIGN-IN DOOR — scoped 2026-09-07, **Paul rules** · `.plans/2026-09-07-sign-in-door-PROPOSAL.md`
+>
+> Commissioned by Paul the same day: *"we do need a sign in page… that also has an option to create an
+> account from it, and forgot password and all of that… we should definitely start a lane scoping it now
+> because we're gonna need it in the future."* **Scoping only — nothing built.**
+>
+> ⭐ **THE HEADLINE REFRAMES THE WORK: the MECHANISM already exists.** `POST /api/session` verifies
+> username + password by PBKDF2 against the account row, mints a fresh token, deletes the prior grant and
+> carries the place's facts onto the new one. `measured` — present on `origin/staging`, **absent from
+> `origin/main`**, and its only two callers are tooling. So this is a **SURFACE and POLICY** problem, not a
+> mechanism problem; scoping it as *"build a login page"* gets the cheap half right and misses the rest.
+>
+> ⚠️ **And the middle state is worse than nothing:** `onboarding/index.html` tests for a returning reader
+> with `!read(K_USER)` — a **localStorage key** — so someone who HAS an account, on a new browser, is routed
+> to CREATE one and finds their username taken. That file's own comment already wants the right test
+> (*"does she already have one, not did she arrive with a link"*); a device-local key cannot evaluate it.
+>
+> ⛔ **RECOVERY IS THE HARD HALF AND IT IS AN OPERATING-MODEL RULING, not a UI question.** Four options are
+> presented with what each costs; option A means **Paul is the reset path for households he has never met,
+> and can read anything behind anyone's door.** `measured`: the *"Please don't contact me"* branch — which
+> closes the only route to a forgotten password — **has never been walked by anyone**, zero `onboard-contact`
+> answers across qa · lab · home, because no walk tool sets a preference and the `email` default rides every
+> run including `strict`, the seat that exists to exercise exactly that posture.
+>
+> 🔒 **TWO SECURITY FINDINGS, both STAGING-ONLY and never production**, raised as a pair because fixing one
+> alone reverses a ruling: (a) `Access-Control-Allow-Origin: "*"` is set globally (`worker.js:317`) and
+> `/api/session` now returns a bearer token — the privacy seat ruled *"do not tighten it"* when **no route
+> returned a credential**, and that premise has changed; (b) rate-limit buckets exist for `door`, `feedback`
+> and `obmetrics` **only** — so the two routes that accept credentials, `/api/session` and `/api/account`,
+> are the two without throttling. Both `measured` here 2026-09-07.
+>
+> Standards looked up and cited rather than recalled (NIST SP 800-63B-4 · WCAG 2.2 SC 3.3.8 · OWASP
+> A07:2025 · WHATWG autofill). One live divergence for Paul: account creation enforces **8** characters
+> against NIST's **15** for a single factor — a genuine trade against Mom's clarity floor. **Five open
+> rulings in the file; none answered by the lane.**
+
 → READY · .plans/2026-09-03-c6-door-for-paul-PLAN.md — ✅ **STAMPED `[paul-approved 2026-09-03]`** — ⭐ **the text-size toggle is REMOVED and A+ is the one standard size** (M3 retires by construction; step 1 re-drafts before build); entry off / vault on for her grant; Ambient stays ungated. Three questions wait at their named steps (first vault room · privacy seat · her credential word).
 
 `user-researcher`'s own recommendation (`.user-research/2026-09-02-activation-journeys.md`): *build
