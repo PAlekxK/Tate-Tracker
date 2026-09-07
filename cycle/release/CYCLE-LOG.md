@@ -1001,3 +1001,22 @@ gates uninstrumented.
 
 ⚠️ **`strict` can certify none of a placed-household build** — it says so every run. **`wide-eyed`'s
 reason for existing is UNREACHED after 7 runs.** **"Please don't" has never been tapped by any seat.**
+
+### `did-not` — ⛔ `last_lap.outcome` CANNOT RECORD THAT A LAP CLOSED (found at close-out, 2026-09-07)
+`cycle-state.json` right now reads `last_lap: {lap: 1, opened: 2026-09-06, outcome: "open",
+cleared_sha: "c821051"}`. **Lap 1 closed. Paul cleared it at 11:50 ET and the file said `"cleared"`
+at 11:34.** It flipped back on its own.
+
+Cause (`tools/release-state.py:49-57`): `outcome` is derived from whether the **current candidate**
+equals `cleared_sha` — so it means *"is the build in front of me cleared"*, not *"did the last lap
+close"*, which is what its name and its position under `last_lap` both promise. The moment HEAD moved
+past the cleared sha it reverted to `open`, and **nothing increments `lap`**, so lap 2 does not exist
+in the state file at all. A future session reads *lap 1, open* and is wrong twice.
+
+⭐ Same shape as the four W0 defects: correct code, doing exactly what it says, under a **name that
+promises something else**. `[[reference_match_payload_not_container]]`. And it fails in the flattering
+direction — an unfinished lap 1 looks like work in progress, never like a lost clearance.
+
+**⛔ NOT FIXED — the state contract is Paul's.** Two candidate shapes, his call: `last_lap` becomes an
+append-only list of closed laps with `lap` incrementing on `--cleared`, or `outcome` is renamed to
+`candidate_is_cleared` and a separate `laps_closed` count is kept. **Lap 3 item, first thing.**
