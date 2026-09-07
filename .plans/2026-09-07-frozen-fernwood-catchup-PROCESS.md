@@ -1,5 +1,6 @@
 # HOW THE CATCH-UP IS RUN — the gate, the unit of work, the ledger, and the line nothing crosses early · PROCESS
 
+- kind: process
 - row: process (no BACKLOG row — same posture as the 09-06 freeze register and the 09-06 conversion design)
 - objective: O3 → O1
 - class: engine · declared (process machinery; no module, no item and no feature is ranked here)

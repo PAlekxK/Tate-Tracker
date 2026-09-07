@@ -13,7 +13,7 @@
 - depends-on: .plans/2026-09-05-journey-as-prioritizer-PROPOSAL.md
 - depends-on: .plans/2026-09-05-state-of-the-work-PROPOSAL.md
 - ready: agent-proposed 2026-09-06 — **Paul rules**
-- stage: audit — ⚠️ **SIXTH file to need a `stage:` word that does not exist.** `tools/check-backlog-ready.py:46` reads `STAGES = ["ready","concept","build","qa","shipped","retro"]`. §5c proposes the two words that would end this, and it is the smallest edit in the file.
+- kind: audit
 
 > **Method only. This file ranks no feature, no zone and no finding.** It says where map/zone work sits
 > against the pipeline this repo actually runs, what that pipeline is missing, and what artifact shape

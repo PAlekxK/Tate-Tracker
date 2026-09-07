@@ -1,5 +1,6 @@
 # ai-mapping-capability · What AI can actually do to turn imagery of a place into usable zones
 
+- kind: scan
 - status: **RESEARCH + RECOMMENDATION. Not a queued row.** Paul reads this and decides whether it becomes one.
 - seat: ai-advisor, commissioned directly by Paul 2026-09-06. Given ownership of the AI half.
 - raised: [paul-stated 2026-09-06, voice] *"doing research on what mapping capabilities exist already from

@@ -11,7 +11,7 @@
 - depends-on: .plans/2026-09-06-one-environment-DECISIONS.md
 - depends-on: .plans/2026-09-06-cascade-and-release-state-AUDIT.md
 - ready: agent-proposed 2026-09-07 — **Paul rules**
-- stage: audit — ⚠️ **SEVENTH file to need a word `tools/check-backlog-ready.py:46` does not have.** Ruling R4.
+- kind: audit
 - gate: ⛔ **NOTHING IN THIS FILE EXECUTES.** It is read-only. Every ruling is placed relative to G0
   (`.plans/2026-09-07-frozen-fernwood-catchup-PROCESS.md` §1.1) and none of them is a priority call.
 

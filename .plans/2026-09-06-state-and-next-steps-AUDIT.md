@@ -12,7 +12,7 @@
 - depends-on: .plans/2026-09-04-process-wiring-AUDIT.md
 - depends-on: .plans/2026-09-05-production-promotion-PLAN.md
 - ready: agent-proposed 2026-09-06 — **Paul rules**
-- stage: audit — ⚠️ **still not a legal `stage:` word.** `tools/check-backlog-ready.py:46` reads
+- kind: audit
   `STAGES = ["ready", "concept", "build", "qa", "shipped", "retro"]`. This is the **third** file to
   need a word that does not exist (`2026-09-04-process-wiring-AUDIT.md`, `2026-09-05-state-of-the-work-PROPOSAL.md`,
   this one), and §B.1's `draft` proposal has been unruled for two days. Three instances is a

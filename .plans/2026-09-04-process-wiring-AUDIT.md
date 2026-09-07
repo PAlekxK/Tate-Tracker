@@ -4,7 +4,7 @@
 - class: engine · declared (process machinery; nothing here is Fernwood-specific content)
 - seats: practice-steward (this file) · engineering-partner owns any tool built from §B · ux-expert waived: nothing is reviewed here · content-steward waived: no copy reaches anyone
 - ready: agent-proposed 2026-09-04 — **Paul rules**
-- stage: audit — ⚠️ **not a legal `stage:` word today.** See §A.4(b); this file is an instance of the finding it reports.
+- kind: audit
 
 > ⛔ **METHOD ONLY.** Nothing below ranks a queue item, a feature, a surface or a finding. Where a call
 > needs real-world context only Paul has, it is in §C, unresolved on purpose.

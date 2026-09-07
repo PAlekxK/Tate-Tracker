@@ -357,6 +357,31 @@ def read_transcript(run_dir):
         return {}
 
 
+# ⛔ TEXT THAT SHOULD NEVER REACH A PERSON. Deterministic, no judgement — a needle is either in the
+# captured screen or it is not. ⭐ ADDED 2026-09-07 because the mom run at `05f1830` put
+# "Bortle undefined — undefined" and "~undefined mag/arcsec²" on stop 12, and it was found by
+# reading a transcript by hand while that round's REPORT.md was still WALK-REPORT-UNWRITTEN. A seat
+# would very likely have caught it; a seat is not always dispatched, and a machine never forgets to
+# look. This does NOT judge a screen — it reports a literal.
+LEAK_NEEDLES = ("undefined", "NaN", "[object Object]", "{{", "null,", "Infinity", "<no value>")
+
+
+def leaks(run_dir):
+    """→ [(stop, line)] — captured screen text carrying a needle. Never a judgement about the screen."""
+    t = read_transcript(run_dir)
+    if not t:
+        return None                       # UNREADABLE — the caller must say so, never report zero
+    out = []
+    for st in t.get("stops") or []:
+        for line in (st.get("screen") or []):
+            txt = str(line)
+            for n in LEAK_NEEDLES:
+                if n in txt:
+                    out.append((st.get("stop"), txt.strip()[:140]))
+                    break
+    return out
+
+
 def report_state(run_dir):
     """→ read · unwritten · absent · unreadable. ⛔ `absent` and `unwritten` are DIFFERENT and are
     never collapsed: a run that produced no file at all and a run whose seat left the placeholder in
@@ -460,6 +485,34 @@ def cmd_round(sha=None, quiet=False):
                    else ("✅ countable (walk-integrity)" if countable
                          else "🔴 walk-integrity refuses: " + ", ".join(refusals)))
             print("  %s %-11s %s   REPORT.md: %-10s %s" % (mark, seat, run, st, cnt))
+
+        # ⭐ THE MECHANICAL PASS — run before any reading, because it needs no reader.
+        print("\n  text that should never reach a person (%s):" % " · ".join(LEAK_NEEDLES))
+        any_leak = unreadable = 0
+        for seat in seats:
+            if seat not in newest:
+                continue
+            run, d = newest[seat][0], newest[seat][1]
+            ls = leaks(d)
+            if ls is None:
+                unreadable += 1
+                print("     ⬜ %-11s UNREADABLE transcript — NOT scanned, and not clean either" % seat)
+                continue
+            if ls:
+                any_leak += 1
+                rc = 1
+                for stop, line in ls[:6]:
+                    print("     🔴 %-11s stop %-14s %s" % (seat, stop, line))
+                if len(ls) > 6:
+                    print("     🔴 %-11s … %d more" % (seat, len(ls) - 6))
+        if not any_leak and not unreadable:
+            print("     ✅ none in any seat's CAPTURED screens at this build.")
+            # ⚠️ A clean line is only as strong as the capture behind it. Before 2026-09-07 the DOM
+            # extractor could not read a bare `div`, so a needle sitting in one was invisible — a
+            # ✅ on a run from before that fix is weaker evidence than a ✅ after it, and comparing
+            # the two rounds as if they measured the same thing would be the error.
+            print("     ⚠️ CAPTURED, not SEEN: this scans what the extractor recorded. A ✅ on a run")
+            print("        from before the 2026-09-07 div fix is weaker than one after it.")
 
         print("\n  reports the seat can READ:      %d" % len(census["read"]))
         # ⛔ PAUL'S OWN REQUIREMENT, and it is the deterministic half of the consolidation:
@@ -848,6 +901,21 @@ def selftest():
         say(shingle("Go on geocoding as lap 2's first build") == "go on geocoding as lap 2 s",
             "M12 the carriage shingle normalises punctuation and case")
         say(shingle("too short") is None, "M13 a quote too short to shingle returns None, not a false miss")
+
+        # M15-M17 · the leak scan
+        lk = os.path.join(tmp, "leak")
+        os.makedirs(lk)
+        json.dump({"stops": [{"stop": "12", "screen": ["Bortle undefined — undefined", "fine"]}]},
+                  open(os.path.join(lk, "transcript.json"), "w"))
+        say(leaks(lk) == [("12", "Bortle undefined — undefined")],
+            "M15 a screen line carrying `undefined` is reported, with its stop")
+        clean = os.path.join(tmp, "clean")
+        os.makedirs(clean)
+        json.dump({"stops": [{"stop": "12", "screen": ["all good"]}]},
+                  open(os.path.join(clean, "transcript.json"), "w"))
+        say(leaks(clean) == [], "M16 a clean screen reports an empty list, not a false hit")
+        say(leaks(os.path.join(tmp, "nothing-here")) is None,
+            "M17 an unreadable transcript returns None — the caller must say UNREADABLE, never zero")
 
     # M14 · an empty seat roster is UNCHECKABLE, never green by absence
     rg = gate_module()
