@@ -1,0 +1,54 @@
+{
+ "state": "FIRED",
+ "generated_at": "2026-09-06T21:04:18-04:00",
+ "generated_by": "tools/release-state.py",
+ "candidate_sha": "c3c1fd5",
+ "beat": {
+  "n": 2,
+  "of": 5,
+  "owner": "session",
+  "name": "the synthetic loop"
+ },
+ "gate_1": {
+  "seats_pass": false,
+  "ux_clause": "UNCHECKABLE — no artifact convention",
+  "seats": {
+   "mom": {
+    "run": null
+   },
+   "owner": {
+    "run": "2026-09-06T210309",
+    "at-sha": true,
+    "watched": true,
+    "countable": false,
+    "no-failed-actions": true,
+    "instrumented": false
+   },
+   "strict": {
+    "run": null
+   },
+   "wide-eyed": {
+    "run": null
+   }
+  }
+ },
+ "last_lap": {
+  "lap": 1,
+  "opened": "2026-09-06",
+  "outcome": "open"
+ },
+ "pre_registered": [
+  {
+   "id": "instrumented-counted",
+   "question": "at the lap-1 candidate sha, does every seat's capture.json show ≥1 app event via grant?",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "second-viewport",
+   "question": "does a laptop-width walk find what 414 hides (Paul found one on 2026-09-06)?",
+   "disposition": "open",
+   "evidence": null
+  }
+ ]
+}

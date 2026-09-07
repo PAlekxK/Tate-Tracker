@@ -231,3 +231,55 @@ can't do is go back in time and recapture data from real users."*
   which is green; the self-test's `--extract` leg is the one nobody ran.
 - `worked` — **the seeded check caught my own second defect before QA**: the journal-tile rename
   selector also matched the "Your Perspective" heading. Scoped to the almanac card, re-verified.
+
+### 21:02 ET — graduation to QA, round 3
+- Committed `c3c1fd5`; QA deployed — **the headless-load refusal ran on QA for the first time and
+  passed** ("the built app loads headless with zero page errors"). Post-commit signal built:
+  `tools/qa-behind.py` + a local `post-commit` hook print one line when QA is behind HEAD, nothing
+  when it is not (a signal, never a gate).
+- Round 3 walks started 21:03 ET: four seats, `--fresh --watch`, sequential, QA at `c3c1fd5`. First
+  round whose walks write `capture.json` (the `instrumented` clause's evidence).
+- `measured` (round 3, first `capture.json`s) — **0 app events for `owner` and `mom` even with the
+  grant-carried flush shipped.** Split the cause with two probes: the app DOES post with `X-Grant` on
+  hide (request seen), and the QA Worker DOES store a grant-carried batch (`{"stored":1}`). So the
+  zero is the harness: `browser.close()` fires no pagehide, no visibilitychange, no beforeunload —
+  the app's session-end flush never ran. A real person closing a tab would have recorded.
+  → **fixed both sides:** journey-view closes the PAGE first (a person's exit), and the collector
+  flushes once 5 s after load, so a short first visit records for real users too. Ships round 4.
+- `worked` — **the `instrumented` clause was pre-registered as reported-not-counted**, and the first
+  thing it reported was a defect in the instrument rather than the product. That is exactly the
+  order the pre-registration predicted.
+- `did-not` — `check-engine-manifest.py` P1 reads 🔴 4 unclassified: `estate/`, `homes/`, both
+  `settings/` pages — all authored today by other sessions, none classified. Not mine to classify
+  blind; a page that ships to a household and has no class is a page the neutrality sweep may or may
+  not cover, which is the question the manifest exists to answer. Logged for the owner.
+
+### 21:20 ET — round 3 read
+- `worked` — **three of four readers now say NEW-AND-WAITING, not broken** (owner · mom · strict;
+  wide-eyed pending). Round 1: four of four said broken. The exit condition is "it stopped failing",
+  and the readings are the instrument that says so.
+- `finding` (convergent, actioned for round 4): The Field · Weeds · Fishing carried no line and read
+  as someone else's → one card per empty module, wearing the ranked word · a ranked not-built-yet
+  item had no card → an idea card in ranked position, the ranking screen's own tag · the ranking
+  line sat inside a closed body → their #1 opens open · "Your Perspective" was an open drawer with
+  nothing in it → hidden while a household has no queue and no ack · no way back out of the app →
+  the masthead links to homes, the receipt page and settings · "Tell the My Home Almanac" → the
+  journal name follows the household · the feedback pill covered the last lines of the receipt
+  pages → page padding · "Local only — set up Sync" minutes after "yours on any phone" → in
+  household mode an honest sentence with no instruction, no button.
+- `finding` (rulings, still held for Paul): "You chose this" over a pre-selected default (contact,
+  colour) · two Stones · the confirm screen's stack and "Open <road name>" · the weather promise
+  on 03/05 with the address in hand, acknowledged only at 07 · every free-text input in the app
+  lacks a who-reads-it line · "Papers" is second on the estate page's list but the app's idea card
+  is copy I wrote from the ranking screen's tag — content-steward should read it.
+- `finding` (engineering, not tonight): a member's grant cannot write observations, so a
+  household's notes are device-local by Worker capability, not by design; `/api/onboarding-metrics`
+  has no GET; `check-engine-manifest` P1 has 4 unclassified household pages.
+- harness: the walk now photographs the naming screen (every reader said "I can't report on it")
+  and enters the app through the door instead of a typed URL.
+- `measured` — **wide-eyed, round 3: new-and-waiting.** Four of four seats, up from zero of four
+  in round 1. Its edges (no way back · Sync sentence · idea cards for the two not-built-yet picks ·
+  the three silent cards · "My Home Almanac" · the empty Perspective drawer · the naming screen) are
+  all in round 4. Its own line for the retro: *"it bought exactly one return visit; if Weather still
+  says 'we haven't put it on the map yet' tomorrow, I'd read that as nobody's coming."* — geocoding
+  at onboarding is the next build, not a copy fix.

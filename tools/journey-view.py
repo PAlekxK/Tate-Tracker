@@ -154,6 +154,21 @@ const cfg = JSON.parse(process.argv[2]);
     await page.screenshot({ path: cfg.shot, fullPage: true });
     await page.screenshot({ path: cfg.shot.replace(/\.png$/, '.fold.png'), fullPage: false });
   } catch (e) { out.error = String(e.message).split('\n')[0]; }
+  // ⛔ END THE WALK THE WAY A PERSON ENDS A VISIT. `browser.close()` fires no pagehide, no
+  // visibilitychange, no beforeunload — so the app's session-end flush (its capture-side record)
+  // never ran, and every walk read "0 app events" while a real person closing the tab would have
+  // recorded a session. Measured 2026-09-06 (round 3, owner + mom). Close the PAGE first.
+  // Round 3 measured 0 app events even with the page closed first: the last stop is a screenshot and
+  // an exit inside a second, and a CDP close does not reliably fire pagehide. So the walk LOOKS at the
+  // last screen for a moment, as a person would, then leaves the way a person does — pagehide, then
+  // the tab closes — and gives the keepalive post a beat to leave the machine.
+  try {
+    await page.waitForTimeout(6500);
+    await page.evaluate(() => { try { window.dispatchEvent(new Event("pagehide")); } catch (e) {} });
+    await page.waitForTimeout(1500);
+    await page.close({ runBeforeUnload: true });
+    await new Promise(r => setTimeout(r, 800));
+  } catch (e) {}
   await b.close();
   console.log(JSON.stringify(out, null, 2));
 })();

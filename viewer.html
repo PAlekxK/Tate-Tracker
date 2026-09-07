@@ -369,6 +369,8 @@
      happens on tap. Per-device localStorage persistence. */
   /* a long place name wraps under the text-size pill, not behind it (wide-eyed seat, 2026-09-06) */
   .header h1 { padding-right: 96px; }
+  .hh-utility { display: flex; gap: 16px; font-family: "DM Sans", sans-serif; font-size: 14px; margin-bottom: 10px; }
+  .hh-utility a { color: #fff; opacity: .92; text-decoration: underline; text-underline-offset: 3px; }
   .text-size-toggle {
     position: absolute;
     top: 0;
@@ -7182,7 +7184,8 @@ const ESTATE_ID = "est-3c9f1a";
 let ESTATE_NAME = "Fernwood";
 // Her word for the place, from the account, overrides the build's default (see the pre-paint block).
 if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) ESTATE_NAME = window.__HOUSEHOLD_NAME;
-const JOURNAL_NAME = "Fernwood Almanac";
+let JOURNAL_NAME = "Fernwood Almanac";
+if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) JOURNAL_NAME = window.__HOUSEHOLD_NAME + " Almanac";   // "Tell the My Home Almanac" (mom seat, round 3)
 const STATION_NAME = "Fernwood Weather Vane";
 // C7 1c — does this estate HAVE a station? "present" · "declared-absent" · "undeclared" (the build's
 // loud non-default). Declared-absent: no proxy call, the weather card says regional, no error dot.
@@ -17516,6 +17519,7 @@ function addressIsBox() {
 // Their ranking, if the app knows it. Absent → every card renders variant B, which is a complete
 // piece of writing rather than a fallback.
 let READER_RANKING = [];
+let READER_RANKING_ITEMS = [];   // {id, label, soon} as onboarding stored them — ideas included
 // ⛔ THIS WAS DECLARED AND NEVER ASSIGNED. Onboarding stores the ranking under `fw-onboard-interests`
 // (same origin, same mechanism as the colour); the viewer never read it, so the line "You put
 // Gardening first, so this is where we start" had never rendered for anyone and every card fell to
@@ -17530,6 +17534,7 @@ try {
     // unreached (all four seats). A label maps back to its module through the copy table.
     const byLabel = {};
     Object.keys(EMPTY_CARD_COPY).forEach(k => { byLabel[EMPTY_CARD_COPY[k].label.toLowerCase()] = k; });
+    if (Array.isArray(r)) READER_RANKING_ITEMS = r.filter(x => x && typeof x === "object").map(x => ({ id: x.id || byLabel[String(x.label || "").toLowerCase()] || null, label: String(x.label || ""), soon: !!x.soon }));
     if (Array.isArray(r)) READER_RANKING = r.map(x => {
       if (typeof x === "string") return x;
       if (x && typeof x === "object") return x.id || byLabel[String(x.label || "").toLowerCase()] || null;
@@ -17569,8 +17574,55 @@ function emptyCardSource(mod) {
   return null;
 }
 
+// ⭐ EVERY PICK SHOWS (content-steward 2026-09-06, ruling f): "Papers and documents" was ranked second
+// and appeared nowhere; the estate page's own rule is that every pick shows, and the app was the one
+// screen in the chain dropping it. A ranked item with no card is rendered as an IDEA card — the tag
+// the ranking screen already carries, nothing to open, no ask.
+function renderIdeaCards() {
+  document.querySelectorAll(".main-card.idea-card").forEach(c => c.remove());
+  const first = document.querySelector(".main-card[data-module]");
+  if (!first || !READER_RANKING_ITEMS.length) return;
+  const known = new Set(Array.from(document.querySelectorAll(".main-card[data-module]")).map(c => c.dataset.module));
+  READER_RANKING_ITEMS.forEach((it, i) => {
+    if (it.id && known.has(it.id)) return;
+    if (!it.label || it.label.toLowerCase() === "something else") return;
+    const c = document.createElement("div");
+    c.className = "main-card idea-card";
+    c.setAttribute("data-idea", it.id || it.label);
+    const src = i === 0 ? "You put " + it.label + " first, so this is where we start."
+              : (i <= 2 ? "You put " + it.label + " near the top, so it's one of the first we're working on."
+                        : "You put " + it.label + " on the list, so we know it belongs here.");
+    c.innerHTML = '<div class="main-card-header"><div class="main-card-title"></div><div class="main-card-summary"><em class="idea-tag">an idea — not built yet</em></div></div>'
+                + '<div class="main-card-body"><div class="empty-invite"><p class="empty-invite-source"></p></div></div>';
+    c.querySelector(".main-card-title").textContent = it.label;
+    c.querySelector(".empty-invite-source").textContent = src;
+    // in ranked position: after the last card that belongs to an earlier-ranked module, else first
+    let anchor = first;
+    for (let k = i - 1; k >= 0; k--) {
+      const prev = READER_RANKING_ITEMS[k];
+      const cards = prev.id ? Array.from(document.querySelectorAll('.main-card[data-module="' + prev.id + '"], .main-card[data-idea="' + prev.id + '"]')) : [];
+      if (cards.length) { anchor = cards[cards.length - 1].nextSibling; break; }
+    }
+    first.parentNode.insertBefore(c, anchor);
+  });
+}
+
 function renderEmptyCards() {
   orderCardsByRanking();
+  renderIdeaCards();
+  // ⭐ THEIR #1 OPENS ALREADY OPEN, so "You put Gardening first, so this is where we start" is on the
+  // screen and not inside a closed body (owner seat, round 3: "in the brief, not on the screenshot").
+  if (READER_RANKING.length) {
+    const top = document.querySelector('.main-card[data-module="' + READER_RANKING[0] + '"]');
+    if (top && moduleState(READER_RANKING[0]) === "empty" && !document.body.dataset.rankedOpened) {
+      top.classList.add("expanded"); document.body.dataset.rankedOpened = "1";
+    }
+  }
+  // An open drawer with nothing in it reads as a failed load (owner seat). A household with no
+  // confirm queue and no ack ribbon has no Perspective yet; the master card waits until it does.
+  if (typeof ABSENT_DOMAINS !== "undefined" && ABSENT_DOMAINS.includes("questions") && ABSENT_DOMAINS.includes("ack")) {
+    const mp = document.getElementById("mp-master"); if (mp) mp.style.display = "none";
+  }
   // ⭐ ONE INVITATION PER MODULE. Gardening is four cards (Plants · The Field · Weeds · Worth
   // considering); the same three lines on each is the "six asks on one screen" the seats counted.
   // The first card of a module carries it; its siblings stay present and quiet (R5).
@@ -17580,7 +17632,16 @@ function renderEmptyCards() {
     if (moduleState(mod) !== "empty" || invited.has(mod)) {
       const old = card.querySelector(".empty-invite");
       if (old) old.remove();
+      // ⭐ ONE CARD PER EMPTY MODULE (content-steward 2026-09-06, ruling c; mom + wide-eyed seats, round
+      // 3): The Field · Weeds · Fishing carried no line of their own and "look like they were laid out
+      // for somebody else's place". The three-way split is Fernwood's earned shape, not the engine's.
+      // Applied as a confident assumption in QA; the split returns the moment the module holds anything.
+      if (moduleState(mod) === "empty" && invited.has(mod)) card.style.display = "none";
       return;
+    }
+    // The first card of an empty module wears the word they ranked ("Gardening", not "Plants").
+    if (EMPTY_CARD_COPY[mod] && EMPTY_CARD_COPY[mod].label) {
+      card.querySelectorAll(".main-card-title").forEach(t => { if (!t.dataset.builtTitle) t.dataset.builtTitle = t.textContent; t.textContent = EMPTY_CARD_COPY[mod].label; });
     }
     // ⛔ AN EMPTY CARD'S SUBTITLE MUST NOT PRESUME A KIND OF PLACE. The engine's card summaries read
     // "Trucks, mowers, saws", "Furnace, water heater, washer", "0 plants · A quiet Sep here" — Fernwood's
@@ -17598,6 +17659,8 @@ function renderEmptyCards() {
       el.innerHTML = '<p class="empty-invite-holds"></p><p class="empty-invite-source"></p>';
       el.querySelector(".empty-invite-holds").textContent = u.holds;
       el.querySelector(".empty-invite-source").textContent = addressIsBox() ? u.box : u.street;
+      // the reason on the FACE, not only inside the closed body (owner + mom seats, round 3)
+      card.querySelectorAll(".main-card-summary").forEach(s => { s.textContent = addressIsBox() ? u.box : u.street; });
       (card.querySelector(".main-card-body") || card).appendChild(el);
       return;
     }
@@ -18793,6 +18856,14 @@ document.querySelectorAll(".wildlife-tab").forEach(btn =>
 if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
   document.querySelectorAll(".header h1").forEach(h => { h.textContent = window.__HOUSEHOLD_NAME; });
   // "My Home Almanac" swallowed her word (strict seat) — the journal tile carries her name too.
+  // ⭐ A WAY BACK OUT. The receipt pages link into the app; the app linked nowhere (owner seat, round 3).
+  // The same two words the estate page uses, in the masthead band, household mode only.
+  const hdr = document.querySelector(".header");
+  if (hdr && !hdr.querySelector(".hh-utility")) {
+    const u = document.createElement("div"); u.className = "hh-utility";
+    u.innerHTML = '<a href="/homes/">‹ Your homes</a><a href="/estate/">What you told me</a><a href="/settings/place/">Settings</a>';
+    hdr.insertBefore(u, hdr.firstChild);
+  }
   const jt = window.__HOUSEHOLD_NAME + " Almanac";
   document.querySelectorAll("#card-fieldnotes .main-card-title, .dash-cell[onclick*='card-fieldnotes'] .dash-cell-label, .ic-card--almanac .ic-head-title").forEach(el => { el.textContent = jt; });
 }
@@ -19094,6 +19165,10 @@ const MetricsCollector = (function () {
   window.addEventListener("pagehide", fireSessionEnd);
 
   setInterval(flush, FLUSH_INTERVAL_MS);
+  // ⭐ A SHORT FIRST VISIT STILL RECORDS `[paul-stated 2026-09-06]`: "the one thing we can't do is go
+  // back in time and recapture data from real users." The 60s timer never fired for a person who
+  // opened the app, looked, and left; session_start sat in localStorage. One early flush, once.
+  setTimeout(flush, 5000);
   // Drain anything from a prior session before firing this session's first event.
   flush();
   track("session_start", {});
@@ -19619,6 +19694,13 @@ const ObservationStore = (function () {
           : "The local almanac is full — entries can't be saved. Set up Sync to keep entries in the cloud, then rebuild this device.",
       };
     }
+    // ⛔ "SET UP SYNC" IS A PAIRED-DEVICE INSTRUCTION A HOUSEHOLD CANNOT FOLLOW. Three seats, round 3:
+    // "to a signed-in user this reads as the app not knowing I signed in" — minutes after screen 01
+    // sold the account as "yours on any phone". A grant holder's notes genuinely stay on the device
+    // (a member cannot write observations — Worker capability, logged for engineering), so the
+    // sentence says that plainly and instructs nothing.
+    if (!isConfigured() && typeof window !== "undefined" && window.__HOUSEHOLD_NAME)
+      return { mode: "household-local", message: "Notes stay on this phone for now — they don't travel between devices yet." };
     if (!isConfigured()) return { mode: "local-only", message: "Local only — set up Sync to follow you between devices." };
     if (lastError) return { mode: "error", message: lastError };
     const last = getLastSyncedAt();
@@ -19885,7 +19967,8 @@ function renderFieldNotes() {
   const syncBtnLabel = status.mode === "local-only" ? "Set up sync"
                      : status.mode === "local-full" ? "Open Sync settings"
                      : "Sync settings";
-  html += '<button class="fn-sync-btn" type="button" id="fn-sync-btn">' + syncBtnLabel + '</button>';
+  if (status.mode !== "household-local")   // no button to a door a household cannot open
+    html += '<button class="fn-sync-btn" type="button" id="fn-sync-btn">' + syncBtnLabel + '</button>';
   html += '</div>';
 
   if (entries.length === 0) {

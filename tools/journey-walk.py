@@ -139,7 +139,7 @@ def view(url, actions, shot, watch=False, shot_dir=None):
 # That is the honest behaviour — a reader who cannot name her place never reaches the address
 # screen either — but it means a late stop's absence is no longer independent evidence that the
 # late stop is broken. walk-integrity refuses a run with incomplete stops for exactly this reason.
-STOP_NAMES = ["01-arrive", "02-account", "03-named", "04-address",
+STOP_NAMES = ["01-arrive", "02-account", "02b-naming", "03-named", "04-address",
               "05-submitted", "06-confirm", "06b-ranked", "07-handoff",
               # ⭐ THE JOURNEY DID NOT END AT THE HANDOFF ANY MORE. Four surfaces shipped on
               # 2026-09-06 — the shelf, both settings pages, and the utility row that reaches them
@@ -179,6 +179,10 @@ def journey(fresh, answers, origin=""):
     # BEHAVIOUR rather than only in the strings they type. mom's condo has no garden and she does
     # not rank gardening; that is C7's approved falsifier, walked rather than asserted.
     ranks = ["click:button.interest[data-id=\"%s\"]" % r for r in (a.get("interests") or [])]
+    # ⭐ THE NAMING SCREEN IS IN THE RECORD. Every reader across three rounds wrote "I can't report on
+    # it" — the walk typed the name between two checkpoints and photographed neither the ask nor the
+    # disclosure beside it. Recorded before the name is typed, so the ask is what a person met.
+    acts += ["shot:02b-naming"]
     acts += ["type:#pname=" + a["place"], "click:#go1", "shot:03-named",
              "type:#a1=" + a["line1"], "type:#city=" + a["city"],
              "type:#state=" + a["state"], "type:#zip=" + a["zip"], "shot:04-address",
@@ -211,7 +215,9 @@ def journey(fresh, answers, origin=""):
              # — no plants, no vehicles, no zones, no station. Whether that reads as "waiting for me"
              # or as "broken" is the finding, and `strict` and `wide-eyed` are the seats to hear it
              # from. A walk that skips this cannot answer the question Paul actually asked.
-             "goto:" + base + "/viewer", "shot:12-the-app"]
+             # ⭐ THROUGH THE DOOR, since 2026-09-06 there is one: the estate page's "Open your place ›".
+             # A walk that arrives by typed URL cannot tell whether a person could get here.
+             "goto:" + base + "/estate/", "click:#openapp", "shot:12-the-app"]
     return acts
 
 

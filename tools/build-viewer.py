@@ -147,7 +147,7 @@ IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "propertyTileSub": re.compile(r'(<div class="dash-cell-sub" id="dash-property-sub">)(.*?)(</div>)'),
     "inputAria":       re.compile(r'(<section class="unified-input" id="unified-input" aria-label=")(.*?)(">)'),
     "nameJs":          re.compile(r'(^(?:const|let) ESTATE_NAME = ")(.*?)(";$)', re.M),
-    "journalTileJs":   re.compile(r'(^const JOURNAL_NAME = ")(.*?)(";$)', re.M),
+    "journalTileJs":   re.compile(r'(^(?:const|let) JOURNAL_NAME = ")(.*?)(";$)', re.M),
     "stationName":     re.compile(r'(^const STATION_NAME = ")(.*?)(";$)', re.M),
     "station":         re.compile(r'(^const ESTATE_STATION = ")(.*?)(";$)', re.M),
     "absentJs":        re.compile(r'(^const ABSENT_DOMAINS = )(.*?)(;$)', re.M),

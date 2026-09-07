@@ -38,6 +38,9 @@ python3 tools/check-storage-keys.py        # ⭐ is every browser-storage key RO
 python3 tools/read-mom-funnel.py --rotation # ⭐ WHICH CARD IS SHE ACTUALLY SEEING — head-slot exposure; she sees ONE, not five
 python3 tools/read-onboarding.py --env qa  # ⭐ WHAT PEOPLE SAID WHILE SETTING UP — and ⭐ WHAT'S MISSING first: the only line where someone can name a need we never anticipated. Reports real · synthetic · unknown, and which RUN is authoritative
 python3 tools/walk-integrity.py            # ⭐ WHICH SYNTHETIC WALKS MAY BE COUNTED — refuses a run with an unwritten report, a stop that scored "walked" over its own `could not do`, a build that moved mid-walk, or seats that collapse to one input
+python3 tools/release-gate.py              # ⭐ HAS GATE ① BEEN PASSED AT HEAD — every seat walked THIS sha in Chrome, read its walk, zero failed actions (per-sha; evidence expires when the build moves). Production deploys call it and refuse
+python3 tools/release-state.py             # ⭐ WHICH BEAT the release loop is on and WHOSE it is (derived; `beat.owner: paul` = a human gate is open) — `cycle/release/CYCLE-MAP.md`
+python3 tools/qa-behind.py                 # is QA serving HEAD? one line only when it is behind (the post-commit hook prints the same)
 python3 tools/check-estate-neutral.py      # ⭐ DOES A HOUSEHOLD SURFACE NAME ANOTHER HOUSEHOLD — 311 needles, species read FROM CANON; exit 3 = UNCHECKABLE (never green by absence). `--url` checks what an origin actually serves
 ```
 
