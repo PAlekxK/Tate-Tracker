@@ -501,3 +501,29 @@ Make it flexible."*
   07-29) · the engine default string · does the name ride into Guru's prompt.
 - second copy pass applied: 16 of 16, none skipped; three HTML comments now describe lines that no
   longer exist beneath them (left; history, not description).
+- ux-expert's icon review → `.ux-reviews/2026-09-06-icons.md`: ≈90 glyphs on screen, 17 card
+  squares + ~20 chrome glyphs the decision turns on. Recommends a HYBRID — an inlined Lucide sprite
+  (`currentColor`, no fetch, ~+20 KB) for chrome so the scheme reaches the icons; emoji kept where
+  the glyph depicts the subject (cards, weather, moon, care lexicon, species). SF Symbols cannot
+  ship (licence); Material's variable font fails the no-fetch rule. Two free fixes applied tonight:
+  `aria-hidden` on the card icon squares (VoiceOver read "pickup truck, Vehicles"); the 🟢 ERA5
+  traffic-light dot. Four questions for Paul in the file.
+- `paul-pointed` (~23:45 ET): *"The almanac has a static yellowish colour around that box — loop that
+  into the theme as well."* → its parchment gradient and dashed gold rules now read the tone bands
+  (cream/gold as fallback for Fernwood).
+- round 8 read (mom · strict; wide-eyed pending): new-and-waiting; the only failures are the
+  round-8 bubble (fixed in 9; two pages' restyle missed the round-9 commit and ride in 10) and the
+  address sub-heading (cut in 9). Closed tonight from their MISSING lists: the invitation's question
+  is now a door (opens the feedback panel scoped to the card); the composer says where the words go
+  in household mode. Held: the composer sits above their #1; "The default — you didn't pick one" vs
+  a pre-filled radio (content-steward Q3); two colour pickers after one setup question.
+- `paul-stated` (~23:55 ET, verbatim): *"There are some principles that are a good sign — refine
+  them at the end of the review: if all the content is good and informative, then it becomes a
+  question of whether a line can be reformed from one line plus one word that spills over into two,
+  to slightly rephrasing or cutting a word to make one line, still communicating the same thing.
+  Those little things are a huge polish layer — nice to have, and they show how far we've come.
+  Important to work in after a certain level of confidence."* → principle for the library:
+  **line-fit polish comes last** — a one-word spill is a copy defect only once the content is right.
+- `paul-stated`: *"I'll call the process here at this point to talk through this, commend the whole
+  team on how much progress we've made, and document where we are in these iterative loops — with
+  the benefit of me being on the watch via Claude in Chrome."* → lap 1 pauses at this beat.

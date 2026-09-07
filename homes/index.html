@@ -222,7 +222,9 @@
           try { localStorage.setItem(K_PROFILE, d.profileAccent); } catch (e) {}
           document.documentElement.style.setProperty("--accent", d.profileAccent);
         }
-        renderHomes([{ name: d.name, accent: d.accent, addressParts: d.addressParts }]);
+        // the server's answer may lack what the device already holds; never let a network reply erase
+        // the town from her card (wide-eyed, round 8: "Bangor, ME" vanished after an unrelated tap)
+        renderHomes([{ name: d.name || read(K_NAME), accent: d.accent || read(K_COLOR), addressParts: d.addressParts || read(K_PARTS) }]);
       })["catch"](function () {});
   }
 

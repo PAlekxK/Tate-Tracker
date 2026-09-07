@@ -387,6 +387,7 @@
   .ask-next-chip { font: inherit; font-size: 15px; padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--green-primary);
                    background: #fff; color: var(--green-primary); cursor: pointer; min-height: 44px; }
   .ask-next-chip:active { background: var(--green-primary); color: #fff; }
+  .ui-who { font-size: 13px; color: var(--ink-soft, #5d6b57); margin: 6px 2px 0; }
   .hh-utility { display: flex; gap: 16px; font-family: "DM Sans", sans-serif; font-size: 14px; margin-bottom: 10px; }
   .hh-utility a { color: #fff; opacity: .92; text-decoration: underline; text-underline-offset: 3px; }
   .text-size-toggle {
@@ -3692,6 +3693,8 @@
   .empty-invite-holds { color: var(--ink, #23301f); }
   .empty-invite-source { color: var(--ink-soft, #5d6b57); }
   .empty-invite-ask { color: var(--ink-soft, #5d6b57); font-style: italic; }
+  .empty-invite-ask-btn { font: inherit; font-style: italic; color: var(--green-primary); background: none; border: 0; padding: 6px 0;
+                          text-decoration: underline; text-underline-offset: 3px; cursor: pointer; text-align: left; min-height: 44px; }
 
   .dash-cell.dash-imagery {
     background-image:
@@ -4094,7 +4097,7 @@
 
   /* === FIELD NOTES (Phase B — observations write surface) === */
   .main-card-icon.fieldnotes {
-    background: linear-gradient(135deg, #ede1cc, #c9a878);
+    background: linear-gradient(135deg, var(--tint-88, #ede1cc), var(--tint-64, #c9a878));
   }
   .fn-body { padding: 14px 16px 18px; }
   .fn-intro {
@@ -4304,7 +4307,7 @@
      styling in the name of identity is exactly the drift the 7/29 one-affirmative-
      grammar rule closed. */
   .ic-head-icon.ack         { background: linear-gradient(135deg,var(--tint-88, #d8ecd0),var(--tint-74, #a9cf9c)); }
-  .ic-head-icon.almanac     { background: linear-gradient(135deg,#ede1cc,#c9a878); }
+  .ic-head-icon.almanac     { background: linear-gradient(135deg, var(--tint-88, #ede1cc), var(--tint-64, #c9a878)); }
   .ic-head-icon.perspective { background: linear-gradient(135deg,var(--tint-88, #e6ecd2),var(--tint-64, #b6c78e)); }
   .ic-head-icon.walk        { background: linear-gradient(135deg,var(--tint-82, #cfe6c4),var(--tint-64, #8fb87e)); }
   body.text-lg .ic-head-title { font-size: 18px; }
@@ -4393,7 +4396,7 @@
   .ui-conversation {
     margin-top: 10px;
     padding: 10px 0 4px;
-    border-top: 1px dashed #d8cda0;
+    border-top: 1px dashed var(--tint-74, #d8cda0);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -4418,7 +4421,7 @@
   .ui-turn-assistant {
     background: #fff;
     color: #2a3a2a;
-    border: 1px solid #d8cda0;
+    border: 1px solid var(--tint-74, #d8cda0);
     padding: 8px 11px;
     border-radius: var(--r-chip);
     font-size: 14px;
@@ -4482,7 +4485,7 @@
     order: -6; margin-top: 0; padding-top: 0; border-top: none;
   }
   .unified-input.conversation-active .ic-card--almanac .ui-input-row {
-    order: -5; margin-top: 10px; padding-top: 12px; border-top: 1px dashed #d8cda0;
+    order: -5; margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--tint-74, #d8cda0);
   }
   .unified-input.conversation-active .ic-card--almanac .ui-image-preview { order: -4; }
   .unified-input.conversation-active .ic-card--almanac .ui-audio-preview { order: -3; }
@@ -6677,7 +6680,7 @@
   <!-- WEATHER CARD -->
   <div class="main-card" id="card-weather" data-module="weather">
     <div class="main-card-header" data-toggle="weather">
-      <div class="main-card-icon weather" id="weather-card-icon"></div>
+      <div class="main-card-icon weather" aria-hidden="true" id="weather-card-icon"></div>
       <div class="main-card-meta">
         <div class="main-card-title">Weather</div>
         <div class="main-card-summary" id="weather-summary"><span class="summary-loading">Listening for the station…</span></div>
@@ -6732,7 +6735,7 @@
        copy-pasted functions. -->
   <div class="main-card" id="card-vehicles" data-module="motor-pool">
     <div class="main-card-header" data-toggle="vehicles">
-      <div class="main-card-icon vehicles">🛻</div>
+      <div class="main-card-icon vehicles" aria-hidden="true">🛻</div>
       <div class="main-card-meta">
         <div class="main-card-title">Vehicles</div>
         <div class="main-card-summary" id="vehicles-summary">—</div>
@@ -6746,7 +6749,7 @@
 
   <div class="main-card" id="card-equipment" data-module="equipment">
     <div class="main-card-header" data-toggle="equipment">
-      <div class="main-card-icon equipment">🧰</div>
+      <div class="main-card-icon equipment" aria-hidden="true">🧰</div>
       <div class="main-card-meta">
         <div class="main-card-title">Equipment</div>
         <div class="main-card-summary" id="equipment-summary">—</div>
@@ -6760,7 +6763,7 @@
 
   <div class="main-card" id="card-household" data-module="house-systems">
     <div class="main-card-header" data-toggle="household">
-      <div class="main-card-icon household">🏠</div>
+      <div class="main-card-icon household" aria-hidden="true">🏠</div>
       <div class="main-card-meta">
         <div class="main-card-title">Household Systems</div>
         <div class="main-card-summary" id="household-summary">—</div>
@@ -6774,7 +6777,7 @@
 
   <div class="main-card" id="card-plants" data-module="garden">
     <div class="main-card-header" data-toggle="plants">
-      <div class="main-card-icon plants">🌿</div>
+      <div class="main-card-icon plants" aria-hidden="true">🌿</div>
       <div class="main-card-meta">
         <div class="main-card-title">Plants</div>
         <div class="main-card-summary" id="plants-summary"><span class="summary-loading">Looking at the month…</span></div>
@@ -6827,7 +6830,7 @@
   <!-- THE FIELD CARD — turf + meadow deep dive (added 2026-05-28; renamed from "The Fairway" 2026-09-01) -->
   <div class="main-card" id="card-turf" data-module="garden">
     <div class="main-card-header" data-toggle="turf">
-      <div class="main-card-icon field">🌾</div>
+      <div class="main-card-icon field" aria-hidden="true">🌾</div>
       <div class="main-card-meta">
         <div class="main-card-title">The Field</div>
         <div class="main-card-summary" id="turf-summary"></div>
@@ -6842,7 +6845,7 @@
   <!-- WEEDS CARD — what's worth getting after, and when (added 2026-07-20) -->
   <div class="main-card" id="card-weeds" data-module="garden">
     <div class="main-card-header" data-toggle="weeds">
-      <div class="main-card-icon weeds">🥀</div>
+      <div class="main-card-icon weeds" aria-hidden="true">🥀</div>
       <div class="main-card-meta">
         <div class="main-card-title">Weeds</div>
         <div class="main-card-summary" id="weeds-summary"></div>
@@ -6857,7 +6860,7 @@
   <!-- WILDLIFE CARD (Birds + Amphibians unified) -->
   <div class="main-card" id="card-wildlife" data-module="wildlife">
     <div class="main-card-header" data-toggle="wildlife">
-      <div class="main-card-icon wildlife">🐾</div>
+      <div class="main-card-icon wildlife" aria-hidden="true">🐾</div>
       <div class="main-card-meta">
         <div class="main-card-title">Wildlife</div>
         <div class="main-card-summary" id="wildlife-summary"><span class="summary-loading">Listening for what's calling…</span></div>
@@ -6881,7 +6884,7 @@
        right after Wildlife. Internals read A–G per the glance-&-repository principle.) -->
   <div class="main-card" id="card-fishing" data-module="wildlife">
     <div class="main-card-header" data-toggle="fishing">
-      <div class="main-card-icon fishing">🎣</div>
+      <div class="main-card-icon fishing" aria-hidden="true">🎣</div>
       <div class="main-card-meta">
         <div class="main-card-title">Fishing</div>
         <div class="main-card-summary" data-record-prose="fishing.cardSummary"></div>
@@ -6896,7 +6899,7 @@
   <!-- CELESTIAL / SKY CARD -->
   <div class="main-card" id="card-celestial" data-module="sky">
     <div class="main-card-header" data-toggle="celestial">
-      <div class="main-card-icon celestial">🔭</div>
+      <div class="main-card-icon celestial" aria-hidden="true">🔭</div>
       <div class="main-card-meta">
         <div class="main-card-title">Sky &amp; Stars</div>
         <div class="main-card-summary" id="celestial-summary"><span class="summary-loading">Checking the sky…</span></div>
@@ -6909,7 +6912,7 @@
   <!-- FIELD NOTES CARD (Phase B — observations write surface) — last of the 6 living cards -->
   <div class="main-card" id="card-fieldnotes">
     <div class="main-card-header" data-toggle="fieldnotes">
-      <div class="main-card-icon fieldnotes">📓</div>
+      <div class="main-card-icon fieldnotes" aria-hidden="true">📓</div>
       <div class="main-card-meta">
         <!-- ⚠️⚠️ THIS NAME IS OVERRIDING HER OWN WORD, ON PURPOSE AND TEMPORARILY
              (Paul, 2026-07-30): "let's override journal for now and ask her."
@@ -6951,7 +6954,7 @@
        unchanged; only their container is new. -->
   <div class="ref-drawer" id="ref-drawer">
     <button class="ref-drawer-toggle" id="ref-drawer-toggle" type="button" aria-expanded="false" aria-controls="ref-drawer-body">
-      <div class="main-card-icon reference">📚</div>
+      <div class="main-card-icon reference" aria-hidden="true">📚</div>
       <div class="main-card-meta">
         <div class="main-card-title">Reference</div>
         <div class="main-card-summary">The back pages — specs, sources, and records</div>
@@ -6963,7 +6966,7 @@
   <!-- PROPERTY CARD -->
   <div class="main-card" id="card-property">
     <div class="main-card-header" data-toggle="property">
-      <div class="main-card-icon property">🏔️</div>
+      <div class="main-card-icon property" aria-hidden="true">🏔️</div>
       <div class="main-card-meta">
         <div class="main-card-title">{{IDENTITY:propertyTile}}</div>
         <div class="main-card-summary" id="property-summary">Land · Sky · History</div>
@@ -6975,7 +6978,7 @@
 
   <div class="main-card" id="card-candidates" data-module="garden">
     <div class="main-card-header" data-toggle="candidates">
-      <div class="main-card-icon candidates">🌱</div>
+      <div class="main-card-icon candidates" aria-hidden="true">🌱</div>
       <div class="main-card-meta">
         <div class="main-card-title">Worth considering</div>
         <div class="main-card-summary" id="candidates-summary"></div>
@@ -6991,7 +6994,7 @@
   <!-- SOURCES CARD — the appendix at the back of the almanac -->
   <div class="main-card" id="card-references">
     <div class="main-card-header" data-toggle="references">
-      <div class="main-card-icon references">📚</div>
+      <div class="main-card-icon references" aria-hidden="true">📚</div>
       <div class="main-card-meta">
         <div class="main-card-title">Sources</div>
       </div>
@@ -7005,7 +7008,7 @@
   <!-- RECENT UPDATES CARD — release-notes mini-feed (added 2026-05-21) -->
   <div class="main-card" id="card-release-notes">
     <div class="main-card-header" data-toggle="release-notes">
-      <div class="main-card-icon release-notes">🆕</div>
+      <div class="main-card-icon release-notes" aria-hidden="true">🆕</div>
       <div class="main-card-meta">
         <div class="main-card-title">Recent updates</div>
         <div class="main-card-summary" id="release-notes-summary"></div>
@@ -16753,7 +16756,7 @@ async function fetchClimateNormals() {
     // Update the climate inner panel and re-render the rainfall panel now that normals are available
     const inner = document.getElementById('prop-climate-inner');
     if (inner) inner.innerHTML = renderClimateInner(PROPERTY_DATA.climate);
-    if (badge) badge.innerHTML = '🟢 ERA5 actual · 1991–2020 · ' + escapeHtml(siteCoords().label);
+    if (badge) badge.innerHTML = 'ERA5 actual · 1991–2020 · ' + escapeHtml(siteCoords().label);
 
   } catch (err) {
     console.warn('Climate normals fetch failed:', err);
@@ -17614,9 +17617,19 @@ function emptyCardSource(mod) {
 // and appeared nowhere; the estate page's own rule is that every pick shows, and the app was the one
 // screen in the chain dropping it. A ranked item with no card is rendered as an IDEA card — the tag
 // the ranking screen already carries, nothing to open, no ask.
+function directChildOf(host, el) { while (el && el.parentNode !== host) el = el.parentNode; return el; }
+function cardHost() {
+  const counts = new Map();
+  document.querySelectorAll(".main-card[data-module]").forEach(c => counts.set(c.parentNode, (counts.get(c.parentNode) || 0) + 1));
+  let best = null, n = 0; counts.forEach((v, k) => { if (v > n) { n = v; best = k; } });
+  return best;
+}
 function renderIdeaCards() {
   document.querySelectorAll(".main-card.idea-card").forEach(c => c.remove());
-  const first = document.querySelector(".main-card[data-module]");
+  // ⛔ THE HOST IS THE MAIN CARD STREAM, never "the first module card" — for one ranking that card
+  // sat inside the collapsed Reference drawer, and every synthetic card went in there with it
+  // (wide-eyed, round 8: "there is no card asking what I'd like to see next").
+  const first = cardHost() && cardHost().querySelector(".main-card[data-module]");
   if (!first || !READER_RANKING_ITEMS.length) return;
   const known = new Set(Array.from(document.querySelectorAll(".main-card[data-module]")).map(c => c.dataset.module));
   READER_RANKING_ITEMS.forEach((it, i) => {
@@ -17625,12 +17638,13 @@ function renderIdeaCards() {
     const c = document.createElement("div");
     c.className = "main-card idea-card";
     c.setAttribute("data-idea", it.id || it.label);
+    c.dataset.ideaKey = it.id || it.label;
     const src = i === 0 ? "You put " + it.label + " first."
               : (i <= 2 ? "You put " + it.label + " near the top."
                         : "You put " + it.label + " on the list.");
     // the same header shape as a real card — without the icon and meta wrapper the title column
     // squeezed to one word per line (wide-eyed seat, round 5)
-    c.innerHTML = '<div class="main-card-header"><div class="main-card-icon">💡</div><div class="main-card-meta">'
+    c.innerHTML = '<div class="main-card-header"><div class="main-card-icon" aria-hidden="true">💡</div><div class="main-card-meta">'
                 + '<div class="main-card-title"></div><div class="main-card-summary"><em class="idea-tag">an idea — not built yet</em> · <span class="idea-src"></span></div>'
                 + '</div></div>';
     c.querySelector(".main-card-title").textContent = it.label;
@@ -17639,10 +17653,12 @@ function renderIdeaCards() {
     let anchor = first;
     for (let k = i - 1; k >= 0; k--) {
       const prev = READER_RANKING_ITEMS[k];
-      const cards = prev.id ? Array.from(document.querySelectorAll('.main-card[data-module="' + prev.id + '"], .main-card[data-idea="' + prev.id + '"]')) : [];
-      if (cards.length) { anchor = cards[cards.length - 1].nextSibling; break; }
+      const key = prev.id || prev.label;
+      const cards = Array.from(cardHost().querySelectorAll(".main-card")).filter(el => el.dataset.module === key || el.dataset.ideaKey === key);
+      if (cards.length) { const dc = directChildOf(cardHost(), cards[cards.length - 1]); anchor = dc ? dc.nextSibling : anchor; break; }
     }
-    first.parentNode.insertBefore(c, anchor);
+    if (anchor && anchor.parentNode !== cardHost()) anchor = directChildOf(cardHost(), anchor);
+    cardHost().insertBefore(c, anchor || null);
   });
 }
 
@@ -17659,7 +17675,7 @@ function renderAskNext() {
   if (!choices.length) return;
   const c = document.createElement("div");
   c.className = "main-card ask-next expanded";
-  c.innerHTML = '<div class="main-card-header"><div class="main-card-icon">＋</div><div class="main-card-meta">'
+  c.innerHTML = '<div class="main-card-header"><div class="main-card-icon" aria-hidden="true">＋</div><div class="main-card-meta">'
               + '<div class="main-card-title">What would you like to see next?</div>'
               + '<div class="main-card-summary">Tap one and it joins your list.</div></div></div>'
               + '<div class="main-card-body"><div class="ask-next-chips"></div></div>';
@@ -17687,14 +17703,18 @@ function renderAskNext() {
     wrap.appendChild(b);
   });
   // after the last of their own cards (ranked modules and idea cards), before everything else
-  const own = Array.from(document.querySelectorAll(".main-card[data-module], .main-card.idea-card")).filter(el => el.classList.contains("idea-card") || READER_RANKING.includes(el.dataset.module));
-  const anchor = own.length ? own[own.length - 1] : document.querySelector(".main-card[data-module]");
-  if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(c, anchor.nextSibling);
+  const host = cardHost(); if (!host) return;
+  const own = Array.from(host.querySelectorAll(".main-card[data-module], .main-card.idea-card")).filter(el => el.classList.contains("idea-card") || READER_RANKING.includes(el.dataset.module));
+  const anchor = own.length ? own[own.length - 1] : host.querySelector(".main-card[data-module]");
+  const dc = anchor ? directChildOf(host, anchor) : null;
+  if (dc) host.insertBefore(c, dc.nextSibling); else host.insertBefore(c, host.firstElementChild);
 }
 
 function renderEmptyCards() {
-  orderCardsByRanking();
-  renderIdeaCards();
+  // ⛔ A SYNTHETIC CARD MUST NEVER KILL THE APP: a bad anchor here once threw at init and nothing
+  // after it ran (the pre-fix loader showed "MetricsCollector is not defined" as the second error).
+  try { orderCardsByRanking(); } catch (e) { console.warn("[ranking] order:", e && e.message); }
+  try { renderIdeaCards(); } catch (e) { console.warn("[ranking] ideas:", e && e.message); }
   // ⭐ THEIR #1 OPENS ALREADY OPEN, so "You put Gardening first, so this is where we start" is on the
   // screen and not inside a closed body (owner seat, round 3: "in the brief, not on the screenshot").
   if (READER_RANKING.length) {
@@ -17775,8 +17795,16 @@ function renderEmptyCards() {
     el.innerHTML = '<p class="empty-invite-holds"></p>'
                  + (source ? '<p class="empty-invite-source"></p><p class="empty-invite-ask"></p>' : "");
     el.querySelector(".empty-invite-holds").textContent = holds;
-    if (source) { el.querySelector(".empty-invite-source").textContent = source;
-                  el.querySelector(".empty-invite-ask").textContent = ask; }
+    if (source) {
+      el.querySelector(".empty-invite-source").textContent = source;
+      // ⭐ A QUESTION WITH A DOOR (mom + strict, rounds 5–8: "a question with nothing to tap"). The ask
+      // is a button; it opens the general-feedback panel scoped to this card, so the answer lands
+      // labelled with the card it came from.
+      const askEl = el.querySelector(".empty-invite-ask");
+      const btn = document.createElement("button"); btn.type = "button"; btn.className = "empty-invite-ask-btn"; btn.textContent = ask;
+      btn.addEventListener("click", () => { try { FeedbackRibbon.open({ section: "card:" + mod, label: copy.label }); } catch (e) {} });
+      askEl.textContent = ""; askEl.appendChild(btn);
+    }
     const body = card.querySelector(".main-card-body") || card;
     // ⛔ THE ENGINE'S OWN BODY ASSERTS A CONDITION FROM NO DATA — "the garden's resting", "A quiet Sep
     // at the property", "Browse By Species or Year View" — on a place that holds nothing (wide-eyed +
@@ -17784,7 +17812,7 @@ function renderEmptyCards() {
     Array.from(body.children).forEach(ch => { if (!ch.classList.contains("empty-invite")) ch.style.display = "none"; });
     body.appendChild(el);
   });
-  renderAskNext();
+  try { renderAskNext(); } catch (e) { console.warn("[ranking] ask-next:", e && e.message); }
 }
 
 function applyModuleTiles() {
@@ -18967,6 +18995,10 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
     hdr.insertBefore(u, hdr.firstChild);
   }
   const jt = window.__HOUSEHOLD_NAME + " Almanac";
+  // the composer's who-sees-it line (strict seat, rounds 5–8: "the most prominent input says nothing about
+  // where the words go"). True today: a member's notes stay on the device — see the notes card.
+  const row = document.querySelector(".ui-input-row");
+  if (row && !document.querySelector(".ui-who")) { const q = document.createElement("p"); q.className = "ui-who"; q.textContent = "Stays on this phone for now — nobody else sees it."; row.insertAdjacentElement("afterend", q); }
   document.querySelectorAll("#card-fieldnotes .main-card-title, .dash-cell[onclick*='card-fieldnotes'] .dash-cell-label, .ic-card--almanac .ic-head-title").forEach(el => { el.textContent = jt; });
 }
 renderWeatherSummary();
