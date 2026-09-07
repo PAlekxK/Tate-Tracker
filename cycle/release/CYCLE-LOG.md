@@ -721,3 +721,26 @@ Make it flexible."*
   Reference back-pages card is empty for a household and hidden.
 - Not a build of the weather view (no geocoding exists; separate item, Paul's go pending) — this is
   the honest interim: the card names the input it has and says what comes from it.
+
+### 10:45 ET (Sep 7) — beat 4 → 2: three builds through the seats for Paul's first-screen rulings
+- `6d42a01` (the refusal copy): four seats, four readings, **4 of 4 at gate ①**, every reader
+  new-and-waiting, no regression on the account screen; none of them tripped a refusal, so the new
+  sentences are still unread by any seat — noted honestly by all four. Superseded before deploy by
+  the rulings below; its change rides in every later build.
+- `e60d691` (no empty modules, no idea cards, no orphan tile): walks started and were STOPPED by the
+  session — Paul's clarification (11:05 ET) changed the target mid-round. Not certified, not counted.
+- `5727efe` (the place card carries the address; nothing empty shows; Reference drawer closed; notes
+  card and "Look back ›" wait for the first note): owner · strict · wide-eyed clean; **mom
+  CONTAMINATED** (`buildBefore e60d691 → buildAfter 5727efe`, the edge propagated during her walk —
+  `walk-integrity` refuses it, correctly). Owner's stop 12, read by the session: the screen is the
+  masthead, the almanac composer, and the place card — with a **thin mint band** between them where
+  the emptied tile strip's padding survived. → fixed.
+- `b0ce794` (the strip hides with its rows): **four seats clean, zero failed actions, uncontaminated**
+  (a 20 s wait after the deploy before `qa-behind`). Mom's stop 12 read by the session: composer,
+  place card "the condo · 1420 Ridgecrest Dr Apt 3B Roswell, GA 30075", the one line, nothing else,
+  no band. Readings spawned 10:46 ET, one fresh agent per run.
+- `did-not` — **a deploy while a walk is in flight contaminates it**, twice today (`mom` at e60d691
+  and at 5727efe). The chain "deploy → qa-behind → walk" has no wait for the edge, and `qa-behind`
+  read the OLD sha once as current. → trigger: `pages-deploy --env qa` should poll the served sha
+  (it says it cannot, behind Access — `qa_access.py` has the header) before returning; until then
+  the procedure carries a sleep. Pre-registered for lap 2.
