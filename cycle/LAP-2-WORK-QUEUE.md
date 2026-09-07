@@ -144,6 +144,37 @@ ordering between two kinds of note — because they never meet.
 instance-scoped and already renders per household — that half exists. The ENGINE log does not exist at
 all, and neither does an account-view surface to put it on. Sequenced after the sunset; not lap-2 work.
 
+### 🔁 THE AUDIT IS THE RETRO `[paul-stated 2026-09-07]`
+
+> *"This audit really should be about — okay, here's our loop, we just went through it, what worked
+> well, what didn't. A true kind of retrospective in agile terms."*
+
+⭐ **NOT A NEW CEREMONY — the one this project already has.** `feedback_retro_improvement_closes_a_cycle`
+`[paul-stated 2026-08-10]`: **retro self-improvement is what CLOSES a cycle**, amend before reset. Since
+2026-09-01 it is two-sided — **a pre-registration must also be DISCHARGED.**
+
+**It also passes the steward's own stopping test, which a thread-hunt did not.** A retro's output is
+**amendments to the PROCESS**, not new product rows, so it cannot feed the queue that would then need
+reviewing. That is the property, not the frequency.
+
+⛔ **AND IT IS NOT THE PRE-WALK GATE I PROPOSED AND PAUL WITHDREW.** A retro looks BACK at a lap that
+closed. A thread-hunt between a green gate ① and his walk arrives while the loop is trying to EXIT and
+converts an exit into an intake. Same word, opposite effect — do not let them recombine.
+
+**⚠️ TWO PRE-REGISTRATIONS FROM LAP 1 ARE STILL OPEN and the retro must DISCHARGE them, not carry them:**
+`instrumented-counted` (does every seat's `capture.json` show ≥1 app event via grant at the candidate
+sha?) and `second-viewport` (does a laptop-width walk find what 414 hides — Paul found one on 09-06?).
+Both read `disposition: open` in `cycle/release/cycle-state.json`. A lap that closes over an undischarged
+pre-registration is the failure the two-sided rule was written for.
+
+⭐ **AND THE RETRO NOW HAS ITS FIRST STANDING INPUT, from Paul the same hour:** *"everything we're
+building is instrumented."* Measured today — the geocode module emitted **zero** events while the same
+Worker carried **23** telemetry writers. The capability existed and the feature did not use it. So the
+question for the retro is not *should we instrument* but **what makes instrumentation part of FINISHING
+rather than a thing someone remembers.** That is a definable-loop question (practice-steward), and
+`user-researcher` has a real stake because instrumentation is what makes any claim about a person
+measurable at all.
+
 ### Discharge at lap close — pre-registered, from lap 1
 
 | id | question | state |
