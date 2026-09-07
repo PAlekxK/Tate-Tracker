@@ -95,6 +95,46 @@ walked past it for days; it took a steward reading KV by hand. That is the class
 **Where it goes:** after W0 clears. It needs the branchable harness first, so it pairs with whatever
 lane B learns building the review consolidator. Paul rules whether it is lap 2 or lap 3.
 
+### 📓 SEEDED — TWO CLASSES OF RELEASE NOTES `[paul-raised 2026-09-07]`
+
+> *"We should have release notes. And there are probably two classes… one is general updates to the
+> overall system, and then there are individual updates to households or estates. So there's probably
+> multiple release logs — one kind of overall for the estate manager, then release logs for each
+> individual estate."*
+
+**MEASURED THE SAME MINUTE, and it turns this from tidiness into a hole being filled:** the household
+build (`instance/qa.json`) inlines **0** `RELEASE_NOTES_DATA` entries. There is exactly one log,
+`RELEASE_NOTES.md`, and it is Fernwood's — correctly excluded from a household build, which means
+**every household today has no changelog at all.**
+
+⛔ **That breaks a load-bearing assumption already written into `CLAUDE.md`.** The acknowledgment
+ribbon is ATTRIBUTION, not information, and the reason it is allowed to be is stated outright:
+*"The ribbon therefore never has to inform; that job is already taken"* — by the Recent updates card.
+For a household, that job is taken by **nothing**. The ribbon's whole design rests on a changelog
+that does not exist on the surface the ribbon appears on.
+
+**The split maps onto machinery this repo already has, which is why it is cheap:**
+
+| log | scope | who reads it | what belongs in it |
+|---|---|---|---|
+| **ENGINE** | the product, all estates | everyone, identical text | the door got faster · you can name your place · a picker that shows your colour |
+| **INSTANCE** | one estate | only that household | added the yellow flag iris · Mom confirmed the hydrangea · the Bolores service entry |
+
+⭐ **`ENGINE-MANIFEST.md` already classifies every tracked file `engine` · `config` · `instance`, so
+the routing rule already exists** — a change's class decides which log it lands in. This is the same
+classifier lane B is being asked to define once for app-surface (R2 / qa-behind), so the two should
+almost certainly share it rather than mint a third opinion about what "engine" means.
+
+⚠️ **And the estate-neutral rule is the hard constraint:** an instance log must never reach another
+estate's build. Today that holds by construction (0 entries) — but the moment per-estate logs exist,
+`check-estate-neutral.py` needs a row for them, or Fernwood's plants end up in Bob's changelog.
+
+**Open, and Paul's:** does a household see BOTH logs (engine + its own, interleaved or separate), or
+only its own? Neither is obviously right — a household that never sees engine notes cannot tell an
+improvement from a thing that was always there; one that sees all of them reads product-release noise
+on a field journal. **Not scheduled; it is not lap-2 work.** Sequenced after the "placed without
+canon" design, because both are questions about what a household surface IS.
+
 ### Discharge at lap close — pre-registered, from lap 1
 
 | id | question | state |
