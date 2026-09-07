@@ -8909,6 +8909,17 @@ function precipVerdict(pct) {
 // ⭐ FAIL CLOSED: only `present` adopts a record. `declared-absent` and `undeclared` do not, because
 // an estate that has not said it owns a gauge must never inherit somebody else's. Fernwood declares
 // `present`; every household instance in the repo declares `declared-absent`.
+// ⚠️ TWO PREDICATES ON ONE FIELD, AND THE DIFFERENCE IS DELIBERATE — do not "harmonise" them.
+//   `STATION_DECLARED_ABSENT`  is  === "declared-absent"   → the CALM path: no proxy call, and the
+//                                                            card says "No station here — regional
+//                                                            readings" with a stale dot.
+//   this gate                  is  !== "present"           → FAIL CLOSED: `undeclared` adopts no
+//                                                            record either.
+// So an `undeclared` estate gets no gauge AND still gets the loud "Not online" error dot, because
+// `undeclared` is the build's deliberate non-default (C7 1c) and is SUPPOSED to be noisy — it means
+// an instance forgot to say. Making it calm would silence a misconfiguration, which is the opposite
+// of what that state is for. Every instance in the repo declares explicitly today, so this is a
+// guard on a state nobody is in, written down so the asymmetry does not read as an oversight.
 function stationRecordDays() {
   if (ESTATE_STATION !== "present") return [];
   return (WEATHER_DATA.history && WEATHER_DATA.history.days) || [];
