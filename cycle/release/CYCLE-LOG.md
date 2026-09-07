@@ -283,3 +283,15 @@ can't do is go back in time and recapture data from real users."*
   all in round 4. Its own line for the retro: *"it bought exactly one return visit; if Weather still
   says 'we haven't put it on the map yet' tomorrow, I'd read that as nobody's coming."* — geocoding
   at onboarding is the next build, not a copy fix.
+
+### 21:25 ET — round 4 walked; the capture instrument was the defect
+- `measured` — round 4 at `7965c70`: four seats, watched, through the door, naming screen captured,
+  zero failed actions.
+- `finding` — **the capture side had been recording since round 3.** QA holds grant-carried batches
+  stamped with the walks' run ids; `walk-capture.py` read the Worker's `{"days": {date: [...]}}`
+  map as a list and reported 0 for three rounds. The harness fixes (dwell, pagehide) were made
+  against a false zero. → **trigger:** a reader's selftest must include the REAL response shape,
+  captured once from the Worker, not a shape the author typed (`[[match the payload, not the
+  container]]`).
+- `worked` — the instrumented clause was reported-not-counted, so a broken instrument cost
+  nothing but time. Pre-registration held.

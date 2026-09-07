@@ -53,7 +53,12 @@ def fetch_batches(env, day):
             data = json.loads(f.read())
     except (urllib.error.URLError, ValueError, OSError) as e:
         raise SystemExit("walk-capture: UNREADABLE — %s" % e)
-    if isinstance(data, dict):
+    # The Worker answers {"range": {...}, "days": {"YYYY-MM-DD": [batch, ...]}} — a MAP of days.
+    # The first cut of this reader looked for a list and read zero on a day that held the walks'
+    # own batches (measured 2026-09-06: three rounds reported 0 while the store said otherwise).
+    if isinstance(data, dict) and isinstance(data.get("days"), dict):
+        data = [b for lst in data["days"].values() if isinstance(lst, list) for b in lst]
+    elif isinstance(data, dict):
         for k in ("batches", "items", "days"):
             if isinstance(data.get(k), list):
                 data = data[k]
