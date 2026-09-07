@@ -13671,6 +13671,11 @@ const ZoneJourney = (function () {
 //      so client-side edits survive page reload. Worker sync (step 7) will
 //      promote these to the canonical zones.json + re-inlined ZONES_DATA.
 function loadZoneOverrides() {
+  // Same guard, defensively: an instance that declares zones absent has none to restore, and a
+  // stale key would poison `hasGroundCanon()` exactly as the cloud fetch did. localStorage is
+  // same-origin so this is a smaller hole than the fetch — it is closed because half a guard on
+  // one writer of a shared object is the shape that produced the race above.
+  if (typeof ABSENT_DOMAINS !== "undefined" && ABSENT_DOMAINS.includes("zones")) return;
   try {
     const raw = localStorage.getItem(ZONE_STORE_KEY);
     if (!raw) return;
@@ -14003,6 +14008,28 @@ loadZoneOverrides();
 // LEAVE THEM ALONE. That preserves offline-edit buffering. The existing
 // scheduleZoneSync retry at boot will push them to canon when reachable.
 async function refreshZonesFromCloud() {
+  // ⛔⛔ THE FOURTH INSTANCE OF ONE ASSUMPTION, AND IT DEFEATED THE GATE BUILT HOURS EARLIER. This
+  // fetched `zones.json` from the ORIGIN ROOT with no estate guard and did `ZONES_DATA.zones =
+  // cloud.zones`. At the QA origin that file is FERNWOOD'S 23 zones — "The bank", "Eastern
+  // Woodlands", "Western Garden", "Stable Grounds", "Pond Area". So `hasGroundCanon()` — which
+  // reads ZONES_DATA — flipped to TRUE a moment after load for a household with no ground, and
+  // renderProperty re-rendered with another household's places in it. The gate was correct; it was
+  // handed a poisoned input.
+  // ⚠️ AND IT IS A RACE, which is why three walks missed it: whether the leak appears depends on
+  // fetch timing, so two people on ONE build can see different screens.
+  //
+  // ⭐ THE FOUR ARE ONE THING — the rain gauge, the burn ban, the weather placeholder, and now the
+  // zones were all code that was CORRECT while Fernwood was the only instance and false the moment
+  // there were two.
+  // ⚠️ AND THE LESSON IS ABOUT THE GUARD, NOT THE BUG: the pattern was already known and applied
+  // three fetches away — `questions.json` carries this exact ABSENT_DOMAINS check, and the two
+  // weather artifacts carry the station equivalent. It was applied INCONSISTENTLY. So the way to
+  // find the rest of this family is to GREP FOR THE GUARD, not to reason about which fetches
+  // matter: the neighbours show you what a guarded fetch looks like, and the gaps are whatever
+  // does not match. That sweep is how this one was confirmed to be the last: the only origin-root
+  // artifacts fetched are qa-build.json (build metadata, not an estate's record), questions.json
+  // and the two weather files (all guarded), and this.
+  if (typeof ABSENT_DOMAINS !== "undefined" && ABSENT_DOMAINS.includes("zones")) return;
   try {
     // Path-eval §2: prefer KV-via-Worker (no GH Pages deploy tail). Falls
     // back to zones.json from GH Pages if the Worker isn't configured on
