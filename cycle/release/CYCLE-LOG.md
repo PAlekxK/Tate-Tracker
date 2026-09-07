@@ -642,3 +642,37 @@ Make it flexible."*
   token read from the mode-600 file, never printed). The product fix — clear `K_USER` (and the
   stored session) when the grant changes or when `whoami` names a different person — **re-enters
   beat 2 after his walk**, per the map: never patched under Paul and handed back.
+
+### 10:40 ET (Sep 7) — beat 3 continued: "didn't go through" ×4 was a bad-phone 400; the password had landed in the phone field
+- `paul-stated`, in order: *"I filled it in"* → *"Got that error code"* (the account screen's
+  *"That didn't go through. Your answers are still here — tap once more."*) → *"When trying to
+  submit the first screen"* → *"I clicked create my account again and nothing changed"* → *"Is it
+  somehow because we're in incognito?"* → *"PKirsch is my username. No spaces"* → *"OK it went
+  through — somehow my password got into the phone field."*
+- `measured` — `wrangler tail --env home` during his taps: **four `POST /api/account` from Origin
+  `https://fernwood-home.pages.dev`, each → 400**, no logs, no exceptions. Grant valid (`whoami` 200
+  with his token), CORS preflight 204 (a first 403 was my UA-less probe, the known edge behaviour),
+  home Worker current (last deploy 2026-09-06 19:38 ET, after the last `worker.js` commit). Of the
+  Worker's four 400 rules the page pre-checks three; the fourth it never sees is a SUPPLIED optional
+  phone with < 7 digits — and a password in `#uphone` is exactly that. The Worker stored nothing.
+- `finding` — **a refusal with a reason was shown as a failed delivery.** `bad-phone` (and
+  `bad-username`, `bad-email`, `word-too-short`, `invite-required`) all rendered as *"didn't go
+  through — tap once more"*, which instructs the reader to repeat the same input. He tapped four
+  times. **Fixed at `6d42a01`** (username rule mirrored client-side; every code has its own
+  sentence; `account-refused` event carries the code) — in the synthetic loop now, QA serves it.
+- `finding` — **how did a password reach the phone field?** `paul-observed`, mechanism UNKNOWN.
+  Verified: `#uword`/`#uword2` carry `autocomplete="new-password"`, `#uphone` `autocomplete="tel"`,
+  `#uemail` `autocomplete="email"` — the standard tokens are correct, so this is not the 09-05
+  inverted-tokens defect. Candidates, unmeasured: a password-manager fill offered on the wrong
+  field; a Tab/"next" sequence after a generated password; a paste. The page cannot tell — it never
+  looked at what the phone field held. ⚠️ Not a synthetic-reachable defect (Playwright `fill` sets
+  values directly). → ux-expert / engineering-partner question for lap 2: should an optional `tel`
+  field refuse non-digits inline, and should the page say WHICH field the server refused?
+- `finding` — a `.pages.dev` production origin read to Paul as *"a dev onboarding link"* and
+  *"I see dev in this url is that OK?"* — twice in ten minutes. Naming-trap row F4, user-facing.
+- Claude-in-Chrome session was requested (*"so you can see what I'm doing"*) and became unnecessary
+  when the phone field was found; his walk is in an incognito window the extension cannot see.
+  Un-triggered: a watched walk for Paul would need a non-incognito tab in the MCP group with the
+  origin's storage cleared first (the `K_USER` finding above).
+- Paul is past the account screen; walk continues. The fix round (`6d42a01`) must NOT be deployed
+  to home under him — it lands after he reports, on his word, per the map.
