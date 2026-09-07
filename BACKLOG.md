@@ -2401,6 +2401,45 @@ config / instance · **de-hardcode the identity block** out of the viewer's engi
 name in Mom-read prose is a **content** decision) · **derive config from canon** (kill the re-typed
 `FROST_MONTH`-style copies). **Objective O3. Depends on C4** — the KV prefix is an environment decision.
 
+## 🧭 THE PRINCIPLES MUST SURVIVE THE ZOOM-OUT `[paul-raised 2026-09-07]` — CAPTURE ONLY
+
+> *"We've established a lot of principles and design, tone and so on throughout our work with Fernwood,
+> and I wanna be sure that those don't get lost as we zoom out to the estate-manager level of
+> development… that would be very useful input to our product steward and customer research and process
+> steward. And also what we could potentially make personalizable — like tone of the almanac, we could
+> give some control over that; reminders, notifications, what's important to be alerted about. There's
+> probably a lot we could go through there and think through. I just wanted to capture that before it
+> slips my mind — let's put it on the backlog for now."*
+
+⭐ **THE QUESTION UNDERNEATH IT, which is harder than preservation: WHICH principles are the ENGINE's
+and which are FERNWOOD'S?** Every one of them was derived from **one instance with one reader**. Some
+are about how a field journal should feel and generalize to every household; some are about Mom
+specifically and would be wrong imposed on a stranger — and this repo already has a ruling for that
+confusion (`feedback_mom_is_a_test_subject_not_the_end_user`: over-indexing on her is
+instance-leaking-into-engine). **Sorting them is the work; preserving them is the easy half.**
+
+**Where they currently live, none of it engine-scoped:** `CLAUDE.md` carries **18** Paul-stamped
+rulings inline (tone, the glance-and-repository principle, the four standing rules on her surfaces,
+"everything is changeable", trust as the load-bearing emotion); `~/.claude/design-principles/` holds
+`fernwood.md` beside `cross-project.md` — **the cross-project file is the only place that already makes
+this instance-vs-general distinction, and it was never applied to the estate-manager question**.
+
+**Seats Paul named as consumers:** `product-steward` (a one-lap trial as of today, R7→C, citation-bound
+— ⚠️ it may CARRY these but by charter may not DECIDE which generalize), `user-researcher`, and
+`practice-steward`.
+
+⚠️ **DO NOT START THIS AS A NEW THREAD — it collides with two open ones.** `PRODUCT-ENGINE.md` § 🎨
+PERSONALIZATION (`:401`, `[paul-raised 2026-09-02, OPEN]`) already captures the personalization
+dimensions and their costs, and § ⭐⭐ THE BETTER FRAME (`:440`, `[paul-stated 2026-09-02]`) already
+reframed personalization as a **DIVERGENCE CONTRACT** rather than a budget. Tone-of-the-almanac,
+reminders, notifications and alert thresholds are new dimensions **for that existing frame**, not a new
+one. Fold them in; do not re-open the frame.
+
+⛔ **CAPTURE ONLY. Nothing scoped, nothing sequenced, no seat commissioned.** Paul said *"put it on the
+backlog for now"* and that is the whole of the instruction.
+
+---
+
 ## 🔌 INTEGRATIONS · DEVICES & IoT — the weather station is proof point #1 `[paul-stated 2026-09-07]`
 
 **A product-backlog GROUPING, stated by Paul as a grouping and not a feature:** *"we do have hopefully
