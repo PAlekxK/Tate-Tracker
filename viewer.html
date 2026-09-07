@@ -288,6 +288,51 @@
   .qa-banner-subject { font-weight: 400; opacity: .8; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
   body.text-lg .qa-banner { font-size: 15px; }
 
+  /* ── THE SUNSET BANNER (paul-ruled 2026-09-07, frozen) ──────────────────────
+     Mom and Paul agreed this page stays live 24 hours so she keeps the weather,
+     then it redirects to the new home origin. The banner is the notice, the
+     countdown and the door, and it is the ONLY thing on this page that knows
+     the deadline — one constant, every display derived (see #sunset-banner).
+
+     ⭐ IT IS A DOOR, NOT AN ANSWER, so `.sunset-go` reuses `.radar-door`'s
+     tokens rather than the affirmative fill+✓. The affirmative grammar is
+     reserved for surfaces where she tells us something (standing rule 1,
+     2026-07-29); a navigational control borrowing it would blur the one signal
+     she has learned. Same family, same pill, same 44px floor.
+
+     ⛔ It starts `hidden` and is revealed by script. If the script never runs,
+     there is no banner and the page is simply her working Fernwood — which is
+     the entire point of the reprieve. The banner may never be what breaks it. */
+  .sunset-banner {
+    background: #f7f0dc;
+    border-bottom: 1.5px solid #e2d5ae;
+    color: #4a3d1e;
+    padding: 12px 16px 13px;
+    text-align: center;
+    font-family: "DM Sans", -apple-system, sans-serif;
+  }
+  .sunset-banner[hidden] { display: none; }
+  .sunset-lede { font-size: 15px; font-weight: 600; line-height: 1.3; }
+  .sunset-body { font-size: 13.5px; line-height: 1.45; margin-top: 3px; color: #5c4d29; }
+  .sunset-body b { font-weight: 600; color: #4a3d1e; white-space: nowrap; }
+  /* Job 3 gets its own quiet line. Run into the countdown it read as one dense
+     four-line paragraph and the reader had to parse which half was the news; as its
+     own tier each of the three jobs is legible at a glance without adding height. */
+  .sunset-primer { font-size: 13px; line-height: 1.4; margin-top: 4px; color: #6d5c34; }
+  .sunset-go {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 44px; margin-top: 9px; padding: 10px 18px;
+    border-radius: var(--r-pill);
+    background: #eaf5e1; border: 1.5px solid #cbe3bc; color: #2f6b45;
+    font-size: 15px; font-weight: 600; line-height: 1; letter-spacing: 0.01em;
+    text-decoration: none; -webkit-tap-highlight-color: transparent;
+  }
+  .sunset-go:hover, .sunset-go:active { background: #ddeed0; border-color: #a9d093; }
+  body.text-lg .sunset-lede { font-size: 17px; }
+  body.text-lg .sunset-body { font-size: 15px; }
+  body.text-lg .sunset-primer { font-size: 14.5px; }
+  body.text-lg .sunset-go   { font-size: 16.5px; min-height: 48px; }
+
   .header {
     background: linear-gradient(135deg, #183524 0%, #2a6040 50%, #3a8a58 100%);
     padding: 32px 18px 26px;
@@ -6282,6 +6327,137 @@
      (*.pages.dev) from /qa-build.json, which the QA deploy writes into its export and prod
      never has. Static markup + a fetch; nothing here runs on Mom's page. -->
 <div id="qa-banner" class="qa-banner" hidden role="status"></div>
+
+<!-- ══ THE SUNSET BANNER ══ `[paul-ruled 2026-09-07, frozen: "we're not going back on it"]`
+     Mom and Paul agreed after talking: this page stays live 24 hours so she keeps the
+     weather, then it redirects to the new home origin. She loses ACCESS at the deadline;
+     ⛔ NOTHING IS DELETED — Paul: "we keep all the data for reference." Her records stay in
+     the legacy Worker and in git. Nothing on screen may imply otherwise, and nothing here
+     writes, migrates or cleans anything.
+
+     THE COPY DOES THREE JOBS (the third added by Paul's ruling, relayed via lane A):
+       1. what is happening   2. how long is left   3. a link is coming from him
+     (3) exists so the redirect is not the first she hears of a link — she should arrive at
+     the new origin's empty state ("Open your invitation link and your place will be here")
+     RECOGNISING that sentence, not meeting it cold. One clause, not instructions.
+
+     ⛔ NO CREDENTIAL IN THE LINK. palekxk.github.io is PUBLIC and her invite is a live,
+     still-unspent single-use grant; a link carrying it hands her invite to anyone who loads
+     the page. The bare origin is the target, and it was chosen by measurement, not by
+     reasoning: /onboarding/ without a stored grant routes to the account form, which then
+     fails `invite-required` (worker.js:467) — a form she can fill out completely and be
+     rejected by, at a deadline. The bare origin's empty state cannot dead-end her.
+
+     ⛔ DO NOT PROMISE HER DATA COMES WITH HER. The transfer is not built. "Everything comes
+     with you" is the natural warm line and it would be the app lying to the one person whose
+     trust this whole project runs on. -->
+<div id="sunset-banner" class="sunset-banner" hidden role="status" aria-live="polite">
+  <div class="sunset-lede" id="sunset-lede"></div>
+  <div class="sunset-body" id="sunset-body"></div>
+  <div class="sunset-primer" id="sunset-primer"></div>
+  <a class="sunset-go" id="sunset-go" href="#" rel="noopener">See the new home ›</a>
+</div>
+<script>
+/* ⛔ ITS OWN SCRIPT BLOCK, AND THAT IS THE POINT. The banner must degrade to NOTHING: if
+   anything here throws, the page must still be her working Fernwood, because weather for the
+   next 24 hours IS the reprieve. Living inside the 15k-line main script would make a fault
+   here able to take the app down with it, so it does not live there. The markup ships
+   `hidden` and only script reveals it — a script that never runs leaves no broken banner. */
+(function () {
+  try {
+    /* ── THE ONE CONSTANT. Every display below is DERIVED from it; there is no second
+       hardcoded time anywhere. 2026-09-08 13:00:00 EDT = 17:00:00 UTC. 24h from Paul's
+       12:36 ET ruling, rounded UP to the hour so the banner reads cleanly — she loses
+       nothing by the rounding. */
+    var SUNSET_AT = 1788886800000;
+    /* ── THE ONE DESTINATION. Bare origin, no path, no credential. `/` redirects to
+       `estate/`, whose no-grant empty state is the sentence the copy primes her for. */
+    var SUNSET_TO = "https://fernwood-home.pages.dev/";
+    /* How long "Fernwood has moved" stands before the page moves itself. An instant yank on
+       someone mid-read is hostile; a redirect that never fires is a promise, not a control. */
+    var GRACE_MS  = 10000;
+    var TICK_MS   = 20000;   /* display changes by the MINUTE; the tick just keeps it honest */
+
+    var el   = document.getElementById("sunset-banner");
+    var lede = document.getElementById("sunset-lede");
+    var body = document.getElementById("sunset-body");
+    var go   = document.getElementById("sunset-go");
+    var prim = document.getElementById("sunset-primer");
+    if (!el || !lede || !body || !prim || !go) return;
+    go.href = SUNSET_TO;
+
+    /* ── Clock override, VERIFICATION ONLY, and it cannot exist on her page. The
+       post-deadline path cannot be tested by waiting, and a deadline mechanism nobody has
+       watched execute is a promise rather than a control. Gated to a local origin so the
+       live page stays strictly self-enforcing — ?sunset_now=<epoch ms> is inert on
+       palekxk.github.io by construction, not by nobody guessing it. */
+    var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname) || location.protocol === "file:";
+    var m = LOCAL ? /[?&]sunset_now=(\d{10,16})(?:&|$)/.exec(location.search) : null;
+    var SKEW = m ? (Number(m[1]) - Date.now()) : 0;
+    function now() { return Date.now() + SKEW; }
+
+    var ET = "America/New_York";
+    /* Wall-clock forms of the deadline, both derived from SUNSET_AT. */
+    var atTime = new Date(SUNSET_AT).toLocaleString("en-US", { timeZone: ET, hour: "numeric", minute: "2-digit" });
+    var atDay  = new Date(SUNSET_AT).toLocaleString("en-US", { timeZone: ET, weekday: "long" });
+    function etDate(ms) { return new Date(ms).toLocaleDateString("en-US", { timeZone: ET }); }
+
+    /* ⭐ "Paul will send you your link" is job 3, and it is the warmest TRUE thing on this
+       banner: she does not have to do anything. It is not instructions and it must not grow
+       into any. It also never says the link is IN this page — it is not, and it never will be. */
+    var PRIMER = "Paul will send you your link — nothing for you to do.";
+
+    var arrived = false;
+    function arrive() {
+      if (arrived) return; arrived = true;
+      /* Past the deadline the page moves itself — nobody should have to be awake at 1:00 PM
+         to run a command. The manual link is shown FIRST and stays: if the redirect fails
+         silently, she must still have a visible way through. */
+      lede.textContent = "Fernwood has moved.";
+      body.textContent = "Taking you to the new home.";
+      prim.textContent = PRIMER;
+      go.textContent = "Go there now ›";
+      el.hidden = false;
+      /* ⛔ THE CLOCK IS RE-READ AT THE MOMENT OF THE JUMP, not only at the moment we decided
+         to. Everything above this line is a message on a screen and is recoverable; this line
+         takes her app away, so it is the one place that does not trust an earlier reading of
+         anything. A misfire here is not a cosmetic bug — it is her weather gone early, on the
+         one day she was promised it. If the deadline has somehow not actually passed, we put
+         the banner back and let the ordinary tick decide again. */
+      setTimeout(function () {
+        if (SUNSET_AT - now() > 0) { arrived = false; paint(); return; }
+        try { location.replace(SUNSET_TO); } catch (e) { location.href = SUNSET_TO; }
+      }, GRACE_MS);
+    }
+
+    function paint() {
+      var left = SUNSET_AT - now();
+      if (left <= 0) { arrive(); return; }
+      var mins  = Math.floor(left / 60000);
+      var h     = Math.floor(mins / 60), mm = mins % 60;
+      var today = etDate(now()) === etDate(SUNSET_AT);
+      var until = today ? ("<b>" + atTime + " today</b>") : ("<b>" + atDay + " at " + atTime + "</b>");
+
+      lede.textContent = "Fernwood is moving to a new home.";
+      /* ⛔ HOURS AND MINUTES, NEVER SECONDS. A ticking second-hand is a doomsday clock and
+         this is a field journal. Under an hour the countdown goes away entirely and the
+         wall-clock time carries it — at that range a number that keeps shrinking is pressure,
+         and the only thing she actually needs is when. */
+      var line = "This page keeps working until " + until;
+      if (h >= 1) {
+        line += " — <b>" + h + (h === 1 ? " hour " : " hours ")
+                    + mm + (mm === 1 ? " minute" : " minutes") + " left</b>";
+      }
+      body.innerHTML = line + ".";
+      prim.textContent = PRIMER;
+      el.hidden = false;
+    }
+
+    paint();
+    setInterval(function () { try { paint(); } catch (e) {} }, TICK_MS);
+  } catch (e) { /* the page is her Fernwood with or without this banner */ }
+})();
+</script>
 
 <div class="header">
   <div class="header-inner">
