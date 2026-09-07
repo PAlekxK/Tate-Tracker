@@ -501,9 +501,12 @@ multi-tenancy / auth / retrieval / one-box workstream — *"an overarching produ
 ensure we're on a good path to not have a bunch of diverging issues"* — lives in
 **`PRODUCT-ENGINE.md`**, extracted from `BACKLOG.md` when it hit 429 lines (23% of that file).
 
-**Open it for THE SEQUENCE** — the ordered path forward, plus an index of where every 2026-09-01
-thread lives. ⛔ **It is CAPTURE-ONLY**: nothing scoped, nothing decided, no build started, and it
-opens with a `user-researcher` interview rather than an architecture decision.
+**Open it for § THE SEQUENCE › *The migration path*** — C4 → C5 → {C6 · C7 · Guru} → onboarding, each
+row citing its plan; then an index of every 2026-09-01 thread. ⚠️ **Its old "CAPTURE-ONLY — nothing
+scoped, nothing decided, no build started" line was measured false 2026-09-07** (five plans
+`[paul-approved 2026-09-03]`; C4 `stage: build`, C5 `stage: retro`; production promoted and verified
+09-05 @ `bce212a`). **Capture-only now describes only the material BELOW the sequence**, which says so
+on its own face.
 
 ⚠️ **Do not re-grow that material inside `BACKLOG.md`.** This file is Fernwood's; that one is the
 engine's.
