@@ -136,6 +136,27 @@ def brief(rundir):
                    % (", ".join(never), " / ".join("%s=%r" % (k, typed[k]) for k in never)))
         out.append("   Every one of these is read back on the confirm and receipt screens, so this")
         out.append("   is a CAPTURE gap. Read the screenshots; do not read this brief as complete.")
+    # ⚠️ A THIRD-PARTY THROTTLE REACHES THE READING SEAT, not just the gate `[paul-ruled 2026-09-07]`.
+    # It is not cosmetic: the forecast and the ERA5 history are fetched straight from Open-Meteo in
+    # the browser, so a walk it 429'd SAW DEGRADED DATA and no conclusion about a weather card is
+    # safe. The classifier is imported from `walk-integrity` — one definition of "whose 429".
+    try:
+        import importlib.util as _ilu
+        _s = _ilu.spec_from_file_location("wi", os.path.join(ROOT, "tools", "walk-integrity.py"))
+        _wi = _ilu.module_from_spec(_s); _s.loader.exec_module(_wi)
+        _ours, _theirs, _unattr = _wi.rate_limits(rec)
+    except Exception:
+        _ours, _theirs, _unattr = [], [], 0
+    if _theirs:
+        out.append("⚠️ A THIRD PARTY THROTTLED THIS WALK — %d 429(s), e.g. %s"
+                   % (len(_theirs), _theirs[0][:100]))
+        out.append("   The weather card's forecast and history come straight from that API in the")
+        out.append("   browser. THIS WALK SAW DEGRADED DATA; do not read the weather card as typical.")
+    if _ours:
+        out.append("⛔ OUR OWN ORIGIN RETURNED 429 — this walk is refused by walk-integrity: %s"
+                   % _ours[0][:100])
+    if _unattr:
+        out.append("⬜ %d 429(s) recorded with no URL — whose is UNCHECKABLE for this run." % _unattr)
     if rec.get("failedActions"):
         out.append("⛔ ACTIONS THAT DID NOT HAPPEN — the journey stopped short of what it intended:")
         for f in rec["failedActions"]:

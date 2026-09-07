@@ -24,6 +24,38 @@ WALKS = os.path.join(ROOT, ".private", "synthetic-walks")
 MARKER = "WALK-REPORT-UNWRITTEN"
 
 
+# ⭐ WHOSE 429 WAS IT — one definition, imported by `release-gate` rather than re-derived.
+# `[paul-ruled 2026-09-07, option A]`: a 429 from OUR OWN ORIGIN refuses the walk; a third party's is
+# a printed CAVEAT, never a refusal. The clause was named "the origin did not 429" and implemented as
+# ANY 429 anywhere in the walk's output — **matching the container, not the payload** — and the real
+# cause was Open-Meteo's free tier throttling the browser across ~16 walks from one IP. Our own
+# limiter never fired: the KV counters read 4 and 14 against a cap of 20.
+OUR_HOST_SUFFIXES = (".workers.dev", ".pages.dev")
+
+
+def rate_limits(rec):
+    """→ (ours, theirs, unattributable) — lists of 429 URLs, and a count that predates the URL record.
+
+    ⛔ IT NEVER GUESSES. Before 2026-09-07 a 429 was recorded as a console line carrying a status and
+    NO URL (18 occurrences, byte-identical), so whose it was is NOT DERIVABLE for those runs — they
+    count as `unattributable`, which is neither a refusal nor a clean bill. Inferring origin from
+    timing or position would be a clause that is wrong SILENTLY, which is worse than the wide one it
+    replaces. What made attribution possible is recording the failing URL at capture time
+    (`journey-view.py`'s response listener), not a cleverer reading of the old record."""
+    ours, theirs = [], []
+    fails = rec.get("httpFailures")
+    if fails is None:
+        n = sum(1 for l in (rec.get("console") or []) if "429" in str(l))
+        return [], [], (1 if (rec.get("rateLimited") and not n) else n)
+    for f in fails:
+        if int(f.get("status") or 0) != 429:
+            continue
+        url = str(f.get("url") or "")
+        host = url.split("//", 1)[-1].split("/", 1)[0].lower()
+        (ours if host.endswith(OUR_HOST_SUFFIXES) else theirs).append(url)
+    return ours, theirs, 0
+
+
 def answers_fingerprint(rec):
     """What this walker actually TYPED. Two seats sharing it are one observation, not two."""
     a = rec.get("answers") or {}
@@ -109,26 +141,27 @@ def verdict(rundir):
     # marking none was the bug. Refusing the run says exactly what is known.
     # → to make it per-stop, the console would have to be recorded interleaved with checkpoints, or
     #   a 429 read taken at each checkpoint. Neither exists today; this is stated, not assumed.
-    if rec.get("rateLimited") is True:
+    ours, theirs, unattributable = rate_limits(rec)
+    if ours:
         out["refusals"].append(("rate-limited",
-                                "the origin returned 429 during this walk; which stop is not derivable"))
-    elif "rateLimited" not in rec:
-        # ⚠️ A CAVEAT HERE, A REFUSAL IN `release-gate` — A DELIBERATE ASYMMETRY, and its reason is
-        # the scope of the question each tool answers. THE FIELD IS EQUALLY UNKNOWN IN BOTH.
-        #
-        #   · `release-gate` certifies ONE candidate for PRODUCTION. A green there AUTHORISES AN ACT,
-        #     so absence must read UNCHECKABLE — and the cost is bounded, because the gate is per-sha
-        #     and every walk after 2026-09-07 declares the field.
-        #   · This tool grades a HISTORICAL CORPUS for reading. Measured: refusing on absence takes
-        #     countable from 67 to **0 of 131** — every run predates the field. That is a control
-        #     whose alarm is permanently on, which Paul has ruled against, and it would delete the
-        #     corpus's usefulness to answer a question nothing can answer.
-        #
-        # ⛔ So it is RECORDED, never silently dropped: `caveats` is separate from `refusals` and does
-        # not affect countability. A reader is told the walk cannot be shown to have been clean.
+                                "OUR origin returned 429 (%d): %s" % (len(ours), ours[0][:90])))
+    if theirs:
+        # ⚠️ LOUD, AND NOT COUNTABLE-BLOCKING `[paul-ruled 2026-09-07]`. It is not cosmetic: a walk a
+        # third party throttled got DEGRADED DATA — the forecast, the ERA5 history and possibly the
+        # rainfall panel come straight from Open-Meteo in the browser. A reader must know that before
+        # drawing any conclusion about a weather card.
+        out["caveats"].append(("third-party-429",
+                               "⚠️ %d third-party 429(s) — THIS WALK SAW DEGRADED DATA; the weather "
+                               "card's forecast/history may be missing or stale: %s"
+                               % (len(theirs), theirs[0][:90])))
+    if unattributable:
+        out["caveats"].append(("rate-limit-unattributable",
+                               "%d 429(s) recorded with no URL — predates the capture that would say "
+                               "whose. Neither a refusal nor a clean bill." % unattributable))
+    elif "rateLimited" not in rec and rec.get("httpFailures") is None:
         out["caveats"].append(("rate-limit-unrecorded",
                                "predates the rateLimited field — nothing can establish this walk "
-                               "was not throttled; not a refusal, see release-gate for the gating read"))
+                               "was not throttled"))
 
     # R4 · a stop that never ran is not a stop that passed.
     # ⛔ THE PREDICATE WAS A DENY-LIST AND IT WENT DEAD. It named `("error", "rate-limited")` — and
@@ -237,29 +270,43 @@ def selftest():
         # carried `rateLimited: True` with every stop reading `walked`. **A fixture that asserts a
         # state the writer cannot emit tests the fixture.** Both clauses below now use the shape the
         # writer ACTUALLY produces: run-level `rateLimited`, per-stop `walked`.
+        # ⛔ WHOSE 429 — three branches, all in the shape journey-walk really records.
         rl = json.loads(json.dumps(clean))
-        rl["rateLimited"] = True                     # exactly what journey-walk records
-        rl["stops"] = [{"stop": "05", "status": "walked", "screen": "ok"}]   # exactly what it writes
+        rl["stops"] = [{"stop": "05", "status": "walked", "screen": "ok"}]
+        rl["rateLimited"] = True
+        rl["httpFailures"] = [{"status": 429, "url": "https://fernwood-qa.pages.dev/api/feedback"}]
         d = mk("rl", "R1", rl, "# written\n")
-        check("R5 · a run the origin 429'd is refused, in the shape the writer really emits",
+        check("R5 · OUR OWN origin's 429 refuses the run",
               any(k == "rate-limited" for k, _ in verdict(d)["refusals"]))
+
+        tp = json.loads(json.dumps(rl))
+        tp["httpFailures"] = [{"status": 429, "url": "https://api.open-meteo.com/v1/forecast"}]
+        d = mk("rltp", "R1", tp, "# written\n")
+        v = verdict(d)
+        check("  a THIRD-PARTY 429 is a LOUD caveat, never a refusal [paul-ruled 2026-09-07]",
+              any(k == "third-party-429" for k, _ in v["caveats"])
+              and not any(k == "rate-limited" for k, _ in v["refusals"]))
+        check("  and it says the walk saw DEGRADED DATA, because it did",
+              any("DEGRADED DATA" in why for k, why in v["caveats"] if k == "third-party-429"))
+
+        okr = json.loads(json.dumps(rl))
+        okr["rateLimited"] = False; okr["httpFailures"] = []
+        d = mk("rlok", "R1", okr, "# written\n")
+        v = verdict(d)
+        check("  a walk with no 429 is neither refused nor caveated for one",
+              not any(k == "rate-limited" for k, _ in v["refusals"])
+              and not any(k in ("third-party-429", "rate-limit-unattributable",
+                                "rate-limit-unrecorded") for k, _ in v["caveats"]))
 
         # ⚠️ ABSENCE IS A CAVEAT HERE AND A REFUSAL IN release-gate — asymmetric ON PURPOSE, because
         # refusing on absence takes this corpus to 0 of 131 countable. Both branches are proven.
-        miss = json.loads(json.dumps(clean)); miss.pop("rateLimited", None)
+        miss = json.loads(json.dumps(clean)); miss.pop("rateLimited", None); miss.pop("httpFailures", None)
         miss["stops"] = [{"stop": "05", "status": "walked", "screen": "ok"}]
         d = mk("rlmiss", "R1", miss, "# written\n")
         v = verdict(d)
         check("a transcript with NO rateLimited field carries a CAVEAT, not a refusal",
               any(k == "rate-limit-unrecorded" for k, _ in v["caveats"])
               and not any(k == "rate-limit-unrecorded" for k, _ in v["refusals"]))
-
-        ok_run = json.loads(json.dumps(clean))
-        ok_run["rateLimited"] = False
-        ok_run["stops"] = [{"stop": "05", "status": "walked", "screen": "ok"}]
-        d = mk("rlok", "R1", ok_run, "# written\n")
-        check("  and a run that was NOT rate-limited is not refused for it",
-              not any(k == "rate-limited" for k, _ in verdict(d)["refusals"]))
 
         # R4 keeps its own clause — a per-stop status a FUTURE writer may emit.
         r4 = json.loads(json.dumps(clean))

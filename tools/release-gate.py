@@ -28,7 +28,7 @@ reported four seats as having walked a sha they had never walked.
 ⛔ AND IT NEVER PRINTS A BARE PASS WHILE A CLAUSE IS UNCHECKABLE. A gate that cannot see one of its
 own clauses and says PASS is worse than no gate.
 """
-import argparse, json, os, subprocess, sys
+import argparse, importlib.util, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WALKS = os.path.join(ROOT, ".private", "synthetic-walks")
@@ -120,20 +120,35 @@ def judge(run_dir, sha):
     # ⚠️ RUN-LEVEL, because that is the level the record supports: `_view.json`'s console carries the
     # 429 lines with no timestamps and no interleaving with the CHECKPOINT lines, so which stop was
     # hit is not derivable.
-    # ⛔ ABSENCE IS UNCHECKABLE, NOT A PASS — the posture `walk-integrity` already took for an absent
-    # `contaminated` verdict, in its own words: *"a record too old to be checkable scored higher than
-    # every record that was checked and found wanting."* Same shape, same file family, so the same
-    # answer. Measured: 125 of 131 transcripts have no `rateLimited` at all, including the 4 that
-    # certified `c821051`. ⚠️ This does NOT claim those were throttled; it says nothing can establish
-    # that they were not, and a gate that reads unjudgeable as passing is the failure this gate
-    # exists to end. Per-sha evidence expires when the build moves, so the cost is bounded to runs
-    # already recorded — every walk after this commit declares the field.
-    if "rateLimited" not in t:
-        out["not-rate-limited"] = (None, "the transcript predates the field — UNCHECKABLE, not clean")
-    else:
-        out["not-rate-limited"] = (not t.get("rateLimited"),
-                                   "the origin returned 429 during this walk" if t.get("rateLimited")
-                                   else "no 429 recorded")
+    # ⛔ WHOSE 429 WAS IT `[paul-ruled 2026-09-07, option A]`. This clause was named "the origin did
+    # not 429" and implemented as ANY 429 in the walk's output — matching the CONTAINER, not the
+    # PAYLOAD. The 429s were Open-Meteo's free tier throttling the browser (4 direct call sites in
+    # the viewer); our own limiter never fired, its KV counters reading 4 and 14 against a cap of 20.
+    # The classifier is IMPORTED from `walk-integrity`, not re-derived — one definition of "ours".
+    try:
+        _wi = importlib.util.spec_from_file_location("wi", os.path.join(ROOT, "tools", "walk-integrity.py"))
+        _m = importlib.util.module_from_spec(_wi); _wi.loader.exec_module(_m)
+        _ours, _theirs, _unattr = _m.rate_limits(t)
+    except Exception as e:
+        _ours, _theirs, _unattr = [], [], 0
+        out["not-rate-limited"] = (None, "cannot classify 429s: %s" % e)
+    if "not-rate-limited" not in out:
+        if _ours:
+            out["not-rate-limited"] = (False, "OUR origin returned 429: %s" % _ours[0][:80])
+        elif _unattr:
+            # ⚠️ 429s recorded with no URL — predates the capture that would say whose. UNCHECKABLE,
+            # never a pass: a gate reading unjudgeable as passing is the failure this gate exists to
+            # end. Bounded — every walk after 2026-09-07 records the URL.
+            out["not-rate-limited"] = (None, "%d 429(s) with no URL recorded — whose is UNCHECKABLE" % _unattr)
+        elif t.get("httpFailures") is None and "rateLimited" not in t:
+            out["not-rate-limited"] = (None, "the transcript predates the field — UNCHECKABLE, not clean")
+        else:
+            out["not-rate-limited"] = (True, "no 429 from our origin")
+    if _theirs:
+        # ⚠️ NOT COUNTABLE-BLOCKING, NEVER SILENT. A third-party throttle means this walk saw
+        # DEGRADED DATA — forecast and ERA5 history come straight from Open-Meteo in the browser.
+        out["third-party-throttled"] = (False, "⚠️ %d third-party 429(s) — DEGRADED WEATHER DATA in "
+                                               "this walk: %s" % (len(_theirs), _theirs[0][:80]))
 
     # ⭐ `instrumented` `[paul-stated 2026-09-06]`: "for everything that we do and see and observe that
     # we're capturing on the user side, there needs to also be as much as possible instrumentation on
@@ -158,7 +173,7 @@ CLAUSES = [
     ("watched", "driven in visible Chrome  (\"gone through it in Chrome\")"),
     ("countable", "the seat READ its own walk  (\"documented their experiences\")"),
     ("no-failed-actions", "zero failed actions  (\"until it no longer fails\")"),
-    ("not-rate-limited", "the origin did not 429 during the walk  (a throttled walk is not a walk)"),
+    ("not-rate-limited", "OUR OWN origin did not 429  (a third party's is a caveat, not a refusal)"),
 ]
 
 
@@ -201,6 +216,9 @@ def report(sha, seats_only=False):
             st, detail = v.get(key, (None, "not evaluated"))
             if st is not True:
                 print("        %s %s — %s" % ("🔴" if st is False else "⬜", label, detail))
+        tp = v.get("third-party-throttled")
+        if tp:
+            print("        %s %s" % ("⚠️", tp[1]))
         st, detail = v.get("instrumented", (None, "not evaluated"))
         print("        %s instrumented (reported, counted from lap 2) — %s" % ("✅" if st is True else ("🔴" if st is False else "⬜"), detail))
 
@@ -225,8 +243,13 @@ def selftest():
     print("release-gate --selftest — can every clause FAIL?\n")
     import tempfile
     ok = True
+    # ⛔ THE FIXTURE MUST MATCH WHAT THE WRITER EMITS. `journey-walk` records `httpFailures` (and a
+    # declared `rateLimited`) since 2026-09-07; a base without them reads UNCHECKABLE, which is
+    # correct behaviour and made M0 fail. A fixture that drifts from the writer is how a green clause
+    # ends up unable to fire — the defect this whole clause exists because of.
     base = {"buildBefore": "a" * 40, "buildAfter": "a" * 40, "watched": True,
-            "stops": [{"stop": "01", "status": "walked"}], "failedActions": []}
+            "stops": [{"stop": "01", "status": "walked"}], "failedActions": [],
+            "rateLimited": False, "httpFailures": []}
 
     def mk(d, tr, report_body="all good"):
         os.makedirs(d, exist_ok=True)
@@ -259,12 +282,24 @@ def selftest():
         # `rateLimited`, per-stop `walked`. The old walk-integrity fixture hand-wrote a per-stop
         # `"rate-limited"` status that `journey-walk.py:423` cannot produce, which is why an
         # equivalent guard was green and unable to fire for the life of the harness.
-        v = mk(os.path.join(tmp, "ratelimited"), dict(base, rateLimited=True))
+        v = mk(os.path.join(tmp, "ours429"), dict(base, httpFailures=[
+            {"status": 429, "url": "https://fernwood-qa.paul-kirschenbauer.workers.dev/api/feedback"}]))
         bit = v["not-rate-limited"][0] is False
-        print("  %s M7a a run the origin 429'd fails the gate (run-level, as recorded)" % ("✅" if bit else "🔴")); ok &= bit
-        v = mk(os.path.join(tmp, "notlimited"), dict(base, rateLimited=False))
-        bit = v["not-rate-limited"][0] is True
-        print("  %s M7b a run with no 429 passes that clause" % ("✅" if bit else "🔴")); ok &= bit
+        print("  %s M7a OUR OWN origin 429 fails the gate" % ("✅" if bit else "🔴")); ok &= bit
+
+        v = mk(os.path.join(tmp, "theirs429"), dict(base, httpFailures=[
+            {"status": 429, "url": "https://api.open-meteo.com/v1/forecast?lat=1"}]))
+        bit = (v["not-rate-limited"][0] is True) and ("third-party-throttled" in v)
+        print("  %s M7b a THIRD-PARTY 429 does NOT fail the gate and IS reported" % ("✅" if bit else "🔴")); ok &= bit
+
+        v = mk(os.path.join(tmp, "no429"), dict(base, httpFailures=[]))
+        bit = v["not-rate-limited"][0] is True and "third-party-throttled" not in v
+        print("  %s M7b2 a walk with no 429 passes and raises no caveat" % ("✅" if bit else "🔴")); ok &= bit
+
+        _legacy = dict(base, rateLimited=True); _legacy.pop("httpFailures")   # exactly a pre-2026-09-07 record
+        v = mk(os.path.join(tmp, "untagged"), _legacy)
+        bit = v["not-rate-limited"][0] is None
+        print("  %s M7b3 a 429 with NO URL is UNCHECKABLE, never a pass and never a guess" % ("✅" if bit else "🔴")); ok &= bit
 
         # M7c · the marker must be discussable in the report it governs
         v = mk(os.path.join(tmp, "quotesmarker"), base,
