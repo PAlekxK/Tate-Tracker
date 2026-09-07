@@ -6408,6 +6408,24 @@
     var g = localStorage.getItem("fw-grant"), o = localStorage.getItem("fw-onboard-owner");
     var nm = (g && (!o || o === g)) ? (localStorage.getItem("fw-onboard-name") || "").trim() : "";
     if (nm && nm.length <= 60) { window.__HOUSEHOLD_NAME = nm; document.title = nm; }
+    // ⚠️⚠️ OPEN, AND NOT A DEFECT ANYONE MAY QUIETLY FIX — `__HOUSEHOLD_NAME` IS DOING TWO JOBS.
+    // It is the name to print AND, in eleven places, the test for "is this a household at all" —
+    // which decides whether empty modules hide, whether the journal tile and "Look back ›" show,
+    // and whether the place card is promoted to the front. So a grant with COORDINATES AND NO
+    // PLACE NAME gets a different app: `measured` 2026-09-07 in a local build with only
+    // `fw-grant` + `fw-onboard-coords` set — every empty module rendered, the journal tile
+    // returned, and the place card did not appear at all. No needles and no errors; just the
+    // pre-ruling surface, which is the one Paul ruled against on 2026-09-07.
+    // Reachability is `inferred`, not measured: /api/grant/whoami returns `name: grant.placeName
+    // || null` and `coordinates: grant.coordinates || null` as INDEPENDENT fields
+    // (worker/worker.js:3599, :3614), the estate page's `put()` skips each null on its own key
+    // (estate/index.html:420), and whoami's geocode retry fires on `grant.address` alone with no
+    // reference to `placeName` (:3588). So the two can separate; I have not found the flow that
+    // separates them.
+    // ⛔ THIS IS THE SAME CONFLATION SITE_PLACED HAD, one layer up — that one fused "has a point on
+    // the earth" with "has a researched record"; this fuses "is a household" with "has told us what
+    // to call the place". Fixing it means choosing a different predicate for household-ness across
+    // eleven call sites, which is a design decision and Paul's, not a hardening change.
   } catch (e) {}
   try {
     var hex = localStorage.getItem("fw-accent");
