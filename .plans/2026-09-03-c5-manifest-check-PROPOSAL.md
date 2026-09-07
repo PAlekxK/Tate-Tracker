@@ -31,7 +31,7 @@ Not on tidiness. `PRODUCT-ENGINE.md` § the shared entity-resolution map records
 | **class** (`engine` · `config` · `instance` · `mixed` · `private-pointer`) | **derived** from a dir→class table over the 25 tracked top-level directories, plus the three rosters for root JSONs | 694 files; a hand roster is the rot class measured three times here (12→18 keys, 11→13 prefixes, 22-vs-12 consts) |
 | **engine → divergence tier** (`FREE` / `DECLARED` / `MUST-NOT-DIVERGE`) | ⛔ **declared**, one row per file | `PRODUCT-ENGINE.md` § the divergence contract's test is *"is there a consumer that degrades"* — a judgment, and its own falsifier says a tier with no nameable consumer belongs in FREE. A derived tier automates that failure |
 | **config → canonical SOURCE** | ⛔ **declared as a dotted canon path** (`frostDates.atPropertyElevation.firstFall_50pct`), never as the value | 0b: the value has three spellings in this tree; the path has one. The path is what makes a re-typed copy detectable (§4) |
-| **instance** | nothing | per the brief and `.plans/2026-09-02-data-model-design.md` §4 |
+| **instance** | nothing | per the brief and `../fernwood-private/.plans/2026-09-02-data-model-design.md` §4 |
 
 ⭐ **The ruling that `tools/` and `worker/` stay put is what makes derivation work, not what breaks it.** *"Invert ownership, not the directory"* (`BACKLOG.md` § C4's RULED table) means the table carries two explicit rows — `tools/ → engine`, `worker/ → engine` — more honest than an `engine/`-prefix rule that would silently reclassify them if they ever moved.
 

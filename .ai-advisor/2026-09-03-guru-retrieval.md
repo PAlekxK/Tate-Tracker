@@ -152,7 +152,7 @@ path quietly becomes the capture path.
 **verified credential**, resolved server-side — never from the prompt, never from the request body.
 ⛔ **There is no seat for that yet, and it is structural, not a preference:** `authOk` checks a single
 `SHARED_TOKEN` for the whole Worker (`/api/chat` is gated by the catch-all, not its own check), and per
-`.plans/2026-09-02-data-model-design.md` § 3 **zero of the 11 KV namespaces carry a property
+`../fernwood-private/.plans/2026-09-02-data-model-design.md` § 3 **zero of the 11 KV namespaces carry a property
 coordinate**. ⇒ **hard gate on C6.**
 The shape once C6 exists: `handleChat` resolves `{estateId, capabilities}` before assembling tools, and
 **the tool list is derived from the grant** — a person with no vault grant gets a schema with no

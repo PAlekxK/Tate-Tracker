@@ -3,7 +3,7 @@
 **Date:** 2026-09-03 · **Lens:** content-steward · **Mode:** draft (naming)
 **Charters applied:** `cross-project/voice-and-stance.md` (could-be-anyone) → `fernwood.md` (*anchored
 naming beats field-journal-fluent naming*), plus `VOCABULARY.md` §2 / §3b / §4.
-**Inputs read:** `VOCABULARY.md` · `fernwood.md` · `.content-reviews/2026-09-02-estate-naming-layer.md`
+**Inputs read:** `VOCABULARY.md` · `fernwood.md` · `../fernwood-private/.content-reviews/2026-09-02-estate-naming-layer.md`
 · `PRODUCT-ENGINE.md` § THE CONDO'S CONTENT · `.engineering/2026-05-11-path-custom-domain.md` ·
 `.user-research/2026-09-03-product-door-naming.md` §6 · measured against `viewer.html`, `candidates.json`.
 **Audience:** Mom (make-or-break; reads with difficulty; her fear is getting things wrong) · Paul ·
@@ -14,7 +14,7 @@ layer, which inverts it (§4a). **anchor:** not Fernwood's — *one family's sev
 
 > **GATE: candidates only. Nothing decided, nothing registered, no canon touched.** No edit to
 > `VOCABULARY.md`, `CLAUDE.md`, `viewer.html` or any charter. §4 is a recommendation, not a ruling.
-> ⚠️ **Revises** `.content-reviews/2026-09-02-estate-naming-layer.md` §4 ("call it nothing") — see §4a.
+> ⚠️ **Revises** `../fernwood-private/.content-reviews/2026-09-02-estate-naming-layer.md` §4 ("call it nothing") — see §4a.
 
 ---
 

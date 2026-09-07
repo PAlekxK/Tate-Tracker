@@ -42,7 +42,7 @@ file names the overlaps and leaves them there.
   **forward-pointing** at a review that has not run.
 - `~/.claude/agents/backlog.md:94` — **⚡ the unpark condition FIRED 2026-09-02**, ruled
   **✅ QUEUED, not stood up** `[paul-ratified 2026-09-02: "queue it, stand up before auth work"]`, and
-  named a **blocking prerequisite on step 6** of `.plans/2026-09-02-data-model-design.md`.
+  named a **blocking prerequisite on step 6** of `../fernwood-private/.plans/2026-09-02-data-model-design.md`.
   ⚠️ Its own entry records that **nothing watched the condition** — it was found only because
   `/onboard-agent`'s pre-flight requires reading that list.
 
@@ -170,7 +170,7 @@ genuinely share is the **forward rule** (a third party's name does not appear in
    (`165f787` accepted one, knowingly, by Paul's ruling).
 3. **Anything involving a real-world relationship** — what Bob agreed to, what consent is owed. The
    consent gate before another estate's first contributor input is already recorded as owed
-   (`.plans/2026-09-02-data-model-design.md` §7).
+   (`../fernwood-private/.plans/2026-09-02-data-model-design.md` §7).
 4. **Any hold** — and per `feedback_a_hold_names_the_work_not_the_mechanism`, a hold names the value
    class and carries a **release condition**. *"Indefinite"* is not available to it.
 
@@ -400,7 +400,7 @@ that lap, **measured with a denominator, not asserted.**
 | **engineering-partner** | **owed at the PLAN stage, not here** | the hook, the roster extension and the selftest are code; a proposal that designed them would be the seat working past its boundary |
 | **ux-expert** | ✅ waived — nothing renders; the only surfaces are a terminal and a deny message | ⚠️ **release condition:** a placeholder that reaches a contributor-facing card (the `service-contact-phones` case) is a surface change and this waiver expires for that instance |
 | **content-steward** | ✅ waived — no copy reaches anyone | ⚠️ **two release conditions:** the same contributor-facing case; **and the placeholder STRING is a name**, so it routes to `VOCABULARY.md` §4's gate, not to a copy review — the routing C3 used for the same class of object |
-| **user-researcher** | ✅ waived — no user question; the consumers are Paul and agents | ⚠️ **release condition:** the consent gate owed before another estate's first contributor input (`.plans/2026-09-02-data-model-design.md` §7) **is** a user question, and it is already recorded as owed |
+| **user-researcher** | ✅ waived — no user question; the consumers are Paul and agents | ⚠️ **release condition:** the consent gate owed before another estate's first contributor input (`../fernwood-private/.plans/2026-09-02-data-model-design.md` §7) **is** a user question, and it is already recorded as owed |
 
 ---
 

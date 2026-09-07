@@ -6,7 +6,7 @@ last_updated: 2026-09-03
 evidence_level: mixed — see per-claim tags. NOBODY HAS BEEN ASKED ABOUT A NAME.
 builds_on:
   - .user-research/persona-mom.md (post-retraction) · 2026-09-02-activation-journeys.md (J2 · §5.1 · §9)
-  - .user-research/2026-09-02-condo-feature-research.md (§1.1 · §6.1) · 2026-09-02-estate-manager-scoping.md (§1.6 R6)
+  - ../fernwood-private/.user-research/2026-09-02-condo-feature-research.md (§1.1 · §6.1) · 2026-09-02-estate-manager-scoping.md (§1.6 R6)
   - BACKLOG.md § C4 RULED · .plans/2026-09-03-c4-environments-PLAN.md §2d
   - VOCABULARY.md §2 · §3b · §4 · .engineering/2026-05-11-path-custom-domain.md § domain criteria
 ---
@@ -67,7 +67,7 @@ scheduled.**
 
 ## 2 · The brother — one question, and it is the whole section
 
-`[validated as an absence — .user-research/2026-09-02-estate-manager-scoping.md §1.6 R6]` **Zero
+`[validated as an absence — ../fernwood-private/.user-research/2026-09-02-estate-manager-scoping.md §1.6 R6]` **Zero
 mentions in the 2026-07→09 record, zero telemetry, zero feedback records.** He is named a secondary
 user in `_about-paul.md` and nowhere else.
 

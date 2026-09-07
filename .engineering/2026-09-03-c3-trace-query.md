@@ -47,7 +47,7 @@ counts at HEAD: `.plans` 30 · `.engineering` 42 · `.ux-reviews` 39 · `.user-r
 ### 1.2 The seed — and why in-degree 0 cannot be re-derived
 
 The row seeds the graph at *"the activation research."* The path the readiness proposal uses for that
-artifact is `.user-research/2026-09-02-activation-journeys.md`.
+artifact is `../fernwood-private/.user-research/2026-09-02-activation-journeys.md`.
 
 ```
 on disk:            no

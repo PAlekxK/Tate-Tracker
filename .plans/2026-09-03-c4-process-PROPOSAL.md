@@ -182,7 +182,7 @@ Paul, 2026-09-03: an ENGINE repo with per-estate INSTANCE repos rather than the 
 implication only; the layout is `engineering-partner`'s.** The governing rule is already ratified as a
 data rule and generalises exactly: ⛔ **a per-instance DECLARATION is not per-instance CODE** —
 *"Bob's house declares `SEASON: unobserved`; it does not get a second probe. Two probes are how two
-definitions of 'a lap is owed' are born"* (`.plans/2026-09-02-data-model-design.md:262`).
+definitions of 'a lap is owed' are born"* (`../fernwood-private/.plans/2026-09-02-data-model-design.md:263`).
 
 | piece | lives where | class, and why |
 |---|---|---|
@@ -203,7 +203,7 @@ definitions of 'a lap is owed' are born"* (`.plans/2026-09-02-data-model-design.
 **The leak is already measurable in this repo, which is why this is a requirement and not a worry:**
 `fleet_probe.py:50` re-types `FROST_MONTH, FROST_DAY = 10, 17` from canon — a value that has already
 moved once (Oct 20 → Oct 17), so the probe is *correct by timing, not by derivation*
-(`.plans/2026-09-02-data-model-design.md:266-269`). One repo, one estate, and a config value had
+(`../fernwood-private/.plans/2026-09-02-data-model-design.md:266-269`). One repo, one estate, and a config value had
 already forked. ➡️ **TOPOLOGY: the split must make a per-instance copy of engine code *harder* than a
 declaration, or this leak becomes per-estate.**
 
