@@ -76,7 +76,7 @@
      at A+ on a dark ground. The 44px hit area was never the problem — being SEEN was. */
   /* the door is the one control that leaves the page: a filled button, not a header utility link — it
      rendered white-on-white inside the card and every seat missed it (round 2, 2026-09-06). */
-  .door { margin:16px 0 0; }
+  .door { margin:16px 0 0; padding-right:56px; }   /* room for the corner bubble beside the one button this page exists for (mom, round 9) */
   .door a.ubtn { display:block; text-align:center; background:var(--accent); color:#fff; text-decoration:none;
                  border-radius:12px; padding:13px 16px; font-weight:600; }
   .ubtn { color:#fff; opacity:1; text-decoration:underline; text-underline-offset:3px;
@@ -202,7 +202,7 @@
        available once someone has an account and is signed in. Closed by default — a standing open
        textarea is the affordance-without-signal trap. -->
   <!-- compact: the long label covered the ranked list at 414 × A+ on every seat's walk (round 4) -->
-  <p><button type="button" id="fbopen" class="fbbubble" aria-label="Something not right? Tell me.">💬 Tell me</button></p>
+  <p><button type="button" id="fbopen" class="fbbubble" aria-label="Something not right? Tell me.">💬</button></p>
   <div id="fbbox" hidden>
     <textarea id="fbnote" rows="3" placeholder="Anything at all"></textarea>
     <p><button type="button" id="fbsend"><span class="tick">✓</span>Send</button></p>

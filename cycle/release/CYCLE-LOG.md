@@ -527,3 +527,8 @@ Make it flexible."*
 - `paul-stated`: *"I'll call the process here at this point to talk through this, commend the whole
   team on how much progress we've made, and document where we are in these iterative loops — with
   the benefit of me being on the watch via Claude in Chrome."* → lap 1 pauses at this beat.
+- round 9 read (mom · strict so far): new-and-waiting. Failures: the receipt page's bubble still
+  read "💬 Tell me" inside its circle (my text replacement missed that button's attribute — fixed);
+  a "not built yet" badge wrapping mid-phrase (nowrap); the 06/12 contradiction on whether asking
+  questions is built — held for Paul with its Worker fact: a member's grant cannot reach /api/chat,
+  so for a household the composer genuinely cannot "consult" yet.
