@@ -395,11 +395,20 @@ def leaks(run_dir):
         return None                       # UNREADABLE — the caller must say so, never report zero
     out = []
     for st in t.get("stops") or []:
-        for line in (st.get("screen") or []):
-            txt = str(line)
+        lines = [str(x).strip() for x in (st.get("screen") or [])]
+        for txt in lines:
+            # ⛔ THE SAME FRAGMENT EXCLUSION `shapes()` USES, and it was MISSING here until
+            # 2026-09-07. Lane E's tell found it: *if adding a line of code changes your number
+            # without changing the user-visible behaviour, you were measuring the wrong thing.*
+            # Wrapping an existing string in a `<span>` — a pure markup change, nothing different on
+            # screen — made the extractor capture the parent AND the child, and this count went
+            # 1 → 2. It was counting NODES; the property is DISTINCT ON-SCREEN STRINGS.
+            # Proven by mutation, M24 below.
+            if any(txt != o and txt in o for o in lines):
+                continue
             for n in LEAK_NEEDLES:
                 if n in txt:
-                    out.append((st.get("stop"), txt.strip()[:140]))
+                    out.append((st.get("stop"), txt[:140]))
                     break
     return out
 
@@ -1034,6 +1043,17 @@ def selftest():
         json.dump({"stops": [{"stop": "12", "screen": ["all good"]}]},
                   open(os.path.join(clean, "transcript.json"), "w"))
         say(leaks(clean) == [], "M16 a clean screen reports an empty list, not a false hit")
+        # M24 · LANE E'S TELL, wired as a test rather than as a note.
+        nest_a, nest_b = os.path.join(tmp, "na"), os.path.join(tmp, "nb")
+        for d, screen in ((nest_a, ["Bortle undefined — undefined"]),
+                          (nest_b, ["Bortle undefined — undefined", "undefined — undefined"])):
+            os.makedirs(d, exist_ok=True)
+            json.dump({"stops": [{"stop": "12", "screen": screen}]},
+                      open(os.path.join(d, "transcript.json"), "w"))
+        say(len(leaks(nest_a)) == len(leaks(nest_b)) == 1,
+            "M24 a NO-OP markup change (the same string also captured on its parent) does NOT move "
+            "the needle count — it counts on-screen strings, not nodes")
+
         say(leaks(os.path.join(tmp, "nothing-here")) is None,
             "M17 an unreadable transcript returns None — the caller must say UNREADABLE, never zero")
 

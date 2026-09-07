@@ -231,18 +231,28 @@ lost in a commit message.** `8c2f456`'s message claimed *"every citation in the 
 *"now 6 of 6"*; the run said **5**. Twice, a number was written from intent instead of copied from
 the output that was already printed. **The true figure is 5 citations, all resolving.**
 
-⚠️ **A THIRD INSTANCE, same day, caught by lane D rather than by me — and it sharpens the rule.** I
-reported `check-backlog-ready.py` as going **149 → 129**. Lane D measured **148** and flagged the
-one-apart pair rather than assuming a disagreement. It was right: my 149 came from
-`… | grep -c '·'`, an ad-hoc predicate that counted one extra line. **The tool prints its own
-authoritative count** — `🔴 Readiness — N flag(s)` — and reading it gives **148 → 129** at
-`878051f`.
+⚠️ **A THIRD INSTANCE, same day — and NEITHER PARTY read the instrument.** I reported
+`check-backlog-ready.py` as going **149 → 129**; lane D measured **148**. The tool prints its own
+authoritative count — `🔴 Readiness — N flag(s)` — and it says **148 → 129** at `878051f`.
 
-⛔ **So the rule generalises, and this is the durable form:** when a tool prints its own count,
-quoting anything else is a **second implementation of that count**, and it will diverge. That is
-`momlib.question_state()`'s lesson — three definitions of "pending" producing divergent behaviour and
-a real wrong claim — applied to *reading* rather than to code. **Read the tool's own line; never
-re-derive its number with a grep.**
+⛔ **But lane D's 148 was NOT correctly derived either, and it said so before this row could hold it
+up as the exemplar.** Measured: `grep -c '^   · '` → 148 · `grep -c '·'` → 149. **Two greps, one
+right and one wrong, and both are a second implementation of the tool's count.** Lane D's tighter
+anchor agreed *today* and would diverge the first time a flag line wraps, an indent changes, or a new
+detail class prints at a different prefix. Its own words: *"mine was a luckier grep."*
+
+⭐ **THE FAILURE IS RE-DERIVING, NOT RE-DERIVING BADLY** — and that distinction is the whole row. A
+rule stated as *"don't use a sloppy predicate"* would have let lane D's through. When a tool prints
+its own count, quoting anything else is a **second implementation of that count**, and it will
+diverge. `momlib.question_state()`'s lesson — three definitions of "pending" producing divergent
+behaviour and a real wrong claim — applied to *reading* rather than to code. **Read the tool's own
+line; never re-derive its number.**
+
+⭐ **AND THE SEPARATE, NARROWER LESSON — the thing lane D actually did right** `[lane-D, 2026-09-07]`:
+it flagged a one-apart pair instead of explaining it away. It had a ready-made story — different
+branches, different corpora, both correct — **which was plausible and wrong.** *A small unexplained
+discrepancy is a finding until it is explained, and the CHEAP EXPLANATION IS THE DANGEROUS ONE
+precisely because it lets both parties keep their number.*
 
 ⭐ **And cite a count with its sha and its predicate, never bare** `[lane-D, 2026-09-07]`: two numbers
 one apart, unlabelled, is exactly how a phantom enters a document. Lane D and I were not measuring
@@ -313,6 +323,39 @@ the STATE matters, lane D's own correction: this heuristic is **un-evaluated —
 tested against anything** — which is not the same as considered-and-rejected. *A rejected alternative
 carries a reason not to revisit it; an un-evaluated one carries an invitation to test it.* Filed as
 the second, so nobody files it as settled-no when what it needs is a falsifier and one run.
+
+### ⭐ A NINTH SHAPE — a measurement that tracks the CODE needs re-stating after every edit; one that tracks the PROPERTY does not
+
+`[lane-E, 2026-09-07, brought directly]`. **The tell, and it is countable: if adding a line of code
+changes your number without changing the user-visible behaviour, you were measuring the wrong thing.**
+
+**Lane E found it in its own instrument.** It fixed an `aria-live` region repainting every 20 s while
+the displayed minute changed every 60, and proved the fix by counting DOM mutations — *"2 mutations
+in 105 seconds, exactly 60,000 ms apart."* A real measurement that did its job. A later one-line fix
+added a fourth write inside the same guard; **the behaviour did not change at all**, but the number
+was now wrong, because it had been counting **nodes**. Re-measured against the property — batches
+whose rendered text actually differs — it reads *3 batches, gaps of 60,000 and 60,001 ms, 4 nodes per
+batch, `textActuallyChanged: [true, true, true]`* — which **asserts** what the original could only
+imply, and survives the edit that broke the old one.
+
+⚠️ **Its nasty failure mode: the stale number stays PLAUSIBLE.** It does not look wrong. It looks
+like a clean measurement of a fixed bug, and it gets quoted forward indefinitely — lane E's was
+caught only because someone re-counted at a different sha, which nobody routinely does.
+
+⛔ **It is NOT "prefer behavioural metrics"** — lane E's own caveat, and it is right: the vague form
+is unactionable and *would have let the original measurement through*. **Keep the tell in its own
+words: does a no-op edit move the number?**
+
+⭐ **IT MET ITS OWN BAR IMMEDIATELY, ON THIS SEAT'S TOOL.** Lane E offered it as checkable against a
+corpus rather than arguable. Run against `product-steward.py`: **`leaks()` was counting nodes.**
+`shapes()` already folded fragments; `leaks()` did not — so wrapping an existing on-screen string in
+a `<span>`, a pure markup change with nothing different on screen, made the extractor capture parent
+and child and moved the needle count **1 → 2**. Fixed, and wired as **M24** so the tell is a test
+rather than a note: *a no-op markup change does not move the count.*
+
+⚠️ **Graded as lane E graded it: `measured`, n=1 in its own work, caught by a second seat.** Not
+doctrine on one instance — but it is **countable**, so it can be checked against the corpus rather
+than argued about, which is the bar the seventh shape's heuristic could not clear.
 
 ### ⛔ AN EIGHTH SHAPE — a ruling that is RIGHT ABOUT THE DEFECT and WRONG ABOUT THE REMEDY
 
