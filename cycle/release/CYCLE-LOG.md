@@ -430,3 +430,18 @@ Make it flexible."*
   `check-storage-keys` went red on my three new keys (used as literals, never declared) — declared.
   "near the house Wi-Fi" ×7 in engine strings → "back on Wi-Fi": a place premise the name sweep
   cannot see, found by a copy pass. Chain: checks → commit → QA deploy → four watched walks.
+- `paul-ruled` (~22:55 ET): *"You can just say you've been invited to create an account. You don't
+  need to explain that it allows it across phones — we don't need to OVER explain."* → s0 lead is
+  now "You've been invited. Create your account." Principle for the library: the reason for a
+  control is not copy unless it changes what the person does.
+- `paul-pointed` (~22:50 ET): the old mint green persists "around distinct boxes/cards/bubbles" →
+  tranche 3: 269 light-green CSS literals now read `var(--tint-<band>, <green>)` — six lightness
+  bands set from the seed at pre-paint; Fernwood renders its own greens by fallback (verified: the
+  default chevron pill unchanged, Stone's tinted). Rides in round 8.
+- `paul-stated` (~23:00 ET, feature, verbatim): *"We should also ask folks to name the almanac /
+  journal for each estate when they found it. That's a chance to remind them how personal their
+  input is, in a way that educates them about the accretive nature of the database their input
+  generates and reinforces, and helps hyper-personalise."* → NEXT BUILD, after geocoding: a naming
+  step at founding (the journal name is already a per-instance identity field, `journalTile`, and
+  the app already follows the household's name at runtime); the copy is the point — content-steward
+  drafts the moment in the crisp register; not built mid-convergence tonight.
