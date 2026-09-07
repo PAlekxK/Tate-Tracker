@@ -128,7 +128,7 @@ def judge(run_dir, sha):
     try:
         _wi = importlib.util.spec_from_file_location("wi", os.path.join(ROOT, "tools", "walk-integrity.py"))
         _m = importlib.util.module_from_spec(_wi); _wi.loader.exec_module(_m)
-        _ours, _theirs, _unattr = _m.rate_limits(t)
+        _ours, _theirs, _unattr = _m.rate_limits(t, run_dir)
     except Exception as e:
         _ours, _theirs, _unattr = [], [], 0
         out["not-rate-limited"] = (None, "cannot classify 429s: %s" % e)
@@ -140,7 +140,7 @@ def judge(run_dir, sha):
             # never a pass: a gate reading unjudgeable as passing is the failure this gate exists to
             # end. Bounded — every walk after 2026-09-07 records the URL.
             out["not-rate-limited"] = (None, "%d 429(s) with no URL recorded — whose is UNCHECKABLE" % _unattr)
-        elif t.get("httpFailures") is None and "rateLimited" not in t:
+        elif _m.capture_failures(t, run_dir) is None and "rateLimited" not in t:
             out["not-rate-limited"] = (None, "the transcript predates the field — UNCHECKABLE, not clean")
         else:
             out["not-rate-limited"] = (True, "no 429 from our origin")
@@ -218,7 +218,7 @@ def report(sha, seats_only=False):
                 print("        %s %s — %s" % ("🔴" if st is False else "⬜", label, detail))
         tp = v.get("third-party-throttled")
         if tp:
-            print("        %s %s" % ("⚠️", tp[1]))
+            print("        %s" % tp[1])
         st, detail = v.get("instrumented", (None, "not evaluated"))
         print("        %s instrumented (reported, counted from lap 2) — %s" % ("✅" if st is True else ("🔴" if st is False else "⬜"), detail))
 

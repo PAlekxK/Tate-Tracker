@@ -426,8 +426,12 @@ def main():
         page_errors = [c for c in (_v.get("console") or []) if str(c).startswith("PAGEERROR:")]
     except (OSError, ValueError):
         pass
+    # ⛔ DECLARED, NOT SKIPPED — the third and fourth instances of the same shape, in the same
+    # function as the first. `walk-brief` already carried a fallback re-opening `_view.json` when
+    # `pageErrors` came back None, which is a workaround for exactly this; and `release-gate`'s
+    # `no-failed-actions` clause cannot tell "clean" from "written before the field existed".
+    record["pageErrors"] = page_errors
     if page_errors:
-        record["pageErrors"] = page_errors
         failed_all = list(failed_all) + ["pageerror — " + e[len("PAGEERROR:"):].strip()[:160] for e in page_errors]
     seen = {c["stop"]: c for c in got.get("checkpoints") or []}
 
@@ -466,13 +470,19 @@ def main():
         print("  %-14s  screen=%-4s %s" % (name, cp.get("screen") or "-", cp.get("title") or ""))
 
     # The failures belong to the JOURNEY, not to a stop — one session, one action stream.
+    record["failedActions"] = failed_all
     if failed_all:
-        record["failedActions"] = failed_all
         print("\n  ⛔ %d action(s) did not happen:" % len(failed_all))
         for f in failed_all[:4]:
             print("       %s" % f[:110])
-    if got.get("rateLimited"):
-        record["rateLimited"] = True
+    # ⛔ DECLARED, ALWAYS, BOTH OF THEM. This was `if got.get("rateLimited"): record[...] = True` —
+    # the field was written ONLY when true and `httpFailures` was never copied at all, so the CLEAN
+    # reading was dropped between capture and record and the URLs that make a 429 attributable never
+    # reached the transcript the readers open. Measured at `4e2ec87`: `_view.json` held two attributed
+    # `archive-api.open-meteo.com` URLs on three seats and `[]` on strict, while every transcript
+    # carried neither — so the gate read UNCHECKABLE and refused four good walks.
+    record["rateLimited"] = bool(got.get("rateLimited"))
+    record["httpFailures"] = got.get("httpFailures") or []
     # ⭐ THE THIRD RECORD `[paul-stated 2026-09-06]`: what the product TOLD US ABOUT ITSELF while the walk
     # happened. transcript.json is what it showed, REPORT.md is what the walker felt; capture.json is
     # what landed on the capture side for this run id, read at walk time so the gate's per-sha evidence

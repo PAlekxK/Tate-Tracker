@@ -33,7 +33,21 @@ MARKER = "WALK-REPORT-UNWRITTEN"
 OUR_HOST_SUFFIXES = (".workers.dev", ".pages.dev")
 
 
-def rate_limits(rec):
+def capture_failures(rec, rundir=None):
+    """→ the httpFailures list, or None if NOTHING recorded it. The transcript first, then the
+    capture file — one place that answers "was attribution possible for this run at all", so the
+    refusal and the caveat cannot disagree about it."""
+    fails = rec.get("httpFailures")
+    if fails is None and rundir:
+        try:
+            with open(os.path.join(rundir, "_view.json"), encoding="utf-8") as fh:
+                fails = json.load(fh).get("httpFailures")
+        except (OSError, ValueError):
+            fails = None
+    return fails
+
+
+def rate_limits(rec, rundir=None):
     """→ (ours, theirs, unattributable) — lists of 429 URLs, and a count that predates the URL record.
 
     ⛔ IT NEVER GUESSES. Before 2026-09-07 a 429 was recorded as a console line carrying a status and
@@ -43,7 +57,8 @@ def rate_limits(rec):
     replaces. What made attribution possible is recording the failing URL at capture time
     (`journey-view.py`'s response listener), not a cleverer reading of the old record."""
     ours, theirs = [], []
-    fails = rec.get("httpFailures")
+    # ⚠️ EXPLICIT FALLBACK TO THE CAPTURE FILE, never a silent one — see `capture_failures`.
+    fails = capture_failures(rec, rundir)
     if fails is None:
         n = sum(1 for l in (rec.get("console") or []) if "429" in str(l))
         return [], [], (1 if (rec.get("rateLimited") and not n) else n)
@@ -141,7 +156,7 @@ def verdict(rundir):
     # marking none was the bug. Refusing the run says exactly what is known.
     # → to make it per-stop, the console would have to be recorded interleaved with checkpoints, or
     #   a 429 read taken at each checkpoint. Neither exists today; this is stated, not assumed.
-    ours, theirs, unattributable = rate_limits(rec)
+    ours, theirs, unattributable = rate_limits(rec, rundir)
     if ours:
         out["refusals"].append(("rate-limited",
                                 "OUR origin returned 429 (%d): %s" % (len(ours), ours[0][:90])))
@@ -158,7 +173,7 @@ def verdict(rundir):
         out["caveats"].append(("rate-limit-unattributable",
                                "%d 429(s) recorded with no URL — predates the capture that would say "
                                "whose. Neither a refusal nor a clean bill." % unattributable))
-    elif "rateLimited" not in rec and rec.get("httpFailures") is None:
+    elif capture_failures(rec, rundir) is None and "rateLimited" not in rec:
         out["caveats"].append(("rate-limit-unrecorded",
                                "predates the rateLimited field — nothing can establish this walk "
                                "was not throttled"))

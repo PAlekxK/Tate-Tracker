@@ -144,7 +144,7 @@ def brief(rundir):
         import importlib.util as _ilu
         _s = _ilu.spec_from_file_location("wi", os.path.join(ROOT, "tools", "walk-integrity.py"))
         _wi = _ilu.module_from_spec(_s); _s.loader.exec_module(_wi)
-        _ours, _theirs, _unattr = _wi.rate_limits(rec)
+        _ours, _theirs, _unattr = _wi.rate_limits(rec, rundir)
     except Exception:
         _ours, _theirs, _unattr = [], [], 0
     if _theirs:
