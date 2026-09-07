@@ -8152,8 +8152,13 @@ async function fetchLiveWeather() {
     // (Live indicator now lives inside the FORECAST wblock — driven by WEATHER_DATA._meta.fetchedAt)
 
   } catch (err) {
-    console.warn("Weather fetch failed, keeping placeholder:", err);
-    // The forecast wblock will show a stale/error indicator based on _meta.fetchedAt staying old
+    console.warn("Weather fetch failed:", err);
+    // ⛔ THIS USED TO SAY "keeping placeholder", AND IT MEANT IT. The placeholder is no longer
+    // rendered (see weatherIsReal), so the only thing left to do is SAY SO — otherwise the honest
+    // "Getting the weather…" becomes an eternal spinner, which is the same defect as the permanent
+    // "comparing…" fixed earlier today.
+    WEATHER_DATA.weatherFetchFailed = true;
+    try { renderWeatherSummary(); renderWeather(); renderDashboardStrip(); } catch (e) {}
   }
 }
 
@@ -8956,6 +8961,26 @@ function precipVerdict(pct) {
 // an instance forgot to say. Making it calm would silence a misconfiguration, which is the opposite
 // of what that state is for. Every instance in the repo declares explicitly today, so this is a
 // guard on a state nobody is in, written down so the asymmetry does not read as an oversight.
+// ⛔⛔ THE APP SHIPPED A PLACEHOLDER FORECAST AS A READER'S LIVE WEATHER, AND SAID SO ON PURPOSE:
+// `fetchLiveWeather`'s catch reads "Weather fetch failed, keeping placeholder". That was SAFE while
+// Fernwood was the only estate — a stale Jasper reading at Jasper is merely stale. It is not safe
+// now: the placeholder is Jasper on 2026-04-27, and it was rendered to a household in Dahlonega.
+//   MEASURED 2026-09-07, owner seat, three captures of ONE run seconds apart:
+//     77°F Partly cloudy · "👍 Today looks great outside"      ← live
+//     57°F Partly Cloudy · "⛈️ Heavy rain coming through soon" ← THE PLACEHOLDER, verbatim
+//     77°F Partly cloudy · "👍 Today looks great outside"      ← live again
+//   The same card told one person opposite things about whether to go outside.
+// ⭐ SUNSET IS THE PROOF AND IT NAMES THE CULPRIT: the 8:18 PM render is the placeholder's own
+// `daily[0].sunset` of "20:18", and its 57°F / H74 / L55 match the baked constant exactly. It is
+// NOT a second fetch and NOT the terrain-skyline path — there are only two assignments to
+// WEATHER_DATA in the file, the initial placeholder and the wholesale live replacement.
+// ⛔ A PLACEHOLDER IS NOT DATA. Until the real forecast lands, this app says it has nothing —
+// which is true — rather than asserting somebody else's April as your afternoon. Trust is the
+// load-bearing emotion here and this is the card the whole feature exists to produce.
+function weatherIsReal() {
+  return ((WEATHER_DATA || {})._meta || {}).isPlaceholder !== true;
+}
+
 function stationRecordDays() {
   if (ESTATE_STATION !== "present") return [];
   return (WEATHER_DATA.history && WEATHER_DATA.history.days) || [];
@@ -9096,7 +9121,15 @@ function renderRainfallPanel() {
     contextBlock =
       (gaugeBlock ? '<div class="rain-divider"></div>' : '') +
       '<div class="wblock-status rain-ctx-hdr" style="margin-top:8px;">' +
-        '<span>Regional rainfall vs. 25-year historical normal for these dates</span>' +
+        // ⛔ THE HEADING PROMISED A COMPARISON THE PAGE COULD NOT MAKE. When the percentile fetch
+        // fails the three columns correctly fall to "—", but this line went on announcing "vs. the
+        // 25-year historical normal" above them — a promise contradicted one line below it. The
+        // honest-degradation ruling this app already made ("every loading line becomes the same dash
+        // the rest use") has to reach the HEADING too, or the dash reads as a broken value rather
+        // than as an absent comparison. Says what it HAS, and why the rest is missing.
+        '<span>' + (WEATHER_DATA.precipHistoryFailed
+          ? 'Regional rainfall \u2014 the 25-year comparison didn\u2019t load'
+          : 'Regional rainfall vs. 25-year historical normal for these dates') + '</span>' +
         srcChip('reference', {title: 'ERA5 reanalysis (2001–2025) — regional, not the property gauge'}) +
       '</div>' +
       '<div class="rain-ctx-cols">' +
@@ -9233,6 +9266,14 @@ function renderWeatherSummary() {
   // computation, not a parallel one.
   const insight = generateGardenerInsight();
   const el = document.getElementById("weather-summary");
+  // ⛔ No forecast yet → no sentence and no temperature. The station reading, if there is one, is
+  // real and measured, so a place WITH a station still speaks; a place without one says nothing.
+  if (!weatherIsReal() && !WEATHER_DATA.stationData) {
+    el.textContent = WEATHER_DATA.weatherFetchFailed
+      ? "Couldn't get the weather just now."
+      : "Getting the weather\u2026";
+    return;
+  }
   const station = WEATHER_DATA.stationData;
   const cur = WEATHER_DATA.current;
   const temp = station && station.tempf != null
@@ -9255,6 +9296,16 @@ function renderWeatherSummary() {
 
 function renderWeather() {
   if (!SITE_PLACED) return;   // no point on the earth yet — see SITE_PLACED
+  // ⛔ The whole card — current conditions, the 7-day, the hour-by-hour — is the forecast. Without
+  // one it says so, in the app's own empty vocabulary, rather than drawing April.
+  if (!weatherIsReal()) {
+    const body = document.getElementById("weather-content");
+    if (body) body.innerHTML = '<div class="prop-lead">' +
+      (WEATHER_DATA.weatherFetchFailed
+        ? "I couldn\u2019t get the weather for this address just now. It lands here as soon as it comes in."
+        : "Getting the weather for this address\u2026") + '</div>';
+    return;
+  }
   const cur = WEATHER_DATA.current;
   const daily = WEATHER_DATA.daily;
   const wIcon = WEATHER_CODES[cur.weatherCode] || "❓";
@@ -9511,6 +9562,10 @@ function renderWeather() {
 // =========================
 
 function generateAlerts() {
+  // ⛔ Every alert below is derived from the forecast. Derived from the PLACEHOLDER they are
+  // fiction with an icon on it — "Heavy rain coming through soon" for a dry afternoon, and
+  // "Today looks great outside" for the same one. No forecast, no advice.
+  if (!weatherIsReal()) return [];
   const alerts = [];
   const cur = WEATHER_DATA.current;
   const daily = WEATHER_DATA.daily;
@@ -18226,6 +18281,14 @@ function renderDashboardStrip() {
   if (!SITE_PLACED) {
     renderUnplacedSummaries();
     const wi = document.getElementById("weather-card-icon"); if (wi && !wi.textContent) wi.textContent = "⛅";   // a blank square read as not-loaded (mom + wide-eyed, round 4)
+    return;
+  }
+  // ⛔ Same rule at the glance: the tile is the line she reads without opening anything.
+  if (!weatherIsReal()) {
+    const wSub = document.getElementById("dash-weather-sub");
+    if (wSub) wSub.innerHTML = '<div class="dash-tease-row"><span class="dash-tease-body">' +
+      (WEATHER_DATA.weatherFetchFailed ? "\u2014" : "Getting the weather\u2026") + '</span></div>';
+    const wi2 = document.getElementById("weather-card-icon"); if (wi2 && !wi2.textContent) wi2.textContent = "\u26c5";
     return;
   }
   const cur   = WEATHER_DATA.current;
