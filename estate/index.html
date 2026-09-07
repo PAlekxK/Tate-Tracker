@@ -187,7 +187,10 @@
 
   <div class="card">
     <p class="state">Early days</p>
-    <p class="lede">Nothing's been built on it yet — that's my job.</p>
+    <!-- ⚠️ id'd 2026-09-07 so the SAME BLOCK that writes #doorlede can correct this one. It is the
+         pre-JS default and stays the conservative claim: correct for an unplaced household, and
+         correct for anyone whose scripting never runs. -->
+    <p class="lede" id="doorstate">Nothing's been built on it yet — that's my job.</p>
 
     <div class="rows" id="rows"></div>
     <!-- ⭐ THE DOOR. Until R4 (2026-09-06) `/viewer` on every origin was Fernwood's build, so this page
@@ -279,9 +282,18 @@
   try {
     var placed = false;
     try { var c = JSON.parse(read(K_COORDS) || "null"); placed = !!(c && c.latitude != null); } catch (e) {}
-    el("doorlede").textContent = placed
-      ? "Your weather and sky are in there already \u2014 the rest fills in as you add it."
-      : "Empty so far.";
+    // ⛔ BOTH SENTENCES OR NEITHER. Fixing only #doorlede made this card CONTRADICT ITSELF — measured
+    // 2026-09-07 by the mom seat: "Nothing's been built on it yet" at the top and "Your weather and
+    // sky are in there already" four inches below, on one card. That is the same defect this lap
+    // spent the afternoon removing from the weather card, introduced by a partial fix to the copy
+    // that was meant to remove it. A correction placed BELOW the sentence it corrects is not a
+    // correction; it is a second claim.
+    if (placed) {
+      try { el("doorstate").textContent = "Your place is set up. Weather and sky are already in there."; } catch (e) {}
+      el("doorlede").textContent = "The rest fills in as you add it.";
+    } else {
+      el("doorlede").textContent = "Empty so far.";
+    }
   } catch (e) {}
   var name = mine ? read(K_NAME) : null;
   if (name) { el("place").textContent = name; document.title = name; }
