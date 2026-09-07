@@ -711,13 +711,22 @@ release notes as one of the six leak surfaces. ⚠️ The residual gap is narrow
 log whose prose names its own estate in words canon does not declare would pass**, because the needles
 come from canon.
 
-### 🔴 OPEN — Q-RN, and it is Paul's
+### ✅ Q-RN — RULED 2026-09-07: THE SURFACE DECIDES `[paul-stated]`
 
-**Does a household see BOTH logs, or only its own?** ⛔ Not answered here. It is a reader question, not
-a plumbing one: one merged list is simplest and puts *"the door got faster"* beside *"Mom confirmed the
-hydrangea"*; two lists are honest about scope and cost a reader a second place to look; engine-only-on-
-request keeps her card quiet but hides the thing she is most likely to notice changing. Each is
-defensible and none follows from the measurement.
+> *"A household, an individual household, should see release notes specific to that household. And if
+> you're in your account view, then you see the engine release notes."*
+
+⭐ **He answered it by refusing the premise.** Q-RN asked whether a household sees both logs or only its
+own — and both readings assumed **one surface** had to carry both, interleaved or chosen between. Paul
+split them by **surface**: the place shows what changed about the place; the account shows what changed
+about the product. Each is read where it answers the question the reader is already asking, so neither
+needs filtering, no field journal carries product-release noise, and **nobody has to rank two kinds of
+note against each other, because they never meet.**
+
+⚠️ **What is already true and what is not:** `<canon>/RELEASE_NOTES.md` is instance-scoped and renders
+per household today — that half exists. **The engine log does not exist at all, and neither does the
+account-view surface to put it on.** Sequenced after the sunset; not lap-2 work. Full ruling and its
+reasoning: `cycle/LAP-2-WORK-QUEUE.md` (`162969b`).
 
 ### ⏳ NOT URGENT, AND THE RELEASE CONDITION IS EXACT
 
