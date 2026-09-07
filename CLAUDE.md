@@ -33,6 +33,13 @@ python3 tools/check-backlog-drift.py       # ⭐ is a BACKLOG RATIONALIZATION ow
 python3 tools/check-backlog-ready.py       # ⭐ does every row that CLAIMS readiness have the trail behind it? (silent at zero; flags, never edits — `.plans/2026-09-03-backlog-readiness-PROPOSAL.md`)
 python3 tools/check-vocabulary.py          # ⭐ is VOCABULARY.md still TRUE of the schema? (rejected names, double-bookings, aspirational terms)
 python3 tools/build-viewer.py --check      # ⭐ is viewer.html BYTE-IDENTICAL to engine/viewer.template.html + instance/fernwood.json + canon? (red = a source moved, or a writer edited viewer.html directly)
+# ⚠️ A GREEN `--check` IS NOT A WORKING PAGE. It compares BYTES; it does not parse JavaScript. Measured
+#   2026-09-07: a patch left four unterminated strings in the template and `--check` was GREEN on the
+#   broken build — a top-level parse error kills the script and the page renders as static markup,
+#   which is the 09-06 failure that had four seats walk a corpse. ✅ The DEPLOY does catch it —
+#   `pages-deploy.py:96` serves the export on loopback, loads it headless via journey-view and refuses
+#   on any PAGEERROR — so nothing broken reaches an origin. The gap is only here, in the pickup block:
+#   `--check` alone tells you the build is REPRODUCIBLE, never that it RUNS.
 # ⚠️⚠️ `--extract` IS A TRAP AND THIS LINE USED TO SEND YOU INTO IT (measured 2026-09-07). `--check` is
 #   green while the ROUND TRIP is not: viewer.html renders `{{IDENTITY:perspectiveTitle}}` and
 #   `{{IDENTITY:propertyImage}}` as EMPTY, so `--extract` writes that emptiness back OVER the template's
