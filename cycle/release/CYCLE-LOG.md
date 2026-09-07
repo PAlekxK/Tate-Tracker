@@ -21,7 +21,8 @@ processes in a sequential, logical and deterministic manner."*
 
 ---
 
-## Lap 1 — candidate build 6ee2e48 → c821051 · opened 2026-09-06 evening · cleared by Paul 2026-09-07 11:50 ET
+## Lap 1 — 2026-09-06 · ✅ **CLEARED by Paul 2026-09-07 11:50 ET** — candidate build 6ee2e48 → c821051, the first full approved production build
+<!-- outcome:closed at:2026-09-07T15:50:00Z -->
 
 ### Where the lap stood when this log opened (measured 2026-09-06 ~20:25 ET)
 - QA and production both serve `6ee2e48` (read from each origin's `qa-build.json`). HEAD is `cf4c04b`,
@@ -932,7 +933,15 @@ Make it flexible."*
 
 ---
 
-## Lap 2 — W0 geocoding, and four instances of one assumption · opened and deployed 2026-09-07, beat 2 NOT exited
+## Lap 2 — 2026-09-07 · ✅ **CLEARED by Paul 2026-09-07 evening** — W0 geocoding, and four instances of one assumption; deployed `1e2748d`
+<!-- outcome:closed at:2026-09-07T23:30:00Z -->
+
+⚠️ **CLEARED WITH KNOWN FINDINGS CARRIED FORWARD — not a defect-free build**, and this heading must
+not later be read as one. Paul's words: *"I guess I'm gonna pass this build."* The gate ① UX clause,
+uncheckable by machine, is discharged by his walk.
+⚠️ **And the walk was only possible after three out-of-band repairs** — a minted grant, a `hydrate`
+path that did not exist an hour earlier, and a hand re-stamp of `fw-onboard-owner` in his browser.
+None is a beat in any map. The product did not let him in on its own.
 
 **Outcome: `1e2748d` DEPLOYED TO PRODUCTION**, verified at the origin (`fernwood-home.pages.dev`
 serving it, read back by `pages-deploy` itself). Gate ① **4 of 4**. ⚠️ The deploy printed *"every seat
