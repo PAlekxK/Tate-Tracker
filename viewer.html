@@ -6408,8 +6408,17 @@
     var PRIMER = "Paul will send you your link — nothing for you to do.";
 
     var arrived = false;
+    /* ⛔ WHAT IS CURRENTLY RENDERED, so a repaint that changes nothing writes nothing. The
+       banner is an `aria-live` region and `paint()` runs every TICK_MS, but the DISPLAYED
+       value changes only once a minute — so an unconditional rewrite is three DOM mutations a
+       minute inside a live region, and several screen readers announce on mutation regardless
+       of whether the text actually changed. Unguarded, a reader would hear the whole sentence
+       read out three times a minute for twenty-four hours. The tick has to stay faster than the
+       minute it reports (it is what carries the deadline over on its own); the WRITE is what
+       had to be conditional. Found by lane D on 840130a. */
+    var shown = null;
     function arrive() {
-      if (arrived) return; arrived = true;
+      if (arrived) return; arrived = true; shown = null;
       /* Past the deadline the page moves itself — nobody should have to be awake at 1:00 PM
          to run a command. The manual link is shown FIRST and stays: if the redirect fails
          silently, she must still have a visible way through. */
@@ -6425,7 +6434,7 @@
          one day she was promised it. If the deadline has somehow not actually passed, we put
          the banner back and let the ordinary tick decide again. */
       setTimeout(function () {
-        if (SUNSET_AT - now() > 0) { arrived = false; paint(); return; }
+        if (SUNSET_AT - now() > 0) { arrived = false; shown = null; paint(); return; }
         try { location.replace(SUNSET_TO); } catch (e) { location.href = SUNSET_TO; }
       }, GRACE_MS);
     }
@@ -6438,7 +6447,6 @@
       var today = etDate(now()) === etDate(SUNSET_AT);
       var until = today ? ("<b>" + atTime + " today</b>") : ("<b>" + atDay + " at " + atTime + "</b>");
 
-      lede.textContent = "Fernwood is moving to a new home.";
       /* ⛔ HOURS AND MINUTES, NEVER SECONDS. A ticking second-hand is a doomsday clock and
          this is a field journal. Under an hour the countdown goes away entirely and the
          wall-clock time carries it — at that range a number that keeps shrinking is pressure,
@@ -6448,8 +6456,12 @@
         line += " — <b>" + h + (h === 1 ? " hour " : " hours ")
                     + mm + (mm === 1 ? " minute" : " minutes") + " left</b>";
       }
-      body.innerHTML = line + ".";
-      prim.textContent = PRIMER;
+      if (line !== shown) {
+        lede.textContent = "Fernwood is moving to a new home.";
+        body.innerHTML = line + ".";
+        prim.textContent = PRIMER;
+        shown = line;
+      }
       el.hidden = false;
     }
 
