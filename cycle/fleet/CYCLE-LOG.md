@@ -801,3 +801,5 @@ with a test attached, or only noise? Blue Thunder is the natural first subject.
 <!-- meta-lap: 2026-09-04 — engine/migration work only; the fleet loop did not run. -->
 
 <!-- meta-lap: 2026-09-05 — cascade/onboarding work only; the fleet loop did not run. -->
+
+<!-- meta-lap: 2026-09-07 — repo moved for the frozen-Fernwood catch-up plan and the release loop (other window); no fleet lap ran and nothing here touched the fleet. -->

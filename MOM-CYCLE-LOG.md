@@ -2083,3 +2083,5 @@ commit that needed it.
 <!-- meta-lap: 2026-09-04 — the Product Engine migration build (QA-first; C5/C6/Guru/C7 steps; Access on QA). No mom-cycle lap ran: her feedback is HELD by Paul's 9/03 freeze. -->
 
 <!-- meta-lap: 2026-09-05 — the release cascade's GATE 1: the onboarding journey test (tools/journey-logic.py, 15 paths + a 5/5 mutation suite), a P0 in onboarding/index.html that had the whole journey down and reading as offline, the estate accent palette, and personId attribution. No mom-cycle lap ran: her surface is frozen and her feedback stays HELD by Paul's 9/03 freeze — the loop rests, her input fires it, and none arrived. -->
+
+<!-- meta-lap: 2026-09-07 — the frozen-Fernwood catch-up PLAN (.plans/2026-09-07-frozen-fernwood-catchup-PLAN.md, four seats) and BACKLOG rule 6: the catch-up is GATED on Mom's production account. No mom-cycle lap ran: her hold is lifted (rule 4, 09-06) but every act on the frozen side now waits on G0, and the catch-up will run as tranches INSIDE this loop once it lifts. -->
