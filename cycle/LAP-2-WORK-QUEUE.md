@@ -165,6 +165,14 @@ hour; she loses nothing by the rounding.
 | S4 | ⏰ **RE-SEND HER THE INVITE LINK near the deadline** | **Paul** | owed, **and nothing will remind him but this row** |
 | S5 | W0 on production, so a placed household actually has weather | **lane F** → lane A | building |
 
+⛔ **RULED 2026-09-07 — THE WILDLIFE FIX DOES NOT GO TO HER FROZEN PAGE** `[paul-ruled: "if the question
+is whether she can survive without wildlife on the live Fernwood page for the next twenty four hours,
+absolutely — let's not involve another complicating fix"]`. The defect is real and it is hers:
+`MODULE_POPULATION.wildlife` counted off `window`, a script-scope `const` is not a window property, so
+83 species read as `empty` and the Wildlife jump link and summary tile have been hidden on her app. It
+is fixed on the new production and she gets it permanently there. **Her frozen page's one remaining
+push carries the sunset banner and nothing else.**
+
 ⭐ **S4 is the one with no mechanism behind it.** Paul ruled the redirect lands on the bare origin —
 `https://fernwood-home.pages.dev/` → `estate/`, which says *"Open your invitation link and your place
 will be here."* That is honest and cannot dead-end her, but it depends on her having a link. Her

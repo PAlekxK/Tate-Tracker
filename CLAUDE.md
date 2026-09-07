@@ -32,7 +32,14 @@ python3 tools/check-loop-docs.py           # ⭐ do the loop's DOCS still descri
 python3 tools/check-backlog-drift.py       # ⭐ is a BACKLOG RATIONALIZATION owed? (accumulation, not cadence — and it does NOT fire a lap)
 python3 tools/check-backlog-ready.py       # ⭐ does every row that CLAIMS readiness have the trail behind it? (silent at zero; flags, never edits — `.plans/2026-09-03-backlog-readiness-PROPOSAL.md`)
 python3 tools/check-vocabulary.py          # ⭐ is VOCABULARY.md still TRUE of the schema? (rejected names, double-bookings, aspirational terms)
-python3 tools/build-viewer.py --check      # ⭐ is viewer.html BYTE-IDENTICAL to engine/viewer.template.html + instance/fernwood.json + canon? (red = a source moved, or a writer edited viewer.html directly → `--extract` absorbs it — C4 5b)
+python3 tools/build-viewer.py --check      # ⭐ is viewer.html BYTE-IDENTICAL to engine/viewer.template.html + instance/fernwood.json + canon? (red = a source moved, or a writer edited viewer.html directly)
+# ⚠️⚠️ `--extract` IS A TRAP AND THIS LINE USED TO SEND YOU INTO IT (measured 2026-09-07). `--check` is
+#   green while the ROUND TRIP is not: viewer.html renders `{{IDENTITY:perspectiveTitle}}` and
+#   `{{IDENTITY:propertyImage}}` as EMPTY, so `--extract` writes that emptiness back OVER the template's
+#   placeholders and leaves a template that cannot build — exit 0, no warning. A lane hit it today and
+#   only noticed because it ran `--check` in the same minute. It now VERIFIES BEFORE WRITING and refuses
+#   by name, so the trap has a tripwire; the underlying divergence is unruled. Run `--check` after any
+#   `--extract`, always.
 python3 tools/check-engine-manifest.py     # ⭐ is every tracked file CLASSIFIED engine/config/instance? (P1/P2 fail; P3 skipped until an engine remote; P4/P5 counted, self-arming — `ENGINE-MANIFEST.md`)
 python3 tools/check-storage-keys.py        # ⭐ is every browser-storage key ROSTERED? (a key the origin-move migration does not know about is a key she loses — C4 2b)
 python3 tools/read-mom-funnel.py --rotation # ⭐ WHICH CARD IS SHE ACTUALLY SEEING — head-slot exposure; she sees ONE, not five
