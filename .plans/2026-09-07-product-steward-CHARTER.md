@@ -172,9 +172,22 @@ exceeds writes, the seat is a bottleneck wearing a helper's name."*
 
 ```
 python3 tools/product-steward.py --record --sha <build> \
-    --carried N --already N --questions N --unwritten N --note "…"
+    --carried N --already N --questions N --unwritten N \
+    --note "…" --confounded "why THIS round is not a steady-state reading"
 python3 tools/product-steward.py --ledger
 ```
+
+⭐ **A TRIAL REPORTS ITS STATE, NOT JUST ITS NUMBERS** `[lane-A, 2026-09-07]`: *"a trial that reports
+'inconclusive, here is what would settle it' is worth more than one that reports a number it cannot
+stand behind."* `--ledger` therefore prints a **TRIAL STATE**, derived from what the ledger holds and
+never typed beside it: **INCONCLUSIVE** until there are three rounds and at least one that started
+clean, with the missing conditions named one per line. Until it reads MEASURED, *"the redundancy
+figure is DIRECTIONAL, not a verdict, and neither falsifier may be reported as having passed or
+failed the trial."*
+
+⛔ **A CONFOUND IS RECORDED WITH ITS ROUND, not remembered.** Round 1 drained a backlog no round had
+ever consolidated, so its 14-questions-against-7-writes is not a steady-state reading — and a session
+three weeks from now cannot know that from a number. `--confounded` puts it in the row.
 
 ⚠️ **A LIMIT OF THE INSTRUMENT, found by using it on the round-1 consolidation:** `--cite` verifies
 that a citation RESOLVES; it cannot verify that a citation is **apt**. That draft carried five `:1`

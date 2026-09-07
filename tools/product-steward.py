@@ -741,7 +741,26 @@ def load_ledger():
         return None, str(e)
 
 
-def cmd_record(sha, carried, already, questions, unwritten, note):
+# ⭐ A TRIAL REPORTS ITS STATE, NOT JUST ITS NUMBERS `[lane-A, 2026-09-07]`: *"a trial that reports
+# 'inconclusive, here is what would settle it' is worth more than one that reports a number it cannot
+# stand behind."* The state is DERIVED from the ledger — never typed beside it, which is the
+# CYCLE-SPINE's own recorded failure mode.
+def verdict(rounds):
+    """→ (state, [what would settle it]). Derived from what the ledger holds, never asserted."""
+    n = len(rounds)
+    conf = [r for r in rounds if r.get("confounded")]
+    clean = [r for r in rounds if not r.get("confounded")]
+    owed = []
+    if n < 2:
+        owed.append("a SECOND round — one point is not a trend, and R7's falsifier is about a trend")
+    if not clean:
+        owed.append("a round that starts CLEAN: every recorded round so far is confounded (%s)"
+                    % "; ".join(sorted({r.get("confounded") for r in conf if r.get("confounded")})))
+    if n < 3:
+        owed.append("a THIRD round — two points give a direction, not a rate")
+    if not owed:
+        return "MEASURED", []
+    return "INCONCLUSIVE", owed
     led, err = load_ledger()
     if led is None:
         print("🔴 UNCHECKABLE: ledger unreadable (%s). Refusing to overwrite what it could not read." % err)
@@ -751,6 +770,10 @@ def cmd_record(sha, carried, already, questions, unwritten, note):
         "at": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
         "carried": carried, "already": already, "questions": questions,
         "reports_unwritten": unwritten, "note": note or "",
+        # ⛔ A CONFOUND IS RECORDED WITH ITS ROUND, not remembered. Round 1 drained a backlog no round
+        # had ever consolidated, so its question count is not a steady-state reading — and a session
+        # three weeks from now cannot know that from a number.
+        **({"confounded": confounded} if confounded else {}),
     })
     os.makedirs(os.path.dirname(LEDGER), exist_ok=True)
     json.dump(led, open(LEDGER, "w", encoding="utf-8"), indent=2)
@@ -774,11 +797,13 @@ def cmd_ledger():
         print("  ⬜ NOT YET MEASURED: no round recorded. A trial with no ledger is renewed by inertia,")
         print("     which is the one outcome R7 was written to prevent. Record a round with --record.")
         return 3
-    print("  %-9s %-8s %-8s %-10s %s" % ("build", "carried", "already", "questions", "unwritten reports"))
+    print("  %-9s %-8s %-8s %-10s %-18s %s"
+          % ("build", "carried", "already", "questions", "unwritten reports", "confound"))
     for r in rs:
-        print("  %-9s %-8s %-8s %-10s %s"
+        print("  %-9s %-8s %-8s %-10s %-18s %s"
               % ((r.get("sha") or "?")[:7], r.get("carried"), r.get("already"),
-                 r.get("questions"), r.get("reports_unwritten")))
+                 r.get("questions"), r.get("reports_unwritten"),
+                 (r.get("confounded") or "—")[:60]))
     carried = sum(int(r.get("carried") or 0) for r in rs)
     already = sum(int(r.get("already") or 0) for r in rs)
     quests = sum(int(r.get("questions") or 0) for r in rs)
@@ -796,7 +821,16 @@ def cmd_ledger():
         rc = 1
     else:
         print("  ✅ below the 80% threshold — the trial is not falsified on this measure.")
-    print("  questions opened: %d against %d carried." % (quests, carried))
+    # ⭐ THE STATE OF THE TRIAL, printed with the numbers so neither can be quoted without the other.
+    state, owed = verdict(rs)
+    print("\n  TRIAL STATE: %s  (%d round%s recorded)" % (state, len(rs), "" if len(rs) == 1 else "s"))
+    if owed:
+        print("  What would settle it, and nothing else will:")
+        for o in owed:
+            print("     · %s" % o)
+        print("  ⛔ Until then the redundancy figure is DIRECTIONAL, not a verdict, and neither")
+        print("     falsifier may be reported as having passed or failed the trial.")
+    print("\n  questions opened: %d against %d carried." % (quests, carried))
     if quests > carried:
         print("  🔴 SECOND FALSIFIER: questions exceed writes — the seat is a bottleneck wearing a")
         print("     helper's name (§ 6.7).")
@@ -894,6 +928,15 @@ def selftest():
             say(cmd_ledger() == 1, "M10 questions > carried → the bottleneck falsifier FIRES")
             open(LEDGER, "w").write("{not json")
             say(cmd_ledger() == 3, "M11 an unreadable ledger is UNCHECKABLE, never an implied zero")
+
+            # M11a-M11c · the trial's STATE is derived, and a confound survives the session
+            say(verdict([{"carried": 1, "already": 1}])[0] == "INCONCLUSIVE",
+                "M11a one round is INCONCLUSIVE — a point is not a trend")
+            st, owed = verdict([{"confounded": "drained a backlog"}, {"confounded": "drained a backlog"}])
+            say(st == "INCONCLUSIVE" and any("starts CLEAN" in o for o in owed),
+                "M11b every round confounded → the ledger asks for a CLEAN round by name")
+            say(verdict([{}, {}, {}])[0] == "MEASURED",
+                "M11c three clean rounds is the only state that reads MEASURED")
         finally:
             LEDGER = real
 
@@ -955,6 +998,7 @@ def main():
     ap.add_argument("--questions", type=int, default=0)
     ap.add_argument("--unwritten", type=int, default=0)
     ap.add_argument("--note")
+    ap.add_argument("--confounded", help="why THIS round's numbers are not a steady-state reading")
     ap.add_argument("--ledger", action="store_true")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
@@ -965,7 +1009,7 @@ def main():
     if a.cite is not None:
         return cmd_cite(a.cite, strict=a.strict)
     if a.record:
-        return cmd_record(a.sha, a.carried, a.already, a.questions, a.unwritten, a.note)
+        return cmd_record(a.sha, a.carried, a.already, a.questions, a.unwritten, a.note, a.confounded)
     if a.ledger:
         return cmd_ledger()
     if a.triggers:
