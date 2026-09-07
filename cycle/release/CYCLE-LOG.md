@@ -818,3 +818,30 @@ Make it flexible."*
   run on the reset account, in a fresh incognito window, on the deployed build. No failure reported.
 - Whether that is his CLEAR (beat 5, the release event) is asked, not assumed; `--cleared` is
   written only on his word.
+
+### 11:50 ET (Sep 7) — ⭐ PAUL CLEARED `c821051` — THE RELEASE EVENT. Lap 1 CLOSES.
+- `paul-stated` (verbatim): *"I think we are good to green light this as our first full approved
+  production build."*
+- `release-state.py --sha c821051 --cleared c821051 --write` → `cycle-state.json`: ARMED · beat 5 ·
+  owner paul · `last_lap.outcome: cleared` · `cleared_sha: c821051`. **The first build to pass the
+  whole loop: synthetic seats until it stopped failing, Paul walked production, Paul cleared.**
+- Lap 1 by the numbers: opened 2026-09-06 evening at `6ee2e48`; **15 rounds** (nine last night, six
+  today); builds deployed to home: `ca9161e` (10:12) and `c821051` (11:35); Paul's beat-3 failures
+  today: 4 (account creation skipped on a stored account · a refusal shown as a failed delivery · the
+  orphan journal tile · empty modules on the first screen), each re-entered beat 2 and came back
+  through four seats; readings written today: 24; false-red batteries: 1 (the missing `--fresh`);
+  contaminated walks: 2 (deploy mid-walk); production account resets: 1, on his word.
+- Pre-registered for lap 2 (S5), each with its trigger:
+  · `pages-deploy --env qa` waits for the served sha before returning (deploy-mid-walk ×2)
+  · `walk-brief.py` extracts the place card at stop 12 (every reader had to cite the PNG)
+  · `jumpstrip_viewed` fires with no strip on screen (instrumentation reads a hidden module)
+  · `journey-walk` prints the reader command it owes (R2 from lap 1's practice ruling — still open)
+  · a script-readable "real account exists on home" signal (frozen-Fernwood plan §11 H1/H2; today
+    it exists only as `reset-production-estate.py`'s refusal)
+  · the token hand-off must outlive the session (two rotations today for a lost scratch file)
+  · Paul is three person-ids across register and store (row 19's journey work)
+  · geocoding the address → the place card's weather line redeemed (all four seats, every round)
+  · "Open ▲" on an open card; one clause acknowledging the ranked order; a door for a box-number
+    household to add where the place is — Paul's, held
+- Still gated on Paul, outside this loop: Mom's grant needs the administrator-reads consent record
+  (when/how she agreed); her link is sent by him, never by a session.
