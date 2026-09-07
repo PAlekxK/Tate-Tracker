@@ -232,3 +232,39 @@ together."*
 AI ruling at all.** A link is membership-by-rule. Folded into the same scoping session as J-g.
 Remaining open: **J-c** (the lap-state contract — I applied one shape tonight; ratify or reverse) and
 **J-d** (colour precedence).
+
+### ✅ J-e — CLOSED for now: draw the line when it is crossed
+`paul-ruled 2026-09-07`: *"that's fine on J-e, and we will continue to refine and understand how that
+works as we approach it."*
+**What this settles:** no AI-boundary ruling is owed today. Starting with LINKS is membership-by-rule
+— nothing is filtering, so there is nothing for a model to silently drop. ⭐ **The trigger to
+re-open it is precise and should be written where the code will be:** the first time anything
+SELECTS or FILTERS what appears on the card, the order-not-membership rule must be ruled before that
+ships. Until then this is not an open decision.
+
+---
+
+## 8 · ⭐ A V1 IS A LEGITIMATE DESTINATION — and it recalibrates the maturity rubric
+`paul-stated 2026-09-07`: *"a lot of these features and thoughts kinda will have a v1 and will need
+to be refined over time."*
+
+**Why this is a rule and not an aside.** It corrects the readiness rubric proposed one exchange
+earlier in this same session. That rubric asked whether a row states what changes on screen, for
+whom, its falsifier, and its dependencies — and applied to the WHOLE FEATURE it sets a bar almost
+nothing clears, which would park the entire backlog at `concept` and make the pipeline a wall.
+
+⭐ **THE CORRECTED BAR: grade the V1, not the feature.** A row is ready to build when its **first
+version** is clear — what the v1 does, for whom, how we would know it worked, and what it needs.
+The parts deferred to v2 do not hold it at `concept`; they are the refinement the stage ladder
+exists to carry.
+
+⛔ **AND THE COROLLARY, which is the half that goes wrong:** *"we'll refine it later"* is only
+honest if the refinement has somewhere to live. A v1 shipped with no successor row is not a v1, it
+is an unfinished feature with better manners — the same failure as the *"we'll keep exploring it
+together"* line the content seat rejected tonight for being unfalsifiable. **So a row graded
+`v1-ready` must name what it is deferring.** That is checkable, it costs one line, and it is what
+keeps a v1 from becoming permission never to finish.
+
+**Consequence for the pipeline:** the ladder is not concept → fully-designed → build. It is
+concept → **clear v1** → build → refine, and the refinement leg is part of the pipeline rather than
+evidence the pipeline failed.
