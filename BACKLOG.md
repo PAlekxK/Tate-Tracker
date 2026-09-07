@@ -2413,6 +2413,40 @@ config / instance · **de-hardcode the identity block** out of the viewer's engi
 name in Mom-read prose is a **content** decision) · **derive config from canon** (kill the re-typed
 `FROST_MONTH`-style copies). **Objective O3. Depends on C4** — the KV prefix is an environment decision.
 
+## 🗺 WHERE THE IDEAS ARE — the two mines and the census `[swept 2026-09-07]`
+
+**Ranked-surface pointers for the idea inventories, so they stop being orphans.** Lane D's census found
+that *the most thorough idea inventory this project has was itself reachable from no ranked surface* —
+its DROPPED and PARTIAL rows exactly as lost as the ideas it was written to find.
+
+| inventory | axis | what it holds |
+|---|---|---|
+| `.plans/2026-09-07-dropped-ideas-MINE.md` | **Paul's conversation turns** — 4,227 read in full | 131 arcs · 114 landed · **5 partial · 2 dropped** · 10 superseded, plus a §4 naming nine things it structurally cannot see |
+| `.plans/2026-09-07-idea-sweep-CENSUS.md` | **the artifact axis** — the complement | 268 tracked files across 13 directories · 105 cited by a ranked surface · 130 cited only by a peer · **33 cited by nothing** |
+| `BACKLOG.md` § SEEDS · `PRODUCT-ENGINE.md` § RECOVERED FROM VOICE MEMOS | Paul's turns | 27 rows · the 09-04 memo recovery |
+
+⭐ **WHY THE CENSUS RAN THE ARTIFACT AXIS RATHER THAN A FOURTH MINE.** Three mines already existed and
+**all three start from Paul's words** — so an idea that originated in an *agent proposal* is invisible
+to every one of them by construction. That was the unswept gap, and a fourth conversation mine would
+have been the duplication the sweep exists to remove.
+
+⛔ **DUPLICATES: ZERO, and the null result is the finding.** A slug detector flagged 23 collisions; all
+23 are this corpus's own **multi-seat convention** — one topic, one file per seat (`setup-journey` in
+`.engineering/` and `.user-research/`), or one topic in two modes (`review` vs `principles`). **A naive
+de-duplicator would have proposed ~23 destructive merges.** Any future consolidation tool must key on
+**(topic × seat × mode)**, never on the slug.
+
+⚠️ **COVERAGE IS PARTIAL AND THE CENSUS SIZES ALL SEVEN HOLES ITSELF.** The largest: it is a **POINTER
+census, not a content sweep** — it establishes what exists and what points at it, and does not claim to
+have read the 268 files. An idea *inside* a cited file is still not inventoried, which is most of
+Paul's original ask. Also unreached: the private sibling (33 files), 24 root `.md`, ideas that live
+only in **code comments** (this lap alone found three), and the **16 pre-convention `.plans/` files with
+no type suffix** — deliberately ungraded by the readiness checker and therefore the least visible files
+in the repo. **Pass 2 — reading the 268 rather than counting their pointers — is not started; Paul's
+call whether it runs.**
+
+---
+
 ## 🧭 THE PRINCIPLES MUST SURVIVE THE ZOOM-OUT `[paul-raised 2026-09-07]` — CAPTURE ONLY
 
 > *"We've established a lot of principles and design, tone and so on throughout our work with Fernwood,
