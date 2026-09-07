@@ -13824,7 +13824,20 @@ function renderProperty() {
   const climate = p.climate;
   const hard = p.hardiness;
 
-  const elev = loc.elevation;
+  // ⛔ W0 CREATED A THIRD STATE AND THIS IS WHERE IT LANDED. Before geocoding there were two
+  // cases: PLACED (Fernwood — coordinates AND canon) and UNPLACED (a household — neither), and the
+  // `!SITE_PLACED` return above covers the second. A geocoded household is PLACED WITH NO CANON —
+  // it has a point on the earth and no elevation, hardiness, frost or soils — and that case walked
+  // straight into every unguarded read below.
+  //   MEASURED 2026-09-07 by the mom seat, the first walk where a household was ever placed:
+  //   `Cannot read properties of undefined (reading 'split')` at the USDA row, thrown at top level,
+  //   which killed the script before MetricsCollector was defined 400 lines later — so the run
+  //   recorded ZERO app events and the page was dead. The 09-06 fix that added `!SITE_PLACED`
+  //   solved the unplaced half and could not have anticipated this one.
+  // Every other row in this panel already omits itself when its canon is absent (C7 0b); these two
+  // were the only ones that assumed. They now follow the same rule: a declared absence, not a
+  // broken card, and never the word "undefined" on a card someone reads.
+  const elev = loc.elevation || {};
   const elevConf = elev.confidence === "confirmed" ? "" : " <span style='color:#c09020;font-weight:normal;font-size:10.5px'>(estimated — verify on-site)</span>";
 
   // Property map opens the card — looking at the whole place is itself the
@@ -13849,8 +13862,10 @@ function renderProperty() {
   if (pp.address) html += '<div class="prop-row"><span class="prop-label">Address</span><span class="prop-value">' + escapeHtml(shortAddress) + '</span></div>';
   if (pp.county) html += '<div class="prop-row"><span class="prop-label">County</span><span class="prop-value">' + escapeHtml(shortCounty + (pp.state ? ", " + pp.state : "")) + '</span></div>';
   if (pp.region) html += '<div class="prop-row"><span class="prop-label">Region</span><span class="prop-value">' + escapeHtml(shortRegion) + '</span></div>';
-  html += '<div class="prop-row"><span class="prop-label">Elevation</span><span class="prop-value">~' + elev.estimated_ft.toLocaleString() + ' ft' + elevConf + '</span></div>';
-  html += '<div class="prop-row"><span class="prop-label">USDA Zone</span><span class="prop-value">' + hard.officialZone + ' (official) · ' + hard.elevationAdjustedZone.split('(')[0].trim() + ' (at elevation)</span></div>';
+  if (Number.isFinite(elev.estimated_ft)) html += '<div class="prop-row"><span class="prop-label">Elevation</span><span class="prop-value">~' + elev.estimated_ft.toLocaleString() + ' ft' + elevConf + '</span></div>';
+  // Both halves are named because a household can plausibly acquire one without the other, and half
+  // a zone row is worse than none — "6b (official) · undefined (at elevation)" reads as a bug.
+  if (hard && hard.officialZone && hard.elevationAdjustedZone) html += '<div class="prop-row"><span class="prop-label">USDA Zone</span><span class="prop-value">' + hard.officialZone + ' (official) · ' + hard.elevationAdjustedZone.split('(')[0].trim() + ' (at elevation)</span></div>';
   if (loc.naturalCommunity) html += '<div class="prop-row"><span class="prop-label">Natural Community</span><span class="prop-value">' + escapeHtml(loc.naturalCommunity) + '</span></div>';
   const stnId = (p.resources && p.resources.nearestWeatherStation && p.resources.nearestWeatherStation.id) || "the reference station";
   if (Number.isFinite(elev.valleyFloorRef_ft) && Number.isFinite(elev.airportRef_ft)) html += '<div class="prop-note">Valley floor ref: ' + elev.valleyFloorRef_ft.toLocaleString() + ' ft (' + escapeHtml(pp.city || "valley") + ' city center) · Airport: ' + elev.airportRef_ft.toLocaleString() + ' ft (' + escapeHtml(stnId) + '). Community typology from <a href="https://www.naturalcommunitiesofgeorgia.com/blue-ridge-overview.html" target="_blank" rel="noopener">Natural Communities of Georgia</a>.</div>';
