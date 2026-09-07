@@ -268,3 +268,13 @@ keeps a v1 from becoming permission never to finish.
 **Consequence for the pipeline:** the ladder is not concept → fully-designed → build. It is
 concept → **clear v1** → build → refine, and the refinement leg is part of the pipeline rather than
 evidence the pipeline failed.
+
+### ✅ Z-ACK — CLOSED: Paul discharges it in person, off-system
+`paul-ruled 2026-09-07`: *"Don't worry about the acknowledgment to Mom. I'll take care of it in
+person."*
+**What this settles:** the debt orphaned by J-f is **not** a product problem and no acknowledgment
+mechanism is to be built for it. ⛔ Do not design a ribbon, a card, a message or a surface to thank
+her for the 23 zones — it is handled by the person who owes it, at the guided visit.
+⭐ This is the right shape and worth naming: the thing owed was never really a feature. The product
+was only ever going to be a proxy for a person saying thank you, and a proxy would have been worse
+than the thing itself. **Close the row; do not re-raise it.**
