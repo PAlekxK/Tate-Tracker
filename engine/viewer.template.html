@@ -5737,6 +5737,8 @@
   .fn-sync-pill.fn-sync-local-only { background: #faf0d8; color: #8a6a2a; border: 1px solid #e8d4a0; }
   .fn-sync-pill.fn-sync-local-full { background: #f4e0d4; color: #aa4a2a; border: 1px solid #e0b4a0; }
   .fn-sync-pill.fn-sync-error      { background: #f4e0d4; color: #aa4a2a; border: 1px solid #e0b4a0; }
+  .fn-sync-pill.fn-sync-household-local { background: #eef2f6; color: #4a5866; border: 1px solid #d4dce6; }
+  .fn-sync-banner-household-local  { background: #f4f7fa; border: 1px solid #dfe5ec; color: #4a5866; }
 
   /* In-body banner */
   .fn-sync-banner {
@@ -14652,7 +14654,7 @@ function renderVehicles() {
     //     openers so there's a consistent design language."
     if (g.target === 'household-list') {
       html += '<button type="button" class="card-later-link" id="household-add-link">' +
-              'Is there something else the home runs on? Tell ' + escapeHtml(typeof JOURNAL_NAME === "string" && JOURNAL_NAME ? "the " + JOURNAL_NAME : "the journal") + ' \u203a</button>';
+              'Is there something else the home runs on? Tell ' + escapeHtml(typeof JOURNAL_NAME === "string" && JOURNAL_NAME ? (/^the\s/i.test(JOURNAL_NAME) ? "" : "the ") + JOURNAL_NAME : "the journal") + ' \u203a</button>';
     }
     // Ungrouped records surface on the Vehicles card rather than vanishing —
     // the same fail-loud posture the three-way split was written with.
@@ -17592,10 +17594,9 @@ function renderIdeaCards() {
     const src = i === 0 ? "You put " + it.label + " first, so this is where we start."
               : (i <= 2 ? "You put " + it.label + " near the top, so it's one of the first we're working on."
                         : "You put " + it.label + " on the list, so we know it belongs here.");
-    c.innerHTML = '<div class="main-card-header"><div class="main-card-title"></div><div class="main-card-summary"><em class="idea-tag">an idea — not built yet</em></div></div>'
-                + '<div class="main-card-body"><div class="empty-invite"><p class="empty-invite-source"></p></div></div>';
+    c.innerHTML = '<div class="main-card-header"><div class="main-card-title"></div><div class="main-card-summary"><em class="idea-tag">an idea — not built yet</em> · <span class="idea-src"></span></div></div>';
     c.querySelector(".main-card-title").textContent = it.label;
-    c.querySelector(".empty-invite-source").textContent = src;
+    c.querySelector(".idea-src").textContent = src;   // on the face — a closed body hid it (strict + mom, round 4)
     // in ranked position: after the last card that belongs to an earlier-ranked module, else first
     let anchor = first;
     for (let k = i - 1; k >= 0; k--) {
@@ -17685,6 +17686,10 @@ function renderEmptyCards() {
     if (source) { el.querySelector(".empty-invite-source").textContent = source;
                   el.querySelector(".empty-invite-ask").textContent = ask; }
     const body = card.querySelector(".main-card-body") || card;
+    // ⛔ THE ENGINE'S OWN BODY ASSERTS A CONDITION FROM NO DATA — "the garden's resting", "A quiet Sep
+    // at the property", "Browse By Species or Year View" — on a place that holds nothing (wide-eyed +
+    // owner, round 4: "absence dressed as a reading"). An empty module's body is its invitation.
+    Array.from(body.children).forEach(ch => { if (!ch.classList.contains("empty-invite")) ch.style.display = "none"; });
     body.appendChild(el);
   });
 }
@@ -17721,7 +17726,11 @@ function renderUnplacedSummaries() {
 function renderDashboardStrip() {
   applyModuleTiles();
   renderEmptyCards();
-  if (!SITE_PLACED) { renderUnplacedSummaries(); return; }
+  if (!SITE_PLACED) {
+    renderUnplacedSummaries();
+    const wi = document.getElementById("weather-card-icon"); if (wi && !wi.textContent) wi.textContent = "⛅";   // a blank square read as not-loaded (mom + wide-eyed, round 4)
+    return;
+  }
   const cur   = WEATHER_DATA.current;
   const daily = WEATHER_DATA.daily;
   const alerts = generateAlerts();
@@ -19947,6 +19956,7 @@ function renderFieldNotes() {
   const pillLabel = status.mode === "synced" ? "Synced"
                   : status.mode === "local-only" ? "Local only"
                   : status.mode === "local-full" ? "Local full"
+                  : status.mode === "household-local" ? "On this phone"   // a limitation, not an error (four seats, round 4)
                   : "Sync error";
   let summaryText;
   if (entries.length === 0) {

@@ -196,7 +196,8 @@
   <!-- The general feedback channel, on this screen as on every other. `paul-stated 2026-09-05`:
        available once someone has an account and is signed in. Closed by default — a standing open
        textarea is the affordance-without-signal trap. -->
-  <p><button type="button" id="fbopen" class="fbbubble">💬 Something not right? Tell me.</button></p>
+  <!-- compact: the long label covered the ranked list at 414 × A+ on every seat's walk (round 4) -->
+  <p><button type="button" id="fbopen" class="fbbubble" aria-label="Something not right? Tell me.">💬 Tell me</button></p>
   <div id="fbbox" hidden>
     <textarea id="fbnote" rows="3" placeholder="Anything at all"></textarea>
     <p><button type="button" id="fbsend"><span class="tick">✓</span>Send</button></p>
@@ -313,7 +314,8 @@
            : pref === "phone" ? "By phone." : "By email.",
       prov: pref === "none"
         ? "I'll keep to that. It also means I can't send you a new password if you lose yours — email me and I'll sort it."
-        : "You chose this when you made your account.",
+        : (read("fw-onboard-contact-chosen") === "1" ? "You chose this when you made your account."
+                                                       : "The usual choice — I went with it since you didn't pick. Change it if you'd rather."),
       act: "Change that ›"
     });
   }

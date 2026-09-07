@@ -295,3 +295,19 @@ can't do is go back in time and recapture data from real users."*
   container]]`).
 - `worked` — the instrumented clause was reported-not-counted, so a broken instrument cost
   nothing but time. Pre-registration held.
+
+### 21:40 ET — round 4 read: four of four new-and-waiting; what they call FAILURES
+- `worked` — four fresh readers again converged, this time on the last fault-shaped elements:
+  a **"SYNC ERROR" chip** on the notes card (my household mode fell through the chip's label
+  map) · the **feedback pill covering the ranked list** on the receipt page · **"Tell the the condo
+  Almanac"** (an article before a name that carries one) · a **blank weather icon** on an unplaced
+  household · **garden-glance lines asserting a condition** ("the garden's resting") on a garden
+  that holds nothing · **"You chose this"** over a default sat on · two raw-blue links.
+- All fixed for round 5. Every one of these was introduced or exposed by an earlier round's fix —
+  the loop found its own defects, which is the point of running it until it stops failing.
+- `finding` (rulings, held): the naming screen's masthead is the USERNAME (the "top bar says where
+  you are: estate > person > product" rule, `paul-stated 09-05`) and two seats read it as "the app
+  named my place my login" · "Have we got this right" is a question with nothing to tap · Wildlife
+  tabs (Lizards, Snakes) on a Maine condo · "the Almanac" appears three times on one screen.
+- `measured` — capture side, round 4: 4–7 app events per seat via `grant`. The `instrumented`
+  clause is green for every seat at `7965c70`; it counts from lap 2 as pre-registered.

@@ -236,6 +236,7 @@
     text-decoration: underline; cursor: pointer;
   }
   .fblabel { display: block; font-weight: 600; font-size: .95rem; margin-bottom: 6px; }
+  a { color: var(--accent); }   /* raw browser-blue links stood out on 06 and 08 (wide-eyed, round 4) */
   .picks { display: flex; flex-direction: column; gap: 9px; margin-top: 9px; }
   .pick {
     /* ⛔ align-items:flex-start AND no forced height. The cards were equal-height, so a one-line
@@ -1201,7 +1202,10 @@
     el.emailopt.hidden = v === "email";        // the PRIMARY is the one not marked optional
     el.phoneopt.hidden = v === "phone";
   }
-  el.contactpick.addEventListener("change", function () { ev("contact", contactPref()); paintContact(); });
+  el.contactpick.addEventListener("change", function () {
+    ev("contact", contactPref()); paintContact();
+    store("fw-onboard-contact-chosen", "1");   // a tap is a choice; a default sat on is not (strict + owner, round 4)
+  });
   paintContact();
 
   // ---- BEHAVIOUR, NOT JUST ANSWERS -------------------------------------------------------------
