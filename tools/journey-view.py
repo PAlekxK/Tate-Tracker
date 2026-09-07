@@ -69,12 +69,23 @@ const cfg = JSON.parse(process.argv[2]);
   const page = await ctx.newPage();
   // A screenshot's entire meaning is its geometry. Recording it here means a later reader can tell
   // what the image is EVIDENCE OF, instead of assuming the standard it was supposed to meet.
-  const out = { steps: [], console: [], checkpoints: [],
+  const out = { steps: [], console: [], checkpoints: [], httpFailures: [],
                 geometry: { width: 414, height: 848, deviceScaleFactor: 3, isMobile: true } };
   // A walk that cannot say WHY a write failed cannot attribute it later. Errors only —
   // a full console dump buries the one line that matters.
   page.on('console', (m) => { if (m.type() === 'error') out.console.push(m.text().slice(0, 300)); });
   page.on('pageerror', (e) => out.console.push('PAGEERROR: ' + String(e).slice(0, 300)));
+  // ⛔ THE CONSOLE LINE CARRIES A STATUS AND NO URL, so WHOSE 429 it was is not derivable from it.
+  // Measured 2026-09-07: all 18 occurrences across the corpus are the byte-identical string
+  // "Failed to load resource: the server responded with a status of 429 (Too Many Requests)".
+  // A gate clause was refusing runs on that string while being NAMED for our own origin — and the
+  // 429s were Open-Meteo's free tier, fetched straight from the browser. Recording the URL at
+  // capture time is what makes attribution possible at all; inferring it from timing or position
+  // would be a clause that guesses, which is worse than the wide one because it is wrong silently.
+  page.on('response', (r) => {
+    try { if (r.status() >= 400) out.httpFailures.push({ status: r.status(), url: String(r.url()).slice(0, 300) }); }
+    catch (e) { /* a response that cannot report itself is not worth failing the walk over */ }
+  });
   try {
     await page.goto(cfg.url, { waitUntil: 'load', timeout: 45000 });
     await page.waitForTimeout(1200);

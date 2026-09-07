@@ -92,6 +92,7 @@ def view(url, actions, shot, watch=False, shot_dir=None):
     # Prefer the structured result — it carries every checkpoint's FULL screen. The stdout parse
     # below is the fallback for a direct call with no --shot-dir, and it is lossy by construction.
     cps = []
+    full = None          # ⛔ bound before the branch: `httpFailures` reads it at the return
     if shot_dir:
         try:
             full = json.load(open(os.path.join(shot_dir, "_view.json"), encoding="utf-8"))
@@ -124,7 +125,14 @@ def view(url, actions, shot, watch=False, shot_dir=None):
             # 125 absent.** The field was only ever emitted when it fired, so absence meant either
             # "clean" or "predates the field" and nothing could tell which — while a gate clause read
             # it to refuse. `bool(...)` is explicit here so a False is written, not skipped.
-            "rateLimited": bool(("429" in out) or ("rate-limited" in out))}
+            "rateLimited": bool(("429" in out) or ("rate-limited" in out)),
+            # ⭐ EVERY 4xx WITH ITS URL, so a later reader can say WHOSE it was. Until 2026-09-07 the
+            # only record of a 429 was a console line carrying a status and NO URL — 18 occurrences
+            # across the corpus, byte-identical — so `rateLimited` could not distinguish OUR limiter
+            # from a third party's, and a gate clause named for our origin was refusing runs on
+            # Open-Meteo's free tier throttling the browser. Attribution is now RECORDED, never
+            # inferred from timing or position.
+            "httpFailures": (full or {}).get("httpFailures") or []}
 
 
 # ⭐ ONE CONTINUOUS JOURNEY, CHECKPOINTED — replaces the replay-every-prefix design
