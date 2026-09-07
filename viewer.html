@@ -17626,6 +17626,8 @@ function cardHost() {
 }
 function renderIdeaCards() {
   document.querySelectorAll(".main-card.idea-card").forEach(c => c.remove());
+  // an idea card IS an empty module — same ruling as above `[paul-stated 2026-09-07]`
+  if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) return;
   // ⛔ THE HOST IS THE MAIN CARD STREAM, never "the first module card" — for one ranking that card
   // sat inside the collapsed Reference drawer, and every synthetic card went in there with it
   // (wide-eyed, round 8: "there is no card asking what I'd like to see next").
@@ -17669,6 +17671,9 @@ function renderIdeaCards() {
 // card appears with its invitation — and the choice is recorded on the capture side, with the account.
 // Deterministic, AI-free capture: the same shape onboarding's ranking answer takes.
 function renderAskNext() {
+  // ⚠️ With every empty module hidden on a household `[paul-stated 2026-09-07]`, a tapped chip would add a
+  // card the reader cannot see. The ask rests until Paul says what replaces it (CYCLE-LOG 10:50 ET).
+  if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) { document.querySelectorAll(".main-card.ask-next").forEach(c => c.remove()); return; }
   document.querySelectorAll(".main-card.ask-next").forEach(c => c.remove());
   if (!(typeof window !== "undefined" && window.__HOUSEHOLD_NAME)) return;
   const known = Array.from(new Set(Array.from(document.querySelectorAll(".main-card[data-module]")).map(c => c.dataset.module)));
@@ -17742,8 +17747,13 @@ function renderEmptyCards() {
     // the DATA model (empty, not absent); PRESENCE on a household's first screens is their picks. An
     // unranked module returns the moment it holds anything.
     const household = typeof window !== "undefined" && !!window.__HOUSEHOLD_NAME;
-    if (household && moduleState(mod) === "empty" && !READER_RANKING.includes(mod)) { card.style.display = "none"; return; }
-    if (household && card.style.display === "none" && READER_RANKING.includes(mod)) card.style.display = "";
+    // ⭐ SUPERSEDED 2026-09-07 `[paul-stated, beat 3, with the real screen in front of him]`: "Let's not show
+    // any of the empty modules — household systems, papers and documents, vehicles, equipment and tools,
+    // wildlife — at the start. We should only have the <name> almanac and the my-home view populated from
+    // the address." So an empty module is hidden on a household WHETHER OR NOT it was ranked; R5 still
+    // holds as the data model (empty, not absent), and a module returns the moment it holds anything.
+    if (household && moduleState(mod) === "empty") { card.style.display = "none"; return; }
+    if (household && card.style.display === "none" && moduleState(mod) !== "empty") card.style.display = "";
     if (moduleState(mod) !== "empty" || invited.has(mod)) {
       const old = card.querySelector(".empty-invite");
       if (old) old.remove();
@@ -17825,6 +17835,18 @@ function applyModuleTiles() {
   // NAVIGATION — the summary tiles at the top are shortcuts, so they need something to point at.
   document.querySelectorAll(".dash-cell[data-module]").forEach(cell => {
     cell.style.display = (moduleState(cell.dataset.module) === "populated") ? "" : "none";
+  });
+  // ⛔ THE JOURNAL TILE IS NOT FOR A HOUSEHOLD `[paul-stated 2026-09-07, beat 3]`: "underneath it there's
+  // another Grant Park condo almanac 'look back at what you've written' … green mint background, not
+  // centered or stretched — that should be removed." The composer card already carries "Look back ›";
+  // the tile was the one strip cell with no data-module, so it survived alone when every module tile
+  // hid. Hide it for a household, and hide any strip row that has no visible cell left.
+  if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
+    document.querySelectorAll('.dash-cell[onclick*="card-fieldnotes"]').forEach(cell => { cell.style.display = "none"; });
+  }
+  document.querySelectorAll(".dash-strip-inner").forEach(row => {
+    const anyVisible = Array.from(row.querySelectorAll(".dash-cell")).some(c => c.style.display !== "none");
+    row.style.display = anyVisible ? "" : "none";
   });
   // NAVIGATION — the jump strip, same rule, read from the card it targets rather than restated.
   document.querySelectorAll(".jump-strip a[data-jump]").forEach(a => {
