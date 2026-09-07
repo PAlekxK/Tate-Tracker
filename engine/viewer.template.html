@@ -4966,6 +4966,18 @@
   /* Persistent "General feedback" ribbon — a journal bookmark tab pinned to the
      right edge, lower-middle (thumb reach). Stays put on scroll; clearly labeled
      so it's impossible to lose (Mom's ask). NOT a chat-bubble FAB. */
+  /* ⭐ RULED 2026-09-07 — AN OVERLAP HERE IS A SCROLL POSITION, NOT A COVERED CONTROL `[paul-stated]`:
+     "that bubble only covers the control at one point in time — as soon as you scroll up or down,
+     because the bubble keeps its relative position, it would uncover what's underneath."
+     Correct, and it is why `position: fixed` + `bottom: 40px` is the whole answer: the ribbon is
+     pinned to the VIEWPORT, never to a card, so content scrolls under it and every element gets a
+     turn at being overlapped — none permanently.
+     ⚠️ RAISED TWICE BY SEATS on 2026-09-07 (`Open ▼` on the place card, after a longer honest string
+     re-wrapped the rain line and shifted the page ~30px). It will be raised again, and the reason is
+     structural: THE HARNESS CANNOT SCROLL OR TAP, so no synthetic walk can ever produce the
+     counter-evidence. A seat can only ever report the one scroll position it captured. Read such a
+     finding as "at this offset the ribbon overlapped X", never as "X is unreachable" — and check a
+     tap target's reachability by scrolling, which is what a person does without thinking about it. */
   .feedback-ribbon {
     position: fixed; right: 0; bottom: 40px;
     z-index: 900; display: inline-flex; align-items: center; gap: 7px;
