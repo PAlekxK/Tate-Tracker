@@ -129,11 +129,20 @@ almost certainly share it rather than mint a third opinion about what "engine" m
 estate's build. Today that holds by construction (0 entries) — but the moment per-estate logs exist,
 `check-estate-neutral.py` needs a row for them, or Fernwood's plants end up in Bob's changelog.
 
-**Open, and Paul's:** does a household see BOTH logs (engine + its own, interleaved or separate), or
-only its own? Neither is obviously right — a household that never sees engine notes cannot tell an
-improvement from a thing that was always there; one that sees all of them reads product-release noise
-on a field journal. **Not scheduled; it is not lap-2 work.** Sequenced after the "placed without
-canon" design, because both are questions about what a household surface IS.
+✅ **RULED 2026-09-07 — THE SURFACE DECIDES WHICH LOG YOU SEE** `[paul-stated]`: *"a household, an
+individual household, should see release notes specific to that household. And if you're in your
+account view, then you see the engine release notes."*
+
+⭐ **It answers the question by REFUSING THE PREMISE.** Both proposed shapes assumed one surface had to
+carry both logs, interleaved or chosen between. Paul split them by SURFACE instead: **the place shows
+what changed about the place; the account shows what changed about the product.** A person sees each
+where it is the answer to the question they are already asking, and neither ever has to be filtered.
+It also means no household reads product-release noise on a field journal, and nobody has to decide an
+ordering between two kinds of note — because they never meet.
+
+⚠️ **What it makes true, and what still needs building:** `<canon>/RELEASE_NOTES.md` is already
+instance-scoped and already renders per household — that half exists. The ENGINE log does not exist at
+all, and neither does an account-view surface to put it on. Sequenced after the sunset; not lap-2 work.
 
 ### Discharge at lap close — pre-registered, from lap 1
 
