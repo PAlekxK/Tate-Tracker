@@ -574,6 +574,23 @@ def cmd_round(sha=None, quiet=False):
             print("     ⚠️ CAPTURED, not SEEN: this scans what the extractor recorded. A ✅ on a run")
             print("        from before the 2026-09-07 div fix is weaker than one after it.")
 
+        # ⛔ WHAT THIS EVIDENCE IS ABOUT, AND WHAT IT IS NOT — derived from the runs' own `origin`,
+        # never typed `[lane-A, 2026-09-07]`. A round proves ONE origin, ONE Worker, ONE KV namespace.
+        # Mom arrives on `home`: a different origin, a different Worker, a different namespace. Gate ①
+        # green here is NECESSARY AND NOT SUFFICIENT, and the ratified cascade says so — synthetic
+        # persona → Paul → Mom. Printed with every round because a scope caveat that lives in a
+        # person's memory is one that goes missing on the round that matters.
+        origins = sorted({(read_transcript(newest[st][1]) or {}).get("origin") or "unrecorded"
+                          for st in seats if st in newest})
+        print("\n  ⛔ SCOPE OF THIS EVIDENCE: origin(s) %s — derived from each run's own transcript."
+              % ", ".join(origins))
+        if origins != ["home"]:
+            print("     It proves that origin, its Worker and its KV namespace. It proves NOTHING")
+            print("     about production `home`, which is a different origin, Worker and namespace.")
+            print("     Gate ① green here is NECESSARY AND NOT SUFFICIENT. The ratified cascade is")
+            print("     synthetic persona → Paul → Mom, and PAUL WALKS PRODUCTION HIMSELF — that gate")
+            print("     is not a session's and not a seat's.")
+
         print("\n  reports the seat can READ:      %d" % len(census["read"]))
         # ⛔ PAUL'S OWN REQUIREMENT, and it is the deterministic half of the consolidation:
         # "names every report that was never written" (LANE-B.md:34).
@@ -1043,6 +1060,8 @@ def selftest():
             "M21 a bare `—` as a VALUE is not flagged — it is the ratified empty vocabulary")
         say(shapes(os.path.join(tmp, "no-such-run")) is None,
             "M22 an unreadable transcript returns None from the shape scan too, never an empty pass")
+        say("PAUL WALKS PRODUCTION HIMSELF" in open(__file__, encoding="utf-8").read(),
+            "M23 the round states the SCOPE of its evidence and that QA green is not sufficient")
 
     # M14 · an empty seat roster is UNCHECKABLE, never green by absence
     rg = gate_module()

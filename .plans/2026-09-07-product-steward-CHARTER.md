@@ -237,6 +237,22 @@ re-reading the measurement. The instrument was right both times and was standing
 failure mode (*"a hand-typed count beside a tool that computes the same count"*) reproduced inside
 the section warning about it.
 
+### ⭐ A SIXTH SHAPE, and it is a shape because it was found TWICE in one day by two different mechanisms
+
+**A specification graded on its own illustration.**
+
+1. `.plans/2026-09-03-backlog-readiness-PROPOSAL.md:167-174` — the header template the file
+   *documents* was parsed as the file's own header, so the spec was graded on its illustration and
+   carried the placeholder `ready: [paul-approved 2026-09-xx]`. Found by R5's count; fixed by the
+   fence skip.
+2. This charter's own §6a row 3 — the bare `index.html` example was parsed by `--cite` as a real
+   citation and correctly flagged 🟡 ambiguous. **Qualifying the path would have destroyed the
+   example.** Fixed by making the illustration non-citation-shaped.
+
+⛔ **A file that documents a format will be read AS that format unless something excludes its
+examples.** Two files, two instruments, one day. The next reader should not have to rediscover it:
+when writing about a convention, either fence the example or write it so it cannot parse.
+
 ⭐ **The test that separates them, and it is one question: CAN THIS BE KNOWN BY LOOKING?** If yes,
 look — hedging is not caution, it is an unmade measurement wearing caution's clothes. If no, say
 UNRESOLVABLE and name what would settle it. **Both halves are the same discipline; only the direction
