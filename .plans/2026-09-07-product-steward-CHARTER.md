@@ -312,6 +312,18 @@ header claiming seven `paul-approved` stamps where two were absent, `28a9115`) w
 re-read. It says it would **not** have caught this one — *"it took a peer with a stake in the outcome
 disagreeing."*
 
+⭐ **AND THE ATTRIBUTION MATTERS, BECAUSE THE EASY LESSON IS THE WRONG ONE** `[lane-E, 2026-09-07,
+correcting this row]`. This must not read as *a peer pushed back and caught it.* What happened:
+lane E's disagreement was the **prompt**; lane D then **re-examined and corrected its own grading,
+and sent the correction to lane A before lane A had ruled** — specifically so the decision was made
+on the corrected version rather than its softer one. *(Timing as reported by lane E and consistent
+with lane D's own account; not independently measured here.)*
+
+**Arguing with someone else's grading is cheap. Re-opening your own before anyone has acted on it is
+not** — and it is the act that changed the outcome. A reader who learns *"expect a peer to catch
+your gradings"* has learned the easy half. The one worth having: **a grading is a claim, so it
+carries the same duty of re-examination as the thing it grades — including by whoever made it.**
+
 🟡 **A CANDIDATE HEURISTIC, AND IT IS DELIBERATELY NOT A CONTROL.** Lane D's proposal: *any adjective
 that licenses inaction — "cosmetic", "rare", "self-heals", "only on X", "edge case" — must carry its
 magnitude beside it; a grading with no number attached is the tell.* **Recorded at the grade lane D
@@ -356,6 +368,18 @@ rather than a note: *a no-op markup change does not move the count.*
 ⚠️ **Graded as lane E graded it: `measured`, n=1 in its own work, caught by a second seat.** Not
 doctrine on one instance — but it is **countable**, so it can be checked against the corpus rather
 than argued about, which is the bar the seventh shape's heuristic could not clear.
+
+⛔ **THE WORKED INSTANCE HERE IS DELIBERATELY NOT LANE E'S OWN**, at lane E's insistence: *"a register
+row that cites its own origin story as its worked instance is circular; one that cites an independent
+hit is a test that passed."* Its `aria-live` measurement is **provenance**; `leaks()` counting nodes
+is **evidence** — the tell predicting a defect in a different tool it was not derived from. n=2 across
+two lanes and two unrelated tools, one found by *applying* the tell rather than by noticing a symptom,
+is a different claim from n=1.
+
+⚠️ **M24's own falsifier, and it is lane E's parting condition:** *"if M24's mutation ever stops
+firing, that is worth someone's attention — a tell that cannot fail is back to being a note."*
+**Verified 2026-09-07 by mutation:** removing the fragment exclusion from `leaks()` turns M24 red and
+the suite prints *"a clause could not be made to fail"*; restoring it turns M24 green. The test bites.
 
 ### ⛔ AN EIGHTH SHAPE — a ruling that is RIGHT ABOUT THE DEFECT and WRONG ABOUT THE REMEDY
 
