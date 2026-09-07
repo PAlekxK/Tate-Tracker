@@ -1,6 +1,6 @@
 {
  "state": "ARMED",
- "generated_at": "2026-09-07T11:28:17-04:00",
+ "generated_at": "2026-09-07T11:31:44-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "c821051",
  "beat": {

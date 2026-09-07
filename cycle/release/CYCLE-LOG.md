@@ -895,3 +895,28 @@ Make it flexible."*
   the retired fast-forward) · R3 applied (post-commit hook runs `release-state.py --write`, deriving
   against the QA-served sha) · R2 · R4 · R5 · R7 queued for lap 2 · R6: unruled process proposals
   expire at lap close.
+
+### 13:00 ET (Sep 7) — the feedback-consolidation design landed; one claim of mine corrected; the seam
+- `.plans/2026-09-07-feedback-consolidation-lap2-PRACTICE.md` (practice-steward, 303 lines). **Correction
+  to the 12:10 entry above:** the `fb-*` place-card record DOES carry `surface: "app"` and `screen:
+  "card-property"` (my KV print filtered them out); the records missing `surface` are the eight
+  `onboard-*` records and `homes-second-home`.
+- Its measured findings, each a lap-2 item: the loop has **no successor beat** after Paul's clear
+  (nothing owns the words a real person leaves); **production feedback has no deterministic reader** —
+  `.private/fernwood-token-home` does not exist, so `read-onboarding.py --env home` is UNREADABLE by
+  construction, and the GET resolves the estate from the deployment, not the grant; **nothing watches
+  `est-e6696a`** (every mom-cycle reader hits the legacy worker) while Mom's invite is already out;
+  **a capture lie** — `homes/index.html` posts a constant id `homes-second-home`, the Worker
+  de-duplicates per UTC day and answers 200 `{duplicate:true}`, the page shows the success ack: a
+  second note that day is silently dropped → engineering-partner; 11 of today's 34 walk runs never
+  read; `last_lap.outcome: "cleared"` is off the spine's enum; U1 discharged (the gate now exits 1 on
+  the uncheckable-UX branch).
+- Its design: `feedback-sweep.py` as the non-AI door (exit 3, never a false zero) · a per-account
+  sweep on the mom-cycle shape (dispositions keyed by channel + record id, clamped watermark, one line
+  every run, no note text in the tracked file) · a six-key labelling contract counted per record ·
+  the product-owner half deferred to the flex-point audit §6 (R7); the main session holds that beat
+  until Paul rules.
+- ⛔ **Paul's ruling owed, not a build:** the FOCUS FREEZE says *hold all feedback from Mom* and was
+  written for the frozen estate. Does it bind her arrivals on `est-e6696a`? The sweep must not
+  settle it by existing.
+- Seam: lap 2 brief at `handoff/handoff-fernwood-lap2-geocoding.md`; the fresh window opens on W0.
