@@ -71,6 +71,11 @@
      unintrusive means it does not compete with her place's name, not that it hides. Raised to .95rem
      at full opacity with an underline, which is still a utility line above the h1 and is now legible
      at A+ on a dark ground. The 44px hit area was never the problem — being SEEN was. */
+  /* the door is the one control that leaves the page: a filled button, not a header utility link — it
+     rendered white-on-white inside the card and every seat missed it (round 2, 2026-09-06). */
+  .door { margin:16px 0 0; }
+  .door a.ubtn { display:block; text-align:center; background:var(--accent); color:#fff; text-decoration:none;
+                 border-radius:12px; padding:13px 16px; font-weight:600; }
   .ubtn { color:#fff; opacity:1; text-decoration:underline; text-underline-offset:3px;
           font-size:.95rem; position:relative; }
   .ubtn:focus-visible { outline:3px solid #cfe6b8; outline-offset:2px; }
@@ -130,6 +135,11 @@
     width: 100%; font: inherit; padding: 10px; border: 1.5px solid #c6d6bb; border-radius: 12px;
     margin-top: 8px; resize: vertical;
   }
+  /* `[paul-ruled 2026-09-06]` the general-feedback bubble: on every signed-in screen, pinned to the
+     side, in the colour this page already wears. The same shape as the app's ribbon. */
+  .fbbubble { position:fixed; right:0; bottom:40px; z-index:900; display:inline-flex; align-items:center; gap:7px;
+              padding:11px 13px 11px 14px; background:var(--accent); color:#fff; border:0; border-radius:12px 0 0 12px;
+              box-shadow:-2px 2px 10px rgba(0,0,0,.22); font:inherit; font-size:.9rem; font-weight:600; text-decoration:none; cursor:pointer; }
   .fblink {
     background: none; border: 0; padding: 0; color: var(--ink-soft);
     text-decoration: underline; font-weight: 400; font-size: .95rem;
@@ -179,13 +189,14 @@
          deliberately offered no way in. Each household origin now builds its own app from its own
          instance, and three seats reading their walks each reported reaching it only by typed URL.
          Copy is a placeholder for content-steward's line; the destination is not. -->
-    <p class="door"><a class="ubtn tap44" id="openapp" href="/viewer">Open the almanac ›</a></p>
+    <p class="door"><a class="ubtn tap44" id="openapp" href="/viewer">Open your place ›</a></p>
+    <p class="quiet" id="doorlede"></p>
   </div>
 
   <!-- The general feedback channel, on this screen as on every other. `paul-stated 2026-09-05`:
        available once someone has an account and is signed in. Closed by default — a standing open
        textarea is the affordance-without-signal trap. -->
-  <p><button type="button" id="fbopen" class="fblink">Something not right? Tell me.</button></p>
+  <p><button type="button" id="fbopen" class="fbbubble">💬 Something not right? Tell me.</button></p>
   <div id="fbbox" hidden>
     <textarea id="fbnote" rows="3" placeholder="Anything at all"></textarea>
     <p><button type="button" id="fbsend"><span class="tick">✓</span>Send</button></p>
@@ -245,6 +256,14 @@
   var owner = read(K_OWNER);
   var mine = !!grant && (!owner || owner === grant);
 
+  // content-steward 2026-09-06 (drafted for Paul's read): the door's lede is anchored in the one thing we
+  // know about them. Two variants, whole or nothing — never a template with a hole in it.
+  try {
+    var _rk = JSON.parse((mine && read(K_RANK)) || "[]");
+    el("doorlede").textContent = (Array.isArray(_rk) && _rk.length)
+      ? "There's a card in here for each thing you ranked — all of them empty so far."
+      : "The cards are all in here, empty so far.";
+  } catch (e) {}
   var name = mine ? read(K_NAME) : null;
   if (name) { el("place").textContent = name; document.title = name; }
   var hex = read(K_COLOR);
@@ -457,6 +476,12 @@
     el("fbnote").focus();
   }
   el("fbopen").addEventListener("click", function () { openFb(null); });
+  var fromSurface = null;
+  try {
+    var _q = new URL(location.href).searchParams;
+    fromSurface = /^[a-z-]{2,30}$/.test(_q.get("from") || "") ? _q.get("from") : null;
+    if (_q.get("fb") === "1") openFb(null);
+  } catch (e) {}
 
   el("fbsend").addEventListener("click", function () {
     var note = (el("fbnote").value || "").trim();
@@ -466,7 +491,9 @@
     var body = {
       id: "estate-" + (pendingAbout ? pendingAbout.toLowerCase().replace(/[^a-z]+/g, "-") : "general"),
       answer: note,
-      context: { type: "estate-arrival", about: pendingAbout || null, screen: "arrival" }
+      // ⭐ ONE SHAPE FOR GENERAL FEEDBACK `[paul-ruled 2026-09-06]`: labelled, with the surface and screen.
+      // `from` names the page a bubble on a page with no box of its own sent the reader here from.
+      context: { type: "general-feedback", surface: fromSurface || "estate", screen: "arrival", about: pendingAbout || null }
     };
     var h = { "Content-Type": "application/json" };
     if (grant) h["X-Grant"] = grant;

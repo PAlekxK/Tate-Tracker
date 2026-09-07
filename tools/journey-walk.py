@@ -432,6 +432,21 @@ def main():
             print("       %s" % f[:110])
     if got.get("rateLimited"):
         record["rateLimited"] = True
+    # ⭐ THE THIRD RECORD `[paul-stated 2026-09-06]`: what the product TOLD US ABOUT ITSELF while the walk
+    # happened. transcript.json is what it showed, REPORT.md is what the walker felt; capture.json is
+    # what landed on the capture side for this run id, read at walk time so the gate's per-sha evidence
+    # is captured, never a later reading of a mutable store (practice-steward). The collector flushes
+    # on a 60s timer and on unload, so give the edge a moment before asking.
+    try:
+        time.sleep(6)
+        cap = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "walk-capture.py"),
+                              "--env", a.origin, "--run", run, "--write", d],
+                             capture_output=True, text=True, timeout=120)
+        print("\n".join("  " + l for l in (cap.stdout or "").splitlines()[1:4]))
+        if cap.returncode:
+            print("  ⚠️ capture side UNREADABLE — %s" % (cap.stderr or cap.stdout or "").strip()[-160:])
+    except Exception as e:
+        print("  ⚠️ capture side not read: %s" % e)
         print("  ⛔ RATE-LIMITED during this walk — the Worker refused a write")
     if got.get("error"):
         record["error"] = got["error"]

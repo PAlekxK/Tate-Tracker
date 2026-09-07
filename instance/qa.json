@@ -1,9 +1,9 @@
 {
   "_meta": {
-    "purpose": "The neutral instance for QA `[paul-ruled 2026-09-06]`: \"QA neutral \u2014 synths should walk what I'll walk.\" QA runs the SAME app production runs, on its own estate, so a synthetic walk tests the artifact a real person will meet rather than a differently-built one.",
+    "purpose": "The neutral instance for QA `[paul-ruled 2026-09-06]`: \"QA neutral — synths should walk what I'll walk.\" QA runs the SAME app production runs, on its own estate, so a synthetic walk tests the artifact a real person will meet rather than a differently-built one.",
     "declared": "2026-09-06",
-    "rule": "This file may name NOTHING specific to a place. If a value here would differ between two households, it does not belong here \u2014 it belongs in what the person tells us at onboarding.",
-    "ruling": "paul-ruled 2026-09-06 R4: production ships the full app, built from its own instance, as the same artifact QA certified. R5: a domain with nothing in it is EMPTY, not absent \u2014 the section exists and says it holds nothing yet."
+    "rule": "This file may name NOTHING specific to a place. If a value here would differ between two households, it does not belong here — it belongs in what the person tells us at onboarding.",
+    "ruling": "paul-ruled 2026-09-06 R4: production ships the full app, built from its own instance, as the same artifact QA certified. R5: a domain with nothing in it is EMPTY, not absent — the section exists and says it holds nothing yet."
   },
   "estate": "qa",
   "estateId": "est-qa0001",
@@ -36,7 +36,9 @@
     "candidates",
     "insects",
     "references",
-    "sources"
+    "sources",
+    "ack",
+    "questions"
   ],
   "display": {
     "defaultTextSize": "lg",

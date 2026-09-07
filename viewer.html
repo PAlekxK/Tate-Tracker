@@ -367,6 +367,8 @@
      Always visible — discoverability is the point. The chips themselves use the
      two sizes they switch between, so the chip-shape pre-demonstrates what
      happens on tap. Per-device localStorage persistence. */
+  /* a long place name wraps under the text-size pill, not behind it (wide-eyed seat, 2026-09-06) */
+  .header h1 { padding-right: 96px; }
   .text-size-toggle {
     position: absolute;
     top: 0;
@@ -4945,14 +4947,16 @@
     position: fixed; right: 0; bottom: 40px;
     z-index: 900; display: inline-flex; align-items: center; gap: 7px;
     padding: 11px 13px 11px 14px;
-    background: linear-gradient(135deg, #2a6040, #3a8a58);
+    /* `[paul-ruled 2026-09-06]` "a general feedback bubble on the side that's super persistent, but
+       the colour is variable" — the same three depths the masthead paints, so it is HER colour. */
+    background: linear-gradient(135deg, var(--hdr-2), var(--hdr-3));
     color: #f2f8ee; border: none; border-right: none;
     border-radius: 12px 0 0 12px;
     box-shadow: -2px 2px 10px rgba(26, 53, 36, 0.28);
     font-family: "DM Sans", sans-serif; font-size: 13px; font-weight: 600;
     letter-spacing: 0.01em; cursor: pointer; -webkit-tap-highlight-color: transparent;
   }
-  .feedback-ribbon:hover, .feedback-ribbon:active { background: linear-gradient(135deg, #24543a, #327a4d); }
+  .feedback-ribbon:hover, .feedback-ribbon:active { background: linear-gradient(135deg, var(--hdr-1), var(--hdr-2)); }
   .feedback-ribbon:focus-visible { outline: 3px solid #cfe6b8; outline-offset: 2px; }
 
   /* ── Slim state (2026-08-01) ─────────────────────────────────────────────
@@ -7175,12 +7179,17 @@ const ESTATE_MODULES = {"garden": "on", "motor-pool": "on", "equipment": "on", "
 const ESTATE_ID = "est-3c9f1a";
 // The estate's display names for JS (C4 5c): filled at build from the instance identity —
 // the same source as the masthead. Engine code says ESTATE_NAME / JOURNAL_NAME / STATION_NAME, never the word.
-const ESTATE_NAME = (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) || "Fernwood";
+let ESTATE_NAME = "Fernwood";
+// Her word for the place, from the account, overrides the build's default (see the pre-paint block).
+if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) ESTATE_NAME = window.__HOUSEHOLD_NAME;
 const JOURNAL_NAME = "Fernwood Almanac";
 const STATION_NAME = "Fernwood Weather Vane";
 // C7 1c — does this estate HAVE a station? "present" · "declared-absent" · "undeclared" (the build's
 // loud non-default). Declared-absent: no proxy call, the weather card says regional, no error dot.
 const ESTATE_STATION = "present";
+// What this instance DECLARES it does not carry — the same list build-viewer uses to empty a canon
+// const, here so records that are not canon files (the ack ribbon, questions.json) obey it too.
+const ABSENT_DOMAINS = [];
 // ⛔ THE PLACE'S OWN AERIAL IMAGERY, per instance. Empty for a household that has none — the tile
 // then renders with no photograph rather than with somebody else's land.
 const PROPERTY_IMAGE = "images/property-map/base-naip-2022-01-leafoff";
@@ -9724,7 +9733,7 @@ function computeLookFors(now) {
   // first if amphibians should surface.
 
   if (!raw.length) {
-    return [{ key: "quiet", fallback: true, text: "A quiet stretch on the land — the place is just growing." }];
+    return [{ key: "quiet", fallback: true, text: "A quiet stretch — the place is just growing." }];   // no "land": a condo has none (mom seat, 2026-09-06)
   }
 
   // ---- Dedup: at most one look-for per species per day (keep best priority) ----
@@ -11846,7 +11855,7 @@ const MomQueue = (function () {
     // opening line of the ask than as a heading.
     const lead = document.createElement("div");
     lead.className = "mom-queue-launcher-head";
-    lead.textContent = "You know these gardens better than I do.";
+    lead.textContent = "You know this place better than I do.";   // not every place has gardens (mom seat, 2026-09-06)
     card.appendChild(lead);
 
     const sub = document.createElement("div");
@@ -11911,7 +11920,12 @@ const MomQueue = (function () {
     // caught in the browser, not in the file, which is exactly why the PREVIEW
     // step exists. A give-back that vanishes because its content moved fields is
     // the worst possible failure on this particular card.
-    const hasAckContent = typeof MOM_ACK_DATA !== "undefined" && MOM_ACK_DATA &&
+    // ⛔ THE ACK RIBBON IS ONE HOUSEHOLD'S RECORD. Rendered on every household until 2026-09-06:
+    // four seats each read "your refrigerator… the LG 25.5 cu ft, exactly as you gave them" under
+    // their own place name, dated before their account existed. An instance that declares `ack`
+    // absent renders none of it.
+    const hasAckContent = !(typeof ABSENT_DOMAINS !== "undefined" && ABSENT_DOMAINS.includes("ack")) &&
+      typeof MOM_ACK_DATA !== "undefined" && MOM_ACK_DATA &&
       (MOM_ACK_DATA.message ||
        (Array.isArray(MOM_ACK_DATA.changes) && MOM_ACK_DATA.changes.some(c => c && c.text)));
     if (hasAckContent) {
@@ -12476,7 +12490,12 @@ const MomQueue = (function () {
     } catch (e) { /* quota — best effort */ }
     // `section` records WHERE she wrote it (the map's describe-a-place panel,
     // an expanded card) so a scoped report keeps its scope in the record.
-    const result = await postFeedback(gq, null, note, (opts && opts.section) || "ribbon");
+    // ⭐ ONE SHAPE FOR GENERAL FEEDBACK EVERYWHERE `[paul-ruled 2026-09-06]`: labelled `general-feedback`,
+    // with the SURFACE (which page) and the SCREEN (which card was open) it was captured from — the
+    // same three keys onboarding and the estate page stamp, so one reader can sort every note.
+    const openCard = document.querySelector(".main-card.expanded");
+    const result = await postFeedback(gq, null, note, (opts && opts.section) || "ribbon",
+      { type: "general-feedback", surface: "app", screen: openCard ? openCard.id : "app" });
     track("ribbon_general_sent", { result, section: (opts && opts.section) || null });
     return result;
   }
@@ -12495,7 +12514,7 @@ const MomQueue = (function () {
   // Returns "sent" (a verified 2xx) | "queued" (durably on disk, will replay) |
   // "failed" (neither — her words exist ONLY in the DOM, so the caller must not
   // clear the surface). Never throws, and never reports a write it didn't verify.
-  async function postFeedback(q, sentiment, note, section) {
+  async function postFeedback(q, sentiment, note, section, extra) {
     const firstOfferedAt = readMap(OFFERED_KEY)[q.id] || null;  // enables offer→answer latency
     const body = {
       id: "fb-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
@@ -12524,6 +12543,7 @@ const MomQueue = (function () {
     };
     // Durable FIRST, send second. If the tab dies mid-flight her words are already
     // on disk, and the replay is idempotent (the Worker dedupes on record id).
+    if (extra && typeof extra === "object") Object.assign(body.context, extra);
     const durable = outboxAdd(body);
     const ok = await sendRecord(body);
     if (ok) { outboxRemove(body.id); return "sent"; }
@@ -12545,6 +12565,15 @@ const MomQueue = (function () {
     const base = feedbackBase();
     const headers = { "Content-Type": "application/json" };
     if (base.token) headers["X-Tate-Token"] = base.token;
+    // ⛔ FEEDBACK MUST HAVE AN ACCOUNT ASSOCIATED WITH IT `[paul-ruled 2026-09-06]`. The Worker attributes
+    // a record only from a RESOLVED grant; an unpaired device sent none, so every new household's note
+    // landed personId:null. Same owner guard as every other account read in this file.
+    else {
+      try {
+        const g = localStorage.getItem("fw-grant"), o = localStorage.getItem("fw-onboard-owner");
+        if (g && (!o || o === g)) headers["X-Grant"] = g;
+      } catch (e) {}
+    }
     try {
       const res = await fetch(base.url + "/api/feedback", {
         method: "POST", headers, body: JSON.stringify(body),
@@ -12898,6 +12927,10 @@ const MomQueue = (function () {
     if (typeof window !== "undefined" && window.addEventListener) {
       window.addEventListener("online", () => flushOutbox());
     }
+    // ⛔ questions.json is ONE HOUSEHOLD'S confirm queue, fetched from the origin. A QA origin serves
+    // Fernwood's, so a stranger was asked about beggar's lice "along the woods edge". An instance
+    // that declares `questions` absent never asks.
+    if (typeof ABSENT_DOMAINS !== "undefined" && ABSENT_DOMAINS.includes("questions")) return;
     try {
       const res = await fetch("questions.json?_=" + Date.now(), { cache: "no-cache" });
       if (!res.ok) return;                 // absent queue = correct calm behavior
@@ -17457,6 +17490,29 @@ const EMPTY_CARD_COPY = {
   }
 };
 
+// ⭐ A HOUSEHOLD NOT YET ON THE MAP — two lines, no ask (content-steward 2026-09-06: the ask for the
+// whole unplaced condition belongs on the place card, and is HELD until an address can be fixed in
+// the app). `box` reuses the estate page's own sentence for a mail drop, one screen apart.
+const UNPLACED_COPY = {
+  "weather": {
+    holds: "Nothing here yet. This is where the weather at your place will live — what it's doing now, what the week looks like, and what the rain has been doing.",
+    street: "We have your address; we haven't put it on the map yet, so there's no weather to show you here.",
+    box: "A box number tells us where your post goes, not where your place is — so the weather is the part we can't work out yet."
+  },
+  "sky": {
+    holds: "Nothing here yet. This is where the sky over your place will live — the moon, what's up tonight, how dark it gets.",
+    street: "We have your address; we haven't put it on the map yet, and what's overhead depends on exactly where \"here\" is.",
+    box: "A box number tells us where your post goes, not where your place is — so we can't say yet what's overhead at yours."
+  }
+};
+function addressIsBox() {
+  try {
+    const g = localStorage.getItem("fw-grant"), o = localStorage.getItem("fw-onboard-owner");
+    const addr = (g && (!o || o === g)) ? (localStorage.getItem("fw-onboard-addr") || "") : "";
+    return /\b(p\.?\s?o\.?\s*box|post\s*office\s*box|postal\s*box)\b/i.test(addr);   // the estate page's own test
+  } catch (e) { return false; }
+}
+
 // Their ranking, if the app knows it. Absent → every card renders variant B, which is a complete
 // piece of writing rather than a fallback.
 let READER_RANKING = [];
@@ -17469,7 +17525,16 @@ try {
   const g = localStorage.getItem("fw-grant"), o = localStorage.getItem("fw-onboard-owner");
   if (g && (!o || o === g)) {
     const r = JSON.parse(localStorage.getItem("fw-onboard-interests") || "[]");
-    if (Array.isArray(r)) READER_RANKING = r.filter(x => typeof x === "string");
+    // ⛔ ONBOARDING STORES OBJECTS, NOT IDS — {label, soon}, and from tonight {id, label, soon}. The
+    // first cut kept only strings and found nothing, so round 2 walked with the ranking still
+    // unreached (all four seats). A label maps back to its module through the copy table.
+    const byLabel = {};
+    Object.keys(EMPTY_CARD_COPY).forEach(k => { byLabel[EMPTY_CARD_COPY[k].label.toLowerCase()] = k; });
+    if (Array.isArray(r)) READER_RANKING = r.map(x => {
+      if (typeof x === "string") return x;
+      if (x && typeof x === "object") return x.id || byLabel[String(x.label || "").toLowerCase()] || null;
+      return null;
+    }).filter(Boolean);
   }
 } catch (e) {}
 
@@ -17521,7 +17586,21 @@ function renderEmptyCards() {
     // "Trucks, mowers, saws", "Furnace, water heater, washer", "0 plants · A quiet Sep here" — Fernwood's
     // furniture, and the `strict` and `wide-eyed` seats each listed them under "written for someone
     // else's home". On an empty module the invitation says what the card will hold; the summary says "—".
-    card.querySelectorAll(".main-card-summary").forEach(el => { el.textContent = "—"; });
+    // "Nothing here yet." on the collapsed face — the good copy sat inside a closed body while the
+    // face said "—", which the `owner` seat read as broken on its face (round 2). One vocabulary.
+    card.querySelectorAll(".main-card-summary").forEach(el => { el.textContent = "Nothing here yet."; });
+    if (!SITE_PLACED && UNPLACED_COPY[mod]) {
+      invited.add(mod);
+      if (card.querySelector(".empty-invite")) return;
+      const u = UNPLACED_COPY[mod];
+      const el = document.createElement("div");
+      el.className = "empty-invite";
+      el.innerHTML = '<p class="empty-invite-holds"></p><p class="empty-invite-source"></p>';
+      el.querySelector(".empty-invite-holds").textContent = u.holds;
+      el.querySelector(".empty-invite-source").textContent = addressIsBox() ? u.box : u.street;
+      (card.querySelector(".main-card-body") || card).appendChild(el);
+      return;
+    }
     const copy = EMPTY_CARD_COPY[mod];
     if (!copy) return;
     invited.add(mod);
@@ -17535,12 +17614,13 @@ function renderEmptyCards() {
     const ask = source
       ? "Have we got this right — and is there more we should know?"
       : "Is there anything like this at your place?";
+    // ⭐ THE ASK ONLY WHERE THERE IS SOMETHING OF THEIRS TO CONFIRM (content-steward 2026-09-06; the
+    // one measured reader is 0-for-35 on affordances that ask). Unranked cards sit quiet on one line.
     el.innerHTML = '<p class="empty-invite-holds"></p>'
-                 + (source ? '<p class="empty-invite-source"></p>' : "")
-                 + '<p class="empty-invite-ask"></p>';
+                 + (source ? '<p class="empty-invite-source"></p><p class="empty-invite-ask"></p>' : "");
     el.querySelector(".empty-invite-holds").textContent = holds;
-    if (source) el.querySelector(".empty-invite-source").textContent = source;
-    el.querySelector(".empty-invite-ask").textContent = ask;
+    if (source) { el.querySelector(".empty-invite-source").textContent = source;
+                  el.querySelector(".empty-invite-ask").textContent = ask; }
     const body = card.querySelector(".main-card-body") || card;
     body.appendChild(el);
   });
@@ -17570,7 +17650,7 @@ function applyModuleTiles() {
 // household is placed, nothing is coming, so every loading line becomes the same dash the rest use.
 function renderUnplacedSummaries() {
   document.querySelectorAll(".summary-loading").forEach(el => {
-    el.textContent = "—";
+    el.textContent = "Nothing here yet.";
     el.classList.remove("summary-loading");
   });
 }
@@ -18712,6 +18792,9 @@ document.querySelectorAll(".wildlife-tab").forEach(btn =>
 // =========================
 if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
   document.querySelectorAll(".header h1").forEach(h => { h.textContent = window.__HOUSEHOLD_NAME; });
+  // "My Home Almanac" swallowed her word (strict seat) — the journal tile carries her name too.
+  const jt = window.__HOUSEHOLD_NAME + " Almanac";
+  document.querySelectorAll("#card-fieldnotes .main-card-title, .dash-cell[onclick*='card-fieldnotes'] .dash-cell-label, .ic-card--almanac .ic-head-title").forEach(el => { el.textContent = jt; });
 }
 renderWeatherSummary();
 renderWeather();
@@ -18896,8 +18979,26 @@ const MetricsCollector = (function () {
     if (/iPhone|Android|Mobile/.test(ua)) return "mobile";
     return "desktop";
   }
+  // ⭐ THE GRANT CARRIES THE BATCH WHEN NO PAIRED DEVICE DOES `[paul-stated 2026-09-06]`: "we want
+  // that data collection and capture as robust as possible from the get-go… the one thing we can't
+  // do is go back in time and recapture data from real users." The Worker has dual-accepted a
+  // member's grant on POST /api/metrics since C6 6a (09-04); this collector still gated every flush
+  // on the paired-device token, so a brand-new household — every household but Fernwood — produced
+  // ZERO app-side telemetry by construction. Same owner guard as the rest of the account reads.
+  function grantHeader() {
+    try {
+      const g = localStorage.getItem("fw-grant"), o = localStorage.getItem("fw-onboard-owner");
+      return (g && (!o || o === g) && typeof WORKER_BASE === "string" && WORKER_BASE) ? g : null;
+    } catch (e) { return null; }
+  }
+  function syntheticRun() {
+    // Onboarding stores the walk's run id when it arrived on `?syn=<runId>`; a real reader has none.
+    // A PROVENANCE MARKER, never a control: it lets a KV batch join its run folder without inference.
+    try { return localStorage.getItem("fw-synthetic-run") || null; } catch (e) { return null; }
+  }
   function deviceBlock() {
     return {
+      synthetic: syntheticRun(),
       deviceId: deviceId(),
       ua: navigator.userAgent || "",
       deviceClass: deviceClass(),
@@ -18930,13 +19031,21 @@ const MetricsCollector = (function () {
     saveBuffer(buf);
   }
   async function flush() {
-    if (flushing || isExcluded() || !WorkerAPI.isConfigured()) return;
+    const grant = WorkerAPI.isConfigured() ? null : grantHeader();
+    if (flushing || isExcluded() || (!WorkerAPI.isConfigured() && !grant)) return;
     const buf = loadBuffer();
     if (!buf.length) return;
     flushing = true;
     const sending = buf.slice();
     try {
-      await WorkerAPI.call("POST", "/api/metrics", { events: sending, device: deviceBlock() });
+      if (grant) {
+        const r = await fetch(WORKER_BASE + "/api/metrics", { method: "POST",
+          headers: { "Content-Type": "application/json", "X-Grant": grant },
+          body: JSON.stringify({ events: sending, device: deviceBlock() }) });
+        if (!r.ok) throw new Error("metrics " + r.status);
+      } else {
+        await WorkerAPI.call("POST", "/api/metrics", { events: sending, device: deviceBlock() });
+      }
       // Drop only what we sent — any events queued during the in-flight call stay.
       const after = loadBuffer();
       saveBuffer(after.slice(sending.length));
@@ -18950,13 +19059,15 @@ const MetricsCollector = (function () {
     let cfg;
     try { cfg = JSON.parse(localStorage.getItem("tateTracker.sync.v1") || "{}"); }
     catch (e) { return; }
-    if (!cfg.workerUrl || !cfg.token) return;
+    const grant = (cfg.workerUrl && cfg.token) ? null : grantHeader();
+    if (!grant && (!cfg.workerUrl || !cfg.token)) return;
     const buf = loadBuffer();
     if (!buf.length) return;
     try {
-      fetch(cfg.workerUrl + "/api/metrics", {
+      fetch((grant ? WORKER_BASE : cfg.workerUrl) + "/api/metrics", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "X-Tate-Token": cfg.token },
+        headers: grant ? { "Content-Type": "application/json", "X-Grant": grant }
+                       : { "Content-Type": "application/json", "X-Tate-Token": cfg.token },
         body: JSON.stringify({ events: buf, device: deviceBlock() }),
         keepalive: true,
       }).catch(() => {});
@@ -19757,7 +19868,7 @@ function renderFieldNotes() {
                   : "Sync error";
   let summaryText;
   if (entries.length === 0) {
-    summaryText = "Notes on the estate";
+    summaryText = "Notes on the place";   // `estate` is a schema word and never reaches a surface (VOCABULARY §2)
   } else {
     const newest = entries[0];
     summaryText = entries.length + " entr" + (entries.length === 1 ? "y" : "ies") +

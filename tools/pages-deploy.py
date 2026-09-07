@@ -271,11 +271,28 @@ def main():
             # On 2026-09-06 every neutral build died on its first script line (an unguarded coordinate
             # read) and four seats walked the corpse. A headless load with zero page errors is the
             # cheapest check there is, and it is wired into the act rather than listed in a document.
+
+        # ⭐ PRODUCTION IS BEHIND GATE ①, BY CONSTRUCTION `[paul-stated 2026-09-06]`: "we run it through
+        # our synthetic testers until it no longer fails, and then I run it." Called by nothing until
+        # tonight (practice-steward: instance five of a check listed in a document and wired into no
+        # act). The seat clauses are machine-decidable and are decided HERE; the UX clause and Paul's
+        # own walk are the human half and are not pretended to.
+        if a.env == "home":
+            g = run([sys.executable, os.path.join(HERE, "release-gate.py"), "--sha", sha, "--seats-only"])
+            print("\n".join("     " + l for l in (g.stdout or "").splitlines()[-8:]))
+            if g.returncode != 0:
+                raise SystemExit("pages-deploy: ⛔ REFUSING — gate ① is not passed at %s. Walk it in QA until "
+                                 "it stops failing; then this deploy is allowed." % sha[:7])
+            print("  gate ①: every seat passes every seat clause at %s" % sha[:7])
+
+        # ⭐ EVERY ORIGIN THAT BUILDS ITS OWN APP LOADS IT BEFORE SHIPPING IT — QA included, because QA
+        # is where the synthetics walk and a dead script there costs a whole battery (2026-09-06).
+        if os.path.exists(os.path.join(export, "viewer.html")):
             n_err = page_errors_on_load(export)
             if n_err:
                 raise SystemExit("pages-deploy: ⛔ REFUSING — the built app throws %d page error(s) on "
                                  "load. Fix the template; a deploy that ships a dead script ships nothing." % n_err)
-            print("  household app loads headless with zero page errors")
+            print("  the built app loads headless with zero page errors")
 
         stamp = {"sha": sha, "short": sha[:7], "branch": BRANCH[a.env], "env": a.env,
                  "subject": subject, "builtAt": time.strftime("%Y-%m-%dT%H:%M:%S%z"),

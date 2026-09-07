@@ -123,6 +123,10 @@ IDENTITY = {
     # not the same as one you declared absent). An INVALID key is a different thing and must stop
     # the build: it means someone declared an intent the engine cannot honour.
     "station":         lambda ident, prop: _station(ident),
+    # 2026-09-06 — Mom's ack ribbon and her confirm cards rendered on EVERY household (a stranger read
+    # "your refrigerator… the LG 25.5 cu ft" under her own masthead). Neither is a canon file, so the
+    # absent list could not reach them until the list itself became a const the viewer reads.
+    "absentJs":        lambda ident, prop: json.dumps(ident.get("_absent") or []),
     # ⛔⛔ THE AERIAL PHOTOGRAPH OF THE FOUNDING HOUSEHOLD'S LAND WAS HARDCODED IN CSS and rendered
     # on the "My Home" tile of EVERY household. Found 2026-09-06 by the `owner` seat reading its own
     # walk: "an aerial photo of someone else's land, captioned My Home… the moment I stopped reading
@@ -142,10 +146,11 @@ IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "propertyTile":    re.compile(r"(onclick=\"expandCard\('card-property','dash'\)\">\n\s*<div class=\"dash-cell-label\">)(.*?)(</div>)"),
     "propertyTileSub": re.compile(r'(<div class="dash-cell-sub" id="dash-property-sub">)(.*?)(</div>)'),
     "inputAria":       re.compile(r'(<section class="unified-input" id="unified-input" aria-label=")(.*?)(">)'),
-    "nameJs":          re.compile(r'(^const ESTATE_NAME = ")(.*?)(";$)', re.M),
+    "nameJs":          re.compile(r'(^(?:const|let) ESTATE_NAME = ")(.*?)(";$)', re.M),
     "journalTileJs":   re.compile(r'(^const JOURNAL_NAME = ")(.*?)(";$)', re.M),
     "stationName":     re.compile(r'(^const STATION_NAME = ")(.*?)(";$)', re.M),
     "station":         re.compile(r'(^const ESTATE_STATION = ")(.*?)(";$)', re.M),
+    "absentJs":        re.compile(r'(^const ABSENT_DOMAINS = )(.*?)(;$)', re.M),
 }
 EMPTY_SHAPE = {  # what an ABSENT domain's const looks like — the list key per kind
     "plants": {"_meta": {"declaredAbsent": True}, "plants": []},
@@ -261,6 +266,9 @@ def build(template_text, instance_path):
     cfg = json.load(open(instance_path, encoding="utf-8"))
     canon = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(instance_path)), cfg.get("canon", ".")))
     absent = set(cfg.get("absent", []))
+    # ⭐ the absent list also reaches the VIEWER, so runtime-fetched records (questions.json) and
+    # template-literal records (MOM_ACK_DATA) can be switched off per instance — see ABSENT_DOMAINS.
+    ident = dict(cfg["identity"]); ident["_absent"] = sorted(absent)
     prop = json.load(open(os.path.join(canon, "property.json"), encoding="utf-8"))
     out = template_text
     n = 0
@@ -295,7 +303,7 @@ def build(template_text, instance_path):
         ph = "{{IDENTITY:%s}}" % key
         if ph not in out:
             raise RuntimeError("template has no identity placeholder %s" % key)
-        out = out.replace(ph, fn(cfg["identity"], prop))   # every site of the key
+        out = out.replace(ph, fn(ident, prop))   # every site of the key — `ident` carries the absent list too
     if DISPLAY_PH not in out:
         raise RuntimeError("template has no %s placeholder — is the template stale? (--extract)" % DISPLAY_PH)
     out = out.replace(DISPLAY_PH, _display_value(cfg, instance_path), 1)

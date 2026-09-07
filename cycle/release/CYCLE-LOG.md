@@ -19,7 +19,7 @@ processes in a sequential, logical and deterministic manner."*
   three app commits ahead (`fe89939` module presence · `9a4bdc6` aerial photo + masthead fragments ·
   `600a71f` empty-card copy) plus the handoff commit. **Built, committed, not deployed.**
 - Four seats walked `6ee2e48`, watched, 13 stops, zero failed actions. Only `owner` read its walk.
-  `mom` · `strict` · `wide-eyed` carried `WALK-REPORT-UNWRITTEN`. Readings spawned 20:30 ET, one fresh
+  `mom` · `strict` · `wide-eyed` carried `WALK-REPORT-UNWRITTEN`. Readings spawned ~20:05 ET, one fresh
   agent per seat.
 - `release-gate.py` at HEAD: every seat "no run at this build" — correct by the per-sha ruling.
 
@@ -76,7 +76,7 @@ processes in a sequential, logical and deterministic manner."*
 - `finding` (from the handoff, unverified here) — Mom's freeze is claimed, not enforced: a bot cron
   pushes to `origin/main` every 6h and Pages rebuilds. Paul's call.
 
-### 20:45–21:10 ET — the three readings landed; the digest; the fixes
+### ~20:10–20:35 ET — the three readings landed; the digest; the fixes
 
 **Paul, mid-loop (verbatim, three messages):**
 > *"This iterative approach leveraging all our synthetics is exactly what I want. We continually
@@ -135,7 +135,7 @@ processes in a sequential, logical and deterministic manner."*
   5. The estate page has a door to the app (placeholder label; copy → content-steward).
   6. `release-gate` counts only real seats (selftest M7).
 
-**Paul, 21:15 ET (verbatim):** *"All of this needs to be very well instrumented, and that needs to be a
+**Paul, ~20:30 ET (verbatim):** *"All of this needs to be very well instrumented, and that needs to be a
 check — for everything that we do and see and observe that we're capturing on the user side, there
 needs to also be as much as possible instrumentation on our side, on the capture side, so that when
 we don't get the direct input of the synthetics' reaction to their experience we can at least collect
@@ -149,3 +149,85 @@ can't do is go back in time and recapture data from real users."*
   invisibly. → **trigger:** a fifth gate clause, `instrumented` — after the walk, query the capture
   side for the run id and report events-per-stop; zero at any instrumented stop is a failed walk.
   Measured tonight after the QA re-walk; built into the gate when the read path is confirmed.
+
+### 20:41 ET — graduation to QA
+- Committed `0b2ce32` (scoped `git commit -- <paths>`; the other sessions' four modified and five
+  untracked files left untouched). Deployed QA at `0b2ce32`. Production still serves `6ee2e48`.
+- `worked` — **The seeded-account check caught my own defect before QA.** The first card reorder
+  came out reversed; a headless load with a seeded household (name, ranking, colour) showed it in
+  one run. That is Paul's principle in miniature: a confident assumption, built, then double-checked
+  before it graduated.
+- `did-not` — **The deploy-time load check only guarded household origins on its first cut**, so the
+  QA deploy at `0b2ce32` skipped it. Widened the same minute to every origin that builds its own app.
+- Round 2 walks started: four seats, `--fresh --watch`, sequential, QA.
+
+### 20:50 ET — Paul walked alongside the seats (beat 3, early) and two stewards ruled
+- `finding` `[paul-found, watching the round-2 walks]` — **the contact-preference cards render the
+  text above the dot with a blank line below** on the account screen. A layout defect the seats'
+  text-first readings never flagged in two rounds; a person watching the screen saw it in one.
+- `paul-ruled` — **A persistent general-feedback bubble on every signed-in screen, in the chosen
+  colour.** *"Once an individual is logged in there should always be a general feedback bubble on the
+  side that's super persistent, but the colour is variable."* Measured: the app has a fixed ribbon in
+  hardcoded green; the estate page has a text link at the bottom; homes and both settings pages have
+  no feedback control at all.
+- `measured` — **capture side for the round-2 `owner` walk: 0 app events, onboarding events
+  UNREADABLE** (`walk-capture.py`; `/api/onboarding-metrics` is write-only). The app-side zero is the
+  gap Paul named, now a number; the fix (grant-carried batches, run id stamped) ships in round 3.
+- practice-steward's rulings → `.plans/2026-09-06-release-loop-PRACTICE.md`. Acted on tonight: the
+  gate's exit code now agrees with its text (`--seats-only` for machines); production deploys call
+  gate ① and refuse; the headless load guards QA. Open: `cycle-state.json`, a skill/command for the
+  loop, a post-commit "QA is behind" signal, a GET for onboarding events.
+- content-steward's drafts → `.content/2026-09-06-first-open-copy.md` (drafted for Paul's read). Applied
+  in QA tonight as confident assumptions: the door reads *Open your place ›* with its lede; the
+  unplaced Weather and Sky lines; asks only where a line 2 exists. Six rulings held for Paul (voice
+  person · one Gardening card · Add a home · confirm-screen hierarchy · ranked-but-unbuilt tag · place
+  card ask).
+- `paul-ruled` (21:00 ET) — **check across the width spectrum, not only 414.** *"This should work on
+  all display devices — I'm looking at my laptop right now."* The contact-card defect he saw is at a
+  laptop width; every layout check in this repo runs at 414 × A+ (Mom's conditions), so a
+  desktop-width defect is invisible to the loop by construction. → **trigger:** the headless load
+  check and the seats' walks want a second viewport (a laptop) per lap; Mom's 414 stays the
+  standard for her surfaces, the spectrum is the standard for the product.
+- `measured` — **the contact cards' defect, by geometry:** each radio input rendered 13 × 52 px (the
+  global input height leaking into a radio), so the dot sat mid-box under a one-line label. Present
+  at 414 too, masked there because two of three labels wrap. Fixed; re-measured 18 × 18, aligned.
+- **S5 pre-registration for lap 2:** the `instrumented` clause is REPORTED this lap and COUNTED
+  from lap 2. Falsifier: at the lap-1 candidate sha every seat's `capture.json` shows ≥1 app event
+  via `grant`; if any shows 0, the flush path (unload/keepalive under the walker's browser close)
+  is the suspect before the product is.
+
+### 21:10 ET — round 2 read; the digest
+- `worked` — **four fresh readers converged again**, and on a defect no check could see: Mom's
+  acknowledgment ribbon ("your refrigerator… the LG 25.5 cu ft, exactly as you gave them") and one of
+  her confirm cards rendered under every seat's own place name. The main session saw it in the
+  deployed screenshot minutes before the first reader reported it.
+- `finding` — **her words on a stranger's screen**: `MOM_ACK_DATA` is a template literal and
+  `questions.json` is fetched from the origin; neither is a canon file, so the instance's `absent`
+  list could not reach them. `check-estate-neutral` matches names; "LG 25.5 cu ft" is not a name.
+  → **trigger:** the neutral sweep needs a second class of needle — the household's own AUTHORED
+  RECORDS (ack text, confirm-card prompts), read from those records, not typed.
+- `finding` — **the ranking still reached nobody**: onboarding stores `{label, soon}` objects, the
+  viewer read strings. The seeded check passed because it seeded ids. A check that seeds its own
+  input tests the reader, not the writer. → **trigger:** seed the verify from what onboarding
+  actually stores (run the onboarding page headless and copy its localStorage).
+- `finding` — **the door rendered white-on-white** (a header utility class inside a white card);
+  every seat reached the app by typed URL. · **Pine ringed on the account page though Stone was
+  shown at setup** — an unset profile colour defaulted to the page's CSS. · **the A+ pill covers a
+  long name.** · **"Notes on the estate" / "A quiet stretch on the land"** — engine prose assuming
+  land, and a schema word on a surface. · **collapsed cards said "—" while the honest copy hid
+  inside closed bodies.**
+- `finding` (rulings, held for Paul): the notes card says LOCAL ONLY — set up Sync minutes after
+  "yours on any phone" (a member's grant cannot write observations — Worker capability) · "Asking
+  questions — not built yet" on the ranking screen while the almanac composer is the app's first
+  card · Gardening → Plants / Equipment and tools → Equipment renames · Fishing and a Lizards tab on
+  a Maine condo · "Does that look right?" never required · every free-text input in the app lacks a
+  who-reads-it line · `transcript.json` personId ≠ signedInAs on one run (harness, not product).
+- Actioned for round 3: `ABSENT_DOMAINS` reaches the viewer (ack + questions declared absent on
+  neutral instances) · ranking read from what onboarding stores, with ids now stored too · the door
+  is a filled button · profile colour defaults to the place colour · h1 clears the pill · prose fixed
+  · "Nothing here yet." on collapsed faces · journal tile carries her name.
+- `did-not` — **`build-viewer.py --selftest` was already red at HEAD** (the `perspectiveTitle` identity
+  key landed at `6ee2e48` with no extraction regex). Not mine to fix blind; logged. CI runs `--check`,
+  which is green; the self-test's `--extract` leg is the one nobody ran.
+- `worked` — **the seeded check caught my own second defect before QA**: the journal-tile rename
+  selector also matched the "Your Perspective" heading. Scoped to the almanac card, re-verified.

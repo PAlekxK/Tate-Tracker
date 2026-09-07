@@ -79,6 +79,11 @@
   .tick { margin-right:7px; }
   .footlink { display:inline-block; margin-top:10px; color:var(--ink-soft); text-decoration:underline; font-size:.95rem; }
   [hidden] { display:none !important; }
+  /* `[paul-ruled 2026-09-06]` the general-feedback bubble: on every signed-in screen, pinned to the
+     side, in the colour this page already wears. The same shape as the app's ribbon. */
+  .fbbubble { position:fixed; right:0; bottom:40px; z-index:900; display:inline-flex; align-items:center; gap:7px;
+              padding:11px 13px 11px 14px; background:var(--accent); color:#fff; border:0; border-radius:12px 0 0 12px;
+              box-shadow:-2px 2px 10px rgba(0,0,0,.22); font:inherit; font-size:.9rem; font-weight:600; text-decoration:none; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -144,7 +149,7 @@
   // place — which is exactly what keeps a home's colour meaning "which one am I in" everywhere else.
   // Each row still wears its own home's colour as a rail, so the shelf predicts the next screen
   // without pretending to be a place.
-  var prof = read(K_PROFILE);
+  var prof = read(K_PROFILE) || read(K_COLOR);   // one colour until she chooses a second (2026-09-06)
   if (prof && /^#[0-9a-fA-F]{6}$/.test(prof)) document.documentElement.style.setProperty("--accent", prof);
   var user = read(K_USER);
   if (user) { el("who").textContent = "Signed in as " + user; el("who").hidden = false; }
@@ -245,5 +250,6 @@
   }
 })();
 </script>
+<a class="fbbubble" href="/estate/?fb=1&from=homes">💬 Something not right? Tell me.</a>
 </body>
 </html>

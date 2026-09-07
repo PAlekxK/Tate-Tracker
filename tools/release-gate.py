@@ -104,6 +104,22 @@ def judge(run_dir, sha):
 
     if t.get("contaminated"):
         out["uncontaminated"] = (False, "run marked contaminated")
+
+    # ⭐ `instrumented` `[paul-stated 2026-09-06]`: "for everything that we do and see and observe that
+    # we're capturing on the user side, there needs to also be as much as possible instrumentation on
+    # our side, on the capture side." Read from capture.json, written by journey-walk at walk time.
+    # ⚠️ REPORTED THIS LAP, COUNTED FROM LAP 2 (pre-registered in CYCLE-LOG.md): the grant-carried flush
+    # first ships at the lap-1 candidate, so a run before it reads ⬜, never a false red or a false green.
+    cpath = os.path.join(run_dir, "capture.json")
+    if os.path.exists(cpath):
+        try:
+            c = json.load(open(cpath, encoding="utf-8"))
+            n = int(((c.get("app") or {}).get("events")) or 0)
+            out["instrumented"] = (n > 0, "%d app event(s) landed for this run" % n)
+        except Exception as e:
+            out["instrumented"] = (None, "unreadable capture.json: %s" % e)
+    else:
+        out["instrumented"] = (None, "no capture.json — walked before the capture read existed")
     return out
 
 
@@ -115,7 +131,7 @@ CLAUSES = [
 ]
 
 
-def report(sha):
+def report(sha, seats_only=False):
     print("release gate ① — build %s\n" % (sha[:7] if sha else "UNKNOWN"))
     if not sha:
         print("🔴 UNCHECKABLE: no candidate sha. Refusing to gate nothing.")
@@ -154,6 +170,8 @@ def report(sha):
             st, detail = v.get(key, (None, "not evaluated"))
             if st is not True:
                 print("        %s %s — %s" % ("🔴" if st is False else "⬜", label, detail))
+        st, detail = v.get("instrumented", (None, "not evaluated"))
+        print("        %s instrumented (reported, counted from lap 2) — %s" % ("✅" if st is True else ("🔴" if st is False else "⬜"), detail))
 
     print("\n  seats passing every clause: %d of %d" % (len(passing_seats), len(ss)))
     # ⬜ The UX sweep has no artifact convention yet. DECLARED, never silently omitted.
@@ -162,7 +180,11 @@ def report(sha):
     if len(passing_seats) == len(ss) and ss:
         print("\n🟡 every seat passes — but the UX clause is UNCHECKABLE, so this is NOT a bare pass.")
         print("   Gate ① exits beat 2 only when a human confirms the UX clause too.")
-        return 0
+        # ⛔ EXIT CODE AGREES WITH STDOUT. This returned 0 here while the text refused, so a machine
+        # caller (pages-deploy) would have read a pass. practice-steward, 2026-09-06. `--seats-only`
+        # is the machine question "did every seat pass every seat clause at this sha" and answers 0;
+        # the bare command keeps answering the whole gate, which is not yet passable by a machine.
+        return 0 if seats_only else 1
     print("\n🔴 GATE ① NOT PASSED at %s. The synthetic loop has not been exited." % sha[:7])
     print("   Paul's rule: the build stays in the synthetic loop UNTIL IT NO LONGER FAILS.")
     return 1
@@ -226,10 +248,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sha", default=None)
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--seats-only", action="store_true",
+                    help="exit 0 when every seat passes every seat clause at the sha (the UX clause still prints as uncheckable)")
     a = ap.parse_args()
     if a.selftest:
         return selftest()
-    return report((a.sha or head_sha())[:40])
+    return report((a.sha or head_sha())[:40], seats_only=a.seats_only)
 
 
 if __name__ == "__main__":

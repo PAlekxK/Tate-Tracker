@@ -254,6 +254,11 @@
   .pick input[type="radio"] {
     /* 2px lifts the dot onto the label's cap-height rather than its line-box top */
     width: auto; min-width: 0; flex: none; margin: 2px 0 0;
+    /* ⛔ AND THE GLOBAL HEIGHT LEAKED TOO. Measured 2026-09-06 (Paul, on his laptop; then by geometry):
+       each radio rendered 13 × 52 px, so the dot sat at the middle of a 52px box while its one-line
+       label sat at the top — "the text is above it, and there's a blank line below it". Invisible
+       at 414 only because two of the three labels wrap to two lines there. */
+    height: 18px; min-height: 0; width: 18px;
     padding: 0; border: 0; background: none; box-shadow: none; appearance: auto; accent-color: #3c5a72;
   }
   .pick span { flex: 1 1 auto; min-width: 0; }
@@ -1224,6 +1229,10 @@
     return m && m[1] !== "1" ? m[1] : null;
   })();
   var SID = SYN_RUN || (function () { try { return Math.random().toString(36).slice(2, 12); } catch (e) { return "x"; } })();
+  // ⭐ AND THE RUN ID OUTLIVES THIS PAGE. The app the walk opens next has no `?syn=` on its URL, so
+  // its telemetry could not say which walk it belonged to. Stored here, read by the viewer's device
+  // block, so a capture-side batch joins its run folder on disk (`instrumented`, 2026-09-06).
+  if (SYN_RUN) { try { localStorage.setItem("fw-synthetic-run", SYN_RUN); } catch (e) {} }
   var evBuf = [], screenAt = Date.now();
 
   var evTimer = null;
@@ -1288,7 +1297,7 @@
     if (!note) { el.fbnote.focus(); return; }
     el.fbsend.disabled = true; el.fbsend.innerHTML = "Sending…";
     postAnswer("note-" + (currentScreen || "unknown"), note,
-               { type: "general-feedback", screen: currentScreen, step: read(K_STEP) || null })
+               { type: "general-feedback", surface: "onboarding", screen: currentScreen, step: read(K_STEP) || null })
       .then(function () {
         el.fbbox.hidden = true;
         el.fbopen.hidden = false;
@@ -1463,8 +1472,8 @@
       // threw away the only thing that made the list truthful.
       store(K_RANK, JSON.stringify(ranked.map(function (id) {
         var found = null;
-        INTERESTS.forEach(function (it) { if (it.id === id) found = { label: it.label, soon: !!it.soon }; });
-        return found || { label: id, soon: false };
+        INTERESTS.forEach(function (it) { if (it.id === id) found = { id: id, label: it.label, soon: !!it.soon }; });
+        return found || { id: id, label: id, soon: false };   // the id rides along so the app can order its cards by it
       })));
     } catch (e) {}
     // ⭐ WHAT THEY SAID IS MISSING TRAVELS AS ITS OWN ANSWER, not appended to the ranking string.
