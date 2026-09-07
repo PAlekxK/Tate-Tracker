@@ -7998,7 +7998,50 @@ function hourLabel(hr) {
   return (hr - 12) + "p";
 }
 
+// ⛔⛔ A HANG IS NOT A REJECTION, AND ONLY A REJECTION WAS HANDLED. The weather card sat on
+// "Getting the weather…" in the teaser, the card face AND the body, across every capture of one
+// run — 186 → 75 lines of screen. `weatherIsReal()` correctly withheld every claim, which is that
+// gate working; but the honest "Couldn't get the weather just now." fires in a `catch`, and a fetch
+// that neither resolves nor rejects never reaches one. A present-tense sentence telling a reader to
+// wait for something that is never arriving is worse than one telling her it failed — the same
+// shape as the permanent "comparing…", one layer up.
+//
+// ⭐ THIS GETS WORSE, NOT RARER. Open-Meteo has 429'd three rounds running from one IP, and more
+// households means more clients. Paul's founding site premise makes it likelier still: "we're
+// limited to Wi-Fi coming from the house… coverage falls off with distance." A stalled request on a
+// weak link is not an edge case at that property — it is the normal case, permanently.
+//
+// ⚠️ 20 SECONDS, AND THE REASONING MATTERS MORE THAN THE NUMBER. Too short is the real hazard here:
+// a slow-but-fine connection at the far end of the property would be told the weather FAILED when
+// it was merely coming, which is a lie in the other direction. Open-Meteo answers in well under a
+// second when it answers at all, so anything past ~20s is overwhelmingly a stall rather than a slow
+// success. FIRST CUT, NOT RATIFIED — tune it from what the walks show.
+//
+// ⭐ AND IT DOES NOT ABORT, DELIBERATELY. The timer marks the failure and renders the honest line,
+// but the request is left running: if it lands at 25 seconds the real weather replaces the failure
+// notice. Aborting would convert a slow success into a permanent failure, which is exactly the
+// case the site premise says will be common. Late is not the same as never, and only one of them
+// is worth telling her about.
+//
+// ⚠️ INSTRUMENT GAP, NAMED HERE BECAUSE IT IS WHY THIS RAN THREE ROUNDS UNSEEN: a run recorded
+// `pageErrors: []` and `failedActions: []` while the main card never loaded. A STALLED FETCH IS
+// COUNTED NOWHERE — nothing in the walk record distinguishes "the weather rendered" from "the
+// weather never arrived". This marks it in the PAGE; making it visible to the harness is a separate
+// job and is not the engine's.
+const WEATHER_STALL_MS = 20000;
+function markWeatherStalled() {
+  if (!weatherIsReal()) {           // real weather already landed — say nothing
+    WEATHER_DATA.weatherFetchFailed = true;
+    try { renderWeatherSummary(); renderWeather(); renderDashboardStrip(); } catch (e) {}
+  }
+}
+
 async function fetchLiveWeather() {
+  const stallTimer = setTimeout(markWeatherStalled, WEATHER_STALL_MS);
+  try { return await fetchLiveWeatherInner(); } finally { clearTimeout(stallTimer); }
+}
+
+async function fetchLiveWeatherInner() {
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   const lat = siteCoords().lat;
   const lon = siteCoords().lon;
@@ -8140,6 +8183,7 @@ async function fetchLiveWeather() {
     if (savedPrecipHist)   WEATHER_DATA.precipHistory       = savedPrecipHist;
     if (savedPrecipFailed) WEATHER_DATA.precipHistoryFailed = savedPrecipFailed;
 
+    WEATHER_DATA.weatherFetchFailed = false;   // a late success outranks the stall notice
     renderWeatherSummary();
     renderWeather();
     renderCelestialSummary();
@@ -8818,7 +8862,19 @@ async function fetchRecentPrecip() {
 // =========================
 // PRECIP HISTORY (percentile comparison vs 2001–2025)
 // =========================
+// Same rule for the comparison: a stall left "comparing…" forever, which the failure flag only
+// cured on a rejection. Non-aborting for the same reason.
 async function fetchPrecipHistory() {
+  const t = setTimeout(() => {
+    if (!WEATHER_DATA.precipHistory) {
+      WEATHER_DATA.precipHistoryFailed = true;
+      try { renderRainfallPanel(); } catch (e) {}
+    }
+  }, WEATHER_STALL_MS);
+  try { return await fetchPrecipHistoryInner(); } finally { clearTimeout(t); }
+}
+
+async function fetchPrecipHistoryInner() {
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   const lat = siteCoords().lat;
   const lon = siteCoords().lon;
@@ -17060,7 +17116,25 @@ function renderClimateInner(climate) {
   return h;
 }
 
+// The climate panel's own stall: it hides when there is no canon to fall back on, which is the
+// state its catch already produces.
 async function fetchClimateNormals() {
+  const t = setTimeout(() => {
+    const mn = (PROPERTY_DATA.climate || {}).monthlyNormals;
+    if (!(mn && mn.length === 12)) {
+      const badge = document.getElementById('climate-data-badge');
+      if (!renderClimateInner(PROPERTY_DATA.climate || {})) {
+        const panel = document.getElementById('prop-climate-panel');
+        if (panel) panel.style.display = 'none';
+      } else if (badge) {
+        badge.innerHTML = '<span style="color:#c08020;">\u26a0 ERA5 unavailable \u2014 showing ' + escapeHtml(siteStationId()) + ' estimates</span>';
+      }
+    }
+  }, WEATHER_STALL_MS);
+  try { return await fetchClimateNormalsInner(); } finally { clearTimeout(t); }
+}
+
+async function fetchClimateNormalsInner() {
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   const lat = siteCoords().lat, lon = siteCoords().lon;
   // Open-Meteo archive API: 30-year daily data for 1991-2020 normals at property coordinates
