@@ -444,18 +444,40 @@ word 'optional' in it. I ran the form the pickup block prints and trusted the ti
 instrument tells a reader something at the moment they are not reading. The output of the thing they
 already trust reaches them at the moment they are.**
 
+### ⭐ 6c.1 · A THIRD remedy shape — a fact handed over with no accusation attached
+
+`[lane-F, 2026-09-07, correcting this file's account of it]`. An earlier draft of §6d claimed *"this
+seat read `check-estate-neutral` and found lane F's 'all green' claim hollow."* **That is not what
+happened, and it was too generous to this seat.** What was actually sent was a general fact about the
+tool — *"the network path is opt-in, so a bare run is a claim about a local artifact"* — with no
+accusation and no reference to lane F's commit. **Lane F connected it to `fd77248` itself**, and what
+told it was the tool's own comment, in capitals, saying *"neither is optional."*
+
+⛔ **The accurate version is a better row, because it is a distinct remedy shape:** not *a second seat
+caught it*, and not *the author caught it* — **a peer handed over a fact with no accusation attached,
+and the author applied it to their own work.**
+
+⭐ **It is cheaper than review and it lands better.** This seat spent no time on lane F's commit at
+all; and the fact reached **the one person who knows which of their own claims depends on it**, which
+a reviewer would have had to discover. Review scales badly and accuses; a fact costs one sentence and
+accuses nobody.
+
 ### 6d · And the honest form of "a second seat caught it"
 
 ⛔ **The asymmetric version — *"the fixes that landed clean are the ones a second seat ran"* — was
 this seat's, and lane F corrected it as too flattering to everyone else.** The symmetric version is
 true and more useful:
 
-> **Nobody had a clean run.** Lane F verified this seat twice and found a defect both times. This
-> seat read `check-estate-neutral` and found lane F's *"all green"* claim hollow — which would have
-> shipped inside a blocker commit. Lane D byte-diffed lane F's build and found two claims stated
-> wider than the behaviour. Lane E's own measurement went stale and lane D caught it; lane D's
-> grading went soft and lane E caught it; lane D's count and this seat's count were **both**
-> re-derived rather than read.
+> **Nobody had a clean run.** Lane F verified this seat **twice — one defect, one clean**
+> (`f41338b`'s footer fired on the correct invocation; `c6c7bf3` was clean, nothing found). Lane D
+> byte-diffed lane F's build and found two claims stated wider than the behaviour. Lane E's own
+> measurement went stale and lane D caught it; lane D's grading went soft and lane E caught it;
+> lane D's count and this seat's count were **both** re-derived rather than read.
+
+⚠️ **ONE CLEAN IN TWO IS THE HONEST RATE, and the row keeps it deliberately** `[lane-F, correcting an
+earlier draft of this row that recorded two defects in two]`. **If verification only ever found
+defects, "always get a second seat" would read as rhetoric.** A future reader can calibrate against
+one-in-two; they cannot calibrate against a claim that always pays.
 
 ⭐ **The pattern is not that any one seat's work needed checking. It is that UNCHECKED work did not
 survive contact, whoever wrote it** — and the cheap thing that kept catching it was a second seat
