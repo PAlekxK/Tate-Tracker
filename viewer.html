@@ -17899,7 +17899,10 @@ function renderHouseholdFirstScreen() {
     // "Apt" at a line end and ran "3B Roswell" together (mom seat, b0ce794)
     let parts = null;
     try { parts = JSON.parse(localStorage.getItem("fw-onboard-parts") || "null"); } catch (e) {}
-    const street = parts && parts.line1 ? (parts.line1 + (parts.line2 ? ", " + parts.line2 : "")) : "";
+    // the unit stays with its word — beside the Open pill at A+ the column is narrow and "Apt 3B" broke
+    // after "Apt", which reads as a typo (mom seat, 50f28ff); a non-breaking space keeps "Apt 3B" one token
+    const keepUnit = t => String(t).replace(/\b(Apt|Apartment|Unit|Suite|Ste|Bldg|Lot|Rm|#)\.?\s+(\S+)/gi, (m, a, b) => a + "\u00a0" + b);
+    const street = parts && parts.line1 ? keepUnit(parts.line1 + (parts.line2 ? ", " + parts.line2 : "")) : "";
     const town = parts ? [parts.city, [parts.state, parts.zip].filter(Boolean).join(" ")].filter(Boolean).join(", ") : "";
     prop.querySelectorAll(".main-card-summary").forEach(el => {
       if (street && town) el.innerHTML = escapeHtml(street) + "<br>" + escapeHtml(town);
