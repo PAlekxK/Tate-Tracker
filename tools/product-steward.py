@@ -365,6 +365,28 @@ def read_transcript(run_dir):
 # look. This does NOT judge a screen — it reports a literal.
 LEAK_NEEDLES = ("undefined", "NaN", "[object Object]", "{{", "null,", "Infinity", "<no value>")
 
+# ⛔ `—` IS NOT A NEEDLE AND MUST NOT BECOME ONE `[lane-F, 2026-09-07]`. The em-dash is this project's
+# RATIFIED empty vocabulary — `engine/viewer.template.html:7266`: *"the honest empty vocabulary is
+# '—', the same the collected modules use."* Flagging it would fire on correct-by-design renders and
+# train a reader to skim the report, which is how a control stops being read.
+SEPARATORS = ("· ", "— ", "– ")
+
+# ⭐ TWO SHAPES A LITERAL SCAN CANNOT SEE, and both caught a real defect the `undefined` scan missed
+# `[lane-F, 2026-09-07]`: a label rendered with nothing after it
+# (`<strong>Your skies:</strong> ` — an empty `div.cel-property-note`), and a dangling separator left
+# by an absent part (nine celestial rows opening with a bare "· ").
+#
+# ⭐ LANE F EXPECTED THESE TO NEED A LIVE DOM. They do not: the extractor already records one line
+# per visible element, so an element's own text is exactly what the transcript holds. Sited here
+# rather than in the harness, they run on every past run too — which is how the corpus baseline
+# below was measurable at all.
+#
+# ⚠️ THE FRAGMENT EXCLUSION IS LOAD-BEARING, and it is lane F's: an element that is a FRAGMENT of a
+# longer joined line is fine. Measured — without it, "— optional" (from "Phone number — optional")
+# fires on four stops of every onboarding walk. A line is a fragment when some OTHER captured line in
+# the same stop contains it. With the exclusion: 16 separator hits across 121 runs, ZERO of them
+# false.
+
 
 def leaks(run_dir):
     """→ [(stop, line)] — captured screen text carrying a needle. Never a judgement about the screen."""
@@ -380,6 +402,36 @@ def leaks(run_dir):
                     out.append((st.get("stop"), txt.strip()[:140]))
                     break
     return out
+
+
+def shapes(run_dir):
+    """→ (red, review) — dangling SEPARATORS and dangling LABELS, each [(stop, line)].
+
+    ⛔ THE TWO ARE GRADED DIFFERENTLY, AND THE SPLIT IS MEASURED, NOT STYLISTIC.
+
+      · **leading separator → 🔴.** 16 hits across 121 runs, every one a real dangling separator.
+      · **trailing colon → 🟡 REVIEW, never a failure.** 6 hits, and ONE IS LEGITIMATE: the
+        acknowledgment ribbon's title *"Tuesday, September 1 — what you asked for:"* ends in a colon
+        because its content follows in a SIBLING element. `<strong>Your skies:</strong> ` with nothing
+        after it and a heading whose content is next door are the SAME TEXT LINE; the transcript
+        cannot tell them apart, and pretending otherwise would put a false red on a correct render.
+        Fail-open is deliberate and is this repo's existing posture (`rationalize-bench`): wrongly
+        hiding a finding loses it silently, wrongly showing one costs a line in a report someone reads.
+    """
+    t = read_transcript(run_dir)
+    if not t:
+        return None
+    red, review = [], []
+    for st in t.get("stops") or []:
+        lines = [str(x).strip() for x in (st.get("screen") or [])]
+        for l in lines:
+            if not l or any(l != o and l in o for o in lines):
+                continue                  # a fragment of a longer joined line — lane F's exclusion
+            if l[:2] in SEPARATORS:
+                red.append((st.get("stop"), l[:140]))
+            elif l.endswith(":") and len(l) > 1:
+                review.append((st.get("stop"), l[:140]))
+    return red, review
 
 
 def report_state(run_dir):
@@ -498,13 +550,21 @@ def cmd_round(sha=None, quiet=False):
                 unreadable += 1
                 print("     ⬜ %-11s UNREADABLE transcript — NOT scanned, and not clean either" % seat)
                 continue
-            if ls:
+            sh = shapes(d) or ([], [])
+            if ls or sh[0]:
                 any_leak += 1
                 rc = 1
-                for stop, line in ls[:6]:
-                    print("     🔴 %-11s stop %-14s %s" % (seat, stop, line))
-                if len(ls) > 6:
-                    print("     🔴 %-11s … %d more" % (seat, len(ls) - 6))
+            for stop, line in ls[:6]:
+                print("     🔴 %-11s stop %-14s %s" % (seat, stop, line))
+            if len(ls) > 6:
+                print("     🔴 %-11s … %d more needle(s)" % (seat, len(ls) - 6))
+            for stop, line in sh[0][:6]:
+                print("     🔴 %-11s stop %-14s dangling separator: %s" % (seat, stop, line))
+            if len(sh[0]) > 6:
+                print("     🔴 %-11s … %d more dangling separator(s)" % (seat, len(sh[0]) - 6))
+            for stop, line in sh[1][:4]:
+                print("     🟡 %-11s stop %-14s label ends in a colon — REVIEW, not a failure: %s"
+                      % (seat, stop, line))
         if not any_leak and not unreadable:
             print("     ✅ none in any seat's CAPTURED screens at this build.")
             # ⚠️ A clean line is only as strong as the capture behind it. Before 2026-09-07 the DOM
@@ -959,6 +1019,30 @@ def selftest():
         say(leaks(clean) == [], "M16 a clean screen reports an empty list, not a false hit")
         say(leaks(os.path.join(tmp, "nothing-here")) is None,
             "M17 an unreadable transcript returns None — the caller must say UNREADABLE, never zero")
+
+        # M18-M22 · the two DOM shapes, and the exclusion that keeps them honest
+        def mkshape(name, screen):
+            d = os.path.join(tmp, name)
+            os.makedirs(d, exist_ok=True)
+            json.dump({"stops": [{"stop": "12", "screen": screen}]},
+                      open(os.path.join(d, "transcript.json"), "w"))
+            return shapes(d)
+
+        red, rev = mkshape("sep", ["· 🌓 Quarter moon — moderate", "Oct 4"])
+        say(red == [("12", "· 🌓 Quarter moon — moderate")] and rev == [],
+            "M18 a line opening with a bare separator is RED")
+        red, rev = mkshape("frag", ["Phone number — optional", "— optional"])
+        say(red == [], "M19 a FRAGMENT of a longer joined line is excluded — lane F's rule, and it "
+                       "is what stops '— optional' firing on four stops of every walk")
+        red, rev = mkshape("colon", ["Your skies:", "TRANSPARENCY"])
+        say(red == [] and rev == [("12", "Your skies:")],
+            "M20 a label ending in a colon is REVIEW, never RED — a heading may legitimately end in "
+            "one with its content in a sibling")
+        red, rev = mkshape("emdash", ["— the honest empty vocabulary", "Bortle —"])
+        say(not any("Bortle —" in l for _, l in red + rev),
+            "M21 a bare `—` as a VALUE is not flagged — it is the ratified empty vocabulary")
+        say(shapes(os.path.join(tmp, "no-such-run")) is None,
+            "M22 an unreadable transcript returns None from the shape scan too, never an empty pass")
 
     # M14 · an empty seat roster is UNCHECKABLE, never green by absence
     rg = gate_module()
