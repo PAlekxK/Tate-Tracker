@@ -65,6 +65,11 @@ REGISTER = os.path.join(PRIVATE_SIBLING, "grants.json")
 # (salt · hash · tokenHash · iterations · algo) or a person's contact and location details
 # (email · phone · address · ranked), and this tool has no business holding either.
 ACCOUNT_FIELDS = ("personId", "createdAt", "capability", "relationship", "placeName")
+# ⭐ PRESENCE, NEVER THE VALUE. W0 puts `coordinates` on the account row so a household can be placed
+# and shown weather; `address` is a person's home address and may not be held here. Whether a field
+# is THERE is a fact about the product; what is IN it is a fact about a person. Only the first
+# crosses this boundary.
+PRESENCE_FIELDS = ("address", "addressParts", "coordinates")
 GRANT_FIELDS = ("personId", "capability", "relationship", "issuedAt", "issuedBy", "revokedAt")
 
 
@@ -221,7 +226,17 @@ def read_env(env, estate, cached=None, deep=False):
             if kind == "grant":
                 ident = ident[:8]
             hit = None if deep else cached.get((kind, ident))
-            out[ident] = hit if hit else project(kv_get(env, key) or {}, fields)
+            if hit:
+                out[ident] = hit
+                continue
+            raw = kv_get(env, key) or {}
+            rec = project(raw, fields)
+            if kind == "account":
+                # ⚠️ `has` — never the value. A row cached before this field existed carries no `has`
+                # at all, and that reads UNKNOWN rather than False: a cache may not report an absence
+                # it was never in a position to observe.
+                rec["has"] = {f: bool(raw.get(f)) for f in PRESENCE_FIELDS}
+            out[ident] = rec
     return accounts, grants
 
 
@@ -307,6 +322,7 @@ def sweep(envs, state, write=True, reader=read_env, deep=False):
         row = {"env": env, "estate": estate, "envName": cfg.get("envName"),
                "result": None, "why": None, "accounts": {}, "grants": {},
                "new": [], "predating": [], "divergent": [], "absent": [], "unspent": [], "register_only": [],
+               "outstanding": [], "spent": [], "unplaced": [],
                "lastCheckedAt": (state["envs"].get(env) or {}).get("lastCheckedAt")}
         if not estate:
             row["result"] = "UNREADABLE"
@@ -362,12 +378,30 @@ def sweep(envs, state, write=True, reader=read_env, deep=False):
                     predates = bool(watching_since and born and born < watching_since)
                     st["predatesWatcher"] = predates
                     (row["predating"] if predates else row["new"]).append((k, kind, ident, rec, st))
+                    # ⭐ W0: a household that arrives and cannot be PLACED gets no weather, which is
+                    # most of what the product is on day one. An account carrying an address with no
+                    # coordinates is that defect on its face.
+                    # ⚠️ ARRIVALS ONLY, deliberately. Every account predating W0 has an address and
+                    # no coordinates, so checking the backlog would be red from the day it was
+                    # written — the permanently-red alarm this repo forbids. Scoped to arrivals it is
+                    # silent until somebody actually turns up, which is exactly when it matters.
+                    has = rec.get("has")
+                    if not predates and kind == "account" and has and has.get("address") \
+                            and not has.get("coordinates"):
+                        row["unplaced"].append((ident, rec.get("personId")))
                 # DIVERGENCE: in the store, absent from the local register. That is the signature of
                 # a personId minted server-side by handleAccountCreate — the thing no local reader
                 # could see. If the register itself is unreadable, nothing is claimed either way.
                 if known is not None and rec.get("personId") and \
                         rec.get("personId") not in known.get(estate, EMPTY_ESTATE)["all"] and not rec.get("revokedAt"):
                     row["divergent"].append((kind, ident, rec.get("personId")))
+
+        # Only a SUCCESSFUL read may conclude that something is gone.
+        for k, st in state["records"].items():
+            if st.get("env") == env and k not in seen_now and not st.get("absentSince"):
+                if write:
+                    st["absentSince"] = now_iso()
+                row["absent"].append((k, st))
 
         if known is not None:
             reg_est = known.get(estate, EMPTY_ESTATE)
@@ -386,13 +420,26 @@ def sweep(envs, state, write=True, reader=read_env, deep=False):
             in_store = {g.get("personId") for g in grants.values() if not g.get("revokedAt")} | \
                        {a.get("personId") for a in accounts.values()}
             row["register_only"] = sorted(p for p in reg_est["live"] if p not in in_store)
-
-        # Only a SUCCESSFUL read may conclude that something is gone.
-        for k, st in state["records"].items():
-            if st.get("env") == env and k not in seen_now and not st.get("absentSince"):
-                if write:
-                    st["absentSince"] = now_iso()
-                row["absent"].append((k, st))
+            # ⭐⭐ THE INVITE LEDGER — the one question this tool has a KNOWN READER for.
+            # `handleAccountCreate` DELETES the grant row it was presented with (`worker.js:513`,
+            # "SPEND THE INVITE"), so a credential WE minted that is STILL in the store has not been
+            # used to create an account. Deterministic, not inferred — and it is what "has this
+            # person set themselves up yet?" actually resolves to.
+            # ⛔ IT NAMES A CREDENTIAL, NEVER A PERSON. That restraint matters MORE when everybody
+            # wants the tool to say a name, not less.
+            for h, g in sorted(grants.items()):
+                if g.get("personId") in reg_est["live"] and not g.get("revokedAt"):
+                    row["outstanding"].append((g["personId"], h, g.get("issuedAt")))
+            # ⛔ GONE HAS TWO CAUSES AND THIS TOOL PICKS NEITHER: a signup spends the row
+            # (`worker.js:513`) and `grant-mint.py:revoke` deletes it too (`:210`). It reports the
+            # disappearance, lists the accounts that appeared here since, and leaves the conclusion
+            # to a person — which is the same rule as never asserting who a personId is.
+            for k, st in state["records"].items():
+                if st.get("env") != env or st.get("kind") != "grant" or not st.get("absentSince"):
+                    continue
+                pid = (st.get("row") or {}).get("personId") or st.get("personId")
+                if pid in reg_est["all"]:
+                    row["spent"].append((pid, st.get("id"), st.get("absentSince")))
 
         if write:
             prev = state["envs"].get(env) or {}
@@ -433,6 +480,37 @@ def render(report, show_all=False):
     older = sum(len(r["predating"]) for r in report)
     lines.append("👤 Account watch — %d environment(s) · %d arrived since watching began · "
                  "%d predate it · %d unreadable" % (len(report), unack, older, len(unread)))
+
+    # ⭐⭐ THE LEDGER GOES FIRST, because this tool has a KNOWN READER WITH A KNOWN QUESTION: *has
+    # the person we invited set themselves up yet?* An answer you have to hunt for on a page of 264
+    # records is an answer that gets misread.
+    # ⛔ It names a CREDENTIAL, never a person. The tool prints the id; a human makes the
+    # identification. That restraint matters MORE when everyone wants the answer, not less.
+    ledger = [r for r in report if r["result"] == "READ" and (r["outstanding"] or r["spent"])]
+    blind = [r for r in report if r["result"] == "UNREADABLE"]
+    if ledger or blind:
+        lines.append("")
+        lines.append("   ─── INVITES WE MINTED ───")
+    for r in ledger:
+        for pid, h, gone in r["spent"]:
+            lines.append("   ✅ %s · %s — the credential %s (grant %s) is GONE FROM THE STORE, first "
+                         "missed %s." % (r["estate"], r["env"], pid, h, ago(gone)))
+            lines.append("      A signup SPENDS it (worker.js:513) and a revoke DELETES it "
+                         "(grant-mint.py:210). This tool does not choose between those.")
+            since = sorted(a for a in r["accounts"] if r["accounts"][a].get("createdAt"))
+            lines.append("      Accounts on this estate, for a human to judge against: %s"
+                         % (", ".join("%s (%s, %s)" % (a, r["accounts"][a].get("personId"),
+                                                       r["accounts"][a].get("createdAt"))
+                                      for a in since) or "none at all"))
+        for pid, h, issued in r["outstanding"]:
+            lines.append("   ⏳ %s · %s — %s is STILL IN THE STORE, so it has NOT been used to create "
+                         "an account (issued %s)" % (r["estate"], r["env"], pid, issued or "?"))
+    for r in blind:
+        # ⛔ The one wrong answer this must never give is "nobody has arrived" when it could not look.
+        lines.append("   ⚠️ %s · %s — UNREADABLE, so NOTHING is claimed about who has or has not "
+                     "arrived here" % (r["estate"] or "no estate", r["env"]))
+    if ledger or blind:
+        lines.append("")
     if report and report[0].get("registerWhy"):
         lines.append("   ⚠️ the local grant register is UNREADABLE, so no divergence is claimed: %s"
                      % report[0]["registerWhy"])
@@ -480,9 +558,11 @@ def render(report, show_all=False):
                          "know at %s (minted server-side)" % (kind, ident, person, r["estate"]))
         if len(r["divergent"]) > len(div):
             lines.append("        … and %d more divergent record(s) here" % (len(r["divergent"]) - len(div)))
-        if r["unspent"]:
-            lines.append("        ✉️  minted here and STILL PRESENT, so not yet spent on a signup: %s"
-                         % ", ".join(r["unspent"]))
+        if r["unplaced"]:
+            # Loud on purpose: a household that arrives and cannot be placed gets no weather.
+            lines.append("        🔴 AN ACCOUNT ARRIVED THAT CANNOT BE PLACED — it carries an address "
+                         "and NO coordinates, so nothing downstream of SITE_PLACED can run: %s"
+                         % ", ".join("%s (%s)" % (u, p or "no personId") for u, p in r["unplaced"]))
         if r["register_only"]:
             lines.append("        ⚠️ the register calls these live at %s and this store does not hold "
                          "them, so `grantFor()` would 404 them HERE: %s"
@@ -566,6 +646,13 @@ def selftest():
     tmpdir = tempfile.mkdtemp()
     STATE = os.path.join(tmpdir, "state.json")
 
+    # ⚠️ THE REGISTER IS A FIXTURE HERE. It was the real `grants.json` in the private sibling, so
+    # this selftest silently depended on a file outside the repo and on whatever it happened to hold
+    # that day. A test whose fixture is live data is a test that changes its mind.
+    global register_persons
+    _real_register = register_persons
+    register_persons = lambda: {"est-e6696a": {"all": {"p-known"}, "live": {"p-known"}}}
+
     st = load_state()
     rep = sweep(["home"], st, write=True, reader=fake)
     out = render(rep)
@@ -624,11 +711,11 @@ def selftest():
     check("a successful read may conclude a record is gone", len(rep[0]["absent"]) == 1)
 
     # A brand-new arrival after an acknowledgment is NEW again.
-    store["home"][0]["mom"] = {"personId": "p-new", "createdAt": LATER,
+    store["home"][0]["arrival2"] = {"personId": "p-new", "createdAt": LATER,
                                "capability": "member", "relationship": ["owner"], "placeName": None}
     rep = sweep(["home"], st, write=True, reader=fake)
     check("a later arrival is new even though a sibling was acknowledged",
-          [n[2] for n in rep[0]["new"]] == ["mom"])
+          [n[2] for n in rep[0]["new"]] == ["arrival2"])
     # ⛔ AND AN ARRIVAL NEVER PAGES OFF BEHIND A BACKLOG, whatever the backlog's size.
     for i in range(DETAIL_CAP + 4):
         store["home"][0]["old%d" % i] = {"personId": "p-old%d" % i, "createdAt": PAST,
@@ -637,7 +724,7 @@ def selftest():
     rep = sweep(["home"], st, write=True, reader=fake)
     out = render(rep)
     check("a real arrival is still printed with a backlog larger than the page",
-          "account mom" in out and len(rep[0]["predating"]) > DETAIL_CAP)
+          "account arrival2" in out and len(rep[0]["predating"]) > DETAIL_CAP)
     check("the elided backlog is counted on its face, never silently dropped",
           "PREDATE the watcher" in out)
 
@@ -666,7 +753,7 @@ def selftest():
 
     # ⛔ THE FAIL-CLOSED PROOF, exercised directly because `fake` above bypasses the real reader.
     # An empty listing may only mean "empty" after the destination has said who it is.
-    global kv
+    global kv, kv_get
     real_kv, canary = kv, {"v": "home"}
 
     def fake_kv(env, verb, *args, **kw):
@@ -693,6 +780,112 @@ def selftest():
     finally:
         kv = real_kv
 
+    # ⭐⭐ THE LEDGER — the question this tool has a known reader for, and where its answer sits.
+    st2 = {"envs": {}, "records": {}}
+    store["home"][1]["deadbeef"] = {"personId": "p-known", "capability": "member",
+                                    "relationship": ["owner"], "issuedAt": PAST,
+                                    "revokedAt": None, "issuedBy": "p-known"}
+    out = render(sweep(["home"], st2, write=True, reader=fake))
+    check("a credential we minted that is still in the store reads NOT YET USED",
+          "STILL IN THE STORE" in out)
+    check("the ledger sits ABOVE the per-environment lines, not buried in them",
+          "INVITES WE MINTED" in out and out.index("INVITES WE MINTED") < out.index("est-e6696a —"))
+    # Scoped to the ledger's OWN lines: elsewhere the report legitimately prints usernames,
+    # which are what people chose to call themselves, not an attribution this tool made.
+    led = [l for l in out.splitlines() if "STILL IN THE STORE" in l]
+    check("the ledger line names the credential and nothing else about who holds it",
+          led and all("p-known" in l for l in led)
+          and not any(w in l.lower() for l in led for w in ("mom", "mother", "paul")))
+
+    del store["home"][1]["deadbeef"]
+    rep = sweep(["home"], st2, write=True, reader=fake)   # marks it absent
+    out = render(sweep(["home"], st2, write=True, reader=fake))
+    check("a credential that disappears is reported GONE", "GONE FROM THE STORE" in out)
+    check("both causes are named and neither is chosen",
+          "SPENDS it" in out and "revoke DELETES it" in out and "does not choose" in out)
+    check("the accounts a human would judge against are listed",
+          "for a human to judge against" in out)
+    check("and it no longer claims the credential is outstanding", "STILL IN THE STORE" not in out)
+
+    # ⛔ The one wrong answer it must never give.
+    dead.add("home")
+    out = render(sweep(["home"], st2, write=True, reader=fake))
+    check("an unreadable estate claims NOTHING about who has arrived",
+          "NOTHING is claimed about who has or has not arrived" in out)
+    check("and prints no outstanding or gone line for it",
+          "STILL IN THE STORE" not in out and "GONE FROM THE STORE" not in out)
+    dead.discard("home")
+
+    # ⭐ W0 — an arrival that cannot be placed.
+    st3 = {"envs": {}, "records": {}}
+    sweep(["home"], st3, write=True, reader=fake)          # establishes watchingSince
+    # ⚠️ A BACKLOG ACCOUNT THAT WOULD FAIL THE CHECK IF THE CHECK WERE NOT SCOPED TO ARRIVALS.
+    # Without this the "not red from birth" assertion was VACUOUS — every other backlog fixture
+    # carries no `has` at all, so it was skipped for the wrong reason and a mutation that dropped
+    # the arrivals-only scoping passed the whole suite.
+    store["home"][0]["oldnoplace"] = {"personId": "p-o", "createdAt": PAST, "capability": "member",
+                                      "relationship": ["owner"], "placeName": None,
+                                      "has": {"address": True, "coordinates": False}}
+    store["home"][0]["isplaced"] = {"personId": "p-p", "createdAt": LATER, "capability": "member",
+                                    "relationship": ["owner"], "placeName": None,
+                                    "has": {"address": True, "coordinates": True}}
+    store["home"][0]["noplace"] = {"personId": "p-u", "createdAt": LATER, "capability": "member",
+                                   "relationship": ["owner"], "placeName": None,
+                                   "has": {"address": True, "coordinates": False}}
+    rep = sweep(["home"], st3, write=True, reader=fake)
+    out = render(rep)
+    flagged = [u[0] for u in rep[0]["unplaced"]]
+    check("an ARRIVAL with an address and no coordinates is shouted about",
+          flagged == ["noplace"] and "CANNOT BE PLACED" in out)
+    check("an arrival that IS placed is listed but not flagged",
+          "isplaced" not in flagged and "account isplaced" in out)
+    check("a PRE-W0 account with the same defect is not flagged — the check is scoped to "
+          "arrivals, so it is not red from birth", "oldnoplace" not in flagged)
+    check("a row carrying no `has` at all reports nothing rather than an absence",
+          "arrival2" not in flagged)
+
+    # ⛔ THE PRIVACY BOUNDARY, EXERCISED DIRECTLY. Every check above runs against `fake`, which
+    # hands back fixture rows and therefore never touches `read_env` — the one place a real account
+    # row is narrowed. Proven necessary: a mutation collapsing `has` from booleans to the RAW VALUES
+    # passed the entire suite, and those values are a person's address.
+    real_kv, real_get = kv, kv_get
+    raw_row = {"personId": "p-z", "createdAt": "2026-01-01T00:00:00Z", "capability": "member",
+               "relationship": ["owner"], "placeName": "A Place",
+               "salt": "SALTSENTINEL", "hash": "HASHSENTINEL", "tokenHash": "TOKENSENTINEL",
+               "iterations": 100000, "algo": "PBKDF2-SHA256",
+               "email": "EMAILSENTINEL", "phone": "PHONESENTINEL",
+               "address": "ADDRESSSENTINEL", "addressParts": {"city": "CITYSENTINEL"},
+               "ranked": ["RANKSENTINEL"], "accent": "#000000"}
+    kv = lambda env, verb, *a, **k: "home" if a and a[0] == "env-canary" else "[]"
+    kv_get = lambda env, key: raw_row
+    try:
+        wa_accounts, _g = {}, {}
+        import json as _json
+        # kv_list needs a listing; feed it one account key and no grants.
+        real_list = kv_list
+        globals()["kv_list"] = lambda env, prefix: (["est-x:account:someone"]
+                                                    if prefix.endswith(":account:") else [])
+        accts, grants = read_env("home", "est-x")
+        rec = accts["someone"]
+        check("read_env keeps only the declared account fields, plus presence",
+              set(rec) == set(ACCOUNT_FIELDS) | {"has"})
+        check("presence is BOOLEAN — never the value it is reporting on",
+              all(isinstance(v, bool) for v in rec["has"].values()))
+        blob = _json.dumps(rec)
+        leaked = [x for x in ("SALTSENTINEL", "HASHSENTINEL", "TOKENSENTINEL", "EMAILSENTINEL",
+                              "PHONESENTINEL", "ADDRESSSENTINEL", "CITYSENTINEL", "RANKSENTINEL")
+                  if x in blob]
+        if leaked:
+            print("       leaked: %s" % leaked)
+        check("no credential material and no personal detail survives the projection", not leaked)
+        check("and presence still reports what IS there", rec["has"] == {"address": True,
+                                                                        "addressParts": True,
+                                                                        "coordinates": False})
+    finally:
+        globals()["kv_list"] = real_list
+        kv, kv_get = real_kv, real_get
+
+    register_persons = _real_register
     print("selftest: %s (%d failure(s))" % ("PASS" if not fails else "FAIL", len(fails)))
     return 0 if not fails else 1
 
