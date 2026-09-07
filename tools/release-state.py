@@ -109,9 +109,15 @@ def main():
              st["candidate_sha"], st["gate_1"]["seats_pass"]))
     if note: print(note)
     if a.write:
-        os.makedirs(os.path.dirname(STATE), exist_ok=True)
-        json.dump(st, open(STATE, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
-        print("  → %s" % os.path.relpath(STATE, ROOT))
+        # ⛔ A WRITE THAT CHANGES ONLY THE TIMESTAMP IS NOT A WRITE. Hooked to post-commit (R3), an
+        # unconditional dump re-dirtied the tree after every commit and the seam gate never read clean.
+        same = prior is not None and {k: v for k, v in prior.items() if k != "generated_at"} == {k: v for k, v in st.items() if k != "generated_at"}
+        if same:
+            print("  (state unchanged — not rewritten)")
+        else:
+            os.makedirs(os.path.dirname(STATE), exist_ok=True)
+            json.dump(st, open(STATE, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+            print("  → %s" % os.path.relpath(STATE, ROOT))
     return 0
 
 
