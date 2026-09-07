@@ -49,6 +49,27 @@ TEMPLATE = os.path.join(ROOT, "engine", "viewer.template.html")
 DEFAULT_INSTANCE = os.path.join(ROOT, "instance", "fernwood.json")
 
 # The identity strings the masthead carries, and how each derives.
+def _address_line(ident, prop):
+    """City, state and elevation — or nothing. Never a comma with no city in front of it."""
+    p = prop.get("property") or {}
+    city, state = (p.get("city") or "").strip(), (p.get("state") or "").strip()
+    if not (city and state):
+        return ""
+    ft = ((prop.get("location") or {}).get("elevation") or {}).get("estimated_ft")
+    line = "%s, %s" % (city, state)
+    # ⚠️ 0 ft is not "unknown", but for a place that has told us nothing it is a DEFAULT wearing a
+    # measurement's clothes. A household at true sea level will have declared it.
+    if ft:
+        line += " · %s ft" % "{:,}".format(ft)
+    # ⚠️ THE SUFFIX JOINS WITH A SPACE, NOT A SEPARATOR. "2,873 ft on the Blue Ridge" is a phrase;
+    # "2,873 ft · on the Blue Ridge" is a list with a preposition stranded in it. Caught by --check
+    # going red on Fernwood, which is exactly what that control is for.
+    suffix = (ident.get("addressLineSuffix") or "").strip()
+    if suffix:
+        line += " " + suffix
+    return line
+
+
 STATION_STATES = ("present", "declared-absent", "undeclared")
 
 
@@ -63,11 +84,17 @@ def _station(ident):
 IDENTITY = {
     "title":       lambda ident, prop: ident["name"],
     "h1":          lambda ident, prop: ident["name"],
+    # ⛔ A FRAGMENT IS WORSE THAN A BLANK. Measured 2026-09-06 by the `owner` seat reading its own
+    # walk: a household with no address rendered "An almanac for" with nothing after it, and
+    # ", · 0 ft" — a sentence with the noun missing, a stray comma, and sea-level elevation for a
+    # mountain address. Its verdict: "an empty state doesn't print a stray comma." That single line
+    # is why the app read as BROKEN rather than as new — not the empty cards, which it said were
+    # fine.
+    # ⭐ So each of these renders WHOLE or renders NOTHING. A masthead that says less is a masthead
+    # that is still speaking; a masthead with half a sentence in it has failed.
     "subtitle":    lambda ident, prop: (("%s %s" % (ident["taglinePrefix"], prop["property"]["address"])).strip()
-                                        if prop["property"].get("address") else ident["taglinePrefix"]),
-    "addressLine": lambda ident, prop: "%s, %s · %s ft %s" % (
-        prop["property"]["city"], prop["property"]["state"],
-        "{:,}".format(prop["location"]["elevation"]["estimated_ft"]), ident["addressLineSuffix"]),
+                                        if prop["property"].get("address") else ""),
+    "addressLine": lambda ident, prop: _address_line(ident, prop),
     # C4 5c (2026-09-03): the three strip labels that named the founding instance in engine markup.
     "journalTile":     lambda ident, prop: ident.get("journalTile") or (ident["name"] + " Almanac"),
     "propertyTile":    lambda ident, prop: ident["name"],
@@ -96,6 +123,15 @@ IDENTITY = {
     # not the same as one you declared absent). An INVALID key is a different thing and must stop
     # the build: it means someone declared an intent the engine cannot honour.
     "station":         lambda ident, prop: _station(ident),
+    # ⛔⛔ THE AERIAL PHOTOGRAPH OF THE FOUNDING HOUSEHOLD'S LAND WAS HARDCODED IN CSS and rendered
+    # on the "My Home" tile of EVERY household. Found 2026-09-06 by the `owner` seat reading its own
+    # walk: "an aerial photo of someone else's land, captioned My Home… the moment I stopped reading
+    # the screen as unfinished and started reading it as wrong."
+    # ⭐ INVISIBLE TO EVERY CHECK WE HAVE, and that is the lesson: check-estate-neutral matches
+    # NAMES in text. A photograph of a place is not a name, so no needle could ever match it, and a
+    # binary asset referenced by path leaks a household more completely than any string could.
+    # An instance with no imagery declares "" and the tile renders without a photograph.
+    "propertyImage":   lambda ident, prop: ident.get("propertyImage", ""),
 }
 IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "title":       re.compile(r"(<title>)(.*?)(</title>)"),

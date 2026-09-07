@@ -3668,7 +3668,7 @@
         rgba(20, 20, 14, 0.0) 0%,
         rgba(20, 20, 14, 0.20) 45%,
         rgba(20, 20, 14, 0.78) 100%),
-      url("images/property-map/base-naip-2022-01-leafoff.webp");
+      var(--property-image, none);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -7163,6 +7163,15 @@ const STATION_NAME = "{{IDENTITY:stationName}}";
 // C7 1c — does this estate HAVE a station? "present" · "declared-absent" · "undeclared" (the build's
 // loud non-default). Declared-absent: no proxy call, the weather card says regional, no error dot.
 const ESTATE_STATION = "{{IDENTITY:station}}";
+// ⛔ THE PLACE'S OWN AERIAL IMAGERY, per instance. Empty for a household that has none — the tile
+// then renders with no photograph rather than with somebody else's land.
+const PROPERTY_IMAGE = "{{IDENTITY:propertyImage}}";
+const PROPERTY_IMAGE_WEBP = PROPERTY_IMAGE ? PROPERTY_IMAGE + ".webp" : "";
+const PROPERTY_IMAGE_PNG  = PROPERTY_IMAGE ? PROPERTY_IMAGE + ".png"  : "";
+try {
+  document.documentElement.style.setProperty("--property-image",
+    PROPERTY_IMAGE_WEBP ? 'url("' + PROPERTY_IMAGE_WEBP + '")' : "none");
+} catch (e) {}
 const STATION_DECLARED_ABSENT = ESTATE_STATION === "declared-absent";
 const TURF_DATA = {{DATA:TURF_DATA}};
 const WEEDS_DATA = {{DATA:WEEDS_DATA}};
@@ -10079,8 +10088,8 @@ function renderFishSpecies(speciesId, lakeTemp) {
 // linear-vs-true-Mercator error is sub-centimetre: ~1000x below the imagery's own
 // ~20 ft accuracy. No map library needed for that.
 const ZoneGeo = (function () {
-  const FALLBACK_IMG = "images/property-map/base-naip-2022-01-leafoff.webp";
-  const FALLBACK_PNG = "images/property-map/base-naip-2022-01-leafoff.png";
+  const FALLBACK_IMG = PROPERTY_IMAGE_WEBP;
+  const FALLBACK_PNG = PROPERTY_IMAGE_PNG;
   function meta() { return (typeof ZONES_DATA !== "undefined" && ZONES_DATA && ZONES_DATA._meta) || {}; }
   function bounds() { return meta().bounds || null; }
   function imgW() { return meta().baseImageWidth || 1500; }
