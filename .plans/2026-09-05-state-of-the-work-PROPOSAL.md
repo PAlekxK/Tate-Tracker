@@ -10,7 +10,12 @@
 - depends-on: .plans/2026-09-04-process-wiring-AUDIT.md
 - depends-on: .plans/2026-09-05-release-cascade-tracking-PROPOSAL.md
 - ready: agent-proposed 2026-09-05 — **Paul rules**
-- stage: draft   ⚠️ not a legal `stage:` word until process-wiring-AUDIT §B.1 is ruled; see §4
+- stage: draft
+- stage-note: 2026-09-07 — the caveat that used to ride ON this value (*"not a legal `stage:` word
+  until process-wiring-AUDIT §B.1 is ruled"*) is DISCHARGED: `draft` joined the enum
+  `[paul-ruled 2026-09-07, R4 → B]`. ⚠️ It was removed because it was being read as PART OF THE
+  VALUE — the checker compared the whole string against the enum and reported this file twice.
+  A caveat belongs in a note, never inside a field a machine parses.
 
 > **Method only.** This file ranks no feature, decides no migration, and designs no tenancy. Where a
 > call turns on real-world context only Paul has, it is named and declined (§8).

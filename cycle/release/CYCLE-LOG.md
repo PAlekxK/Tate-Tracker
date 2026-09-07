@@ -1077,45 +1077,63 @@ for the first time.
 | accounts | 79 arrived since watching began · 264 predate · **0 unreadable** | ⭐ Mom's invite **`p-b91e4d` is still in the store — she has still not arrived.** `exit 3` did not fire, so "no new" is trustworthy this once |
 | feedback | **480** awaiting disposition across 6 envs · **0 unreadable**. Production: **10 records, 10 awaiting, 1 of 10 fully labelled** | ⛔ Gates the commitment point. The board may not be laid out while these sit |
 
-### 🔎 A NEW FINDING, from the feedback sweep — a second personId on production
+### ❌ RETRACTED — "a production onboarding that made no account". It made one. Paul deleted it.
 
-`measured`: production (`home` · `est-e6696a`) holds three onboarding records — `onboard-name-10ws5c9`,
-`onboard-address-sfkst2`, `onboard-interests-kgw378` — written **2026-09-07T14:22Z** by
-**`p-lnxakyzniuwk`**, *"a personId the local register does not know at est-e6696a."*
+⛔ **The finding written here at 19:30 ET was WRONG, and the commit message `24d17f5` carries the
+wrong claim.** It is left in the history rather than amended away, because the way it went wrong is
+worth more than the finding would have been.
 
-⚠️ **The briefing says production has ONE account.** It does — but someone reached step 5 of onboarding
-54 minutes before `pkirsch` was created at 15:16Z and **no account exists for them.** So production
-holds an onboarding that started and did not finish.
+**What I claimed:** production held three orphaned onboarding records under `p-lnxakyzniuwk` — same
+name, same address as `pkirsch`, 55 minutes earlier, no account — therefore a run reached the last
+step of onboarding and silently created no account, therefore the identity seam was caught failing in
+production, therefore GAP 1 was urgent.
 
-⭐⭐ **CHECKED, AND IT IS NOW `measured` — IT IS PAUL'S OWN FIRST ATTEMPT, AND IT PRODUCED NO ACCOUNT.**
-Read from `.private/feedback-sweep/home-2026-09-07.json`, the two runs are byte-identical where it
-counts:
+**What actually happened**, recorded in this same file at 11:20 ET (`CYCLE-LOG.md:797`), six hours
+before I wrote the claim:
 
-| | `p-lnxakyzniuwk` — 14:22Z | `p-yjnw9lt41nww` — 15:17Z (the account that exists) |
-|---|---|---|
-| name | `Grant Park Condo` | `Grant Park Condo` |
-| address | `655 mead street southeast, Unit 6\nAtlanta, GA 30312` | *identical* |
-| step 4 · address-confirm | ⛔ **ABSENT** | ✅ `confirmed: 655 mead street southeast…` |
-| step 5 | `house-systems > papers > motor-pool > equipment > wildlife > other` | `Houseplants!` (interests-other) |
-| account created | ⛔ **NO** | ✅ `pkirsch` |
+> *`measured` first (wrangler kv key list, remote): the account DID exist — `est-e6696a:account:pkirsch`
+> + its grant, both created 10:22 ET (the third tap) — nothing had wiped it. **On his word: those two
+> keys deleted**; kept: onboarding-metrics ×2, metrics, feedback, door, cost-log, chat-budget.*
 
-⛔ **THE FINDING: a run that reached the LAST STEP of onboarding on PRODUCTION created no account, and
-nothing anywhere reported a failure.** Paul had to do the whole thing twice, 55 minutes apart. The
-first attempt is in the feedback store as three orphaned records under a personId **the register does
-not know**, which is the only reason it is visible at all.
+The 10:22 ET run **succeeded.** Paul then asked for the account to be deleted so his beat-3 walk would
+meet the new build from a genuinely blank start — *"I'd expect it's wiped from production but we keep
+the data log for analysis"* — and the deletion did exactly what he asked, **including keeping the
+feedback**. The three records are not the debris of a failure. They are the retained data log of a
+success, behaving as specified.
 
-⭐ **This is the identity seam (F4/F6), caught in production with a timestamp** — *"an account's facts
-and its credential are two separate records, and exactly one code path reconciles them — the one with
-no door."* Here the facts were written and the credential never was, and **the facts are the only
-survivors.**
+⛔ **And `p-lnxakyzniuwk` was already a recorded lap-2 finding**, on the very next line:
+*"the account's grant row was minted under a NEW personId (`p-lnxakyzniuwk`), not `p-paul`: account
+creation mints its own person… Paul is now three ids across the register and the store."*
 
-⚠️ **The discriminating detail, and it is a lead rather than a conclusion:** the failed run has **no
-step-4 `address-confirm` record** and the successful one does. That is where the two runs diverge.
-Whether the run died AT the confirm step or merely skipped it is **not established** — the store shows
-absence, and absence of a record is not evidence of the step failing `[[reference_parts_record_under_reports]]`.
+### ⭐ HOW IT WENT WRONG, because this is the reusable part
 
-⭐⭐ **WHAT IT DOES TO GAP 1 — it raises it from useful to urgent.** The builder, on his own machine,
-with every credential available to him, **did not get through the door on the first try and got no
-error.** Mom's invite is unspent and the likeliest device it opens on is one that has held Paul's
-grant. GAP 1 asks *"does a real person who is not the builder get through the door at all?"* — and the
-answer for the person who **is** the builder is already **not the first time.**
+I verified the **store** and did not verify the **record**. `watch-accounts.py --all` returned zero
+matches for `p-lnxakyzniuwk` across six environments, and I read that absence as *the credential
+vanished* when it means *the credential was deleted on purpose and the deletion was written down.*
+
+⛔ **Absence in a store is not an event.** `[[reference_parts_record_under_reports]]` says this for
+parts and it is the same shape here: the store answers *what is here now*, never *what happened*. The
+chronicle answers the second question and I did not ask it — while writing INTO that chronicle.
+
+⚠️ **The tell I had and ignored:** the sweep's own words were *"a personId the local register does not
+know"* — a statement about the REGISTER, which I silently upgraded to a statement about the WORLD.
+And I compounded it by treating a missing step-4 record as a divergence between the two runs, when the
+two runs met different builds an hour apart and their step lists were not the same thing to begin with.
+
+⭐ **The one-line check that would have caught it, and it costs nothing:**
+`grep -n '<the id>' cycle/release/CYCLE-LOG.md` **before** writing a finding about anything the store
+cannot explain. The chronicle had the answer under a heading that names it.
+
+### ✅ WHAT SURVIVES — smaller, real, and not urgent
+
+1. `measured` — production's feedback store holds **3 records attributed to a personId no register
+   resolves**, and will flag `⚡ personId(s) the local register does not know` on **every future
+   sweep, forever**. That is a permanent amber on a deliberate act. It is the retained-data-log
+   behaving correctly and the sweep having no way to say so. **A disposition (`not-a-finding`, with
+   the deletion cited) closes it** — which is precisely what beat 6 is for, and it makes a good first
+   record for the §3.1 end-to-end proof.
+2. The lap-2 tenancy finding stands unchanged and unfixed: account creation mints its own personId, so
+   Paul is three ids across the register and the store. → row 19's journey work.
+3. ⛔ **GAP 1's urgency is NOT raised by this.** The builder did get through the door at 10:22 ET on
+   the first attempt. GAP 1 remains what the briefing said it was — cheap, unblocked, and worth doing
+   on its own merits, at the visit already ruled to happen.

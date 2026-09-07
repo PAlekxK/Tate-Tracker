@@ -387,7 +387,13 @@ def check(root):
         if stage and stage not in STAGES:
             findings.append((rel, f"stage `{stage}` is not one of {'/'.join(STAGES)}"))
         ready = bool(re.search(r"\[paul-approved \d{4}-\d{2}-\d{2}\]", keys.get("ready", "")))
-        if stage and stage != "ready" and not ready:
+        # ⭐ `draft` IS EXEMPT `[paul-ruled 2026-09-07]`. The code flagged every stage but `ready`
+        # while its own comment at the STAGES definition said the opposite — *"`draft` sits BEFORE
+        # `ready`, so it is not 'past ready' and needs no approval stamp."* The comment was right and
+        # the code was wrong: the gate is on stages PAST `ready`, and `draft` is the one stage before
+        # it. The contradiction was reported by the lap-3 procedure proposal and left unresolved
+        # because it changes what the gate MEANS; Paul ruled it rather than a session guessing.
+        if stage and stage not in ("draft", "ready") and not ready:
             findings.append((rel, f"stage `{stage}` with no `ready: [paul-approved …]` stamp — built without the gate"))
         has_retro = any(t == "## Retro" or t.startswith("## Retro ") or t.startswith("## Retro —") for t in sections)   # a DATED retro heading is the good pattern, not a miss
         if stage in ("shipped", "retro") and not has_retro:
