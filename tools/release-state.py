@@ -166,7 +166,13 @@ def main():
             print("  (state unchanged — not rewritten)")
         else:
             os.makedirs(os.path.dirname(STATE), exist_ok=True)
-            json.dump(st, open(STATE, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
+            # ⚠️ TRAILING NEWLINE, deliberately. Without it git reports "\\ No newline at end of
+            # file" on every hooked rewrite, so the file reads as modified forever and the seam gate
+            # never comes clean — the same symptom the timestamp guard above was written to cure,
+            # arriving by a different route.
+            with open(STATE, "w", encoding="utf-8") as fh:
+                json.dump(st, fh, indent=1, ensure_ascii=False)
+                fh.write("\n")
             print("  → %s" % os.path.relpath(STATE, ROOT))
     return 0
 
