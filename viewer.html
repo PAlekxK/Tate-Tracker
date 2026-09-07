@@ -17868,9 +17868,51 @@ function renderUnplacedSummaries() {
   });
 }
 
+// ⭐⭐ A HOUSEHOLD'S FIRST SCREEN SHOWS WHAT THEIR INPUT POPULATES `[paul-stated 2026-09-07, beat 3]`:
+// "On the my home card we can at least put the address and say that we are populating it — as opposed to
+// wildlife, where we don't have any input at this point to populate it. What's truly empty, and what can
+// we at least say we're building out based on the input they truly provided? We shouldn't show anything
+// that's just empty. And the preferences they select on the previous page — let's not count that."
+// So the test is INPUT, not preference: the place card carries the ADDRESS they typed and says what is
+// being worked out from it; the notes card and "Look back ›" appear once there is something to look back
+// at; the Reference back pages are Fernwood's furniture and stay closed for a household. Idempotent —
+// it runs with every strip render and again after a note is saved.
+function renderHouseholdFirstScreen() {
+  if (!(typeof window !== "undefined" && window.__HOUSEHOLD_NAME)) return;
+  let addr = "";
+  try {
+    const g = localStorage.getItem("fw-grant"), o = localStorage.getItem("fw-onboard-owner");
+    addr = (g && (!o || o === g)) ? (localStorage.getItem("fw-onboard-addr") || "").trim() : "";
+  } catch (e) {}
+  const prop = document.getElementById("card-property");
+  const host = cardHost();
+  if (prop && host && addr) {
+    if (prop.parentNode !== host) host.insertBefore(prop, host.firstElementChild);   // out of the back pages, to the front
+    prop.querySelectorAll(".main-card-title").forEach(t => { t.textContent = window.__HOUSEHOLD_NAME; });
+    prop.querySelectorAll(".main-card-summary").forEach(el => { el.textContent = addr; });
+    const body = document.getElementById("property-content");
+    if (body && !SITE_PLACED) {
+      body.innerHTML = '<div class="prop-lead">We\u2019re working out your weather and what grows here from this address \u2014 it lands on this card as it comes in.</div>';
+      prop.classList.add("expanded");
+    }
+    prop.style.display = "";
+  } else if (prop) {
+    prop.style.display = "none";   // no address on file: nothing populates it, so it does not show
+  }
+  const drawer = document.getElementById("ref-drawer");
+  if (drawer) drawer.style.display = "none";
+  let n = 0;
+  try { n = fnLoadAll().length; } catch (e) {}
+  const notes = document.getElementById("card-fieldnotes");
+  const lookBack = document.getElementById("ui-history-link");
+  if (notes) notes.style.display = n ? "" : "none";
+  if (lookBack) lookBack.style.display = n ? "" : "none";
+}
+
 function renderDashboardStrip() {
   applyModuleTiles();
   renderEmptyCards();
+  try { renderHouseholdFirstScreen(); } catch (e) { console.warn("[household] first screen:", e && e.message); }
   if (!SITE_PLACED) {
     renderUnplacedSummaries();
     const wi = document.getElementById("weather-card-icon"); if (wi && !wi.textContent) wi.textContent = "⛅";   // a blank square read as not-loaded (mom + wide-eyed, round 4)
@@ -20092,6 +20134,10 @@ function fnFormatWhen(isoDate) {
 }
 
 function renderFieldNotes() {
+  renderFieldNotesCore();
+  try { renderHouseholdFirstScreen(); } catch (e) {}   // a first note reveals the notes card and "Look back ›" on a household
+}
+function renderFieldNotesCore() {
   const body = document.getElementById("fieldnotes-body");
   const summary = document.getElementById("fieldnotes-summary");
   if (!body || !summary) return;

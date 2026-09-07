@@ -676,3 +676,48 @@ Make it flexible."*
   origin's storage cleared first (the `K_USER` finding above).
 - Paul is past the account screen; walk continues. The fix round (`6d42a01`) must NOT be deployed
   to home under him — it lands after he reports, on his word, per the map.
+
+### 10:50 ET (Sep 7) — beat 3: Paul is IN; account `pkirsch` verified on `est-e6696a`; two rulings on the first screen of the app
+- `measured` — `reset-production-estate.py --estate est-e6696a` (dry run) now REFUSES: *"1 record(s)
+  look like a real person's — est-e6696a:account:pkirsch"*. The first real account on the new
+  product exists, read directly from KV, not inferred. (This is also the "real account exists on
+  home" signal the frozen-Fernwood plan's H1/H2 ask for — it exists as a refusal today, not a gate.)
+- `paul-stated` (verbatim, dictated): *"I'm in and everything looks good so far."* Then: *"I'm noting
+  that it says Grant Park condo almanac so that's good and we have a look back but then underneath
+  it there's another grand Park condo almanac look back at what you've written, but that kind of has
+  a green mint background and is not centered or stretch so that should be removed to be clean.
+  Let's not show any of the empty modules, household systems, papers, and documents, vehicles,
+  equipment, and tools wildlife at the start you know we should only have the Grant Park condo
+  almanac and the my home view which is populated based on the address."*
+- Two beat-3 failures, both re-enter beat 2:
+  ① **A second "<name> almanac — look back at what you've written" block renders under the first,
+     mint-green background, neither centred nor full-width.** Remove it. (The mint-around-boxes
+     leak was round 7's finding; this is a remaining instance, on the one screen no seat's fixed
+     stop list opens as HIS place.)
+  ② **Empty modules are HIDDEN at the start** — household systems · papers & documents · vehicles ·
+     equipment & tools · wildlife. The first screen is the almanac (look-back) and the "my home"
+     view populated from the address. ⚠️ **This SUPERSEDES two 9/06 rulings on the same screen**:
+     R5 in `instance/home.json` (*"a domain with nothing in it is EMPTY, not absent — the section
+     exists and says it holds nothing yet"*) and last night's *"no empty modules, ask instead"*.
+     Paul ruled with the real screen in front of him; the empty-and-explaining card was the
+     interim. What replaces the ask ("What would you like to see next?") is his to say — until
+     he does, the footer card that offers domains stays, the empty domain cards go.
+
+### 11:05 ET (Sep 7) — beat 3, ruling clarified: SHOW WHAT THEIR INPUT POPULATES; HIDE WHAT IS TRULY EMPTY; PREFERENCES ARE NOT INPUT
+- `paul-stated` (verbatim, dictated): *"On the my home card, we can at least put there the address and
+  say that we are populating it. As opposed to wildlife where we don't have any input at this point
+  in the setup process to populate it. Let's think very clearly through what are these different
+  cards that we're presenting, what's truly empty, and what can we at least say that we're building
+  out based on the input truly that they provided so far in the process. We shouldn't really show
+  anything that's just empty. And just to be clear, the preferences they select on the previous page
+  of the account setup — let's not count that. Those are just preferences, but that's not enough to
+  populate something on their home page."*
+- **The test for a card on a household's first screen:** does REAL INPUT from setup populate it —
+  the place's name, the address, their own words in the composer? The ranking is a preference, not
+  input; a card it points at is still empty. So: the almanac composer (their words go in) · the
+  place card carrying the ADDRESS they typed with a line saying it is being built out from it ·
+  nothing else until it holds something. Wildlife, household systems, papers, vehicles, equipment:
+  hidden. The notes card and "Look back ›" appear once there is something to look back at; the
+  Reference back-pages card is empty for a household and hidden.
+- Not a build of the weather view (no geocoding exists; separate item, Paul's go pending) — this is
+  the honest interim: the card names the input it has and says what comes from it.
