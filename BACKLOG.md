@@ -2486,6 +2486,34 @@ backlog for now"* and that is the whole of the instruction.
 
 ---
 
+## 🌐 PROXY OPEN-METEO THROUGH THE WORKER `[paul-approved 2026-09-07]` — queued, not scoped
+
+**The viewer fetches Open-Meteo DIRECTLY from every reader's browser** — 4 call sites in
+`engine/viewer.template.html`, plus RainViewer. So every household's device is a separate client of a
+free third-party API, and the API sees them as one origin only by accident of who is browsing.
+
+⚠️ **MEASURED 2026-09-07, and it is why this is written down:** ~16 synthetic walks from one IP in a
+day got that IP **429'd by Open-Meteo**, which degraded the weather data on every affected walk and —
+because a gate clause matched any `429` in the output — made gate ① unpassable for reasons that had
+nothing to do with the build. Three separate diagnoses were wrong before anyone read the KV counters
+and found our OWN limiter sitting at 4 and 14 against a cap of 20. **The throttle was never ours.**
+
+⭐ **THE ARGUMENT IS ALREADY WON ONCE IN THIS REPO.** The Ambient station key moved behind
+`/api/ambient` in 2026-08 for the same class of reason, and `CLAUDE.md` states the outcome as
+doctrine: *"EVERY Ambient consumer goes through the proxy. The Worker holds the only copy — nothing
+else may hold one."* Open-Meteo needs no key, so the driver is not secrecy: it is **one client instead
+of N**, a cache the Worker already has (`withCache`), a place to see the 429 when it happens, and a
+degradation the app can state honestly instead of rendering a blank.
+
+⛔ **NOT SCOPED, NOT SEQUENCED, NOBODY ASSIGNED.** Paul approved it for the queue while ruling the
+immediate fix (narrow the gate clause to our own origin, third-party throttles become a loud caveat
+rather than a refusal). ⚠️ It is **engine** work and it touches what every household loads, so it goes
+through the loop like anything else — and note it interacts with the ⛔ site premise: a household with
+no cell reception and Wi-Fi only near the house has a different failure profile for a proxied fetch
+than for a direct one. Think that through before designing.
+
+---
+
 ## 🔌 INTEGRATIONS · DEVICES & IoT — the weather station is proof point #1 `[paul-stated 2026-09-07]`
 
 **A product-backlog GROUPING, stated by Paul as a grouping and not a feature:** *"we do have hopefully
