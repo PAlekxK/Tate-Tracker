@@ -141,8 +141,11 @@ each one is READ from its plan's own `depends-on:` field rather than asserted he
 
 ### The migration path — what O3 actually consists of
 
-Every row is stamped `[paul-approved 2026-09-03]`. Read `BACKLOG.md` § FOCUS FREEZE for what rests
-around it — **O1 · O2 · O4 are frozen except Guru, which is active as an engine item.**
+Read `BACKLOG.md` § FOCUS FREEZE for what rests around this — **O1 · O2 · O4 are frozen except Guru,
+which is active as an engine item.** Rows **1 – 3c** carry `ready: [paul-approved 2026-09-03]` and row
+**5** carries `[paul-approved 2026-09-05]`. ⚠️ **Row 4 is the exception and it is load-bearing:**
+`vocabulary-nicknames` reads `ready: DRAFT — … Paul has not stamped`, and row 5 declares it as its
+dependency. **A stamped plan already on QA depends on an unstamped one** — see Q-S4 ⓐ.
 
 ⚠️ **The `stage:` words below are a READ, not a register** — taken 2026-09-07 at `38e6e8a`. The state
 is the field in each plan; re-read all five with
@@ -208,9 +211,14 @@ the product-surface half does NOT close with it** — it stays open, on its own 
 `[[feedback_defer_affordances_pending_signal]]` and released by that one event. **Paul's, and it is
 two answers, not one.**
 
-**Q-S4 · Two ordering facts reported here without resolving.** ⓐ `onboarding` sits at `stage: qa`
-while its own declared dependency `vocabulary-nicknames` sits at `stage: concept` — the dependency is
-behind the thing depending on it. ⓑ The C4 · C6 · Guru `stage-note:` lines have not moved since
+**Q-S4 · Two ordering facts reported here without resolving.** ⓐ **The dependency is behind the thing
+that depends on it, and unstamped.** `onboarding` is `ready: [paul-approved 2026-09-05]` at
+`stage: qa` — built and deployed — while its own declared `depends-on:`, `vocabulary-nicknames`, is
+`ready: DRAFT — … Paul has not stamped` at `stage: concept`. Either the dependency is real, in which
+case a QA surface is standing on an unruled naming decision, or it is not a dependency and the field
+should say so. ⚠️ A second disagreement rides along, reported not resolved: `BACKLOG.md` § THE
+DEVELOPMENT GOAL says of the onboarding plan *"**Paul rules on the plan**"*, while the plan's own
+header says he stamped it on 09-05. **One of those two is stale and only Paul knows which.** ⓑ The C4 · C6 · Guru `stage-note:` lines have not moved since
 **2026-09-04**, while the audit measures **287 commits since 09-04** (AUDIT §4.2) and the surfaces
 actually built in that window — `onboarding/`, `estate/`, `homes/`, `settings/` — are tracked by the
 release loop (`cycle/release/CYCLE-MAP.md`), by no C-row. **Is the C-series still the unit of work, or
