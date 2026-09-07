@@ -15965,6 +15965,17 @@ function windowComment(wx, dayBite, phaseLabel, tier) {
 function terrainSunTimes(dateObj, which) {
   const t = (typeof SUN_HORIZON_DATA !== "undefined") && SUN_HORIZON_DATA[which];
   if (!t || !dateObj || isNaN(dateObj)) return null;
+  // ⛔ A SKYLINE BELONGS TO ONE RIDGE, AND THIS TABLE CARRIES THE COORDINATES OF ITS OWN. It is a
+  // DEM horizon computed for 34.549665 / -84.36748 — Fernwood's house — and it was applied to any
+  // household that had coordinates at all. MEASURED 2026-09-07 for a household in Bangor, Maine:
+  // the dashboard read "Sunset · 8:18 PM · last light here 8:02 PM", i.e. last light SIXTEEN
+  // MINUTES BEFORE SUNSET, which is not a thing that happens. A terrain table is only true where it
+  // was computed, so it now checks the place it was computed for against the place being rendered.
+  // 0.01° is ~1.1 km; the skyline is integrated out to 30 km, so anything past that is a different
+  // horizon. Fernwood's canon sits 0.0001° away and matches; nothing there moves.
+  const c = ((PROPERTY_DATA || {}).location || {}).coordinates || {};
+  if (t.lat == null || t.lon == null) return null;
+  if (!(Math.abs(Number(c.latitude) - t.lat) <= 0.01 && Math.abs(Number(c.longitude) - t.lon) <= 0.01)) return null;
   const mm = String(dateObj.getMonth() + 1).padStart(2, "0");
   const dd = String(dateObj.getDate()).padStart(2, "0");
   return t.byDate[mm + "-" + dd] || null;
@@ -16622,8 +16633,17 @@ function renderCelestial() {
     .filter(e => daysUntil(e.date) >= -1)
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
+  // ⛔ THE PAGE CLAIMED THE RATINGS WERE THEIRS. The per-event verdict is already withheld without a
+  // sky record (`siteVisibility`, 2026-09-04) — but the header still announced "Rated for 34.5°N
+  // Rural Sky" and the footer "Visibility rated for 34.55°N, 84.37°W, rural North Georgia", which
+  // for a household in Bangor at 44.8°N reads as an assessment of ITS sky (measured 2026-09-07).
+  // One test governs both: if the app cannot rate this sky it does not say the roster is rated for
+  // it. The events themselves are real everywhere and stay; each one's own `From 34.5°N` detail
+  // keeps naming the latitude its prose was computed for, which is honest about the DATA rather
+  // than about the reader.
+  const ratedForHere = !!Number(((PROPERTY_DATA || {}).sky || {}).bortleEstimate);
   h += '<div class="cel-events-section">';
-  h += '<div class="cel-events-hdr">Upcoming Events · Rated for 34.5°N Rural Sky</div>';
+  h += '<div class="cel-events-hdr">Upcoming Events' + (ratedForHere ? ' · Rated for 34.5°N Rural Sky' : '') + '</div>';
 
   const typeMap = {
     "meteor":        { label: "Meteor Shower", cls: "type-meteor" },
@@ -16711,7 +16731,9 @@ function renderCelestial() {
     h += '</div>'; // cel-event-row
   });
 
-  h += '<div class="cel-data-note">Events compiled from NASA, AMS, and Sea &amp; Sky · Visibility rated for 34.55°N, 84.37°W, rural North Georgia · Confirm times at timeanddate.com or heavens-above.com</div>';
+  h += '<div class="cel-data-note">Events compiled from NASA, AMS, and Sea &amp; Sky'
+     + (ratedForHere ? ' · Visibility rated for 34.55°N, 84.37°W, rural North Georgia' : '')
+     + ' · Confirm times at timeanddate.com or heavens-above.com</div>';
   h += '</div>'; // cel-events-section
 
   document.getElementById("celestial-content").innerHTML = h;
@@ -19833,16 +19855,32 @@ function computeBurnStatus() {
   const inSeasonalBan = (m >= 4 && m <= 8); // May (4) through September (8)
   const fwAlerts = (WEATHER_DATA.fireWeather && WEATHER_DATA.fireWeather.alerts) || [];
 
+  // ⛔⛔ THE WORST THING ON THIS PAGE WAS A LEGAL CLAIM IN THE WRONG STATE. Every regulatory string
+  // below is Georgia's — the May 1–Sep 30 statewide ban, the Forestry Commission permit, GA EPD,
+  // gatrees.org — and none of it was gated on anything. MEASURED 2026-09-07 on a household in
+  // BANGOR, MAINE: "🚫 State outdoor-burning ban active · Georgia's statewide ban (May 1 – Sep 30)
+  // blocks open burning of yard debris." A reader acts on that, or fails to act because of it.
+  // This is the same class as the Bortle-8 condo being told meteor viewing is Excellent, which this
+  // app already fixed once (content-steward 2026-09-04): a claim someone would walk outside and act on.
+  // A JURISDICTION IS CANON, NEVER COORDINATES. Knowing where someone is does not tell the engine
+  // whose burn law applies; only a record does, and the engine knows exactly one state's rules.
+  // ⚠️ The DROUGHT and DAYS-DRY context is NOT gated — it is computed from their own coordinates and
+  // is true anywhere. What is withheld is the regulation, not the weather.
+  const jurisdiction = ((PROPERTY_DATA || {}).property || {}).state || null;
+  const knowsTheRules = jurisdiction === "GA";
+
   // Tier 1 — active NWS fire-weather alert (Red Flag or Fire Weather Watch)
   if (fwAlerts.length > 0) {
     const top = fwAlerts[0];
+    // The alert itself is the NWS speaking about THEIR coordinates, so it stands anywhere; only the
+    // Georgia permit desk attached to it is withheld.
     return {
       level: "severe",
       icon: "🔥",
       title: top.event,
       sub: top.headline || "Active fire-weather alert from the National Weather Service.",
-      sources: "NWS · GA EPD",
-      url: "https://gatrees.org/burn-permits-and-notifications/",
+      sources: knowsTheRules ? "NWS · GA EPD" : "NWS",
+      url: knowsTheRules ? "https://gatrees.org/burn-permits-and-notifications/" : null,
     };
   }
 
@@ -19863,7 +19901,10 @@ function computeBurnStatus() {
   let level = "normal";
   if (elevated || veryDry) level = "elevated";
 
-  // Regulatory layer
+  // Regulatory layer — withheld entirely where the engine does not know the jurisdiction. The card
+  // is a REGULATORY card with weather context appended, not the other way round: without the rule
+  // there is no card, and the block that renders it already omits itself on a null (C7 0b).
+  if (!knowsTheRules) return null;
   const regTitle = inSeasonalBan
     ? "State outdoor-burning ban active"
     : "Burn permit required";

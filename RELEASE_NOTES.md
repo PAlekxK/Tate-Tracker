@@ -4,6 +4,22 @@ What's changed at Fernwood lately. Newest first.
 
 ---
 
+## 2026-09-07 — Wildlife is back on the strip
+
+- **The Wildlife shortcut and the Wildlife tile had quietly gone missing.** The card itself
+  was always there, with all 83 of them in it — the birds, the mammals, the amphibians, the
+  snakes, the lizards, the insects and the fish at the lake. But the quick-link strip at the
+  top and the summary tile had both stopped offering it, so the only way to reach any of it
+  was to scroll. They are both back.
+- **Nothing was lost, and nothing needed to be re-entered.** The app had simply stopped
+  counting what it was holding, and a card holding nothing gets tidied out of the way on
+  purpose. It was holding plenty.
+- **The sky page says less about Jasper now, and only where it should.** A few lines that
+  read as though they had been measured here were carrying numbers from somewhere else.
+  They stay where they are true and step aside where they are not.
+
+---
+
 ## 2026-09-01 — The map got its names right
 
 - **The Fairway card is now The Field.** The open ground below the house is one field run
