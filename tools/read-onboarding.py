@@ -41,33 +41,69 @@ TOKENS = {"qa": "fernwood-token-qa", "legacy": "fernwood-token",
           "lab": "fernwood-token-lab", "home": "fernwood-token-home"}
 
 
+# ⛔ TWO CREDENTIAL CLASSES, TWO HEADERS, AND THIS TOOL USED TO KNOW ONLY ONE.
+# `worker.js:787` reads a GRANT from `X-Grant` and says in its own comment "never X-Tate-Token —
+# seat discipline 2"; `X-Tate-Token` is the MASTER token (`authOk`, `worker.js:334`), which is
+# strictly more powerful and is the thing `PRODUCT-ENGINE.md:15` is retiring. Meanwhile
+# `grant-mint.py:295-304` writes its token as JSON — `{"<person>@<estate>": token}` or
+# `{"X-Grant": token}` — while this function took the first non-comment LINE.
+# So a grant token dropped into one of these files would have been read as a JSON blob and sent
+# under the master's header: three mismatches, and the failure arrives as a bare 401 that says
+# nothing about which of the three it was.
+# ⭐ The fix is to READ THE FILE'S SHAPE and send the header that matches it. A JSON object is a
+# grant → `X-Grant`; a bare line is the master → `X-Tate-Token`. The class is REPORTED, so a 401 can
+# be read against what was actually presented.
 def token_for(env):
     name = TOKENS.get(env)
     if not name:
-        return None, "no token file is declared for env %r" % env
+        return None, None, "no token file is declared for env %r" % env
     p = os.path.join(PRIVATE, name)
+    rel = os.path.relpath(p, ROOT)
     if not os.path.exists(p):
-        return None, "%s does not exist — this environment cannot be read from here" % os.path.relpath(p, ROOT)
-    for line in open(p, encoding="utf-8"):
+        # ⚠️ NOT "cannot be read" ANY MORE — that became false on 2026-09-07. `watch-feedback.py`
+        # reads the same store through local wrangler auth and needs no token at all, so a message
+        # saying the environment is unreadable would send a reader looking for a credential that
+        # nothing requires. An honest UNREADABLE names the door that IS open.
+        return None, None, ("%s does not exist — this tool cannot read %s. `python3 "
+                            "tools/watch-feedback.py --env %s` reads the same store with no token."
+                            % (rel, env, env))
+    raw = open(p, encoding="utf-8").read()
+    try:
+        obj = json.loads(raw)
+    except json.JSONDecodeError:
+        obj = None
+    if isinstance(obj, dict):
+        vals = [v for v in obj.values() if isinstance(v, str) and v.strip()]
+        if not vals:
+            return None, None, "%s is a JSON object with no token value in it" % rel
+        if len(vals) > 1:
+            # Refusing beats guessing: picking one of several credentials silently is how a tool
+            # ends up presenting a credential nobody meant it to present.
+            return None, None, ("%s holds %d credentials; this tool will not choose between them"
+                                % (rel, len(vals)))
+        return vals[0], "grant", None
+    for line in raw.splitlines():
         line = line.strip()
         if line and not line.startswith("#"):
-            return line, None
-    return None, "%s is empty" % os.path.relpath(p, ROOT)
+            return line, "master", None
+    return None, None, "%s is empty" % rel
 
 
 def fetch(env, days):
-    tok, why = token_for(env)
+    tok, klass, why = token_for(env)
     if not tok:
         return None, why
+    header = "X-Grant" if klass == "grant" else "X-Tate-Token"
     end = dt.date.today()
     start = end - dt.timedelta(days=max(1, days) - 1)
     url = "%s/api/feedback?start=%s&end=%s" % (WORKERS[env], start.isoformat(), end.isoformat())
-    req = urllib.request.Request(url, headers={"X-Tate-Token": tok, "User-Agent": "Mozilla/5.0"})
+    req = urllib.request.Request(url, headers={header: tok, "User-Agent": "Mozilla/5.0"})
     try:
         with urllib.request.urlopen(req, timeout=30) as f:
             return json.loads(f.read()), None
     except urllib.error.HTTPError as e:
-        return None, "the store answered %s — the token may not open this environment" % e.code
+        return None, ("the store answered %s — %s was presented as %s and it may not open this "
+                      "environment" % (e.code, klass, header))
     except Exception as e:
         return None, "%s: %s" % (type(e).__name__, e)
 
@@ -266,10 +302,43 @@ def selftest():
         if not ok:
             fails.append(name)
 
-    tok, why = token_for("home")
+    tok, klass, why = token_for("home")
     check("an env with no token file reads UNREADABLE", tok is None and bool(why),
           "production has no token here and must not read as 'no answers'")
-    check("a declared env with a token resolves", token_for("qa")[0] is not None or True)
+    # ⚠️ The message must not claim the environment is unreadable FULL STOP — a reader that needs
+    # no token exists since 2026-09-07, and sending someone to hunt a credential nothing requires
+    # is a wrong answer wearing an honest one's clothes.
+    check("and it names the door that IS open", "watch-feedback.py" in (why or ""),
+          "the UNREADABLE message sends a reader looking for a credential nothing needs")
+
+    # ⛔ THE CREDENTIAL CLASS DECIDES THE HEADER. A grant goes in `X-Grant` and the master in
+    # `X-Tate-Token` (`worker.js:787` — "never X-Tate-Token"), and grant-mint writes JSON while a
+    # master token is a bare line. Presenting one under the other's header fails as a bare 401.
+    import tempfile as _tf
+    global PRIVATE
+    _real_private = PRIVATE
+    PRIVATE = _tf.mkdtemp()
+    try:
+        with open(os.path.join(PRIVATE, TOKENS["qa"]), "w") as f:
+            f.write('{"p-x@est-qa0001": "GRANTTOKEN"}\n')
+        t, k, w = token_for("qa")
+        check("a JSON credential file is read as a GRANT", (t, k, w) == ("GRANTTOKEN", "grant", None),
+              "read %r as %r" % (t, k))
+        with open(os.path.join(PRIVATE, TOKENS["qa"]), "w") as f:
+            f.write("# a comment\nMASTERTOKEN\n")
+        t, k, w = token_for("qa")
+        check("a bare-line credential file is read as the MASTER", (t, k, w) == ("MASTERTOKEN", "master", None))
+        with open(os.path.join(PRIVATE, TOKENS["qa"]), "w") as f:
+            f.write('{"a": "one", "b": "two"}\n')
+        t, k, w = token_for("qa")
+        check("a file holding two credentials is REFUSED, never guessed at",
+              t is None and "will not choose" in (w or ""))
+        with open(os.path.join(PRIVATE, TOKENS["qa"]), "w") as f:
+            f.write("   \n# only a comment\n")
+        t, k, w = token_for("qa")
+        check("an empty credential file reads UNREADABLE, not as a token", t is None and bool(w))
+    finally:
+        PRIVATE = _real_private
 
     # ⛔ SHAPED LIKE THE REAL POST BODY — `note`, and an id with postAnswer's minted hash suffix.
     sample = {"days": {"2026-09-06": [
@@ -315,7 +384,7 @@ def selftest():
     check("PENDING and SUPERSEDED are distinguishable",
           "2026-09-06T120000" > "2026-09-06T100000" and "2026-09-06T090000" < "2026-09-06T100000",
           "run ids must sort chronologically or newer-vs-older cannot be told apart")
-    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 14 - len(fails), 14))
+    print("\n%s selftest: %d failure(s)" % ("✅" if not fails else "🔴", len(fails)))
     return 1 if fails else 0
 
 
