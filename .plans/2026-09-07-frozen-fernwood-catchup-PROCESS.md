@@ -183,7 +183,7 @@ The obvious counter-argument is good and it loses on one measurement: `arrival-d
 record went"*. So why not this one?
 
 > ⛔ **Because "a key name is content-free" is FALSE for this corpus.** Measured today: two of the 175 archived
-> key names are `est-3c9f1a:cache:ambient:D8:F1:5B:15:28:B8:288:1788582600000` — a **hardware address of the
+> key names are `est-3c9f1a:cache:ambient:<station-mac>:288:1788582600000` — a **hardware address of the
 > weather station at her house**, embedded in the key. `[measured]` The two existing ledgers hold ids the
 > product minted; this one holds names the *world* minted, and that is a different safety claim.
 
