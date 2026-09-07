@@ -17848,6 +17848,12 @@ function applyModuleTiles() {
     const anyVisible = Array.from(row.querySelectorAll(".dash-cell")).some(c => c.style.display !== "none");
     row.style.display = anyVisible ? "" : "none";
   });
+  // and the strip itself — its padding and tint survived as a thin mint band between the composer and
+  // the place card once every row was gone (owner seat, 5727efe)
+  document.querySelectorAll(".dash-strip").forEach(strip => {
+    const anyRow = Array.from(strip.querySelectorAll(".dash-strip-inner")).some(r => r.style.display !== "none");
+    strip.style.display = anyRow ? "" : "none";
+  });
   // NAVIGATION — the jump strip, same rule, read from the card it targets rather than restated.
   document.querySelectorAll(".jump-strip a[data-jump]").forEach(a => {
     const target = document.getElementById(a.dataset.jump);
