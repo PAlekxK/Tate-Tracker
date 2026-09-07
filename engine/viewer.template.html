@@ -8028,6 +8028,19 @@ async function fetchLiveWeather() {
     // before this wholesale reassignment; carry them across so they aren't wiped.
     const savedHistory        = WEATHER_DATA.history;
     const savedBias           = WEATHER_DATA.bias;
+    // ⛔ THE RAINFALL COMPARISON WAS BEING WIPED BY THIS REASSIGNMENT, AND THAT IS THE WHOLE OF THE
+    // `comparing…` INTERMITTENCY. `fetchPrecipHistory` and this weather load are both async and
+    // race: if the precip history lands FIRST it is erased here and the columns fall back to
+    // "comparing…" forever; if the weather lands first it survives and the percentiles appear.
+    // That is why one run resolved "by the second" and the next never did, and why a rate-limit was
+    // only ever a plausible cause — MEASURED 2026-09-07, where the 429 fired the catch correctly and
+    // the failure flag it set was wiped three lines later by this same reassignment.
+    // ⚠️ THE HAND-MAINTAINED CARRY-OVER LIST IS THE HAZARD, not these two keys. The comment above
+    // was written when `history` and `bias` were wiped the same way; every new async field that
+    // lands on WEATHER_DATA has to be remembered here, and this is the second time one was not.
+    // A carry-over set that is DERIVED rather than typed is the real fix and is not this afternoon's.
+    const savedPrecipHist     = WEATHER_DATA.precipHistory;
+    const savedPrecipFailed   = WEATHER_DATA.precipHistoryFailed;
 
     WEATHER_DATA = {
       _meta: { isPlaceholder: false, fetchedAt: new Date().toISOString(), source: "Open-Meteo API (live)" },
@@ -8124,6 +8137,8 @@ async function fetchLiveWeather() {
     if (savedStationOnline === false && !savedStationData) WEATHER_DATA.stationOnline = false;
     if (savedHistory) WEATHER_DATA.history = savedHistory;
     if (savedBias)    WEATHER_DATA.bias    = savedBias;
+    if (savedPrecipHist)   WEATHER_DATA.precipHistory       = savedPrecipHist;
+    if (savedPrecipFailed) WEATHER_DATA.precipHistoryFailed = savedPrecipFailed;
 
     renderWeatherSummary();
     renderWeather();
@@ -8847,6 +8862,16 @@ async function fetchPrecipHistory() {
     renderRainfallPanel();
   } catch (err) {
     console.warn('fetchPrecipHistory failed:', err);
+    // ⛔ `comparing…` WAS PERMANENT. This catch only warned — it never re-rendered and never marked
+    // the failure — so a fetch that failed for ANY reason left three columns promising a comparison
+    // that would never arrive, under a heading that says "Regional rainfall vs. 25-year historical
+    // normal". Met by a seat twice on 2026-09-07. ⚠️ Three of four runs that day were rate-limited
+    // (two 429s each), so the 429 is a PLAUSIBLE cause and is deliberately NOT the fix: a fetch
+    // that fails for any reason must reach the same honest dash the rest of the app uses, which is
+    // a ruling this app already made ("every loading line becomes the same dash the rest use").
+    // Marking the failure is what makes the render honest; the cause is a separate question.
+    WEATHER_DATA.precipHistoryFailed = true;
+    if (typeof renderRainfallPanel === "function") renderRainfallPanel();
   }
 }
 
@@ -9062,7 +9087,9 @@ function renderRainfallPanel() {
       (v
         ? '<div><span class="rv-badge ' + v.cls + '">' + v.label + '</span></div>' +
           '<div class="rv-pct">' + ordinal(pct) + '</div>'
-        : '<div class="rv-loading">comparing…</div>') +
+        : (WEATHER_DATA.precipHistoryFailed
+            ? '<div class="rv-loading">—</div>'
+            : '<div class="rv-loading">comparing…</div>')) +
       '</div>';
 
     const period = ph ? ph.period : '2001–2025';
@@ -9633,6 +9660,26 @@ function generateAlerts() {
     const first = rainDays[0];
     const idx = daily.indexOf(first);
     const whenText = idx === 0 ? "today" : (idx === 1 ? "tomorrow" : "by " + first.dayName);
+    // ⛔⛔ A PLANTING RECOMMENDATION IS A CLAIM ABOUT A GROWING SEASON, AND A GROWING SEASON IS
+    // CANON — NEVER COORDINATES. This fired on RAIN ALONE: no frost term, no zone term, no date
+    // term. MEASURED 2026-09-07 on a household in BANGOR, MAINE ~3 weeks from median first frost:
+    // "🌱 Good week to seed or plant — rain coming · Good window to overseed lawns, broadcast
+    // fertilizer, or set in new transplants." The identical sentence buys a Jasper reader ~6 more
+    // weeks. Seeds in the ground three weeks before frost is money and a season, and the app held
+    // no frost record for that place at all.
+    // ⭐ THIS IS THE BURN-BAN CLASS, and the rule that card now carries covers it with one word
+    // changed: a GROWING SEASON is canon, never coordinates. Knowing where someone is does not tell
+    // the engine when their last frost falls; only a record does.
+    // ⚠️ THE WEATHER HALF IS TRUE FROM COORDINATES AND STAYS — rain is rain in Maine. What is
+    // withheld is the horticultural advice, and with it the 🌱 and the word "opportunity", because
+    // an icon that says "plant now" is the recommendation, not decoration.
+    const hasGrowingSeason = !!(PROPERTY_DATA.frostDates && PROPERTY_DATA.frostDates.atPropertyElevation);
+    if (!hasGrowingSeason) {
+      alerts.push({ key: "rain-today", severity: "opportunity", source: "forecast", icon: "💧",
+        title: "Rain coming — " + whenText,
+        text: "Rain expected " + whenText + " (~" + rainTotal.toFixed(1) + '" total over ' + rainDays.length + " day" + (rainDays.length>1?"s":"") + ")."
+      });
+    } else
     alerts.push({ key: "rain-today", severity: "opportunity", source: "forecast", icon: "🌱",
       title: "Good week to seed or plant — rain coming",
       text: "Rain expected " + whenText + " (~" + rainTotal.toFixed(1) + '" total over ' + rainDays.length + " day" + (rainDays.length>1?"s":"") + "). Good window to overseed lawns, broadcast fertilizer, or set in new transplants — they'll get watered in naturally."
@@ -9686,7 +9733,19 @@ function generateAlerts() {
       const when = i === 0 ? "Today" : (i === 1 ? "Tomorrow" : d.dayName);
       alerts.push({ key: "garden-window", severity: "opportunity", source: "forecast", icon: "👍",
         title: when + " looks great outside",
-        text: "High " + d.high + "°F, light winds, dry. Good window for mowing, mulching, splitting firewood, riding the dirt bikes, working on the Bronco, or any project that needs steady weather."
+        // ⛔ "riding the dirt bikes, working on the Bronco" — ANOTHER HOUSEHOLD'S VEHICLES, in engine
+        // prose, fired on weather alone. Same class as the rain gauge, and it reached the wide-eyed
+        // seat only by missing a gust threshold. ⚠️ It is invisible to BOTH guards and the reason is
+        // worth recording: check-estate-neutral's needle is the vehicle's FULL model string from
+        // canon, never the bare word used in this sentence,
+        // and place-claims.py's regex carries no possession word, so this sentence is absent from
+        // its 58 rows. Second time in one day the needle list has been shown inadequate to a leak
+        // made of ordinary words.
+        // ⭐ The right long-term shape is CANON-SUPPLIED flavour — the engine naming nothing and an
+        // estate's own vehicles.json filling it. That is a bigger change than this afternoon
+        // allows, so the engine now names nothing at all, which is correct everywhere and merely
+        // plainer at Fernwood.
+        text: "High " + d.high + "°F, light winds, dry. Good window for mowing, mulching, splitting firewood, or any project that needs steady weather."
       });
       break;
     }
@@ -16781,10 +16840,15 @@ function renderCelestial() {
     // Excellent — but the separator after it was fixed text, so on a placed household with no canon
     // every one of the nine events opened with a bare "· " (measured 2026-09-07). The parts are
     // JOINED rather than concatenated, so an absent part takes its own separator with it.
+    // ⛔ THE VERDICT WAS WITHHELD AND THE NUMBER IT WAS A VERDICT ABOUT WAS NOT. `60–120/hr` is a
+    // DARK-SKY rate — the same Bortle-3 baseline `siteVisibility` refuses to assert without a sky
+    // record — and it shipped unstepped past that guard to a reader with no darkness record at all.
+    // Withholding "Excellent from here" while still printing the count it refers to leaves the
+    // claim intact and only removes the label on it (seat report, 2026-09-07).
     const metaParts = [];
     if (vc.label) metaParts.push((vc.emoji ? vc.emoji + ' ' : '') + vc.label);
     metaParts.push(moon.emoji + ' ' + moon.label);
-    if (ev.rate) metaParts.push(ev.rate);
+    if (ev.rate && ratedForHere) metaParts.push(ev.rate);
     h += '<div class="cel-event-meta ' + (vc.cls || '') + '">' + metaParts.join(' · ') + '</div>';
     h += '</div>';
 
@@ -16795,7 +16859,12 @@ function renderCelestial() {
     h += '<div class="cel-event-detail" id="cel-detail-' + ev.id + '">';
     h += '<div class="cel-detail-grid">';
     if (ev.direction) h += '<div class="cel-detail-item"><span class="cel-detail-key">Direction</span><span class="cel-detail-val">' + escapeHtml(ev.direction) + '</span></div>';
-    if (ev.altitude)  h += '<div class="cel-detail-item"><span class="cel-detail-key">From 34.5°N</span><span class="cel-detail-val">' + escapeHtml(ev.altitude) + '</span></div>';
+    // ⛔ Jasper's latitude as a row LABEL, two taps down, on a household in Maine. The header and
+    // footer were given `ratedForHere` earlier today and this row was missed — it is the same claim
+    // in a smaller place. Where the app cannot rate this sky it does not print a latitude as though
+    // it were the reader's; the prose itself still names 34°N inside its own sentence, which is
+    // honest about the DATA rather than about the reader.
+    if (ev.altitude && ratedForHere) h += '<div class="cel-detail-item"><span class="cel-detail-key">From 34.5°N</span><span class="cel-detail-val">' + escapeHtml(ev.altitude) + '</span></div>';
     if (ev.peak)      h += '<div class="cel-detail-item"><span class="cel-detail-key">Peak</span><span class="cel-detail-val">' + escapeHtml(ev.peak) + '</span></div>';
     if (ev.durationNote) h += '<div class="cel-detail-item"><span class="cel-detail-key">Active</span><span class="cel-detail-val">' + escapeHtml(ev.durationNote) + '</span></div>';
     h += '</div>';
