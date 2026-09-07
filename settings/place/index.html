@@ -28,11 +28,16 @@
   and it costs no extra words.
 -->
 <style>
-  :root { --ink:#23301f; --ink-soft:#5d6b57; --line:#d8eacc; --accent:#2f5d3a; --paper:#fff; }
+  :root { --ink:#23301f; --ink-soft:#5d6b57; --accent:#2f5d3a; --paper:#fff;
+    /* the ground and the hairline follow the chosen colour `[paul-ruled 2026-09-06]` — "a green background
+       with a blue-grey header doesn't seem right" — chroma-clamped mixes toward white (ux-expert token set) */
+    --wash-1: color-mix(in srgb, var(--accent) 7%, #fff); --wash-2: color-mix(in srgb, var(--accent) 13%, #fff);
+    --line: color-mix(in srgb, var(--accent) 18%, #fff);
+  }
   * { box-sizing:border-box; }
   body { margin:0; padding:0 0 96px;
     font:16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color:var(--ink); background:linear-gradient(#edf7e6,#e2f0d8); background-attachment:fixed;
+    color:var(--ink); background:linear-gradient(var(--wash-1), var(--wash-2)); background-attachment:fixed;
     -webkit-text-size-adjust:100%; }
   .wrap { max-width:660px; margin:0 auto; padding:0 18px; }
   header { background:var(--accent); color:#fff; padding:18px 18px 20px; }

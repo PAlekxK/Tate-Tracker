@@ -371,3 +371,22 @@ Make it flexible."*
 - mom, round 5: new-and-waiting; its two failures (the pill over "Household systems first"; the
   lede) are in round 6. For content-steward: the empty-state B lines assume a yard ("beds", "over
   the water", "a tractor") at Apt 3B; "Have we got this right" has no control beneath it.
+- `paul-ruled` (~22:05 ET, verbatim): *"There's a bit of a green background with a dark blue top
+  banner. Maybe that's intentional, but this bit of a green background definitely doesn't seem
+  right — maybe that's one element that's not being captured by the scheme."* → answers research
+  question 2: **the ground follows the seed.** Tranche 2: body wash and card hairline derive
+  (chroma-clamped mixes toward white, per ux-expert's token set).
+- `paul-ruled` (~22:10 ET, verbatim): *"I look at some of this text washing in front of me and I
+  think content-steward needs to go through and be like: let's make this seem like a polished,
+  professional app with a focus on crisp, clear messaging — on the line of an Apple app. You don't
+  need to say 'Paul made this', for example. People's attention is sparse: give them information
+  with as little text as possible and leave them energy to fill in and respond to prompts."*
+  → content-steward, REVIEW + DRAFT over every screen of the flow and the first open; drafted for
+  Paul's read (authored content), not shipped tonight.
+- tranche 2 verified: default build unchanged (ground #e6f0db, hairline #d8eacc); Stone household
+  gets a Stone-tinted ground and hairline. A global replace briefly turned the hairline token into a
+  self-reference (black borders in default mode) — caught by the two-mode check before commit.
+- `paul-ruled` (~22:15 ET, verbatim): *"We don't need to include 'if your phone offers to fill this
+  in, do this.' They will just do that. Don't include obvious instructions like that."* → into the
+  crisp-register pass; principle for the library: **an instruction the device already gives is
+  noise** (the autofill line is a measured example).

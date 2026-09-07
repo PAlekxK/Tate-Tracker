@@ -324,9 +324,9 @@
   body.text-lg .radar-frame-indicator { font-size: 14px; }
 
   html, body {
-    background-color: #e6f0db;
+    background-color: var(--ground);
     background-image:
-      linear-gradient(165deg, rgba(237,247,230,0.75) 0%, rgba(226,240,216,0.75) 55%, rgba(239,248,232,0.75) 100%),
+      linear-gradient(165deg, color-mix(in srgb, var(--wash-1) 75%, transparent) 0%, color-mix(in srgb, var(--wash-2) 75%, transparent) 55%, color-mix(in srgb, var(--wash-3) 75%, transparent) 100%),
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.30  0 0 0 0 0.18  0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-attachment: fixed, fixed;
     background-size: auto, 160px 160px;
@@ -350,6 +350,14 @@
     --hdr-1: #183524;
     --hdr-2: #2a6040;
     --hdr-3: #3a8a58;
+    /* ⭐ THE GROUND FOLLOWS THE SEED `[paul-ruled 2026-09-06]`: "a green background with a dark blue top
+       banner… definitely doesn't seem right." Defaults are the exact greens this page has always worn;
+       a stored choice re-derives them as chroma-clamped mixes toward white (ux-expert token set). */
+    --ground: #e6f0db;
+    --wash-1: #edf7e6;
+    --wash-2: #e2f0d8;
+    --wash-3: #eff8e8;
+    --edge-card: #d8eacc;
   }
 
   .header {
@@ -451,7 +459,7 @@
     margin: 14px auto 2px;
     box-sizing: border-box;
     background: #fff;
-    border: 1.5px solid #d8eacc;
+    border: 1.5px solid var(--edge-card);
     border-radius: var(--r-shell);
     padding: 15px 20px 15px;
     box-shadow: 0 2px 14px rgba(30,60,20,0.06);
@@ -534,7 +542,7 @@
   /* === COLLAPSIBLE MAIN CARDS === */
   .main-card {
     background: #fff;
-    border: 1.5px solid #d8eacc;
+    border: 1.5px solid var(--edge-card);
     border-radius: var(--r-shell);
     margin-bottom: 12px;
     box-shadow: 0 2px 14px rgba(30,60,20,0.07);
@@ -626,11 +634,11 @@
   .bio-chip.winter    { background: #e0ecf8; color: #305880; border: 1px solid #a8c8e8; }
   .bio-chip.migrant   { background: #f4e8f8; color: #6030a0; border: 1px solid #d0a8e8; }
   .bio-species-list { display: flex; flex-direction: column; gap: 8px; }
-  .bio-species-row { border: 1.5px solid #d8eacc; border-radius: var(--r-block); overflow: hidden; cursor: pointer; }
+  .bio-species-row { border: 1.5px solid var(--edge-card); border-radius: var(--r-block); overflow: hidden; cursor: pointer; }
   .bio-species-row:active { background: #f4fbf0; }
   .bio-species-hdr { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #fff; }
   .bio-species-icon { font-size: 20px; flex-shrink: 0; }
-  .bio-species-thumb { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--r-chip); object-fit: cover; background: #f0f6e8; border: 1px solid #d8eacc; }
+  .bio-species-thumb { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--r-chip); object-fit: cover; background: #f0f6e8; border: 1px solid var(--edge-card); }
   /* min-width 45% (was 0): at 414×A+ long badges flex-squeezed the name column to
      0px and rendered over the species names (2026-08-31 sweep) — the name is the
      payload, it never yields below half the row. */
@@ -651,7 +659,7 @@
   .bio-species-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .bio-meta-item { font-size: 11px; padding: 2px 8px; background: #edf7e6; color: #3a5830; border-radius: var(--r-block); }
   .bio-species-fun { font-size: 11.5px; color: #4a6840; background: #f0fae8; border-left: 3px solid #90c878; padding: 6px 10px; border-radius: 0 8px 8px 0; margin-top: 8px; line-height: 1.5; }
-  .bio-species-photo { display: block; width: 100%; max-width: 500px; height: auto; margin: 12px auto 0; border-radius: var(--r-block); border: 1px solid #d8eacc; }
+  .bio-species-photo { display: block; width: 100%; max-width: 500px; height: auto; margin: 12px auto 0; border-radius: var(--r-block); border: 1px solid var(--edge-card); }
   .bio-deep-dive-chip {
     display: inline-flex; align-items: center; gap: 4px;
     font-size: 11px; font-weight: 600; color: #2a6040;
@@ -675,7 +683,7 @@
   }
   .bio-take-part-grid { display: flex; flex-direction: column; gap: 8px; }
   .bio-take-part-card {
-    display: block; background: #fff; border: 1px solid #d8eacc;
+    display: block; background: #fff; border: 1px solid var(--edge-card);
     border-radius: var(--r-ctrl); padding: 10px 12px; text-decoration: none; color: inherit;
     transition: border-color 0.15s, transform 0.05s;
   }
@@ -703,7 +711,7 @@
      retina at every one of those widths. */
   .ins-photo-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(148px, 1fr)); gap: 8px; margin: 12px auto 0; max-width: 560px; }
   .ins-photo-fig { margin: 0; }
-  .ins-photo { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; height: auto; border-radius: var(--r-block); border: 1px solid #d8eacc; background: #f2f7ec; }
+  .ins-photo { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; height: auto; border-radius: var(--r-block); border: 1px solid var(--edge-card); background: #f2f7ec; }
   .ins-photo-credit { font-size: 9px; color: #9aae8a; font-style: italic; line-height: 1.35; margin-top: 3px; text-align: center; }
   .ins-photo-credit a { color: #9aae8a; text-decoration: none; border-bottom: 1px dotted #cbdcbc; }
   .ins-photo-where { display: block; color: #aebfa0; }
@@ -726,7 +734,7 @@
   .bio-month-cell.active { background: #6ab860; }
   .bio-month-cell.peak   { background: #3a9020; }
   .bio-season-cal { margin-top: 14px; }
-  .bio-season-hdr { font-size: 12.5px; font-weight: 600; color: #2a5a2a; padding: 0 0 6px 0; border-bottom: 1px solid #d8eacc; margin-bottom: 8px; }
+  .bio-season-hdr { font-size: 12.5px; font-weight: 600; color: #2a5a2a; padding: 0 0 6px 0; border-bottom: 1px solid var(--edge-card); margin-bottom: 8px; }
   .bio-season-row { display: flex; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f0f8e8; align-items: flex-start; }
   .bio-season-month { font-size: 11px; font-weight: 700; color: #5a8050; width: 28px; flex-shrink: 0; padding-top: 1px; }
   .bio-season-text { font-size: 12px; color: #3a4a30; line-height: 1.5; flex: 1; }
@@ -817,7 +825,7 @@
   .fish-species-content { padding: 10px 18px 18px; }
   .fish-phase-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
   .fish-phase {
-    background: #f8faf6; border: 1.5px solid #d8eacc;
+    background: #f8faf6; border: 1.5px solid var(--edge-card);
     border-radius: var(--r-ctrl); padding: 10px 12px;
   }
   .fish-phase.active-now { border-color: #4aaa6a; background: #f0faf0; }
@@ -891,7 +899,7 @@
     touch-action: none;   /* lets pointermove drive pan instead of page scroll */
     -webkit-user-select: none;
     user-select: none;
-    border: 1px solid #d8eacc;
+    border: 1px solid var(--edge-card);
   }
   .pmap-canvas {
     position: absolute;
@@ -1062,7 +1070,7 @@
     padding: 6px 8px;
     background: #f4f7ee;
     border-radius: var(--r-chip);
-    border: 1px solid #d8eacc;
+    border: 1px solid var(--edge-card);
     font-size: 11px;
     font-family: ui-monospace, "SF Mono", Menlo, monospace;
     color: #4a6a3a;
@@ -1454,7 +1462,7 @@
     padding: 6px 8px;
     letter-spacing: 0.05px;
   }
-  .prop-callouts-section { margin-top: 24px; padding-top: 18px; border-top: 1px solid #d8eacc; }
+  .prop-callouts-section { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--edge-card); }
   .prop-callout {
     margin-bottom: 14px;
     padding: 12px 16px;
@@ -1482,7 +1490,7 @@
   .plant-context-section {
     margin: 4px 16px 18px;
     padding-top: 18px;
-    border-top: 1px solid #d8eacc;
+    border-top: 1px solid var(--edge-card);
   }
   .plant-context-section-title {
     font-family: "Crimson Text", Georgia, serif;
@@ -1523,7 +1531,7 @@
     color: #3a6a3a; text-decoration: underline; text-decoration-color: #b8d8b0;
   }
 
-  .prop-coming-section { margin-top: 22px; padding-top: 16px; border-top: 1px solid #d8eacc; }
+  .prop-coming-section { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--edge-card); }
   .prop-coming-label {
     font-family: "Crimson Text", Georgia, serif;
     font-style: italic;
@@ -1558,7 +1566,7 @@
   .prop-coming-chip-meta { font-size: 10.5px; color: #88a07a; }
   .prop-panel {
     background: #f8faf6;
-    border: 1.5px solid #d8eacc;
+    border: 1.5px solid var(--edge-card);
     border-radius: var(--r-block);
     padding: 14px 16px;
   }
@@ -1579,7 +1587,7 @@
   .prop-aspect-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
   .prop-aspect-cell {
     background: #fff;
-    border: 1px solid #d8eacc;
+    border: 1px solid var(--edge-card);
     border-radius: var(--r-chip);
     padding: 8px 10px;
   }
@@ -1587,7 +1595,7 @@
   .prop-aspect-char { font-size: 11px; color: #1a3a1a; font-weight: 600; }
   .prop-aspect-best { font-size: 10.5px; color: #6a8a6a; margin-top: 2px; }
   .prop-frost-bar { display: flex; flex-direction: column; gap: 8px; }
-  .prop-frost-item { background: #fff; border: 1px solid #d8eacc; border-radius: var(--r-chip); padding: 8px 12px; }
+  .prop-frost-item { background: #fff; border: 1px solid var(--edge-card); border-radius: var(--r-chip); padding: 8px 12px; }
   .prop-frost-label { font-size: 11px; font-weight: 700; color: #4a7a4a; }
   .prop-frost-val { font-size: 13px; font-weight: 700; color: #1a3a1a; margin: 1px 0; }
   .prop-frost-sub { font-size: 11px; color: #8aaa8a; }
@@ -1596,7 +1604,7 @@
   .prop-soil-val { font-size: 12px; color: #1a3a1a; line-height: 1.45; }
   .prop-seismic-row {
     display: flex; align-items: center; gap: 10px;
-    background: #fff; border: 1px solid #d8eacc; border-radius: var(--r-chip);
+    background: #fff; border: 1px solid var(--edge-card); border-radius: var(--r-chip);
     padding: 8px 12px;
   }
   .prop-seismic-mag {
@@ -1615,7 +1623,7 @@
     display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;
   }
   .prop-stream-cell {
-    background: #fff; border: 1px solid #d8eacc; border-radius: var(--r-chip);
+    background: #fff; border: 1px solid var(--edge-card); border-radius: var(--r-chip);
     padding: 8px 10px; text-align: center;
   }
   .prop-stream-val { font-size: 14px; font-weight: 700; color: #1a3a1a; line-height: 1.2; }
@@ -1634,7 +1642,7 @@
   }
   .prop-micro-note {
     background: #f8faf6;
-    border: 1px solid #d8eacc;
+    border: 1px solid var(--edge-card);
     border-radius: var(--r-chip);
     padding: 9px 12px;
     font-size: 12px;
@@ -2108,7 +2116,7 @@
   }
   .forecast-day {
     flex-shrink: 0; min-width: 64px;
-    background: #f4faf0; border: 1px solid #d8eacc;
+    background: #f4faf0; border: 1px solid var(--edge-card);
     border-radius: var(--r-block); padding: 8px 6px; text-align: center;
   }
   .forecast-day.today { background: linear-gradient(135deg, #2a6040, #3d8a5e); border-color: #2a6040; color: #fff; }
@@ -2231,7 +2239,7 @@
   .month-banner { background: #f0f9e8; border: 1px solid #c4e0b0; border-radius: var(--r-ctrl); padding: 8px 13px; margin-bottom: 12px; font-size: 12.5px; color: #2a5a2a; }
 
   .plant {
-    background: #fff; border: 1px solid #d8eacc;
+    background: #fff; border: 1px solid var(--edge-card);
     border-radius: var(--r-card); overflow: hidden;
     margin-bottom: 9px;
     animation: cardIn 0.3s ease forwards;
@@ -2239,7 +2247,7 @@
   @keyframes cardIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
   .plant-head { padding: 13px 15px 11px; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; }
-  .plant-thumb { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--r-chip); object-fit: cover; background: #f0f6e8; border: 1px solid #d8eacc; }
+  .plant-thumb { width: 44px; height: 44px; flex-shrink: 0; border-radius: var(--r-chip); object-fit: cover; background: #f0f6e8; border: 1px solid var(--edge-card); }
   .plant-icon { width: 42px; height: 42px; border-radius: var(--r-block); flex-shrink: 0; background: linear-gradient(135deg, #c8e8d0, #9eceb0); display: flex; align-items: center; justify-content: center; font-size: 22px; }
   .plant-meta { flex: 1; min-width: 0; }
   .plant-name { font-size: 16px; font-weight: 600; color: #1a3a1a; font-family: "Crimson Text", Georgia, serif; }
@@ -2411,7 +2419,7 @@
   .vehicle-trim { font-size: 11.5px; color: #7a7a9a; margin-left: 5px; font-style: italic; font-family: "Crimson Text", serif; }
   .vehicle-nickname { font-size: 12px; color: #8a6a3a; margin-left: 6px; font-style: italic; font-family: "Crimson Text", serif; }
   .vehicle-engine { font-size: 11px; color: #6a6a8a; margin-top: 2px; }
-  .vehicle-photo { display: block; width: 100%; max-width: 340px; height: auto; margin: 8px 0 2px; border-radius: var(--r-ctrl); border: 1px solid #d8eacc; }
+  .vehicle-photo { display: block; width: 100%; max-width: 340px; height: auto; margin: 8px 0 2px; border-radius: var(--r-ctrl); border: 1px solid var(--edge-card); }
   .vehicle-status {
     display: inline-block;
     margin-top: 5px;
@@ -2910,7 +2918,7 @@
   }
   .tl-month {
     background: #f4faf0;
-    border: 1px solid #d8eacc;
+    border: 1px solid var(--edge-card);
     border-radius: var(--r-block);
     padding: 10px 9px 11px;
     min-height: 120px;
@@ -2922,7 +2930,7 @@
     border: 2px solid #3a8a58;
     box-shadow: 0 2px 10px rgba(58,138,88,0.2);
   }
-  .tl-month.future { background: #f4faf0; border-color: #d8eacc; }
+  .tl-month.future { background: #f4faf0; border-color: var(--edge-card); }
 
   .tl-month-name {
     font-size: 11px; font-weight: 700;
@@ -3433,7 +3441,7 @@
   .cel-tonight-panel {
     background: #f8faf6;
     padding: 14px 16px 12px;
-    border-bottom: 1px solid #d8eacc;
+    border-bottom: 1px solid var(--edge-card);
   }
   .cel-tonight-hdr {
     font-family: "Crimson Text", Georgia, serif;
@@ -3445,7 +3453,7 @@
     display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 10px;
   }
   .cel-sky-cell {
-    background: #fff; border: 1px solid #d8eacc;
+    background: #fff; border: 1px solid var(--edge-card);
     border-radius: var(--r-chip); padding: 8px 10px;
   }
   .cel-sky-icon { font-size: 15px; margin-bottom: 2px; line-height: 1.2; }
@@ -3460,7 +3468,7 @@
   .cel-property-note {
     font-size: 11px; color: #3a5a3a; line-height: 1.5;
     background: #fafbf5; border-radius: var(--r-chip);
-    padding: 6px 10px; border: 1px solid #d8eacc;
+    padding: 6px 10px; border: 1px solid var(--edge-card);
   }
   .cel-property-note strong { color: #1a3a1a; }
   .cel-nws-strip {
@@ -3566,7 +3574,7 @@
   }
   .dash-cell {
     background: #fff;
-    border: 1px solid #d8eacc;
+    border: 1px solid var(--edge-card);
     border-radius: var(--r-block);
     padding: 10px 11px 9px;
     cursor: pointer;
@@ -3792,7 +3800,7 @@
   body.text-lg .plant-lookfors-title { font-size: 18px; }
 
   /* Peak this week panel — pinned at the top of the Plants card (Concept A) */
-  .plant-peak-panel { background: #f4faf0; border: 1px solid #d8eacc; border-radius: var(--r-block); padding: 12px 14px; margin: 12px 12px 0; }
+  .plant-peak-panel { background: #f4faf0; border: 1px solid var(--edge-card); border-radius: var(--r-block); padding: 12px 14px; margin: 12px 12px 0; }
   .plant-peak-panel:empty { display: none; }
   .plant-peak-title { font-family: "Crimson Text", Georgia, serif; font-style: italic; font-weight: 600; font-size: 16px; color: #3a6a3a; margin-bottom: 8px; }
   .plant-peak-row { padding: 8px 0; border-top: 1px solid #e6f0dc; }
@@ -3945,7 +3953,7 @@
   .wildlife-tab.active { font-weight: 700; color: #183524; border-bottom-color: #2a6040; }
 
   /* Species rows: remove emoji icon, use left border for status/type */
-  .bio-species-row { border-left: 3px solid #d8eacc; }
+  .bio-species-row { border-left: 3px solid var(--edge-card); }
   .bio-species-row.status-resident { border-left-color: #5aaa70; }
   .bio-species-row.status-summer   { border-left-color: #d0a030; }
   .bio-species-row.status-winter   { border-left-color: #4a80c0; }
@@ -4191,7 +4199,7 @@
     display: flex; align-items: center; gap: 7px;
     min-height: 44px; padding: 6px 10px; border-radius: 12px;
     color: #2f5a3a; text-decoration: none;
-    background: #f2f8ec; border: 1.5px solid #d8eacc;
+    background: #f2f8ec; border: 1.5px solid var(--edge-card);
   }
   .jump-strip a .js-glyph { font-size: 17px; line-height: 1; flex: 0 0 auto; }
   .jump-strip a .js-label { line-height: 1.15; }
@@ -5830,7 +5838,7 @@
   .fn-sync-maint {
     margin-top: 18px;
     padding-top: 14px;
-    border-top: 1px dashed #d8eacc;
+    border-top: 1px dashed var(--edge-card);
   }
   .fn-sync-maint-label {
     font-weight: 600;
@@ -5984,7 +5992,7 @@
     color: #4a5a3a;
     font-style: italic;
     padding: 6px 4px 14px;
-    border-bottom: 1px dashed #d8eacc;
+    border-bottom: 1px dashed var(--edge-card);
     margin-bottom: 8px;
   }
   .cand-list {
@@ -6042,7 +6050,7 @@
     border-radius: var(--r-chip);
     object-fit: cover;
     background: #f0f6e8;
-    border: 1px solid #d8eacc;
+    border: 1px solid var(--edge-card);
   }
   .cand-name-block {
     flex: 1;
@@ -6406,7 +6414,13 @@
     // every filled + ✓ control reads --green-primary / --green-press, so those two derive here. The
     // hardcoded greens still in the stylesheet are ux-expert's inventory (.ux-reviews/2026-09-06-colour-scheme.md).
     s.setProperty("--green-primary", hex);
-    s.setProperty("--green-press", mix(-0.28));   // ≈ the 72% mix ux-expert derived from the shipped #2f5a3a → #1f4528
+    s.setProperty("--green-press", mix(-0.28));
+    // tranche 2 — the ground and the card hairline (paul-ruled 2026-09-06: the ground follows the seed)
+    s.setProperty("--ground", mix(0.90));
+    s.setProperty("--wash-1", mix(0.93));
+    s.setProperty("--wash-2", mix(0.87));
+    s.setProperty("--wash-3", mix(0.94));
+    s.setProperty("--edge-card", mix(0.82));   // ≈ the 72% mix ux-expert derived from the shipped #2f5a3a → #1f4528
   } catch (e) {}                            /* storage can throw in a private window; the page is fine */
 })();
 </script>
