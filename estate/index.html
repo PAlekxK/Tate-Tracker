@@ -280,8 +280,30 @@
   //   for them the original sentence is still exactly right.
   // Two variants, whole or nothing, never a template with a hole in it (the steward's rule above).
   try {
+    // ⛔ THREE DEFECTS IN THIS ONE READ, all found 2026-09-07 by the strict seat reading the source.
+    // 1 · OWNER GUARD. `:298` below does `mine ? read(K_NAME) : null` — this line did a BARE read.
+    //     On a shared device, another person's leftover `fw-onboard-coords` tells a NEW, UNPLACED
+    //     reader "Your place is set up." The guard is the file's own convention and I skipped it.
+    // 2 · THE SAME PREDICATE THE APP USES. This tested `latitude != null`; the viewer requires
+    //     `isFinite(lat) && isFinite(lon)` (viewer.html:7317/7331). A half-coordinate passed the
+    //     door and failed the app ONE TAP LATER — the self-contradiction this block exists to
+    //     remove, moved from inside a card to across a tap. Both halves, finite, or not placed.
+    // ⚠️ 3 · STILL OPEN, and it is timing, not content: `placed` is read SYNCHRONOUSLY from
+    //     localStorage while `fw-onboard-coords` arrives ASYNC from /api/grant/whoami, and the
+    //     correction is a full location.reload() gated on `changed`. So a placed household on a
+    //     SECOND device paints "Empty so far." first. Three exits never self-correct — no grant,
+    //     non-2xx, and the network catch — and the catch's own comment ("the cached view stands,
+    //     and says nothing false") INVERTS for an uncached device: on a first load there is no
+    //     cached view, the default is an authored positive claim, and it is false. Not fixed here
+    //     because the honest fix is to render this card from the reconcile rather than before it,
+    //     which is a bigger change than tonight should carry.
     var placed = false;
-    try { var c = JSON.parse(read(K_COORDS) || "null"); placed = !!(c && c.latitude != null); } catch (e) {}
+    if (mine) {
+      try {
+        var c = JSON.parse(read(K_COORDS) || "null");
+        placed = !!(c && isFinite(Number(c.latitude)) && isFinite(Number(c.longitude)));
+      } catch (e) {}
+    }
     // ⛔ BOTH SENTENCES OR NEITHER. Fixing only #doorlede made this card CONTRADICT ITSELF — measured
     // 2026-09-07 by the mom seat: "Nothing's been built on it yet" at the top and "Your weather and
     // sky are in there already" four inches below, on one card. That is the same defect this lap
