@@ -59,6 +59,42 @@ contaminates the walk. Everything that touches app surface queues behind **A**.
 | **C2** | C | **Six-beat consolidation loop**: sweep → label → **Paul disposes** → researcher reads → carry to a row → arm. Only beat 3 is Paul's. | `.plans/2026-09-07-feedback-consolidation-lap2-PRACTICE.md` | blocked on C1 |
 | **E1** | A *(queued behind A1)* | ⛔ **`homes-second-home` posts a CONSTANT id** (`homes/index.html:243`); `worker.js:3082-3085` returns 200 `{duplicate:true}` and the screen shows success. **The second "Add a home" on any UTC day is silently dropped while capture says it landed.** *Capture must not lie*, inverted. → engineering-partner. | steward design §A.1 | app surface — queues behind A's clear |
 
+### 🧨 SEEDED — an ADVERSARIAL seat `[paul-raised 2026-09-07]`
+
+> *"I do wonder if there's a need for a malicious seat or antagonist… that's just trying to break
+> things and in general cause havoc that will help us identify even more bugs that we're not
+> expecting. Something to consider overall."*
+
+**Not scheduled. Captured, sharpened, and sequenced after W0** — but it converges with a finding the
+instrument already made about itself, so it is stronger than a nice-to-have.
+
+**It is the harness gap the answers README named on its own.** §3.1: *"No seat can decline. No seat
+can abandon. No seat can lie… These want a seat brief and a branchable harness, not a JSON file."*
+Every current seat types its assigned literal and complies. An antagonist is the first seat whose
+**control flow** differs, not just its strings — which is exactly the missing rung.
+
+**It already has a proof case, `measured` today.** Row **E1** — `homes/index.html:243` posts a
+CONSTANT id, `worker.js:3082-3085` returns 200 `{duplicate:true}`, and the screen shows success. *A
+seat whose job is "do it twice, do it fast, do it wrong" finds that in one move.* Four polite seats
+walked past it for days; it took a steward reading KV by hand. That is the class of defect this buys.
+
+⛔ **THREE CONSTRAINTS, and the first one is what makes it safe to build:**
+
+1. **IT MUST NEVER ENTER GATE ①.** `release-gate.py` requires **zero failed actions** per seat. An
+   antagonist's *purpose* is to produce failed actions — wire it into the gate and the gate can never
+   go green again. It is a **non-gating instrument**: its findings feed the backlog, never the
+   release decision. (Same reasoning that keeps the `product-steward` out of the walking roster.)
+2. **QA and `lab` origins only. NEVER `home`, never Mom's page.** Rate-bounded. "Cause havoc" is
+   scoped to *input space* — malformed, boundary, unicode, overlong, double-submit, back-button,
+   rapid repeat, out-of-order steps — **not** load, not the store, not a credential path.
+3. ⚠️ **It does NOT close §3.3.** The class no synthetic seat has ever produced — *questions about
+   the model* — comes from someone with **stake**, and the README is explicit that it *"does not
+   close by adding seats, adding answers, or adding runs."* An antagonist finds what is **wrong**;
+   it still cannot find what is **missing**. Do not let it be sold as gate 2.5.
+
+**Where it goes:** after W0 clears. It needs the branchable harness first, so it pairs with whatever
+lane B learns building the review consolidator. Paul rules whether it is lap 2 or lap 3.
+
 ### Discharge at lap close — pre-registered, from lap 1
 
 | id | question | state |
