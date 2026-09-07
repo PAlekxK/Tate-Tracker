@@ -13993,17 +13993,31 @@ function renderProperty() {
   }
 
   // ── Resources ──
-  html += '<div class="prop-panel full-width">';
-  html += '<div class="prop-panel-title">Local Resources</div>';
+  // ⛔ EVERY ROW HERE WAS ALREADY CANON-GATED. THE PANEL AND ITS CLOSING PARAGRAPH WERE NOT — and
+  // the paragraph is the one piece of engine prose on this card that NAMES A PLACE. On a placed
+  // household with no canon (measured 2026-09-07, a condo in Roswell) the panel rendered its title,
+  // one map link, and then three GEORGIA organisations recommended by name to someone whose address
+  // the engine had never looked at. For the Bangor seat that paragraph is simply false.
+  // It now rides with `ext` — the researched local-resources record that is what makes it true —
+  // and the panel omits itself when nothing filled it (C7 0b, the same rule as every row inside).
+  // ⚠️ The Wundermap link deliberately SURVIVES on its own: it is computed from the household's own
+  // coordinates, so it is theirs in the same way the weather is. Fernwood carries
+  // `resources.localExtension`, so nothing on Fernwood's card moves.
   const ext = p.resources && p.resources.localExtension;
   const stn = p.resources && p.resources.nearestWeatherStation;
-  if (ext) html += '<div class="prop-row"><span class="prop-label">UGA Extension (' + escapeHtml(shortCounty) + ')</span><span class="prop-value">' + escapeHtml(ext.phone) + '</span></div>';
-  if (ext) html += '<div class="prop-row"><span class="prop-label">Soil Test</span><span class="prop-value">$9 · 1–2 weeks turnaround</span></div>';
-  if (stn) html += '<div class="prop-row"><span class="prop-label">Nearest Weather Station</span><span class="prop-value">' + escapeHtml(stn.id || stnId) + ' (' + stn.elevation_ft.toLocaleString() + ' ft)</span></div>';
-  if (stn) html += '<a class="prop-action-chip" href="' + escapeHtml(stn.nwsForecastUrl) + '" target="_blank">NWS ' + escapeHtml(shortCounty) + ' Forecast ↗</a>';
-  if (loc.coordinates) html += '<a class="prop-action-chip" href="https://www.wunderground.com/wundermap?lat=' + loc.coordinates.latitude + '&lon=' + loc.coordinates.longitude + '&zoom=13" target="_blank">Local Weather Stations ↗</a>';
-  html += '<div class="prop-note" style="margin-top:12px;"><strong>Habitat certifications worth pursuing:</strong> <a href="https://www.audubon.org/conservation/about-bird-friendly-communities/certify-your-yard" target="_blank" rel="noopener">Birds Georgia Wildlife Sanctuary</a> ($110, mailable yard sign) · <a href="https://gnps.org/habitat/" target="_blank" rel="noopener">GNPS Habitat Certification</a> Silver or Gold ($40 + GNPS membership) · <a href="https://homegrownnationalpark.org" target="_blank" rel="noopener">Homegrown National Park</a> map registration (free).</div>';
-  html += '</div>';
+  let resRows = '';
+  if (ext) resRows += '<div class="prop-row"><span class="prop-label">UGA Extension (' + escapeHtml(shortCounty) + ')</span><span class="prop-value">' + escapeHtml(ext.phone) + '</span></div>';
+  if (ext) resRows += '<div class="prop-row"><span class="prop-label">Soil Test</span><span class="prop-value">$9 · 1–2 weeks turnaround</span></div>';
+  if (stn) resRows += '<div class="prop-row"><span class="prop-label">Nearest Weather Station</span><span class="prop-value">' + escapeHtml(stn.id || stnId) + ' (' + stn.elevation_ft.toLocaleString() + ' ft)</span></div>';
+  if (stn) resRows += '<a class="prop-action-chip" href="' + escapeHtml(stn.nwsForecastUrl) + '" target="_blank">NWS ' + escapeHtml(shortCounty) + ' Forecast ↗</a>';
+  if (loc.coordinates) resRows += '<a class="prop-action-chip" href="https://www.wunderground.com/wundermap?lat=' + loc.coordinates.latitude + '&lon=' + loc.coordinates.longitude + '&zoom=13" target="_blank">Local Weather Stations ↗</a>';
+  if (ext) resRows += '<div class="prop-note" style="margin-top:12px;"><strong>Habitat certifications worth pursuing:</strong> <a href="https://www.audubon.org/conservation/about-bird-friendly-communities/certify-your-yard" target="_blank" rel="noopener">Birds Georgia Wildlife Sanctuary</a> ($110, mailable yard sign) · <a href="https://gnps.org/habitat/" target="_blank" rel="noopener">GNPS Habitat Certification</a> Silver or Gold ($40 + GNPS membership) · <a href="https://homegrownnationalpark.org" target="_blank" rel="noopener">Homegrown National Park</a> map registration (free).</div>';
+  if (resRows) {
+    html += '<div class="prop-panel full-width">';
+    html += '<div class="prop-panel-title">Local Resources</div>';
+    html += resRows;
+    html += '</div>';
+  }
 
   html += '</div>'; // close prop-grid
 
@@ -15951,6 +15965,17 @@ function windowComment(wx, dayBite, phaseLabel, tier) {
 function terrainSunTimes(dateObj, which) {
   const t = (typeof SUN_HORIZON_DATA !== "undefined") && SUN_HORIZON_DATA[which];
   if (!t || !dateObj || isNaN(dateObj)) return null;
+  // ⛔ A SKYLINE BELONGS TO ONE RIDGE, AND THIS TABLE CARRIES THE COORDINATES OF ITS OWN. It is a
+  // DEM horizon computed for 34.549665 / -84.36748 — Fernwood's house — and it was applied to any
+  // household that had coordinates at all. MEASURED 2026-09-07 for a household in Bangor, Maine:
+  // the dashboard read "Sunset · 8:18 PM · last light here 8:02 PM", i.e. last light SIXTEEN
+  // MINUTES BEFORE SUNSET, which is not a thing that happens. A terrain table is only true where it
+  // was computed, so it now checks the place it was computed for against the place being rendered.
+  // 0.01° is ~1.1 km; the skyline is integrated out to 30 km, so anything past that is a different
+  // horizon. Fernwood's canon sits 0.0001° away and matches; nothing there moves.
+  const c = ((PROPERTY_DATA || {}).location || {}).coordinates || {};
+  if (t.lat == null || t.lon == null) return null;
+  if (!(Math.abs(Number(c.latitude) - t.lat) <= 0.01 && Math.abs(Number(c.longitude) - t.lon) <= 0.01)) return null;
   const mm = String(dateObj.getMonth() + 1).padStart(2, "0");
   const dd = String(dateObj.getDate()).padStart(2, "0");
   return t.byDate[mm + "-" + dd] || null;
@@ -16595,7 +16620,12 @@ function renderCelestial() {
     h += '</div>';
   }
 
-  h += '<div class="cel-property-note"><strong>Your skies:</strong> ' + escapeHtml(prop.atlasNote) + '</div>';
+  // ⛔ C7 0b — A LABEL WITH NOTHING AFTER IT IS THE SAME DEFECT AS THE WORD "undefined". `atlasNote`
+  // is a darkness record, which is CANON, not coordinates; a geocoded household has the second and
+  // not the first, so this rendered literally "Your skies:" followed by one space. Measured
+  // 2026-09-07 on a placed household with no canon, alongside the Bortle cell above — which had
+  // already been given this rule and this one had not. A row with no canon omits itself.
+  if (prop.atlasNote) h += '<div class="cel-property-note"><strong>Your skies:</strong> ' + escapeHtml(prop.atlasNote) + '</div>';
   h += '</div>'; // cel-tonight-panel
 
   // ── Upcoming Events ─────────────────────────────────────────────────────────
@@ -16603,8 +16633,17 @@ function renderCelestial() {
     .filter(e => daysUntil(e.date) >= -1)
     .sort((a, b) => new Date(a.date) - new Date(b.date));
 
+  // ⛔ THE PAGE CLAIMED THE RATINGS WERE THEIRS. The per-event verdict is already withheld without a
+  // sky record (`siteVisibility`, 2026-09-04) — but the header still announced "Rated for 34.5°N
+  // Rural Sky" and the footer "Visibility rated for 34.55°N, 84.37°W, rural North Georgia", which
+  // for a household in Bangor at 44.8°N reads as an assessment of ITS sky (measured 2026-09-07).
+  // One test governs both: if the app cannot rate this sky it does not say the roster is rated for
+  // it. The events themselves are real everywhere and stay; each one's own `From 34.5°N` detail
+  // keeps naming the latitude its prose was computed for, which is honest about the DATA rather
+  // than about the reader.
+  const ratedForHere = !!Number(((PROPERTY_DATA || {}).sky || {}).bortleEstimate);
   h += '<div class="cel-events-section">';
-  h += '<div class="cel-events-hdr">Upcoming Events · Rated for 34.5°N Rural Sky</div>';
+  h += '<div class="cel-events-hdr">Upcoming Events' + (ratedForHere ? ' · Rated for 34.5°N Rural Sky' : '') + '</div>';
 
   const typeMap = {
     "meteor":        { label: "Meteor Shower", cls: "type-meteor" },
@@ -16661,9 +16700,16 @@ function renderCelestial() {
     // Center: name + meta
     h += '<div class="cel-event-center">';
     h += '<div class="cel-event-name">' + escapeHtml(ev.emoji + ' ' + ev.name) + '</div>';
-    h += '<div class="cel-event-meta ' + (vc.cls || '') + '">' + (vc.emoji ? vc.emoji + ' ' : '') + vc.label +
-         ' · ' + moon.emoji + ' ' + moon.label +
-         (ev.rate ? ' · ' + ev.rate : '') + '</div>';
+    // ⛔ C7 0b, THE SEPARATOR HALF OF IT. `siteVisibility` correctly returns nothing without a sky
+    // record — that guard was added 2026-09-04 so a Bortle-8 condo is not told meteor viewing is
+    // Excellent — but the separator after it was fixed text, so on a placed household with no canon
+    // every one of the nine events opened with a bare "· " (measured 2026-09-07). The parts are
+    // JOINED rather than concatenated, so an absent part takes its own separator with it.
+    const metaParts = [];
+    if (vc.label) metaParts.push((vc.emoji ? vc.emoji + ' ' : '') + vc.label);
+    metaParts.push(moon.emoji + ' ' + moon.label);
+    if (ev.rate) metaParts.push(ev.rate);
+    h += '<div class="cel-event-meta ' + (vc.cls || '') + '">' + metaParts.join(' · ') + '</div>';
     h += '</div>';
 
     h += '<span class="cel-expand-chevron">▼</span>';
@@ -16685,7 +16731,9 @@ function renderCelestial() {
     h += '</div>'; // cel-event-row
   });
 
-  h += '<div class="cel-data-note">Events compiled from NASA, AMS, and Sea &amp; Sky · Visibility rated for 34.55°N, 84.37°W, rural North Georgia · Confirm times at timeanddate.com or heavens-above.com</div>';
+  h += '<div class="cel-data-note">Events compiled from NASA, AMS, and Sea &amp; Sky'
+     + (ratedForHere ? ' · Visibility rated for 34.55°N, 84.37°W, rural North Georgia' : '')
+     + ' · Confirm times at timeanddate.com or heavens-above.com</div>';
   h += '</div>'; // cel-events-section
 
   document.getElementById("celestial-content").innerHTML = h;
@@ -17521,9 +17569,27 @@ const MODULE_POPULATION = {
   "equipment":      () => vehiclesInGroup("equipment"),
   "house-systems":  () => vehiclesInGroup("household-system"),
   "place":          () => ((typeof ZONES_DATA !== "undefined" && ZONES_DATA.zones) || []).length,
-  "wildlife":       () => ["BIRDS_DATA","MAMMALS_DATA","AMPHIBIANS_DATA","SNAKES_DATA",
-                           "LIZARDS_DATA","INSECTS_DATA","FISHING_DATA"]
-                            .reduce((n, k) => n + (((window[k] || {}).species) || []).length, 0),
+  // ⛔ THIS COUNTED BY NAME OFF `window` AND THEREFORE COUNTED NOTHING, ON EVERY ESTATE. The domain
+  // data are `const` declarations, and a `const` at script scope does NOT become a property of
+  // `window` — so `window["BIRDS_DATA"]` is `undefined`, `(undefined || {}).species` is `undefined`,
+  // and the reduce returned 0 for all seven domains. MEASURED 2026-09-07 on Fernwood's own build:
+  // 16 birds · 19 mammals · 12 amphibians · 12 snakes · 5 lizards · 16 insects · 3 fish, and
+  // `moduleState("wildlife")` said "empty" — so the Wildlife jump link and the Wildlife summary tile
+  // were hidden on MOM'S OWN APP. Navigation to a fully-populated module, silently removed.
+  // ⚠️ It was invisible because on a household the answer is 0 anyway and the render looks right.
+  // A wrong mechanism agreeing with the right answer in the case anyone was looking at is exactly
+  // how this survived — the household work is what made it checkable, not what broke it.
+  // Every other counter here already references its identifier directly behind `typeof`; this one
+  // was the only lookup-by-name, and it is now the same shape as its neighbours.
+  "wildlife":       () => [
+                            (typeof BIRDS_DATA      !== "undefined") ? BIRDS_DATA      : null,
+                            (typeof MAMMALS_DATA    !== "undefined") ? MAMMALS_DATA    : null,
+                            (typeof AMPHIBIANS_DATA !== "undefined") ? AMPHIBIANS_DATA : null,
+                            (typeof SNAKES_DATA     !== "undefined") ? SNAKES_DATA     : null,
+                            (typeof LIZARDS_DATA    !== "undefined") ? LIZARDS_DATA    : null,
+                            (typeof INSECTS_DATA    !== "undefined") ? INSECTS_DATA    : null,
+                            (typeof FISHING_DATA    !== "undefined") ? FISHING_DATA    : null,
+                          ].reduce((n, d) => n + (((d || {}).species) || []).length, 0),
   // Weather and sky are REGIONAL, not collected: they come from the address the person gave, so a
   // household that has told us where it is already has them. They are populated by construction.
   "weather":        () => SITE_PLACED ? 1 : 0,
@@ -19789,16 +19855,32 @@ function computeBurnStatus() {
   const inSeasonalBan = (m >= 4 && m <= 8); // May (4) through September (8)
   const fwAlerts = (WEATHER_DATA.fireWeather && WEATHER_DATA.fireWeather.alerts) || [];
 
+  // ⛔⛔ THE WORST THING ON THIS PAGE WAS A LEGAL CLAIM IN THE WRONG STATE. Every regulatory string
+  // below is Georgia's — the May 1–Sep 30 statewide ban, the Forestry Commission permit, GA EPD,
+  // gatrees.org — and none of it was gated on anything. MEASURED 2026-09-07 on a household in
+  // BANGOR, MAINE: "🚫 State outdoor-burning ban active · Georgia's statewide ban (May 1 – Sep 30)
+  // blocks open burning of yard debris." A reader acts on that, or fails to act because of it.
+  // This is the same class as the Bortle-8 condo being told meteor viewing is Excellent, which this
+  // app already fixed once (content-steward 2026-09-04): a claim someone would walk outside and act on.
+  // A JURISDICTION IS CANON, NEVER COORDINATES. Knowing where someone is does not tell the engine
+  // whose burn law applies; only a record does, and the engine knows exactly one state's rules.
+  // ⚠️ The DROUGHT and DAYS-DRY context is NOT gated — it is computed from their own coordinates and
+  // is true anywhere. What is withheld is the regulation, not the weather.
+  const jurisdiction = ((PROPERTY_DATA || {}).property || {}).state || null;
+  const knowsTheRules = jurisdiction === "GA";
+
   // Tier 1 — active NWS fire-weather alert (Red Flag or Fire Weather Watch)
   if (fwAlerts.length > 0) {
     const top = fwAlerts[0];
+    // The alert itself is the NWS speaking about THEIR coordinates, so it stands anywhere; only the
+    // Georgia permit desk attached to it is withheld.
     return {
       level: "severe",
       icon: "🔥",
       title: top.event,
       sub: top.headline || "Active fire-weather alert from the National Weather Service.",
-      sources: "NWS · GA EPD",
-      url: "https://gatrees.org/burn-permits-and-notifications/",
+      sources: knowsTheRules ? "NWS · GA EPD" : "NWS",
+      url: knowsTheRules ? "https://gatrees.org/burn-permits-and-notifications/" : null,
     };
   }
 
@@ -19819,7 +19901,10 @@ function computeBurnStatus() {
   let level = "normal";
   if (elevated || veryDry) level = "elevated";
 
-  // Regulatory layer
+  // Regulatory layer — withheld entirely where the engine does not know the jurisdiction. The card
+  // is a REGULATORY card with weather context appended, not the other way round: without the rule
+  // there is no card, and the block that renders it already omits itself on a null (C7 0b).
+  if (!knowsTheRules) return null;
   const regTitle = inSeasonalBan
     ? "State outdoor-burning ban active"
     : "Burn permit required";
