@@ -2401,6 +2401,56 @@ config / instance · **de-hardcode the identity block** out of the viewer's engi
 name in Mom-read prose is a **content** decision) · **derive config from canon** (kill the re-typed
 `FROST_MONTH`-style copies). **Objective O3. Depends on C4** — the KV prefix is an environment decision.
 
+## 🔌 INTEGRATIONS · DEVICES & IoT — the weather station is proof point #1 `[paul-stated 2026-09-07]`
+
+**A product-backlog GROUPING, stated by Paul as a grouping and not a feature:** *"we do have hopefully
+this kind of product backlog idea or grouping around integrations, and one is devices and Internet of
+Things. This is the first proof point of that."*
+
+### ✅ DECIDED — already his call, not open
+
+> *"For Mom's account and Bob's account, which will be the only two people that have the option to set
+> up an account, we should just auto-wire the weather station to them. That's something that I'd
+> already decided… Bob is a neighbour, so the weathervane is relevant to him and he specifically is
+> interested in it. Other than those two houses, the vane will not be automatically attached or
+> available."*
+
+⭐ **AND THE DISTINCTION THAT MAKES IT IMPLEMENTABLE: A STATION BELONGS TO A PLACE, NOT TO A PERSON.**
+"Auto-wire it to Mom's account" cannot mean *to Mom* — one account holds several homes (`homes/`,
+"Your homes"). Fernwood's vane is relevant AT Fernwood and, as a neighbour, at Bob's. It is not
+relevant at a condo in Atlanta 60 miles away, even though the same person holds both. **Attaching by
+ACCOUNT would re-create the 09-07 defect with a nicer name.** It is a per-ESTATE declaration, the same
+axis as `ESTATE_MODULES` and `absent`.
+
+⚠️ **THE DEFECT THAT OCCASIONED THIS, and it is why the grouping got written down today.** All four
+synthetic seats independently found Fernwood's own gauge record rendered at their households —
+Roswell, Dahlonega and **Bangor, Maine** — `measured` against `weather-history.json`: 123 days, first
+day 2026-05-02, 30.83" all-time, last 7 days summing to exactly 0.01". On screen without expanding
+anything: *"Rain · 0.01" past 7d **here**"*. One tap further: *"DAY BY DAY AT OUR GAUGE"* and *"how
+much of that is the mountain and how much is the gauge's sheltered spot by the pond"* — Fernwood's
+mountain and pond, first person plural, to a stranger. Fix site `engine/viewer.template.html:9118`.
+
+⛔⛔ **AND `check-estate-neutral.py` WAS GREEN ON IT.** Run against the exact walked origin: 311
+needles, `rendered=0`, ✅. **The check tests for NAMES; this leak is made of NUMBERS and POSSESSIVE
+PRONOUNS.** Fernwood's data reached a stranger's house without Fernwood's name on it. **A green
+neutrality check is not coverage for this class**, and that sentence belongs wherever the next person
+trusts that green.
+
+### 📋 CAPTURED, NOT SCOPED — the grouping's other threads
+
+- **Two opt-in boxes on the weather card** `[paul-stated]` — *"do you want radar to your location?
+  Click it, yes, the radar is there"*, and the same for the vane. ⚠️ Note this is a CAPTURE surface on
+  a card, so the standing rules apply: deterministic, AI-free, and every ask says use · not-use · who
+  sees it · reversibility.
+- **A probe question** — *"whether they have any on-site internet-connected smart devices, like a
+  weather station or something like that, that we can always probe to see if they have anything."*
+  Onboarding or settings; unscoped.
+- ⚠️ **Paul's own forward note:** *"understanding that in the future we'll change that"* — the
+  Mom-and-Bob auto-wire is a **starting position for two known households**, explicitly not the
+  general rule. Do not harden it into one.
+
+---
+
 ## 🚪 C6 · THE DOOR FOR PAUL — entry + vault on his device, her surface untouched; M3 fixed first ⚙️ engine · declared
 
 > ### 🔑 THE SIGN-IN DOOR — scoped 2026-09-07, **Paul rules** · `.plans/2026-09-07-sign-in-door-PROPOSAL.md`
