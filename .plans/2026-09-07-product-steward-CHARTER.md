@@ -209,7 +209,7 @@ substantive finding before it was caught.
 |---|---|---|---|
 | **1** | *"cites a file that does not exist — the review is asserted"* | the path was **UNRESOLVABLE from this tree** — the private sibling, `~/.claude`, or a bare basename | 54 false citations in `product-steward --cite`; 19 more in `check-backlog-ready` |
 | **2** | *"onboarding never declares this key"* | the declaration was **UNPARSEABLE** — `K_[A-Z]+` cannot match `K_CONTACT_CHOSEN` | 5 false rows in `check-storage-keys` |
-| **3** | *"line past EOF"* | a bare basename **RESOLVED TO THE WRONG FILE** — `index.html:505` against the repo's 12-line root file | a wrong resolution dressed as a finding, which is worse than a miss |
+| **3** | *"line past EOF"* | a bare basename **RESOLVED TO THE WRONG FILE** — a bare `index.html`, line 505, against the repo's 12-line root file when the author meant `onboarding/index.html` (written unqualified here **on purpose**: as a literal citation it is the very ambiguity it describes, and `--cite` flags it — the R5 defect of grading a spec on its own illustration, one layer up) | a wrong resolution dressed as a finding, which is worse than a miss |
 | **4** | ⭐ *"unknown provenance — the defect may predate today and merely have been invisible"* | it was **KNOWABLE**: `renderCelestial()` opens `if (!SITE_PLACED) return;`, so the path was unreachable before W0 | `engine/viewer.template.html:16469` · `:16453` |
 
 **1–3 share one rule** `[lane-A, 2026-09-07]`: **a checker that cannot parse or resolve something
