@@ -17895,7 +17895,16 @@ function renderHouseholdFirstScreen() {
   if (prop && host && addr) {
     if (prop.parentNode !== host) host.insertBefore(prop, host.firstElementChild);   // out of the back pages, to the front
     prop.querySelectorAll(".main-card-title").forEach(t => { t.textContent = window.__HOUSEHOLD_NAME; });
-    prop.querySelectorAll(".main-card-summary").forEach(el => { el.textContent = addr; });
+    // two lines, as the confirm and receipt screens already render it — the one-string form stranded
+    // "Apt" at a line end and ran "3B Roswell" together (mom seat, b0ce794)
+    let parts = null;
+    try { parts = JSON.parse(localStorage.getItem("fw-onboard-parts") || "null"); } catch (e) {}
+    const street = parts && parts.line1 ? (parts.line1 + (parts.line2 ? ", " + parts.line2 : "")) : "";
+    const town = parts ? [parts.city, [parts.state, parts.zip].filter(Boolean).join(" ")].filter(Boolean).join(", ") : "";
+    prop.querySelectorAll(".main-card-summary").forEach(el => {
+      if (street && town) el.innerHTML = escapeHtml(street) + "<br>" + escapeHtml(town);
+      else el.textContent = addr;
+    });
     const body = document.getElementById("property-content");
     if (body && !SITE_PLACED) {
       body.innerHTML = '<div class="prop-lead">We\u2019re working out your weather and what grows here from this address \u2014 it lands on this card as it comes in.</div>';
