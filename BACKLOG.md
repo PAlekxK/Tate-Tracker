@@ -250,8 +250,8 @@ of the full new estate manager site and app."* **Consequences:** (i) every act o
 archive re-take, dispositions landing on the new instance, the sunset order in rule 3 — waits on a real
 account for Mom existing on production `home`; the gate's deterministic signal is the production window's
 to expose (`reset-production-estate.py`'s `real` abort is the candidate); (ii) rule 1's *"manual process
-between you and me"* now has a plan of record → `.plans/2026-09-07-frozen-fernwood-catchup-PLAN.md`
-(stage `concept`, four seats, written 2026-09-07 — **Paul rules**); (iii) the production window owns the
+between you and me"* now has a plan of record → READY · .plans/2026-09-07-frozen-fernwood-catchup-PLAN.md
+(stage `concept`, four seats, written 2026-09-07 — **Paul rules**; the pointer is the readiness check's row shape, not a claim); (iii) the production window owns the
 Worker, the origins, onboarding and tenancy; the frozen window hands it requirements, never edits.
 ⚠️ **Measured 2026-09-07 ~10:15 ET, live KV read of `est-3c9f1a`:** 177 keys vs 175 archived · 0 changed ·
 2 gone (both `cache:ambient:*`, TTL-expired) · **4 added since the 09-06 00:08 archive** —

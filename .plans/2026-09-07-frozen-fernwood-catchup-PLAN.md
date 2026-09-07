@@ -1,7 +1,8 @@
 # frozen-fernwood-catchup · Working Mom's frozen Fernwood through her new household, module by module — executable when her production account exists
 
 - row: BACKLOG.md § FOCUS FREEZE rule 6 (2026-09-07) — the catch-up is gated on her production account; rule 1 (the data control) is the ruling it executes
-- objective: O3 → O1 (the engine's first household is Fernwood-as-instance; her journal resumes on the new product)
+- objective: O3
+  (O3 → O1 in substance: the engine's first household is Fernwood-as-instance; her journal resumes on the new product)
 - class: instance · declared — Mom's, with engine requirements handed to the production window (never built here)
 - seats: practice-steward → .plans/2026-09-07-frozen-fernwood-catchup-PROCESS.md
          engineering-partner → .engineering/2026-09-07-frozen-fernwood-carry-path.md
@@ -14,6 +15,7 @@
 - depends-on: .plans/2026-09-05-onboarding-PLAN.md
 - ready: agent-proposed 2026-09-07 — **Paul rules** (§10). Nothing in §4's POST-GATE column may start before G0 and the 🔴 rulings.
 - stage: concept
+- wip-exception: gated on G0 and executes nothing between concept and qa — it declares the scope rule 6 points at so the register's pointer resolves; every build in § Files touched waits on §10's 🔴 rulings
 - stage-note: 2026-09-07 ~12:30 PM ET — written at `1b34376` after four seats reported; GATED on G0 (§1). Live KV of `est-3c9f1a` read once this morning (177 keys; archive one arrival behind); no value opened by the main session; nothing written to any household.
 
 > **Ownership `[paul-stated 2026-09-07, relayed by the production window]`:** this window owns Mom's frozen
@@ -138,7 +140,7 @@ Every row below is a **hypothesis until Paul rules it in the ledger** (T3). Grad
 
 ---
 
-## 4 · Sequence
+## Sequence
 
 ### 4.1 · The line — in one sentence
 **Post-gate is anything that (i) reaches Mom, (ii) writes into `home`/`est-e6696a`, or (iii) touches the
@@ -243,7 +245,8 @@ good copy, not just good method.
 
 ---
 
-## 8 · Files touched (when the pre-gate builds run — none yet)
+## Files touched
+*(when the pre-gate builds run — none yet)*
 
 - `tools/catchup-ledger.py` + `tools/tests/test_catchup_ledger.py` (selftest + two mutation controls) — NEW
 - `.private/catchup-ledger/` — NEW, gitignored (add the pattern to `.gitignore`)
@@ -255,7 +258,8 @@ good copy, not just good method.
 
 ---
 
-## 9 · Falsifier — the checks that must be SEEN to fail
+## Falsifier
+*(the checks that must be SEEN to fail)*
 
 | check | sited at | proven how |
 |---|---|---|
@@ -318,7 +322,7 @@ trigger, not a memory.
 
 ---
 
-## 12 · QA
+## QA
 
 - Every `checkState` at T6 is a **live run at her conditions (414 × A+)** on `home`, never a local read.
 - The cascade holds: synthetic seats → Paul → Mom, per tranche. Mom is gate 3, never gate 1.
