@@ -1,8 +1,8 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-07T10:06:17-04:00",
+ "generated_at": "2026-09-07T11:11:46-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "ca9161e",
+ "candidate_sha": "c821051",
  "beat": {
   "n": 3,
   "of": 5,
@@ -14,7 +14,7 @@
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "mom": {
-    "run": "2026-09-07T095527",
+    "run": "2026-09-07T110051",
     "at-sha": true,
     "watched": true,
     "countable": true,
@@ -22,7 +22,7 @@
     "instrumented": true
    },
    "owner": {
-    "run": "2026-09-07T095628",
+    "run": "2026-09-07T110154",
     "at-sha": true,
     "watched": true,
     "countable": true,
@@ -30,7 +30,7 @@
     "instrumented": true
    },
    "strict": {
-    "run": "2026-09-07T095731",
+    "run": "2026-09-07T110257",
     "at-sha": true,
     "watched": true,
     "countable": true,
@@ -38,7 +38,7 @@
     "instrumented": true
    },
    "wide-eyed": {
-    "run": "2026-09-07T095831",
+    "run": "2026-09-07T110358",
     "at-sha": true,
     "watched": true,
     "countable": true,

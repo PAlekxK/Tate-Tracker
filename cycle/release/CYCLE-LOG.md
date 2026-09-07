@@ -795,3 +795,20 @@ Make it flexible."*
   `p-paul`: account creation mints its own person, so the register's p-paul and the store's person
   for the same human diverge by construction. Paul is now three ids across the register and the
   store. → tenancy row 19's journey work; not fixed here.
+
+### 11:35 ET (Sep 7) — `c821051` GATE ① 4 of 4 → DEPLOYED TO HOME on Paul's standing word; beat 3 again
+- `paul-stated` (~11:25 ET): *"Go ahead and deploy when the gate is green."* — his word given ahead
+  of the reading, covering the UX clause for this build.
+- `measured` — four readings at `c821051`: mom (*"the unit number now reads as a unit number… Last
+  run I'd have thought someone had typed it wrong"*), strict (*"now matches 07's claim in full"*),
+  owner and wide-eyed pixel-diffed every PNG: byte-identical or username-only, no regression.
+  Every reader NEW-AND-WAITING. Gate: **4 of 4**, seats-only exit 0.
+- `pages-deploy.py --env home --sha c821051`: neutral export 856 files, headless load zero page
+  errors, **`https://fernwood-home.pages.dev` serves `c821051`**. Production moves `ca9161e` →
+  `c821051`: the refusal copy, the first-screen rulings (almanac + place card, nothing empty), the
+  two-line address, the unit kept whole, the honest box-number line.
+- `cycle-state.json`: beat 3 · owner paul · candidate `c821051`. Paul's account was reset before
+  this deploy (11:10 ET) and his fresh invite re-opened in a new incognito window AFTER it, so his
+  from-scratch run meets the new build from the first screen.
+- Builds certified today, in order: `ca9161e` (deployed 10:12) · `6d42a01` · `b0ce794` · `50f28ff` ·
+  **`c821051` (deployed 11:35)**. Rounds 10–15 of lap 1.
