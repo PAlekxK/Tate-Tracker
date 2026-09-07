@@ -120,9 +120,20 @@ def judge(run_dir, sha):
     # ⚠️ RUN-LEVEL, because that is the level the record supports: `_view.json`'s console carries the
     # 429 lines with no timestamps and no interleaving with the CHECKPOINT lines, so which stop was
     # hit is not derivable.
-    out["not-rate-limited"] = (not t.get("rateLimited"),
-                               "the origin returned 429 during this walk" if t.get("rateLimited")
-                               else "no 429 recorded")
+    # ⛔ ABSENCE IS UNCHECKABLE, NOT A PASS — the posture `walk-integrity` already took for an absent
+    # `contaminated` verdict, in its own words: *"a record too old to be checkable scored higher than
+    # every record that was checked and found wanting."* Same shape, same file family, so the same
+    # answer. Measured: 125 of 131 transcripts have no `rateLimited` at all, including the 4 that
+    # certified `c821051`. ⚠️ This does NOT claim those were throttled; it says nothing can establish
+    # that they were not, and a gate that reads unjudgeable as passing is the failure this gate
+    # exists to end. Per-sha evidence expires when the build moves, so the cost is bounded to runs
+    # already recorded — every walk after this commit declares the field.
+    if "rateLimited" not in t:
+        out["not-rate-limited"] = (None, "the transcript predates the field — UNCHECKABLE, not clean")
+    else:
+        out["not-rate-limited"] = (not t.get("rateLimited"),
+                                   "the origin returned 429 during this walk" if t.get("rateLimited")
+                                   else "no 429 recorded")
 
     # ⭐ `instrumented` `[paul-stated 2026-09-06]`: "for everything that we do and see and observe that
     # we're capturing on the user side, there needs to also be as much as possible instrumentation on

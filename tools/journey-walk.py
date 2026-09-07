@@ -117,7 +117,14 @@ def view(url, actions, shot, watch=False, shot_dir=None):
             "checkpoints": cps,
             "error": r.stderr[-400:] if r.returncode else None,
             "failedActions": failed or None,
-            "rateLimited": ("429" in out) or ("rate-limited" in out)}
+            # ⛔ DECLARED, NEVER ABSENT — the rule `worker.js` already states for `personId` and
+            # which this writer was breaking: *"an absent field means written before the field
+            # existed; a null means written after it existed and nobody could supply it."* Measured
+            # 2026-09-07 across 131 transcripts: **6 carry `rateLimited`, all 6 `true`, ZERO `false`,
+            # 125 absent.** The field was only ever emitted when it fired, so absence meant either
+            # "clean" or "predates the field" and nothing could tell which — while a gate clause read
+            # it to refuse. `bool(...)` is explicit here so a False is written, not skipped.
+            "rateLimited": bool(("429" in out) or ("rate-limited" in out))}
 
 
 # ⭐ ONE CONTINUOUS JOURNEY, CHECKPOINTED — replaces the replay-every-prefix design

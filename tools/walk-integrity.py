@@ -35,12 +35,13 @@ def verdict(rundir):
     tpath = os.path.join(rundir, "transcript.json")
     seat = os.path.basename(os.path.dirname(rundir))
     run = os.path.basename(rundir)
-    out = {"seat": seat, "run": run, "dir": rundir, "refusals": [], "fingerprint": None,
+    out = {"seat": seat, "run": run, "dir": rundir, "refusals": [], "caveats": [], "fingerprint": None,
            "origin": None, "build": None, "answersSource": "unrecorded"}
     try:
         rec = json.load(open(tpath, encoding="utf-8"))
     except (OSError, ValueError) as e:
         out["refusals"].append(("no-transcript", "%s: %s" % (type(e).__name__, e)))
+        out.setdefault("caveats", [])
         return out
     out["origin"], out["fingerprint"] = rec.get("origin"), answers_fingerprint(rec)
     # Recorded by journey-walk since 2026-09-06 so the collapse is legible in the record itself and
@@ -111,6 +112,23 @@ def verdict(rundir):
     if rec.get("rateLimited") is True:
         out["refusals"].append(("rate-limited",
                                 "the origin returned 429 during this walk; which stop is not derivable"))
+    elif "rateLimited" not in rec:
+        # ⚠️ A CAVEAT HERE, A REFUSAL IN `release-gate` — A DELIBERATE ASYMMETRY, and its reason is
+        # the scope of the question each tool answers. THE FIELD IS EQUALLY UNKNOWN IN BOTH.
+        #
+        #   · `release-gate` certifies ONE candidate for PRODUCTION. A green there AUTHORISES AN ACT,
+        #     so absence must read UNCHECKABLE — and the cost is bounded, because the gate is per-sha
+        #     and every walk after 2026-09-07 declares the field.
+        #   · This tool grades a HISTORICAL CORPUS for reading. Measured: refusing on absence takes
+        #     countable from 67 to **0 of 131** — every run predates the field. That is a control
+        #     whose alarm is permanently on, which Paul has ruled against, and it would delete the
+        #     corpus's usefulness to answer a question nothing can answer.
+        #
+        # ⛔ So it is RECORDED, never silently dropped: `caveats` is separate from `refusals` and does
+        # not affect countability. A reader is told the walk cannot be shown to have been clean.
+        out["caveats"].append(("rate-limit-unrecorded",
+                               "predates the rateLimited field — nothing can establish this walk "
+                               "was not throttled; not a refusal, see release-gate for the gating read"))
 
     # R4 · a stop that never ran is not a stop that passed.
     # ⛔ THE PREDICATE WAS A DENY-LIST AND IT WENT DEAD. It named `("error", "rate-limited")` — and
@@ -139,6 +157,10 @@ def report(rows, countable_only=False):
                                                 r["answersSource"]))
             for kind, why in r["refusals"]:
                 print("        REFUSED · %-24s %s" % (kind, why))
+            # ⚠️ A caveat does NOT block counting, and it is printed anyway — a run that cannot be
+            # shown to be clean must not read identical to one that was checked and was.
+            for kind, why in r.get("caveats", []):
+                print("        ⚠️ caveat · %-22s %s" % (kind, why))
     for r in sorted(counted, key=lambda x: (x["seat"], x["run"])):
         if countable_only:
             print(r["dir"])
@@ -221,6 +243,16 @@ def selftest():
         d = mk("rl", "R1", rl, "# written\n")
         check("R5 · a run the origin 429'd is refused, in the shape the writer really emits",
               any(k == "rate-limited" for k, _ in verdict(d)["refusals"]))
+
+        # ⚠️ ABSENCE IS A CAVEAT HERE AND A REFUSAL IN release-gate — asymmetric ON PURPOSE, because
+        # refusing on absence takes this corpus to 0 of 131 countable. Both branches are proven.
+        miss = json.loads(json.dumps(clean)); miss.pop("rateLimited", None)
+        miss["stops"] = [{"stop": "05", "status": "walked", "screen": "ok"}]
+        d = mk("rlmiss", "R1", miss, "# written\n")
+        v = verdict(d)
+        check("a transcript with NO rateLimited field carries a CAVEAT, not a refusal",
+              any(k == "rate-limit-unrecorded" for k, _ in v["caveats"])
+              and not any(k == "rate-limit-unrecorded" for k, _ in v["refusals"]))
 
         ok_run = json.loads(json.dumps(clean))
         ok_run["rateLimited"] = False
