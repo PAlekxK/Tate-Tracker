@@ -83,10 +83,31 @@ def main():
     prior = None
     try: prior = json.load(open(STATE, encoding="utf-8"))
     except (OSError, ValueError): pass
-    st = derive(cleared=a.cleared, prior=prior, sha=a.sha)
+    # ⭐ THE CANDIDATE IS THE BUILD QA SERVES, NOT HEAD `[2026-09-07, the flex-point audit R3]`. Beat 1's
+    # own exit condition is "a sha is deployed to QA and qa-build.json reports it"; deriving against HEAD
+    # meant the commit that RECORDED lap 1's close re-fired the loop ("FIRED · beat 2 · candidate
+    # b5ae109") while the file said cleared. HEAD is a candidate only once it is served.
+    sha = a.sha
+    note = None
+    if not sha:
+        try:
+            spec = importlib.util.spec_from_file_location("jw", os.path.join(ROOT, "tools", "journey-walk.py"))
+            jw = importlib.util.module_from_spec(spec); spec.loader.exec_module(jw)
+            served = jw.served_sha("qa")
+            head = subprocess.check_output(["git", "-C", ROOT, "rev-parse", "HEAD"], text=True).strip()
+            if served:
+                sha = served
+                if not head.startswith(served[:7]):
+                    note = "  (candidate = the build QA serves, %s; HEAD %s is not deployed — deploy to QA to make it the candidate)" % (served[:7], head[:7])
+            else:
+                note = "  (QA's served sha is unreadable — deriving against HEAD %s)" % head[:7]
+        except Exception as e:
+            note = "  (could not read QA's served sha: %s — deriving against HEAD)" % (str(e)[:60])
+    st = derive(cleared=a.cleared, prior=prior, sha=sha)
     print("release loop — %s · beat %d/%d (%s) · owner: %s · candidate %s · seats pass: %s"
           % (st["state"], st["beat"]["n"], st["beat"]["of"], st["beat"]["name"], st["beat"]["owner"],
              st["candidate_sha"], st["gate_1"]["seats_pass"]))
+    if note: print(note)
     if a.write:
         os.makedirs(os.path.dirname(STATE), exist_ok=True)
         json.dump(st, open(STATE, "w", encoding="utf-8"), indent=1, ensure_ascii=False)
