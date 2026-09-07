@@ -164,3 +164,71 @@ Raw input, not seat work: `2026-09-07-lap2-CLOSE-HANDOVER.md` · `2026-09-07-lap
 ⚠️ **Two caveats that travel with everything above.** Paul is **n=1 and the builder** — that is stated
 at every claim in the census. And the UX review is a **source review, not a walk**; it must not be
 counted toward `release-gate` or the two-pass `/ux-sweep` clock.
+
+---
+
+## 7 · PAUL'S RULINGS, 2026-09-07 evening — four of the seven settled
+
+### ✅ J-a — RULED: **the freeze does NOT follow Mom to production**
+`paul-ruled`: *"Absolutely no freeze on Mom's new account in production. Left that behind with the
+old Fernwood."*
+**Consequence:** GAP 1 is UNBLOCKED. Her arrivals on `est-e6696a` are live input from the moment she
+arrives, and `watch-feedback.py` / `watch-accounts.py` may read and act on them without a further
+ruling. The FOCUS FREEZE remains what it always was — a rule about the FROZEN estate.
+
+### ✅ J-b — RULED: **Paul ranks. The seats advise on criticality, in lane.**
+`paul-ruled`: *"the customer researcher is supposed to really help consolidate all the feedback and
+data and information and say what matters most to the customer. But all the seats really… if there's
+something critical on the build side, that needs to get surfaced to super high priority. So it's
+kinda up to me, but the experts should weigh in on what's critical to do, to scope out, and so on."*
+
+**What this settles:** no new product-owner seat is minted. Paul holds the decision. Two duties are
+added to existing seats:
+- **user-researcher** — consolidate feedback/data and say **what matters most to the customer**.
+- **every seat** — surface anything CRITICAL in its own lane at high priority, unprompted.
+
+⚠️ **AND IT CONFLICTS WITH THE CHARTERS AS WRITTEN — reconcile before the next run.**
+`user-researcher`'s foundation says it does not pitch features; `practice-steward`'s says it *"may
+never say one item matters more than another"*; `product-steward`'s table says **may not RANK
+anything**. Paul has just asked for advisory criticality from all of them. The distinction that makes
+this coherent, and it must be written into the charters explicitly: **a seat may state CRITICALITY
+WITHIN ITS OWN LANE and must show its evidence; no seat may rank ACROSS lanes, and none decides.**
+Until that edit lands, a seat asked to weigh in is being asked to violate its own foundation.
+
+### ✅ J-f — RULED: **keep the zone work for reference; Mom starts BLANK**
+`paul-ruled`: *"all the zone work that we've done up until this point, we keep for reference, but
+we're not automatically porting that over as it is into Mom's account when she sets it up in the new
+production. She's starting with a blank slate unless I say otherwise."*
+
+**What this settles:** the irreversible half. Nothing is pre-filled, so **the 23 hand-traced zones
+survive as the answer key** and the measurement stays available. Consistent with the 09-06 ruling
+(*"show Mom her map but without any zones when she gets there in production"*).
+
+⚠️ **THE CONSEQUENCE HE DID NOT RULE, AND IT IS NOW HARDER, NOT GONE.** `Z-ACK` — the acknowledgment
+owed for her zone work — was going to be discharged **by construction**, because the proposal's answer
+was *"showing her the map she made IS the acknowledgment"*
+(`.plans/2026-09-06-maps-and-zones-PROPOSAL.md:573`). Under this ruling she never sees those 23 zones
+in the new product, **so the debt no longer discharges itself and now needs a deliberate form.**
+It is not blocked — it needs a decision about HOW, and it should not be allowed to lapse silently
+just because the mechanism that would have paid it was removed. → content-steward + Paul.
+
+### 🟡 J-g — SCOPED, not narrowed: **the session's job IS the breadth**
+`paul-stated`: *"there's all these different concepts of zone work and how it's used and how we can
+evolve it over time… really need to spend some time scoping it out as a feature — what it means,
+concepts, journeys, and so on. That's a pretty open-ended discussion. That's why I wanted a pretty
+focused session for it."*
+**So the earlier question — "which of the four zone threads?" — is answered by rejecting the premise.**
+The session scopes zone work AS A FEATURE: what it is, the concepts, the journeys, how it evolves.
+⛔ It produces concept → design → journey, and **NO production release** — the named test case for
+whether the staged pipeline can advance something a stage and ship nothing without reading as failure.
+
+### ⬜ J-e — STILL OPEN, and Paul has asked for it to be scoped WITH him, not ruled at him
+`paul-stated`: *"I still don't understand. I'm open to your further thoughts, but some of that we're
+gonna have to learn by doing… part of the scoping session is what kind of standard sources can we
+find, how much of it needs to be custom to be valuable in terms of local publications. Do we just
+want to provide links to various helpful websites to start? I think we can kinda scope that
+together."*
+⭐ **His own instinct — start with LINKS — is the safest possible version of the boundary and needs no
+AI ruling at all.** A link is membership-by-rule. Folded into the same scoping session as J-g.
+Remaining open: **J-c** (the lap-state contract — I applied one shape tonight; ratify or reverse) and
+**J-d** (colour precedence).
