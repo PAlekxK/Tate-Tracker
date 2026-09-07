@@ -812,3 +812,9 @@ Make it flexible."*
   from-scratch run meets the new build from the first screen.
 - Builds certified today, in order: `ca9161e` (deployed 10:12) · `6d42a01` · `b0ce794` · `50f28ff` ·
   **`c821051` (deployed 11:35)**. Rounds 10–15 of lap 1.
+
+### 11:45 ET (Sep 7) — beat 3 at `c821051`: Paul walked it from scratch
+- `paul-stated` (verbatim): *"OK I just went through and it looks pretty good!"* — his from-scratch
+  run on the reset account, in a fresh incognito window, on the deployed build. No failure reported.
+- Whether that is his CLEAR (beat 5, the release event) is asked, not assumed; `--cleared` is
+  written only on his word.
