@@ -5,10 +5,24 @@
 engine that explicitly transcends Fernwood**. Different grain, so a different file — the same move
 this repo already made for `MOM-CYCLE-MAP.md` and `cycle/fleet/CYCLE-MAP.md`.
 
-> ⛔ **STILL CAPTURE-ONLY. Nothing is scoped, nothing is decided, no build has started.**
-> `paul-stated 2026-09-01`: *"that's a whole nother big work stream that will need to involve a lot
-> of research probably in all the experts weighing in, but I wanna capture that for a backlog for
-> later."*
+> 📜 **HOW IT OPENED** — `paul-stated 2026-09-01`: *"that's a whole nother big work stream that will
+> need to involve a lot of research probably in all the experts weighing in, but I wanna capture that
+> for a backlog for later."* This file said **"STILL CAPTURE-ONLY — nothing is scoped, nothing is
+> decided, no build has started"** from that day until **2026-09-07**, when lane D measured it false
+> on three counts and corrected it here rather than leaving the plan of record opening on a sentence
+> nobody could act on:
+>
+> - **Scoped and decided:** five plans carry `ready: [paul-approved 2026-09-03]` — C4 · C5 · C6 · C7 ·
+>   Guru (§ THE SEQUENCE below). Paul ruled the tenancy unit and the login on **2026-09-02** (§ PAUL
+>   RULED, below).
+> - **Built:** `.plans/2026-09-03-c4-environments-PLAN.md` is `stage: build`;
+>   `.plans/2026-09-03-c5-record-prep-PLAN.md` is `stage: retro`.
+> - **Shipped:** `.plans/2026-09-05-production-promotion-PLAN.md` is `stage: executed` — *"PRODUCTION
+>   PROMOTED AND VERIFIED @ bce212a (2026-09-05 ~23:00)"*.
+>
+> ⚠️ **What IS still capture-only is most of the material BELOW § THE SEQUENCE** — the expansion model,
+> personalization, the one-box vision, C0's six questions. Those sections say so on their own faces.
+> **Read the sequence for the plan; read the rest for the capture.**
 
 ---
 
@@ -94,7 +108,20 @@ be invited at all · have an address standardised. That list is the backlog this
 
 ## ▶️ THE SEQUENCE — read this before anything below it
 
-> 🧊 **FOCUS FREEZE `[paul-stated 2026-09-03]` — this workstream is the ONLY active Fernwood work.** Instance work (mom-cycle proactive legs, fleet laps, new content) rests until the release condition in `BACKLOG.md` § FOCUS FREEZE. ✅ Both edges RULED 2026-09-03: **Mom's arrivals are HELD unread (nothing ingested, nothing actioned) and the freeze lifts on Paul's word only** — shipping C4/C5 does not lift it.
+> 🧊 **THE FREEZE, as it actually stands.** ✅ **The half that holds, and it is the load-bearing half:**
+> **Mom's arrivals are HELD unread** — nothing ingested, nothing actioned — **and the freeze lifts on
+> Paul's word only**; shipping C4/C5 does not lift it `[both edges RULED 2026-09-03]`. Instance work
+> (mom-cycle proactive legs, new content) rests. Release condition: `BACKLOG.md` § FOCUS FREEZE.
+>
+> ⚠️ **CORRECTED 2026-09-07 (lane D). This banner said *"this workstream is the ONLY active Fernwood
+> work"* and that has been false since 2026-09-04** — reported as 🔴 STALE on 09-04 in
+> `.plans/2026-09-04-process-wiring-AUDIT.md` §A.5 item 1 and unfixed for three days, which mattered
+> because it was the first sentence a reader met in the plan of record. Superseded three times, each in
+> `BACKLOG.md`: the **migration is deferred and not open work** `[paul-stated 2026-09-04 ~10:45 AM ET]` ·
+> the **features hold is LIFTED on QA** `[paul-stated 2026-09-04 ~11:50 AM ET]` · **Track B vehicles &
+> equipment are partially unfrozen — WORK lifted, PUSH frozen** `[paul-stated 2026-09-06]`. Since then
+> the release loop has run lap 1 (`cycle/release/CYCLE-LOG.md`) and lap 2 is running four lanes
+> (`cycle/LAP-2-WORK-QUEUE.md`). **The freeze is on her CHANNELS, not on the work.**
 
 The findings below are evidence, not a plan. **This is the plan.** The dependencies are real, and
 each one is READ from its plan's own `depends-on:` field rather than asserted here.
@@ -165,9 +192,21 @@ already argued against enlarging it.** `../fernwood-private/.user-research/2026-
 (`evidence_level: assumption`; its release condition is one observable event — **an owner misses
 something at one place because he was looking at another**). And §2.2 argues he asked for **sense (ii),
 the build-management loop**, not a product surface — *"'manage the project and the product' is
-unambiguously build management."* ⭐ **Lap 2's `product-steward` trial (`cycle/LAP-2-WORK-QUEUE.md` B1)
-IS sense (ii).** So the live question is not *which artifacts next* — it is: **does step 4 close as
-ANSWERED by that trial, or stay open for a different artifact set?** **Paul's.**
+unambiguously build management."*
+
+⛔ **THE TWO SENSES MUST NOT CLOSE TOGETHER, and a fast answer will close both.** They have different
+users, different triggers and different evidence (§2.1's table), so step 4 splits in two and each half
+needs its own answer:
+
+| sense | what it is | who | evidence today | who can close it |
+|---|---|---|---|---|
+| **(ii) build-management** | *"keep the instances from diverging"* — a **seat with no decision authority**, a citation-bound carrier | `paul-at-the-gate`, structurally only ever Paul | ✅ he asked for it, in these words, twice | lap 2's `product-steward` trial (`cycle/LAP-2-WORK-QUEUE.md` B1) **is** this sense — the trial can answer it |
+| **(i) owner product surface** | *"tell me which of my places needs me"* — a **screen** | R1 owner-steward, and Bob | ⚠️ **none — nobody has asked for it** | **only the observable event above.** No trial and no artifact can close it |
+
+**So Q-S3 is:** does step 4's *build-management* half close as ANSWERED by the trial? ⛔ **If it does,
+the product-surface half does NOT close with it** — it stays open, on its own row, held by
+`[[feedback_defer_affordances_pending_signal]]` and released by that one event. **Paul's, and it is
+two answers, not one.**
 
 **Q-S4 · Two ordering facts reported here without resolving.** ⓐ `onboarding` sits at `stage: qa`
 while its own declared dependency `vocabulary-nicknames` sits at `stage: concept` — the dependency is

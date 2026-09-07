@@ -2765,14 +2765,21 @@ environments, namespace separation, what CI runs). Different questions — run a
 > mid-backlog is unfindable, which is the exact failure the market-digest repo paid for with a
 > 63 KB pickup point.
 
-**▶️ Start at [`PRODUCT-ENGINE.md`](PRODUCT-ENGINE.md).** It opens with **THE SEQUENCE** — the
-ordered path (fleet lap 1 → review the mines → user-researcher interview → agile artifacts → *then*
-architecture) — followed by an index of where every 2026-09-01 thread lives, then the full capture:
-the six questions · the four couplings · the auth reframe · the one-box vision and its measured
-~123K-token ceiling · the detail-vs-card split · tools & supplies · and how it opens.
+**▶️ Start at [`PRODUCT-ENGINE.md`](PRODUCT-ENGINE.md).** It opens with **THE SEQUENCE › *The
+migration path*** — C4 → C5 → {C6 · C7 · Guru} → vocabulary-nicknames → onboarding, each row citing its
+plan — followed by an index of where every 2026-09-01 thread lives, then the capture: the six questions
+· the four couplings · the auth reframe · the one-box vision and its measured ~123K-token ceiling · the
+detail-vs-card split · tools & supplies · and how it opens.
 
-⚠️ **Still CAPTURE-ONLY.** Nothing scoped, nothing decided, no build started. `paul-stated`: *"I
-wanna capture that for a backlog for later."*
+⚠️ **CORRECTED 2026-09-07 (lane D) — this pointer described a path that is no longer there, and a state
+that is no longer true.** It named *"fleet lap 1 → review the mines → user-researcher interview → agile
+artifacts → then architecture"*, which is the **scoping run** that preceded the plan (all five rows
+closed 09-01/09-02; kept as evidence under § THE SCOPING RUN THAT PRECEDED IT), and it said **"Still
+CAPTURE-ONLY. Nothing scoped, nothing decided, no build started."** Measured false on three counts: five
+plans carry `[paul-approved 2026-09-03]`; C4 is `stage: build` and C5 `stage: retro`; and
+`.plans/2026-09-05-production-promotion-PLAN.md` is `stage: executed` — *"PRODUCTION PROMOTED AND
+VERIFIED @ bce212a"*. **What is still capture-only is the material BELOW § THE SEQUENCE**, and those
+sections say so on their own faces.
 
 **What stayed in THIS file**, because it is Fernwood's own work rather than the engine's:
 § 🧑‍🔧 **CONTRACTORS & TRUSTED PEOPLE** · § **B0** (Track B has no ask loop) · § **A3** (the
