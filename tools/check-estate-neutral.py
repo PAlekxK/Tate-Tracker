@@ -48,7 +48,17 @@ def _shipped_pages():
         # `<title>My Home</title>`. ⭐ Excluded WITH ITS REASON rather than allow-listed as a token —
         # the file is out of scope, the string is not forgiven. Use `--url` to check the real origin,
         # which is the only surface that can answer for a generated file.
-        allow = [a for a in allow if a != "index.html"]
+        # ⛔ TWO SHIPPED FILES ARE GENERATED AT DEPLOY AND ARE NOT WHAT THE REPO HOLDS:
+        #   index.html   — pages-deploy OVERWRITES it with a "My Home" redirect.
+        #   viewer.html  — pages-deploy REBUILDS it from `instance/<env>.json`, so a household
+        #                  origin serves ITS OWN app. The tracked file is FERNWOOD'S build and is
+        #                  supposed to name Fernwood; scanning it reports 309 tokens that no
+        #                  household can reach.
+        # ⭐ EXCLUDED WITH THEIR REASON, never allow-listed as tokens: the FILES are out of scope
+        # for a static scan, the STRINGS are not forgiven. The only honest check for a generated
+        # file is the ORIGIN — `--url https://<host>/viewer.html` — or the built artifact itself,
+        # `--page /tmp/<neutral build>`. Both are used; neither is optional.
+        allow = [a for a in allow if a not in ("index.html", "viewer.html")]
     except Exception:
         allow = []
     out = [os.path.join(ROOT, *a.split("/")) for a in allow]

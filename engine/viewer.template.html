@@ -3662,6 +3662,15 @@
      2026-05-27: absorb the Property card with a visual lead so Mom can SEE
      the surface before tapping). Dark gradient at the bottom carries the
      title + sub text. */
+  /* ⭐ The empty-card invitation. Deliberately NOT styled as a warning or an error: this is the
+     card speaking in its ordinary voice about what it will hold. Same measure as body copy so it
+     reads at A+ without the reader doing anything. */
+  .empty-invite { margin: 2px 0 4px; }
+  .empty-invite p { margin: 0 0 8px; line-height: 1.55; }
+  .empty-invite-holds { color: var(--ink, #23301f); }
+  .empty-invite-source { color: var(--ink-soft, #5d6b57); }
+  .empty-invite-ask { color: var(--ink-soft, #5d6b57); font-style: italic; }
+
   .dash-cell.dash-imagery {
     background-image:
       linear-gradient(to bottom,
@@ -17367,6 +17376,98 @@ function moduleState(name) {
   return n > 0 ? "populated" : "empty";
 }
 
+// ⭐⭐ WHAT AN EMPTY CARD SAYS `[paul-ruled 2026-09-06]`: "a card can be present and empty as long
+// as there's a message around 'we're building it', and it's also 'we're building it based on this
+// input that you provided us'… we can at least put in their confirmation — can you confirm? Can you
+// provide any more information?"
+//
+// THREE LINES, NEVER FOUR — drafted by content-steward, register `orienting`:
+//   1  STATE + HOLDS   "Nothing here yet." + what this card will hold
+//   2  SOURCE          why it is here, traced to THEIR OWN ranking
+//   3  ASK             the confirmation invitation
+//
+// ⛔ THERE IS NO EMPTY-BRACKET PATH, BY CONSTRUCTION. A missing slot removes its whole line or
+// selects a different variant — variant B IS the degraded render, a finished piece of writing with
+// no line 2 at all. Never a template with a hole in it.
+// ⛔ NO CARD MAY EVER SAY WE WILL GET BACK TO YOU. Contact preference is deliberately unused here:
+// the Worker has no send capability by design, and a person who chose "please don't" would be told
+// about a channel they declined. Both asks are answered in the app.
+// ⚠️ NO DATE, NO FEATURE PROMISE. "This is where we start" is a statement about order of attention,
+// and it restates a promise the ranking screen already made rather than making a new one.
+const EMPTY_CARD_COPY = {
+  "garden": {
+    label: "Gardening",
+    a: "Nothing here yet. This is where what's planted will live — what's coming into season, what needs cutting back.",
+    b: "Nothing here yet. If there's anything growing at your place — beds, a few pots, one tree you keep an eye on — this is where it would live."
+  },
+  "wildlife": {
+    label: "Wildlife",
+    a: "Nothing here yet. This is where what shows up at your place will live — what's around, and when.",
+    b: "Nothing here yet. If you notice what comes and goes — at a feeder, in the yard, over the water — this is where it would go."
+  },
+  // ⚠️ the reader-facing word is VEHICLES, which is what they ranked. `motor-pool` is schema only.
+  "motor-pool": {
+    label: "Vehicles",
+    a: "Nothing here yet. This is where anything with an engine will live — what it is, and what's been done to it.",
+    b: "Nothing here yet. Anything with an engine belongs here — a car, a mower, a tractor — along with what's been done to it."
+  },
+  "equipment": {
+    label: "Equipment and tools",
+    a: "Nothing here yet. This is where your tools will live — what you own, where it's kept, and what it needs.",
+    b: "Nothing here yet. What you own, where it's kept and what it needs — that's what this holds, whenever you're ready to put it down."
+  },
+  // ⛔ "Household systems" is Mom's own coined phrase and is protected — do not normalise it. And
+  // deliberately NOT "the well, the septic, the heating", which presumes a kind of place.
+  "house-systems": {
+    label: "Household systems",
+    a: "Nothing here yet. This is where the things that keep the place running will live — water, heat, power — and when each was last seen to.",
+    b: "Nothing here yet. Water, heat, power, whatever else keeps the place running — this is where what they are and when they were last seen to would live."
+  }
+};
+
+// Their ranking, if the app knows it. Absent → every card renders variant B, which is a complete
+// piece of writing rather than a fallback.
+let READER_RANKING = [];
+function emptyCardSource(mod) {
+  const c = EMPTY_CARD_COPY[mod];
+  if (!c) return null;
+  const i = READER_RANKING.indexOf(mod);
+  if (i === 0) return "You put " + c.label + " first, so this is where we start.";
+  if (i === 1 || i === 2) return "You put " + c.label + " near the top, so it's one of the first we're working on.";
+  if (i > 2) return "You put " + c.label + " on the list, so we know it belongs here.";
+  return null;
+}
+
+function renderEmptyCards() {
+  document.querySelectorAll(".main-card[data-module]").forEach(card => {
+    const mod = card.dataset.module;
+    if (moduleState(mod) !== "empty") {
+      const old = card.querySelector(".empty-invite");
+      if (old) old.remove();
+      return;
+    }
+    const copy = EMPTY_CARD_COPY[mod];
+    if (!copy || card.querySelector(".empty-invite")) return;
+    const source = emptyCardSource(mod);
+    const el = document.createElement("div");
+    el.className = "empty-invite";
+    const holds = source ? copy.a : copy.b;
+    // ⭐ Ask-A only where line 2 exists: on a card echoing nothing, "have we got this right" refers
+    // to nothing. Ask-B asks the only question available there — does this belong at your place.
+    const ask = source
+      ? "Have we got this right — and is there more we should know?"
+      : "Is there anything like this at your place?";
+    el.innerHTML = '<p class="empty-invite-holds"></p>'
+                 + (source ? '<p class="empty-invite-source"></p>' : "")
+                 + '<p class="empty-invite-ask"></p>';
+    el.querySelector(".empty-invite-holds").textContent = holds;
+    if (source) el.querySelector(".empty-invite-source").textContent = source;
+    el.querySelector(".empty-invite-ask").textContent = ask;
+    const body = card.querySelector(".main-card-body") || card;
+    body.appendChild(el);
+  });
+}
+
 function applyModuleTiles() {
   // PRESENCE — cards and the master card stay unless the module is OFF.
   document.querySelectorAll("[data-module]").forEach(el => {
@@ -17387,6 +17488,7 @@ function applyModuleTiles() {
 
 function renderDashboardStrip() {
   applyModuleTiles();
+  renderEmptyCards();
   const cur   = WEATHER_DATA.current;
   const daily = WEATHER_DATA.daily;
   const alerts = generateAlerts();

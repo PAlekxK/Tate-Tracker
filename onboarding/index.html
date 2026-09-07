@@ -854,7 +854,12 @@
   // subject does, this list is teaching us about itself and not about anybody's place.
   var INTERESTS = [
     { id: "house-systems", label: "Household systems",
-      desc: "The well, the septic, the heating — what they are and when they were last seen to.",
+      // ⛔ WAS "The well, the septic, the heating" — which presumes a kind of place. A condo has
+      // none of those three. Paul ruled 2026-09-06 that this list must never assume what kind of
+      // place someone has, and the list was REORDERED for that reason — but the DESCRIPTIONS were
+      // never re-read under the new rule. Found by content-steward drafting the in-app copy, which
+      // is the second time a ruling has been applied to a list's order and not to its words.
+      desc: "Water, heat, power — what they are and when they were last seen to.",
       builds: ["house-systems", "service-history"] },
     { id: "papers", label: "Papers and documents",
       desc: "Warranties, manuals, deeds — the things someone would need if you weren't there.",
