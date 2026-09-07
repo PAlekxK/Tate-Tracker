@@ -301,7 +301,17 @@
     if (mine) {
       try {
         var c = JSON.parse(read(K_COORDS) || "null");
-        placed = !!(c && isFinite(Number(c.latitude)) && isFinite(Number(c.longitude)));
+        // ⛔ `typeof === "number"`, NOT `isFinite(Number(x))`. Number(null) is 0 and isFinite(0) is
+        // true, so the Number() form passed BOTH the half-coordinate this block names and a
+        // {latitude:null, longitude:null} pair — the second a REGRESSION on the previous
+        // `latitude != null` test, in the exact direction this block exists to prevent. Found
+        // 2026-09-07 by the owner seat, reproduced in node. Neither shape is reachable today
+        // (worker.js:3643 returns a bare null and :484 skips falsy values, so the key is never
+        // written) — and that is the point: the predicate was being saved by a falsy check in
+        // another file rather than by its own design, which is the same accidental safety that
+        // masked the gauge leak (an allow-list) and the zones leak (deploy-time pruning).
+        placed = !!(c && typeof c.latitude === "number" && isFinite(c.latitude)
+                      && typeof c.longitude === "number" && isFinite(c.longitude));
       } catch (e) {}
     }
     // ⛔ BOTH SENTENCES OR NEITHER. Fixing only #doorlede made this card CONTRADICT ITSELF — measured
@@ -319,9 +329,18 @@
   } catch (e) {}
   var name = mine ? read(K_NAME) : null;
   if (name) { el("place").textContent = name; document.title = name; }
-  var hex = read(K_COLOR);
+  // The seventh and last person-scoped read on this card. A colour is lower stakes than a username
+  // or a ranking — it is guarded anyway, because INCONSISTENT application of this guard is what
+  // produced the defect: four of seven reads had it, and the three that did not were the ones that
+  // leaked. A visitor who does not own the stored answers gets the default, which is correct.
+  var hex = mine ? read(K_COLOR) : null;
   if (hex && /^#[0-9a-fA-F]{6}$/.test(hex)) document.documentElement.style.setProperty("--accent", hex);
-  var user = read(K_USER);
+  // ⛔ OWNER-GUARDED, 2026-09-07. This card had SEVEN person-scoped reads and the guard reached
+  // FOUR. `fw-username` and `fw-onboard-interests` were bare — so on the shared device the guard
+  // exists for, the card would omit one person's name and address while printing ANOTHER person's
+  // username and their ranked priorities. Those are more identifying than the coordinates that
+  // prompted the guard. Found by the wide-eyed seat reading three lines below my own fix.
+  var user = mine ? read(K_USER) : null;
   if (user) { el("who").textContent = "Signed in as " + user; el("who").hidden = false; }
 
   // ── the rows ───────────────────────────────────────────────────────────────────────────────
@@ -387,7 +406,8 @@
   // would be a confidently-wrong number on the exact surface whose job is to be trusted. When an
   // address→coordinates→zone path exists, this row is where its output belongs.
   var ranked = null;
-  try { ranked = JSON.parse(read(K_RANK) || "null"); } catch (e) { ranked = null; }
+  // Owner-guarded with the rest — a ranking is a statement of what someone cares about most.
+  try { ranked = mine ? JSON.parse(read(K_RANK) || "null") : null; } catch (e) { ranked = null; }
   // ⛔ AN EMPTY RANKING IS NOT A MISSING ONE. She looked at the list and chose nothing, which is a
   // real answer; the row is omitted rather than printing "(none chosen)" at her, because silence
   // beats telling someone their answer was empty. But the two states stay distinguishable in the
