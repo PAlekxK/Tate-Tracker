@@ -662,7 +662,16 @@ written — a bundle chosen implicitly is how a second vocabulary starts.
 > multiple release logs — one kind of overall for the estate manager, then release logs for each
 > individual estate."*
 
-**`measured 2026-09-07 at a96d931`, and it is a live surface, not a tidiness item.** The lookup is
+⭐ **READ THIS FIRST: PAUL IS NOT REVERSING HIMSELF — HE IS REACHING A QUESTION HIS OWN RULING DID NOT
+CONTEMPLATE.** `tools/build-viewer.py:320` carries `[paul-stated 2026-09-03: nothing to display → no
+indication of it]`. That ruling answered *"what if an instance has no notes of its own"*, and answered
+it correctly. It never reached *"an engine change every estate should see has no log to land in"* —
+because the only log class that exists is the instance's. **This is an extension, not a correction**,
+and the distinction is this project's own rule: *reversing a decision is fine; reversing it without
+noticing we are reversing it is not.*
+
+**`measured 2026-09-07 at a96d931` — a real gap on a live surface, though NOT an urgent one; the
+release condition is at the foot of this section.** The lookup is
 single-class and instance-scoped: `tools/build-viewer.py:325` reads `<canon>/RELEASE_NOTES.md`; a
 missing file builds `[]`, and `engine/viewer.template.html:19146` then hides the *Recent updates* card
 outright.
@@ -673,16 +682,12 @@ outright.
 | `home.json` (`est-e6696a`) | `neutral-canon` | ⛔ none | **hides** |
 | `qa.json` · `bob.json` · `paul.json` | `neutral-canon` | ⛔ none | **hides** |
 
-⭐ **THIS IS RULED BEHAVIOUR, NOT A BUG, AND THAT IS THE POINT.** `build-viewer.py:320` carries
-`[paul-stated 2026-09-03: nothing to display → no indication of it]`. The 09-03 ruling answered *"what
-if an instance has no notes of its own"* — correctly. **It never reached the question Paul is asking
-now:** an engine change that every estate should see has no log to land in, because the only log class
-that exists is the instance's. Nothing is being reversed here.
-
 ⛔ **AND IT UNDERCUTS A PREMISE WRITTEN INTO `CLAUDE.md`.** The acknowledgment ribbon is permitted to be
 pure attribution on stated grounds: *"✅ The premise is verified: the app carries a changelog… The
 ribbon therefore never has to inform; that job is already taken."* On four of five instances that job
-is taken by **nothing**. ⚠️ **The premise did not rot — it was narrowed.** It was verified on
+is taken by **nothing**. ⚠️ It is not *biting* today only because those instances also declare the
+ribbon absent — which is why the release condition below is an event, not a date. ⚠️ **And the premise
+did not rot — it was narrowed.** It was verified on
 2026-08-04, when Fernwood was the only instance, and became false for households the moment the engine
 gained them. Nothing re-ran it. Same shape as every measured-once-inherited-as-current failure this
 corpus records.
@@ -714,10 +719,34 @@ hydrangea"*; two lists are honest about scope and cost a reader a second place t
 request keeps her card quiet but hides the thing she is most likely to notice changing. Each is
 defensible and none follows from the measurement.
 
-⚠️ **A deadline touches this, so it is stated rather than assumed.** `home.json` is `est-e6696a` — the
-production estate Mom is migrating to. She is moving **off the one instance that has a changelog onto
-one that has none**, arriving at a ribbon designed on the premise that a changelog is there. Whether
-that is acceptable for the first day is Paul's call and is separable from the architecture above.
+### ⏳ NOT URGENT, AND THE RELEASE CONDITION IS EXACT
+
+⚠️ **`home.json` is `est-e6696a`, the estate Mom migrates to — so this was checked against tomorrow
+before being filed, and it does NOT land on arrival.** A first reading (mine, and lane A's for about
+ninety seconds) was that she arrives at a ribbon whose premise is a changelog that is not there.
+**Measured, that is wrong, and the reason is better than the fear:**
+
+`instance/home.json` declares `"ack"` in its **`absent`** list (`instance/fernwood.json` declares
+`absent: []`). `build-viewer.py:268` reads that key — its own comment at `:270` says *"template-literal
+records (`MOM_ACK_DATA`) can be switched off per instance"* — and the render guard at
+`viewer.template.html:11971` tests `ABSENT_DOMAINS.includes("ack")` **before it ever looks at the
+message**. ⭐ **So the household's silence on both surfaces is a DECLARATION, not an accident**, which
+is this repo's own *declared absence is not drift* doctrine working exactly as designed. An empty
+message would have been luck and could change the moment somebody wrote one; a declaration holds.
+
+⭐ **THE RELEASE CONDITION, therefore, is not a date — it is an event:** *the tension bites the moment
+`ack` stops being declared absent at a household.* That is when a ribbon renders on a surface whose
+changelog does not exist, and it is checkable rather than remembered.
+
+### 🧩 A SECOND WORKED EXAMPLE ON THE SAME AXIS — instance content living in engine code
+
+`MOM_ACK_DATA` is a **hardcoded literal in `engine/viewer.template.html`** (`:11438-11639`, zero
+`{{…}}` placeholders), and it carries `acknowledgedThrough` — **a Fernwood timestamp** — into every
+instance's build, `est-e6696a` included. It is inert today only because those instances declare `ack`
+absent. ⛔ **Named, not fixed:** whether that record should be instance canon rather than engine code
+is an engine decision, and it belongs to whoever owns the declaration axis — not to this file. It is
+recorded here because it is the *same* engine-vs-instance question as the release notes, one layer
+down, and the two should be answered together rather than twice.
 
 ### 🧭 THE SETUP JOURNEY — invite → account → profile → devices joined `[paul-stated 2026-09-03]` — CAPTURE ONLY
 
