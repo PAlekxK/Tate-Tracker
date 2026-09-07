@@ -86,8 +86,20 @@ status; nothing here is closed, dropped or re-tiered.
 > log's last section before touching the onboarding, the estate page or the household first-open.
 
 **What is ACTIVE** — the migration only: **O3** (and Guru under **O2** as an engine item). C4 in the pipeline;
-C5 · C6 · C7 · Guru at Paul's stamp gate. Plan of record: `PRODUCT-ENGINE.md` § THE SEQUENCE + the five
-`.plans/2026-09-03-*-PLAN.md` files. ⛔ The WIP rule stands: one item between concept and QA.
+C5 · C6 · C7 · Guru at Paul's stamp gate. ⛔ The WIP rule stands: one item between concept and QA.
+
+**Plan of record: `PRODUCT-ENGINE.md` § THE SEQUENCE › *The migration path*** — repaired 2026-09-07 so
+that it names C4 · C5 · C6 · C7 in dependency order with a citation and a state per row. ⚠️ **What this
+line said until today did not resolve:** the section it pointed at was the *scoping run* (fleet laps ·
+conversation mines · the interview · PM artifacts · architecture options) and **named none of the four**
+(`.plans/2026-09-07-pipeline-flex-point-AUDIT.md` §0 Alignment · §4.1). The five stamped plans, named
+rather than globbed — a glob resolves to **seven** files here, two of them unruled:
+`c4-environments` · `c5-record-prep` · `c6-door-for-paul` · `c7-condo-paper-model` · `guru-retrieval`,
+each `.plans/2026-09-03-<slug>-PLAN.md`. ⛔ **No state is typed here** — each plan's own `stage:` is the
+state, and `grep -H '^- stage:' .plans/2026-09-03-c[4-7]*-PLAN.md .plans/2026-09-03-guru-*-PLAN.md`
+reads all five. Downstream and in the same path: `.plans/2026-09-04-vocabulary-nicknames-PLAN.md` → `.plans/2026-09-05-onboarding-PLAN.md`.
+**Four open questions the repair found and did not answer — Q-S1 … Q-S4 — are in that section, and
+they are Paul's.**
 
 **Two edges — ✅ RULED `[paul-stated 2026-09-03]`, and BOTH proposed defaults were REJECTED:**
 

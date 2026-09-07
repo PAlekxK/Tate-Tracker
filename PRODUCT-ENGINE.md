@@ -96,15 +96,99 @@ be invited at all · have an address standardised. That list is the backlog this
 
 > 🧊 **FOCUS FREEZE `[paul-stated 2026-09-03]` — this workstream is the ONLY active Fernwood work.** Instance work (mom-cycle proactive legs, fleet laps, new content) rests until the release condition in `BACKLOG.md` § FOCUS FREEZE. ✅ Both edges RULED 2026-09-03: **Mom's arrivals are HELD unread (nothing ingested, nothing actioned) and the freeze lifts on Paul's word only** — shipping C4/C5 does not lift it.
 
-The findings below are evidence, not a plan. **This is the plan.** The dependencies are real: do
-not start at step 3.
+The findings below are evidence, not a plan. **This is the plan.** The dependencies are real, and
+each one is READ from its plan's own `depends-on:` field rather than asserted here.
+
+> ⚠️ **REPAIRED 2026-09-07 (lap 2, lane D). What stood here until today was the SCOPING RUN, not the
+> plan.** Five closed rows — fleet laps · conversation mines · the interview · PM artifacts ·
+> architecture options — that **named none of C4 · C5 · C6 · C7**, while `BACKLOG.md` § FOCUS FREEZE
+> pointed at this section as *"the plan of record"* for exactly those four. Finding, `measured`:
+> `.plans/2026-09-07-pipeline-flex-point-AUDIT.md` §0 (Alignment row) · §4.1. The scoping run is kept
+> verbatim below as **§ THE SCOPING RUN THAT PRECEDED IT** — it is closed evidence, not the sequence.
+>
+> ⛔ **Nothing below is a new decision.** Each row's ORDER comes from its plan's `depends-on:`, its
+> OBJECTIVE from that plan's `objective:`, its STATE from that plan's `stage:`. This table **points at
+> those fields; it does not restate them** — a build-state column typed beside the file that derives it
+> is precisely what rots (AUDIT §3). Where an ordering was never ruled, it is written below as a
+> **question**, not filled in.
+
+### The migration path — what O3 actually consists of
+
+Every row is stamped `[paul-approved 2026-09-03]`. Read `BACKLOG.md` § FOCUS FREEZE for what rests
+around it — **O1 · O2 · O4 are frozen except Guru, which is active as an engine item.**
+
+⚠️ **The `stage:` words below are a READ, not a register** — taken 2026-09-07 at `38e6e8a`. The state
+is the field in each plan; re-read all five with
+`grep -H '^- stage:' .plans/2026-09-03-c[4-7]*-PLAN.md .plans/2026-09-03-guru-*-PLAN.md` and believe
+that over this table.
+
+| # | item | plan — **state lives in its `stage:`** | dep | obj | the row that specifies it |
+|---|---|---|---|---|---|
+| **1** | **C4 · Environments + repo structure + the rename** | `.plans/2026-09-03-c4-environments-PLAN.md` · `stage: build` | — | O3 | `BACKLOG.md` § 🏗 C4 |
+| **2** | **C5 · Record prep** — KV prefix · ids as data · the module-set declaration · engine manifest · config derived from canon | `.plans/2026-09-03-c5-record-prep-PLAN.md` · `stage: retro` | 1 | O3 | `BACKLOG.md` § 🧱 C5 |
+| **3a** | **C6 · The door for Paul** — entry + vault, her surface untouched | `.plans/2026-09-03-c6-door-for-paul-PLAN.md` · `stage: build` | 2 | O3 | `BACKLOG.md` § 🚪 C6 |
+| **3b** | **C7 · The condo as a paper model** — the *"no garden"* falsifier | `.plans/2026-09-03-c7-condo-paper-model-PLAN.md` · `stage: ready` | 1 + 2 | O3 | `BACKLOG.md` § 🏙 C7 |
+| **3c** | **Guru — core + lookups + retrieval**, harness first | `.plans/2026-09-03-guru-retrieval-PLAN.md` · `stage: build` | 2 | **O2** | `BACKLOG.md` § A6 |
+| **4** | **Vocabulary / nicknames** — the words an instance is named with | `.plans/2026-09-04-vocabulary-nicknames-PLAN.md` · `stage: concept` | 2 | O3 | `BACKLOG.md` § THE DEVELOPMENT GOAL · § C7 |
+| **5** | **Onboarding** — account from a link, first run at 414 × A+, her data server-side | `.plans/2026-09-05-onboarding-PLAN.md` · `stage: qa` | 4 | O3 | `BACKLOG.md` § THE DEVELOPMENT GOAL |
+
+⭐ **3a · 3b · 3c FORK.** All three declare C5 and nothing else; none declares another. Their order
+among themselves has never been ruled — **Q-S2**.
+
+**Deferred or declared, and deliberately not in the path:** **C8** the condo build-out (`BACKLOG.md`
+§ 🏙 C8 — gated on C4 · C5 · C7 shipped *and* the freeze lifted) · **C9** the invite flow (§ 🎟 C9 —
+*"raised to be findable, not to be scheduled"*; no plan file).
+
+**Has a plan, has no ruling** (`ready: agent-proposed … Paul rules`):
+`.plans/2026-09-03-c3-trace-query-PLAN.md` (O5 · `stage: ready`) ·
+`.plans/2026-09-03-product-name-PLAN.md` (O3 · `stage: ready` · depends on C4). See **Q-S1**.
+
+### 🔴 OPEN — four questions this repair FOUND and did not answer
+
+⛔ Written as questions on purpose. A sequence row invented here would be the same failure the repair
+exists to correct.
+
+**Q-S1 · The old pointer's glob resolves to SEVEN files, not five.** `measured 2026-09-07 at 38e6e8a`:
+`ls .plans/2026-09-03-*-PLAN.md` → **7** — c3-trace-query · c4-environments · c5-record-prep ·
+c6-door-for-paul · c7-condo-paper-model · guru-retrieval · product-name. Five carry
+`[paul-approved 2026-09-03]`; **c3-trace-query and product-name carry `agent-proposed … Paul rules`.**
+Are those two in the plan of record? `BACKLOG.md` § FOCUS FREEZE now names its five explicitly instead
+of globbing, so the glob can no longer answer this by accident. **Paul's.**
+
+**Q-S2 · 3a · 3b · 3c have no ruled order among themselves.** C6 is called *"on the critical path"*
+(`BACKLOG.md` § THE DEVELOPMENT GOAL); C7 is *"model it, don't ship it to her"* (§ 🏙 C7); Guru is O2
+rather than O3. Three different kinds of claim, and none of them a ranking. **Paul's.**
+
+**Q-S3 · Step 4 of the scoping run — *"Agile PM artifacts"* — has been 🟡 since 09-02, and seat 1
+already argued against enlarging it.** `../fernwood-private/.user-research/2026-09-02-estate-manager-scoping.md`
+§4 returns, plainly: *"For Paul today, an estate-manager PRODUCT surface has no job to do"*
+(`evidence_level: assumption`; its release condition is one observable event — **an owner misses
+something at one place because he was looking at another**). And §2.2 argues he asked for **sense (ii),
+the build-management loop**, not a product surface — *"'manage the project and the product' is
+unambiguously build management."* ⭐ **Lap 2's `product-steward` trial (`cycle/LAP-2-WORK-QUEUE.md` B1)
+IS sense (ii).** So the live question is not *which artifacts next* — it is: **does step 4 close as
+ANSWERED by that trial, or stay open for a different artifact set?** **Paul's.**
+
+**Q-S4 · Two ordering facts reported here without resolving.** ⓐ `onboarding` sits at `stage: qa`
+while its own declared dependency `vocabulary-nicknames` sits at `stage: concept` — the dependency is
+behind the thing depending on it. ⓑ The C4 · C6 · Guru `stage-note:` lines have not moved since
+**2026-09-04**, while the audit measures **287 commits since 09-04** (AUDIT §4.2) and the surfaces
+actually built in that window — `onboarding/`, `estate/`, `homes/`, `settings/` — are tracked by the
+release loop (`cycle/release/CYCLE-MAP.md`), by no C-row. **Is the C-series still the unit of work, or
+has the release loop become it?** That is not a documentation question. **Paul's.**
+
+### 📕 THE SCOPING RUN THAT PRECEDED IT — closed evidence, 2026-09-01 → 09-02
+
+Commissioned by § HOW C0 OPENS (*"a user-researcher INTERVIEW first, then agile artifacts"*). It is
+**not** the sequence and never named a C-row; it is preserved because four of its five rows are the
+evidence the C-series was built on.
 
 | # | Do | Gated on | State |
 |---|---|---|---|
-| **1** | ~~Fleet laps 1-2~~ | — | ✅ **BOTH CLOSED 2026-09-01.** ⚠️ This row read *"OPEN at beats 4 + 6"* until 2026-09-02 — **beat 6 RAN** (Paul ruled; 5 Bolores items closed) and lap 2 closed after it. Beat 4 is **carried to lap 3 on Paul's instruction**, held by a signal (STALE-OPEN fires ~2026-10-29), not by a promise. 🟠 **The loop is FIRED again today** — SEASON + INBOX |
+| **1** | ~~Fleet laps 1-2~~ | — | ✅ **BOTH CLOSED 2026-09-01.** ⚠️ This row read *"OPEN at beats 4 + 6"* until 2026-09-02 — **beat 6 RAN** (Paul ruled; 5 Bolores items closed) and lap 2 closed after it. Beat 4 is **carried to lap 3 on Paul's instruction**, held by a signal (STALE-OPEN fires ~2026-10-29), not by a promise. 🟠 **The loop is FIRED again** — SEASON + INBOX |
 | **2** | ~~Review the two conversation mines~~ | — | ✅ **BOTH LANDED 2026-09-01**, reviewed. 6 material findings · **217 images staged** · 4 new door entries. See below |
-| **3** | ~~`user-researcher` interview~~ | step 2 | ✅ **RAN 2026-09-02** as seat 1 of a 5-seat panel → `.user-research/2026-09-02-estate-manager-scoping.md` |
-| **4** | Agile PM artifacts | step 3 | 🟡 **partly delivered** by seat 1 (persona set + JTBD). ⛔ Its JTBD verdict is that the owner surface has **no evidenced job** — read it before commissioning more |
+| **3** | ~~`user-researcher` interview~~ | step 2 | ✅ **RAN 2026-09-02** as seat 1 of a 5-seat panel → `../fernwood-private/.user-research/2026-09-02-estate-manager-scoping.md` ⚠️ **path corrected 2026-09-07** — C4's privacy scrub moved it to the private sibling; the in-repo path cited here since 09-02 has not resolved since |
+| **4** | Agile PM artifacts | step 3 | 🟡 **partly delivered** by seat 1 (persona set + JTBD). ⛔ Its JTBD verdict is that the owner surface has **no evidenced job** — read it before commissioning more. **→ Q-S3** |
 | **5** | Architecture options, priced | step 4 | ✅ **RAN 2026-09-02** → `.engineering/…` + `.ai-advisor/…`. Options only; nothing decided |
 
 ### ✅ PAUL RULED, 2026-09-02 — three answers, and one of them OVERRIDES WRITTEN DOCTRINE
