@@ -532,3 +532,18 @@ Make it flexible."*
   a "not built yet" badge wrapping mid-phrase (nowrap); the 06/12 contradiction on whether asking
   questions is built — held for Paul with its Worker fact: a member's grant cannot reach /api/chat,
   so for a household the composer genuinely cannot "consult" yet.
+
+### 00:20 ET (Sep 7) — GATE ① GREEN at `23dcdda` (round 9), four readings in; lap 1 pauses
+- `measured` — four seats × four clauses at `23dcdda`, `instrumented` green for each. Every reader:
+  new-and-waiting. What they still call wrong is fixed in the commits after it (the receipt bubble's
+  label, a wrapped badge, the doubled "Nothing here yet", a mid-sentence capital, "fix it on the
+  next screen" → "before saving", the naming checkpoint now waits for the naming screen).
+- Held for Paul (the talk-through): the username in the naming screen's title slot · "Asking
+  questions — not built yet" beside a composer that says "consult" (a member's grant cannot reach
+  /api/chat, so for a household it is genuinely not built) · the confirm screen's button stack ·
+  "you didn't pick" beside a pre-filled control · green TEXT and page-level greens under a Stone
+  scheme (ux-expert's tranche 4: ink stays neutral, not scheme) · the naming step at founding ·
+  icons · the colour-scheme research's five questions.
+- Production: still `6ee2e48`. `23dcdda` is the gate-green candidate; the commits after it are
+  uncertified until walked. Paul's call at the talk-through: deploy `23dcdda` and walk it, or run
+  one more round on HEAD first.

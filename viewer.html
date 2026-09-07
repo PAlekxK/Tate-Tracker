@@ -17639,9 +17639,10 @@ function renderIdeaCards() {
     c.className = "main-card idea-card";
     c.setAttribute("data-idea", it.id || it.label);
     c.dataset.ideaKey = it.id || it.label;
-    const src = i === 0 ? "You put " + it.label + " first."
-              : (i <= 2 ? "You put " + it.label + " near the top."
-                        : "You put " + it.label + " on the list.");
+    const lab = /^(A|An|The) /.test(it.label) ? it.label.charAt(0).toLowerCase() + it.label.slice(1) : it.label;   // "You put a map you draw yourself…" (wide-eyed, round 9)
+    const src = i === 0 ? "You put " + lab + " first."
+              : (i <= 2 ? "You put " + lab + " near the top."
+                        : "You put " + lab + " on the list.");
     // the same header shape as a real card — without the icon and meta wrapper the title column
     // squeezed to one word per line (wide-eyed seat, round 5)
     c.innerHTML = '<div class="main-card-header"><div class="main-card-icon" aria-hidden="true">💡</div><div class="main-card-meta">'
@@ -17721,6 +17722,7 @@ function renderEmptyCards() {
     const top = document.querySelector('.main-card[data-module="' + READER_RANKING[0] + '"]');
     if (top && moduleState(READER_RANKING[0]) === "empty" && !document.body.dataset.rankedOpened) {
       top.classList.add("expanded"); document.body.dataset.rankedOpened = "1";
+      top.querySelectorAll(".main-card-summary").forEach(s => { s.textContent = ""; });   // "Nothing here yet." twice (wide-eyed, round 9)
     }
   }
   // An open drawer with nothing in it reads as a failed load (owner seat). A household with no
