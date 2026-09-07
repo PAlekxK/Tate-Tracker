@@ -129,7 +129,7 @@ with no memory of tonight can run it.
 | 1 | a lap opens | read `CYCLE-LOG.md` head + `cycle-state.json` | fired gates | disposition lines | 2 |
 | 2 | a commit lands | post-commit: HEAD vs `qa-build.json` at each origin | 2 origins | stdout only | 3 |
 | 3 | 2 says "behind" | `pages-deploy.py --env qa` | the **sha**, `instance/qa.json` | origin + stamp | 4 |
-| 4 | deploy verified | `journey-walk.py --role <seat> --watch` × 4 | `?syn=<run>` | run folder + `capture.json` | 5 |
+| 4 | deploy verified | `journey-walk.py --role <seat> --fresh --watch` × 4 — ⚠️ `--fresh` is load-bearing: without it the walker arrives with a token and every onboarding action times out (round 10, 2026-09-07) | `?syn=<run>` | run folder + `capture.json` | 5 |
 | 5 | the walk ends | **journey-walk prints the reader command it owes** | run folder | `READING-OWED` | 6 |
 | 6 | 5 exists | one **fresh** agent per run: `walk-brief.py --dir <run>` | PNGs + brief | `REPORT.md`, marker deleted | 7 |
 | 7 | all readings in | `release-gate.py --sha <deployed>` | run folders | stdout | 8 or 9 |

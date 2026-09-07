@@ -1,29 +1,49 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-06T22:59:31-04:00",
+ "generated_at": "2026-09-07T10:06:17-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "3be48f2",
+ "candidate_sha": "ca9161e",
  "beat": {
-  "n": 2,
+  "n": 3,
   "of": 5,
-  "owner": "session",
-  "name": "the synthetic loop"
+  "owner": "paul",
+  "name": "Paul walks it"
  },
  "gate_1": {
-  "seats_pass": false,
+  "seats_pass": true,
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "mom": {
-    "run": null
+    "run": "2026-09-07T095527",
+    "at-sha": true,
+    "watched": true,
+    "countable": true,
+    "no-failed-actions": true,
+    "instrumented": true
    },
    "owner": {
-    "run": null
+    "run": "2026-09-07T095628",
+    "at-sha": true,
+    "watched": true,
+    "countable": true,
+    "no-failed-actions": true,
+    "instrumented": true
    },
    "strict": {
-    "run": null
+    "run": "2026-09-07T095731",
+    "at-sha": true,
+    "watched": true,
+    "countable": true,
+    "no-failed-actions": true,
+    "instrumented": true
    },
    "wide-eyed": {
-    "run": null
+    "run": "2026-09-07T095831",
+    "at-sha": true,
+    "watched": true,
+    "countable": true,
+    "no-failed-actions": true,
+    "instrumented": true
    }
   }
  },

@@ -547,3 +547,39 @@ Make it flexible."*
 - Production: still `6ee2e48`. `23dcdda` is the gate-green candidate; the commits after it are
   uncertified until walked. Paul's call at the talk-through: deploy `23dcdda` and walk it, or run
   one more round on HEAD first.
+
+### 10:05 ET (Sep 7) — round 10: GATE ① 4 of 4 at `ca9161e` (HEAD at deploy); the UX clause waits on Paul
+- Paul, ~09:20 ET, choosing between deploying `23dcdda` and one more round on HEAD: *"Go"* (on the
+  recommendation to re-walk HEAD so the round-9 fixes ride along). Deployed `ca9161e` to QA via
+  `pages-deploy.py --env qa` (dirty tree warned, four 9/06 estate-window files excluded by design);
+  `qa-behind.py` silent = QA serves HEAD.
+- `did-not` — **the first battery was invalid, and the procedure caused it.** Four seats launched
+  `--watch` WITHOUT `--fresh`: every walker arrived with a token, never met the naming screen, and
+  logged 12–14 timed-out actions each (mom 094426 · owner 094657 · strict 094936 · wide-eyed
+  095158; a stray `mom/094148` has no transcript — an aborted launch). `walk-integrity` refuses all
+  four, correctly. Root cause: PRACTICE §B.3 row 4 wrote the walk command without `--fresh`, while
+  every passing round (2–9) used `--fresh --watch`. → fixed in the PRACTICE file this round. **A
+  procedure row that omits one flag reproduces a whole false-red battery**; the log's own
+  round-2/3 lines were the only place the true command lived.
+- Round 10 walks, `--fresh --watch`, sequential, QA at `ca9161e`, 09:55–09:58 ET: four seats,
+  14 stops each, **zero failed actions**, sessions obtained, 4–5 app events each via grant.
+- Four readings, one fresh agent per run (mom 095527 · owner 095628 · strict 095731 · wide-eyed
+  095831), all countable. **Every reader: NEW-AND-WAITING, not broken.** Regressions check against
+  round 9's six items: receipt bubble label **fixed** (4/4) · badge wrap **fixed** (4/4) · "before
+  saving" **fixed** (4/4) · naming checkpoint **fixed** (4/4) · **doubled "Nothing here yet" STILL
+  PRESENT** on the open card at stop 12 (mom · owner · wide-eyed; strict's path did not open it) ·
+  mid-sentence capital fixed for "You put a map…" but **"You put Asking questions…" still capitalised**
+  (wide-eyed). New at this build, noted by 2+ seats: the homes card shows city/state (Dahlonega, GA ·
+  Bangor, ME); "Right so far? Anything to add?" is an underlined control; a "What would you like to
+  see next?" footer card on stop 12; the feedback tab on 12 straddles two cards (mom) and is clipped
+  at the right edge in the full-page shot but whole in the fold (strict). `capture.json` on all four:
+  onboarding metrics UNREADABLE — `/api/onboarding-metrics` has no GET (known).
+- Held for Paul, unchanged from round 9 and re-found this round: the username in the naming screen's
+  title slot (4/4) · "Asking questions — not built yet" beside a composer that asks (wide-eyed,
+  strict) · "Please don't" says nothing about what it costs (strict) · 05 "that's the address down"
+  vs 03 "fix it before saving" (owner) · nothing derived from the address reaches stop 12 (all).
+- `measured` — `release-gate.py --sha ca9161e`: **4 of 4 seats pass every clause, instrumented green;
+  UX clause UNCHECKABLE** → 🟡, exits beat 2 only when a human confirms the UX clause. HEAD moved to
+  `2574916` during the readings (the estate window's docs commit; no app surface changed), so the
+  candidate stays `ca9161e` and a home deploy must pass `--sha ca9161e`. Production: still `6ee2e48`.
+- **Next: Paul confirms the UX clause → `pages-deploy.py --env home --sha ca9161e` → beat 3, his walk.**

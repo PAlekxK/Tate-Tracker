@@ -77,9 +77,10 @@ new asks, season-note work, the decision cards fernwood-1 · 4 · 5 · 6 · 8 ·
 and any new instance content. `OBJECTIVES.md` **O1 · O2 · O4** rest. ⚠️ Not a loss of state — every row keeps its
 status; nothing here is closed, dropped or re-tiered.
 
-> **2026-09-06 evening — THE RELEASE LOOP RAN FOR REAL (lap 1, nine rounds, paused for Paul's talk-through).**
+> **2026-09-06 evening — THE RELEASE LOOP RAN FOR REAL (lap 1, ten rounds; round 10 on 2026-09-07 morning).**
 > Chronicle: `cycle/release/CYCLE-LOG.md` · state: `cycle/release/cycle-state.json` · gate: `tools/release-gate.py`.
-> Gate ① green at `23dcdda` (four seats × four clauses + capture events); production still `6ee2e48`; QA at HEAD.
+> Gate ① 4 of 4 seats at `ca9161e` (round 10, all readers new-and-waiting); the UX clause waits on Paul's word;
+> production still `6ee2e48`; QA serves `ca9161e`. Next: Paul confirms → `pages-deploy.py --env home --sha ca9161e` → he walks.
 > Paul's rulings that night (scheme · crisp register · no empty modules, ask instead · feedback bubble · contact value ·
 > width spectrum · naming the record · icons) are in the log verbatim with what was built and what is held. Read the
 > log's last section before touching the onboarding, the estate page or the household first-open.

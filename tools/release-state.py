@@ -3,6 +3,8 @@
 
     python3 tools/release-state.py            # print
     python3 tools/release-state.py --write    # cycle/release/cycle-state.json
+    python3 tools/release-state.py --sha <candidate> --write   # when HEAD moved by a non-app commit
+                                              # after the candidate was deployed and walked (round 10)
 
 ⭐ WHY `[practice-steward, 2026-09-06, §D]`: the loop had a map and a gate and no state — nothing a
 board could read, nothing that said which beat the lap was on or whose it was. Every value here is
@@ -22,9 +24,12 @@ def gate_module():
     m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
 
 
-def derive(cleared=None, prior=None):
+def derive(cleared=None, prior=None, sha=None):
     rg = gate_module()
-    sha = rg.head_sha()
+    if sha:
+        sha = subprocess.check_output(["git", "-C", ROOT, "rev-parse", sha], text=True).strip()
+    else:
+        sha = rg.head_sha()
     seats = {}
     for seat in rg.seats():
         best = None
@@ -73,11 +78,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--cleared", help="Paul cleared this sha (his word, typed by a session on his say-so)")
+    ap.add_argument("--sha", help="derive against this build instead of HEAD (the deployed, walked candidate when HEAD moved by a non-app commit)")
     a = ap.parse_args()
     prior = None
     try: prior = json.load(open(STATE, encoding="utf-8"))
     except (OSError, ValueError): pass
-    st = derive(cleared=a.cleared, prior=prior)
+    st = derive(cleared=a.cleared, prior=prior, sha=a.sha)
     print("release loop — %s · beat %d/%d (%s) · owner: %s · candidate %s · seats pass: %s"
           % (st["state"], st["beat"]["n"], st["beat"]["of"], st["beat"]["name"], st["beat"]["owner"],
              st["candidate_sha"], st["gate_1"]["seats_pass"]))
