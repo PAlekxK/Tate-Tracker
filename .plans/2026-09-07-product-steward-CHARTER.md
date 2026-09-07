@@ -231,11 +231,29 @@ lost in a commit message.** `8c2f456`'s message claimed *"every citation in the 
 *"now 6 of 6"*; the run said **5**. Twice, a number was written from intent instead of copied from
 the output that was already printed. **The true figure is 5 citations, all resolving.**
 
+⚠️ **A THIRD INSTANCE, same day, caught by lane D rather than by me — and it sharpens the rule.** I
+reported `check-backlog-ready.py` as going **149 → 129**. Lane D measured **148** and flagged the
+one-apart pair rather than assuming a disagreement. It was right: my 149 came from
+`… | grep -c '·'`, an ad-hoc predicate that counted one extra line. **The tool prints its own
+authoritative count** — `🔴 Readiness — N flag(s)` — and reading it gives **148 → 129** at
+`878051f`.
+
+⛔ **So the rule generalises, and this is the durable form:** when a tool prints its own count,
+quoting anything else is a **second implementation of that count**, and it will diverge. That is
+`momlib.question_state()`'s lesson — three definitions of "pending" producing divergent behaviour and
+a real wrong claim — applied to *reading* rather than to code. **Read the tool's own line; never
+re-derive its number with a grep.**
+
+⭐ **And cite a count with its sha and its predicate, never bare** `[lane-D, 2026-09-07]`: two numbers
+one apart, unlabelled, is exactly how a phantom enters a document. Lane D and I were not measuring
+different corpora, which is what a bare pair of numbers would have suggested — one of us was simply
+wrong, and labelling is what made that visible in one exchange instead of becoming folklore.
+
 ⛔ **It is the same defect as 1–4 with a shorter reach:** a claim about a measurement, made without
-re-reading the measurement. The instrument was right both times and was standing in the terminal.
-**Copy the number; never retype it.** That is not a style note — it is the CYCLE-SPINE's own recorded
-failure mode (*"a hand-typed count beside a tool that computes the same count"*) reproduced inside
-the section warning about it.
+re-reading the measurement. The instrument was right every time and was standing in the terminal.
+**Copy the number; never retype it.** That is the CYCLE-SPINE's own recorded failure mode (*"a
+hand-typed count beside a tool that computes the same count"*) reproduced inside the section warning
+about it — three times in one afternoon, by the author of the section.
 
 ### ⭐ A SIXTH SHAPE, and it is a shape because it was found TWICE in one day by two different mechanisms
 
@@ -290,8 +308,36 @@ magnitude beside it; a grading with no number attached is the tell.* **Recorded 
 gave it and not promoted:** there is no evidence it generalises past today's three instances, and *a
 rule that fires on every cautious sentence would be worse than nothing.* It wants a real falsifier
 before anything is wired to it. **Writing it down at its own confidence is the point** — this corpus's
-measured leak is that an alternative considered and rejected never gets recorded, so the next reader
-re-proposes it.
+measured leak is that an alternative never gets recorded, so the next reader re-proposes it. ⚠️ And
+the STATE matters, lane D's own correction: this heuristic is **un-evaluated — proposed once, never
+tested against anything** — which is not the same as considered-and-rejected. *A rejected alternative
+carries a reason not to revisit it; an un-evaluated one carries an invitation to test it.* Filed as
+the second, so nobody files it as settled-no when what it needs is a falsifier and one run.
+
+### ⛔ AN EIGHTH SHAPE — a ruling that is RIGHT ABOUT THE DEFECT and WRONG ABOUT THE REMEDY
+
+`[lane-D, 2026-09-07, on seeing R5's outcome]`. R5 named a real defect precisely — the readiness
+header parser was unbounded, so `.plans/2026-09-03-backlog-readiness-PROPOSAL.md` was graded on the
+template it documents — and specified the remedy as *"bound the parse to the block before the first
+`##`."*
+
+**Implemented literally, that remedy would have DELETED TRUE DATA.** Counted before cutting, as the
+ruling's own falsifier demanded: 19 `- key:` lines sit below the first `##`; **8 are inside code
+fences** (documentation, the actual defect) and **11 are real dated `stage-note` log lines** in
+`guru-retrieval-PLAN` and `c5-record-prep-PLAN`. Bounding would have dropped all 11 **and**
+desynchronised `qa-divergence.py`, which greps `- stage-note:` across the whole file. The rule was
+split instead: fences skipped everywhere · claim keys bounded · repeatable keys readable anywhere.
+
+⭐ **THE FALSIFIER IS WHAT CAUGHT IT, AND IT WAS IN THE RULING.** *"Count what bounding would drop
+before you cut"* was written by the same seat that proposed the remedy. **A ruling carrying its own
+falsifier can survive being wrong; one without a falsifier is implemented literally and the loss is
+silent.** That is the argument for the falsifier convention, stated from a case where it paid.
+
+⚠️ **The generalisation, and it bounds this seat's own charter:** carrying a ruling is not
+transcribing it. The seat may not decide — but *"apply the remedy as written even where its own
+falsifier fires"* is not obedience, it is a different way of not thinking. Where a remedy fails its
+falsifier, the seat **runs the falsifier, reports what it would cost, and implements the intent** —
+and says both, which is what §3's OPEN A QUESTION verb is for.
 
 ⭐ **The test that separates them, and it is one question: CAN THIS BE KNOWN BY LOOKING?** If yes,
 look — hedging is not caution, it is an unmade measurement wearing caution's clothes. If no, say
