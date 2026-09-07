@@ -241,6 +241,24 @@ script already carried a bash-3.2 warning about `mapfile` one screen above the l
   would add an option to make the text even bigger for older people."* Raised while ruling C6 Q1 (the toggle goes, A+
   is the standard). Instance/config work, O1; needs a signal from a reader, never a default.
 
+**⭐ 6. THE CATCH-UP IS GATED ON HER PRODUCTION ACCOUNT — and the frozen side has its own window**
+`[paul-stated 2026-09-07 ~10:20 AM ET]` — *"OK let's have everything gated on her getting her link to set up
+in prod (the other window's domain). Set up a clear and detailed plan with the experts that can be executed
+when that gate lifts."* And the split, same morning, relayed by the production window: *"keep the other
+session focused on the old version of Fernwood that's been frozen. We are focused on the production version
+of the full new estate manager site and app."* **Consequences:** (i) every act on the frozen instance —
+archive re-take, dispositions landing on the new instance, the sunset order in rule 3 — waits on a real
+account for Mom existing on production `home`; the gate's deterministic signal is the production window's
+to expose (`reset-production-estate.py`'s `real` abort is the candidate); (ii) rule 1's *"manual process
+between you and me"* now has a plan of record → `.plans/2026-09-07-frozen-fernwood-catchup-PLAN.md`
+(stage `concept`, four seats, written 2026-09-07 — **Paul rules**); (iii) the production window owns the
+Worker, the origins, onboarding and tenancy; the frozen window hands it requirements, never edits.
+⚠️ **Measured 2026-09-07 ~10:15 ET, live KV read of `est-3c9f1a`:** 177 keys vs 175 archived · 0 changed ·
+2 gone (both `cache:ambient:*`, TTL-expired) · **4 added since the 09-06 00:08 archive** —
+`feedback:2026-09-07`, `door:2026-09-07`, `metrics:2026-09-06`, `metrics:2026-09-07`. The control is
+intact; **the archive is one feedback arrival behind and nothing re-takes it.** The re-take is post-gate by
+this ruling, and adjacent to the sunset act by rule 3's order.
+
 **Mechanics, stated so the boards are read correctly:** neither `mom-cycle-status.py` nor `fleet_probe.py`
 publishes a HELD phase, so the loop board will keep rendering the fleet loop as FIRED and the mom loop as
 ARMED. Read those against this block. Both chronicles carry a dated FREEZE marker; `read-mom-feedback.py
