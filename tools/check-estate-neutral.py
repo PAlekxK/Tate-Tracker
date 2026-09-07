@@ -273,7 +273,49 @@ def main():
         worst = max(worst, 1 if rendered else 0)
 
     if worst == 0:
-        print("\n✅ every shipped surface names no other household — rendered content and source alike.")
+        # ⛔ NEVER A BARE ✅. The old line read *"every shipped surface names no other household"* —
+        # a WHOLE-SURFACE claim from a scan that deliberately excludes `viewer.html` (see
+        # `_shipped_pages`), which is the generated file and the one a real leak was found in on
+        # 2026-09-07: Fernwood's own rain gauge, "0.01\" past 7d here" and "at OUR gauge", served to
+        # a household in Bangor, Maine.
+        #
+        # ⭐ THE FAILURE THAT MADE THIS NECESSARY WAS READING A GREEN RATHER THAN A SCOPE `[lane-F,
+        # 2026-09-07, on its own mistake]`. The scope was already stated — in a comment, in capitals,
+        # with the word "optional" in it — and the bare form is what CLAUDE.md's session-start block
+        # prints, so the green most sessions ever see says nothing about the viewer. A tick that
+        # looks like coverage is worse than no tick.
+        #
+        # ⚠️ OUTPUT ONLY. Exit codes are untouched: `pages-deploy.py:246` imports this module's
+        # NEEDLES and walks the export itself, so nothing that gates a deploy changes here.
+        def _show(u, pg):
+            if u:
+                return u
+            r = os.path.relpath(pg, ROOT)
+            return pg if r.startswith("..") else r        # an out-of-tree build reads as its own path
+        scanned = ", ".join(_show(u, pg) for u, pg in targets)
+        # ⛔ THE ⛔ MUST KNOW WHETHER IT WAS SATISFIED, and until 2026-09-07 it did not: the condition
+        # was `if not a.url`, so a run with `--page /tmp/<neutral build>` — THE INVOCATION THIS
+        # FOOTER TELLS PEOPLE TO USE — scanned the generated artifact and was then told it had not,
+        # and pointed back at the command it was already running. Found by lane F running it.
+        # ⚠️ The failure is worse than a wrong line: a warning that prints identically whether or not
+        # you did the right thing carries NO INFORMATION, and teaches the next reader to skip the
+        # block — landing them back at the original mistake with a louder tick above it. That is the
+        # same argument as keeping `—` out of the needle roster.
+        # ⭐ The signal needs no classifier: THE DEFAULT PAGE SET NEVER CONTAINS A BUILT VIEWER, so
+        # `--url` or an explicit `--page` being supplied at all is the whole test.
+        answered = bool(a.url) or a.page != PAGE
+        if answered:
+            print("   ✅ the generated file WAS answered for by: %s" % scanned)
+            print("      (the default set never contains a built viewer; you supplied one.)")
+        else:
+            print("   ⛔ NOT scanned: `viewer.html` — generated per instance, excluded by design, and")
+            print("      the file the 2026-09-07 leak was in. This run says NOTHING about it.")
+            print("      Complete it, and neither is optional:")
+            print("        python3 tools/check-estate-neutral.py --url https://<origin>/viewer.html")
+            print("        python3 tools/check-estate-neutral.py --page /tmp/<neutral build>")
+        print("   ⚠️ AND IT TESTS FOR NAMES. Measured 2026-09-07: a household's own gauge readings and")
+        print("      first-person-plural prose (\"at OUR gauge\", \"0.01\" past 7d here\") passed 311")
+        print("      needles with rendered=0. Numbers and pronouns are outside this roster.")
         return 0
     if total:
         print("\n🔴 %d household-specific token(s) REACH THE READER." % total)

@@ -365,6 +365,28 @@ def read_transcript(run_dir):
 # look. This does NOT judge a screen — it reports a literal.
 LEAK_NEEDLES = ("undefined", "NaN", "[object Object]", "{{", "null,", "Infinity", "<no value>")
 
+# ⛔ `—` IS NOT A NEEDLE AND MUST NOT BECOME ONE `[lane-F, 2026-09-07]`. The em-dash is this project's
+# RATIFIED empty vocabulary — `engine/viewer.template.html:7266`: *"the honest empty vocabulary is
+# '—', the same the collected modules use."* Flagging it would fire on correct-by-design renders and
+# train a reader to skim the report, which is how a control stops being read.
+SEPARATORS = ("· ", "— ", "– ")
+
+# ⭐ TWO SHAPES A LITERAL SCAN CANNOT SEE, and both caught a real defect the `undefined` scan missed
+# `[lane-F, 2026-09-07]`: a label rendered with nothing after it
+# (`<strong>Your skies:</strong> ` — an empty `div.cel-property-note`), and a dangling separator left
+# by an absent part (nine celestial rows opening with a bare "· ").
+#
+# ⭐ LANE F EXPECTED THESE TO NEED A LIVE DOM. They do not: the extractor already records one line
+# per visible element, so an element's own text is exactly what the transcript holds. Sited here
+# rather than in the harness, they run on every past run too — which is how the corpus baseline
+# below was measurable at all.
+#
+# ⚠️ THE FRAGMENT EXCLUSION IS LOAD-BEARING, and it is lane F's: an element that is a FRAGMENT of a
+# longer joined line is fine. Measured — without it, "— optional" (from "Phone number — optional")
+# fires on four stops of every onboarding walk. A line is a fragment when some OTHER captured line in
+# the same stop contains it. With the exclusion: 16 separator hits across 121 runs, ZERO of them
+# false.
+
 
 def leaks(run_dir):
     """→ [(stop, line)] — captured screen text carrying a needle. Never a judgement about the screen."""
@@ -373,13 +395,52 @@ def leaks(run_dir):
         return None                       # UNREADABLE — the caller must say so, never report zero
     out = []
     for st in t.get("stops") or []:
-        for line in (st.get("screen") or []):
-            txt = str(line)
+        lines = [str(x).strip() for x in (st.get("screen") or [])]
+        for txt in lines:
+            # ⛔ THE SAME FRAGMENT EXCLUSION `shapes()` USES, and it was MISSING here until
+            # 2026-09-07. Lane E's tell found it: *if adding a line of code changes your number
+            # without changing the user-visible behaviour, you were measuring the wrong thing.*
+            # Wrapping an existing string in a `<span>` — a pure markup change, nothing different on
+            # screen — made the extractor capture the parent AND the child, and this count went
+            # 1 → 2. It was counting NODES; the property is DISTINCT ON-SCREEN STRINGS.
+            # Proven by mutation, M24 below.
+            if any(txt != o and txt in o for o in lines):
+                continue
             for n in LEAK_NEEDLES:
                 if n in txt:
-                    out.append((st.get("stop"), txt.strip()[:140]))
+                    out.append((st.get("stop"), txt[:140]))
                     break
     return out
+
+
+def shapes(run_dir):
+    """→ (red, review) — dangling SEPARATORS and dangling LABELS, each [(stop, line)].
+
+    ⛔ THE TWO ARE GRADED DIFFERENTLY, AND THE SPLIT IS MEASURED, NOT STYLISTIC.
+
+      · **leading separator → 🔴.** 16 hits across 121 runs, every one a real dangling separator.
+      · **trailing colon → 🟡 REVIEW, never a failure.** 6 hits, and ONE IS LEGITIMATE: the
+        acknowledgment ribbon's title *"Tuesday, September 1 — what you asked for:"* ends in a colon
+        because its content follows in a SIBLING element. `<strong>Your skies:</strong> ` with nothing
+        after it and a heading whose content is next door are the SAME TEXT LINE; the transcript
+        cannot tell them apart, and pretending otherwise would put a false red on a correct render.
+        Fail-open is deliberate and is this repo's existing posture (`rationalize-bench`): wrongly
+        hiding a finding loses it silently, wrongly showing one costs a line in a report someone reads.
+    """
+    t = read_transcript(run_dir)
+    if not t:
+        return None
+    red, review = [], []
+    for st in t.get("stops") or []:
+        lines = [str(x).strip() for x in (st.get("screen") or [])]
+        for l in lines:
+            if not l or any(l != o and l in o for o in lines):
+                continue                  # a fragment of a longer joined line — lane F's exclusion
+            if l[:2] in SEPARATORS:
+                red.append((st.get("stop"), l[:140]))
+            elif l.endswith(":") and len(l) > 1:
+                review.append((st.get("stop"), l[:140]))
+    return red, review
 
 
 def report_state(run_dir):
@@ -498,13 +559,21 @@ def cmd_round(sha=None, quiet=False):
                 unreadable += 1
                 print("     ⬜ %-11s UNREADABLE transcript — NOT scanned, and not clean either" % seat)
                 continue
-            if ls:
+            sh = shapes(d) or ([], [])
+            if ls or sh[0]:
                 any_leak += 1
                 rc = 1
-                for stop, line in ls[:6]:
-                    print("     🔴 %-11s stop %-14s %s" % (seat, stop, line))
-                if len(ls) > 6:
-                    print("     🔴 %-11s … %d more" % (seat, len(ls) - 6))
+            for stop, line in ls[:6]:
+                print("     🔴 %-11s stop %-14s %s" % (seat, stop, line))
+            if len(ls) > 6:
+                print("     🔴 %-11s … %d more needle(s)" % (seat, len(ls) - 6))
+            for stop, line in sh[0][:6]:
+                print("     🔴 %-11s stop %-14s dangling separator: %s" % (seat, stop, line))
+            if len(sh[0]) > 6:
+                print("     🔴 %-11s … %d more dangling separator(s)" % (seat, len(sh[0]) - 6))
+            for stop, line in sh[1][:4]:
+                print("     🟡 %-11s stop %-14s label ends in a colon — REVIEW, not a failure: %s"
+                      % (seat, stop, line))
         if not any_leak and not unreadable:
             print("     ✅ none in any seat's CAPTURED screens at this build.")
             # ⚠️ A clean line is only as strong as the capture behind it. Before 2026-09-07 the DOM
@@ -513,6 +582,23 @@ def cmd_round(sha=None, quiet=False):
             # the two rounds as if they measured the same thing would be the error.
             print("     ⚠️ CAPTURED, not SEEN: this scans what the extractor recorded. A ✅ on a run")
             print("        from before the 2026-09-07 div fix is weaker than one after it.")
+
+        # ⛔ WHAT THIS EVIDENCE IS ABOUT, AND WHAT IT IS NOT — derived from the runs' own `origin`,
+        # never typed `[lane-A, 2026-09-07]`. A round proves ONE origin, ONE Worker, ONE KV namespace.
+        # Mom arrives on `home`: a different origin, a different Worker, a different namespace. Gate ①
+        # green here is NECESSARY AND NOT SUFFICIENT, and the ratified cascade says so — synthetic
+        # persona → Paul → Mom. Printed with every round because a scope caveat that lives in a
+        # person's memory is one that goes missing on the round that matters.
+        origins = sorted({(read_transcript(newest[st][1]) or {}).get("origin") or "unrecorded"
+                          for st in seats if st in newest})
+        print("\n  ⛔ SCOPE OF THIS EVIDENCE: origin(s) %s — derived from each run's own transcript."
+              % ", ".join(origins))
+        if origins != ["home"]:
+            print("     It proves that origin, its Worker and its KV namespace. It proves NOTHING")
+            print("     about production `home`, which is a different origin, Worker and namespace.")
+            print("     Gate ① green here is NECESSARY AND NOT SUFFICIENT. The ratified cascade is")
+            print("     synthetic persona → Paul → Mom, and PAUL WALKS PRODUCTION HIMSELF — that gate")
+            print("     is not a session's and not a seat's.")
 
         print("\n  reports the seat can READ:      %d" % len(census["read"]))
         # ⛔ PAUL'S OWN REQUIREMENT, and it is the deterministic half of the consolidation:
@@ -741,7 +827,26 @@ def load_ledger():
         return None, str(e)
 
 
-def cmd_record(sha, carried, already, questions, unwritten, note):
+# ⭐ A TRIAL REPORTS ITS STATE, NOT JUST ITS NUMBERS `[lane-A, 2026-09-07]`: *"a trial that reports
+# 'inconclusive, here is what would settle it' is worth more than one that reports a number it cannot
+# stand behind."* The state is DERIVED from the ledger — never typed beside it, which is the
+# CYCLE-SPINE's own recorded failure mode.
+def verdict(rounds):
+    """→ (state, [what would settle it]). Derived from what the ledger holds, never asserted."""
+    n = len(rounds)
+    conf = [r for r in rounds if r.get("confounded")]
+    clean = [r for r in rounds if not r.get("confounded")]
+    owed = []
+    if n < 2:
+        owed.append("a SECOND round — one point is not a trend, and R7's falsifier is about a trend")
+    if not clean:
+        owed.append("a round that starts CLEAN: every recorded round so far is confounded (%s)"
+                    % "; ".join(sorted({r.get("confounded") for r in conf if r.get("confounded")})))
+    if n < 3:
+        owed.append("a THIRD round — two points give a direction, not a rate")
+    if not owed:
+        return "MEASURED", []
+    return "INCONCLUSIVE", owed
     led, err = load_ledger()
     if led is None:
         print("🔴 UNCHECKABLE: ledger unreadable (%s). Refusing to overwrite what it could not read." % err)
@@ -751,6 +856,10 @@ def cmd_record(sha, carried, already, questions, unwritten, note):
         "at": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
         "carried": carried, "already": already, "questions": questions,
         "reports_unwritten": unwritten, "note": note or "",
+        # ⛔ A CONFOUND IS RECORDED WITH ITS ROUND, not remembered. Round 1 drained a backlog no round
+        # had ever consolidated, so its question count is not a steady-state reading — and a session
+        # three weeks from now cannot know that from a number.
+        **({"confounded": confounded} if confounded else {}),
     })
     os.makedirs(os.path.dirname(LEDGER), exist_ok=True)
     json.dump(led, open(LEDGER, "w", encoding="utf-8"), indent=2)
@@ -774,11 +883,13 @@ def cmd_ledger():
         print("  ⬜ NOT YET MEASURED: no round recorded. A trial with no ledger is renewed by inertia,")
         print("     which is the one outcome R7 was written to prevent. Record a round with --record.")
         return 3
-    print("  %-9s %-8s %-8s %-10s %s" % ("build", "carried", "already", "questions", "unwritten reports"))
+    print("  %-9s %-8s %-8s %-10s %-18s %s"
+          % ("build", "carried", "already", "questions", "unwritten reports", "confound"))
     for r in rs:
-        print("  %-9s %-8s %-8s %-10s %s"
+        print("  %-9s %-8s %-8s %-10s %-18s %s"
               % ((r.get("sha") or "?")[:7], r.get("carried"), r.get("already"),
-                 r.get("questions"), r.get("reports_unwritten")))
+                 r.get("questions"), r.get("reports_unwritten"),
+                 (r.get("confounded") or "—")[:60]))
     carried = sum(int(r.get("carried") or 0) for r in rs)
     already = sum(int(r.get("already") or 0) for r in rs)
     quests = sum(int(r.get("questions") or 0) for r in rs)
@@ -796,7 +907,16 @@ def cmd_ledger():
         rc = 1
     else:
         print("  ✅ below the 80% threshold — the trial is not falsified on this measure.")
-    print("  questions opened: %d against %d carried." % (quests, carried))
+    # ⭐ THE STATE OF THE TRIAL, printed with the numbers so neither can be quoted without the other.
+    state, owed = verdict(rs)
+    print("\n  TRIAL STATE: %s  (%d round%s recorded)" % (state, len(rs), "" if len(rs) == 1 else "s"))
+    if owed:
+        print("  What would settle it, and nothing else will:")
+        for o in owed:
+            print("     · %s" % o)
+        print("  ⛔ Until then the redundancy figure is DIRECTIONAL, not a verdict, and neither")
+        print("     falsifier may be reported as having passed or failed the trial.")
+    print("\n  questions opened: %d against %d carried." % (quests, carried))
     if quests > carried:
         print("  🔴 SECOND FALSIFIER: questions exceed writes — the seat is a bottleneck wearing a")
         print("     helper's name (§ 6.7).")
@@ -894,6 +1014,15 @@ def selftest():
             say(cmd_ledger() == 1, "M10 questions > carried → the bottleneck falsifier FIRES")
             open(LEDGER, "w").write("{not json")
             say(cmd_ledger() == 3, "M11 an unreadable ledger is UNCHECKABLE, never an implied zero")
+
+            # M11a-M11c · the trial's STATE is derived, and a confound survives the session
+            say(verdict([{"carried": 1, "already": 1}])[0] == "INCONCLUSIVE",
+                "M11a one round is INCONCLUSIVE — a point is not a trend")
+            st, owed = verdict([{"confounded": "drained a backlog"}, {"confounded": "drained a backlog"}])
+            say(st == "INCONCLUSIVE" and any("starts CLEAN" in o for o in owed),
+                "M11b every round confounded → the ledger asks for a CLEAN round by name")
+            say(verdict([{}, {}, {}])[0] == "MEASURED",
+                "M11c three clean rounds is the only state that reads MEASURED")
         finally:
             LEDGER = real
 
@@ -914,8 +1043,45 @@ def selftest():
         json.dump({"stops": [{"stop": "12", "screen": ["all good"]}]},
                   open(os.path.join(clean, "transcript.json"), "w"))
         say(leaks(clean) == [], "M16 a clean screen reports an empty list, not a false hit")
+        # M24 · LANE E'S TELL, wired as a test rather than as a note.
+        nest_a, nest_b = os.path.join(tmp, "na"), os.path.join(tmp, "nb")
+        for d, screen in ((nest_a, ["Bortle undefined — undefined"]),
+                          (nest_b, ["Bortle undefined — undefined", "undefined — undefined"])):
+            os.makedirs(d, exist_ok=True)
+            json.dump({"stops": [{"stop": "12", "screen": screen}]},
+                      open(os.path.join(d, "transcript.json"), "w"))
+        say(len(leaks(nest_a)) == len(leaks(nest_b)) == 1,
+            "M24 a NO-OP markup change (the same string also captured on its parent) does NOT move "
+            "the needle count — it counts on-screen strings, not nodes")
+
         say(leaks(os.path.join(tmp, "nothing-here")) is None,
             "M17 an unreadable transcript returns None — the caller must say UNREADABLE, never zero")
+
+        # M18-M22 · the two DOM shapes, and the exclusion that keeps them honest
+        def mkshape(name, screen):
+            d = os.path.join(tmp, name)
+            os.makedirs(d, exist_ok=True)
+            json.dump({"stops": [{"stop": "12", "screen": screen}]},
+                      open(os.path.join(d, "transcript.json"), "w"))
+            return shapes(d)
+
+        red, rev = mkshape("sep", ["· 🌓 Quarter moon — moderate", "Oct 4"])
+        say(red == [("12", "· 🌓 Quarter moon — moderate")] and rev == [],
+            "M18 a line opening with a bare separator is RED")
+        red, rev = mkshape("frag", ["Phone number — optional", "— optional"])
+        say(red == [], "M19 a FRAGMENT of a longer joined line is excluded — lane F's rule, and it "
+                       "is what stops '— optional' firing on four stops of every walk")
+        red, rev = mkshape("colon", ["Your skies:", "TRANSPARENCY"])
+        say(red == [] and rev == [("12", "Your skies:")],
+            "M20 a label ending in a colon is REVIEW, never RED — a heading may legitimately end in "
+            "one with its content in a sibling")
+        red, rev = mkshape("emdash", ["— the honest empty vocabulary", "Bortle —"])
+        say(not any("Bortle —" in l for _, l in red + rev),
+            "M21 a bare `—` as a VALUE is not flagged — it is the ratified empty vocabulary")
+        say(shapes(os.path.join(tmp, "no-such-run")) is None,
+            "M22 an unreadable transcript returns None from the shape scan too, never an empty pass")
+        say("PAUL WALKS PRODUCTION HIMSELF" in open(__file__, encoding="utf-8").read(),
+            "M23 the round states the SCOPE of its evidence and that QA green is not sufficient")
 
     # M14 · an empty seat roster is UNCHECKABLE, never green by absence
     rg = gate_module()
@@ -955,6 +1121,7 @@ def main():
     ap.add_argument("--questions", type=int, default=0)
     ap.add_argument("--unwritten", type=int, default=0)
     ap.add_argument("--note")
+    ap.add_argument("--confounded", help="why THIS round's numbers are not a steady-state reading")
     ap.add_argument("--ledger", action="store_true")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
@@ -965,7 +1132,7 @@ def main():
     if a.cite is not None:
         return cmd_cite(a.cite, strict=a.strict)
     if a.record:
-        return cmd_record(a.sha, a.carried, a.already, a.questions, a.unwritten, a.note)
+        return cmd_record(a.sha, a.carried, a.already, a.questions, a.unwritten, a.note, a.confounded)
     if a.ledger:
         return cmd_ledger()
     if a.triggers:
