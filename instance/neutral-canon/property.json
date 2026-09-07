@@ -13,11 +13,7 @@
     "region": "",
     "owner": ""
   },
-  "location": {
-    "elevation": {
-      "estimated_ft": 0
-    }
-  },
+  "location": {},
   "hardiness": {},
   "frostDates": {},
   "climate": {},
