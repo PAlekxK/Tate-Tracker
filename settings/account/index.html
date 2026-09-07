@@ -75,8 +75,8 @@
   [hidden] { display:none !important; }
   /* `[paul-ruled 2026-09-06]` the general-feedback bubble: on every signed-in screen, pinned to the
      side, in the colour this page already wears. The same shape as the app's ribbon. */
-  .fbbubble { position:fixed; right:0; bottom:40px; z-index:900; display:inline-flex; align-items:center; gap:7px;
-              padding:11px 13px 11px 14px; background:var(--accent); color:#fff; border:0; border-radius:12px 0 0 12px;
+  .fbbubble { position:fixed; right:0; bottom:14px; z-index:900; display:inline-flex; align-items:center; gap:6px;
+              padding:9px 11px 9px 12px;   /* lower and slimmer: at bottom:40 it still touched the ranked line at the fold (round 5) */ background:var(--accent); color:#fff; border:0; border-radius:12px 0 0 12px;
               box-shadow:-2px 2px 10px rgba(0,0,0,.22); font:inherit; font-size:.9rem; font-weight:600; text-decoration:none; cursor:pointer; }
 </style>
 </head>
@@ -99,7 +99,7 @@
   <div class="card">
     <label>Your colour</label>
     <div class="swatches" id="swatches"></div>
-    <p class="quiet">This one is yours — it paints your homes list and this page. Each home keeps its own.</p>
+    <p class="quiet">This one is yours — it paints your homes list and this page.</p>
   </div>
 
   <div class="card">

@@ -311,3 +311,63 @@ can't do is go back in time and recapture data from real users."*
   tabs (Lizards, Snakes) on a Maine condo · "the Almanac" appears three times on one screen.
 - `measured` — capture side, round 4: 4–7 app events per seat via `grant`. The `instrumented`
   clause is green for every seat at `7965c70`; it counts from lap 2 as pre-registered.
+
+**Paul, ~21:45 ET (verbatim, watching QA):** *"Hollow Creek Road has got that blue-grey colour, but
+the buttons below — Save and consult the Almanac — are the original Fernwood dark green. That's
+where the scheme really comes in: it's not just what's the colour of the bar at the top but what's
+the overall UI scheme of colours. To create a cohesive personalised experience, all the elements
+should be somewhat deterministic based on the scheme that's selected — I defer to the UX expert on
+how best to define that — but let's make sure it carries through all the different variations.
+Make it flexible."*
+- `paul-ruled` — **the chosen colour is a SCHEME, not a header.** Every affirmative element
+  derives from it. → ux-expert to define the derivation; a first cut on the affirmative buttons
+  tonight (the one affirmative grammar: filled + ✓ — standing rule 1).
+- `paul-stated` (~21:50 ET, verbatim): *"This definitely requires some research into what colour
+  schemes truly are, and have that fit into what's a highlight and what's not. We can even have
+  accessible colour schemes in black-and-white — this is a whole area. A deep research into
+  pre-existing best practices, industry research. I want to get us started really well on a
+  SCHEME versus just a single main colour."* → a research seat spawned (ux-expert, principles mode,
+  web-grounded) → `.ux-reviews/2026-09-06-colour-scheme-RESEARCH.md`; the derivation review
+  already running becomes tranche 1 of whatever the research recommends.
+
+### 21:42 ET — round 5 walked at `f9c912f`
+- Four seats, watched, through the door, zero failed actions, **5 app events each via `grant`** —
+  the `instrumented` clause green in-walk for the first time (the reader fix + the walk's dwell).
+- Four fresh readers spawned. The chosen colour now also derives the affirmative tokens
+  (`--green-primary` / `--green-press`), uncommitted, pending ux-expert's inventory — round 6.
+- ux-expert's derivation review → `.ux-reviews/2026-09-06-colour-scheme.md`. Headline: the
+  affirmative grammar was already tokenised (`--green-primary`); it stayed green because the token
+  was never wired to the chosen colour. Tranche 1 applied: the token derives from the choice, the
+  header's light stop is +18% (at +28% Dusk read 3.8:1 under white text), press ≈ 72% mix.
+  `palette.py --check`: all seven AAA. Held: reconcile `--green-primary #2f5a3a` with palette Pine
+  `#2F5D3A`; one declared default for "no choice yet" (three answers today); the four signed-in
+  pages have no pressed state.
+- research → `.ux-reviews/2026-09-06-colour-scheme-RESEARCH.md` (sourced). The model: one seed →
+  a six-stop tonal scale → ~16 role tokens; **the seed owns identity and emphasis, never meaning**
+  (status, care types, ink, surface stay fixed). Contrast guaranteed by tone gap (Material 3 / USWDS
+  "magic numbers"), not per pair — so seven swatches, or any hex, are safe by construction, and a
+  monochrome **Plain** preset is a seed with chroma zero, no special case, and a standing audit of
+  WCAG 1.4.1. Tonight's tranche 1 is a fixed-ratio sRGB lerp, which the research names as the bug
+  class to replace. **Five questions for Paul** are in the file (does the seed own the ✓ control ·
+  does the ground follow the seed · Plain/Strong as swatch or toggle · closed set of seven or any hex
+  · household's choice or reader's). → **trigger:** `palette.py --check` scores the seed; the
+  derived tokens need their own check.
+
+### 21:55 ET — round 5 read (owner · strict so far): new-and-waiting; the failures are now COPY
+- `worked` — no page errors, no failed actions, no leak, no "broken" verdict. What the seats call
+  failures are contradictions between screens: the door's lede claimed "a card for each thing you
+  ranked" (eight cards for one pick) · "your other homes keep their own" three screens from "I can't
+  set up a second home" · the colour ringed as hers with none of the honesty the contact line got ·
+  the app's own ribbon sat on the card the product had opened for her.
+- Fixed for round 6: lede reworded (content-steward to re-read) · several-homes copy removed on both
+  settings pages · a tapped colour is recorded and the settings note says "the usual one, since you
+  didn't pick" when it was not · the receipt-page bubble lower and slimmer · the app's ribbon starts
+  slim in household mode · the chosen colour derives the affirmative tokens (tranche 1).
+- `finding` (rulings/copy, held): "Asking questions — not built yet" beside a live composer ·
+  the email never shown back and no username rename despite "it can change later" · "Take a look"
+  leads to a form · the Google-pin line vs "not on the map yet" · "any phone" vs "this phone".
+- wide-eyed, round 5: new-and-waiting; one new mechanical failure (idea-card titles one word per
+  line — mine, from the header lacking a real card's structure) fixed. Round 6 graduating.
+- mom, round 5: new-and-waiting; its two failures (the pill over "Household systems first"; the
+  lede) are in round 6. For content-steward: the empty-state B lines assume a yard ("beds", "over
+  the water", "a tractor") at Apt 3B; "Have we got this right" has no control beneath it.

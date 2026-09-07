@@ -6399,7 +6399,14 @@
     var s = document.documentElement.style;
     s.setProperty("--hdr-1", mix(-0.45));   // the same hue, three depths — never three unrelated colours
     s.setProperty("--hdr-2", hex);
-    s.setProperty("--hdr-3", mix(0.28));
+    s.setProperty("--hdr-3", mix(0.18));    // +18%, not +28%: at +28% Dusk read 3.8:1 under white masthead text (ux-expert 2026-09-06)
+    // ⭐ THE CHOSEN COLOUR IS A SCHEME, NOT A HEADER `[paul-ruled 2026-09-06]`: "it's not just the colour
+    // of the bar at the top but the overall UI scheme… all the elements should be deterministic based
+    // on the scheme that's selected." First tranche: the ONE affirmative grammar (standing rule 1) —
+    // every filled + ✓ control reads --green-primary / --green-press, so those two derive here. The
+    // hardcoded greens still in the stylesheet are ux-expert's inventory (.ux-reviews/2026-09-06-colour-scheme.md).
+    s.setProperty("--green-primary", hex);
+    s.setProperty("--green-press", mix(-0.28));   // ≈ the 72% mix ux-expert derived from the shipped #2f5a3a → #1f4528
   } catch (e) {}                            /* storage can throw in a private window; the page is fine */
 })();
 </script>
@@ -12994,7 +13001,9 @@ const FeedbackRibbon = (function () {
     let slim = null;   // null so the first apply() always writes
     function apply() {
       const y = window.scrollY || document.documentElement.scrollTop || 0;
-      const want = y > TOP_SLACK;
+      // A household's first open already has one card open at the top — their #1 — and the extended
+      // pill sat on its copy at 414 × A+ (owner seat, round 5). In household mode the ribbon starts slim.
+      const want = y > TOP_SLACK || !!(typeof window !== "undefined" && window.__HOUSEHOLD_NAME);
       if (want === slim) return;   // no DOM write on the vast majority of frames
       slim = want;
       tab.classList.toggle("is-slim", want);
@@ -17594,7 +17603,11 @@ function renderIdeaCards() {
     const src = i === 0 ? "You put " + it.label + " first, so this is where we start."
               : (i <= 2 ? "You put " + it.label + " near the top, so it's one of the first we're working on."
                         : "You put " + it.label + " on the list, so we know it belongs here.");
-    c.innerHTML = '<div class="main-card-header"><div class="main-card-title"></div><div class="main-card-summary"><em class="idea-tag">an idea — not built yet</em> · <span class="idea-src"></span></div></div>';
+    // the same header shape as a real card — without the icon and meta wrapper the title column
+    // squeezed to one word per line (wide-eyed seat, round 5)
+    c.innerHTML = '<div class="main-card-header"><div class="main-card-icon">💡</div><div class="main-card-meta">'
+                + '<div class="main-card-title"></div><div class="main-card-summary"><em class="idea-tag">an idea — not built yet</em> · <span class="idea-src"></span></div>'
+                + '</div></div>';
     c.querySelector(".main-card-title").textContent = it.label;
     c.querySelector(".idea-src").textContent = src;   // on the face — a closed body hid it (strict + mom, round 4)
     // in ranked position: after the last card that belongs to an earlier-ranked module, else first

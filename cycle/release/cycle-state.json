@@ -1,8 +1,8 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-06T21:04:18-04:00",
+ "generated_at": "2026-09-06T21:34:17-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "c3c1fd5",
+ "candidate_sha": "f9c912f",
  "beat": {
   "n": 2,
   "of": 5,
@@ -17,12 +17,7 @@
     "run": null
    },
    "owner": {
-    "run": "2026-09-06T210309",
-    "at-sha": true,
-    "watched": true,
-    "countable": false,
-    "no-failed-actions": true,
-    "instrumented": false
+    "run": null
    },
    "strict": {
     "run": null

@@ -1090,6 +1090,7 @@
       chosen = c.hex;
       ev("swatch", c.name);            // the NAME, so a palette nobody moves off the default is visible
       store(K_COLOR, c.hex);
+      store("fw-accent-chosen", "1");                  // a tap is a choice; the pre-selected default is not (strict, round 5)
       paintAccent();                                   // the page IS the preview
       [].forEach.call(el.swatches.children, function (n) { n.setAttribute("aria-pressed", "false"); });
       b.setAttribute("aria-pressed", "true");
