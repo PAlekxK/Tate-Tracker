@@ -101,6 +101,49 @@ replacing: `cycle/LAP-2-WORK-QUEUE.md` is already doing the engine-work tracking
 is lap-scoped**. ⚠️ One risk, one line: `measured` — of 6 sampled queue rows, **5 appear nowhere in
 `BACKLOG.md`**. A queue that outlives its lap with rows the backlog has never seen is a second backlog.
 
+## Where an AUDIT belongs — and the property that stops the infinite loop
+
+**The kinds are two, and conflating them is the whole worry.**
+
+| | **second measurement** (claim-bounded) | **standing review** (corpus-bounded) |
+|---|---|---|
+| asks | *is this stated number true?* | *what is wrong in here?* |
+| terminates | ✅ when the claim is settled — it has an answer | ❌ never: the corpus is bigger next time, so it always returns findings |
+| its output | a **verdict on a row that already exists** | **new rows** |
+| may run | anywhere, as often as you like | ⭐ **only at the commitment point** |
+
+⭐ **The stopping property, and it is checkable in one question: does this audit's output ADD rows or
+SETTLE rows?** New rows are new claims, and new claims invite a new review — *that* is the infinite
+loop he named, and it is created by the **output type**, not by the frequency. An audit that cannot
+grow the queue cannot feed itself.
+
+**So: fewer standing reviews. One per estate-manager cycle, at beat 7, which is the only beat that
+exists to dispose of new rows. Unlimited second measurements, inside the round.**
+
+⭐ **His withdrawal of the pre-walk audit was correct by this rule, and I would not re-open it.** A
+thread-hunt between a green gate ① and his walk is corpus-bounded: its output is new rows, arriving
+at the exact moment the loop is trying to *exit*. That is the one place a standing review must never
+sit — it converts an exit condition into an intake.
+
+**Was today too many?** `measured` — **12 dated artifacts in `.plans/2026-09-07-*`; 7 are
+audit-shaped** (`kind:` = audit · census · archaeology · design · 2× process, plus the untagged idea
+mine), **2,461 lines** including the round-1 consolidation; **1 of the 12 carries `ready:
+paul-approved`.** ⭐ **The count is not the defect — the disposal rate is: 1 of 12.** Seven
+corpus-bounded reviews ran against one commitment point that has never fired, which is exactly how
+22 files came to carry `ready: agent-proposed`. **The one that plainly earned its place is the
+cheapest:** `product-steward --round` on `c821051` — 131 lines, it read all four seat reports,
+verified **all 26 of its citations resolve**, carried 7 writes and opened 14 questions instead of
+deciding. It settles rows; it cannot invent one.
+
+⭐ **Where the cheap one attaches, so the loop can reach it.** Lane D's second measurements were the
+day's highest-yield work *(reported: a false "unchanged", 27 false orphans, a mis-stated severity —
+`unverified` by me)* and **nothing scheduled any of them; they happened because someone asked.** That
+is this repo's most-recorded failure — *a capability the loop cannot reach by running its own
+procedure is not a capability the loop has.* The fix needs no new machinery: **`product-steward`
+already re-reads every report and re-resolves every citation once per round.** Give that same act one
+more duty — **re-derive any number the round states as `measured` before it is written into a doc** —
+and the cheap audit becomes a step the loop runs on its own.
+
 ---
 
 ## What Paul must rule — five, each yes/no or A/B
@@ -112,3 +155,4 @@ is lap-scoped**. ⚠️ One risk, one line: `measured` — of 6 sampled queue ro
 | **R-C** | **Where does R6's expiry hang?** **A) at the estate-manager loop's scope-setting beat, and not until `ready:` actually records a ruling · B) at release-lap close, as originally ruled.** | **A.** B expires the audit you ruled today. Sequence, not priority: R6 depends on R7's carry landing. | If `ready:` lines start being rewritten within a day of a ruling once product-steward runs, the precondition is met and the clock can start — measure at round 3, don't argue it. |
 | **R-D** | **What ends the product-steward trial?** **A) the next `cleared_sha`, floor of 3 rounds · B) one full estate-manager cycle.** | **A.** Its falsifiers are already per-round and the release event is the boundary that exists today; B makes a trial wait on a loop that has never run. | If the next clear comes after 1 round, A without the floor rules on n=1 — that is what the floor is for. If every lap runs 3+ rounds, the floor never fires and is dead weight. |
 | **R-E** | **Derive the release lap from its own chronicle** — rewrite `CYCLE-LOG.md:15` to `## Lap 1 — 2026-09-06`, add `<!-- outcome:closed at:<utc> -->`, open lap 2 with its own heading, and read `momlib.lap_outcomes('cycle/release/CYCLE-LOG.md')` instead of the default at `release-state.py:49`. **yes/no** | **Yes.** One borrowed parser, no new vocabulary, no second register, and both siblings already prove it. | If lap 2's heading never actually gets written, the borrow fails at lap 3 — check that the heading exists before wiring anything to read it. |
+| **R-F** | **Audit budget.** **A) one corpus-bounded review per estate-manager cycle at beat 7, and none elsewhere — while second measurements run unlimited inside the round, carried by `product-steward`'s existing per-round act · B) leave audit timing to judgement each time.** | **A**, and it means **less of my own function**, deliberately. 7 standing reviews ran today against 0 commitment points; 1 of 12 artifacts is approved. The constraint is your disposal capacity, and it is the one thing more audits cannot increase. | If a corpus-bounded review at beat 7 misses a class the round-level checks cannot see — the rain-gauge leak is the test case, since it was caught by seats, not by a sweep — then one per cycle is too few and the budget should be two: one at scope-setting, one mid-cycle. Read it at the second cycle, not by argument. |
