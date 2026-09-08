@@ -3193,6 +3193,59 @@ async function handleConversations(request, env, url) {
 // observation bodies. Stored in KV under feedback:YYYY-MM-DD, mirroring the
 // cost-log + metrics shape. Never auto-injected into AI context until Phase 2.
 
+// ⭐⭐ GET /api/onboarding-metrics?start=&end=  `[paul-ruled 2026-09-07]`
+// Paul: *"we need to make sure that's all readable and instrumentable."*
+//
+// ⛔ WHAT THIS CLOSES. `/api/onboarding-metrics` was **POST-ONLY**. The Worker accepted every
+// onboarding behaviour event the app could produce and there was **no route in this file that could
+// read one back** — data went in and could not come out through the app's own API. Measured
+// 2026-09-07: 92 batches on production and 2,666 on QA had never been read by anything, and
+// `watch-feedback.py` had been naming the gap on every single run — *"POST-only in worker.js; there
+// is no GET route anywhere."*
+//
+// ⭐ WHY IT MATTERS NOW rather than as tidiness: the transition to the new product was a guided
+// visit until 2026-09-07, and the visit was the instrument. `[ruling 3b]` withdrew it — the link was
+// texted, the person arrives unobserved. This channel and the door are what replaced a human being
+// in the room.
+//
+// ⚠️ AUTHENTICATED, deliberately, and asymmetrically so. The POST is deliberately open and
+// UNAUTHENTICATED (`:3480`, the /api/door doctrine) because *the person who cannot get in is exactly
+// who must still be able to report it*. Reading is the opposite case: it is a whole estate's
+// behaviour record, so it takes the same token every other read route here takes. **Write open, read
+// closed** is the shape, and it is not an oversight in either direction.
+//
+// ⛔ NO NEW SHAPE. Mirrors `/api/feedback`'s GET exactly — same params, same validation, same 90-day
+// ceiling, same `{range, days}` envelope, same skip-malformed posture. A second date-range dialect in
+// one Worker is how a reader ends up written twice.
+async function handleOnboardingMetrics(request, env, url) {
+  if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
+  const start = url.searchParams.get("start");
+  const end = url.searchParams.get("end");
+  if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end)) {
+    return json({ error: "bad-date-format" }, 400);
+  }
+  const startMs = Date.parse(start + "T00:00:00Z");
+  const endMs = Date.parse(end + "T00:00:00Z");
+  if (isNaN(startMs) || isNaN(endMs) || endMs < startMs) {
+    return json({ error: "bad-date-range" }, 400);
+  }
+  const dates = [];
+  for (let t = startMs; t <= endMs; t += 86400000) {
+    dates.push(new Date(t).toISOString().slice(0, 10));
+  }
+  if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
+  const days = {};
+  for (const date of dates) {
+    const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "onboarding-metrics", date));
+    if (raw) {
+      try { days[date] = JSON.parse(raw); }
+      catch (e) { /* skip malformed — a day we cannot parse is absent, never an empty day */ }
+    }
+  }
+  return json({ range: { start, end }, days });
+}
+
 async function handleFeedback(request, env, url, grant) {
   if (request.method === "POST") {
     let body;
@@ -3309,7 +3362,7 @@ export default {
           const b = await readBudget(env, dateKey(scopeOf(env), "chat-budget", new Date().toISOString().slice(0, 10)));
           return { used_usd: +b.usd.toFixed(4), ceiling_usd: parseFloat(env.CHAT_DAILY_BUDGET_USD), turns: b.turns, tokens: b.tokens, date: new Date().toISOString().slice(0, 10) };
         })() } : {}),
-        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/door", "/api/grant/whoami", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
+        endpoints: ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line", "/api/classify", "/api/chat", "/api/metrics", "/api/cost-log", "/api/conversations", "/api/feedback", "/api/door", "/api/onboarding-metrics", "/api/grant/whoami", "/api/pending-species", "/api/promote-species", "/api/audio-upload", "/api/admin/clean-observations", "/api/zone-save", "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status"],
         configured: {
           observations: true,
           airnow: !!env.AIRNOW_API_KEY,
@@ -3686,6 +3739,8 @@ export default {
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
     if (url.pathname === "/api/door")       return handleDoor(request, env, url);
+    // ⛔ BELOW the auth gate, unlike its own POST at :3480 — write open, read closed.
+    if (url.pathname === "/api/onboarding-metrics") return handleOnboardingMetrics(request, env, url);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env);
     if (url.pathname === "/api/remove-species") return handleRemoveSpecies(request, env);

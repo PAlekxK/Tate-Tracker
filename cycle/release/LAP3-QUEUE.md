@@ -15,9 +15,9 @@
 | # | item | status |
 |---|---|---|
 | 1 | Release-map **drift control** | ✅ **DONE** `0aea9b3` — found 2 drifts on its first run, one of them mine |
-| 2 | **Cloudflare Access** — full-stack recommendation | ⬜ next |
-| 3 | **Onboarding read route** — `GET /api/onboarding-metrics` | ⬜ |
-| 4 | **Returning step list** for the walk harness | ⬜ |
+| 2 | **Cloudflare Access** — full-stack recommendation | ✅ **DELIVERED** `224de57` — recommends DROP, with a non-optional condition. ⛔ Paul rules |
+| 3 | **Onboarding read route** — `GET /api/onboarding-metrics` | ✅ **DONE** — deployed to QA and verified by use: **2,666 batches** read back, six branches correct |
+| 4 | **Returning step list** for the walk harness | ⬜ **next** |
 | 1b | The **renames** (`lab→dev`, `home→prod`) — the rest of item 1 | ⬜ gated on 2 |
 
 ## Phase 2 — ships to people, through the new gates, verified by Paul
