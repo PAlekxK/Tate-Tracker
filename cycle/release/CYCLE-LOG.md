@@ -2015,3 +2015,52 @@ concurrent-session guard exists to catch: **the refinement window owns `BACKLOG.
 `OBJECTIVES.md`; the build window owns code and `cycle/`.** Brief:
 `handoff/handoff-backlog-refinement.md`.
 
+
+### Beat 7 · BUILD — A, B and C landed; A is HALF-PROVEN and says so
+
+**B · the station indicator — DONE, and it was six sites, not the two CARRY named.** The words were
+always right and the COMPONENT was not: the honest sentence shipped inside `live-dot stale`, the amber
+dot meaning DEGRADED. ⛔ **The worst was UNGUARDED AND LIVE** — "Right now" rendered a `station` source
+chip reading *"the weather station — measured on the property"* at a household with no station,
+claiming a source that does not exist **and** flagging it degraded in one control. Fixed in the ENGINE
+template and rebuilt; Fernwood untouched at `station: present`; both builds parse under `node --check`.
+⚠️ **Suppressed, not repointed** — the honest end state is to cite the GRID, and that is a design
+change this fix did not take.
+
+**C · `watch-activity.py` — DONE, and it nearly shipped a false zero on Mom's estate.** ⛔ It is **not
+per account**, by design: a metrics batch carries **no `personId`** (measured: 30 batches at `home`,
+zero with one), so it counts **device buckets** and may never say an account did anything — Paul's own
+`watch-door` rule. ⚠️ **The first version read only `<estate>:metrics:` and printed "no metrics
+batches" for `legacy`** — which holds **94 unprefixed keys back to 2026-05-20**. It now reads both eras
+and names which era each reading came from: legacy is **729 batches · 430 sessions · 95 active days**.
+⭐ **Absence under a prefix is a fact about the prefix, not about the world.**
+
+### ⭐⭐ A · THE WALK FOUND THE HOLE IN THE FIX'S OWN PREMISE
+
+The fix: recognition moved off the device-local `fw-username` and onto the server, with
+`whoami` newly answering `hasAccount`. **It did not work, and running it is the only reason we know.**
+
+⛔ **`/api/session` hydrated eight fields onto the rotated grant row and `username` was not one of
+them.** Signing in issues a NEW credential; the new grant lost the one field saying an account exists,
+`hasAccount` went false, and **the door the person had just come through opened again on their next
+arrival.** Fixed by stamping it — deliberately *outside* the hydrate loop, which copies what the
+person SUPPLIED and skips nulls; a username is the identity a grant BELONGS to, not a thing supplied
+to it.
+
+**What the walk then proved, and it is stated as exactly that much:**
+
+| | before | after |
+|---|---|---|
+| returning arrival | `screen=s0` at every stop — *"Create your account"* | **`screen=s1`** — recognised, resumed into setup |
+
+⭐ **s0 → s1 is the recognition half, proven by execution.** A person arriving on a live link from a
+device that never created the account is no longer met as a stranger.
+
+⛔⛔ **AND A IS NOT DONE. The committed scope says its exit is the two-person falsifier, and it has not
+run.** Three actions still fail — `#gohome`, `/homes/`, `/settings/account/` — because the durable
+`owner@qa` identity has **`place=None` and `address=None` on the ACCOUNT itself**: an account created
+and never taken through setup. It can exercise the **resume** path and cannot exercise the
+**finished-setup redirect**. ⭐ **CARRY predicted this exactly** — *"the finished-setup redirect is
+still unwalked by any seat"* — and it **remains unwalked**. The gap is in the HARNESS (no durable
+identity has a completed setup), not in the product, and it is the fixture that must change.
+
