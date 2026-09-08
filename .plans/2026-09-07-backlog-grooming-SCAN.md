@@ -1092,3 +1092,48 @@ standing at it*; door records carry `personId: null` by construction and a devic
 bucket. More instrumentation on household surfaces means more records about people unless this is
 held. ⭐ It also has to survive the administrator generalisation: at an estate Paul does not live in,
 *"instrument it all"* reads very differently.
+
+### 11.6 · ⭐⭐ SYNC AND THE INPUT SCHEMA `[paul-ruled 2026-09-07, late]`
+
+| | ruling, verbatim | settles |
+|---|---|---|
+| **GL-9** | *"ideally a given estate's logs are persistent with that estate. So anyone that logs in, when they log in, can see the latest notes and version of that estate."* | the record belongs to the **PLACE**, not the device and not the person — the same axis as tonight's station ruling (*a station belongs to a place, not to a person*) |
+| **GL-10** | *"I think we need everything to be estate-persistent with an author."* | ⭐ **shape 2 of 3.** Not person-scoped, not anonymous-shared |
+| **GL-11** | *"that goes back to our data schema being able to separate all the different dimensions associated with any input we get — of who, what, where, when."* | ⭐⭐ **a schema contract wider than notes** |
+
+**`measured` — what crosses a device boundary today.** `check-storage-keys.py` is green (19 keys, all
+rostered), and that is the point: they are rostered *browser* keys.
+- ✅ **transfers:** the estate's canon — zones, plants, weather, digest, account facts.
+- ⛔ **does not:** `observations` (**her field notes** — a sync path exists but is an **opt-in pairing**,
+  `sync.v1` = a Worker url + token) · `ackSeen` (a new phone re-shows an acknowledgment she has read) ·
+  `momQueue.snoozed`/`offered` (*answered* does reconcile from `/api/feedback`) · `textSize` (**M3**) ·
+  and the two **outboxes**, which exist **nowhere but the phone** until they flush.
+
+> ⭐ **THE FINDING THAT MAKES GL-9 CHEAP: the axis already exists on the wrong side of the wire.**
+> `STORAGE_KEYS_PER_ESTATE` segments four keys per estate, reasoning in the code: *"on a family origin
+> that serves two estates, an unsegmented key would show her at the condo as having answered
+> Fernwood's questions."* **State-belongs-to-the-estate is already implemented — in a browser.** The
+> concept needs no design; the location needs moving. ⛔ It gates on **LEG 0**, the per-estate capture
+> write path, because that is literally the same seam — so it rides with LEG 0 rather than as a thread.
+
+⛔ **AND THE PROMISE MUST CHANGE IN THE SAME COMMIT.** The field-note surface says *"Stays on this
+phone for now. Nobody else sees it."* That is **true today** and **GL-10 makes it false.** Shipping the
+behaviour without the copy is precisely *capture must not lie*, and every ask must say **who sees it**.
+⚠️ Easy at Fernwood (one family). ⚠️ **At an estate the administrator does not live in, this is the
+up-front-agreement prerequisite** in the data-model plan §7, not a default.
+
+**GL-11 — the four dimensions against what exists today.** ⭐ Like the domain manifest before it, **all
+four already exist somewhere and each was solved separately; none is required.**
+
+| dimension | today | grade |
+|---|---|---|
+| **WHO** | ⭐ `personId` + **`personSource`** — *"the value, and where it came from"* (`worker.js:385`), **shipped tonight**; `estateSource` mirrors it. ⛔ backfill explicitly deferred — older records stay null **with a reason** | v1 exists |
+| **WHAT** | the domain manifest's action axis. ⛔ **`group` is DOUBLE-BOOKED in running code** (H7) — `tend/fight/visit/run/place` vs `vehicle/equipment/household-system` | contested |
+| **WHERE** | two granularities: **estate** (`estateSource`, and `estateKey()` in the browser) and **surface/door** (`context.surface`). ⛔ census **E4**: **2 of 3 record classes carry no `context.surface`** | partial |
+| **WHEN** | timestamps exist, and the clock discipline is already learned — *"`arrivedAt` vs `acknowledgedThrough` — DIFFERENT CLOCKS, don't conflate them"*; `firstOfferedAt` rides along for offer→answer latency | strongest |
+
+⭐ **The shape to copy is the domain manifest's, and it is the reason that one worked:** it was **a
+CONTRACT, not a reorganization** — *"nothing was merged, nothing renamed, nothing moved."* Each domain
+**declared** where its axis lived. GL-11 should declare the four dimensions per input class, not
+migrate records. ⚠️ Its own worked precedent: `momlib.markers()` normalises every domain's honesty
+field so a producer asks *"does this admit a guess?"* instead of knowing field names.
