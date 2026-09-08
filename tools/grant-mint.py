@@ -429,6 +429,23 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
             subprocess.run(["open", "-a", "Visual Studio Code", where], check=False)
     print("  minted (%s, %s) env=%s entry=%s vault=%s · hash %s… · consent scopes %s · token → %s (mode 600; the register holds the HASH only)"
           % (person, estate, env, bool(entry), bool(vault), h[:10], sorted(scopes) or "none", where))
+    # ⛔⛔ A MINT CARRIES NO PLACE FACTS, AND THE FAILURE IS SILENT — say so here, at the moment
+    # someone is about to hand this credential to a person (added 2026-09-08).
+    # `measured` that day: a rotate for a person who owned a set-up place produced a working
+    # credential whose `whoami` returned `name: null`, so the household rendered as **"My Home"** and
+    # its owner could not tell a wiped place from an unhydrated grant. It cost Paul a lockout and cost
+    # me a wrong diagnosis before `hydrate` was found.
+    # ⭐ WHY IT IS A STOPGAP AND NOT A FIX. `grant-mint.py`'s own docstring already says place facts
+    # ride onto a grant in EXACTLY ONE code path — signing in — "and there is no sign-in door, so a
+    # minted grant could not be hydrated by ANY route a person could reach." **`hydrate` exists
+    # because the sign-in door does not.** ⛔ RETIRE THIS WARNING when the door ships (spine step 12):
+    # at that point a person hydrates their own credential by signing in, and a warning telling an
+    # operator to run a command by hand would be describing a route nobody needs.
+    print("  ⚠️  this credential carries NO PLACE FACTS. A mint and a rotate both skip them; only")
+    print("      `hydrate` copies placeName · accent · address · ranked · contactPref · profileAccent")
+    print("      from the account row onto the grant. Without it the place renders as \"My Home\":")
+    print("        python3 tools/grant-mint.py hydrate --person %s --estate %s --env %s --dry-run"
+          % (person, estate, env))
     return h
 
 

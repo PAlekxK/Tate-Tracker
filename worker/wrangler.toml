@@ -66,10 +66,29 @@ id = "a0cf82b615c648ff972961c46ce42661"
 # ⛔ NO GITHUB_TOKEN, deliberately and permanently: GITHUB_BRANCH defaults to "main" (worker.js
 # ~1974), so a lab Worker holding one would promote species straight onto Mom's live branch.
 # Deploy: `npx wrangler deploy --env lab`  ·  Remove: `npx wrangler delete --env lab`
-# ⭐ FERNWOOD DEV `[paul-ruled 2026-09-05]`: "we should have a Fernwood dev, qa, and production."
-# The estate is now est-3c9f1a — THE SAME COORDINATE AS PRODUCTION — because an estateId names an
-# ESTATE, not an estate-in-an-environment, and estate.json already rules an id "a COORDINATE, not a
-# label." The environment is the NAMESPACE; this one is 1e0bd883, prod's is 100f2b95, and they cannot
+# ⛔⛔ SUPERSEDED 2026-09-08 — READ THIS BEFORE QUOTING THE PARAGRAPH BELOW.
+# `[paul-ruled 2026-09-08]`: "If one place exists at two rungs — Fernwood in QA and production — it's
+# gotta be two different estate IDs. Otherwise we get too much divergence with all the generative AI,
+# nondeterministic input." ⭐ **ONE ESTATE ID PER `(place, rung)`.** A place at dev, at qa and at
+# production is THREE estates, and their divergence is the point rather than a defect.
+# ⭐ WHY IT WAS RULED, and it is measured rather than preferred: on 2026-09-08 Paul's own four real
+# onboarding records sat among 463 SYNTHETIC ones in `est-qa0001`, because the harness and the person
+# shared a store. That is the divergence landing inside one record instead of two.
+# ⭐ WHAT IT REPAIRS: G3. `grant-mint`'s `estate_agrees()` compares the estate you named against the
+# estate the target rung binds — a check that CANNOT FIRE while environments share an id. With ids
+# unique per (place, rung) it is decisive again: `--estate est-e6696a --env qa` now refuses.
+# ⚠️ IT ASKS NOTHING TO MOVE: `measured` 2026-09-08 — six deployments, six distinct estate ids, zero
+# collisions. The ruling ratifies the reverted state below.
+# ⛔ AND THE SUPERSESSION IS NARROWER THAN IT LOOKS. `estate.json:4` — "an id is a COORDINATE, not a
+# label" — is NOT superseded and must not be "corrected": it says only that renaming a place does not
+# rename its id, and says nothing about environments. The paragraph below CITED it to justify sharing
+# an id across environments, an inference the cited rule does not support. **The citation fell, not
+# the source.**
+#
+# ~~⭐ FERNWOOD DEV `[paul-ruled 2026-09-05]`: "we should have a Fernwood dev, qa, and production."~~
+# ~~The estate is now est-3c9f1a — THE SAME COORDINATE AS PRODUCTION — because an estateId names an~~
+# ~~ESTATE, not an estate-in-an-environment, and estate.json already rules an id "a COORDINATE, not a~~
+# ~~label." The environment is the NAMESPACE;~~ this one is 1e0bd883, prod's is 100f2b95, and they cannot
 # see each other. Same property, same shape, different data — which is what environments are for.
 #
 # ⛔ AND THIS BREAKS G3. grant-mint's estate_agrees() stops a credential being minted into the wrong
