@@ -67,8 +67,9 @@ validators — **not** a `lines` key beside `zones`. Areas, lines and points.
 `partOf`, and did not add lines.** The gate fired; the deferral is still open.
 
 ### The action axis already exists and is untrustworthy
-`zones[].type` carries `planted / turf / structure` — and `main-parking`, `lower-parking`, `the-bank`,
-`the-bluff` and `stable-grounds` are **all typed `planted`**, which is a default leaking. Anything that
+`zones[].type` carries `planted / turf / structure` — and **19 of 23 records are typed `planted`** — including
+`main-parking`, `lower-parking`, `the-bank`, `the-bluff` and `stable-grounds`. A field that is 83% one value
+is a default, not a taxonomy. Anything that
 groups by type today inherits the error. **Fix the data before building a consumer on it.**
 
 ---
@@ -85,18 +86,72 @@ they are **lenses on one object**, not four features:
 | **actions** | a way to organise the work | maintenance, intervals, what this place needs now |
 | **capture scaffold** | the frame that makes someone name things | the kitchen table |
 
-> ### ⭐⭐ THE ORGANISING FINDING — the record's filler is not the record's reader
-> **Portrait and capture serve the person who is PRESENT. Index and actions serve the person who is ABSENT.**
-> Only the present person can fill the record; only the absent one needs it. So most retrieval features are
-> a promise to someone who is not there, funded by labour from someone who gets nothing back for it.
+> ### ⛔⛔ THE ORGANISING FINDING WAS WRONG — RETRACTED 2026-09-07 BY PAUL, WITH EVIDENCE
+>
+> **What two research passes carried:** *portrait and capture serve the PRESENT person; index and actions
+> serve the ABSENT one — the resident steward does not need retrieval, she knows where everything is,
+> which is why she can name it.* It was the organising claim of both, and it is **false at Fernwood.**
 
-⭐ **And the one form of absence that dissolves it: absent IN TIME.** Paul's own *"sites of different
-projects over time"* is **him, later** — the only absence a resident steward can be persuaded to care
-about, because it is about herself. That is where portrait and index stop competing.
+**Paul, 2026-09-07, correcting it directly:**
 
-⚠️ **The finding this must be tested against, and it is uncomfortable:** for the resident steward a map's
-job is **not retrieval — she knows where everything is, which is why she can name it.** Depth-2 and depth-3
-engagement are zero for her. A v1 that measures itself on retrieval is measuring the wrong person.
+> *"Mom has a picture of each plant in her head and where it is, but she doesn't know exactly which plant
+> is which, what the differences are between all the different azaleas and hydrangeas, what time of year
+> to work on them, and where they are and how to put all that together… **she actually keeps asking very
+> specifically for this zone layout.** 'I'm breaking out the fertilizer — what plants? I don't wanna miss
+> any. What zones have what plants that need the fertilizer?' Same with pruning… all the zones, names and
+> boundaries have been developed with Mom and come from her head, **because she wants it overlaid with all
+> the other information we have.**"*
+
+⭐⭐ **The correction is precise, and it changes the feature.** She knows **location**. She does not know
+**identity, timing, or the SET.** So the map's job for her is not wayfinding — it is **COMPLETENESS**:
+
+> **She is not lost. She is worried about missing one.**
+
+That is a set-completeness problem, it is exactly what a place × action × month join answers, and it is
+what a flat plant list cannot. It also means the **actions** lens serves the person who is PRESENT, holding
+a bag of fertilizer — which is the row the retracted finding filed under "absent."
+
+⭐ **And it inverts the supply/demand claim rather than qualifying it.** She is not filling a record for an
+absent stranger; she is asking for a join because *she* needs it when she does the work. **Filler and
+reader are the same person.** The proposed cross-project pattern (*"the record's filler is not the record's
+reader"*) is **withdrawn** — its premise is falsified at the project it was derived from.
+
+⚠️ **Why it survived two passes:** it was inferred from telemetry (depth-2 and depth-3 zero, every
+ask-shaped affordance 0-for-35) and never checked against the one person who talks to her every week. **The
+instrument said she was not engaging; the son said she keeps asking for this specific thing.** Both readings
+were of real data and only one was of her.
+
+### ⭐ The join was computed at HEAD, and it works — and it fails in the dangerous direction
+
+`plants.json` `care.*.months` × `plants.zones[].zoneId` × `zones.json`, September:
+
+```
+📍 Pond Area          inspect 7 · propagate 5 · water 6
+📍 St Francis Garden  water 3    📍 The Green Ring  water 2
+📍 Lower 40           water 2    📍 The Turf        mow 1 · propagate 1
+…
+⛔ NEEDS DOING BUT HAS NO PLACE — she cannot be told where to go:
+   water 12: Hydrangea, White Pine, Holly, Clematis, Elpis Clematis, DreamCloud
+             Hydrangea, Pop Star Hydrangea, Summer Cascade Wisteria, Creeping
+             Fig, Lizard's Tail, Spiderwort, Pyracomeles
+```
+
+⛔⛔ **A September watering list built today would silently omit TWELVE plants, including the entire
+hydrangea family.** She would not get *"I can't find it."* She would get a **confident, complete-looking
+list missing a third of the property**, and finish the job believing she was done. That is the
+confidently-wrong instrument this project refuses, in the same shape as the 14× rainfall incident — and it
+is now the v1's governing risk.
+
+> ### ⭐⭐ THE REQUIREMENT THAT FOLLOWS, AND IT IS ALSO THE BEST FEATURE
+> **The v1 must show what it does NOT know.**
+> *"This month in the Fern Garden — water these 4. · 12 plants on the property don't have a place yet, so
+> they're not on any list."*
+
+That line is honest **and** it is the capture prompt — and unlike every affordance that has failed here, it
+is not us asking her for a favour. **An incomplete record breaks her own job**, so she has her own reason to
+fix it. ⭐ **The completeness gap IS the elicitation device**, which is `CLAUDE.md`'s own *latch onto what
+she starts* doctrine reached from the data: the affordance that MOVES her ran 5→5; every one that ASKED her
+ran 0-for-35. A worklist moves her.
 
 ---
 
@@ -138,11 +193,13 @@ not in force (`BACKLOG.md` § 2026-09-06 · four rulings that existed in no file
 | ⛔ zones ever confirmed | **0**, in 40+ days. `ZonePanel` fires `zone_confirmed` and it has **never fired** |
 | plants | 40 · **27 carry `zones[]`** · 6 of those in more than one zone |
 | ⛔ **code that reads `plant.zones`** | **NONE.** Grepped every render path in `viewer.html`. The join is written and rendered nowhere |
-| distribution | `pond-area` holds **16 of 42** placements (59%). **10 of 23 zones hold zero plants** — including **`fern-garden`**, a zone named for a plant containing none |
+| distribution | `pond-area` holds **16 of 35** placements — **46% of every placement in canon.** **10 of 23 zones hold zero plants** — including **`fern-garden`**, a zone named for a plant containing none, whose two ferns are both filed elsewhere |
 | plants with no place at all | **13**, including `hydrangea` (the hub record carrying the whole roster), `white-pine`, `holly`, `clematis`, `wisteria`, `lizards-tail` |
 | household systems | **6** records in `vehicles.json`. The **well, septic, main shut-off, spigots and crawlspace hatch are records nowhere in canon** |
 | domains that can express a place | **2 of 11** (`plants.zones[]`, `turf.zoneId`) |
-| overlap | **93 of 107 m²** of all zone overlap came from **two linear features modelled as areas** |
+| overlap | **93.5 m² — 87% of ALL zone overlap — came from ONE feature modelled as the wrong shape:** The Path, a 17-vertex polygon |
+| ⛔ identity | `whoAmI()` returns the literal string `"device"` — *"No identity layer in v1 — every edit is anonymous"* (`viewer.html:11377`). **A `zone_confirmed` event cannot distinguish her tap from Paul's test tap** |
+| shared borders | **58 coordinates are already EXACTLY shared across 20 zone pairs** (tracer snapping, `badf097`) — the *"no vertex snapping"* line was corrected 2026-09-04 |
 | participation | zone journey **0 taps in 10 offers**; every ask-shaped surface **0 for 35**; one kitchen table **16 names in an evening** |
 
 ⭐ **Read the first three rows together.** The confirm act is built and has never run; the join is written and
@@ -161,6 +218,11 @@ line than a zone."* The Path likewise, and its retirement note carries the numbe
 > through: 47.1 m² into Eastern Patio, 43.3 m² into Fern Garden, 2.7 m² into Eastern Woodlands — **93 of the
 > 107 m² of overlap in the whole area set.**"*
 
+⚠️ **Attribution corrected 2026-09-07 (user-researcher seat, against my own first draft): that 93.5 m² is
+The Path ALONE — 87% of all overlap from ONE feature.** Upper-Uber wall was retired for the same *reason*
+and is not in the number. The structure-first argument survives intact; the arithmetic behind it does not
+get to be sloppy.
+
 ⭐ **The lines were traced at 13:39 on 08-31, AFTER all sixteen areas — which is precisely why the areas
 overlap.** Structure-last cost 87% of the overlap; structure-first would have prevented it.
 
@@ -176,7 +238,7 @@ which is a question about **lines**.
 
 | step | who | what | how |
 |---|---|---|---|
-| **1 · the frame** | free, deterministic | parcel · road frontage · building footprints · water · woods/open line | ⭐ **downloads, not inferences.** The roof is a file (MS/Overture). The road is a file (TIGER). The boundary is a file (Regrid — **the one paid item, a BUY decision**). Water is a one-line NIR threshold and NAIP carries NIR |
+| **1 · the frame** | free, deterministic | parcel · road frontage · building footprints · water · woods/open line | ⭐ **downloads, not inferences.** The roof is a file (MS/Overture). The road is a file (TIGER). Water is a one-line NIR threshold and NAIP carries NIR. ⭐ **The parcel comes from the COUNTY, free** `[paul-ruled 2026-09-07: "let's just use what's free today"]` — Regrid is a subscription (monthly base + per-record overage, no published per-parcel price) and is an **engine cost for household N**, not a Fernwood cost |
 | **2 · the edges** | model proposes · **Paul accepts** | driveway · walls · paths · tree line | driveway as a **least-cost path**, not a segmentation |
 | **3 · the regions** | Paul, but now easy | the areas | ⭐ closed **against edges that already exist** rather than freehanded in open space |
 | **4 · the names** | **only the household** | every name | **0 of 16 derivable.** Permanently |
@@ -218,11 +280,47 @@ snaps to a shadow every time** — a shadow is the strongest gradient in that fr
 On elevation it is unambiguous and **shadow-free by construction** — the sun angle does not exist in a DSM.
 The photo shows you a shadow; the elevation shows you the wall.
 
-⛔ **And the probe that decides whether this is buildable here has never been run.** Google Solar
-`dataLayers` at 34.5496, −84.3674 — one call, ~$0.075, ten minutes. HIGH returns **0.1 m RGB + a 0.1 m
-shadow-free DSM** (6× the basemap, 10× the lidar posting); a 404 closes the question. Verified this session:
-no such call exists anywhere in the repo, and `LAND-SOURCES.md` still records the canopy-height model as
-*"not yet built."* **→ Ruling R-Z1, §9.**
+### ⭐⭐ THREE FREE INSTRUMENTS, ALL ALREADY ON DISK — this is the answer to R-Z1
+
+**① The shadow-free layer already exists.** `images/property-map/lidar-hillshade-2018.png` and
+`lidar-slope-2018.png`, USGS 3DEP 1 m lidar, **registered to bounds IDENTICAL to the NAIP basemap** — the
+bounds file says *"drop-in layer, no re-registration"* and, in its own words, *"lidar is an ACTIVE sensor:
+no sun, therefore no shadows"* and **"a break of slope IS the border of several named areas."** Coverage was
+confirmed deterministically 2026-08-31. **The only missing piece is a layer toggle in `area-trace.html`.**
+⚠️ Its own caveat, kept: *"a shadow answer, not a sharpness answer"* — 1 m posting, coarser than NAIP's
+0.6 m, so a 0.5 m wall may still smear.
+
+**② Every frame already carries its own sun geometry, and it indicts the frame we traced on.**
+
+| frame | GSD | noon sun | shadow per unit height |
+|---|---|---|---|
+| 2010-08 | 1.0 m | **63.6°** | **0.50×** |
+| 2015-09 | 1.0 m | 57.7° | 0.63× |
+| 2019-10 | 0.6 m | 50.1° | 0.84× |
+| **2022-01 leaf-off** | 0.6 m | **33.4°** | ⛔ **1.52×** |
+
+⛔ **All 23 zones were traced on the frame with the longest shadows on the property — 3× the best frame
+available.** That is the measured cause of Paul's *"very hard to be exact with positioning and borders,"*
+and it was sitting in a bounds file the whole time.
+
+**③ ⭐ MULTI-FRAME CONSENSUS — the shadow moves and the wall does not.** Seven NAIP dates at identical
+registration, sun altitudes 33°→64°, shadows changing 3× in length and swinging in direction. **An edge
+present in all seven is a real thing; an edge present only in January is a shadow.** Deterministic, no
+model, no elevation, no purchase — and it is Paul's own *"abstract the image into shapes and compare them"*
+run across TIME rather than across sources. ⚠️ **Proposed here, never tested.**
+
+**Order: ① toggle the slope layer · ② multi-frame consensus · ③ raw 3DEP point cloud if 1 m proves too
+coarse for walls.** Google Solar `dataLayers` becomes the **fallback**, not the first move.
+⚠️ **And its cost was mis-stated to Paul as $0.075.** Verified this session: **no Google credential exists
+anywhere in this repo**, so the real ask is a Google Cloud project with billing enabled. He ruled *"let's
+just use what's free today"* — this section is why that ruling costs us nothing.
+
+⛔ **AND THE IDEA IN §5b IS DEAD — killed by the engineering seat, recorded rather than quietly dropped.**
+Gradient magnitude as a derived confidence **does not work here**: livewire adheres to the *strongest edge
+in the neighbourhood*, which on a 33°-sun January frame **is the shadow**. The confidence would read
+**maximal exactly where the answer is wrong**, and it would have been wired to the honesty encoding. ⭐ The
+honest replacement is geometric, not photometric: sun altitude, capture date and a 1 m DEM are all already
+in the repo, so **shadows can be PREDICTED and masked deterministically** rather than detected.
 
 ---
 
@@ -304,10 +402,12 @@ Named, so the deferral is a decision rather than an omission:
 
 | # | the ruling | recommendation |
 |---|---|---|
-| **R-Z1** | **Run the Google Solar `dataLayers` probe** at the property coordinates? One paid API call (~$0.075) against Paul's own address. It decides whether wall-snapping and the whole edge layer are buildable at Fernwood or are a research direction. | **Yes** — it is the cheapest decision-changing measurement available, and a 404 is as useful as a HIGH. ⛔ Not run without his word: it is outbound and paid. |
-| **R-Z2** | **Is the Regrid parcel purchase in scope for the epic?** The property boundary is the one item in step 1 that is not free, and *"where are the property boundaries"* is one of Paul's stated uses. | **His call — a spend, not an engineering choice.** Note the boundary is **assessor-grade, never a survey**, and must always say so on its face. |
-| **R-Z3** | **The cross-project pattern** the user-researcher seat proposed — *"the record's filler is not the record's reader"* — written to `~/.claude/user-research/cross-project.md`? | **His call.** It is `inferred` at two projects. |
-| **R-Z4** | **Does the answer-key measurement get scheduled, or stay opportunistic?** It is a wasting asset (§7). | **Recommend scheduling one comparison run** once step 1 of the pipeline exists — otherwise it decays unmeasured. |
+| **R-Z1** | **How do we get a shadow-free instrument for the edge layer?** | ✅ **RESOLVED WITHOUT A PURCHASE, 2026-09-07.** Paul: *"I need a better understanding of what you need for Z-1 or whether there's alternatives or a short term workaround."* **There are three, all free, all using assets already on disk — see §5c.** Google Solar drops to a fallback. ⚠️ Its real cost was mis-stated to Paul as $0.075: **no Google credential exists in this repo**, so the actual ask is a Google Cloud project with billing. Corrected before he acted on it. |
+| **R-Z2** | **Parcel boundary — buy Regrid?** | ✅ **RULED: NO, use what is free** `[paul-ruled 2026-09-07]` — *"Between Regrid and, like, Pickens County parcels, this is where we're saying the vision versus the short term reality. So yeah, let's just use what's free today."* **Pickens County GIS for Fernwood.** Regrid is not per-property: monthly base + per-record overage, pricing behind an account. It becomes a real decision **the day household N arrives**, and it is off the v1's critical path. |
+| **R-Z3** | **The cross-project pattern** — *"the record's filler is not the record's reader."* | ⛔ **WITHDRAWN, and the underlying finding is RETRACTED — see §2.** Paul falsified its premise at Fernwood. The seat is holding; nothing was written to the library. |
+| **R-Z4** | **Does the answer-key measurement get scheduled?** | ✅ **RULED: YES** `[paul-ruled 2026-09-07]` — *"Down the road, we'll compare what we derive to the twenty three zones."* It is a **named step** that fires once step 1 of the pipeline exists, not an opportunistic idea. ⚠️ It is a **wasting asset** (§7). |
+| **R-Z5** | ⛔ **NEW AND BLOCKING — where does the v1 ship, given the condo is `garden: off`?** Rulings "v1 = zones × plants" and "the condo is the first instance" **do not compose**: `.plans/2026-09-03-c7-condo-paper-model-PLAN.md` `[paul-approved 2026-09-03]` sets `garden: off` with a falsifier already enforcing zero plant candidates. **The v1 has no surface at the first instance that ships.** | **Recommend: ship the v1 to Mom's blank production Fernwood and keep the condo as the ONBOARDING trial.** That contradicts no stamped plan. ⛔ Paul's, not an agent's — it re-points a ruling he made. |
+| **R-Z6** | 🔴 **NEW AND BLOCKING — the zone leak.** `handleZonesGet`'s KV-miss branch calls `ghGetFile(env, "zones.json")` with **no estate guard**, and a fresh estate is by definition a KV miss. The only thing preventing it is `viewer.html:14044` early-returning on `ABSENT_DOMAINS.includes("zones")` — **and removing `zones` from that list is exactly what "build the zone feature" means.** | ⛔ **Close before any zone work reaches an origin.** It breaks the blank-slate ruling **unrecoverably** — she cannot un-see the answer key. One request against `home` or `lab` confirms it; the path was read, not exercised. |
 
 ---
 
