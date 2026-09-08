@@ -1,8 +1,8 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-08T13:47:03-04:00",
+ "generated_at": "2026-09-08T13:55:57-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "8a69f41",
+ "candidate_sha": "6179ac3",
  "beat": {
   "n": 2,
   "of": 11,
