@@ -635,6 +635,58 @@ the garden surface rather than the property card — the two are not the same, a
 
 ---
 
+## 0-PRIME-G · ✅ THE SPRING FROST BASELINE — SETTLED 2026-09-08 `[paul-ruled: "go ahead and settle it"]`
+
+⛔ **THE ANSWER IS NEITHER OF THE TWO NUMBERS THAT WERE ARGUING.** `measured` tonight, free and keyless,
+from NCEI's own normals service at the station named in the response:
+
+**`USC00094648` · JASPER 1 NNW, GA · 34.4758, −84.4461 · 446.5 m = 1,465 ft · 1991–2020 normals, 50th pct**
+
+| threshold | last spring | first fall |
+|---|---|---|
+| **T36 (frost)** | **04/15** | **10/25** |
+| T32 (freeze) | 04/04 | 11/04 |
+| T28 (hard) | 03/21 | 11/20 |
+
+| | last spring | first fall | season |
+|---|---|---|---|
+| **canon** `frostDates.valleyFloor_KJZP` | **April 23** | **October 27** | 187 d |
+| **measured T36** | 04/15 | 10/25 | 193 d |
+| **delta** | canon is **8 days later** | canon is **2 days earlier** | canon is 6 d shorter |
+
+⚠️ **AND THE SCAN'S OWN FIGURES WERE BOTH OFF BY A DAY OR TWO** — it reported spring **04/14** and fall
+**10/27**, and its headline was that the derivation *"reproduced canon's fall date exactly."* Against
+this probe it does not: **10/25 − 10 days = October 15, not canon's October 17.** Different station,
+percentile or service; **this probe names its station in its own response.**
+
+### ⭐ What actually settles it, and it is not the date
+
+⛔ **CANON'S PROVENANCE LINE IS WRONG IN A CHECKABLE WAY.** It reads *"NOAA 1991–2020 Climate Normals
+for Jasper GA, elevation-adjusted for confirmed 1,338 ft above **KJZP (1,535 ft)**."* But `measured`:
+**KJZP — Pickens County Airport — has NO GHCN id and therefore NO frost normals.** Frost-date normals
+come from co-op stations; the nearest is **Jasper 1 NNW at 1,465 ft**. **So the elevation baseline
+(the airport) and the normals source (a co-op station 70 ft lower) are two different places, and the
+line names only one of them.**
+
+⭐ **The 70 ft is trivial for the lapse** (~0.5 d). **The 8-day spring gap is not explained by it**, and
+whether that gap is a deliberate safety margin or drift is a judgement about intent that no probe can
+settle. ⛔ **I am not guessing.**
+
+> ### ⭐ AND THE FACT THAT RIGHT-SIZES THE WHOLE QUESTION
+> Canon's own record prices a **frost pocket at 1–4 weeks later in spring** and **8–15 °F colder** than
+> open mid-slope. **That dwarfs the 8 days entirely.** The dates are not where the uncertainty lives —
+> which is exactly why the ai-advisor's rule lands: ⭐ **confirm the INPUT, never the OUTPUT.** Nobody
+> can confirm a lapse-adjusted 50th-percentile date. **"Are you in a hollow?" is the highest-value ask
+> on the card**, and no source on earth can derive it.
+
+**Proposed, Paul rules:** ① **repair the provenance line** so it names `USC00094648 · Jasper 1 NNW ·
+1,465 ft` as the normals source and KJZP only as the elevation datum — that is the part that will
+mislead the next reader and tier 2's derivation. ② **leave the dates alone** pending his call on
+whether the conservatism is deliberate. ③ **carry the frost-pocket ask** into the tier-2 v1 as a W-7
+confirmable input.
+
+---
+
 ## 0 · The one-line
 
 **Give every household the weather card from nothing but its address; ask two yes/no questions; each
