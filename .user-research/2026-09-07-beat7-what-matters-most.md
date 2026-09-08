@@ -1,3 +1,29 @@
+> ## ⛔ CORRECTION 2026-09-07 — THE "ALMANAC" FINDING IS WITHDRAWN
+>
+> This file reported *"a synthetic seat's preference is in the build where Mom's validated answer
+> isn't"*, citing `engine/viewer.template.html:7259` and its `(mom seat, round 3)` comment. **The
+> central claim is false and it was put to Paul on that basis.**
+>
+> `BACKLOG.md:476` records the rename **Journal → Fernwood Almanac** as **Paul's own ruling,
+> 2026-07-30**, made knowingly against her answer and with its reasoning written down: *"let's try to
+> get her to adopt Almanac. I think it's the more appropriate. we'll work on that with her, though."*
+> It was a **CONSOLIDATION** — `Almanac` carried three referents, `Garden Guru` one, `Journal` one, so
+> anchoring on Almanac moved one string where anchoring on Journal would have moved three and cost
+> the property's own tagline. Third application of the ratified consistency-over-precision rule. The
+> tracking row was then **dropped on his instruction 2026-08-02**: *"you don't need to keep track of
+> that."*
+>
+> ⭐ **What the `(mom seat, round 3)` comment actually covers is the HOUSEHOLD-PREFIXED FORM** —
+> *"Tell the My Home Almanac"* rather than *"the Almanac"* — a phrasing detail inside a name Paul had
+> already chosen. **A comment naming a seat beside a string does not mean the seat chose the string.**
+>
+> ⚠️ **THE LESSON, and it is the same one twice in one night** (see `VOCABULARY.md §3g`, where colour
+> precedence was re-asked after being ruled): a "validated" user answer that the build contradicts is
+> **not** automatically a defect. It may be a ruling that overrode it deliberately, with reasons, on
+> the record. **Grep the BACKLOG and the chronicles for the noun before reporting a contradiction as
+> a finding** — the register usually knows, and the cost of not asking it is Paul's attention on a
+> question he already answered.
+
 ---
 type: research
 project: fernwood / release loop lap 3

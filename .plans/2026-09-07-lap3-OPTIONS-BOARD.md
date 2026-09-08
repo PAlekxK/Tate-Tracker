@@ -57,8 +57,28 @@ These are stuck on a decision. **No amount of building unsticks them.**
 | **A1** | **Move the review gate to QA** — adopt the design: rename `lab→dev`, `home→prod`, `prod→legacy` *(legacy already done)*, close mirror defects M1–M5, add `post-deploy` *(already built)* | practice-steward: *"the shape is right, and the deviation from standard practice is the CURRENT arrangement"* | ⛔ nothing to a user | the renames touch **9 files** and there is **no drift control** on the release map | keeps `ENV_NAME` as-is — that is a data migration, not a rename |
 | **A2** | **Cloudflare Access on QA — keep or drop** | steward: *"a HOLD whose release condition was never written; the privacy seat recommended AGAINST it"* | nothing | a config change either way | — |
 | **A3** | **May a synthetic walker touch your household?** The steward declined to rule it | steward: **declined — "that is his"** | nothing | — | — |
-| **A4** | **Mom answered "Journal"; the build says "Fernwood Almanac"** in 7 prose strings she reads, and the engine line cites a **synthetic seat** as its authority. Was her fold scoped too narrowly? | user-researcher: *"a synthetic seat's preference is in the build where Mom's validated answer isn't"* — `validated`, and it **inverts a non-negotiable** | ✅ **yes** — a string she reads | ⭐ one grep, then a scoping call | v1 = the noun only; leaves whether other folds were under-scoped |
+| ~~**A4**~~ | ⛔ **WITHDRAWN — the finding was wrong.** The Journal→Almanac rename is **Paul's own ruling, `BACKLOG.md:476`, 2026-07-30**, made knowingly against her answer as a CONSOLIDATION and dropped from tracking on his instruction 08-02. No synthetic seat overrode her. ⭐ **REPLACED BY E1 below**, which is his reframing and is a better question | — | — | — | — |
 | **A5** | **`second-viewport`** — retired by declaring the coverage gap. ⭐ **Already ruled; listed only so it is not re-raised** | — | — | done | — |
+
+---
+
+## 1b · ⭐ THE ROW PAUL MINTED WHILE RULING — display name vs internal name
+
+| # | what it is | claimed | ships? | cost | v1 defers |
+|---|---|---|---|---|---|
+| **E1** | ⭐ **Let a household name its own Almanac.** `paul-stated 2026-09-07`: *"there's a bigger question we've talked about in the backlog — whether everyone can customize the name of their Almanac, because everyone may have a different take on what makes sense or feels the most natural. So that would be a way of systematically replacing the name in the displays, but keeping that module still have an internal name that's consistent."* | `paul-stated` | ✅ **yes** — the noun on a surface every household reads | a DISPLAY-name field + one accessor; ⛔ engineering-partner owed | v1 = the Almanac only, one name, set in settings. **Defers** every other module's display name, and defers whether the name is per-place or per-account |
+
+⭐⭐ **WHY THIS DISSOLVES THE CONFLICT RATHER THAN SPLITTING IT.** The 07-30 consolidation was right
+*because scattered names confused her* — that argument is about the **internal** name, and it is
+untouched. Her *"Journal"* answer was right *because it was her word for it* — that is about the
+**display** name. They were only ever in tension while one string had to serve both. ⭐ **And it is
+the multi-tenant form of the same insight**: with N households, "the most natural name" is not one
+answer, so a fixed display string is wrong by construction no matter which word wins.
+
+⚠️ **It also makes the 07-30 ruling checkable at last.** `BACKLOG.md:476` says the open question is
+*"does Almanac land for her"* and that **if she wants Journal it goes back everywhere.** Under E1 that
+stops being a rename and becomes a setting she can change herself — which is exactly *"have her do it
+through the application"* `[ruling 3b]`.
 
 ---
 
