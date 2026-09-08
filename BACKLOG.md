@@ -520,6 +520,50 @@ require every journey × every lens, or a declared subset per lap? · how does t
 `[paul-ruled 2026-09-07]` and is *"a ratio, not a number, meant to move"* — it must be re-derived under
 the new model, not silently dropped.
 
+### ⭐ AND A THIRD AXIS — PROPERTIES `[paul-proposed 2026-09-08, same conversation]`
+
+*"Maybe there's even another tier of it where there's a fixed set of properties that we think are
+representative — very different use cases — and then a library of journeys over that, and then those
+reports get read out by different personas."*
+
+**So the model is three axes, not two:**
+
+| axis | what it varies | example |
+|---|---|---|
+| **PROPERTY** (fixture) | the *place* and its data shape | a condo with no garden · a rural highway address · a PO box with no physical location · a far-from-Georgia climate |
+| **JOURNEY** | the *path* driven | new-customer onboarding · existing-customer login · (more as we define them) |
+| **READER** (lens) | the *posture* the report is written from | critical · wide-eyed · minimum-disclosure · non-technical |
+
+⭐ **This is a cleaner cut than the two-axis version above, and it retires the "fixture vs lens"
+tangle properly:** today's four seat files each smuggle a property (`"the condo"`, a PO box, a
+highway address, a Maine ZIP+4) into what is nominally a persona. Under three axes the property is
+its own first-class object, and a persona stops carrying an address.
+
+### ⛔ IT MULTIPLIES, AND PAUL NAMED THE MITIGATION IN THE SAME BREATH
+
+*"That multiplication makes it a huge amount of scenarios quickly — but as we build the library we
+test individual ones, and then we can do some random testing of past journeys as well, to keep each
+production from having to test every single journey, which could be overwhelming down the road and
+frankly unnecessary."*
+
+**The stated strategy, in his order:** build the library incrementally · **test each new journey
+individually when it is introduced** · then **sample** past journeys per release rather than running
+the full cross-product.
+
+⚠️ **THE ONE THING SAMPLING NEEDS, OR "WE TESTED IT" STOPS BEING FALSIFIABLE.** 5 properties × 6
+journeys × 4 readers is 120 runs; nobody will run that per release, and Paul is right that it is
+unnecessary. But *random* sampling gives a release **no guarantee about any specific old path** — so
+the policy needs a stated, checkable property, e.g. *every journey is walked by some property/reader
+combination at least once every N laps*, with the tool able to report **which combinations have gone
+longest unwalked**. Without that, a green battery means "we sampled something" and the coverage claim
+is unreadable — which is this repo's most-recorded failure shape (a count without its predicate).
+⛔ This is a **note for whoever scopes it**, not a design and not a ruling.
+
+⭐ **It also re-opens the ruled 4-fresh/1-returning ratio in a good way.** That ratio is
+`[paul-ruled 2026-09-07]` and is explicitly *"a ratio, not a number, meant to move… the mix follows
+the population."* Under three axes it re-expresses naturally as a **sampling budget per lap** rather
+than a fixed count of walks.
+
 **Related, and deliberately not merged into this row:** there is still **no activity sweep for
 production accounts** — `read-mom-engagement.py` has no `--env` and is hardcoded to Mom's device on the
 legacy origin `[paul-raised 2026-09-08]`. Different axis (what real people do, not what synthetics do),
