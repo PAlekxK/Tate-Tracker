@@ -6384,9 +6384,22 @@
        have gone to bed with Fernwood and woken without it. A deadline is only humane at an
        hour when the person who can help is awake. Rounded to the hour; she loses nothing. */
     var SUNSET_AT = 1788973200000;
-    /* ── THE ONE DESTINATION. Bare origin, no path, no credential. `/` redirects to
-       `estate/`, whose no-grant empty state is the sentence the copy primes her for. */
-    var SUNSET_TO = "https://fernwood-home.pages.dev/";
+    /* ── THE ONE DESTINATION: THE DOOR, not the house `[paul-stated 2026-09-08]`.
+       *"Make sure the link on the legacy Fernwood page takes the person that clicks it to
+       the sign up / sign in page. That's important."*
+       It used to be the bare origin, whose `/` redirects to `estate/` — a no-grant empty
+       state that tells someone they have nothing and offers them no way to have something.
+       `/onboarding/` is the one screen that does: a fresh browser holds no `fw-user`, so the
+       page shows the account screen with **"Sign in instead ›"** on it. Both halves of what
+       he asked for are on that one screen, and neither is behind a tap.
+       ⚠️ SIGN-IN WORKS FOR ANYONE; SIGN-UP STILL NEEDS AN INVITE. `handleAccountCreate`
+       refuses with `invite-required` (403) unless the request carries a grant, so a visitor
+       arriving here with no `?g=` token can sign IN but cannot create an account — the page
+       says "This link isn't valid any more — ask Paul for a fresh one", which is a recovery
+       route rather than a dead end, and is slightly wrong for someone who never had a link.
+       That is a known wall, not a regression, and it is why the destination is still a bare
+       path: a credential in a URL on a page anyone can open would be the worse answer. */
+    var SUNSET_TO = "https://fernwood-home.pages.dev/onboarding/";
     /* How long "Fernwood has moved" stands before the page moves itself. An instant yank on
        someone mid-read is hostile; a redirect that never fires is a promise, not a control. */
     var GRACE_MS  = 10000;
