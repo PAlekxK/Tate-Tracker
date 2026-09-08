@@ -1982,3 +1982,36 @@ passes read an empty record as absent demand and were falsified in one sentence.
 ("she's been busy") is a different datum from an unexplained quiet window, and the next lap must not
 re-read this window as disengagement. ⚠️ The invite `p-b91e4d` remains **unspent** at last reading.
 
+
+### ✅ Beat 5 · GROOM & BUCKET — running in parallel · Beat 6 · COMMIT — **MADE** `[paul-ruled 2026-09-08]`
+
+⭐⭐ **THE FIRST COMMITTED SCOPE THIS PROJECT HAS EVER HAD BEFORE ITS BUILD.** Lap 4 reached WALK with
+nothing committed behind it — it built from a brief's maintenance list — and that is precisely what
+surfaced the ladder's order defect and got it renumbered so **COMMIT (6) gates BUILD (7)**. This is the
+first time the gate has been exercised in the direction it was reordered to run.
+
+| | committed | done means |
+|---|---|---|
+| **A** | **returning recognition** — the lap's STOP | ⛔ **the two-person falsifier, not the patch.** CARRY established that fixing it alone still lands a `name:null` record on the naming screen |
+| **B** | **the station indicator** — the only genuine customer evidence | ⛔ **both sites.** It is a class, not a string: `viewer.html:16736` gates on runtime liveness and ignores the declaration entirely |
+| **C** | **production activity sweep** — `read-mom-engagement.py` has no `--env` | the loop can see what real production accounts **DO**, not only what they say |
+
+⛔ **EXPLICITLY NOT COMMITTED, and the exclusion is a ruling:** the `(seat, journey-kind)` patch to
+gate ①. Paul's three-axis synthetic-testing redesign **dissolves** that defect; patching first would
+harden the unit it replaces.
+
+### ⭐ AND THE LAP SPLITS INTO TWO WINDOWS `[paul-stated 2026-09-08]`
+
+*"Commit something that is well defined for the build to start, and launch in a separate window a
+focused backlog refinement session that keeps going during the build. And we can coordinate to keep
+things aligned."*
+
+**BUILD (7) runs here. GROOM & BUCKET (5) continues in a second window** — the beat that newly owns
+`groom`, carrying the owed rationalization (554-line head-gap, **two rows numbered 11**), Paul's
+readiness triage, and the process-first consolidation.
+
+⚠️ **Ownership is split explicitly because two windows share one working tree**, which this repo's own
+concurrent-session guard exists to catch: **the refinement window owns `BACKLOG.md`, `.plans/` and
+`OBJECTIVES.md`; the build window owns code and `cycle/`.** Brief:
+`handoff/handoff-backlog-refinement.md`.
+
