@@ -1,0 +1,319 @@
+{
+  "review_id": "ux-2026-09-08-colour-strategy",
+  "project": "fernwood",
+  "subject": "Holistic colour strategy across every surface — the axes, the seam, the neutral default, the evolution path, and the enforcement gap. Scoped as a backlog-ready lap item, NOT a repaint.",
+  "review_date": "2026-09-08",
+  "reviewer_mode": "review",
+  "review_level": "zoom-out (system) — deliberately not screen-component; the one-off rulings Paul is tired of are all screen-component decisions",
+  "tooling_limitation": "⚠️ THIS SEAT HAS NO SHELL. Every contrast ratio below is HAND-COMPUTED by the WCAG 2.x formula that tools/palette.py:26-36 implements (sRGB linearisation → 0.2126R+0.7152G+0.0722B → (L1+0.05)/(L2+0.05)). Method validated the same way the 2026-09-06 seat validated it: viewer.template.html:5093 documents white on #3a8a58 as 4.2:1; my computation returns 4.24. Treat every figure as a HYPOTHESIS until `python3 tools/palette.py` (extended per F8) agrees. All file-content claims are `measured` by Grep/Read against the working tree at HEAD a28e4fe.",
+  "user_context": {
+    "primary_user": "Two, and the strategy has to serve both. (1) MOM at Fernwood — 414×848, A+, one-handed, half-attended, documented difficulty reading; her instance is FROZEN and nothing here may move it. (2) THE FRESH HOUSEHOLD — a person who has just finished onboarding at a place nobody has researched, whose first second of the app has to say 'this is mine, not a demo of someone else's house'.",
+    "core_jobs_to_be_done": [
+      "Mom: read the place at a glance without decoding what a colour means (validated — 5/5 jump-strip taps, 0/35 on every ask-shaped affordance)",
+      "Fresh household: recognise in the first second that this place is mine and not somebody else's demo (validated — three 09-06 walk seats each reported 'a demo, or someone else's account' as their first thought when identity leaked)",
+      "Both: tell an affirmative control from a secondary one without reading it (validated — standing rule 1)",
+      "Both: tell a STATE (raining, unsynced, out of season) from a BRAND (whose house this is)"
+    ],
+    "context_of_use": "Phone, 414×848, text size A+ (measured standard — her device reports lg in 8/8 text_size_served reports). Poor connectivity by construction (no cell, Wi-Fi falls off with distance from the house). Half-engagement is the design bar.",
+    "assumptions_made": [
+      "That the tint-band derivation applies to a household in the same way it applies in local test — inferred from reading the pre-paint block at engine/viewer.template.html:6451-6510, not from walking a seeded origin. F1 and F2 should be CONFIRMED by a walk before they are acted on, per this repo's own measure-a-proxy rule.",
+      "That the four non-Fernwood instances are being changed to a neutral gray concurrently by Paul (stated in the brief); I have not re-read those files since."
+    ],
+    "user_context_confidence": "high"
+  },
+  "principles_applied": [
+    "Ornament earns its place (cross-project/form-and-restraint.md)",
+    "Content and function first; form follows — and then form has to be excellent (cross-project/form-and-restraint.md)",
+    "A design rule must be a claim someone can check — if it cannot be violated, it is decoration (cross-project/measurement-and-evidence.md)",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md)",
+    "Source-hierarchy drives layout (cross-project/ordering-and-layout.md)",
+    "One engine, one verdict — incl. the 2026-08-02 sharpening clause on two cascades over one input set (fernwood.md)",
+    "Tone-coherence across all chrome (fernwood.md)",
+    "Caution as noticing, not warning (fernwood.md)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "A scheme is a monotonic ladder off one input; a semantic colour is not on the ladder (proposed 2026-09-06, .ux-reviews/2026-09-06-colour-scheme.md — this review is its second occurrence and its first FALSIFICATION test)",
+    "A personalisation token must default to the literal it replaces (proposed 2026-09-06, same source)"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "feedback",
+      "severity": "critical",
+      "observation": "`measured` — engine/viewer.template.html:4220, `.jump-strip a { color: var(--tint-64, #2f5a3a); background: var(--tint-96, #f2f8ec); }`. `--tint-64` is a LIGHTENING band (JS mix(0.44) at :6508, i.e. 44% toward white). Fernwood renders the fallback #2f5a3a and is fine (~7.6:1). ANY household with a seed renders the band. Hand-computed for the currently-declared seed #2f5d3a: tint-64 = #8BA491 on tint-96 = #F3F5F3 → **2.43:1**. For the neutral gray I recommend below (#4A4640): #9A9794 on #F4F4F4 → **2.64:1**. WCAG AA for normal text is 4.5:1. The rule's own comment three lines down (:4226-4228) says the PRESS ink could not be a band 'because every band lightens' — the resting ink has the identical problem and was not caught. Shipped today, 2026-09-08, by the commit that fixed the mint-band leak.",
+      "user_impact": "The jump strip is the ONE affordance the record shows being used — 5 offered, 5 tapped, 100%, in a window where every ask-shaped affordance scored 0 of 35. And Paul ruled TODAY that every domain card gets a jump-strip shortcut, so the surface is about to grow. A fresh household gets that navigation at roughly half the legible contrast, on a phone, at A+, for a reader who may have the same difficulty reading Mom does. It is not a leak of Fernwood's colour; it is a loss of the text.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood.md) + WCAG 2.x 1.4.3 (AA 4.5:1 normal text) + the palette.py docstring's own reason for existing ('the reader this was built for has documented difficulty reading')",
+      "recommendation": "Take the jump strip off the lightening ladder entirely. `color: var(--accent-ink, #2f5a3a)` where `--accent-ink` is the seed or a slight darkening of it (mix(-0.08)); border stays `var(--edge-card)`. Byte-identical for Fernwood — the fallback is unchanged — and 8.5:1 for the neutral seed. ⛔ Do this as a standalone fix BEFORE the lap item; it is a live accessibility defect, not strategy.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "consistency",
+      "severity": "critical",
+      "observation": "`measured` — THE TOKENISATION IS NOT A TOKENISATION. Six band names carry **235 uses** in engine/viewer.template.html, and **not one of the six is declared in CSS anywhere in the repo** (grep for `--tint-(96|92|88|82|74|64)\\s*:` returns zero matches). Their only definition is six `setProperty` calls in the JS pre-paint block (:6507-6508), which run ONLY when a valid accent exists. So each band's effective value today is its INLINE FALLBACK — and the fallbacks are not one colour. `--tint-92` alone has **69 uses behind ~46 distinct hexes** (#e4f4dc, #f0fae8, #e0ffe0, #dcf0e2, #ecf5d8 …), and line 3313 maps **two different colours to the same band on the same line** (#e6f6ea and #dcf0e2). `--tint-64` has 38 uses behind ~26 distinct hexes, spanning #80c880 (a bright green) to #c9a878 (a TAN) to #2f5a3a (a dark green — F1). Distinct-value counts are hand-de-duplicated from grep -o output; use counts are exact.",
+      "user_impact": "For Fernwood: nothing — the fallbacks render and the page is unchanged, which is why this passed every check. For a household with a seed: **all 69 tint-92 surfaces collapse to ONE computed colour, all 38 tint-64 surfaces to another**, and so on across six bands. ~150 hand-tuned tones become 6. The tonal layering that makes Fernwood read as a card system with depth — chip vs inset vs panel vs band — is carried ENTIRELY by the fallbacks, so the first household to pick a colour gets a flat page: every chip, every inset, every panel the same value. That is the opposite of the ruling this mechanism was built to serve ('a cohesive personalised experience').",
+      "principle_invoked": "One engine, one verdict — sharpening clause: two things reading one input set and writing one output slot are one engine wearing two names (fernwood.md). Here it is inverted: ~150 distinct design decisions wearing ONE token name. Also 'A design rule must be a claim someone can check' — a token with 235 definitions is not a token, it is a comment.",
+      "recommendation": "Do NOT fix by declaring the six bands in :root — that would collapse Fernwood too, which is the one thing that must not move. The fix is the axis classification (F3/S2 below): decide per-USE whether that colour is identity (belongs on a ladder), structural (belongs to a declared neutral scale), or semantic (belongs to nothing). Only after that does a band get a :root declaration, and only for the uses classified identity. ⭐ The enabling fact that makes every step of this ungated: **removing a wrong token and leaving its fallback literal in place is byte-identical for Fernwood, always.** De-tokenising is free. Tokenising is what needs a gate.",
+      "effort": "high"
+    },
+    {
+      "id": "F3",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "`measured` — THE RULED EXCLUSION LIST WAS BREACHED BY THE BAND MECHANISM, not by anyone deciding to breach it. The 2026-09-06 review's §2 named 'the warm machine/spec register' as a MUST-NOT-DERIVE surface: *'two registers on one surface must be structurally distinguishable for the half-engaged reader… if the tan takes the accent, journal and machine collapse into one skin.'* Six uses now sit on the identity ladder: `var(--tint-74, #d8cda0)` at :4408, :4433, :4497 and `var(--tint-88, #ede1cc)` at :4100 and :4319 (`.ic-head-icon.almanac`) and `var(--tint-88, #e6ecd2)` at :4320. All are creams and tans. Under a seed they become the seed hue. Same shape at `.chorus-now-*` (:4010, :4011, :4030, :4031) — the night inset, also on the ruled exclusion list. ✅ THE COUNTER-EVIDENCE MATTERS TOO: the genuinely semantic exclusions HELD — `.prop-seismic-mag.light/.moderate/.strong` (:1626-1628), `.peak-state.now/.ahead/.closed` (:3920-3922), `.fn-sync-local-only/.fn-sync-error` (:5779-5781) and the CARE_COLORS lexicon (:2304, :15662) are all still bare literals. So the exclusion list was UNDERSTOOD and applied to the obvious cases and silently defeated on the non-obvious ones.",
+      "user_impact": "The warm cream/tan register is how a half-engaged reader routes between 'this is the journal' and 'this is the machine record' before reading a word. Collapsing it onto the identity hue removes a navigational cue and replaces it with a brand statement. For the fresh household — who has never learned Fernwood's two registers — it means the app simply never develops them.",
+      "principle_invoked": "Tone-coherence across all chrome (fernwood.md) + the 'Register is carried by chrome, not just words' candidate + 'A scheme is a monotonic ladder off one input; a semantic colour is not on the ladder' (its own falsifier: *if a reader who picked Lake could no longer tell one register from her colour, it should never have derived*)",
+      "recommendation": "⭐ THIS IS THE DIAGNOSIS FOR THE WHOLE STRATEGY, not just six lines. The band mechanism assigns a token by LIGHTNESS and therefore cannot express an axis. A tan at 74% lightness and a green at 74% lightness are indistinguishable to it, so any exclusion list has to be re-enforced by a human on every edit — which is exactly what failed. Immediate: take those six uses off the ladder (leave the literal; byte-identical for Fernwood). Durable: S2 below.",
+      "effort": "low for the six uses; the durable fix is S2"
+    },
+    {
+      "id": "F4",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "`measured` — the derivation is chroma-destroying, and this is arithmetic, not opinion. `mix(t)` at :6484 is `c + (255-c)*t` per channel toward white. Channel DIFFERENCES therefore scale by exactly `(1-t)`. At the ground's t=0.90, a seed's chroma is reduced to 10% of its original spread. Worked: seed #2f5d3a has channel spreads G−R=46, G−B=35; the derived `--ground` is #EAEFEB with spreads 5 and 4. Fernwood's HAND-TUNED ground #edf7e6 has spreads 10 and 17 — roughly 3× the chroma of anything derivable. This is why the 09-06 seat measured that deriving Fernwood's own ground from its own seed gives #f0f4f1, 'greyer, visibly different'. It was read as a Fernwood-specific quirk. It is a property of the function.",
+      "user_impact": "Every household's page, forever, is materially flatter and greyer than Fernwood's — by construction, regardless of which colour they pick. If Paul ever asks 'why does Bob's house look washed out compared to Mom's', this is the answer and no amount of seed-picking fixes it.",
+      "principle_invoked": "Content and function first; form follows — and then form has to be excellent (cross-project). 'In the end, it should look nice' is the bar, and a derivation that guarantees every non-Fernwood household lands below Fernwood's own tuning does not meet it.",
+      "recommendation": "State the trade explicitly now, act on it later (S5). If grounds are only ever near-neutral paper, the current mix() is CORRECT and cheap and should be kept — and Paul's neutral-gray ruling is entirely consistent with it. If a household's ground is ever meant to carry character the way Fernwood's does, the derivation has to preserve chroma (mix in OKLCH, or apply a chroma floor at high lightness). ⛔ Do not adopt OKLCH speculatively — it is a real Safari-version question and this is not the lap for it. Record the constraint; let evidence from real households decide.",
+      "effort": "low to record; high to change"
+    },
+    {
+      "id": "F5",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "`measured` — THE PALETTE IS CHECKED; THE LADDER IS NOT. `tools/palette.py --check` recomputes contrast for the seven INPUT hexes against white and against #fbfcfd, and fails below AAA. Nothing anywhere checks a single DERIVED value. Evidence that this is the operative gap, not a theoretical one: the 09-06 seat found `--hdr-3` at +28% white gave Dusk 3.80:1 under white masthead text; the fix landed (:6490 now reads mix(0.18) with the reasoning inline) — and TWO DAYS LATER the identical class of defect shipped one screen away as F1, at 2.43:1, on a more-used surface. The finding was fixed. The CLASS was not. `palette.py`'s own docstring says a palette 'is exactly the kind of list someone extends later with a colour they liked. This refuses that.' The ladder is exactly the kind of thing someone extends later with a band that looked about right, and nothing refuses it.",
+      "user_impact": "Indirect but compounding: every future colour decision on this system is one careful reader away from an unreadable surface for a household nobody has met, and the reader can be careful and still miss it — the 09-06 seat WAS careful and F1 shipped anyway.",
+      "principle_invoked": "A design rule must be a claim someone can check — if it cannot be violated, it is decoration (cross-project/measurement-and-evidence.md)",
+      "recommendation": "Extend `palette.py` from a palette check to a LADDER check: for each palette member PLUS the neutral default, compute every derived token (hdr-1/2/3, accent-press, accent-ink, the six bands, ground, wash-1/2/3, edge-card) and assert each against the job it actually does — white-on-fill for hdr stops and affirmative fills, ink-on-its-own-background for every band used as text, and the monotonicity invariant `wash-1 < wash-2 < edge-card < accent`. That single extension catches F1, the 09-06 hdr-3 finding, and every future one. It needs the axis register (S2) to know which band is used as ink; until then it can at least assert monotonicity and the hdr stops.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "`measured` — 'what colour does a place wear when nobody has chosen' now has FIVE answers, none of which knows about the others. (1) `engine/palette.json:6` — `\"default\": \"stone\"` (#3F5266), described as 'the default an estate that never picks keeps'. (2) `instance/*.json` → `identity.theme.main` — #2f5d3a in all five today, being changed to neutral gray as of this brief. (3) `viewer.template.html:350-361` `:root` — Fernwood's literal greens, which is what an unseeded non-household build paints. (4) The four signed-in pages — `--accent: #2f5d3a` hardcoded (per the 09-06 inventory). (5) The ~150 inline tint fallbacks (F2), which are the real default for 235 surfaces. Paul's 2026-09-08 ruling changes (2) and therefore falsifies (1) in prose: `palette.json`'s `default` key will no longer describe anything true. ⚠️ AND IT WILL BREAK `palette.py`: line 51-53 asserts `p[\"default\"]` is a member of `colors`, so pointing `default` at a neutral that is not a swatch fails the check, while leaving it at `stone` leaves a false statement in the engine's own declaration file.",
+      "user_impact": "Nobody sees five defaults; they see one page. The cost is that no reader of this codebase — human or agent — can answer 'what does an unchosen place look like' from any single file, which is precisely how the mint band survived. It is also why this review exists: each of the five gets ruled on separately, one at a time, forever.",
+      "principle_invoked": "One engine, one verdict (fernwood.md) — 'a glance and its backing detail are one claim shown at two altitudes; they must be incapable of disagreeing, by construction, not by careful maintenance'",
+      "recommendation": "Separate two concepts that `default` is currently double-booking. `palette.json` gains `\"unchosen\": \"#4A4640\"` (or whatever Paul rules) — the colour of NOT HAVING CHOSEN, deliberately NOT a member of `colors` and deliberately NOT named on any surface — and `\"default\"` is either DELETED or kept only as 'the swatch pre-selected in the picker'. Extend palette.py to check `unchosen` for AAA WITHOUT requiring it to be a palette member. Then instance `theme.main`, the four pages and the viewer :root all read that one value. ⛔ The precedence question underneath this (person's colour vs place's colour — BACKLOG 19c, `fw-accent` vs `identity.theme.main`) is still Paul's and is NOT settled by this recommendation.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "`measured` — fallback literals that disagree with the token they back. :4229 `border-color: var(--green-primary, #3a7a3a)` while `--green-primary` is #2f5a3a (:105). :4220's fallback is a dark green sitting in a lightening band (F1). Harmless today because `--green-primary` is always defined — but a fallback is documentation of what a token means, and a wrong one teaches the next reader the wrong value. The 09-06 review found the same shape: `#2f5a3a` and `#2f5a28` typed as literals five lines below the token holding #2f5a3a.",
+      "user_impact": "None directly. It is the mechanism by which near-duplicate colours get copied forward — the exact failure the 2026-08-24 audit measured (rgb(44,74,44) 30× and rgb(42,74,42) 20×, two units apart, no eye can separate them, both copied forward).",
+      "principle_invoked": "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md)",
+      "recommendation": "Fold into the S2 audit pass; each fallback must equal what the token resolves to for Fernwood, or the use is on the wrong token.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "`measured` — NO CHECK IN THIS REPO CAN SEE A COLOUR LEAK. `tools/check-estate-neutral.py:73-78` runs on a fixed list of 11 place-name needles plus species names read from canon; it has no colour concept and, per its own `_shipped_pages()` at :61, does not scan viewer.html at all in its bare form. `build-viewer.py --check` compares BYTES and, per CLAUDE.md's own warning, does not even parse JavaScript. `palette.py` checks seven input hexes (F5). So the mint band, the jump-strip contrast collapse, the tan-on-the-ladder breach and the flattening of ~150 tones to 6 are ALL invisible to every green check in the pickup block. ⭐ AND THE SAME GAP IS ALREADY NAMED ONE ROW OVER: BACKLOG TIER 2 · 15 says of the model prompts, 'the check is missing too — check-estate-neutral reads shipped PAGES; nothing reads the model's prompt. A row that ships without extending that check ships without a falsifier anyone can run.' Colour is the third substrate of one defect (names → prompts → colour), and it is the one with no instrument at all.",
+      "user_impact": "Every colour claim this project makes is currently unfalsifiable. That is why the questions keep coming back one at a time: there is nothing that can answer them in a batch.",
+      "principle_invoked": "A design rule must be a claim someone can check — if it cannot be violated, it is decoration (cross-project/measurement-and-evidence.md)",
+      "recommendation": "⛔ DO NOT BUILD A NEEDLE-LIST COLOUR CHECK. A list of Fernwood's greens has the identical defect check-estate-neutral has for names: it can only find colours somebody already knew about, and the mint band was in that category. Build a STRUCTURAL check instead — `tools/check-color-axes.py`: every colour-bearing declaration in engine/viewer.template.html must appear in `engine/color-axes.json` with a declared axis; an unregistered hex literal or an unregistered `var(--*)` colour use is RED. That check is exhaustive by construction and would have caught all four defects above on the commit that introduced them. Its own falsifier, pre-registered: mutate one rule to a new bare hex and it must go red; mutate a semantic literal onto a tint band and it must go red.",
+      "effort": "medium"
+    },
+    {
+      "id": "F9",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "`measured` — the 2026-09-06 review's tranche 1 landed PARTIALLY and nothing recorded which parts. Landed: the hdr-3 +18% fix (:6490, with its reasoning inline), `--green-primary`/`--green-press` derived from the seed (:6496-6497), the ground/wash/edge tranche (:6499-6503), the tint bands (:6507-6508). Did NOT land: 'the derivation runs in CSS, not in JavaScript' — :6483-6508 is still a hand-rolled `mix()` doing **eighteen** setProperty calls, up from the three the review flagged as already too many. Also not landed: reconciling Pine #2F5D3A to #2f5a3a (F6), and the four signed-in pages still lack press/ring/ink.",
+      "user_impact": "Eighteen JS-computed tokens that no stylesheet reader can see. A person asking 'what is the pressed state?' looks in :root and finds --green-press: #1f4528, which is now a stale literal that a seeded household never renders. The stylesheet has stopped describing the page.",
+      "principle_invoked": "One engine, one verdict (fernwood.md) — the ladder is now computed in one place and documented in another",
+      "recommendation": "Move the ladder into `:root` as `color-mix()` second-declarations over plain-hex first-declarations (the `onboarding/index.html:75-81` pattern, which the 09-06 review already named as the reference implementation), leaving the JS to set exactly one property: `--accent`. Same behaviour, one source, and Safari<16.2 falls back to the literal — never worse, never a wrong colour. This is the enabling step for F5's ladder check, because a CSS-declared ladder can be read statically.",
+      "effort": "medium"
+    },
+    {
+      "id": "F10",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "`inferred` — the neutral will not read as 'not chosen yet' unless the product says so somewhere the reader looks. `onboarding/index.html:800` already tracks `fw-accent-chosen` ('she TAPPED a swatch') and `settings/place/index.html:188` already branches on it — 'The colour this home opens in' vs 'The colour this home opens in — the default, change it whenever you like.' `settings/place/index.html:200` rings a swatch only on an exact hex match, so a neutral that is NOT a palette member correctly rings nothing. That degradation is already honest, which is a good result and worth not breaking.",
+      "user_impact": "A neutral gray masthead risks reading as 'unfinished' rather than 'quiet by default'. The existing copy branch is the thing that makes it read as the second.",
+      "principle_invoked": "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md) + Fernwood standing rule 5, 'everything is changeable' — lightly, varied, never a standing footer",
+      "recommendation": "Do not name the neutral on any user-facing surface and do not add it to the swatch row. It is the absence of a choice, not a choice; naming it invites it onto the palette as an eighth colour. In code call it `unchosen`. VOCABULARY §4's own logic applies — the thing nobody picked is called nothing to a user.",
+      "effort": "low"
+    }
+  ],
+  "the_strategy": {
+    "the_seam_in_one_sentence": "An element's colour belongs to exactly ONE of four axes, the axis is DECLARED at the element rather than inferred from the hex, and only one of the four axes may follow a household's choice.",
+    "why_the_axes_and_not_a_palette": "Every one-off colour ruling Paul is tired of has been a disguised axis question — 'should the jump strip be mint?' is 'is the jump strip identity or structure?'; 'should Bob's house be green?' is 'is the ground identity or structure?'; 'should the tan derive?' is 'is register identity or structure?'. Answer the axis once and the individual rulings stop needing him.",
+    "axes": [
+      {
+        "axis": "IDENTITY — whose place is this",
+        "answers": "whose",
+        "owner": "the HOUSEHOLD chooses the input; the ENGINE owns the derivation",
+        "surfaces": "masthead gradient, affirmative fill + its press and focus ring, accent ink (links, chip labels, the jump strip), the selected/active/current state markers, the feedback bubble",
+        "may_a_household_change_it": "yes — this is the only axis that may follow a seed",
+        "rule": "one input, a monotonic ladder, no second hand-picked hue (the ratified 2026-09-06 mechanism, unchanged)"
+      },
+      {
+        "axis": "SEMANTIC — what is this, factually",
+        "answers": "what",
+        "owner": "the ENGINE, absolutely",
+        "surfaces": "the six CARE_COLORS + .c-/.b-/.br-/.t- utilities, .peak-state now/ahead/closed, .prop-seismic-mag severity, the five sync-pill states, .pmap-sync, .feedback-status, the .rv-badge provenance chips",
+        "may_a_household_change_it": "NEVER",
+        "rule": "falsifier, unchanged from 2026-09-06 — if a reader who picked Lake could no longer tell 'ahead' from her own colour, it should never have derived. ⭐ The sync states carry the strongest version of this: under the site's physical premise, amber and red mean 'your words may not have left this device'. A household accent that painted those would make capture lie."
+      },
+      {
+        "axis": "STRUCTURAL — what KIND of thing is this, and how deep is it",
+        "answers": "where am I",
+        "owner": "the ENGINE",
+        "surfaces": "ink and body text, paper/ground/wash, card hairlines, the tonal ladder that separates chip from inset from panel from band (F2's ~150 tones), the outlined-secondary edge, AND the two registers — journal-green vs machine-cream vs the night inset",
+        "may_a_household_change_it": "TINT, not RESTRUCTURE. A household's seed may warm or cool the neutral scale; it may not flatten it and it may not collapse two registers into one.",
+        "rule": "⭐ THIS IS THE AXIS THE CURRENT SYSTEM DOES NOT HAVE, and its absence is F2, F3 and F4. The tint bands are structural tokens that were wired to the identity input. A structural scale needs its own declared neutral ladder with ITS OWN step count, and the identity seed may bias it at most a little."
+      },
+      {
+        "axis": "STATE — what is happening to this control right now",
+        "answers": "what did I just do",
+        "owner": "the ENGINE owns the RULE; the axis of the element owns the value",
+        "surfaces": "hover, press, focus ring, disabled, selected",
+        "may_a_household_change_it": "only transitively — a state derives from whichever axis its element sits on",
+        "rule": "a state is NEVER hand-picked. Press = a fixed darkening of the element's own resting colour (72%, the ratio that reproduces Fernwood's shipped #2f5a3a → #1f4528 within 4 RGB units). Two derivations for one idea is the same defect as two hexes for one colour — which is why onboarding/index.html:79's 84% should move to 72%."
+      }
+    ],
+    "the_neutral_default_recommendation": {
+      "recommended_hex": "#4A4640",
+      "character": "a near-neutral graphite with a hair of warmth (R74 G70 B64) — reads as ink on paper rather than as a wireframe grey",
+      "declared_where": "engine/palette.json, new key \"unchosen\", NOT a member of \"colors\". instance/*.json theme.main and the four signed-in pages read it; nothing re-types it.",
+      "contrast_hand_computed": {
+        "white_on_fill": "9.37 — AAA (bar 7.0)",
+        "as_ink_on_#fbfcfd": "9.12 — AAA",
+        "hdr_3_light_stop_mix(0.18)_=_#6B6762_under_white_masthead_text": "5.61 — clears AA 4.5 with margin, and beats every palette member at the same derivation (Dusk 4.83, Fern 5.86)",
+        "derived_ground_mix(0.90)": "#EDEDEC",
+        "derived_wash_1_mix(0.93)": "#F2F2F2",
+        "derived_wash_2_mix(0.87)": "#E8E7E6",
+        "derived_edge_card_mix(0.82)": "#DEDEDD",
+        "monotonicity_wash1_<_wash2_<_edge_<_accent": "holds",
+        "jump_strip_after_the_F1_fix": "#4A4640 on #F4F4F4 = 8.52 — AAA. Before the fix, 2.64 — fails AA."
+      },
+      "why_warm_and_not_true_neutral": "Two reasons, one aesthetic and one discriminative. (1) The app's register is a field journal on paper; a true #4A4A4A reads as an unstyled default, and Paul's standing note is 'I don't wanna be flat or boring or dry' — a hair of warmth reads as chosen restraint rather than absence. (2) A COOL neutral (#454B52 and similar) is a desaturated Stone (#3F5266), which is both `palette.json`'s current default and the swatch a reader is most likely to try first — so picking Stone would barely look like anything happened. Warm-neutral keeps every one of the seven swatches a visible change.",
+      "the_honest_cost": "Per F4, chroma scales by (1−t), so at the ground's 90% the warmth survives as ~1 RGB unit — #EDEDEC is a neutral paper, not a warm one. If Paul wants visible warmth in the GROUND, that is a change to the derivation (F4/S5), not to the seed. Stated so it is not discovered later.",
+      "alternatives_if_paul_wants_them": [
+        "#4A4A4A — true neutral. Contrast fine (white-on-fill ≈9.0 hand-computed). Cost: reads as unstyled.",
+        "#454B52 — cool neutral. Contrast fine. Cost: near-indistinguishable from a desaturated Stone; the first swatch tap reads as a no-op.",
+        "#4A423A — warmer (spread 16 vs 10). Cost: at that spread it starts to make a hue claim, which is what 'neutral until told' is refusing to do."
+      ],
+      "what_is_paul_s_to_rule": "The hex itself, and whether a fresh household should be offered the swatch row DURING onboarding rather than defaulting at all — the neutral only ever paints someone who SKIPPED the choice (`fw-accent-chosen` already distinguishes the two), so its real job is small and it should stay small."
+    }
+  },
+  "the_evolution_path": [
+    {
+      "step": "S0 — stop the bleeding. THIS WEEK, not the lap.",
+      "what": "F1 (jump-strip ink off the lightening ladder) and F3's six warm-register uses off the ladder. Both are `var(--tint-N, X)` → `X`, i.e. remove the token and keep its literal.",
+      "shippable_alone": true,
+      "moves_mom": "no — byte-identical, by construction (Fernwood renders the fallback today)",
+      "size": "under an hour",
+      "gate": "none — this is a defect fix, not a design change"
+    },
+    {
+      "step": "S1 — one declared answer to 'unchosen'.",
+      "what": "F6: `palette.json` gains `unchosen`; `default` is deleted or demoted to 'the swatch pre-selected in the picker'; palette.py checks `unchosen` for AAA without requiring membership; instance files, the four signed-in pages and the viewer :root all read that one value.",
+      "shippable_alone": true,
+      "moves_mom": "no — Fernwood keeps its :root literals and is not a household",
+      "size": "half a day",
+      "gate": "Paul rules the hex"
+    },
+    {
+      "step": "S2 — THE AXIS REGISTER. The centre of the lap item. Nothing renders differently.",
+      "what": "`engine/color-axes.json`: every colour-bearing declaration in engine/viewer.template.html classified identity | semantic | structural | state, with a one-line reason for anything non-obvious. Produced by reading, ratified once by Paul on the ~20 genuinely arguable cases (the night inset, the cream register, the tab underlines, the focus rings), auto-classified for the rest. F7's mismatched fallbacks get fixed in the same pass.",
+      "shippable_alone": true,
+      "moves_mom": "no — it is a JSON file. Zero CSS change.",
+      "size": "the biggest single piece — call it 2 days including Paul's ~20 rulings, which he can do in one sitting from a table",
+      "gate": "Paul rules the arguable cases; that is the ONE colour conversation this whole strategy is designed to make him have once"
+    },
+    {
+      "step": "S3 — THE CHECK. `tools/check-color-axes.py`.",
+      "what": "F8: structural, never needle-based. Every colour-bearing declaration must be in the register; an unregistered hex or an unregistered var() use is RED. Plus F5's ladder contrast assertions and the monotonicity invariant, folded into palette.py. Wired the way check-estate-neutral is wired into pages-deploy — into the act it guards, refusing the deploy, not merely named in the pickup block.",
+      "shippable_alone": true,
+      "moves_mom": "no",
+      "size": "1 day",
+      "gate": "none",
+      "pre_registered_falsifiers": [
+        "mutate one rule to a new bare hex → must go RED",
+        "mutate a semantic literal onto a tint band → must go RED",
+        "recreate the 2026-09-08 jump-strip rule → must go RED on contrast",
+        "recreate the mint band (a household rule with no seed path) → must go RED",
+        "⭐ if it is green across two laps AND no colour ruling has been needed in that time, it measures nothing — delete it"
+      ]
+    },
+    {
+      "step": "S4 — the structural scale earns its own ladder. GATED; this is the only step that can move Mom.",
+      "what": "F2's real fix. The uses classified `structural` get a declared neutral tonal scale with its own step count (Fernwood's ~150 tones do not need to survive as 150, but they need to survive as more than 6). The uses classified `identity` collapse onto the accent ladder, correctly. Both declared in :root, per F9, so the stylesheet describes the page again and the JS sets exactly one property.",
+      "shippable_alone": true,
+      "moves_mom": "POSSIBLY — this is where the release cascade runs (synthetic seat → Paul → Mom is gate 3, never gate 1), plus a walk at 414 × 848 × A+ with no stored accent proving byte-identical rendering.",
+      "size": "2–3 days",
+      "gate": "Paul, and the cascade"
+    },
+    {
+      "step": "S5 — chroma-preserving derivation. NOT SCHEDULED. Recorded so it is not rediscovered.",
+      "what": "F4. Only if evidence from real households says the flatness matters. OKLCH mixing or a chroma floor at high lightness.",
+      "shippable_alone": true,
+      "moves_mom": "yes — do not do it without a reason",
+      "size": "unknown",
+      "gate": "evidence first"
+    }
+  ],
+  "backlog_item_draft": {
+    "title": "🎨 COLOUR HAS FOUR AXES AND THE ENGINE ONLY KNOWS ONE — the axis register, its check, and the neutral a fresh household wears",
+    "tier_suggestion": "TIER 2 (engine · must-not-diverge) — filed beside rows 14 and 15, because it is the SAME defect on a third substrate: an instance default shipped as the engine's. Names → row 15's prompts → colour. Tier placement is Paul's to confirm.",
+    "the_question_it_answers": "What does a colour MEAN on each surface, which of those meanings may follow a household's choice, and what refuses the next wrong answer without Paul having to rule it?",
+    "why_now_not_later": "`measured` 2026-09-08 — the mechanism that stopped the mint band shipped a WCAG failure on the most-used affordance in the app the same day (F1, 2.43:1), swept the ruled warm-register exclusion onto the identity ladder (F3), and collapses ~150 hand-tuned tones to 6 for any household that picks a colour (F2). None of the three is visible to any check in the pickup block (F8). And Paul ruled TODAY that every domain card gets a jump-strip entry, so F1's surface is growing this lap.",
+    "falsifier": "⭐ A build seeded with a NON-Fernwood accent, walked at 414 × 848 × A+, in which: (a) every text/background pair clears WCAG AA — checked by tool, not by eye; (b) no semantic colour has moved — care types, peak-state, seismic severity and all five sync states render byte-identically to the Fernwood build; (c) the journal and machine registers are still visually distinct; (d) the card/chip/inset/panel tonal separation is still legible, i.e. NOT one flat colour. AND, in the same commit: `tools/check-color-axes.py` goes RED when any one of those four is deliberately mutated. ⛔ Green today is impossible on (a), (c) and (d); green is the definition of done.",
+    "size": "S0 under an hour · S1 half a day · S2 two days including Paul's rulings · S3 one day · S4 two-to-three days behind the cascade. **S0 is not part of the lap — do it now.** The lap is S1→S3; S4 is the lap after, or the same lap if it runs long.",
+    "dependencies": [
+      "⛔ BLOCKS ON PAUL for exactly two things and no more: (i) the neutral hex; (ii) ~20 arguable axis classifications, presentable as one table in one sitting. Everything else is agent-buildable.",
+      "⚠️ COLLIDES WITH BACKLOG 19c — the person-vs-place colour precedence (`fw-accent` account-level and live vs `identity.theme.main` estate-level and now read). This item does NOT settle it and must not appear to. 19c's own warning stands: do not build two colour pickers before answering it.",
+      "SHARES A SHAPE WITH TIER 2 · 14 and · 15 — an instance default shipped as the engine's. Row 15 explicitly notes that check-estate-neutral cannot see prompts; this item notes it cannot see colour either. If a general 'what is instance and what is engine' check is ever built, these three are its three substrates.",
+      "TOUCHES the glance consolidation (TIER 2 · 10) — the strip's colour treatment is in scope for both. Do the axis classification FIRST so the strip rebuild inherits a rule instead of minting one.",
+      "NOT blocked by: zones, weather, per-estate canon. Nothing here needs the store."
+    ],
+    "the_ask_the_check_the_attribution": {
+      "the_ask": "None to Mom — nothing here reaches her surface until S4, and S4 goes through the cascade. The fresh household's colour choice is already asked at onboarding.",
+      "telemetry_event_and_its_reader": "⚠️ There is nothing to instrument here, and per the standing rule an event with no reader is not instrumentation — so this item ships with a CHECK instead of an event, and `tools/check-color-axes.py` is that check with its readers named (pages-deploy refuses on a hit; the pickup block reads it).",
+      "ribbon_line": "none — no line of this traces to feedback of hers",
+      "release_note": "S4 only, and only if the tonal system visibly changes for Fernwood — which it should not."
+    }
+  },
+  "surfaces_the_brief_missed": [
+    "⭐ THE INLINE FALLBACK LITERALS THEMSELVES — the brief named the tint bands as a surface but treated tokenisation as ~79% done. `measured`: the six bands have ZERO CSS declarations. The 235 inline fallbacks ARE the design system today; the token names are a promise about a future one. This is the largest colour surface in the repo and it has no file.",
+    "⭐ THE DERIVED VALUES — hdr-1/2/3, accent-press, ground, wash-1/2/3, edge-card and the six bands are eighteen colours computed in JavaScript at engine/viewer.template.html:6483-6508 and declared nowhere. A stylesheet reader cannot see them; palette.py cannot check them.",
+    "`.chorus-now-*` (the night inset, :4010-4031) and the cream/tan machine register (:4100, :4319, :4320, :4408, :4433, :4497) — both on the 09-06 ruled exclusion list, both now on the identity ladder.",
+    "`engine/palette.json`'s `default` key and `tools/palette.py`'s membership assertion at :51-53 — a hard breakage path for the neutral ruling, not just a documentation drift.",
+    "The FIVE-way disagreement on 'unchosen' (F6), of which the brief named three.",
+    "`onboarding/index.html:79`'s 84% press ratio against the app's 72% — one idea, two derivations, on the two screens a new reader sees back to back."
+  ],
+  "open_questions_for_user": [
+    "THE NEUTRAL HEX. #4A4640 recommended, three alternatives with their costs above. Yours to rule.",
+    "Does `palette.json.default` survive at all, and if so meaning WHAT? (F6 — as written it will be false the moment your instance edits land, and it will break palette.py if repointed.)",
+    "The ~20 arguable axis classifications (S2). I will bring them as one table; the ones I expect you to want to rule personally: the night inset, the cream machine register, the tab underlines, the focus ring, and whether `--edge-secondary` stays neutral (still open from 2026-09-06 — my recommendation is still neutral, and the numbers for de-warming it are in that file).",
+    "S4 changes the tonal system for Fernwood if done wrong and possibly a little even if done right. Is a small, deliberate, cascade-gated change to Mom's tonal separation acceptable in exchange for households getting one at all — or is 'Fernwood does not move, full stop' the constraint?",
+    "⚠️ BACKLOG 19c's precedence question is still unruled and is upstream of a settings colour picker. Not mine to answer; flagged because two of this item's steps touch surfaces that would change if you rule it one way rather than the other."
+  ],
+  "follow_up_research_suggested": [
+    "⭐ CONFIRM F1 AND F2 BY WALKING A SEEDED BUILD before acting. My claims are from reading the pre-paint block, not from a rendered page — and this repo's most-repeated failure is measuring a proxy and reporting the target. A local build with `fw-accent` set to any non-green hex, at 414 × 848 × A+, screenshotted, settles both in ten minutes.",
+    "Re-run `python3 tools/palette.py` and, once extended, the ladder check — every ratio in this file is hand-computed and this seat has no shell.",
+    "No user research needed. This is an engine question, and neither Mom nor Bob has an opinion about it that they could give us."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Colour answers one of four questions — whose · what · where · what-just-happened — and an element may only be on one axis. The axis is DECLARED, never inferred from the colour's value.",
+      "scope": "cross-project",
+      "rationale": "SECOND OCCURRENCE of the 2026-09-06 'a scheme is a monotonic ladder; a semantic colour is not on the ladder', and the first evidence of WHY that principle was insufficient. The 09-06 rule drew the line correctly and left a human to enforce it per-edit. Two days later the enforcement failed in the direction the rule could not see: a mechanism that assigns tokens by LIGHTNESS cannot distinguish a tan from a green, so a ruled exclusion (the machine register) was swept onto the identity ladder by a change nobody intended as a colour decision. Naming a fourth axis (structural) and requiring the axis to be declared at the element is what makes the exclusion list enforceable by a machine instead of by attention.",
+      "falsifier": "if the axis of a rule can be recovered from its hex, the register is redundant and the principle is decoration"
+    },
+    {
+      "principle": "A token with more than one definition is a comment, not a token.",
+      "scope": "cross-project",
+      "rationale": "`measured` — six token names, 235 uses, ~150 distinct inline fallback values, zero CSS declarations. It looked 79% tokenised by every count anyone ran, because the count was of `var()` uses and not of definitions. The tell is a fallback list, not a use list: if two uses of one token carry different fallbacks, the token does not yet exist. This generalises well beyond colour — it is the render-layer twin of Fernwood's 'One engine, one verdict', which governs two compute paths for one value; this governs one name over many values.",
+      "falsifier": "a token whose uses all carry the identical fallback is genuinely a token, and this principle says nothing about it"
+    },
+    {
+      "principle": "Personalisation must be additive over a working default — and REMOVING a wrong token is always free, while adding one always needs a gate.",
+      "scope": "cross-project",
+      "rationale": "Sharpens the 2026-09-06 'a personalisation token must default to the literal it replaces' with the operational corollary that makes a big refactor shippable in slices. Because the default renders for the un-personalised reader, de-tokenising a rule (dropping `var(--x, LITERAL)` to `LITERAL`) is byte-identical for that reader BY CONSTRUCTION — no gate, no cascade, no risk. Tokenising is the direction that can move them. That asymmetry is what lets S0 ship this week and S4 wait for the cascade, and it is the single most useful thing I learned in this review.",
+      "falsifier": "if a de-tokenisation ever changes the default reader's page, the token was not defaulting to the literal it replaced and the 09-06 rule was already violated"
+    }
+  ]
+}
