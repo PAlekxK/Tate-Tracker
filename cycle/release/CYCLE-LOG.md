@@ -1286,3 +1286,59 @@ person and only `attributeTo()` may write one — but a **non-null person says w
 (`personSource: "grant"`) and a null says nothing at all.** v1 gives null a reason; it explicitly
 **defers backfill**, because inventing a predicate for a record already written is the very
 misattribution the row exists to prevent.
+
+### ⭐⭐ BEAT 10 — SCOPE COMMITTED `[paul-ruled 2026-09-07]`
+
+*"That sounds good to me. The phased approach."*
+
+⛔ **After this point the plan does not keep evolving.** 38 commits ran before this beat fired, which
+is itself the lap's largest process finding: **the work happened, then the scope was committed.** The
+map says beat 10 precedes the doing, and it did not.
+
+**The sequencing is Paul's ruling:** *"let's change anything that ships to people until after we've
+made all these gate adjustments."* Nothing reaches a person until the gates are right.
+
+| | phase 1 — **nothing reaches a person** | why now |
+|---|---|---|
+| 1 | Review gate to QA: the renames, the mirror closures, a release-map **drift check** | he ruled it; the drift check would have caught tonight's `of: 5` bug |
+| 2 | **Cloudflare Access** — a full-stack recommendation | he asked; it gates part of 1 |
+| 3 | The **onboarding read route** | finishes *"readable and instrumentable"*; the door half shipped |
+| 4 | A **returning step list** for the walk harness | ⭐ re-sized tonight — see below |
+
+| | phase 2 — **ships to people, through the new gates, verified by Paul** |
+|---|---|
+| 5 | **The front door** — `paul-stated`: *"if the question is will I sign in and test the front door — I will. Yes."* |
+| 6 | **Two changelogs** — per-property and product |
+| 7 | **The Almanac display name** (E1) |
+| 8 | **Deploy the tombstone fix**, already committed and waiting on his clear |
+
+⛔ **NOT IN SCOPE, deliberately:** zones (design-only, its own session) · what fills a place card ·
+anything about Bob · anything requiring Mom.
+
+### ⭐ THE RE-SIZING THAT MADE THIS COMMITTABLE — item 4 was never a build
+
+`measured`: `journey(fresh=False)` **already exists** (`journey-walk.py:177`), and **durable synthetic
+accounts already exist** — `tools/synthetic-identity.py`, 12 identities on file, built **2026-09-05 on
+Paul's own instruction**: *"they also need to have durable accounts and kind of a memo as we test all
+this."*
+
+⛔ **So the returning walk was never blocked on machinery. It is blocked on a STEP LIST.** Skipping the
+signup screen still runs the *onboarding* script, so the walker is asked to name a place and type an
+address that are not on screen — hence 12–15 failed actions per seat and four unread reports.
+
+⭐ **THIS IS THE FIFTH INSTANCE OF THIS REPO'S OLDEST FAILURE**: a capability was built, on Paul's
+instruction, and the loop could not reach it — so 39 of 39 walks ran `--fresh` and the lap's worst
+defect stayed structurally invisible. I called it *"a real build"* on the options board and it is
+roughly a step list. **The board was wrong and the correction is recorded rather than quietly fixed.**
+
+### ⚠️ WHAT STAYS UNKNOWN, stated at the commitment point rather than discovered later
+
+1. ⛔ **216 `door_failed` on `legacy` today** — Mom's live app — all `door: "entry"`, clustered
+   16:00–20:00Z, every one `deviceId: null` **by construction**. Who and why are **not answerable from
+   the record**, and no amount of digging will change that.
+2. ⛔ **No engineering view has run this lap**, so nothing in this scope reflects what a builder would
+   call urgent — against Paul's own J-b ruling.
+3. ⛔ **n=0 on the product that matters.** Mom has never used it; her invite is live and unspent.
+
+⚠️ **And the accepted risk, taken knowingly:** phase 1 holds four items against a build band of
+**1/1**. Paul accepted the exception rather than dropping the renames.
