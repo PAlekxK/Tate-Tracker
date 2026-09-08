@@ -1956,8 +1956,23 @@
         show("s-nolink"); return;
       }
       if (!who) { show("s-nolink"); return; }
+      // ⛔⛔ THE RECORD DECIDES WHETHER SETUP IS DONE — NOT A LOCAL STEP COUNTER (fixed 2026-09-08).
+      // The line below routed purely on `fw-onboard-step`, and anything that was not "2"/"3"/"4"
+      // fell through to step 1 — the NAMING screen. The comment above it claimed "someone who has
+      // finished returns to her PLACE", and no branch here did that: every path called step(),
+      // which shows an onboarding screen. The comment described an intention the code never had.
+      // ⭐ MEASURED ON PAUL, IN HIS OWN BROWSER, 2026-09-08. Storage held fw-username "PKirsch",
+      // fw-onboard-name "Grant Park Condo", the address, the coordinates, the accent, the contact
+      // preference and the ranking — a complete, finished setup — and `fw-onboard-step: 1`. So the
+      // product asked him "What do you call it?" about a place he had already named, on a record
+      // the SERVER had just confirmed in the same request.
+      // ⭐ `who` IS the record: whoami returns name, address, ranked and the rest. If it says the
+      // place is set up, the person goes to their place. The step counter is a resume hint for an
+      // INTERRUPTED setup and nothing more — it is device-local, it goes stale, and it must never
+      // outrank the server's own answer. Same shape as B1: the record wins over the cache.
+      if (who && who.name && who.address) { location.href = "/viewer.html"; return; }
       var at = read(K_STEP);
-      // Someone who has finished returns to her PLACE, not to the thank-you she already read.
+      // Only an unfinished setup resumes — and only then does the local hint get a say.
       step(at === "4" ? 4 : at === "3" ? 4 : at === "2" ? 2 : 1);
     })
     .catch(function (e) {
