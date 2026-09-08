@@ -2092,7 +2092,18 @@
       // place is set up, the person goes to their place. The step counter is a resume hint for an
       // INTERRUPTED setup and nothing more — it is device-local, it goes stale, and it must never
       // outrank the server's own answer. Same shape as B1: the record wins over the cache.
-      if (who && who.name && who.address) { location.href = "/viewer.html"; return; }
+      // ⛔⛔ `/estate/`, NOT `/viewer.html` — measured by the returning walk, 2026-09-08, and this is
+      // the defect the recognition fix EXPOSED rather than caused. `/viewer.html` is the app shell;
+      // it paints from what the DEVICE holds, so a recognised person arriving on a browser that
+      // knows nothing landed in a generic app titled "My Home" reading *"Your address isn't on the
+      // map yet, so there's no weather to show"* — while their record held a full address the server
+      // had just returned in the same request. `/estate/` is the page that reads the record and then
+      // opens the app; the same walk saw "Hollow Creek Road", their address, their ranking and live
+      // weather one stop later, reached that way.
+      // ⭐ SO THE OLD BUG WAS NOT "no redirect" — it was a redirect to the wrong door, and almost
+      // nobody reached it, because the device-local gate above sent them to signup first. Fixing
+      // recognition is what made this reachable, and reachable is what made it measurable.
+      if (who && who.name && who.address) { location.href = "/estate/"; return; }
       var at = read(K_STEP);
       // Only an unfinished setup resumes — and only then does the local hint get a say.
       step(at === "4" ? 4 : at === "3" ? 4 : at === "2" ? 2 : 1);

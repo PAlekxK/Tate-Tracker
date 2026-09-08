@@ -147,6 +147,13 @@ def main():
     ap.add_argument("--create", choices=sorted(ROLES))
     ap.add_argument("--login", choices=sorted(ROLES))
     ap.add_argument("--memo", nargs=2, metavar=("ROLE", "TEXT"))
+    ap.add_argument("--complete-setup", choices=sorted(ROLES), metavar="ROLE",
+                    help="finish a durable identity's SETUP — name, address, ranking — through the same "
+                         "/api/profile the app writes to. ⛔ Built 2026-09-08 because the returning walk "
+                         "had nothing to walk: every durable identity was an account created and never "
+                         "taken through setup, so it could exercise the RESUME path and never the "
+                         "finished-setup redirect. CARRY had predicted that redirect was unwalked by any "
+                         "seat at any build; this is the fixture that lets it be walked.")
     ap.add_argument("--env", default="lab")
     a = ap.parse_args()
     d = load()
@@ -160,7 +167,7 @@ def main():
         print("  memo appended → %s" % p)
         return 0
 
-    if a.list or not (a.create or a.login):
+    if a.list or not (a.create or a.login or a.complete_setup):
         ids = d.get("identities", {})
         print("synthetic identities — %d\n" % len(ids))
         for role, v in sorted(ids.items()):
@@ -199,6 +206,50 @@ def main():
                                "createdAt": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds")})
         print("  created %s → %s (personId %s)" % (role, uname, body.get("personId")))
         print("  link: %s/onboarding/?g=%s" % (PAGES[a.env], body.get("token")))
+        return 0
+
+    if getattr(a, "complete_setup", None):
+        # ⛔⛔ THE FIXTURE THAT DID NOT EXIST, and its absence was mistaken for a product state.
+        # A durable identity was an account and nothing more — `place=None`, `address=None` — so the
+        # returning walk resumed into the NAMING screen, which is correct behaviour for an unfinished
+        # record and proves nothing about the journey of someone who has finished. Gate ① therefore
+        # could not see the one redirect that matters most to a returning person.
+        # ⭐ IT WRITES THROUGH `/api/profile`, THE SAME ROUTE THE APP USES — never straight into KV.
+        # A fixture built by a private door tests a state the product cannot actually produce, which
+        # is how a green walk stops being evidence about the product.
+        role = a.complete_setup
+        v = ids.get(ikey(role, a.env))
+        if not v:
+            raise SystemExit("synthetic-identity: no identity %r — create it first" % ikey(role, a.env))
+        # The seat's OWN answers, so the fixture keeps the character the seat was built to probe —
+        # a PO box stays a PO box, a curly apostrophe stays curly. Four seats typing one address is
+        # one seat at four times the cost, and that lesson is already written into journey-walk.
+        apath = os.path.join(ROOT, ".private", "walk-answers", "%s.json" % role)
+        try:
+            ans = json.load(open(apath, encoding="utf-8"))
+        except OSError:
+            raise SystemExit("synthetic-identity: no answers at %s — the fixture must not invent a place" % apath)
+        addr = ", ".join(x for x in [ans.get("line1"), ans.get("city"),
+                                     " ".join(x for x in [ans.get("state"), ans.get("zip")] if x)] if x)
+        body = {"username": v["username"], "name": ans.get("place"), "address": addr,
+                "addressParts": {k: ans.get(k) for k in ("line1", "city", "state", "zip") if ans.get(k)},
+                "ranked": (ans.get("interests") or [])[:20], "contactPref": "email"}
+        st, out = post(a.env, "/api/profile", body, grant=v.get("token"))
+        if st != 200:
+            raise SystemExit("synthetic-identity: /api/profile refused (%s) %s" % (st, out))
+        print("  %s setup completed → place=%r address=%r" % (role, ans.get("place"), addr))
+        # ⛔ AND THE GRANT MUST BE RE-HYDRATED, or the fix this fixture exists to prove stays invisible.
+        # whoami reads the GRANT row; /api/profile wrote the ACCOUNT row. Signing in is what copies one
+        # to the other — the same seam that dropped `username` and sent a returning person back to the
+        # door. Doing it here means the fixture is USABLE the moment it is built, rather than correct
+        # and inert.
+        print("  re-hydrating the grant so whoami can see it…")
+        st2, body2 = post(a.env, "/api/session", {"username": v["username"], "word": v["word"]})
+        if st2 == 200 and body2.get("token"):
+            v["token"] = body2["token"]; save(d)
+            print("  ✅ grant refreshed — place now reads %r" % (body2.get("name")))
+        else:
+            print("  ⚠️ sign-in did not refresh the grant (%s) — run --login %s before walking" % (st2, role))
         return 0
 
     if a.login:
