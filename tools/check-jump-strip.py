@@ -34,6 +34,11 @@ NOT_A_DESTINATION = {
     "card-references":    "a reference drawer, reached from the cards that cite it",
     "card-candidates":    "a review surface, not somewhere a person navigates to",
     "card-property":      "the place itself; the masthead already answers 'where am I'",
+    # ⭐ Added 2026-09-08 with the card. It is a RECEIPT, not a domain — the standing record of what
+    # a person told us — and it is reached from the masthead's own "What you told me", which is
+    # where Paul goes for it. A twelfth chip would put a reference surface in a strip whose other
+    # eleven entries are places in this property.
+    "card-told":          "the record of what you told us; reached from the masthead, not a domain",
 }
 
 

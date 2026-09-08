@@ -4231,6 +4231,13 @@
      points at carries the full name, but a household's own name must never be silently cut to a
      stub. The full string stays reachable — the writer sets `title` — and every chip keeps one
      height, which is what made the strip read as a strip. */
+  /* WHAT YOU TOLD ME — a receipt reads as a record, not as a form: label quiet, value plain, the
+     honest caveat beneath it in the same voice the receipt page used. */
+  .told-row { padding: 10px 0; border-bottom: 1px solid var(--edge-card, #e8f0e0); }
+  .told-row:last-child { border-bottom: 0; }
+  .told-label { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #7a8a72; margin: 0 0 3px; }
+  .told-value { font-size: 14.5px; line-height: 1.45; color: #2f3b2c; margin: 0; white-space: pre-line; }
+  .told-prov { font-size: 12.5px; line-height: 1.45; color: #6b7a64; margin: 4px 0 0; font-style: italic; }
   .jump-strip a .js-label { line-height: 1.15; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .jump-strip a:hover, .jump-strip a:active {
     /* ⚠️ The background was ALREADY tokenised here while the two colours beside it were not — which
@@ -7173,6 +7180,34 @@
       <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
     </div>
     <div class="main-card-body"><div id="place-log-body"></div></div>
+  </div>
+
+  <!-- ⭐⭐ WHAT YOU TOLD ME — INSIDE THE APP `[paul-ruled 2026-09-08]`.
+       "there's the what you told me at the top, and that tracks everything that's been provided…
+       I can always go there for reference. But any new input that comes in should be in the
+       acknowledgment strip on the Grant Park condo page, not an intermediary page, which is what
+       the early days page is now. That early days page fits fine in the onboarding process, but
+       only in the onboarding process."
+       ⛔ WHY THIS CARD HAD TO EXIST BEFORE `/estate/` COULD RETIRE. "What you told me" in the
+       masthead was a LINK TO `/estate/` — the receipts were never in the app at all, so retiring
+       that page would have deleted the answer to "where did what I told you go". D3 rules the fix
+       is a TRANSFER, never a deletion; this is the transfer.
+       ⭐ AND IT IS A REFERENCE, NOT AN ANNOUNCEMENT — the other half of the same ruling. `/estate/`
+       re-showed the same receipt on every arrival, which is why he was "rereviewing what I told
+       you" each time he signed in. A receipt is shown ONCE, by the acknowledgment ribbon, when it
+       is new. This card is the standing record you go to, and it never pushes itself at anyone. -->
+  <div class="main-card" id="card-told">
+    <div class="main-card-header" data-toggle="told">
+      <div class="main-card-icon told" aria-hidden="true">📋</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">What you told me</div>
+        <div class="main-card-summary" id="told-summary"></div>
+      </div>
+      <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
+    </div>
+    <div class="main-card-body">
+      <div class="told-list" id="told-body"></div>
+    </div>
   </div>
 
   <div class="main-card" id="card-release-notes">
@@ -19832,9 +19867,68 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
   const hdr = document.querySelector(".header");
   if (hdr && !hdr.querySelector(".hh-utility")) {
     const u = document.createElement("div"); u.className = "hh-utility";
-    u.innerHTML = '<a href="/homes/">‹ Your homes</a><a href="/estate/">What you told me</a><a href="/settings/place/">Settings</a>';
+    // ⭐ "What you told me" now points AT THE CARD IN THIS APP, not out to /estate/ (2026-09-08).
+    // It was a link off the page, which is why the receipts were never in the app and why retiring
+    // the Early days screen would have deleted them.
+    u.innerHTML = '<a href="/homes/">‹ Your homes</a><a href="#" data-open-told="1">What you told me</a><a href="/settings/place/">Settings</a>';
+    const _told = u.querySelector('[data-open-told]');
+    if (_told) _told.addEventListener("click", (e) => { e.preventDefault(); try { expandCard("card-told", "nav"); } catch (err) {} });
     hdr.insertBefore(u, hdr.firstChild);
   }
+  // ⭐⭐ THE RECEIPTS, RENDERED IN THE APP. Ported from estate/index.html's own rows so the record a
+  // person can always go back to lives where their place lives. Same keys, same owner guard, same
+  // honesty: the address is shown exactly as typed, a PO box says plainly what cannot be worked out
+  // from it, a default contact preference is labelled a default rather than reported as the reader's
+  // omission, and EVERY ranked pick shows — a seat once watched its fourth vanish unacknowledged.
+  // ⛔ AN EMPTY RANKING IS NOT A MISSING ONE: someone who looked and chose nothing gets no row,
+  // rather than being told their answer was empty.
+  (function renderTold() {
+    const K = { addr: "fw-onboard-addr", pref: "fw-onboard-contact", rank: "fw-onboard-interests",
+                owner: "fw-onboard-owner", grant: "fw-grant" };
+    const rd = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    // the same owner guard the receipt page uses — a ranking says what someone cares about most
+    const g = rd(K.grant), o = rd(K.owner);
+    const mine = !!g && (!o || o === g);
+    const host = document.getElementById("told-body"), sum = document.getElementById("told-summary");
+    const card = document.getElementById("card-told");
+    if (!host || !card) return;
+    const rows = [];
+    const addr = mine ? rd(K.addr) : null;
+    if (addr) {
+      const boxy = /\b(p\.?\s?o\.?\s*box|post\s*office\s*box|postal\s*box)\b/i.test(addr);
+      rows.push({ label: "Where it is", value: addr,
+        prov: boxy ? "A box number is where your post goes, not where your place is — so I can't work out your weather or what grows there." : "" });
+    }
+    const pref = mine ? rd(K.pref) : null;
+    if (pref) {
+      rows.push({ label: "How to reach you",
+        value: pref === "none" ? "You asked me not to." : pref === "phone" ? "By phone." : "By email.",
+        prov: pref === "none" ? "I'll keep to that. If you lose your password, email me."
+                              : (rd("fw-onboard-contact-chosen") === "1" ? "" : "The default — change it whenever you like.") });
+    }
+    let ranked = null;
+    try { ranked = mine ? JSON.parse(rd(K.rank) || "null") : null; } catch (e) { ranked = null; }
+    if (mine && ranked && ranked.length) {
+      rows.push({ label: "What I'll build first",
+        value: ranked.map((r, i) => (i + 1) + ". " + ((r && r.label) || r) + ((r && r.soon) ? "  (an idea — not built yet)" : "")).join("\n") });
+    }
+    // ⛔ NOTHING TO SHOW MEANS NO CARD. An empty receipt card on the front of someone's place is
+    // furniture that says "you have told me nothing", which is both untrue for a person who has
+    // just set up and unkind to one who has not.
+    if (!rows.length) { card.hidden = true; return; }
+    card.hidden = false;
+    if (sum) sum.textContent = rows.map(r => r.label).join(" · ");
+    host.innerHTML = "";
+    rows.forEach((r) => {
+      const d = document.createElement("div"); d.className = "told-row";
+      const l = document.createElement("p"); l.className = "told-label"; l.textContent = r.label;
+      const v = document.createElement("p"); v.className = "told-value"; v.textContent = r.value;
+      d.appendChild(l); d.appendChild(v);
+      if (r.prov) { const pv = document.createElement("p"); pv.className = "told-prov"; pv.textContent = r.prov; d.appendChild(pv); }
+      host.appendChild(d);
+    });
+  })();
+
   const jt = window.__HOUSEHOLD_NAME + " Almanac";
   // the composer's who-sees-it line (strict seat, rounds 5–8: "the most prominent input says nothing about
   // where the words go"). True today: a member's notes stay on the device — see the notes card.

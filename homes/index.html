@@ -218,7 +218,23 @@
       if (where) { var w = document.createElement("p"); w.className = "where"; w.textContent = where; b.appendChild(w); }
       var go = document.createElement("span"); go.className = "go"; go.textContent = "›";
       b.appendChild(go);
-      b.addEventListener("click", function () { location.href = "/estate/"; });
+      // ⭐⭐ ONE TAP FROM THE SHELF TO THE PLACE `[paul-ruled 2026-09-08]`. This sent every reader to
+      // `/estate/` first — the "Early days" card — so choosing your home landed you on an
+      // intermediary and you tapped "Open your place" to actually arrive. Paul walked it three times
+      // in one day and ruled: "we should just be able to access the home from the list of homes",
+      // and "that early days page fits fine in the onboarding process, but ONLY in the onboarding
+      // process."
+      // ⛔ IT COULD NOT BE DONE UNTIL TODAY, and the reason is worth keeping: `/estate/` was the ONLY
+      // surface carrying the receipts — the address, the contact choice, the ranking — and the app's
+      // own "What you told me" was a LINK BACK TO IT. Skipping it would have deleted the answer to
+      // "where did what I told you go", which is the deletion D3 forbids. The receipts moved into
+      // `#card-told` in the same change; this is the second half of that transfer, not a shortcut
+      // past it.
+      // ⚠️ `/estate/` is NOT retired here. It is still where onboarding hands off, and it is still
+      // reachable. What changed is that a RETURNING reader no longer passes through it every time —
+      // which is the other half of the ruling: a receipt is shown once, not re-shown on every
+      // arrival.
+      b.addEventListener("click", function () { location.href = "/viewer.html"; });
       host.appendChild(b);
     });
   }
