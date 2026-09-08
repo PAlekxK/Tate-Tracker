@@ -16,6 +16,8 @@
 - ready: agent-proposed 2026-09-07 — **Paul rules** (§6). Nothing in § Sequence starts before G0 and the 🔴 rulings.
 - stage: concept
 - wip-exception: gated on G0 (§1) and executes nothing between concept and qa until Paul stamps it; declared so the in-flight count stays honest rather than to claim a second lane — BACKLOG.md:90 "The WIP rule stands: one item between concept and QA"
+- stage-note: 2026-09-07 ~23:10 ET — **AMENDED, not rewritten.** Paul re-raised this scope tonight without knowing the file existed (it was an orphan: no `BACKLOG.md` row, so nothing could reach it). Two things changed under it since 12:45 PM — **W0 shipped** and the geocoder **has never been asked outside QA** — and he ruled the v1's shape twice. All of that is in § 0-PRIME, which supersedes parts of the body below. ⛔ The body is **marked, not edited away** (the `zones-PLAN.md` §0 pattern), so a reader who lands mid-file from a search still meets the correction.
+- stage-note: 2026-09-07 ~23:25 ET — **AMENDED, not rewritten.** Paul re-raised this scope tonight without knowing the file existed (an orphan: no `BACKLOG.md` row, so nothing could reach it). Two things changed under it since 12:45 PM — **W0 shipped**, and the geocoder **has never been asked outside QA** — and he ruled the v1's shape three times, the last of which corrected the agent's own framing. All of it is in § 0-PRIME, which supersedes parts of the body below. ⛔ The body is **marked, not edited away** (the `zones-PLAN.md` §0 pattern), so a reader landing mid-file from a search still meets the correction.
 - stage-note: 2026-09-07 ~12:45 PM ET — drafted at `e132d63` from the archaeology (`.plans/2026-09-07-weather-card-ARCHAEOLOGY.md`); every seat line above cites a PRIOR trail on Fernwood's card (07-14 · 07-23 · 08-14 · 09-04), none of them a read of THIS scope — a fresh pass by each declared seat is owed before `ready:` (§5). Read-only run: no tracked file edited, nothing committed, no network call.
 
 > ## ROW TO ADD — one line, for Paul or the main session to append (this agent may not edit `BACKLOG.md`)
@@ -40,6 +42,347 @@
 > ⚠️ Two transcript readings, flagged in the archaeology header and repeated here: **`KGAJASPE279` is a
 > killed Weather Underground id, not the Ambient station** (`BACKLOG.md:3080`); *"Kirschenbauer
 > station"* is read as *"their own station"*.
+
+---
+
+## 0-PRIME · ⭐⭐ READ THIS FIRST — what changed under this file after it was drafted
+
+> Written 2026-09-07 ~23:10 ET at `7188d21`, read-only against HEAD. **Four things below supersede
+> parts of §0–§6.** Each is `measured` at HEAD unless graded otherwise.
+
+### ① ⭐⭐ THE FLOOR IS BUILT. §0's central claim is STALE, and Paul removed the blocker himself
+
+§0 says *"What is NOT built is the floor — address → coordinates."* **True at 11:00 AM; false now.**
+
+`measured` — `worker/worker.js:809`: `[paul-ruled 2026-09-07: "Go on geocoding as lap 2's first
+build"]`. What shipped: the **US Census** geocoder (keyless — this file's own Q1 recommendation),
+returning lat/lon **and county FIPS**; cached by a sha256 of the lowercased one-line address; applied
+on **every `/api/profile` write**; a **retry** at `:3659` for a household whose address arrived before
+geocoding existed. ⛔ **And the rule that matters most is already in the code:** *"NO DEFAULT
+COORDINATE, EVER. A failed geocode stores nothing and the household stays S0"* (`:820`). The AI
+boundary is held explicitly at `:815`.
+
+`measured` — the engine side is wired end to end: `engine/viewer.template.html:7310` is *"⭐ W0 · THE
+HOUSEHOLD'S OWN COORDINATES REACH THE ENGINE HERE, and this runs BEFORE `SITE_PLACED`"*, and
+`SITE_PLACED` (`:7348`) derives from `PROPERTY_DATA.location.coordinates.latitude != null`.
+
+⭐ **So the archaeology's own conditional fires.** Its §3 reading was *"with W0 built, eleven rows
+(W1–W5, W11, W15, W16, W18, W20, W22) are AUTOMATIC at-setup with no key and no research."* **W0 is
+built.** That is the base card, for any address, already rendering.
+
+**Two of §6's rulings are therefore ANSWERED and should not be put to Paul again:**
+
+| | was | now |
+|---|---|---|
+| **Q1** · geocoding source and its key | 🔴 RULING | ✅ **Census, keyless** — as recommended. `worker.js:851` |
+| **Q2** · who runs W0, and when | 🔴 RULING | ✅ **Automatically, on `/api/profile` write**, with a one-shot retry on next load. `worker.js:874` · `:3659` |
+
+### ② ⛔⛔ AND YET THERE IS NO WEATHER AT ANY ESTATE — because the geocoder has never been ASKED
+
+`measured` — `python3 tools/read-geocodes.py`, 2026-09-07 ~23:05 ET:
+
+```
+bob    est-9a74df    none recorded — the geocoder was not asked
+home   est-e6696a    none recorded — the geocoder was not asked
+lab    est-lab0001   none recorded — the geocoder was not asked
+paul   est-d93508    none recorded — the geocoder was not asked
+qa     est-qa0001    refused:box 36 · placed 33   median 78ms
+```
+
+⛔ **It has only ever run in QA.** On production `home` — the estate holding Paul's real account and
+Mom's unspent invite — **no household is placed**, so every one is **S0** and the card reads *"we're
+working out your weather."* His condo included.
+
+⭐ **THE OPERATIVE CONSEQUENCE, and it reframes the whole row:** *"weather at all the estates"* begins
+as **a retry that has not fired for the only real households**, not as a feature. The retry path exists
+(`:3659`, once, on next load) — so this may resolve itself the next time Paul loads, **and nothing
+would tell us either way except this tool.** ⚠️ **Read `read-geocodes.py` before building anything
+here**; a build that assumes placement will be built on top of a population of zero.
+
+⚠️ **And `refused:box 36` against `placed 33` in QA is a real signal, not noise** — box-number
+households are **more than half** of QA's addresses. Their door is estate settings (row 19c), which is
+not built. `inferred` — QA's address population is synthetic and may not resemble a real one.
+
+### ③ ⭐ PAUL'S RULINGS TONIGHT — verbatim, per *a ruling that is not in the register is not in force*
+
+| | ruling | consequence |
+|---|---|---|
+| **W-1** | *"The first thing we should queue up… is the Weather card and how it gets populated. It should be doable just from the address… offer two opt-ins: whether they want radar, and a connection to their own weather station."* `[~11:25 ET]` | the row itself — already the body of this file |
+| **W-2** | *"adding weather in to all the estates… whether it's gonna be a major draw… that's the top priority of what we need to get ready to implement in the next lap"* `[~22:40 ET]` | ⭐ **this row is the next lap's queued item** |
+| **W-3** | *"not just how we copy what we developed within Fernwood but how do we systematically develop a view like that… identify what all the data sources are, pull them in together, pull together the analysis in a structured way"* `[~23:00 ET]` | ⭐ **the tier-2 analysis layer below — the generalisation, not the copy** |
+| **W-4** | *"let's start with v1 for sure. And tier two is definitely gonna be a very fast follow."* `[~23:15 ET]` | tier 2 enters the epic as the next horizon |
+| **W-5** | ⭐ *"it seems like we should be able to get tier two and three pretty well taken care of together. Let's go ahead and do both."* `[~23:20 ET]` | ⛔ **SUPERSEDES W-4 within minutes. The v1 is tiers 2 + 3 TOGETHER.** Tier 4 stays the horizon |
+
+### ④ ⭐⭐ THE HORIZONS — the part this file did not have, and the reason Paul asked
+
+⛔ Per his own v1 rule — *"a v1 shipped with no successor row is not a v1, it is an unfinished feature
+with better manners"* — **each tier names what the one below defers.** ⛔ **No state is typed in this
+table**; each row's state is its own plan's `stage:`.
+
+| tier | what it is | who supplies what | state |
+|---|---|---|---|
+| **0 · PLACEMENT** | address → lat/lon + county FIPS + state | the address, already typed | ✅ **built** `worker.js:809`; ⛔ never run outside QA (②) |
+| **1 · KEYLESS AUTOMATIC** — *the commodity half* | the eleven W-rows: glance · forecast · alerts · NWS fire weather · modelled *right now* · regional rain vs 25-yr normal · burn status · drought by FIPS · days-since-rain · elevation · the stations link | nothing beyond the address | ✅ **renders today** at the C7 declared-absent state |
+| **2 · DERIVED PER-ADDRESS ANALYSIS** — ⭐ *the differentiator* | PRISM 800 m normals **at the point** · DEM elevation · **lapse-rate-adjusted frost + hardiness** · *how is this month tracking* | nothing beyond the address — **all of it is programmatic** | ⛔ **NOT BUILT · in the v1 `[W-5]`** |
+| **3 · THE TWO OPT-INS** | ⓐ radar — keyless, renders today, **needs only a switch and the ask** · ⓑ the household's own station — the card renders it; the build is a **per-household credential store** | one yes/no each; a station also needs a gated credential handoff | ⛔ **NOT BUILT · in the v1** — the row's original subject |
+| **4 · ACCRUAL** — ⭐ *the moat* | the household's own measured record over time, and **its bias against the grid** | a station **and time** | ⛔ **Fernwood-only by construction** — one GitHub Action writing one root file (archaeology §4). **HORIZON, not v1** |
+
+> ### ⭐ WHY TIER 2 IS THE ANSWER TO W-3, stated plainly because it is the load-bearing claim
+> **The sources were never the hard part.** PRISM, NCEI normals, USDM-by-FIPS, NWS gridpoint,
+> Open-Meteo archive, AirNow — **every one is already address-parameterised.** What made Fernwood's
+> card good is the **analysis layer**: the 24% precip bias against the grid, the lidar elevation that
+> was 86 ft off the model, frost dates adjusted to the property's own elevation, the microclimate
+> prose. ⭐ **That is the part nobody will repeat by hand for a second household** — which is exactly
+> what W-3 asks for, and exactly what tier 2 automates.
+>
+> ⛔ **And it is what answers *"is it a major draw."*** Tier 1 is **commodity** — CLAUDE.md's own words:
+> *"anyone can show a grid forecast."* Tier 2 is **cheap, programmatic and differentiating.** Tier 4 is
+> the moat and **only accrues with a station and time**. A draw argument built on tier 1 is a draw
+> argument for a weather app; the draw is tiers 2 and 4.
+
+⚠️ **THE FIRST ACT ON TIER 2 IS A POSITIVE CONTROL, NOT A BUILD** — `unverified`, and this is the
+zones session's own lesson paid forward. Tier 2's source details (PRISM point-normals access, the NCEI
+`/data/v1` token, USDM's FIPS endpoint, NWS `skyCover`) come from **`research-resources.md`, a research
+document — not from a probe run by anyone.** The zones lane reported five claims as verified that were
+not, all the same shape: *"true of the layer queried, false of the question asked."* ⛔ **Probe each
+tier-2 source at a NON-Fernwood address before it enters a build** — the condo, and one of QA's placed
+households. A healthy service returning a well-formed response is not an answer.
+
+### ⑤ What §6's sixteen questions look like after ① and ⑤'s scope change
+
+- ✅ **ANSWERED by the geocoder shipping:** **Q1** (source + key) · **Q2** (who runs W0, when).
+- ⭐ **RULED by W-5:** **Q5**'s half — the radar is **opt-in** and is in the v1; the switch word is
+  still open, because `momlib.MODULE_STATES` is `on · on-minimal · off · declared-absent` and
+  `measured` **there is no radar key anywhere in the module vocabulary**.
+- ⛔ **PROMOTED from out-of-scope INTO the v1 by W-5:** the tier-2 rows the body currently defers —
+  **Q9** (frost + hardiness derivation) and **Q10** (elevation from a 90 m model, labelled estimated).
+  They were *"D1 ships without frost"* and *"show it, labelled estimated"*; under W-5 they are **built,
+  not deferred.** ⚠️ Q10's caution stands and gets stronger: Fernwood's modelled elevation was **86 ft
+  wrong**, so tier 2 must carry the *estimated — verify on-site* idiom (`:13795`) or it manufactures
+  confident wrongness at every new household.
+- **STILL PAUL'S, and each is one sentence:** **Q3** (where a household's station credential lives —
+  the v1's largest single unknown) · **Q4** (Ambient only in v1) · **Q6** (what the card shows before
+  either opt-in) · **Q7** (are the recorder + bias bots engine or Fernwood-only) · **Q8** (the Georgia
+  burn-ban literal at a non-Georgia address) · **Q11** (AQI) · **Q16** (where the two asks sit).
+- **STILL HUNTS:** **Q12** (every render site keyed on the station, at a station-less household) ·
+  **Q13** · **Q14** (rate limits across N households — ⚠️ **this now collides with the approved
+  Open-Meteo proxy**, `BACKLOG.md` § PROXY OPEN-METEO, `[paul-approved 2026-09-07]`: ~16 walks from one
+  IP were **429'd**, and tier 2 adds N archive pulls per household) · **Q15**.
+
+⭐ **Q8 is no longer only a correctness question — it is a leak.** `(m >= 4 && m <= 8)` is a Georgia
+EPD literal in engine code, so **a Maine household is told Georgia's burning law**. That is one of the
+five sites in the *instance-content-inside-engine-code* class (`.plans/2026-09-07-backlog-grooming-SCAN.md`
+§2, slate 2). ⛔ **The v1 cannot ship tier 1 to a non-Georgia household without it.**
+
+### ⑥ ⚠️ What W-5 costs, stated at the ruling rather than discovered later
+
+**The v1 roughly doubles.** Tier 3 alone was two asks, two switches and a credential store. Tier 2 adds
+a server-side derivation path and **four new upstream sources**, none of them probed.
+
+⭐ **The recommended tier-2 v1 cut, and it names what it defers** — agent-proposed, **Paul rules:**
+build **elevation + lapse-rate frost/hardiness** first (Q9 + Q10). They are the two that **unblock
+things already on the card** — the frost line in `generateAlerts` reads hand-authored `frostDates`
+today, so every new household silently gets no frost warning at all. ⛔ **Defers to the fast-follow:**
+PRISM point-normals and *how is this month tracking*, which are additive rather than unblocking.
+
+⚠️ **And one WIP fact to weigh, not an objection:** the build band is **1/1 with three declared
+exceptions**, and lap 3's phase 1 already took a knowing four-against-one. This row would be another.
+That is Paul's call and a real cost, not a rule violation.
+
+---
+
+## 0-PRIME · ⭐⭐ READ THIS FIRST — what changed under this file after it was drafted
+
+> Written 2026-09-07 ~23:25 ET at `7188d21`, read-only against HEAD. **Six things below supersede
+> parts of §0–§7.** Each is `measured` at HEAD unless graded otherwise.
+
+### ① ⭐⭐ THE FLOOR IS BUILT. §0's central claim is STALE, and Paul removed the blocker himself
+
+§0 says *"What is NOT built is the floor — address → coordinates."* **True at 11:00 AM; false now.**
+
+`measured` — `worker/worker.js:809`: `[paul-ruled 2026-09-07: "Go on geocoding as lap 2's first
+build"]`. What shipped: the **US Census** geocoder (keyless — this file's own Q1 recommendation),
+returning lat/lon **and county FIPS**; cached by a sha256 of the lowercased one-line address; applied
+on **every `/api/profile` write**; a one-shot **retry** at `:3659` for a household whose address
+arrived before geocoding existed. ⛔ **And the rule that matters most is already in the code:** *"NO
+DEFAULT COORDINATE, EVER. A failed geocode stores nothing and the household stays S0"* (`:820`). The
+AI boundary is held explicitly at `:815`.
+
+`measured` — the engine side is wired end to end: `engine/viewer.template.html:7310` is *"⭐ W0 · THE
+HOUSEHOLD'S OWN COORDINATES REACH THE ENGINE HERE, and this runs BEFORE `SITE_PLACED`"*, and
+`SITE_PLACED` (`:7348`) derives from `PROPERTY_DATA.location.coordinates.latitude != null`.
+
+⭐ **So the archaeology's own conditional fires.** Its §3 reading was *"with W0 built, eleven rows
+(W1–W5, W11, W15, W16, W18, W20, W22) are AUTOMATIC at-setup with no key and no research."* **W0 is
+built.** That is the base card, for any address, already rendering.
+
+**Two of §6's rulings are therefore ANSWERED and must not be put to Paul again:**
+
+| | was | now |
+|---|---|---|
+| **Q1** · geocoding source and its key | 🔴 RULING | ✅ **Census, keyless** — as recommended. `worker.js:851` |
+| **Q2** · who runs W0, and when | 🔴 RULING | ✅ **Automatically, on `/api/profile` write**, with a one-shot retry on next load. `worker.js:874` · `:3659` |
+
+### ② ⛔⛔ AND YET THERE IS NO WEATHER AT ANY ESTATE — because the geocoder has never been ASKED
+
+`measured` — `python3 tools/read-geocodes.py`, 2026-09-07 ~23:05 ET:
+
+```
+bob    est-9a74df    none recorded — the geocoder was not asked
+home   est-e6696a    none recorded — the geocoder was not asked
+lab    est-lab0001   none recorded — the geocoder was not asked
+paul   est-d93508    none recorded — the geocoder was not asked
+qa     est-qa0001    refused:box 36 · placed 33   median 78ms
+```
+
+⛔ **It has only ever run in QA.** On production `home` — the estate holding Paul's real account and
+Mom's unspent invite — **no household is placed**, so every one is **S0** and the card reads *"we're
+working out your weather."* His condo included.
+
+⭐ **THE OPERATIVE CONSEQUENCE, and it reframes the whole row:** *"weather at all the estates"* begins
+as **a retry that has not fired for the only real households**, not as a feature. The retry path exists
+(`:3659`, once, on next load) — so it may resolve itself the next time Paul loads, **and nothing would
+tell us either way except this tool.** ⚠️ **Read `read-geocodes.py` before building anything here**; a
+build that assumes placement would be built on a population of zero.
+
+⚠️ **`refused:box 36` against `placed 33` is a real signal, not noise** — box-number households are
+**more than half** of QA's addresses, and their door is estate settings (row 19c), which is not built.
+`inferred` — QA's address population is synthetic and may not resemble a real one.
+
+### ③ ⭐ PAUL'S RULINGS TONIGHT — verbatim, per *a ruling that is not in the register is not in force*
+
+| | ruling | consequence |
+|---|---|---|
+| **W-1** | *"The first thing we should queue up… is the Weather card and how it gets populated. It should be doable just from the address… offer two opt-ins: whether they want radar, and a connection to their own weather station."* `[~11:25 ET]` | the row itself — the body of this file |
+| **W-2** | *"adding weather in to all the estates… whether it's gonna be a major draw… that's the top priority of what we need to get ready to implement in the next lap"* `[~22:40 ET]` | ⭐ **this row is the next lap's queued item** |
+| **W-3** | *"not just how we copy what we developed within Fernwood but how do we systematically develop a view like that… identify what all the data sources are, pull them in together, pull together the analysis in a structured way"* `[~23:00 ET]` | ⭐ **the tier-2 analysis layer — the generalisation, not the copy** |
+| **W-4** | *"let's start with v1 for sure. And tier two is definitely gonna be a very fast follow."* `[~23:15 ET]` | superseded within minutes by W-5 |
+| **W-5** | *"it seems like we should be able to get tier two and three pretty well taken care of together. Let's go ahead and do both."* `[~23:20 ET]` | ⛔ **the v1 is tiers 2 + 3 TOGETHER** |
+| **W-6** | ⭐⭐ *"by definition, tier four accrual would be somewhat dependent on that household having their own smart device. Right? So let's already have it all built out since we already have it, and ready to turn on for anyone that opts into our station — which is kind of the v1 of the opt-in… But we can note that the accrual is specific to this device. Integration always has to be built out custom to other devices depending on their data streams."* `[~23:30 ET]` | ⛔ **CORRECTS THE AGENT'S OWN TIER MODEL — see ④** |
+
+### ④ ⭐⭐ W-6 REBUILDS THE TIER MODEL, and the agent's version was wrong
+
+**The agent proposed accrual as a later horizon. Paul corrected it, and the correction is structural:**
+accrual is **meaningless without a device**, so it is not a tier that comes *after* the station opt-in —
+**it is part of what that opt-in switches on.** One *"yes, connect my station"* turns on the live
+readings **and** the accrual, because both belong to the same device.
+
+⭐ **What is genuinely the horizon is OTHER DEVICES** — *"integration always has to be built out custom
+to other devices depending on their data streams."* Ambient only in the v1 (which was already §6 Q4's
+recommendation; W-6 is the reason, and it is a better reason than the one that was written).
+
+⚠️ **AND THE HALF THAT IS NOT FREE, stated at the ruling rather than discovered in the build.**
+*"We already have it"* is **true of the render side and false of the writer.** `measured`, archaeology
+§3–§4:
+
+| | state |
+|---|---|
+| **the render** — `stationRain7()` (7-day gauge strip), the 30-day / whole-record rows, the bias note | ✅ **pre-built.** All read `WEATHER_DATA.history.days`; nothing to build |
+| **the store** — `weather-history.json` | ⛔ **ONE root file** on `origin/main` |
+| **the writer** — `record-weather.yml` + `record-daily-rollup.mjs` | ⛔ **ONE GitHub Action**, every 6 h, against the production Worker |
+| **the analysis** — `analyze-weather-bias.yml` | ⛔ **Fernwood-only**: LAT/LON derived from `property.json` (`analyze-weather-bias.mjs:31-32`), writes a second root file |
+
+⛔ **So switching accrual on for a second household is a PER-ESTATE HISTORY STORE + RECORDER, not a
+flag.** That is the largest single build in the v1 and it should be sized before the lap opens, not
+during it. ⭐ Note it is the *same shape* as Q3's per-household credential store — **one seam, two
+consumers**, which is an argument for doing them together rather than a second cost.
+
+⭐ **AND W-6's second clause is a CORRECTNESS rule, not a caption:** *"the accrual is specific to this
+device."* An accrual record shown to a household that does not own the device is exactly the defect
+found today — Fernwood's own gauge (*123 days · 30.83" · "OUR GAUGE" · "the gauge's sheltered spot by
+the pond"*) rendering at households in Roswell, Dahlonega and **Bangor, Maine**. ✅ The engine already
+fails closed (`viewer.template.html:9046` — *"only `present` adopts a record"*), so **the model and the
+code agree**; the v1's job is not to reopen it. ⚠️ `check-estate-neutral.py` read **✅ 311 needles /
+rendered=0** against that very origin, because **it tests for NAMES and that leak was numbers and
+possessive pronouns.** A green there is not coverage for this class.
+
+### ⑤ ⭐⭐ THE HORIZONS — the part this file did not have, and the reason Paul asked
+
+⛔ Per his own v1 rule — *"a v1 shipped with no successor row is not a v1, it is an unfinished feature
+with better manners"* — **each tier names what the one below defers.** ⛔ **No state is typed in this
+table**; each row's state is its own plan's `stage:`.
+
+| tier | what it is | who supplies what | in the v1? |
+|---|---|---|---|
+| **0 · PLACEMENT** | address → lat/lon + county FIPS + state | the address, already typed | ✅ **built** (`worker.js:809`); ⛔ **never run outside QA** (②) |
+| **1 · KEYLESS AUTOMATIC** — *the commodity half* | the eleven W-rows: glance · forecast · alerts · NWS fire weather · modelled *right now* · regional rain vs 25-yr normal · burn status · drought by FIPS · days-since-rain · elevation · the stations link | nothing beyond the address | ✅ **renders today** at the C7 declared-absent state |
+| **2 · DERIVED PER-ADDRESS ANALYSIS** — ⭐ *the differentiator* | DEM elevation · **lapse-rate-adjusted frost + hardiness** · PRISM 800 m normals at the point · *how is this month tracking* | nothing beyond the address — **all programmatic** | ⛔ **NOT BUILT · IN THE V1** `[W-5]` |
+| **3 · THE OPT-INS** | ⓐ **radar** — keyless, renders today, needs only a switch and the ask · ⓑ **the station** — one *yes* switches on live readings **and** the accrual `[W-6]` | one yes/no each; the station also needs a gated credential handoff | ⛔ **NOT BUILT · IN THE V1** — the row's original subject |
+| **3′ · ACCRUAL, RIDING ON ⓑ** — ⭐ *the moat* | the household's own measured record over time **and its bias against the grid** — *"already built, ready to turn on for anyone that opts into our station"* | the same *yes*, plus **time** | ⚠️ **render pre-built; store + writer are a real build** (④) |
+| **HORIZON · OTHER DEVICES** | Davis · Tempest · WU · Nest and anything else | a different vendor's data stream | ⛔ **OUT** — *"custom to other devices depending on their data streams"* `[W-6]` |
+
+> ### ⭐ WHY TIER 2 IS THE ANSWER TO W-3, stated plainly because it is the load-bearing claim
+> **The sources were never the hard part.** PRISM, NCEI normals, USDM-by-FIPS, NWS gridpoint,
+> Open-Meteo archive, AirNow — **every one is already address-parameterised.** What made Fernwood's
+> card good is the **analysis layer**: the ~24% precip bias against the grid, the lidar elevation that
+> was **86 ft** off the model, frost dates adjusted to the property's own elevation, the microclimate
+> prose. ⭐ **That is the part nobody will repeat by hand for a second household** — which is what W-3
+> asks for and what tier 2 automates.
+>
+> ⛔ **And it answers *"is it a major draw."*** Tier 1 is **commodity** — CLAUDE.md's own words:
+> *"anyone can show a grid forecast."* Tier 2 is **cheap, programmatic and differentiating.** Tier 3′
+> is the moat and **only accrues with a device and time**. A draw argument built on tier 1 is a draw
+> argument for a weather app.
+
+⚠️ **THE FIRST ACT ON TIER 2 IS A POSITIVE CONTROL, NOT A BUILD** — `unverified`, and this is the
+zones session's lesson paid forward. Tier 2's source details (PRISM point normals, the NCEI `/data/v1`
+token, USDM's FIPS endpoint, NWS `skyCover`) come from **`research-resources.md`, a research document —
+not from a probe run by anyone.** That lane reported five claims as verified that were not, all one
+shape: *"true of the layer queried, false of the question asked."* ⛔ **Probe each tier-2 source at a
+NON-Fernwood address before it enters a build** — the condo, and one of QA's placed households. A
+healthy service returning a well-formed response is not an answer.
+
+### ⑥ What §6's sixteen questions look like after ① and W-5 / W-6
+
+- ✅ **ANSWERED by the geocoder shipping:** **Q1** (source + key) · **Q2** (who runs W0, when).
+- ⭐ **RULED by W-5 / W-6:** **Q5**'s first half — radar is **opt-in**, in the v1. **Q4** — **Ambient
+  only**, and W-6 supplies the reason. ⚠️ Q5's switch word is still open: `momlib.MODULE_STATES` is
+  `on · on-minimal · off · declared-absent` and `measured` **there is no radar key anywhere in the
+  module vocabulary.**
+- ⛔ **PROMOTED from out-of-scope INTO the v1 by W-5:** **Q9** (frost + hardiness derivation) and
+  **Q10** (elevation from a 90 m model). They read *"D1 ships without frost"* and *"show it, labelled
+  estimated"*; under W-5 they are **built, not deferred.** ⚠️ Q10's caution stands and gets stronger —
+  Fernwood's modelled elevation was **86 ft wrong**, so tier 2 must carry the *estimated — verify
+  on-site* idiom (`:13795`) or it manufactures confident wrongness at every new household.
+- ⭐ **PROMOTED by W-6:** **Q7** (are the recorder and bias bots engine or Fernwood-only?) is no longer
+  a classification question — **W-6 requires them to become per-estate**, so Q7 is now *"what is the
+  per-estate history store?"* and it is the v1's largest build.
+- **STILL PAUL'S, each one sentence:** **Q3** (where a household's station credential lives — same seam
+  as the history store) · **Q6** (what the card shows before either opt-in) · **Q8** · **Q11** (AQI) ·
+  **Q16** (where the two asks sit).
+- **STILL HUNTS:** **Q12** (every render site keyed on the station, at a station-less household) ·
+  **Q13** · **Q14** (rate limits across N households — ⚠️ **this now collides with the approved
+  Open-Meteo proxy**, `BACKLOG.md` § PROXY OPEN-METEO `[paul-approved 2026-09-07]`: ~16 walks from one
+  IP were **429'd**, and tier 2 adds N archive pulls per household) · **Q15**.
+
+⭐ **Q8 is no longer only a correctness question — it is a leak.** `(m >= 4 && m <= 8)` is a Georgia
+EPD literal in engine code, so **a Maine household is told Georgia's burning law**. It is one of the
+five sites in the *instance-content-inside-engine-code* class
+(`.plans/2026-09-07-backlog-grooming-SCAN.md` §2, slate 2). ⛔ **The v1 cannot ship tier 1 to a
+non-Georgia household without it.**
+
+### ⑦ ⚠️ What W-5 + W-6 cost, stated at the ruling rather than discovered later
+
+**The v1 roughly doubles.** Tier 3 alone was two asks, two switches and a credential store. Tier 2 adds
+a derivation path and four unprobed upstream sources; tier 3′ adds a per-estate history store and
+recorder.
+
+⭐ **The recommended v1 cut, naming what it defers** — agent-proposed, **Paul rules:**
+1. **Tier 2 first slice: elevation + lapse-rate frost/hardiness** (Q9 + Q10). They **unblock something
+   already on the card** — `generateAlerts`' frost rule reads hand-authored `frostDates`, so today
+   **every new household silently gets no frost warning at all.** ⛔ **Defers:** PRISM point-normals and
+   *how is this month tracking* — additive rather than unblocking.
+2. **Tier 3 ⓐ radar**: the switch and the ask. Smallest thing on the board that a person sees.
+3. **Tier 3 ⓑ + 3′ station**: the ask → credential handoff → **per-estate history store** → everything
+   renders. ⛔ **Defers:** other vendors `[W-6]`.
+
+⚠️ **One WIP fact to weigh, not an objection:** the build band is **1/1 with three declared
+exceptions**, and lap 3's phase 1 already took a knowing four-against-one. This row would be another.
+Paul's call, and a real cost rather than a rule violation.
+
+⛔ **STILL OWED BEFORE `ready:` — unchanged by any of the above:** §5's fresh seat passes. The
+user-researcher line is the one to read twice — *the question "what does a household WITHOUT a station
+want from the card" has no read*, and under W-5 that household is now most of the v1's audience.
 
 ---
 
