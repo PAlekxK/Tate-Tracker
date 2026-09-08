@@ -1,13 +1,13 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-08T16:43:04-04:00",
+ "generated_at": "2026-09-08T18:27:50-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "bfa3f23",
+ "candidate_sha": "ec88009",
  "beat": {
-  "n": 9,
+  "n": 8,
   "of": 12,
-  "owner": "paul",
-  "name": "Paul walks it",
+  "owner": "session",
+  "name": "the synthetic loop",
   "derivable": [
    8,
    9,
@@ -16,45 +16,45 @@
   "_note": "beats 0, 1 and 6-11 are human or session beats this tool cannot observe; `n` is only ever one of `derivable`. Read CYCLE-MAP.md for the full ladder."
  },
  "gate_1": {
-  "seats_pass": true,
+  "seats_pass": false,
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "mom": {
-    "run": "2026-09-08T161148",
+    "run": "2026-09-08T181724",
     "at-sha": true,
     "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
+    "countable": false,
+    "no-failed-actions": false,
     "not-rate-limited": true,
     "walked-in-qa": true,
     "instrumented": true
    },
    "owner": {
-    "run": "2026-09-08T161314",
+    "run": "2026-09-08T181620",
     "at-sha": true,
     "watched": true,
-    "countable": true,
+    "countable": false,
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
     "instrumented": true
    },
    "strict": {
-    "run": "2026-09-08T161424",
+    "run": "2026-09-08T182229",
     "at-sha": true,
     "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
+    "countable": false,
+    "no-failed-actions": false,
     "not-rate-limited": true,
     "walked-in-qa": true,
     "instrumented": true
    },
    "wide-eyed": {
-    "run": "2026-09-08T161532",
+    "run": "2026-09-08T182412",
     "at-sha": true,
     "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
+    "countable": false,
+    "no-failed-actions": false,
     "not-rate-limited": true,
     "walked-in-qa": true,
     "instrumented": true
@@ -174,42 +174,5 @@
    "disposition": "carried",
    "evidence": "carried into lap 5 — the K_COORDS fix landed (ANSWER_KEYS) but is UNDEPLOYED, and the two-person falsifier has never been run. ⛔ This row's own note says the fix is not the exit; clearing a key and clearing the leak are different claims."
   }
- ],
- "committed_scope": {
-  "at": "2026-09-08",
-  "beat": "6 · COMMIT THE SCOPE",
-  "by": "paul",
-  "_note": "⭐ THE FIRST COMMITTED SCOPE THIS PROJECT HAS HAD BEFORE ITS BUILD. Lap 4 reached WALK with no commitment behind it, which is what surfaced the ladder's order defect and got it renumbered so COMMIT (6) gates BUILD (7).",
-  "items": [
-   {
-    "id": "A",
-    "name": "returning recognition",
-    "why": "the lap's STOP, found by the first countable returning walk",
-    "where": "onboarding/index.html — `if (!read(K_USER))` returns before the /api/grant/whoami fetch",
-    "precedent": "the correct fix exists ~40 lines below ('the record wins over the cache'), applied to fw-onboard-step and not fw-username",
-    "done": "⛔ THE TWO-PERSON FALSIFIER, NOT THE PATCH — set up as A, arrive as B on the same browser, B never sees A's rows. CARRY established that fixing it alone still lands a name:null record on the naming screen.",
-    "cites": "BACKLOG C6 § the sign-in door; setup-journey B2/B2i"
-   },
-   {
-    "id": "B",
-    "name": "the station indicator",
-    "why": "the only genuine CUSTOMER evidence in the lap (a fact-of-household claim, per READ's provenance ruling)",
-    "where": "the honest string ships inside a `live-dot stale`; a DECLARATION IS NOT A STATUS",
-    "done": "⛔ BOTH SITES — the weather panel AND viewer.html:16736, which gates on runtime liveness and ignores the declaration entirely. It is a class, not a string.",
-    "cites": "BACKLOG TIER 2 · 11"
-   },
-   {
-    "id": "C",
-    "name": "production activity sweep",
-    "why": "paul-raised 2026-09-08; cheap at one account, expensive to retrofit",
-    "where": "tools/read-mom-engagement.py has no --env and is hardcoded to Mom's device on legacy",
-    "done": "a per-account activity reading for real estates, so the loop can see what production accounts DO and not only what they say",
-    "cites": "lap 4 carried-open"
-   }
-  ],
-  "explicitly_not_committed": [
-   "the (seat, journey-kind) gate ① patch — ⛔ paul-ruled ordering: the three-axis synthetic-testing redesign DISSOLVES this defect, and patching first would harden the unit it replaces",
-   "the backlog rationalization — running in the parallel refinement window, PROPOSED as a diff, never applied without Paul"
-  ]
- }
+ ]
 }

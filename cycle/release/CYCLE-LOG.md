@@ -2112,3 +2112,69 @@ this) rather than borrowed from a durable identity. That changes how **every** w
 which is the instrument that certifies releases, and it is not a change to make at the end of a long
 session on my own judgement. **Gate ① cannot pass until it is decided**, and that is the honest state.
 
+
+---
+
+## ⏸ PARKED — 2026-09-08 evening, lap 5 OPEN at beat 8 `[paul-stated: "I'm about to hit my utilization limit… record current state fully"]`
+
+**Beats 1–7 are CLOSED. Beat 8 (the SYNTHETIC LOOP) is blocked on ONE ruling, stated below.**
+
+### Where the build is
+
+| | |
+|---|---|
+| QA serves | **`ec88009`** — Pages and Worker both, verified aligned by `post-deploy` |
+| committed scope | **A · B · C**, all three BUILT and deployed |
+| gate ① | 🔴 **cannot pass** — the four fresh seats fail at this build, for the reason below |
+
+### What is DONE and needs nothing further
+
+- **B · the station indicator** — six sites, not the two CARRY named. The worst was **live and
+  unguarded**: a `station` source chip reading *"the weather station — measured on the property"* at a
+  household with no station. Fernwood untouched; both builds parse.
+- **C · `watch-activity.py`** — the sweep that did not exist. Counts **device buckets, never people**
+  (a metrics batch carries no `personId`). Reads **both key eras** after nearly reporting "no
+  activity" for `legacy`, which holds 94 unprefixed keys back to 2026-05-20 → **729 batches · 430
+  sessions · 95 active days**. In CLAUDE.md's session-start block.
+- **A · returning recognition — PROVEN.** The returning walk is **clean, zero failed actions**, first
+  in the project's history. Three product fixes were needed and **only the first was committed**;
+  ② `/api/session` dropped `username` from the rotated grant, ③ the redirect pointed at the app SHELL
+  rather than the place. **Both were found by running the walk and both would have shipped.**
+- **The fixture** — `synthetic-identity.py --complete-setup`, written through `/api/profile`, the same
+  route the app uses.
+
+### ⛔ THE ONE DECISION THAT UNBLOCKS EVERYTHING — Paul's, at COMMIT
+
+**`--fresh` was never fresh.** `journey-walk.py`'s own comment: *"BOTH PATHS REFRESH."* A fresh walk
+signs in as the **durable identity** and arrives on **that account's grant**. It met a signup form only
+because the client asked `!read(K_USER)`, a device-local key empty in a fresh browser. Moving
+recognition to the server collapsed that.
+
+> **Every fresh walk in this project's history was an existing person shown a signup form by a cache.**
+
+**The remedy** — a fresh walker arrives on an **unspent invite**, minted per run
+(`grant-mint mint --fixture-out` exists for it). ⛔ **Not taken:** it changes how every walk
+authenticates, which is the instrument that certifies releases.
+
+**Two routes, both defensible:** ① mint per fresh run — makes the battery honest and unblocks gate ①;
+② carry it — land A/B/C, close lap 5 without a green gate, and make the harness change lap 6's first
+committed item.
+
+### ⚠️ What a resuming session must NOT assume
+
+- **Gate ① red at HEAD is not evidence about the build.** HEAD moves constantly — **three sessions**
+  share this tree (this one, the refinement window, the zones window). Gate at the **candidate**:
+  `python3 tools/release-gate.py --sha ec88009`.
+- **The five walks at `ec88009` have UNWRITTEN reports.** The returning walk is clean but **no seat has
+  read it**, so `walk-integrity` refuses it — correctly. A clean run is not a read run.
+- **`post-deploy` compares to HEAD, not between halves.** It will report a mismatch whenever another
+  window commits. Read the two served shas before believing it.
+
+### The parallel windows
+
+- **refinement** (`handoff/handoff-backlog-refinement.md`) — has the BOARD (head-gap 672 → 181, ten
+  buckets, nine ordinal collisions with a **do-not-renumber** finding) and the readiness METHOD. It
+  owns `BACKLOG.md`, `.plans/`, `OBJECTIVES.md`. **It is owed two row updates from this window** —
+  `C6 § the sign-in door` and `TIER 2 · 11` — which I said I would send as wording, not edits.
+- **zones** (`handoff/handoff-zones-session.md`) — landed `3e43166`.
+
