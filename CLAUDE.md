@@ -88,6 +88,21 @@ python3 tools/check-estate-neutral.py      # ⭐ DOES A HOUSEHOLD SURFACE NAME A
 #   four seats walked. IT TESTS FOR NAMES. That leak was NUMBERS AND POSSESSIVE PRONOUNS, and Fernwood's
 #   data reached a stranger's house without Fernwood's name on it. A green here is evidence about names
 #   and about nothing else.
+#
+# ⛔⛔⛔ AND IT READS SHIPPED PAGES — NOTHING READS THE MODEL'S PROMPT. Measured 2026-09-08: `worker.js`
+#   imports ONE `digest.json` statically and `wrangler.toml` binds no per-env digest, so every
+#   deployment carried Fernwood's whole record — 40 plants, 23 named zones, 23 vehicles, the property
+#   file — into the system prompt of FIVE model routes (`/api/chat`, `/api/today-line` (the dashboard's
+#   daily line), `/api/classify`, `/api/promote-species`, `identifyAudioViaOpenAI`). A one-turn probe on
+#   `est-qa0001` asking only where the property is gave up the street address, the lidar elevation,
+#   three plants and a vehicle, then volunteered the settlement history. THIS CHECK COULD NOT SEE ANY OF
+#   IT, at any origin, run any way — the leak was never on a page.
+#   ✅ A fail-closed guard now refuses a model route whose digest was built for another estate
+#   (`canonIsThisEstate`, worker.js) — wired into the act, not a checklist line, so it cannot be
+#   forgotten. ⚠️ But the guard REFUSES; it does not make the routes portable, and 60 hardcoded place
+#   literals still sit in those prompts against 43 derived ones. **BACKLOG TIER 2 · 15.**
+#   ⭐ The lesson is the 08-14 one again: when a control misreports, ask what ELSE reads that state.
+#   Three readers of "is this estate-neutral" now exist and only two are instrumented.
 ```
 
 ### ⭐ THE THREE NEW LINES ABOVE EXIST BECAUSE A CAPABILITY THE LOOP CANNOT REACH IS NOT A CAPABILITY
