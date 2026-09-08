@@ -363,9 +363,23 @@ def sweep(envs, state, disp, days=None, write=True, chan=channels, feed=read_fee
 def render(report, show_all=False):
     lines = []
     unread = [r for r in report if r["result"] == "UNREADABLE"]
-    undisp = sum(len(r["undisposed"]) for r in report)
-    lines.append("📥 Feedback watch — %d environment(s) · %d record(s) awaiting Paul's disposition "
-                 "· %d unreadable" % (len(report), undisp, len(unread)))
+    # ⭐ TWO COUNTS, NEVER ONE `[paul-stated 2026-09-08]`. This line used to print one
+    # undifferentiated total "awaiting Paul's disposition" — 587 of them — while the F6 ARM
+    # line at the bottom of the same output, `GATING_ENVS`, and beat 11's own exit condition
+    # ALL already scoped the obligation to a REAL ESTATE, where the true figure was ZERO.
+    # Three parts of the loop agreed and the one number a reader sees first did not, so the
+    # headline read as a backlog of 587 things Paul owed. It is a count without its predicate,
+    # which is this corpus's most-repeated instrument defect, committed by the instrument
+    # written to find it.
+    # ⛔ SYNTHETIC RECORDS ARE OUR OWN TEST EXHAUST, NOT SOMEBODY'S INPUT — they are a finding
+    # SOURCE and belong in the backlog's rationalization, never in a per-record queue with a
+    # human's name on it. Real-estate records stay per-record and stay his: those are people's
+    # words, and both the AI boundary and the per-arrival rule bind there.
+    gating   = sum(len(r["undisposed"]) for r in report if r["env"] in GATING_ENVS)
+    synthetic = sum(len(r["undisposed"]) for r in report if r["env"] not in GATING_ENVS)
+    lines.append("📥 Feedback watch — %d environment(s) · %d awaiting Paul on a REAL ESTATE "
+                 "· %d on our own environments (backlog material, not his queue) · %d unreadable"
+                 % (len(report), gating, synthetic, len(unread)))
     for r in report:
         # ⭐ ONE LINE PER ENVIRONMENT, EVERY RUN — a quiet estate and a dead watcher must never look
         # the same. This is the Mom-check counter's discipline, and the reason it exists.
@@ -405,11 +419,23 @@ def render(report, show_all=False):
         if r["divergent"]:
             lines.append("        ⚡ personId(s) the local register does not know at %s: %s"
                          % (r["estate"], ", ".join(r["divergent"])))
-    if undisp:
+    # ⭐ THE FOOTER FOLLOWS THE SAME SPLIT `[paul-stated 2026-09-08]`. It used to fire on ANY
+    # undisposed record and address Paul by name, so 587 synthetic form-fills printed a standing
+    # instruction to a human who owed nothing — the same count-without-its-predicate defect as the
+    # headline, one screen lower. Real-estate records are people's words and stay his, per record.
+    # Synthetic records are our own walk exhaust: they are a finding SOURCE, and they are read in
+    # context at the backlog's rationalization, never one at a time with his name on them.
+    if gating:
         lines.append("")
         lines.append("   ⛔ Beat F3 is PAUL'S. Nothing here reads what anyone wrote; the words are in")
         lines.append("      %s — open them, then:" % os.path.relpath(SWEEPS, ROOT))
         lines.append("      python3 tools/watch-feedback.py --dispose '<key>' --as act|fold|hold|not-a-finding --why \"…\"")
+    elif synthetic:
+        lines.append("")
+        lines.append("   ✅ Nothing on a real estate is undisposed — Paul owes none of the %d below." % synthetic)
+        lines.append("      They are OUR OWN walk exhaust (%s). They are backlog material, read in"
+                     % ", ".join(sorted(r["env"] for r in report if r["undisposed"] and r["env"] not in GATING_ENVS)))
+        lines.append("      context at rationalization, not a per-record queue.")
     return "\n".join(lines)
 
 
