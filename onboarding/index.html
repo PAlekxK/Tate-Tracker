@@ -343,8 +343,16 @@
     <!-- ⚠️ Kept, and moved BELOW the door. It is the honest fallback for someone who never had an
          account, and for someone who has forgotten the password — there is no reset, which this
          project already records as its own word-of-mouth dependency. -->
-    <p class="quiet" style="margin-top:18px">Never set one up, or can't remember?
-      Ask Paul to send you a fresh link — it only takes him a second.</p>
+    <!-- ⚠️ TWO DIFFERENT PEOPLE WERE BEING GIVEN ONE ANSWER, and it only became wrong today. When
+         this screen was a DEAD END reached from a broken link, "ask Paul for a link" was the only
+         thing either of them could do. Now the door is reached deliberately, and the signup form is
+         ONE TAP AWAY — so telling someone who never set one up to go and ask a human is sending them
+         backwards past the thing they need. The forgotten-password half is unchanged and correct:
+         `[paul-ruled 2026-09-08, D1]` the administrator IS the reset path, and until step 17 builds
+         it that means asking him. -->
+    <p class="quiet" style="margin-top:18px">Never set one up?
+      <a href="#" id="si-tosignup">Create your account ›</a></p>
+    <p class="quiet">Can't remember your password? Ask Paul — he can reset it, and it only takes him a second.</p>
   </section>
 
   <!-- ── SCREEN 1 · she is recognised ──────────────────────────────────────────── -->
@@ -1029,7 +1037,15 @@
           store(K_GRANT, d.token);
           store(K_OWNER, d.token);
           if (u) store(K_USER, u);
-          location.href = "/estate/";        // ⭐ back to their place, not back to setup
+          // ⛔ TO THEIR PLACE — WHICH IS NOT `/estate/` (fixed 2026-09-08, Paul walked it).
+          // This read `location.href = "/estate/"` under the comment "back to their place, not back
+          // to setup". The intent was right and the destination was the EARLY DAYS receipt screen,
+          // so signing in landed a returning person on an onboarding page rather than in their home.
+          // ⭐ It was true when written — `/estate/` was the only surface after onboarding. It stopped
+          // being true when the receipts moved into the app (#card-told) and the shelf began opening
+          // the place directly. `[paul-ruled 2026-09-08]`: "that early days page fits fine in the
+          // onboarding process, but ONLY in the onboarding process."
+          location.href = "/viewer.html";
         })
         ["catch"](function () {
           btn.disabled = false; btn.innerHTML = '<span class="tick">\u2713</span>Sign in';
@@ -1930,6 +1946,14 @@
         } catch (err) {}
         show("s-nolink");
         try { document.getElementById("si-user").focus(); } catch (err) {}
+      });
+      // ⛔ AND A WAY BACK. Someone who taps "Sign in instead" and finds they never had an account
+      // had only the browser's back button — a dead end one tap deep, which is the same shape as
+      // the dead end this whole step exists to remove.
+      var _back = document.getElementById("si-tosignup");
+      if (_back) _back.addEventListener("click", function (e) {
+        e.preventDefault(); show("s0");
+        try { el.uname.focus(); } catch (err) {}
       });
     } catch (e) {}
     show("s0"); el.uname.focus(); return;
