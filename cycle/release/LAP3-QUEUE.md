@@ -17,8 +17,8 @@
 | 1 | Release-map **drift control** | ✅ **DONE** `0aea9b3` — found 2 drifts on its first run, one of them mine |
 | 2 | **Cloudflare Access** — full-stack recommendation | ✅ **DELIVERED** `224de57` — recommends DROP, with a non-optional condition. ⛔ Paul rules |
 | 3 | **Onboarding read route** — `GET /api/onboarding-metrics` | ✅ **DONE** — deployed to QA and verified by use: **2,666 batches** read back, six branches correct |
-| 4 | **Returning step list** for the walk harness | ⬜ **next** |
-| 1b | The **renames** (`lab→dev`, `home→prod`) — the rest of item 1 | ⬜ gated on 2 |
+| 4 | **Returning step list** for the walk harness | ✅ **DONE** — `journey_returning()`, 5 new assertions, and a hardcoded selftest total fixed |
+| 1b | The **renames** (`lab→dev`, `home→prod`) — the rest of item 1 | ⬜ **next** · ⚠️ gated on Paul ruling item 2 (Access), since the rename and the Access decision touch the same files |
 
 ## Phase 2 — ships to people, through the new gates, verified by Paul
 

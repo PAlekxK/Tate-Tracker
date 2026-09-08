@@ -174,6 +174,52 @@ STOP_NAMES = ["01-arrive", "02-account", "02b-naming", "03-named", "04-address",
               "12-the-app"]
 
 
+def journey_returning(answers, origin=""):
+    """⭐ THE WALK OF SOMEONE WHO ALREADY EXISTS `[paul-ruled 2026-09-07, lap 3 item 4]`.
+
+    ⛔ WHAT THIS FIXES, and it was never the machinery. `journey(fresh=False)` already existed and
+    durable synthetic accounts already existed (`synthetic-identity.py`, 12 of them, built 2026-09-05
+    on Paul's own instruction). But `fresh=False` only skipped the ACCOUNT SCREEN and then ran the
+    ONBOARDING script anyway — so a returning walker was asked to name a place and type an address
+    that are not on its screen. Measured: 12-15 failed actions per seat on the only returning battery
+    ever run, and all four reports went UNREAD. So 39 of 39 lap-2 walks ran `--fresh`, and
+    **the lap's worst defect lives in the state no walk had ever entered.**
+
+    ⭐ THE POINT OF THE STOPS. A returning person arrives at the SAME `/onboarding/?g=<token>` URL a
+    new person does. What they meet there is the whole question: are they recognised and handed
+    onward, or asked to set up a place they already have? That is F4/F6 — an account's facts and its
+    credential are two records, and the one path that reconciles them has no door.
+
+    ⛔ NOTHING IS TYPED HERE. If a returning walk ever needs to type a place name, the product asked
+    an existing household to introduce itself again, and the walk should FAIL rather than comply.
+
+    ⚠️ CONTROLS ARE CLICKED, NEVER ROUTED AROUND — the rule this file already runs on. If the handoff
+    is missing for a returning arrival, this walk fails and that failure IS the finding. A `goto:` past
+    a broken control would manufacture a green for a door nobody can open.
+    """
+    base = re.sub(r"/onboarding/?$", "", origin.rstrip("/"))
+    return [
+        # ⭐ R01 — the first thing a person who already has an account meets. Recorded BEFORE any
+        # click, because the defect Paul hit was visible on arrival: someone else's name over an
+        # empty place.
+        "shot:R01-arrive",
+        # ⭐ R02 — whose name is on the screen. Separate stop on purpose: R01 is "what is here",
+        # R02 is "who does it think I am", and lap 2 proved those can disagree.
+        "shot:R02-identity",
+        # ⛔ THE HANDOFF IS THE TEST. A recognised person should be carried onward, not re-onboarded.
+        # If `#gohome` is absent this action fails, and that is the answer, not an accident.
+        "click:#gohome", "shot:R03-handoff",
+        # Their own shelf: is the place they already made actually here?
+        'click:a[href="/homes/"]', "shot:R04-places",
+        "goto:" + base + "/estate/", "shot:R05-estate",
+        # ⭐ Through the door the same way a person goes through it.
+        "click:#openapp", "shot:R06-the-app",
+        # ⭐ W6 — "let me see and change what I told you." Only reachable by someone who has already
+        # told us something, so a fresh walk can never test it.
+        'click:a[href="/settings/account/"]', "shot:R07-account-settings",
+    ]
+
+
 def journey(fresh, answers, origin=""):
     """The whole walk as ONE action list. `shot:<name>` marks where a stop is recorded."""
     a = answers
@@ -182,10 +228,12 @@ def journey(fresh, answers, origin=""):
         acts += ["type:#uname=" + a["username"], "type:#uword=" + a["password"],
                  "type:#uword2=" + a["password"], "type:#uemail=" + a["email"],
                  "shot:02-account", "click:#go0"]
-    else:
-        # Arriving on a token skips the account screen. It is recorded as NOT REACHABLE rather than
-        # silently missing — a stop that never happened must not read like one that passed.
-        acts += ["shot:02-account"]
+    if not fresh:
+        # ⭐ A RETURNING WALK IS ITS OWN JOURNEY, not the onboarding one with a stop removed.
+        # `[2026-09-07]` Everything below this point — naming, address, ranking, the handoff — is the
+        # script for a person who has never been here. Running it against someone who already exists
+        # is what produced 12-15 failed actions per seat and made the returning state untestable.
+        return journey_returning(answers, origin)
     # ⭐ THE SEAT ACTUALLY RANKS `[paul-stated 2026-09-06]`: "not just breeze through it and fill it
     # out, but read everything… what's natural to do." Until now every walk clicked "Save these"
     # having chosen NOTHING, so the ranking screen was walked past rather than walked, and the
@@ -244,7 +292,10 @@ def journey(fresh, answers, origin=""):
 def selftest():
     fails = []
 
+    ran = [0]
+
     def check(name, ok, why):
+        ran[0] += 1
         print("  %s %-44s %s" % ("✅" if ok else "🔴", name, "" if ok else why))
         if not ok:
             fails.append(name)
@@ -264,6 +315,29 @@ def selftest():
     tok = journey(fresh=False, answers=A, origin="https://x")
     check("a token arrival creates NO account",
           not [x for x in tok if x.startswith("type:#uname=")], "a signup leaked into the token path")
+
+    # 2b · ⭐ THE RETURNING JOURNEY'S ACTUAL CONTRACT `[2026-09-07]`, as assertions rather than as
+    #      the docstring above it. This file's own lesson: "a comment is a note to the next reader;
+    #      an assertion is a note to the next RUN" — and it was written after eight comments
+    #      explaining defects this file had produced and zero executable checks.
+    typed = [x for x in tok if x.startswith("type:")]
+    check("a returning walk TYPES NOTHING", not typed,
+          "it types %r — an existing household was asked to introduce itself again" % typed[:3])
+    check("a returning walk does NOT run the onboarding script",
+          not any(x.startswith("click:#go") and x != "click:#gohome" for x in tok),
+          "an onboarding step-button leaked into the returning path")
+    check("a returning walk has its OWN stops, not onboarding's",
+          all(x[5:].startswith("R") for x in tok if x.startswith("shot:")),
+          "a returning stop is named like an onboarding stop, so the two would pool in one report")
+    check("a returning walk reaches the app THROUGH the door",
+          "click:#openapp" in tok, "it never opens the app, so it certifies onboarding again")
+    # ⛔ THE ONE THAT MATTERS MOST. A returning walk must be reachable by CLICKING the handoff. If a
+    # future edit routes past it with `goto:`, the walk would go green over a door nobody can open —
+    # which is the exact shape of every false green this file already records.
+    check("the handoff is CLICKED, never routed around",
+          "click:#gohome" in tok and not any(x.startswith("goto:") and "estate" in x
+                                             for x in tok[:tok.index("click:#gohome")]),
+          "a goto: precedes the handoff, so a broken handoff would not fail the walk")
 
     # 3 · every declared stop must actually be captured, or a stop silently stops existing
     shots = [x[5:] for x in fresh if x.startswith("shot:")]
@@ -310,7 +384,11 @@ def selftest():
     check("a fresh walk spends few enough writes to stay under the limiter", writes <= 6,
           "%d submit clicks — the cap is 20 writes per IP per 5 min, shared by 4 seats" % writes)
 
-    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", 10 - len(fails), 10))
+    # ⛔ DERIVED, NEVER TYPED `[2026-09-07]`. This read `10 - len(fails), 10` — a HARDCODED total,
+    # and it printed "10/10" on the run that added three more checks. A count typed beside the tool
+    # that computes it is this repo's most-repeated instrument defect, and here it was inside the
+    # selftest, which is the one place a wrong number is least likely to be questioned.
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", ran[0] - len(fails), ran[0]))
     return 1 if fails else 0
 
 
