@@ -211,3 +211,23 @@ checkboxes*** — two different things wearing the same syntax.
 | **§5** | only if §4 is declined |
 | **§6** | site the standing ask at OPEN? |
 | ⛔ **Q13** | which of B6/B7/B8 *"process related"* meant — **untouched, because answering it is the ranking** |
+
+---
+
+## 9 · ✅ ALL SIX APPROVED `[paul-approved 2026-09-08]` — *"I'm good with all your recommendations here."*
+
+⛔ **What is NOT approved by this, and must not be read into it:** the **R1 move set** (the BOARD's §1.7
+apply sequence) is a separate act and remains unapplied; **Q13** is untouched; and **R4** — *is a
+`-PROPOSAL` a document or an item?* — is a distinct ruling this does not pre-empt.
+
+### Lane split — because two windows share this tree
+
+| § | change | lane | state |
+|---|---|---|---|
+| §3 | reading order names `🧊 FOCUS FREEZE` | **mine** (`BACKLOG.md`) | ✅ **APPLIED** this session |
+| §1 · §2 · §4 | `DOC_SUFFIXES` inversion · bidirectional orphan predicate · the LIGHT lane + sha token | ⛔ **`tools/*` — the BUILD window's** | **specified, handed over, NOT edited by me** |
+| §5 | the Tier 1 contradiction | — | ⭐ **dissolves when §4 lands.** No separate act |
+| §6 | the standing ask sited at OPEN | `cycle/*` — **the BUILD window's** | specified, handed over |
+
+⚠️ **I did not edit a single tool.** The ownership split is the whole reason four windows have not collided
+today, and an approval is not a licence to cross it.

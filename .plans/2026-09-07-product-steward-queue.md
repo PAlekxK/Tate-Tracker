@@ -88,6 +88,12 @@ never edits*. Read every *"beat 8"* below as **CARRY**.
 - why it could not be cited: ⛔ **it is an ACT, not a row**, and no beat in `cycle/release/CYCLE-MAP.md` owns it. CLAUDE.md sites it at *session start* / pickup, but this loop's laps do not each open a session, and lap 5's beat 3 ran without it. **A rule with no owning beat is the exact shape CLAUDE.md's own most-repeated lesson is about** — *a capability the loop cannot reach by running its own procedure is not a capability the loop has.*
 - what would close it: **Paul answering it** (which closes it for this lap only), **or** a ruling on which beat owns it standing — beat 1 (OPEN, beside the gate sweep) is the obvious candidate and CARRY does not get to pick.
 
+- ✅ **RULED `[paul-approved 2026-09-08]` — it belongs at OPEN (beat 1).** On the precedent set this lap:
+  the `/ux-sweep` staleness check *"is checked every lap and RUNS when due at OPEN"* — same shape, a
+  standing obligation with a staleness property. ⛔ **A question asked, NEVER a gate.** B10 rules that
+  *"Mom has not asked for anything lately"* is **a reason, not silence**, and a beat that demands an
+  answer will manufacture one. Spec: §6.
+
 ### Q6 · 🔴 `--record` HAS BEEN BROKEN SINCE THE HOUR ROUND 1 WAS RECORDED, so this trial's falsifier ledger cannot be written to. Who repairs it?
 - raised-by: 2026-09-08 CARRY (beat 4) · found by running the exact command the CHARTER prints at `§6`
 - the finding: `python3 tools/product-steward.py --record …` exits with `NameError: name 'cmd_record' is not defined`. **`tools/product-steward.py:1135` calls it; nothing defines it.** `git log -S` locates the cause exactly: **`890efd5`** (*"the trial reports its STATE, not just its numbers"*, 2026-09-07 12:45) **deleted the six-argument `def cmd_record(...)` and updated the call site to pass a seventh argument (`--confounded`) without ever adding the replacement definition.** Round 1 was recorded at **12:02**; the writer died **43 minutes later**, so **no round has ever been recordable since the first one.**
@@ -131,6 +137,13 @@ never edits*. Read every *"beat 8"* below as **CARRY**.
 - why it could not be cited: ⛔ **the predicate may be wrong, and that changes the answer entirely.** A `-PROPOSAL` that was considered and set down *should* have no row. If "orphan" means *considered and closed*, 26 is healthy and the check over-reports; if it means *unreachable work*, it is the largest single reachability gap on the board. **Nothing in the record distinguishes the two today**, and inventing the distinction would be a seat deciding what a plan is.
 - what would close it: **a ruling on what an orphan means** — or a `closed:` header key that lets a plan say it is finished, which makes the count read honestly under either reading.
 
+- ✅ **RECOMMENDATION APPROVED `[paul-approved 2026-09-08]`** — *"I'm good with all your recommendations."*
+  ⛔ **This does NOT answer Q9's own question** (*is a plan REQUIRED to have a row?*). It **resizes** it:
+  the predicate is one-directional and points the wrong way, so **26 decomposes into 10 `row: process`
+  (correct by convention) · 9 with no header · 7 genuinely one-sided** `measured`. Read the link
+  bidirectionally, count `row: process` as linked, report the three groups separately. **Then the real
+  ruling is a ~3-case question and still Paul's.** Spec: `.plans/2026-09-08-meatier-rulings-RECOMMENDATIONS.md` §2.
+
 ### Q10 · `release-state.py` reports `beat 9/12 (Paul walks it)` while lap 5 is running beat 5. Which number is the lap's position?
 - raised-by: 2026-09-08 BOARD (beat 5) · §2 · B8
 - the finding: `measured` today — `python3 tools/release-state.py` prints *"FIRED · beat 9/12 (Paul walks it) · owner: paul · candidate bfa3f23 · seats pass: True"* while the lap is executing **GROOM & BUCKET (5)** and has not reached COMMIT. `python3 tools/check-release-docs.py` is **✅ green**: the map and the code agree on the beat *list*, so this is not the drift that check is built to see.
@@ -147,6 +160,12 @@ never edits*. Read every *"beat 8"* below as **CARRY**.
 - the finding: `measured` across lap 5's own commits — the head-gap went **510 → 554 → 604 → 648 → 672** as beats 1–4 filed into the head region: **+162 lines in one day, every beat of the lap widening the thing beat 5 exists to close.** The proposed move set buys **219 lines of headroom**, i.e. **~1.4 laps at this lap's own rate**, after which beat 5 re-runs the identical move forever. ⭐ Separately, **§ FOCUS FREEZE** — the one head section the proposal keeps — has the same defect one altitude down: **five successive amendments (09-03 → 09-04)**, each partly superseding the last, so its operative state is derivable only by reading all five in order.
 - why it could not be cited: a **line budget is a process rule** (and possibly a new clause in `check-backlog-drift`), and **rewriting the freeze block is a judgment edit** — the 09-02 rationalization is explicit that splitting is not a move. Both are outside a seat's verbs.
 - what would close it: **a ruling on a head budget** and whether the drift check should measure it; and separately, **whether § FOCUS FREEZE is rewritten to state its current position once.**
+
+- ✅ **RULED `[paul-approved 2026-09-08]`** — the **routing rule is the primary fix** (a new THEME files into
+  `# 🗂 THEMES` from the start; a standing CONTRACT into the lens region), and the line budget is a
+  **second, ADVISORY line that never exits non-zero** — `check-backlog-drift.py` already owns the 400
+  trigger and two controls on one number would disagree. ✅ **`## 🧊 FOCUS FREEZE` STAYS in the head and the
+  declared reading order now NAMES it** — applied to `BACKLOG.md:36` this session. Spec: §3.
 
 ### Q12 · K12 and TIER 2 · 22 disagree about `transcript.personId`. Which is right?
 - raised-by: 2026-09-08 BOARD (beat 5) · §1.5, on the 09-07 kill list's one unapplied entry

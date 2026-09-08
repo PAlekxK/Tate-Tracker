@@ -192,6 +192,110 @@ person. `inferred`
 `the-meadow` and `the-turf`, not a general one. `measured`
 
 
+## 7 · ⭐⭐ PAUL'S DIRECTION FOR THE PROCESS — `[paul-stated 2026-09-08]`, and his hedge is kept
+
+> *"At each point, we should be kind of checking **what can't we tell** from the different views. It
+> definitely seems like we're able to identify the house and a few other distinct shapes, so **that'll
+> also be the order in which we apply this.** … Let's see the derived edges, or what you would propose
+> as candidates, and what that process would look like as a starting point. And also bearing in mind
+> **how could it iterate** — like **what's the clearest thing to click, maybe the house and the
+> driveway, and then that allows you to re-process around that.** **I'm not sure**, but that's what
+> we're trying to figure out here."*
+
+⚠️ **Recorded as a DIRECTION, not a ruling — his own hedge (*"I'm not sure"*) is part of it.** It is
+not numbered into the `Z-` register, which holds settled rulings. Three things in it are load-bearing
+and none was in the plan before today:
+
+### ① ⭐ CONFIDENCE IS THE APPLICATION ORDER, and it falls out of §3 for free
+*"We're able to identify the house and a few other distinct shapes, so that'll also be the order in
+which we apply this."* — the derivability table **is** that order. It was computed as a *measurement*
+and he has re-read it as a **schedule**. `inferred`
+
+### ② ⭐⭐ "WHAT CAN'T WE TELL" IS A PER-STEP OBLIGATION, not a closing caveat
+This is the completeness doctrine (§0 ③, *"the surface must show what it does NOT know"*) **applied to
+the operator pipeline rather than to Mom's surface.** Every step declares its own blind spot:
+
+| view | what it tells | ⛔ what it CANNOT tell |
+|---|---|---|
+| lidar slope 2018 | built edges — pads, cuts, patio rims, terrace rings | anything mown; anything regraded since 2018; ≥30° (**the ramp clips**) |
+| NAIP texture, 7 dates | **THAT** an area is managed | **WHERE** the management stops (§6) |
+| NAIP 2022-01 optical | the only leaf-off frame | it has the **longest shadows on the property** (1.52×) — an edge-follower snaps to shadow |
+| any of them | extent | ⛔ **a name. 0 of 16, permanently** |
+
+### ③ ⭐⭐ ANCHOR-THEN-REPROCESS — the genuinely new idea, and it is not in §5
+*"What's the clearest thing to click, maybe the house and the driveway, and then that allows you to
+re-process around that."*
+
+⛔ **§5's four steps are a ONE-WAY CASCADE** — frame → edges → regions → names. **This is a LOOP**, and
+it is a different architecture: each confirmed anchor **re-scopes the search for the next one.**
+`inferred`
+
+⭐ **It is Z-11's cascade, re-derived on the operator side.** Z-11 says each ask to the householder is
+scoped by her previous answer. This says each *derivation* is scoped by the operator's previous
+confirmation. **Same shape, different actor** — and neither was reached from the other, which is the
+strongest evidence the shape is real.
+
+**Why an anchor buys more than one border, concretely:** the `house` is the highest-confidence object
+in the frame (89th pctile on break-of-slope, 6.5 on raw slope — a flat pad with a sharp rim, which is
+physically exactly right). Confirming it fixes **scale, orientation and a datum in a 2018 surface**.
+Nine of the small planted zones sit within ~40 m of it, and their permutation scores are middling
+largely because a ±12 m rigid shift is a *large* fraction of their own size — a constraint the house
+edge would remove. `proposed`
+
+---
+
+## 8 · THE CANDIDATE PROCESS — what I would propose, as the starting point he asked for
+
+⛔ **PROPOSED. Not built, not run.** §§1–6 are measurements; this section is design, and it is graded
+as such so the two are never quoted at the same weight.
+
+### The loop
+
+```
+   ┌─ 0 · FRAME ─────── downloads, not inferences (§5 step 1, unchanged)
+   │
+   ├─ 1 · ANCHOR ────── propose the 2-3 highest-confidence objects ONLY.
+   │                    Today that is: house · main-parking · the driveway.
+   │                    Operator clicks ACCEPT / NUDGE / REJECT.
+   │        ⛔ REFUSE to propose anything below a confidence floor at this step.
+   │
+   ├─ 2 · RE-SCOPE ──── each accepted anchor CONSTRAINS the rest:
+   │                    · a datum for the 2018-vs-2026 offset
+   │                    · a local search radius for adjacent features
+   │                    · a texture EXEMPLAR (mown grass sampled INSIDE the lawn)
+   │
+   ├─ 3 · PROPOSE ───── next tier of candidates, now cheaper and tighter
+   │                    ↺ back to 1 until nothing clears the floor
+   │
+   └─ 4 · HAND OVER ─── ⭐ the remainder is stated as a REFUSAL, never a weak guess:
+                        "these borders are not visible to any view we have — draw them"
+```
+
+### What each step emits, and the one rule that makes it honest
+
+⭐⭐ **A candidate carries the VIEW it came from and what that view cannot see.** Not a confidence
+number alone — *"from the 2018 terrain, which cannot see anything regraded since"* is actionable where
+`0.87` is not. **This is the honesty encoding the plan already requires, moved onto the operator
+track**, and it is what §5b's dead gradient-confidence idea was reaching for and got wrong.
+
+### Three things it must NOT do — each is a trap this repo has already paid for
+
+1. ⛔ **No cosmetic smoothing under an accuracy label** (§5b ②). Tier 1 shipped 09-04 and *"the map
+   does not look meaningfully better."* A candidate that looks crisp because it was smoothed is the
+   confidently-wrong instrument.
+2. ⛔ **Never auto-accept.** *"We draw, they confirm"* means the machine proposes and a human rules —
+   and at this step the human is **Paul**, not Mom. Nothing here reaches her.
+3. ⛔ **Never fit a 2026 polygon to the 2018 surface.** The bounds file's own warning: where they
+   disagree, the first hypothesis is **work done since**, not a bad trace.
+
+### The first executable step, sized
+
+**Render the break-of-slope ridges near the house as actual candidate polylines** and put them beside
+the traced answer key. It needs no new data, no dependency and no network — the field is already
+computed in `field.py`. **It answers the question that decides the whole approach: is a derived edge
+something a person would ACCEPT, or is it a suggestive smear?** ⚠️ **Not yet run.**
+
+
 ## Falsifier
 
 - **The split is falsified** if re-running with a non-rigid perturbation (per-vertex jitter) collapses
@@ -208,13 +312,23 @@ person. `inferred`
 
 ## Files touched
 
-**None tracked but this file.** Experiment code (`geo.py`, `raster.py`, `field.py`), the derivability
-table (`derivability.json`) and the exhibit (`zones-derivability.png`) live in the session scratchpad
-and are staged to `~/Desktop/ATTACH-THESE`. ⚠️ **Deliberately not in `tools/`** — BUILD owns that path
-this lap, and Z-9 rules the operator layer scaffolding.
+This file, plus ✅ **`.engineering/zones-derivability/`** — `geo.py`, `raster.py`, `field.py`,
+`derivability.json`, `mowing.json`, `README.md`. The exhibit `zones-derivability.png` is staged to
+`~/Desktop/ATTACH-THESE` (not committed — 1.1 MB, regenerable).
+
+⚠️ **Deliberately not in `tools/`** — BUILD owns that path this lap, and Z-9 rules the operator layer
+scaffolding.
+
+⛔ **CORRECTED 2026-09-08, same session:** this section and the QA section below originally said the
+code lived in the session scratchpad and was *"re-runnable"* from there. **The scratchpad is
+session-scoped and dies with the window** — the claim was false the moment it was written, and it is
+this corpus's own most-repeated shape (*a capability the loop cannot reach by running its own
+procedure is not a capability it has*). The code is now landed and was re-verified from its new home:
+frame identity ✅, `house` = 139.2 m² ✅.
 
 ## QA
 
-Re-runnable from the scratchpad; deterministic under `seed 20260908`. The three preconditions in §1
-are the QA: frame identity, ramp direction, and the `house` footprint sanity check. **If any of the
-three stops passing, every number in §3 is void.**
+Re-runnable from `.engineering/zones-derivability/`; deterministic under `seed 20260908`. The three
+preconditions in §1 are the QA: frame identity, ramp direction, and the `house` footprint sanity
+check. **If any of the three stops passing, every number in §3 is void.** `assert_same_frame()`
+refuses rather than warns, so precondition 1 cannot be skipped silently.

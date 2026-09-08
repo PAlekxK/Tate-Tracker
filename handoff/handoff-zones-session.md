@@ -97,6 +97,70 @@ Adjacent, not the same thing — decide explicitly whether they are in scope:
 
 ---
 
+## ✅ WHAT THIS WINDOW DID, 2026-09-08 — read this before re-opening anything above
+
+**Four commits, all `.plans/` + `.engineering/` only. No `BACKLOG.md` edit, no code, no deploy, no
+origin, no canon write.** The register rows still read as they did — ⛔ **three of them are now stale
+and the refinement window owns the edits.**
+
+### ① ⭐ R-Z6 IS CLOSED — the blocker was never a credential `[measured]` → plan **§9a**
+`BACKLOG.md` TIER 2 · 8, the lap-5 BOARD and `handoff-zones-decisions.md` all said the probe was
+`HTTP 401` = UNCHECKABLE, releasable only by *"a session with `home`'s token via `/secrets`."*
+**False.** `/health` is **ungated on every env** and reports `configured.github`, which is the exact
+predicate `handleZonesGet`'s git fallback is guarded on. **Only production has it true**; qa · lab ·
+**home** · bob · paul are all false, so the fallback branch cannot execute and a KV miss returns an
+empty list. The static path is closed too — `zones.json` is not in `pages-deploy`'s `HOUSEHOLD_ALLOW`
+and both household origins refuse it. ⛔ **Ruling B+C+D still stands**: the containment is accidental
+and every `wrangler.toml` comment still gives *promote-species* as the reason, never zones.
+
+### ② ⛔ PRODUCTION SERVES 18 ZONES, NOT 23 `[measured]` → plan **§9a**
+Found by the **positive control**, which is the only reason it was found. `origin/main:zones.json` =
+**23 @ schemaVersion 3**; production KV = **18 @ v2**, stamped 2026-08-31. The 09-01 fold never
+reached the served record. Eight canon zones are unserved, three served zones are not in canon.
+`zones-sync-status` says `allCaughtUp: false`, its one known device seven weeks behind.
+⚠️ **The plan's own §4 says `zones | 23`** — true of the FILE, false of the SERVED RECORD.
+✅ **Paul ruled: canon's 23 is the answer key, leave prod alone** — and stamped the 23
+*"approved as our best answer so far"* `[paul-stamped 2026-09-08]`.
+
+### ③ ⭐⭐ THE DERIVABILITY EXPERIMENT → `.engineering/2026-09-08-zones-derivability-EXPERIMENT.md`
+`[paul-ruled 2026-09-08: "we need to recreate the zones systematically… let's build this tool, all in
+dev, and test it out for Fernwood"]`. **Terrain recreates the BUILT places and cannot see the MANAGED
+ones.** 7 of 23 borders recoverable from the free on-disk 2018 lidar · 6 actively mis-led · 10 no
+signal. **`the-meadow`'s border sits on FLATTER ground than a random nearby placement** — it is the
+edge of mowing, not a landform. **Falsifier discharged the same session:** the mowing signal is real
+but is a **REGION, not an EDGE** (meadow reads 0.71 interior-vs-surround in **all seven** NAIP frames,
+2010→2023). ⭐ **That amends §5, which frames every step as an edge** — for the managed half,
+edge-following is the wrong algorithm class.
+
+### ④ ⭐ PAUL'S PROCESS DIRECTION, recorded with his hedge → EXPERIMENT **§7 · §8**
+*"At each point… what CAN'T we tell from the different views"* · *"the house and a few other distinct
+shapes — that'll also be the ORDER in which we apply this"* · *"what's the clearest thing to click,
+maybe the house and the driveway, and then that allows you to RE-PROCESS around that."*
+⚠️ **A direction, not a ruling — *"I'm not sure"* is his and is kept.** Not numbered into `Z-`.
+⭐ **Anchor-then-reprocess is Z-11's cascade re-derived on the operator side** (each *derivation*
+scoped by the previous *confirmation*, as each *ask* is scoped by the previous *answer*) — and §5's
+four steps are a one-way cascade, so this is a genuinely different architecture.
+
+### ⏭ THE NEXT EXECUTABLE STEP, sized and NOT run
+**Render the break-of-slope ridges near the house as candidate polylines, beside the traced answer
+key.** No new data, no dependency, no network — the field is already computed in `field.py`. It
+answers the question that decides the approach: **is a derived edge something a person would ACCEPT,
+or a suggestive smear?**
+
+### 🔴 THREE REGISTER EDITS OWED — refinement window's, not this one's
+1. **TIER 2 · 8** — drop the 🔴 *"blocked on the R-Z6 probe / needs `home`'s token"*. **Answered.**
+2. **TIER 2 · 7** — says *"awaiting Paul's `ready:` stamp"*; the plan carries
+   `ready: [paul-approved 2026-09-07]` and `check-backlog-ready.py` agrees. ⚠️ Also says *"Ten rulings
+   Z-1 … Z-10"* — **there are twelve** (Z-11 the cascade, Z-12 the next-best-question).
+3. **TIER 2 · 7 / 9** — the zone count in circulation is **two numbers**: 23 in canon, 18 served.
+   `.plans/2026-09-06-maps-and-zones-STATE.md:170` already says *"12 of 18"*. **Say which, each time.**
+
+### ⚠️ Repo conditions observed
+HEAD moved **~15 commits** under other windows during this session (`9a762b0` → `1092809` → `c9aa4e1`
+→ … → `ab47279`). Every commit here used `git commit -- <explicit path>`. **The concurrency hazard in
+the header is real and was observed live.**
+
+
 ## Standing rules that bind this window
 
 - **Never rank.** Ordering is Paul's. Dependency, evidence and reachability are not ranking; preference is.

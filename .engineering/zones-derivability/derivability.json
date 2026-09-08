@@ -1,0 +1,140 @@
+{
+ "the-meadow": {
+  "area_m2": 4760.9,
+  "grad_pctile": 10.0,
+  "slope_pctile": 50.0,
+  "type": "turf"
+ },
+ "the-turf": {
+  "area_m2": 3114.9,
+  "grad_pctile": 31.5,
+  "slope_pctile": 64.0,
+  "type": "turf"
+ },
+ "stable-grounds": {
+  "area_m2": 777.4,
+  "grad_pctile": 13.0,
+  "slope_pctile": 50.5,
+  "type": "planted"
+ },
+ "lower-parking": {
+  "area_m2": 487.7,
+  "grad_pctile": 15.0,
+  "slope_pctile": 77.0,
+  "type": "planted"
+ },
+ "eastern-woodlands": {
+  "area_m2": 239.8,
+  "grad_pctile": 44.0,
+  "slope_pctile": 39.0,
+  "type": "planted"
+ },
+ "the-green": {
+  "area_m2": 189.3,
+  "grad_pctile": 10.0,
+  "slope_pctile": 16.5,
+  "type": "planted"
+ },
+ "main-parking": {
+  "area_m2": 168.9,
+  "grad_pctile": 95.0,
+  "slope_pctile": 86.5,
+  "type": "planted"
+ },
+ "house": {
+  "area_m2": 139.2,
+  "grad_pctile": 89.0,
+  "slope_pctile": 6.5,
+  "type": "structure"
+ },
+ "lower-40": {
+  "area_m2": 128.1,
+  "grad_pctile": 90.0,
+  "slope_pctile": 92.0,
+  "type": "planted"
+ },
+ "pond-area": {
+  "area_m2": 107.9,
+  "grad_pctile": 44.5,
+  "slope_pctile": 81.5,
+  "type": "planted"
+ },
+ "the-bluff": {
+  "area_m2": 94.5,
+  "grad_pctile": 9.0,
+  "slope_pctile": 81.0,
+  "type": "planted"
+ },
+ "the-bank": {
+  "area_m2": 76.5,
+  "grad_pctile": 59.0,
+  "slope_pctile": 72.0,
+  "type": "planted"
+ },
+ "lawn": {
+  "area_m2": 60.3,
+  "grad_pctile": 97.0,
+  "slope_pctile": 58.0,
+  "type": "turf"
+ },
+ "the-green-ring": {
+  "area_m2": 53.8,
+  "grad_pctile": 85.5,
+  "slope_pctile": 36.5,
+  "type": "planted"
+ },
+ "eastern-patio": {
+  "area_m2": 46.4,
+  "grad_pctile": 97.5,
+  "slope_pctile": 29.0,
+  "type": "planted"
+ },
+ "st-francis-garden": {
+  "area_m2": 45.6,
+  "grad_pctile": 35.0,
+  "slope_pctile": 84.5,
+  "type": "planted"
+ },
+ "fern-garden": {
+  "area_m2": 42.7,
+  "grad_pctile": 90.5,
+  "slope_pctile": 57.0,
+  "type": "planted"
+ },
+ "the-green-terrace": {
+  "area_m2": 28.3,
+  "grad_pctile": 56.0,
+  "slope_pctile": 90.0,
+  "type": "planted"
+ },
+ "western-upper-patio": {
+  "area_m2": 27.8,
+  "grad_pctile": 44.5,
+  "slope_pctile": 15.0,
+  "type": "planted"
+ },
+ "western-garden": {
+  "area_m2": 27.0,
+  "grad_pctile": 65.5,
+  "slope_pctile": 64.5,
+  "type": "planted"
+ },
+ "western-fern-azalea-garden": {
+  "area_m2": 27.0,
+  "grad_pctile": 8.5,
+  "slope_pctile": 39.0,
+  "type": "planted"
+ },
+ "hosta-garden": {
+  "area_m2": 15.8,
+  "grad_pctile": 69.5,
+  "slope_pctile": 71.5,
+  "type": "planted"
+ },
+ "western-lower-patio": {
+  "area_m2": 13.9,
+  "grad_pctile": 59.0,
+  "slope_pctile": 67.5,
+  "type": "planted"
+ }
+}

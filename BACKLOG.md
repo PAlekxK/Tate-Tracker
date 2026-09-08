@@ -33,7 +33,8 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 > proposed to *split* (riders vs narrative) were moved **whole** instead — splitting is a judgment
 > edit, not a move. The old order is preserved in git.
 >
-> **Reading order now:** WAITING ON PAUL → open decision cards → Tier 1 / 2 / 3 → the three lenses
+> **Reading order now:** 🧊 FOCUS FREEZE (the scope gate for everything below it) → WAITING ON PAUL →
+> open decision cards → Tier 1 / 2 / 3 → the three lenses
 > (orienting principle · engagement guard · Track A vs B) → the tracks. The detector's own
 > thresholds are a first cut; its pre-registered question discharges per the proposal's §6.
 
