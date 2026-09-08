@@ -48,6 +48,19 @@ python3 tools/build-viewer.py --check      # ⭐ is viewer.html BYTE-IDENTICAL t
 #   only noticed because it ran `--check` in the same minute. It now VERIFIES BEFORE WRITING and refuses
 #   by name, so the trap has a tripwire; the underlying divergence is unruled. Run `--check` after any
 #   `--extract`, always.
+# ⛔⛔ AND `check-data-inline.py --fix` IS THE SAME TRAP AS `--extract`, MEASURED 2026-09-08.
+#   The `--extract` warning above is on the WRONG TOOL ALONE. `--fix` re-inlines from the SOURCE into
+#   BOTH `viewer.html` and `engine/viewer.template.html` — and the template's copy is a PLACEHOLDER, so
+#   it writes Fernwood's concrete values OVER the engine's placeholders. One run replaced
+#   `{{IDENTITY:perspectiveTitle}}` with "Mama's Perspective", `{{IDENTITY:themeMain}}` with `#2f5d3a`
+#   and `{{PLACE_LOG}}` with Fernwood's own place log — instance content burned into the engine, which
+#   is the exact class the estate-neutrality work exists to prevent. `build-viewer.py --check` then
+#   fails with `template has no identity placeholder themeMain` — a DIFFERENT error from the
+#   `--extract` one, so the existing note does not cover it.
+#   ✅ RECOVERY: `git checkout -- engine/viewer.template.html`; the `viewer.html` half is legitimate.
+#   ⚠️ THE PROCEDURE ABOVE TELLS YOU TO RUN `--fix` after confirming drift. It is still the right
+#   command — but **run `git diff engine/viewer.template.html` immediately after, every time**, and
+#   revert the template if it moved. Only `viewer.html` should change.
 python3 tools/check-engine-manifest.py     # ⭐ is every tracked file CLASSIFIED engine/config/instance? (P1/P2 fail; P3 skipped until an engine remote; P4/P5 counted, self-arming — `ENGINE-MANIFEST.md`)
 python3 tools/check-storage-keys.py        # ⭐ is every browser-storage key ROSTERED? (a key the origin-move migration does not know about is a key she loses — C4 2b)
 python3 tools/read-mom-funnel.py --rotation # ⭐ WHICH CARD IS SHE ACTUALLY SEEING — head-slot exposure; she sees ONE, not five
