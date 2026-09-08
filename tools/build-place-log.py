@@ -101,6 +101,47 @@ def derive(sources=None):
     return out, missing
 
 
+# ⭐ MODELLED ON THE PRODUCT LOG'S OWN SHAPE, NOT COPIED `[paul-stated 2026-09-07]`: *"we already have
+# a decent changelog template in Mom's version of Fernwood, so let's not copy and paste, but we can
+# model after that a little bit."*
+#
+# RELEASE_NOTES entries are `{date, title, bullets[]}` and render as a date + a title, then a bulleted
+# list. The first version of this log emitted one flat `{date, kind, text}` row per event, which put
+# twenty-three near-identical lines on screen and read as a dump rather than a record.
+#
+# ⛔ THE TITLE IS DERIVED FROM COUNTS, NEVER COMPOSED. A day is summarised by what KIND of thing
+# happened and how many — "Six places named" — because a generated sentence about someone's own
+# property is the one thing on this path that could sound like it was written about them rather than
+# from their record. Counting is honest; narrating is not, and there is no AI on this path.
+KIND_WORDS = {
+    "place":   ("place named", "places named"),
+    "fleet":   ("service entry", "service entries"),
+    "settled": ("question you answered", "questions you answered"),
+}
+
+
+def group(rows, limit_days=12):
+    """[(date, title, bullets)] — one entry per DAY, mirroring the product log's shape."""
+    days = {}
+    for d, k, t in rows:
+        days.setdefault(d, []).append((k, t))
+    out = []
+    for d in sorted(days, reverse=True)[:limit_days]:
+        items = days[d]
+        counts = {}
+        for k, _t in items:
+            counts[k] = counts.get(k, 0) + 1
+        parts = []
+        for k in ("place", "fleet", "settled"):
+            n = counts.get(k)
+            if n:
+                one, many = KIND_WORDS[k]
+                parts.append("%d %s" % (n, one if n == 1 else many))
+        title = " · ".join(parts).capitalize() if parts else "Changes here"
+        out.append({"date": d, "title": title, "bullets": [t for _k, t in items]})
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--json", action="store_true")
@@ -111,14 +152,17 @@ def main():
         return selftest()
     rows, missing = derive()
     if a.json:
-        print(json.dumps([{"date": d, "kind": k, "text": t} for d, k, t in rows[:a.limit]],
-                         ensure_ascii=False))
+        print(json.dumps(group(rows, a.limit), ensure_ascii=False))
         return 0
-    print("🏡 place log — %d dated entr%s derived" % (len(rows), "y" if len(rows) == 1 else "ies"))
-    for d, k, t in rows[:a.limit]:
-        print("   %s  %-8s %s" % (d, k, str(t)[:88]))
-    if len(rows) > a.limit:
-        print("   … and %d older" % (len(rows) - a.limit))
+    entries = group(rows, a.limit)
+    print("🏡 place log — %d event(s) across %d day(s); showing %d"
+          % (len(rows), len({r[0] for r in rows}), len(entries)))
+    for e in entries:
+        print("   %s — %s" % (e["date"], e["title"]))
+        for b in e["bullets"][:4]:
+            print("      • %s" % str(b)[:80])
+        if len(e["bullets"]) > 4:
+            print("      • … and %d more" % (len(e["bullets"]) - 4))
     if missing:
         # ⛔ NAMED, never silently skipped: "we could not read it" and "it held nothing" are
         # different sentences and this repo has paid for conflating them.
@@ -144,6 +188,14 @@ def selftest():
          "zones": {"zones": [{"name": "the fairway", "createdAt": "2026-04-01"}]}}
     rows, missing = derive(S)
     ck("M0 derives from every source", len(rows) == 4 and not missing)
+    g = group(rows)
+    ck("M5 grouped by DAY, newest first, mirroring the product log's {date,title,bullets}",
+       len(g) == 4 and [e["date"] for e in g] == sorted([e["date"] for e in g], reverse=True)
+       and all({"date", "title", "bullets"} <= set(e) for e in g))
+    multi = group([("2026-01-01", "place", "a"), ("2026-01-01", "place", "b"),
+                   ("2026-01-01", "fleet", "c")])
+    ck("M6 a day's title COUNTS what happened and never narrates it",
+       multi[0]["title"] == "2 places named · 1 service entry" and len(multi[0]["bullets"]) == 3)
     ck("M1 newest first", [r[0] for r in rows] == sorted([r[0] for r in rows], reverse=True))
     ck("M2 an undated row is dropped, never dated 'today'",
        not derive({"vehicles": {"vehicles": [{"name": "x", "serviceHistory": [{"what": "y"}]}]},

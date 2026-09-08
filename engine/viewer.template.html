@@ -15516,11 +15516,29 @@ function renderPlaceLog() {
   // ⛔ EMPTY IS "NOTHING HAS HAPPENED HERE YET", NEVER "BROKEN". A household hours old derives zero
   // rows and that is the correct output — the card hides rather than showing a failure face.
   if (!rows.length) { if (summary) summary.textContent = ""; return; }
-  body.innerHTML = rows.map(function (r) {
-    return '<div class="rn-entry"><div class="rn-entry-title">' + escapeHtml(r.date || "") +
-           "</div><div>" + escapeHtml(r.text || "") + "</div></div>";
-  }).join("");
-  if (summary) summary.textContent = rows.length + (rows.length === 1 ? " change" : " changes");
+  // ⭐ THE SAME MARKUP THE PRODUCT LOG USES — `rn-entry` / `-header` / `-date` / `-title` /
+  // `-bullets` — so the two changelogs read as one grammar rather than two designs. Modelled on it
+  // `[paul-stated 2026-09-07: "we already have a decent changelog template… let's not copy and
+  // paste, but we can model after that"]`, which is why this shares the STYLES and keeps its own
+  // renderer, rather than being a second copy of renderReleaseNotes with the ids swapped.
+  let html = "";
+  for (const e of rows) {
+    html += '<div class="rn-entry"><div class="rn-entry-header">';
+    html += '<span class="rn-entry-date">' + escapeHtml(e.date || "") + "</span>";
+    html += '<span class="rn-entry-title">' + escapeHtml(e.title || "") + "</span>";
+    html += "</div>";
+    if (e.bullets && e.bullets.length) {
+      html += '<ul class="rn-entry-bullets">';
+      for (const b of e.bullets) html += "<li>" + escapeHtml(String(b)) + "</li>";
+      html += "</ul>";
+    }
+    html += "</div>";
+  }
+  body.innerHTML = html;
+  // ⚠️ escapeHtml, NOT renderNoteMarkdown. The product log's bullets are AUTHORED prose and may
+  // legitimately carry emphasis; these are DERIVED from a household's own stored strings — a place
+  // name, a service note — and must never be interpreted as markup on the way to the screen.
+  if (summary) summary.textContent = "Latest: " + escapeHtml(rows[0].date || "");
 }
 
 function renderReleaseNotes() {

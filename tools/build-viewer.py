@@ -343,7 +343,11 @@ def build(template_text, instance_path):
         _sp = _il.spec_from_file_location("bpl", os.path.join(HERE, "build-place-log.py"))
         _bpl = _il.module_from_spec(_sp); _sp.loader.exec_module(_bpl)
         _rows, _missing = _bpl.derive()
-        place_rows = [{"date": d, "kind": k, "text": t} for d, k, t in _rows[:12]]
+        # ⛔ GROUPED BY DAY, via the tool's own `group()` — never re-shaped here. Building the payload
+        # in this file is how the inlined data came to have a different shape from the one the tool
+        # emits and the renderer expects: `--json` said {date,title,bullets} while the build inlined
+        # {date,kind,text}, and only a KeyError at verification caught it. One shape, one owner.
+        place_rows = _bpl.group(_rows, 12)
     except Exception as _e:                                   # noqa: BLE001
         # ⛔ A derivation we could not run yields an EMPTY log and a loud line — never a silent one,
         # and never a partial log that reads complete.
