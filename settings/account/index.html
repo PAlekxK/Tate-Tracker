@@ -130,6 +130,18 @@
 
   var K_GRANT = "fw-grant", K_USER = "fw-username", K_PREF = "fw-onboard-contact",
       K_PROFILE = "fw-profile-accent";
+  // ⭐ B1's three states on this screen too: ok · empty · unknown. Two used to render as one.
+  var reach = "fetching";
+  function sayReach() {
+    try {
+      var t = el("trouble"); if (!t) return;
+      if (reach === "unknown") {
+        t.innerHTML = "We couldn’t reach your account just now, so what you see is what this device " +
+                      'remembers — not the record. ' + '<a href="/estate/">Sign in again ›</a>';
+        t.hidden = false;
+      } else if (!t.innerHTML || t.hidden) { t.hidden = true; }
+    } catch (e) {}
+  }
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function el(id) { return document.getElementById(id); }
@@ -200,7 +212,10 @@
     fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
-        if (!d) return;
+        // ⛔ B1 — a null is "we could not ask", never "there is nothing". This screen used to return
+        // silently and show the device's cached values as though the record had agreed with them.
+        if (!d) { reach = "unknown"; sayReach(); return; }
+        reach = "ok"; sayReach();
         if (d.contactPref) { store(K_PREF, d.contactPref); setPref(d.contactPref); }
         // ⭐ THE VALUE, NOT JUST THE CHANNEL `[paul-ruled 2026-09-06]`: "when we ask how to reach them we have
         // to record the value too." The Worker has held it since signup; this is the first screen to show it.
@@ -215,7 +230,7 @@
           document.documentElement.style.setProperty("--accent", d.profileAccent);
           paintSwatches();
         }
-      })["catch"](function () {});
+      })["catch"](function () { reach = "unknown"; sayReach(); });
   }
 
   el("save").addEventListener("click", function () {
@@ -229,14 +244,27 @@
     if (grant) h["X-Grant"] = grant;
     fetch(WORKER + "/api/profile", { method: "POST", headers: h, body: JSON.stringify(body) })
       .then(function (r) {
+        // ⛔⛔ B1 — "TRY AGAIN" IS FALSE ADVICE WHEN THE CREDENTIAL IS THE PROBLEM.
+        // Measured 2026-09-08: Paul saved twice and got the same sentence twice, because his grant
+        // was absent from the live store and no number of retries could ever change that. The old
+        // handler collapsed every failure into one message whose only instruction — tap Save once
+        // more — was guaranteed not to work in the case he was actually in. A rejected credential
+        // and a dropped connection want opposite things from the person.
+        if (r.status === 401 || r.status === 403 || r.status === 404) { var e = new Error("door"); e.door = true; throw e; }
         if (!r.ok) throw new Error("not ok");
         store(K_PREF, pref);
         if (chosen) store(K_PROFILE, chosen);
         location.href = "/homes/";                 // the loop closes on the return trip
-      })["catch"](function () {
+      })["catch"](function (err) {
         btn.disabled = false; btn.innerHTML = '<span class="tick">✓</span>Save';
-        el("trouble").textContent = "That didn't go through — your changes are still here, tap Save once more.";
-        el("trouble").hidden = false;
+        var t = el("trouble");
+        if (err && err.door) {
+          t.innerHTML = "We couldn’t confirm who you are, so nothing was saved — your changes are still on this screen. " +
+                        '<a href="/estate/">Sign in again ›</a>';
+        } else {
+          t.textContent = "That didn’t go through — your changes are still here, tap Save once more.";
+        }
+        t.hidden = false;
       });
   });
 })();

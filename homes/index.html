@@ -175,10 +175,30 @@
     if (!homes.length) {
       var p = document.createElement("p");
       p.className = "soft";
-      p.textContent = grant
-        ? "Open your invitation link to set up your first home."
-        : "Open your invitation link and your homes will be here.";
+      // ⛔⛔ B1 — "I COULD NOT CHECK" IS NOT "YOU HAVE NOTHING", AND THIS SCREEN SAID THE SECOND.
+      // Measured 2026-09-08, on Paul, on his own home: his grant was absent from the live store, so
+      // `whoami` answered the router's 404 — which is byte-identical to a missing route, deliberately,
+      // so it cannot leak whether a credential exists. This page read `r.ok === false` as "nothing to
+      // add", returned early, and left the empty state it had already painted. He was told his home
+      // did not exist and then told he could not create one, and EVERY SCREEN WAS BEHAVING AS
+      // DESIGNED. The comment above this function promised the opposite — "silence on a transport
+      // failure keeps the cached shelf rather than telling her she has no homes" — and that promise
+      // inverts exactly when the device cache is empty, which is the state a returning person on a
+      // new browser is in.
+      // ⭐ `estate/index.html:457` already distinguished three states; the fix never generalised
+      // here or to settings/account. That is why this is one resolver and not three empty strings.
+      p.textContent = !grant  ? "Open your invitation link and your homes will be here."
+                    : reach === "unknown" ? "We couldn’t reach your homes just now — nothing is lost. Try again in a moment."
+                    : reach === "fetching" ? "Looking for your homes…"
+                    : "Open your invitation link to set up your first home.";
       host.appendChild(p);
+      // A credential that cannot be resolved is the one case where the door is the answer, so offer
+      // it here rather than leaving a dead end. It is the same door B2 will route to properly.
+      if (grant && reach === "unknown") {
+        var a = document.createElement("p"); a.className = "soft";
+        var link = document.createElement("a"); link.href = "/estate/"; link.textContent = "Sign in again ›";
+        a.appendChild(link); host.appendChild(a);
+      }
       return;
     }
     homes.forEach(function (h) {
@@ -206,6 +226,9 @@
   // Render what the device already knows, then reconcile against the record — same rule as the
   // arrival surface: the server wins, and silence on a transport failure keeps the cached shelf
   // rather than telling her she has no homes.
+  // ⭐ B1's state, named once: "ok" we heard · "empty" it holds nothing · "unknown" we could not ask.
+  // Two of those used to render as the third.
+  var reach = grant ? "fetching" : "ok";
   var cached = grant && read(K_NAME)
     ? [{ name: read(K_NAME), accent: read(K_COLOR), addressParts: read(K_PARTS) }] : [];
   renderHomes(cached);
@@ -214,7 +237,11 @@
     fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
-        if (!d) return;
+        // ⛔ A null here means the credential did not resolve OR the transport failed. Either way we
+        // did not learn anything about this person's homes — so say that, rather than keeping an
+        // empty shelf that reads as an answer.
+        if (!d) { reach = "unknown"; if (!cached.length) renderHomes([]); return; }
+        reach = "ok";
         // ⚠️ ONE HOME, AND THAT IS THE TRUTH RATHER THAN A LIMITATION OF THIS PAGE. A credential
         // resolves to exactly one estate today; there is no person→estates index. Rendering an
         // array of one keeps this page correct the day there are two, with no second shape to build.
@@ -225,7 +252,14 @@
         // the server's answer may lack what the device already holds; never let a network reply erase
         // the town from her card (wide-eyed, round 8: "Bangor, ME" vanished after an unrelated tap)
         renderHomes([{ name: d.name || read(K_NAME), accent: d.accent || read(K_COLOR), addressParts: d.addressParts || read(K_PARTS) }]);
-      })["catch"](function () {});
+      })["catch"](function () {
+        // ⛔ A REJECTION IS THE SAME CLAIM AS A REFUSAL: we did not learn anything. Caught here as
+        // well as at the `!d` branch above, because a dropped connection rejects rather than
+        // returning a non-2xx — and the first version of this fix covered only the second, which a
+        // network-blocked render proved within minutes of writing it.
+        reach = "unknown";
+        renderHomes(cached.length ? cached : []);
+      });
   }
 
   el("addbtn").addEventListener("click", function () {

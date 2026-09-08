@@ -432,6 +432,8 @@
   }
 
   var fetching = false;
+  // set when the record could not be asked at all — distinct from an empty answer
+  var reachUnknown = false;
 
   function render() {
     var host = el("rows");
@@ -461,10 +463,14 @@
       // that she had never set her place up — which is false, and it is the reader most likely to
       // see it. Now it distinguishes: no credential at all · a credential whose record is still
       // being fetched · a credential whose record genuinely holds nothing yet.
+      // ⭐ B1, 2026-09-08 — this surface already had THREE states and was the model the other two
+      // copied from. It was still missing the fourth: a credential the record REFUSED. That reads
+      // "Nothing here yet", which is the same lie /homes/ told Paul, one screen over.
       p.textContent = !grant
         ? "Open your invitation link and your place will be here."
         : (fetching ? "Fetching your place…"
-                    : "Nothing here yet.");
+                    : (reachUnknown ? "We couldn’t reach your place just now — nothing is lost."
+                                    : "Nothing here yet."));
       host.appendChild(p);
     }
   }
@@ -490,7 +496,9 @@
         // set back — the only exit was `location.reload()`, which fires only when something changed.
         // So a reconcile that succeeded and agreed, a non-2xx, and an offline throw ALL left
         // "Fetching your place…" on screen forever. Three different truths, one dead screen.
-        if (!d) { fetching = false; render(); return; }   // a non-2xx says nothing about her place
+        // a non-2xx says nothing about her place — and now the screen says that rather than
+        // presenting silence as an inventory
+        if (!d) { fetching = false; reachUnknown = true; render(); return; }
         var changed = false;
         function put(k, v) {
           if (v == null || v === "") return;
@@ -534,7 +542,10 @@
         fetching = false; render();           // agreed with the record — stop pretending to fetch
       })["catch"](function () {
         // offline: the cached view stands, and says nothing false — but it must stop saying "fetching"
-        fetching = false; render();
+        // ⛔ AND IT MUST NOT FALL BACK TO "Nothing here yet", which is a claim about her place made
+        // by a request that never arrived. A rejection and a refusal are the same claim: we did not
+        // learn anything.
+        fetching = false; reachUnknown = true; render();
       });
   })();
 
