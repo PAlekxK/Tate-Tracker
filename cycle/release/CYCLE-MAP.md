@@ -50,32 +50,56 @@ expectations unmet. *"Until it no longer fails"* had no surface that could repor
 
 ---
 
-## The beats
+## The beats — in the order a lap actually runs `[paul-ruled 2026-09-08]`
+
+⭐ **RENUMBERED 2026-09-08, AND THE RENUMBERING IS THE FIX.** The ladder used to read 0 → 11 while a
+lap ran **0 → 6,7,8,9,10 → 1,2,3,4,5 → 11**. `LAP3-AUDIT.md` §3 measured that and reserved the call:
+*"the other reading is that the numbering is wrong and the lap was right… which one is the defect is
+Paul's call; a session may not renumber the loop."* Paul ruled from the other direction — he expected
+to commit scope EARLY and found it at the end arming the next lap: *"the commit really is at the very
+end of the process and arms the next lap. And that just doesn't really align with the lap that we just
+did. So let's try to do this the right way."*
+
+⛔ **NOTHING WAS REDESIGNED.** Same twelve beats, same owners, same exit conditions, same wording in
+every cell. Only the reading order and the numbers moved. His own operating model is the order:
+*"grooming, rationalizing the backlog, selecting a commitment to work on, working on it, testing it,
+clearing it, deploying it."*
+
+⭐ **PREFER THE NAME OVER THE NUMBER.** This loop ratified *"name the WORK, not the ordinal"*
+(`9880e58`) and then minted three new ordinal registers the next day. Say *"we are at COMMIT"*, not
+*"we are at beat 6"* — the number is a reading position, not an identity.
 
 | # | beat | who | exit condition |
 |---|---|---|---|
-| **1** | a BUILD exists | main session | a sha is deployed to QA and `qa-build.json` reports it |
-| **2** | the SYNTHETIC LOOP | seats | **gate ①** passes — *and it may take many batteries* |
-| **3** | PAUL WALKS IT | Paul | he reports clear, or he reports a failure |
-| **4** | a FAILURE RE-ENTERS beat 2 | main session → seats | ⭐ never patched under Paul and handed back |
-| **5** | PAUL CLEARS IT | Paul | ⭐ **this is the release event.** Nothing is released before it |
+| **1** | OPEN THE LAP | main session | the prior lap is closed and machine-readable · its pre-registrations are disposed · the gate sweep is done · the three sweeps have run and their output is recorded (**including UNREADABLE, which is never zero**) · a dated lap heading exists |
+| **2** | DISPOSE | ⭐ **Paul** | every record **on a real estate** has been given `act` · `fold` · `hold` · `not-a-finding`. ⭐ **SCOPED 2026-09-08** `[paul-stated]`: *"all that stuff needs to go in the backlog and be part of our rationalization and commitment step — to look at all that in context, I think, is helpful, unless there's a critical fail."* ⛔ **This is a CONTRADICTION REMOVED, not a beat weakened.** Beat 11's exit condition, `watch-feedback.GATING_ENVS` and that tool's own F6 ARM line had ALL scoped the obligation to `home` · `legacy` since they were written; only this cell's prose (*"every swept record"*) and the tool's headline count disagreed — and on 2026-09-08 they made a screen read **587 records awaiting Paul's disposition** while the figure he actually owed was **0**. A count without its predicate, on the instrument built to find exactly that. ⭐ **The distinction is WHOSE WORDS THEY ARE, never volume:** a real-estate record is a person's input, so the AI boundary and the per-arrival rule both bind and it stays his, per record. A `qa`/`lab` record is **our own walk exhaust** — a finding SOURCE — and it is read **in context at the backlog's rationalization**, which is where a thing gets ranked against everything else rather than judged alone. ⚠️ **THE CRITICAL-FAIL EXCEPTION IS NAMED BUT NOT YET DEFINED** — Paul's *"unless there's a critical fail"*. `agent-proposed`, awaiting his ratification: a synthetic record jumps the queue when it shows data loss, a lockout, one estate's record reaching another, or a capture path that accepted input and lost it. **Falsifier:** a record matching none of those four still waited for rationalization and nothing was harmed by the wait. ⭐⭐ **AND THIS FIX WAS NOT INVENTED TODAY — IT WAS RAISED A DAY EARLIER AND HAD NOWHERE TO GO.** `54e3b57` (2026-09-07, practice-steward) states it exactly: beat 11 arms *"when zero records are undisposed"* and the feedback sweep *"gates the COMMITMENT POINT"*, so with 477 awaiting and no `--dispose-all` by design, **beat 11 could never arm and beat 10's gate could never open — two ratified conditions deadlocking the lap.** It offered three unranked routes and closed with the line this amendment is: *an exit condition no mechanism can produce is not an exit condition.* ⛔ **It then sat for a day.** Paul reached the same conclusion independently from the other side (*"instead of disposing… all that stuff needs to go in the backlog"*) without knowing a seat had already written it. ⭐ **The process finding is not the deadlock — it is that a seat's RULING-SHAPED output has no route to a decision.** The close-out's own write-back check caught it: *"1 commit claims a decision; the log recorded 0 card lines."* A finding that needs Paul's word, made inside a commit message, reaches no board, no backlog row and no card — so it is found again later, by someone else, at full cost. **This is the reachability shape this repo records six times, committed against a FINDING rather than a capability.** ⚠️ It still has no decision card; minting one is Paul's. |
+| **3** | READ | user-researcher | only `act`/`fold` records are read; it says **what matters most to the customer** `[J-b]` |
+| **4** | CARRY | product-steward | each finding reaches a row it can **cite**, or opens a question where it cannot |
+| **5** | GROOM & BUCKET | product-steward | the board is laid out on **two axes** — kind-shaped buckets it owns, carried severity it cites `[paul-ruled 2026-09-07]` |
+| **6** | ⭐ COMMIT THE SCOPE | ⭐ **Paul** | he picks. **This is a human gate and no instrument is ever built for it** |
+| **7** | a BUILD exists | main session | a sha is deployed to QA and `qa-build.json` reports it |
+| **8** | the SYNTHETIC LOOP | seats | **gate ①** passes — *and it may take many batteries* |
+| **9** | PAUL WALKS IT | Paul | he reports clear, or he reports a failure |
+| **10** | a FAILURE RE-ENTERS beat 8 | main session → seats | ⭐ never patched under Paul and handed back |
+| **11** | PAUL CLEARS IT | Paul | ⭐ **this is the release event.** Nothing is released before it |
+| **12** | DEPLOY & CLOSE | main session | zero records undisposed **on a real estate** (`home` · `legacy`); the next beat 0 may open. ⭐ See the G1 note below |
 
-**Beats 2→3→4→2 repeat.** There is no bound on the number of turns; there is only the exit condition.
+**COMMIT (6) gates BUILD (7).** Nothing is built that Paul has not picked — that is the whole point of
+the reorder, and lap 4 violated it by building from a brief's maintenance list.
 
-### ⭐ BEATS 0 and 6–11 — the estate-manager beats, INSIDE this loop `[paul-ruled 2026-09-07, A-1]`
+**Beats 8→9→10→8 repeat.** There is no bound on the number of turns; there is only the exit condition.
+
+⭐ **GROOM & BUCKET (5) is where `groom` finally lives.** The audit's one measured hole:
+*"`groom` — the beat that owns it: NONE."* `check-backlog-drift.py` existed but is a **mom-cycle
+pickup trigger** whose own doctrine says it *"does NOT fire a lap"*, so the 09-07 grooming ran as a
+hand-commissioned `.plans/` SCAN and nothing made it recur. It recurs here now. ⛔ Its constraint is
+unchanged: it **proposes a reordering as a diff and may not rank** — ranking is Paul's, at COMMIT.
+
+### ⭐ WHY 1 and 2–6 and 12 ARE IN THIS LOOP AT ALL `[paul-ruled 2026-09-07, A-1]`
 
 ⛔ **Not a fourteenth loop.** A second cadence for a solo operator is a loop that will not get run,
 and the state artifact (`cycle-state.json`) is already shared. These beats live here.
 
-| # | beat | who | exit condition |
-|---|---|---|---|
-| **0** | OPEN THE LAP | main session | the prior lap is closed and machine-readable · its pre-registrations are disposed · the gate sweep is done · the three sweeps have run and their output is recorded (**including UNREADABLE, which is never zero**) · a dated lap heading exists |
-| **6** | DISPOSE | ⭐ **Paul** | every record **on a real estate** has been given `act` · `fold` · `hold` · `not-a-finding`. ⭐ **SCOPED 2026-09-08** `[paul-stated]`: *"all that stuff needs to go in the backlog and be part of our rationalization and commitment step — to look at all that in context, I think, is helpful, unless there's a critical fail."* ⛔ **This is a CONTRADICTION REMOVED, not a beat weakened.** Beat 11's exit condition, `watch-feedback.GATING_ENVS` and that tool's own F6 ARM line had ALL scoped the obligation to `home` · `legacy` since they were written; only this cell's prose (*"every swept record"*) and the tool's headline count disagreed — and on 2026-09-08 they made a screen read **587 records awaiting Paul's disposition** while the figure he actually owed was **0**. A count without its predicate, on the instrument built to find exactly that. ⭐ **The distinction is WHOSE WORDS THEY ARE, never volume:** a real-estate record is a person's input, so the AI boundary and the per-arrival rule both bind and it stays his, per record. A `qa`/`lab` record is **our own walk exhaust** — a finding SOURCE — and it is read **in context at the backlog's rationalization**, which is where a thing gets ranked against everything else rather than judged alone. ⚠️ **THE CRITICAL-FAIL EXCEPTION IS NAMED BUT NOT YET DEFINED** — Paul's *"unless there's a critical fail"*. `agent-proposed`, awaiting his ratification: a synthetic record jumps the queue when it shows data loss, a lockout, one estate's record reaching another, or a capture path that accepted input and lost it. **Falsifier:** a record matching none of those four still waited for rationalization and nothing was harmed by the wait. ⭐⭐ **AND THIS FIX WAS NOT INVENTED TODAY — IT WAS RAISED A DAY EARLIER AND HAD NOWHERE TO GO.** `54e3b57` (2026-09-07, practice-steward) states it exactly: beat 11 arms *"when zero records are undisposed"* and the feedback sweep *"gates the COMMITMENT POINT"*, so with 477 awaiting and no `--dispose-all` by design, **beat 11 could never arm and beat 10's gate could never open — two ratified conditions deadlocking the lap.** It offered three unranked routes and closed with the line this amendment is: *an exit condition no mechanism can produce is not an exit condition.* ⛔ **It then sat for a day.** Paul reached the same conclusion independently from the other side (*"instead of disposing… all that stuff needs to go in the backlog"*) without knowing a seat had already written it. ⭐ **The process finding is not the deadlock — it is that a seat's RULING-SHAPED output has no route to a decision.** The close-out's own write-back check caught it: *"1 commit claims a decision; the log recorded 0 card lines."* A finding that needs Paul's word, made inside a commit message, reaches no board, no backlog row and no card — so it is found again later, by someone else, at full cost. **This is the reachability shape this repo records six times, committed against a FINDING rather than a capability.** ⚠️ It still has no decision card; minting one is Paul's. |
-| **7** | READ | user-researcher | only `act`/`fold` records are read; it says **what matters most to the customer** `[J-b]` |
-| **8** | CARRY | product-steward | each finding reaches a row it can **cite**, or opens a question where it cannot |
-| **9** | BUCKET | product-steward | the board is laid out on **two axes** — kind-shaped buckets it owns, carried severity it cites `[paul-ruled 2026-09-07]` |
-| **10** | ⭐ COMMIT THE SCOPE | ⭐ **Paul** | he picks. **This is a human gate and no instrument is ever built for it** |
-| **11** | ARM | main session | zero records undisposed **on a real estate** (`home` · `legacy`); the next beat 0 may open. ⭐ See the G1 note below |
 
 ### 🔬 PROPOSED BEAT — **10b · THE CUSTOMER JOURNEY UPDATE** `[paul-stated 2026-09-08]` · ⛔ NOT IN FORCE
 

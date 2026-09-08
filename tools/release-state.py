@@ -82,11 +82,11 @@ def derive(cleared=None, prior=None, sha=None):
         last = {"lap": None, "opened": None, "outcome": "unknown"}
     cleared_sha = cleared or prior_last.get("cleared_sha")
     if cleared_sha and sha.startswith(cleared_sha):
-        beat, owner, state, outcome = 5, "paul", "ARMED", "cleared"
+        beat, owner, state, outcome = 11, "paul", "ARMED", "cleared"   # PAUL CLEARS IT
     elif seats_pass:
-        beat, owner, state, outcome = 3, "paul", "FIRED", "open"       # a human gate is open
+        beat, owner, state, outcome = 9, "paul", "FIRED", "open"        # PAUL WALKS IT — a human gate is open
     else:
-        beat, owner, state, outcome = 2, "session", "FIRED", "open"
+        beat, owner, state, outcome = 8, "session", "FIRED", "open"     # the SYNTHETIC LOOP
     # ⛔ `outcome` (computed just above) is about the CURRENT CANDIDATE; `last_lap.outcome` is about
     # the LAST LAP IN THE CHRONICLE. They are different questions and the old code conflated them by
     # overwriting one with the other — which is how this field came to publish `"cleared"`, a value
@@ -108,9 +108,12 @@ def derive(cleared=None, prior=None, sha=None):
         # Beats 0, 1 and 6-11 are human or session beats with no artifact to read, so a number here
         # is not evidence about them. Publishing `of: 11` alone would have swapped one false claim
         # for a vaguer one; naming what is derivable says which part of the count is measured.
-        "beat": {"n": beat, "of": 11, "owner": owner,
-                 "name": {2: "the synthetic loop", 3: "Paul walks it", 5: "Paul cleared it"}[beat],
-                 "derivable": [2, 3, 5],
+        "beat": {"n": beat, "of": 12, "owner": owner,
+                 # ⭐ RENUMBERED 2026-09-08 [paul-ruled]: the ladder now reads in EXECUTION order, so
+                 # COMMIT (6) precedes BUILD (7). Old 2/3/5 are new 8/9/11. Same beats, same owners,
+                 # same exit conditions — only the reading order moved. CYCLE-MAP.md § The beats.
+                 "name": {8: "the synthetic loop", 9: "Paul walks it", 11: "Paul cleared it"}[beat],
+                 "derivable": [8, 9, 11],
                  "_note": "beats 0, 1 and 6-11 are human or session beats this tool cannot observe; "
                           "`n` is only ever one of `derivable`. Read CYCLE-MAP.md for the full ladder."},
         "gate_1": {"seats_pass": seats_pass, "ux_clause": "UNCHECKABLE — no artifact convention",

@@ -95,19 +95,19 @@ def check():
         covered.append("derivable %s of %d beats — the rest are human or session beats"
                        % (sorted(derivable), len(beats)))
 
-    # ③ THE ENVIRONMENTS BEAT 11 NAMES MUST BE THE ENVIRONMENTS THE CODE GATES ON
+    # ③ THE ENVIRONMENTS BEAT 12 (DEPLOY & CLOSE) NAMES MUST BE THE ENVIRONMENTS THE CODE GATES ON
     g = GATING_RX.search(fb)
     me = MAP_ENVS_RX.search(m)
     if g and me:
         code_envs = set(re.findall(r"[\w-]+", g.group(1)))
         map_envs = set(re.findall(r"`([\w-]+)`", me.group(1)))
         if code_envs != map_envs:
-            findings.append("BEAT 11 ENV DRIFT — the map says %s; watch-feedback.GATING_ENVS is %s"
+            findings.append("BEAT 12 ENV DRIFT — the map says %s; watch-feedback.GATING_ENVS is %s"
                             % (sorted(map_envs) or "nothing", sorted(code_envs)))
         else:
-            covered.append("beat 11 gating envs %s" % sorted(code_envs))
+            covered.append("beat 12 gating envs %s" % sorted(code_envs))
     else:
-        covered.append("beat 11 envs — UNCHECKABLE (the map's phrasing or GATING_ENVS moved)")
+        covered.append("beat 12 envs — UNCHECKABLE (the map's phrasing or GATING_ENVS moved)")
     return findings, covered
 
 
