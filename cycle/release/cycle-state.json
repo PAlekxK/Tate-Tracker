@@ -1,8 +1,8 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-08T16:04:21-04:00",
+ "generated_at": "2026-09-08T16:11:32-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "3e7bf8a",
+ "candidate_sha": "bfa3f23",
  "beat": {
   "n": 2,
   "of": 11,
@@ -134,8 +134,9 @@
    "settles": "`python3 tools/build-viewer.py --selftest` exits 0 and health-probe reports 0 consecutive failures.",
    "at_open": "measured 2026-09-08: 5 consecutive CI failures; extract() reproduced 16 of the template's 22 IDENTITY sites and no PLACE_LOG. ⭐ ADDRESSED THE SAME DAY at beat 1 — selftest 15/15, round-trip byte-identical, 44/44 placeholders at the right multiplicity. This stays OPEN until CI itself is green on a push, because a local pass is not the check.",
    "_note": "⛔ SUPPRESSING THE CLAUSE COUNTS AS A FAIL. The honest resolutions are: make extract() round-trip, or DECLARE the divergence as second-viewport's coverage gap was declared. Deleting the clause that sees it is the one route this forbids.",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "answered",
+   "evidence": "measured 2026-09-08 16:23 ET, both halves of the settles clause: `build-viewer.py --selftest` exits 0 (15/15), and health-probe --only fernwood reports 9 green / 0 red — `Build check (viewer)` went from 5 consecutive failures to passing on the push of bfa3f23 to origin/staging. ⭐ THE FORBIDDEN ROUTE WAS CHECKED FOR, NOT ASSUMED: this row's own _note says suppressing the clause counts as a fail. Both clauses that can see the divergence are still present in the file (`extract -> build round-trips the live viewer byte for byte`, and the new multiplicity clause), and the fix ADDED a clause rather than removing one. Verified by grep, not by intent.",
+   "outcome": "YES — fixed, not worked around"
   },
   {
    "id": "L4-P4-critical-fail-is-a-mechanism",

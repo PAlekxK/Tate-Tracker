@@ -1775,3 +1775,81 @@ browser* — which **requires a countable returning walk**. Until this fix, that
 not have been produced by the loop's own tooling, in the same shape as `second-viewport`. The ruling
 would have been unfalsifiable through no fault of the ruling.
 
+
+## Beat 2 — the synthetic loop · build `bfa3f23`
+
+Five walks, five reports, all five ✅ countable in `walk-integrity`. **Four seats say no-stop. The
+returning walker says STOP.** And the gate cannot see it.
+
+### 🔴🔴 THE FINDING OF THE LAP IS ABOUT GATE ①, NOT ABOUT THE PRODUCT
+
+`release-gate.py` reads **🟡 4 of 4 seats passing** at `bfa3f23`. That number is true and it is
+misleading, and the reason is four lines of the gate itself (`:233-240`):
+
+```
+best = None
+for run in runs_for(seat):
+    # among runs at this sha, keep the best (most clauses true)
+```
+
+**The gate keeps the BEST-SCORING run per seat.** The owner seat has two runs at this sha:
+
+| run | journey | failedActions | stops |
+|---|---|---|---|
+| `2026-09-08T161314` | **fresh** | 0 | 16 |
+| `2026-09-08T161649` | **returning** | **3** | 7 |
+
+The returning walk fails `no-failed-actions`, scores lower, and is **silently discarded in favour of
+the same seat's clean fresh walk.** Its stop-level finding reaches the gate not at all.
+
+⛔ **This negates `CYCLE-MAP.md`'s own ruling in the section that ordered the battery:** *"The
+returning walk is what makes gate ① able to fail for the right reason."* **It cannot.** While a seat
+has any cleaner run at the sha, its returning walk can never fail the gate. `measured`, by execution,
+both ways: on best-run the gate reads 🟡 4/4; the failing run is the newest one at the sha.
+
+⭐ **The precise defect is a UNIT mismatch, not a bug.** The gate models the unit as a **seat**, so two
+runs by one seat look like a retry and taking the better one is correct — that is why it is written
+this way and the rationale is sound. But the ruled battery has **two journey KINDS**, and a fresh walk
+and a returning walk are *different tests*, not two attempts at one. `release-gate.py` contains **zero
+occurrences of `fresh`** — it has no way to know the difference exists.
+
+⚠️ **`agent-proposed`, and it is Paul's:** gate on **(seat, journey-kind)** pairs rather than seats, so
+`owner-fresh` and `owner-returning` are separate rows and both must pass. This keeps the retry
+rationale *within* a kind, which is the part that was right. ⛔ Not applied — changing what gate ①
+counts is a change to the release condition itself.
+
+### What the seats found
+
+| seat | verdict | strongest |
+|---|---|---|
+| **owner · RETURNING** | 🔴 **STOP** | arriving on his own live link he was met with a blank *"Create your account"* form. **Verified in code, not taken on report:** `if (!read(K_USER))` gates recognition on a **device-local** `fw-username` and ends `show("s0"); … return;` **before** the `/api/grant/whoami` fetch. ⭐ The comment immediately after that branch reads *"Recognition is the SERVER's to confirm, never this page's."* ⭐⭐ And the branch's own header names the failure it was written to fix — *"Open it on another device… and she began again as a stranger"* — using a key it documents as *"set only by account creation"*, which **cannot** work cross-device. The correct fix is written 40 lines below (*"the record wins over the cache"*), applied to `fw-onboard-step` and not to `fw-username`, in a block recording it was **measured on Paul, in his own browser, today**. Three failed clicks were **missing controls, not broken ones** |
+| **mom** | no stop | **the product keeps calling her condo a garden** — *"what grows there"*, the Almanac as *"where notes, questions and what grows here live"*, and a 🏡 with lawn and shrubs directly above the line reading "Apt 3B". Lowercase *"the condo"* survived everywhere; the apartment number in line 1 caused no trouble; rain correctly read *regional est.* |
+| **strict** | no stop | both standing findings **unchanged** — the PO-box refusal holds everywhere and nothing is invented; the correction still arrives **three taps after** the confirmation. ⭐ And the reason neither moved: **all 16 stops are byte-identical between `95b8559` and `bfa3f23`** |
+| **owner · fresh** | no stop | **it placed him and never showed him where.** Climate was fetched for `34.545, -84.079` — a coordinate on **no screen**; the only route to it is leaving for Google Maps. Flagged as reasoning, with a falsifier: −84.079 is ~9 km **west** of Dahlonega for an address signed Hwy 52 **E** |
+| **wide-eyed** | no stop | **no Georgia reached Maine** — and it checked the half that matters, the class that leaked on 09-07: zero `our`/`we've`/`here at`, no gauge figures, no 2,873, no frost date. The curly apostrophe held in **34/34** strings across six surface types; ZIP+4 survived into the Maps query |
+
+### ⭐ THREE SEATS INDEPENDENTLY HIT THE SAME TWO THINGS
+
+Convergence across seats that never saw each other's reports:
+
+1. **"What grows there" is sold and not built** — mom, owner and wide-eyed, three of five. Wide-eyed
+   ranked **Gardening #1**, met a heading *"WHAT I'LL BUILD FIRST"*, and opened a place holding
+   Weather, Sky & Stars and a receipt. ⭐ Its sharpest detail: **Gardening and Wildlife are the two
+   ranking items NOT badged *"an idea — not built yet"*, which taught it they were built.**
+2. **The email address you give is visible on no screen** — mom, strict and wide-eyed. *"What do you
+   have of mine"* is unanswerable in the product.
+
+### Boundaries the seats declared rather than let a clean run cover
+
+⚠️ **Three of four fresh walks carry 4 third-party 429s each — degraded weather data.** The gate's
+`not-rate-limited` clause passes because they are third-party, and the caveat is attached; it is
+recorded here because three seats' weather claims rest on it.
+⚠️ Every card in the app was **collapsed** when wide-eyed swept it, so its neutrality sweep is a read
+of captured DOM, not of screens walked. Owner opened exactly one card (the receipt), so forecast,
+rainfall and source badges are **claims about DOM, not renderings**. Stop 14 is byte-identical to 12
+for two seats and proves nothing.
+⛔ **And the returning walker declared the limit that matters most:** its server record is
+`name: null, address: null` — a returning person with an **unfinished** setup. **The finished-setup
+redirect is therefore still unwalked by any seat**, at any build. That is a second, independent
+reason to hold, and it is not fixed by fixing the recognition bug.
+
