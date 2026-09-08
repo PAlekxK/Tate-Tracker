@@ -230,6 +230,21 @@ def journey_returning(answers, origin=""):
     ]
 
 
+def roster_of(acts):
+    """The stops a given journey will record — DERIVED from that journey's own `shot:` actions.
+
+    ⛔ THE RECORDER MUST CALL THIS AND NEVER READ `STOP_NAMES` DIRECTLY. `STOP_NAMES` is the FRESH
+    journey's roster; scoring a RETURNING walk against it recorded all 15 fresh stops as
+    `not-reached`, silently dropped the R01…R07 stops it actually walked, and got the run refused by
+    `walk-integrity` as `stops-did-not-complete`.
+    ⭐ It is a FUNCTION rather than an inline comprehension for one reason: a selftest can call it.
+    The suite already asserted "a returning walk has its OWN stops" — true, and true since 5e5a95a —
+    but nothing asserted that the RECORDER reads them, because the recorder's roster lived inline in
+    `main()` where no clause could reach it. Two true facts with nothing tying them together.
+    """
+    return [x[len("shot:"):] for x in acts if x.startswith("shot:")]
+
+
 def journey(fresh, answers, origin=""):
     """The whole walk as ONE action list. `shot:<name>` marks where a stop is recorded."""
     a = answers
@@ -361,6 +376,18 @@ def selftest():
 
     # 3 · every declared stop must actually be captured, or a stop silently stops existing
     shots = [x[5:] for x in fresh if x.startswith("shot:")]
+    # ⭐⭐ THE CLAUSE THAT WAS MISSING, and its absence is the whole defect. The suite already asserted
+    # "a returning walk has its OWN stops, not onboarding's" — that was TRUE and had been true since
+    # 5e5a95a. What nothing asserted is that the RECORDER reads those stops. It looped over the fresh
+    # `STOP_NAMES` for every run, so the returning journey's own stops were correct, produced, and
+    # then thrown away. ⛔ Two true facts — the journey has its own stops, the recorder has a roster —
+    # with nothing tying them together, is exactly the seam a selftest is for.
+    check("the RECORDER's roster follows the journey it ran — fresh",
+          roster_of(fresh) == STOP_NAMES,
+          "roster_of(fresh) = %r" % (roster_of(fresh),))
+    check("the RECORDER's roster follows the journey it ran — returning stops are NOT scored as fresh ones",
+          bool(roster_of(tok)) and not (set(roster_of(tok)) & set(STOP_NAMES)),
+          "returning roster %r overlaps the fresh roster" % (roster_of(tok),))
     check("every STOP_NAME is checkpointed", shots == STOP_NAMES,
           "declared %r but the journey shoots %r" % (STOP_NAMES, shots))
 
@@ -529,8 +556,20 @@ def main():
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
     acts = journey(a.fresh, ans, origin=base)
+    # ⛔⛔ THE ROSTER IS DERIVED FROM THE JOURNEY ACTUALLY RUN, NEVER FROM `STOP_NAMES`.
+    # `STOP_NAMES` is the FRESH journey's roster. Scoring every run against it meant a RETURNING walk
+    # — which shoots R01…R07 — recorded all 15 fresh stops as `not-reached`, dropped every stop it
+    # really walked (they are not in the list, so the loop never looks for them), and was then
+    # refused by `walk-integrity` as `stops-did-not-complete`. `measured` 2026-09-08 on
+    # strict/2026-09-08T142600 at 95b8559: fresh=False, 15 not-reached + 1 not-reachable, zero R-stops
+    # recorded, REFUSED — while `journey_returning()` had been wired and working since `5e5a95a` the
+    # night before. ⭐ THE BUILD COULD RUN THE RETURNING WALK; ONLY THE SCOREKEEPER COULD NOT READ IT.
+    # That is why pre-registration P2 read as blocked on `journey-walk.py:177-190` long after that
+    # half had landed — the blocker had MOVED and the note had not, which is this repo's
+    # unchecked-box rule turned on its own instruments.
+    stop_roster = roster_of(acts)
     print("  one continuous journey — %d actions, %d checkpoints, %s"
-          % (len([x for x in acts if not x.startswith("shot:")]), len(STOP_NAMES),
+          % (len([x for x in acts if not x.startswith("shot:")]), len(stop_roster),
              "ONE account created" if a.fresh else "arriving on a token (no account created)"))
     got = view(url, acts, os.path.join(d, "final.png"), watch=a.watch, shot_dir=d)
     failed_all = got.get("failedActions") or []
@@ -554,7 +593,7 @@ def main():
         failed_all = list(failed_all) + ["pageerror — " + e[len("PAGEERROR:"):].strip()[:160] for e in page_errors]
     seen = {c["stop"]: c for c in got.get("checkpoints") or []}
 
-    for name in STOP_NAMES:
+    for name in stop_roster:
         if name == "02-account" and not a.fresh:
             record["stops"].append({"stop": name, "status": "not-reachable",
                                     "why": "arrived with a token; this stop exists only on the --fresh signup path"})

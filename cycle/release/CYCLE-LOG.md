@@ -1739,3 +1739,39 @@ the two-person walk closes it.
    ⭐ Both were found the same way: **by running the tool and then checking the world rather than the
    output** — the repo's own standing rule, applied to its own instruments.
 
+
+### ⛔ P2 CORRECTED — I discharged it on a blocker I did not re-measure
+
+At beat 0 this session carried `P2-returning-journey-walked` as **`carried`**, quoting the row's own
+text: *"journey-walk.py:177-190 branches on `fresh` for exactly ONE stop… Until C-2 lands this CANNOT
+be answered."* **That blocker had been gone for a day.** `journey_returning()` — *a returning walk is
+its own journey* — landed at **`5e5a95a`, 2026-09-07 22:34**, and is an ancestor of lap 3's cleared
+sha. ⭐ **This is precisely the rule this repo already carries — *an unchecked box is not open work* —
+and I applied it to Mom's checklists and not to my own pre-registration.** A blocker note goes stale
+in the same flattering direction a checklist does.
+
+**The real blocker, found only by running the thing:** `journey-walk.py`'s recorder looped over
+`STOP_NAMES` — the **fresh** roster — for *every* run. So a returning walk recorded all 15 fresh stops
+as `not-reached`, **silently dropped the R01–R07 stops it actually walked** (the loop never looks for
+a name that is not in its list), and was then refused by `walk-integrity` as `stops-did-not-complete`.
+⭐ **The build could RUN the returning walk; only the SCOREKEEPER could not read it.**
+
+⚠️ **And the row was literally satisfiable, which is the trap.** `strict/2026-09-08T142600` at
+`95b8559` carries `fresh:false` with **3 failed actions** — meeting P2's `settles` clause word for
+word — **and it reached zero stops.** Passing P2 on it would have been a green from a count without
+its predicate, on the pre-registration built to catch exactly that. **Disposition: ANSWERED, NO.**
+
+✅ **Fixed at beat 1.** The roster is now `roster_of(acts)`, derived from the journey actually run —
+a **function** rather than an inline expression for one reason: a selftest can call it, and the
+recorder's roster had lived inline in `main()` where no clause could reach it. The suite already
+asserted *"a returning walk has its OWN stops"* — **true, and true since `5e5a95a`** — but nothing
+tied that to the recorder. **Two true facts with nothing joining them is exactly the seam a selftest
+is for.** Mutation-proven both ways (reverting the recorder to `STOP_NAMES` turns the new clause red);
+`--selftest` **15/15**.
+
+⛔ **CONSEQUENCE FOR L4-P4, and it is why this mattered now rather than at close:** the critical-fail
+item Paul ratified today has a two-person falsifier — *set up place A, sign in as B on the same
+browser* — which **requires a countable returning walk**. Until this fix, that exit condition could
+not have been produced by the loop's own tooling, in the same shape as `second-viewport`. The ruling
+would have been unfalsifiable through no fault of the ruling.
+

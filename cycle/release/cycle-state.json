@@ -76,8 +76,10 @@
    "settles": "one transcript with fresh:false, failedActions length < 5, at lap 3's cleared sha.",
    "at_open": "measured 2026-09-07: 0 of 39 lap-2 walks ran non---fresh; the only returning battery ever run took 12-15 failed actions per seat and all four reports went UNREAD.",
    "blocked_by": "retro C-2 — journey-walk.py:177-190 branches on `fresh` for exactly ONE stop, so a returning walker lands past the whole script and every action times out. ⛔ Until C-2 lands this CANNOT be answered, and it must discharge as `carried` with this blocker named, never as a miss.",
-   "disposition": "carried",
-   "evidence": "carried at lap 4 beat 0 exactly as this row's own text mandates. Blocker unchanged and re-measured 2026-09-08: journey-walk.py:177-190 branches on `fresh` for exactly ONE stop, so a returning walker lands past the script and every action times out. Retro C-2 has not landed. NOT a miss."
+   "disposition": "answered",
+   "evidence": "CORRECTED 2026-09-08 at lap 4 beat 1, after this row was first discharged as `carried` on its OWN stated blocker without that blocker being re-measured. ⛔ THE STATED BLOCKER WAS STALE: retro C-2 (journey_returning — a returning walk is its own journey) LANDED at 5e5a95a on 2026-09-07 22:34, and is an ancestor of lap 3's cleared sha 95b8559. The half this row called impossible had been working for a day. ⭐ THE REAL BLOCKER, found by running the tool: journey-walk.py's recorder looped over `STOP_NAMES` — the FRESH roster — for every run, so a returning walk recorded all 15 fresh stops as `not-reached`, silently dropped the R01-R07 stops it actually walked, and was refused by walk-integrity as `stops-did-not-complete`. The build could RUN the returning walk; only the SCOREKEEPER could not read it. ⚠️ LITERAL SATISFACTION, REJECTED: strict/2026-09-08T142600 at 95b8559 does carry fresh:false with 3 failed actions, which meets this row's `settles` clause word for word — and it reached ZERO stops. Counting it would be a green from a count without its predicate, on the pre-registration built to catch that. So: ANSWERED, NO. Fixed at lap 4 beat 1 (roster_of(), mutation-proven both ways, selftest 15/15).",
+   "outcome": "NO — and the blocker was not where this row said it was",
+   "blocker_corrected": "was: journey-walk.py:177-190 branches on `fresh` for one stop. is: the recorder's stop roster was hardcoded to the fresh journey."
   },
   {
    "id": "P3-unread-walk-runs",
