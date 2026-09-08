@@ -46,6 +46,8 @@ derived. `measured`, §5.
 | kills proposed | **12** — 3 verified-fixed · 5 superseded by a ruling · 2 premise overtaken · 2 notes that were never work |
 | blocked, with the blocker named | **7** |
 | plan documents in `.plans/` | **93** · 39 `agent-proposed` (awaiting Paul) · 11 `paul-approved` |
+| ⭐ §9 · the per-release ask/telemetry/attribution contract | **ruled 2026-09-07** — four fields at the build commit; canon lines drafted, not applied |
+| ⭐ §10 · the build sequence | weather → LEG 0 → zones → **the per-estate canon store** (not "plant capture") |
 | WIP bands right now | design **1/2** · build **1/1 (+3 declared exceptions)** · concept **11**, uncapped by ruling |
 
 ---
@@ -680,3 +682,215 @@ ship nothing without reading as a failed lap.
 of Paul's attention. ⛔ **That is a reason to pick which slates get one — not a reason to skip the step.**
 The five prepared parts are what make the choosing possible, and **a slate can also legitimately be told:
 you get a v1 and no epic.** Not everything is an epic; zones is one because Paul ruled it one (Z-2).
+
+---
+
+## 9 · ⭐⭐ THE PER-RELEASE ASK & ATTRIBUTION CONTRACT `[paul-ruled 2026-09-07, late]`
+
+⛔ **Recorded because it is load-bearing and because this repo's own ratified rule is that a
+load-bearing ruling which is not in the register is not in force.** Paul: *"Yes. That sounds good."*
+⛔ **Nothing here is applied to canon** — §9.6 drafts the canon lines for his go.
+
+### 9.1 · The rulings, verbatim
+
+| | ruling | scope |
+|---|---|---|
+| **RC-1** | *"we also want to have, with each new release, a new set of questions that we ask for confirmation or to inform next steps. But that needs to be something that's included and related to each build commit for each lap."* | every release |
+| **RC-2** | *"we need for each backlog item to be associated with a telemetry ask **and check**."* | every backlog item |
+| **RC-3** | *"as well as an update message to the acknowledgment ribbon — 'hey, here's a new feature.' Should be linked to any feedback that they provided, which, again, we're ideally asking for. So there is a clear link."* | every item that traces to feedback |
+| **RC-4** | *"with a hyperlink they can click to just take them down to that section."* | the ribbon line |
+| **RC-5** | *"at one point we had created some kind of rules or intentions for that whole section of Mom's feedback… that's probably something we should dig up and look at as an initial template for what we ask for with each build release."* | §9.3 is that dig |
+
+### 9.2 · The contract — four fields, verifiable AT THE BUILD COMMIT
+
+⭐ **`at the build commit` is RC-1's own words and it is the half that makes this a gate rather than a
+document.** A field that is true at the commit is checkable; a field that is true "for the lap" is
+remembered.
+
+| # | field | what it is | what already exists |
+|---|---|---|---|
+| **F1** | **the ask** | the question(s) this item ships with — *confirm* or *inform next steps* | `questions.json` + `postAnswer`; the harvest → bench → `--approve` path. ⚠️ **the binding constraint is SUPPLY**: 5-slot cap, 8 cards on the bench, **none approved** |
+| **F2** | **the telemetry ask AND its check** | the event the item fires, **and the reader that reads it** | 23 telemetry writers in the Worker; `read-mom-funnel.py` / `read-mom-engagement.py` are the reader shape |
+| **F3** | **the ribbon line + its hyperlink** | *"here's a new feature"*, attributed to the feedback that caused it, linked to where they can see it | ✅ **built 2026-07-29** — `MOM_ACK_DATA.links = [{phrase, card}]`, an underlined phrase **inside** the sentence, `linkCard` a **field, not a hard-coded case**, so any card can be the target. **Nothing to build; it becomes required** |
+| **F4** | **the release note** | the changelog half, for changes that do **not** trace to feedback | `RELEASE_NOTES.md` + `build-release-notes.py` → the *Recent updates* card |
+
+> ### ⭐ RC-2's "AND CHECK" IS THE LOAD-BEARING CLAUSE, and tonight proved it twice
+> `measured` — `GET /api/door` existed and **no tool called it**; `/api/onboarding-metrics` had **no
+> GET route at all** and was write-only, so **every onboarding signal from two laps was invisible**.
+> **A telemetry ask without a reader is the exact failure**, and RC-2's phrasing already excludes it.
+> ⭐ This also **settles census G3**, which had been sitting as *"where instrumentation sits in the
+> process — retro material, unsettled."* It sits on the item, at its build commit.
+
+> ### ⚠️ THE ONE TENSION, and Paul's own prior ruling resolves it rather than this file
+> The ribbon is **ATTRIBUTION, NOT INFORMATION** `[paul-stated 2026-08-04]`: *"it refreshes on HER
+> events, never on ours"* — and **a ribbon that fires on our shipping cadence is a changelog wearing
+> the ribbon's clothes, which is the named failure mode.** RC-1 ships a release every lap; RC-3 wants
+> a ribbon line with it. **They only agree because RC-3 says *linked to any feedback that they
+> provided*.**
+>
+> **So the contract reads:** a release that **traces to something they gave** earns a ribbon line
+> with its hyperlink (F3); one that does not gets a **release note only** (F4). ⭐ **And the loop
+> closes on itself: F1's asks are what CREATE the attribution that makes F3 legitimate** — which is
+> the same input-to-value cycle Paul stated at 11:30 ET the same day.
+
+### 9.3 · ⭐ THE DUG-UP TEMPLATE — the ask-design corpus, assembled from six places `[RC-5]`
+
+**It was never written down as one thing. It is scattered across a JSON field, a Python template bank,
+a tool's approval gate, CLAUDE.md's standing rules and two BACKLOG sections.**
+
+| # | source | the rule |
+|---|---|---|
+| **T-a** | `questions.json._ordering` | ⭐ **THE RANKING AXIS** `[paul-ruled 2026-07-29]`: *an answer that unblocks a **BUILD** outranks one that fills a **canon gap**, which outranks a **verdict on our own guess**.* Observation/expertise cards lead · verdict cards trail · **preference cards last — no canon target, so no fold path and nothing to probe** |
+| **T-b** | `harvest-questions.py` `TEMPLATES` | ⭐⭐ **AN ASK IS NOT FINISHED UNTIL IT NAMES THE OBSERVABLE.** `variety` ships **deliberately unservable**, with a bracket a human must fill — *"no generic string can produce one, and the old string's 'Does that match what's out there?' **sounded finished**, which is exactly how a verdict card gets flipped live by accident."* `identity` needs no human because the record states its own check (`momConfirm.confirmBy`). **Where the record names the check, the ask writes itself; where it does not, a human writes it — and the template refuses to look finished until they do** |
+| **T-c** | BACKLOG § TIER 3 | **A row without ① the question and ② how the answer gets captured is on the kill list.** ⭐ **Structurally identical to RC-2** — the same rule, already ruled, for asks instead of telemetry. Strong precedent for making RC-2 a gate |
+| **T-d** | `rationalize-bench.py` | **The human gate:** `approvedForServe` is stamped by nothing but `--approve`, run by a person — *"multiple supply streams feed the bench and each will grow its own approval rules; this gate is the floor under all of them."* And **variety is a HARD constraint, a filter not a tiebreaker** — a pure information-value sort stacks all five slots with bloom cards |
+| **T-e** | `CLAUDE.md` § four standing rules | one affirmative grammar everywhere she taps · the ribbon covers **everything since her last input, each phrase linked** · the queue ordered by information value · her feedback checked first · **"everything is changeable"**, with its journey-aware caveat |
+| **T-f** | BACKLOG § A4 / W8 | **the brake on sprawl** — do not add a surface; the cure is the defer-affordances doctrine, not more items. W8·a resolved the input stack to four cards |
+| **T-g** | `CLAUDE.md` § the AI boundary | **card phrasing is the deterministic template bank, NOT AI.** Authored content reaching a person is human-confirmed. Eight forbidden creep modes |
+
+### 9.4 · ⚠️ THE MEASURED CONTEXT THAT MUST RIDE WITH THE TEMPLATE
+
+⛔ **Any contract built on the confirm queue inherits these, and they are measured, not argued.**
+
+- ⭐⭐ **`_ordering`'s own field carries its correction:** *"every `momqueue_offered` event ever recorded
+  on her device carries **position 0** — she has never been offered a card at position 1–4."* Since
+  `05db30a` the queue renders **one question at a time** behind *"Another question ›"*, and
+  `momqueue_tapped` is **3 across 60 days**. ⛔ **The effective visible set is 1, not 5** — so
+  *"position 6+ renders to nobody"* is true of position 1+ as well.
+- **Every ask-shaped affordance is 0 of 35**; the one affordance that merely MOVES her is 5 of 5.
+- **Depth 2 and depth 3 are both zero** — she reads card faces and does not open individuals.
+- ⚠️ All of the above is **one device, one window, on a DIFFERENT product** (the frozen instance). A
+  deviceId is a browser bucket, not a person.
+
+### 9.5 · ⛔ THE ONE RULING OWED BEFORE THE FIRST LAP RUNS UNDER THIS CONTRACT
+
+> **Decision card `fernwood-11` — *"is the confirm queue the wrong instrument, or the right one asked
+> wrong?"* — is OPEN**, and it is the instrument RC-1 would run on every lap.
+
+⭐ **This is a sequencing point, not an objection.** The contract can say safely and now: **every item
+ships with an ask, a telemetry check, and a ribbon line where it traces to feedback.** *Which surface
+serves the ask* is `fernwood-11`, it is one ruling, and it is worth taking **before** the first lap
+runs under the contract rather than after — otherwise the contract's first act is to put more cards
+into a surface measured at 0 for 35. ⚠️ See also BACKLOG § **A-ASK** — the ask design is scoping work
+Paul has seeded, *"not a change to make quietly."*
+
+### 9.6 · The canon lines, DRAFTED not applied — Paul's go, and his choice of site
+
+⛔ **I have not edited `BACKLOG.md` or `CLAUDE.md`; three lanes are live in this repo tonight.**
+
+**① For `BACKLOG.md`, as a ruling block near the standing rules:**
+
+> **⭐⭐ EVERY ITEM SHIPS WITH AN ASK, A CHECK AND AN ATTRIBUTION** `[paul-ruled 2026-09-07]` — *"with
+> each new release, a new set of questions… included and related to each build commit for each lap"* ·
+> *"each backlog item associated with a telemetry ask and check"* · *"an update message to the
+> acknowledgment ribbon… linked to any feedback that they provided… with a hyperlink they can click to
+> take them down to that section."* Four fields, verifiable **at the build commit**: **the ask** ·
+> **the telemetry event and its reader** · **the ribbon line and its `links:[{phrase,card}]` target,
+> where the item traces to feedback** · **the release note otherwise.** ⛔ The ribbon stays
+> ATTRIBUTION, not information (2026-08-04) — a change nobody caused belongs in *Recent updates*.
+> Template for the ask: `.plans/2026-09-07-backlog-grooming-SCAN.md` §9.3. ⚠️ Which surface serves the
+> ask is decision card `fernwood-11`, open.
+
+**② For `CLAUDE.md` § Design-time default, one line:**
+
+> **Every item ships with an ask, a telemetry check, and an attribution** `[paul-ruled 2026-09-07]`.
+> Four fields at the build commit — ask · telemetry event **and its reader** · ribbon line with its
+> hyperlink where the item traces to feedback · release note otherwise. **A telemetry event with no
+> reader is the failure this exists to prevent** (`door` had a route and no caller;
+> `onboarding-metrics` had no route at all). Full contract + the assembled ask template:
+> `.plans/2026-09-07-backlog-grooming-SCAN.md` §9.
+
+---
+
+## 10 · ⭐ THE BUILD SEQUENCE — derived from dependencies, not from value `[paul-asked 2026-09-07, late]`
+
+⛔ **This orders by DEPENDENCY, which is derivable. It does not rank by value, which is Paul's**
+`[J-b]`. Where two items have no dependency between them, this file says so rather than choosing.
+
+| | item | why here | verified |
+|---|---|---|---|
+| **1** | ⭐ **WEATHER v1** | ⭐ **the only one of the four that does not touch the write path.** Its capture is two opt-in answers via `postAnswer` → `/api/feedback`, and the five capture handlers work at `home` today | `measured` |
+| **2** | ⛔ **LEG 0 — the per-estate capture write path** | **not zones.** The zones plan's own words: *"THE FIRST THING TO BUILD IS NEITHER ZONES NOR PLANTS — IT IS THE PER-ESTATE WRITE PATH."* It has a plan, a BACKLOG row (TIER 2 · 8) and a waiting session; ⚠️ its first act (the R-Z6 probe, `HTTP 401` = UNCHECKABLE) **may rewrite it rather than patch it** | `measured` |
+| **3** | **ZONES v1 — zones × plants, species level** | Z-10/Z-11's cascade: address → zones → plants in those zones. Stage `design` with a journey artifact | — |
+| **4** | ⛔ **NOT "plant capture" — the PER-ESTATE CANON STORE**, of which plant capture is the first consumer | **§10.1** | `measured` |
+
+### ⭐⭐ 10.1 · ZONES AND PLANT CAPTURE ARE NOT THE SAME SIZE, and the difference sets the sequence
+
+`measured` at HEAD tonight: `handleZoneSave` (`worker.js:3916`), `handlePromoteSpecies` and
+`handleRemoveSpecies` (`:2969`) **all open with the identical gate** —
+`if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) return 503` — and there are **9 `ghPutFile` sites** writing
+`plants.json`, `viewer.html`, the photo, the audio and `zones.json`. ⛔ **Mom's production instance has
+no `GITHUB_TOKEN`, deliberately and permanently** (`wrangler.toml`: a token there would promote species
+onto her live branch).
+
+⭐ **But underneath the identical gate the two are different:**
+
+| | zone-save | plant capture |
+|---|---|---|
+| what sits under the git gate | ⭐ **a KV write ~80 lines below** (`:3999`), whose own comment reads *"KV first because it's the freshness path; git commits remain as long-term canon"* | ⛔ **nothing.** Canon **is** `plants.json` in this repo, and re-inlining `viewer.html` is part of the write |
+| therefore LEG 0 is | **a gate move** — the 503 is at the wrong granularity | ⛔ **a data-model decision** |
+
+> ⛔ **So plant capture is the first item where the cascade stops being a build and becomes a question:
+> where does a household's plant record LIVE, if not in this repo?** And it lands on **W6** —
+> species-level vs instance-level — **deferred since July**. The zones v1 ships at species level and
+> *names what fires W6*; **plant capture is what fires it.**
+
+⭐ **The recommendation, and it is a naming change rather than a scope change:** after zones, put **the
+per-estate canon store** on the board, with plant capture as its first consumer. Sizing it before a lap
+opens is cheap; discovering it mid-lap is the failure this whole grooming pass exists to prevent.
+
+---
+
+## 11 · ⭐ THE GLANCE CONSOLIDATION — jump strip · summary tiles · cards `[paul-raised 2026-09-07, late: "I'd like to go ahead and add [it]… let's see what questions are outstanding"]`
+
+**Slate 4's glance half, pulled out because Paul asked for it by name.** `measured` at HEAD — all three
+layers are live: `.jump-strip` (`engine/viewer.template.html:4206`), `renderDashboardStrip()`
+(`:18534`), and the cards. C7-R1's framing stands: *three layers repeat one thing — emoji · tile line ·
+big card.*
+
+⭐ **It looks straightforward and two of its four parts are. The third is the whole point of the
+feature and it is unruled.**
+
+| | question | state |
+|---|---|---|
+| **G-a** | ⛔ **WHERE DOES RANKING GO?** (census **B2**) | 🔴 **OPEN — Paul's, and it is the load-bearing one** |
+| **G-b** | Re-measure the strip's telemetry before anything is argued from it (census **B4**) | 🔍 **HUNT — and the current evidence is `contested`** |
+| **G-c** | The closed-card **empty** case, and an **OFF** module looking intentional (**B3 · C7-R2 · D5**) | ✅ **DECIDED — build-ready** |
+| **G-d** | Which layer is the door, which the glance, which the room (**C7-R1**) | 🟡 **half-ruled 2026-09-07** |
+
+### G-a · the one that is not straightforward
+**The summary menu did TWO jobs — it SUMMARISED and it RANKED.** Paul's 2026-09-07 resolution (*keep
+the jump strip; collapse the summary intelligence into the cards; re-analyse the closed-card state*)
+preserves the first and **drops the second** — so *"tell me what matters today"* becomes *"scan the
+whole page"*, **which is the job he opened with.** `inferred`, and it is census B2 verbatim.
+Three candidates, none ruled: **a state dot on the strip · dynamic card order · accept the loss.**
+⛔ **The consolidation is the easy half; the thing the menu was FOR is the hard half.**
+
+### G-b · the evidence is contested and must not be argued from until re-measured
+`MOM-CYCLE-LOG:1115` says she navigates 100% by the jump strip · `:1816` says those events fired **only
+from Paul's device** · `:1480/:1503/:1525` report **no post-`8718f46` reading**. Either different
+windows or a live contradiction. ⛔ **W4 currently has NO Mom evidence at all.**
+⚠️ **The re-measurement must enumerate every route that opens a card** — `card_expanded` once fired
+from **1 of 4 writers** and the zero became a stated wrong finding. `measured`: **5** `card_expanded`
+sites at HEAD.
+
+### G-c · decided, and owed only its detail
+*"It's better to not display something rather than display something that's empty"* `[paul-stated
+2026-09-04, re-ruled 09-07]`, plus *an OFF module must look intentional — the grid re-flows or the tile
+row declares itself.* What is owed is the **per-module empty list**, which falls out of the design
+rather than preceding it.
+
+### G-d · half-ruled
+The 09-07 ruling settles the **strip** (it stays — it is the door) and the **cards** (they become the
+glance). ⛔ **It says nothing about the tile row**, and `renderDashboardStrip()` is still a third layer
+at HEAD. That is the actual consolidation decision and it is one sentence.
+
+> ### ⛔ THE DESIGN CONSTRAINT THAT MUST SURVIVE THE CONSOLIDATION
+> `validated` — **the jump strip is the ONE affordance measured 5 of 5.** Every ask-shaped affordance
+> is **0 of 35**. The strip's whole virtue is that **it MOVES her and does not ASK her.** ⛔ Whatever
+> the consolidation does, it must not turn the strip into something that asks — that is the single
+> cheapest way to lose the one thing on this product that works.
+
+### The row, DRAFTED not applied — bundled with §9.6 for Paul's go on canon
+
+> `| **🧭 THE GLANCE CONSOLIDATION — jump strip · summary tiles · cards, three layers repeating one thing** `[paul-raised 2026-09-07]` | ⚙️ engine · declared. Shape ruled 09-07 (strip stays · summaries collapse into cards · re-analyse the closed state); ⛔ **G-a — where RANKING goes — is unruled and is the point of the feature**; G-b's telemetry is `contested` and must be re-measured enumerating every card-open route first. → `.plans/2026-09-07-backlog-grooming-SCAN.md` §11 · census B1–B4 · C7-R1/R2 | — |`
