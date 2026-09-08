@@ -282,6 +282,12 @@ that record no reader verdict at all and nobody notices before the deploy, the d
 7. ⭐ **Ask Paul the two questions this audit may not answer**, both stated in §3: *is the beat numbering
    wrong, or was the lap?* — and, from §2·C2, *are `bob` and `paul` production?* **If yes, the gate is
    keyed on a name where the model says rung, and two origins ship unchecked.**
+   ⭐ **AND NAME THE THIRD UNKNOWN WHILE HE IS ANSWERING, because it has been carried unanswered all
+   day:** `read-geocodes.py` and `watch-feedback.py` both report an estate **`est-d93508`** on the
+   `paul` env, and **nothing in this repo says what it is** — `grep` finds it in no plan, no design
+   doc and no backlog row. `measured` at close-out: 0 records, 0 geocodes, *"the geocoder was not
+   asked."* An empty estate is not a suspicious one; **an estate nobody can name is.** It is the same
+   question as item 7 and should be asked in the same breath.
 
 ⚠️ **What this brief deliberately does NOT do:** it does not rank items 1–7 against anything in
 `BACKLOG.md`, it does not say which of the four unrun spine steps should be revived, and it does not decide
