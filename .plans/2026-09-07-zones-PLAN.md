@@ -24,6 +24,104 @@
 
 ---
 
+## 0 · ⭐⭐ READ THIS FIRST — what the three review seats changed, 2026-09-07 late
+
+*Paul: "definitely call in the experts to review everything first."* Three ran — content-steward (declared
+OWED in this file's own header), ux-expert, engineering-partner re-reviewing after Z-10. **They corrected
+this plan in four material places. The superseded text below is left standing and marked, never edited
+away** — two research passes already carried a wrong organising claim tonight and the record of a wrong
+turn is worth more than a clean file.
+
+### ① ⭐⭐ THE V1 IS AN AMENDMENT TO A SHIPPED SURFACE, NOT A BUILD `[ux-expert; verified in code at HEAD]`
+
+`renderThisMonthPlants()` (`viewer.html:18831`) **already groups plants by care action**. `This Month` is
+the **DEFAULT tab** (`class="plant-view-tab active"`, `:6828`). And the **jump strip — the affordance that
+ran 5-for-5 — points straight at `card-plants`** (`:6540`).
+
+> **Mom's own sentence — *"I'm breaking out the fertilizer, what plants?"* — already has a surface, on her
+> only proven path. It is missing exactly two things: the PLACE PARTITION and the HONEST GAP.**
+
+⭐ This makes *list-primary* **more right than the journey stated**: the list half is an amendment, not a
+build. It re-prices the whole v1.
+
+### ② ⛔ THE LINE THIS PLAN CALLED ITS BEST FEATURE IS FALSE, AND IT IS MIGRATION COPY `[content-steward]`
+
+**Superseded:** *"12 plants on the property don't have a place yet, so they're not on any list. Want to say
+where they are?"*
+
+- ⛔ **Sentence one is false in her world.** Every one of those plants **has** a place — she can walk to it.
+  **What has no place is OUR RECORD.** She is the person who caught a 14× rainfall error by standing in the
+  rain. **Test for any replacement: could she say this sentence aloud and be right?**
+  → *"12 more we haven't written a place for yet — so they can't be on this list."*
+  ⭐ Relocating the gap to the record **removes the blame as a side effect**, which is a better fix than
+  rewording "yet": it names a subject who owes the work, and it is us.
+- ⛔ **Sentence two is an ask**, against an 0-for-35 record. §2 stress-tested sentence one as *"not an ask"*
+  while sentence two ends in a question mark. **That contradiction was mine. Delete the question.**
+- ⛔⛔ **And it is MIGRATION COPY, which follows from Z-10 and this plan failed to carry through.** Placeless
+  plants are a **frozen-instance** condition. At Mom's blank instance there are no plants at all — **the gap
+  runs the other way: EMPTY PLACES, and kinds we cannot point to.** **The v1's voice must not be built on
+  this sentence.**
+
+⚠️ **A contradiction inside this file, named:** §6b says the completeness gap is permanently normal; the
+*"12 → 0 is progress"* argument says it is a defect to grow out of. **Both cannot hold**, and the count can
+go **up**. Unresolved; it is a copy decision nobody has made.
+
+### ③ ⛔ THE EMPTY STATE LIES TODAY, AND n=0 IS WHERE SHE STARTS `[ux-expert; verified]`
+
+`renderThisMonthPlants()` at zero active care types renders **"A quiet September at the property."**
+**The property is not quiet — the record is empty.** One branch serves two opposite claims.
+
+> **The completeness doctrine's first test is not the partial set. It is the EMPTY set, and the app fails it
+> today.**
+
+And **the partial-set lie is told by the GROUP HEADER, not by the copy** — so a global footnote cannot repair
+a local claim, and the split hydrangea family is the proof. Structural fix: the placeless set as a
+**first-class group at the same weight** (6+3+2+**12** = 23, countable), plus a **family denominator at the
+row**. ⭐ **Never let a member stand for its family** — name the family and **name what is missing rather
+than counting it**; four names she recognises is a memory aid, *"4 missing"* is an alarm. And the surface may
+say **"kinds"** (five identities — true), never **"five hydrangeas"** (false, until W6).
+
+### ④ ⭐ LEG 0 IS A GATE MOVE, NOT A BUILD — and my framing was half wrong `[engineering-partner; verified]`
+
+**Retracted:** *"On the instance Mom will actually use, nothing she creates can be saved."* **False.** All
+eight `ghPutFile` sites belong to three handlers — `handlePromoteSpecies` (4), `handleRemoveSpecies` (2),
+`handleZoneSave` (2). The five capture handlers (**feedback · observations · conversations · zone-feedback ·
+zone-audio**) touch **no git at all** and work at `home` today.
+
+**Exactly one create is broken.** `handleZoneSave`'s 503 sits at the **top** of the handler; the KV write it
+blocks is ~80 lines below, carrying the comment *"if git commits fail later, KV still has the new data"*; the
+git commits it should guard are ~100 lines below that. **An early return protecting a later, optional side
+effect. Move the gate down.**
+
+⭐ **My framing survives in the load-bearing half:** that 503 is doing **accidental containment**. Before her
+first save, `home`'s KV has no `zones:all` key — exactly the condition that makes `handleZonesGet` serve
+Fernwood's 23 zones. **So R-Z6(B) is a SAME-COMMIT co-requisite**: the step that enables Z-10 would otherwise
+defeat it on her first map load. → `.plans/2026-09-07-capture-write-path-PLAN.md`.
+
+### ⑤ Four smaller things that must not be lost
+
+- ⭐ **The carve-out that saves this plan's own "answers, never summons" rule** from forbidding the v1:
+  **the system may count its OWN IGNORANCE; it may never count HER outstanding work.**
+- ⛔ **Z-ACK closed ≠ NO ATTRIBUTION.** The ruling closes an acknowledgment **surface**. The provenance chip
+  (*"confirmed on the ground · <month>"*) is **credit-don't-thank** and is the loop close. A loose reading of
+  the ruling would silently delete it.
+- ⚠️ **`ZonePanel`'s "Looks right" is a LOOKALIKE, not the ratified component** — DM Sans outlined where
+  Paul's 2026-07-29 rule 1 says filled + ✓. A measured violation of a standing ruling. Plus four same-weight
+  buttons and **"Delete this place" on the resident surface.**
+- ⛔ **Garden Guru is named in NEITHER research artifact** and is the one shipped consumer of the zone record.
+  The moment plants × zones enters the digest, generated prose inherits the completeness claim **on a
+  Mom-facing channel.**
+
+### ⚠️ Seat limits, stated rather than buried
+**ux-expert has no Bash tool** — my brief told it to serve the app and look at the real thing, which its seat
+structurally cannot do. It read and quoted the rendering code instead, tagging every claim `[CODE@HEAD]` /
+`[MEASURED 09-06]` / `[COULD NOT CHECK]`; three things stay unchecked and it named them. **The brief error is
+mine.** And engineering pre-registered **two read-only checks that would refute its own scope** — POST to the
+five capture endpoints against `home`, and `GET /api/zones` against `home`. **Neither has been run.** The
+second decides whether the zone leak is real or whether a path was read and never exercised.
+
+---
+
 ## 0 · Why this file exists
 
 Zone work has been going on since 2026-07-17. It has produced 23 traced areas, three linear features, two
@@ -142,8 +240,10 @@ list missing a third of the property**, and finish the job believing she was don
 confidently-wrong instrument this project refuses, in the same shape as the 14× rainfall incident — and it
 is now the v1's governing risk.
 
-> ### ⭐⭐ THE REQUIREMENT THAT FOLLOWS, AND IT IS ALSO THE BEST FEATURE
-> **The v1 must show what it does NOT know.**
+> ### ⚠️ SUPERSEDED BY §0 ② — THE REQUIREMENT HOLDS; THE WORDING BELOW IS FALSE AND IS MIGRATION COPY
+> **The v1 must show what it does NOT know.** ⭐ *That half stands and is strengthened.* ⛔ **The sentence
+> below is retained as the record of a wrong turn — content-steward found it says something Mom knows is
+> untrue, and ux-expert found the claim belongs in the GROUP HEADER rather than in a footnote.**
 > *"This month in the Fern Garden — water these 4. · 12 plants on the property don't have a place yet, so
 > they're not on any list."*
 
