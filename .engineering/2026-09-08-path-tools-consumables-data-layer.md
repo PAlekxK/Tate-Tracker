@@ -22,7 +22,27 @@ Recorded here because this is the file that posed them. **These are decisions, n
 |---|---|
 | **Where does the registry live?** ("is the shop record a Fernwood fact or a Paul fact?") | ⭐ **Fernwood `.private/`, built with the CONFIG-SEAM shape** — `paul-decided 2026-09-08`. The recommendation as written. Lives where the evidence and the consumers already are; relocating later is a path change, not a rewrite. ⚠️ **This DEFERS the many-spines question, it does not answer it** — `home-record` and `bronco-parts` cannot reach the registry under this ruling, and that remains a known, accepted limitation rather than an oversight. |
 | **Does the garden enter at v1?** | ⭐ **YES, v1** — `paul-decided 2026-09-08`, in his words: *"it's why I said don't scope narrowly."* Overrides the cheaper "vehicles first" path deliberately. **Consequences he accepted:** the garden has ZERO owned-supply rows anywhere in the portfolio and NO application rates exist (`turf.json` carries no quantity strings), so that data is sourced from scratch rather than seeded; and the Track A tone contract must be designed up front rather than retrofitted, because the garden rendering reaches Mom. |
-| **Has a seasonal put-away ever cost anything?** (the J4 evidence gap) | ⭐ **YES — a second trip, or a machine missed** — `paul-stated 2026-09-08`. **This PROMOTES multi-entity aggregation from `assumption` to `validated`** and earns it a place in v1. It closes the one gap the user-research pass refused to let the battery saga fill: *"a strong adjacent story is exactly how a weak claim gets laundered."* ⚠️ The specific episode is not yet captured — ASK PAUL WHICH MACHINE AND WHICH SEASON before this is cited as evidence in any downstream artifact. A yes-answer is not yet an incident record. |
+| **Has a seasonal put-away ever cost anything?** (the J4 evidence gap) | ⭐ **YES — a second trip, or a machine missed** — `paul-stated 2026-09-08`. **This PROMOTES multi-entity aggregation from `assumption` to `validated`** and earns it a place in v1. It closes the one gap the user-research pass refused to let the battery saga fill: *"a strong adjacent story is exactly how a weak claim gets laundered."* ✅ **DISCHARGED same day** — Paul gave three recurring failure modes in his own words, `paul-stated 2026-09-08`. ⚠️ Grade honestly: this is **PATTERN testimony, not a dated incident** — his words were *"these are all general examples."* Sufficient to hold the job as real; **NOT sufficient to be cited as a measured event, and no count or frequency may be derived from it.** |
+
+### ⭐ The three failure modes Paul named — `paul-stated 2026-09-08`
+
+They are **not one job**, and only the second is the aggregation claim this was asked about:
+
+| His words | The failure | Maps to |
+|---|---|---|
+| *"forgotten to replace an oil filter… on a vehicle that has one when I've done the oil"* | **Completeness WITHIN one job** — the sub-item skipped, on a machine that differs from its siblings | ⭐ **J7 — Mom's *"I don't wanna miss any"* job. Paul has it too.** The research had split these performers; this UNIFIES them on one job with two surfaces |
+| *"had to go down to Jasper multiple times"* | **Aggregation ACROSS the trip** — the trip taken twice | J4 · `P-08` trip assembler. **This is the claim that was being tested, and it holds** |
+| ⭐ *"not had the right tool and then ended up trying to improvise and breaking something"* | **Readiness failure with DAMAGE, not delay** | J3 · `P-09` readiness — but **at a cost class nobody had named until now** |
+
+⭐⭐ **THE THIRD ONE IS NEW AND IT RE-PRICES THE WHOLE THEME.** Every cost modelled up to here was
+time, money or a duplicate purchase — all recoverable. **Improvising with the wrong tool destroys
+the thing being repaired**, which is unrecoverable and can exceed the value of every duplicate
+purchase in the register combined. It also explains a behaviour already in the record without
+needing a new theory: the extreme care over a $9.40 tip, and the refusal to run a bond step until
+the right solvent was confirmed. ⚠️ **Readiness is not a convenience feature. It is damage
+prevention.** No downstream artifact should present it as saving a trip.
+
+
 
 | **Do buckets extend over the agronomy data?** (raised late — a "landscaping" bucket Paul thought might resolve plants-vs-weeds-vs-meadow) | ⛔ **SEPARATED — `paul-ruled 2026-09-08`: *"let's separate those questions."*** The bucket layer here is sized to TOOLS, CONSUMABLES AND SOURCING only. Any reorganisation of `plants.json` · `weeds.json` · `zones.json` · `turf.json`'s meadow regime is **its own thread**, routed to the lap-5 backlog-refinement window as a second, deliberately-unscoped seed. ⚠️ **Neither may become a dependency of the other, in either direction** — the stated reason for separating was that this theme is ready to move and must not stall behind a larger taxonomy question. |
 
