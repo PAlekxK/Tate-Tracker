@@ -1,6 +1,6 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-08T15:48:58-04:00",
+ "generated_at": "2026-09-08T16:04:21-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "3e7bf8a",
  "beat": {
@@ -106,45 +106,43 @@
    "evidence": "measured 2026-09-08 at lap 4 beat 0: `grep -o \"ready: *agent-proposed\" .plans/*.md` = 63 (baseline 25 at lap 2, 38 mid-lap 3). Like-for-like counterpart `ready: paul-*` = 3, ratio 63:3. ⚠️ The mid-lap counter-reading ('paul- stamps 1 -> 14') used ANY `paul-` stamp, a looser predicate, and does not hold on the matching one — recorded so it is not re-borrowed.",
    "outcome": "grew 25 -> 63; NOT read as a failure",
    "ruling": "paul-ruled 2026-09-08, on a CORRECTED premise. His first answer was conditional — 'if this is the feedback I provided during the last lap... it's not a failure' — and the condition was FALSE: the 63 are agent-authored proposals awaiting his ruling, not his input. Re-put with that correction, he ruled: 'with your recommendation. That sounds like us letting the process do the work.' ⭐ THE DISPOSITION IS A ROUTE, NOT A VERDICT: the 63 enter the owed backlog rationalization as candidate rows to be combined and ranked, and P5 is CARRIED into lap 4 against a baseline of 63 — so if the pile is healthy inventory it shrinks through rationalization, and if it is not it reads ~90 at lap 4's close and the question answers itself. Neither reading is asserted now."
-  }
- ],
- "pre_registered_lap4": [
+  },
   {
    "id": "L4-P1-agent-proposed-pile",
    "carried_from": "P5-agent-proposed-pile",
    "question": "Does the `ready: agent-proposed` pile fall below 63 once the rationalization has run?",
    "settles": "`grep -o \"ready: *agent-proposed\" .plans/*.md` at lap 4's close, against 63.",
-   "at_open": "measured 2026-09-08: 63 (vs `ready: paul-*` = 3).",
+   "at_open": "measured 2026-09-08 at lap 4 beat 0: 63 (vs `ready: paul-*` = 3).",
+   "_note": "⛔ A FALL IS NOT AUTOMATICALLY A PASS. Rationalization may KILL rows, which shrinks the count without anything being ruled. Report the split — combined · killed · ruled — or the number lies in the flattering direction.",
    "disposition": "open",
-   "evidence": null,
-   "_note": "⛔ A FALL IS NOT AUTOMATICALLY A PASS. Rationalization may KILL rows, which shrinks the count without anything being ruled. Report the split — combined · killed · ruled — or the number lies in the flattering direction. This is the same defect class as a count without its predicate."
+   "evidence": null
   },
   {
    "id": "L4-P2-rationalization-ran",
    "question": "Did the owed backlog rationalization actually run and get APPLIED, or did it stay a proposal?",
-   "settles": "`check-backlog-drift.py` is silent at lap 4's close AND BACKLOG.md carries a newer `(rationalized <date>)` head marker.",
-   "at_open": "measured 2026-09-08: OWED — last run 2026-09-03 (5d), ranked list 443 lines below its own head (limit 400), BACKLOG.md 3,960 lines, 75 commits since.",
+   "settles": "`check-backlog-drift.py` silent at lap 4's close AND BACKLOG.md carries a newer `(rationalized <date>)` head marker.",
+   "at_open": "measured 2026-09-08: OWED — last run 2026-09-03, ranked list 443 lines below its own head (limit 400), BACKLOG.md 3,960 lines, 75 commits since.",
+   "_note": "⭐ READ THIS ONE BEFORE L4-P1. If the rationalization never runs, P1's number means nothing whichever way it moves.",
    "disposition": "open",
-   "evidence": null,
-   "_note": "⭐ This is the pre-registration L4-P1 DEPENDS ON. If the rationalization never runs, L4-P1's number means nothing whichever way it moves — so read this one FIRST."
+   "evidence": null
   },
   {
    "id": "L4-P3-ci-red-cleared",
-   "question": "Does `Build check (viewer)` go green — i.e. does the extract round-trip divergence get FIXED rather than worked around?",
-   "settles": "`python3 tools/build-viewer.py --selftest` exits 0, and health-probe reports 0 consecutive failures.",
-   "at_open": "measured 2026-09-08: 5 consecutive CI failures. extract() recovers 16 of the template's 22 {{IDENTITY:}} occurrences, losing themeMain, perspectiveTitle, propertyImage. Routed to beat 1 as a build item [paul-approved].",
+   "question": "Does `Build check (viewer)` go green — is the extract round-trip divergence FIXED rather than worked around?",
+   "settles": "`python3 tools/build-viewer.py --selftest` exits 0 and health-probe reports 0 consecutive failures.",
+   "at_open": "measured 2026-09-08: 5 consecutive CI failures; extract() reproduced 16 of the template's 22 IDENTITY sites and no PLACE_LOG. ⭐ ADDRESSED THE SAME DAY at beat 1 — selftest 15/15, round-trip byte-identical, 44/44 placeholders at the right multiplicity. This stays OPEN until CI itself is green on a push, because a local pass is not the check.",
+   "_note": "⛔ SUPPRESSING THE CLAUSE COUNTS AS A FAIL. The honest resolutions are: make extract() round-trip, or DECLARE the divergence as second-viewport's coverage gap was declared. Deleting the clause that sees it is the one route this forbids.",
    "disposition": "open",
-   "evidence": null,
-   "_note": "⛔ SUPPRESSING THE CLAUSE COUNTS AS A FAIL, NOT A PASS. The honest resolutions are: make extract() round-trip, or DECLARE the divergence the way second-viewport's coverage gap was declared. Deleting the clause that can see it is the one route this pre-registration exists to forbid."
+   "evidence": null
   },
   {
    "id": "L4-P4-critical-fail-is-a-mechanism",
-   "question": "Does the first item admitted under the newly-ratified critical-fail exception (spine step 14, K_COORDS) actually SHIP — or does the exception turn out to be a phrase?",
-   "settles": "`clearAnswers()` in onboarding/index.html includes K_COORDS at lap 4's close, and the step-14 falsifier passes: set up place A, sign in as B on the same browser, B never sees A's rows.",
-   "at_open": "measured 2026-09-08: clearAnswers() clears [K_STEP, K_ADDR, K_PARTS, K_NAME, K_RANK, K_PREF] and OMITS K_COORDS (onboarding/index.html:833,1084). Admitted under beat 6's exception, ratified by Paul the same day.",
+   "question": "Does the first item admitted under the newly-ratified critical-fail exception (spine step 14, K_COORDS) actually SHIP — or is the exception a phrase?",
+   "settles": "the two-person falsifier passes on a walked build: set up place A, sign in as B on the same browser, B never sees A's rows.",
+   "at_open": "measured 2026-09-08: clearAnswers() omitted K_COORDS. Fixed at beat 1 the same day (ANSWER_KEYS, one declared home). ⛔ NOT YET SETTLED — the fix is not the exit.",
+   "_note": "⭐ Tests the MECHANISM, not the bug. ⛔ Clearing a key and clearing the LEAK are different claims, so only the two-person walk closes this.",
    "disposition": "open",
-   "evidence": null,
-   "_note": "⭐ This tests the MECHANISM, not the bug. A one-line fix that lands proves an exception ratified at beat 0 can move an item; the same bug still open at close proves the exception is decoration. ⛔ And the fix alone is not the exit — the two-person falsifier is, because clearing a key and clearing the LEAK are different claims."
+   "evidence": null
   }
  ]
 }

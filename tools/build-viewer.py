@@ -36,6 +36,7 @@ failing. A missing file that is NOT declared absent fails loud. An absence is da
 a fork.
 """
 import argparse
+import collections
 import json
 import os
 import re
@@ -162,7 +163,40 @@ IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "stationName":     re.compile(r'(^const STATION_NAME = ")(.*?)(";$)', re.M),
     "station":         re.compile(r'(^const ESTATE_STATION = ")(.*?)(";$)', re.M),
     "absentJs":        re.compile(r'(^const ABSENT_DOMAINS = )(.*?)(;$)', re.M),
+    # ⛔ THE FOUR BELOW HAD NO RULE AT ALL UNTIL 2026-09-08, and that is the whole of the CI red.
+    # `build()` raises on the FIRST identity key with no placeholder, so a key missing from this dict
+    # makes `extract() -> build()` throw `template has no identity placeholder <key>` — which is
+    # exactly what `Build check (viewer)` had been failing on for five consecutive runs.
+    # ⭐ `--check` cannot see it: it compares viewer.html against build(TRACKED template, fernwood),
+    # and both sides are Fernwood, so a lossy extract cancels out. Only the extract round-trip clause
+    # can see it, and that clause is not in CLAUDE.md's session-start block.
+    "themeMain":       re.compile(r'(^const INSTANCE_THEME_MAIN = ")(.*?)(";$)', re.M),
+    "propertyImage":   re.compile(r'(^const PROPERTY_IMAGE = ")(.*?)(";$)', re.M),
+    "propertyIcon":    re.compile(r'(<div class="main-card-icon property" aria-hidden="true">)(.*?)(</div>)'),
+    # ⚠️ ANCHORED ON `mp-head-toggle`, NOT ON THE BARE SPAN. There are TWO `<span class="ic-head-title">`
+    # sites — the Almanac card's (journalTile) and Mama's Perspective's (perspectiveTitle) — and the old
+    # code took the FIRST with a bare `count=1` sub, wrote `journalTile` into it, and left
+    # perspectiveTitle with no rule. A positional match between two interchangeable sites is a
+    # coin-flip that happened to be right about one of them.
+    "perspectiveTitle": re.compile(r'(class="ic-head mp-head-toggle"[\s\S]*?<span class="ic-head-title">)(.*?)(</span>)'),
 }
+
+# ── the SECOND and later sites of a key ─────────────────────────────────────────
+# `build()` replaces EVERY occurrence of a key; `extract()` produced only the first. A key with N
+# sites therefore round-tripped with N-1 of them holding Fernwood's literal text — invisible to
+# `--check` (both sides Fernwood) and invisible to the `--extract` write gate, because
+# `placeholders()` returns a SET and a set cannot notice a lost duplicate.
+# ⛔ That is an ESTATE-NEUTRALITY hazard, not a tidiness one: writing such a template burns
+# "Fernwood Almanac" into the engine's jump strip for every other household.
+# Data, not code, so a new site is one line and the count assertion below catches a missed one.
+IDENTITY_EXTRA = (
+    ("themeMain",    re.compile(r'(var seed = ")(.*?)(";)')),
+    ("journalTile",  re.compile(r'(<span class="ic-head-icon almanac" aria-hidden="true">\U0001F4D6</span>\s*'
+                                r'<span class="ic-head-title">)(.*?)(</span>)')),
+    ("journalTile",  re.compile(r'(<a href="#" data-jump="card-fieldnotes">[\s\S]*?<span class="js-label">)(.*?)(</span>)')),
+    ("journalTile",  re.compile(r'(data-toggle="fieldnotes">[\s\S]*?<div class="main-card-title">)(.*?)(</div>)')),
+    ("propertyTile", re.compile(r'(data-toggle="property">[\s\S]*?<div class="main-card-title">)(.*?)(</div>)')),
+)
 EMPTY_SHAPE = {  # what an ABSENT domain's const looks like — the list key per kind
     "plants": {"_meta": {"declaredAbsent": True}, "plants": []},
     "species": {"_meta": {"declaredAbsent": True}, "species": []},
@@ -272,6 +306,14 @@ def extract(viewer_text):
     if not m:
         raise RuntimeError("extract: `RELEASE_NOTES_DATA` literal not found on one line in viewer.html")
     t = t[:m.start(2)] + "{{RELEASE_NOTES}}" + t[m.end(2):]
+    # ⛔ PLACE_LOG had no rule either — the SECOND placeholder kind `extract()` could not reproduce.
+    # `build()` checks it at :401, so a template extracted without it throws before it ever reaches
+    # the identity loop. Found only after the four identity keys were fixed: one raising check hides
+    # every later one, which is the same shape as the selftest's own aborting-clause defect.
+    m = const_re("PLACE_LOG_DATA").search(t)
+    if not m:
+        raise RuntimeError("extract: `PLACE_LOG_DATA` literal not found on one line in viewer.html")
+    t = t[:m.start(2)] + "{{PLACE_LOG}}" + t[m.end(2):]
     for key, rx in IDENTITY_MARKUP.items():
         m = rx.search(t)
         if not m:
@@ -282,9 +324,12 @@ def extract(viewer_text):
     if not m:
         raise RuntimeError("viewer has no `const DEFAULT_SIZE = \"…\"` line — the text-size toggle moved?")
     t = t[:m.start(2)] + DISPLAY_PH + t[m.end(2):]
-    t = re.sub(r'(<span class="ic-head-title">)(.*?)(</span>)', r'\1{{IDENTITY:journalTile}}\3', t, count=1)
-    t = re.sub(r'(data-toggle="fieldnotes">[\s\S]*?<div class="main-card-title">)(.*?)(</div>)', r'\1{{IDENTITY:journalTile}}\3', t, count=1)
-    t = re.sub(r'(data-toggle="property">[\s\S]*?<div class="main-card-title">)(.*?)(</div>)', r'\1{{IDENTITY:propertyTile}}\3', t, count=1)
+    # further sites for the same keys — declared in IDENTITY_EXTRA, never hand-written here
+    for key, rx in IDENTITY_EXTRA:
+        m = rx.search(t)
+        if not m:
+            raise RuntimeError("extract: additional identity site for `%s` not found" % key)
+        t = t[:m.start(2)] + "{{IDENTITY:%s}}" % key + t[m.end(2):]
     return t
 
 
@@ -524,8 +569,22 @@ def _selftest():
     # now recorded all day: a capability the loop cannot reach is not a capability the loop has.
     check("extract → build round-trips the live viewer byte for byte",
           lambda: build(t, DEFAULT_INSTANCE) == viewer)
-    check("template carries %d DATA + 15 IDENTITY + 2 ESTATE + 1 DISPLAY placeholders" % len(roster()),
-          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 15 and t.count("{{ESTATE:") == 2 and t.count("{{DISPLAY:") == 1)
+    # ⚠️ THE `15` HERE WAS STALE AND READ AS A PASSING SPEC. The tracked template carries 22 IDENTITY
+    # sites, not 15, so this clause was asserting a shape nothing has had for some time — it only ever
+    # went red for an unrelated reason, which is how a wrong constant survives.
+    check("template carries %d DATA + 22 IDENTITY + 2 ESTATE + 1 DISPLAY placeholders" % len(roster()),
+          t.count("{{DATA:") == len(roster()) and t.count("{{IDENTITY:") == 22 and t.count("{{ESTATE:") == 2 and t.count("{{DISPLAY:") == 1)
+    # ⭐⭐ THE INVARIANT THAT WOULD HAVE CAUGHT ALL OF THIS, and the reason it is a MULTISET.
+    # `placeholders()` returns a SET, so it cannot notice that a key with 4 sites came back with 3 —
+    # and `--check` cannot notice either, because both sides of its comparison are Fernwood and a
+    # lossy extract cancels out. A dropped duplicate is not cosmetic: it burns THIS household's
+    # literal text into the engine template at that site, for every other household.
+    # ⛔ Compares against the TRACKED template, so it fails if extract() regresses OR if a new
+    # placeholder site is added to the template without a rule to reproduce it. Both are real.
+    def _ph_counts(txt):
+        return collections.Counter(re.findall(r"\{\{[A-Z_]+(?::[A-Za-z0-9_]+)?\}\}", txt))
+    check("extract() reproduces EVERY placeholder site, with the right multiplicity (not just the set)",
+          lambda: _ph_counts(t) == _ph_counts(open(TEMPLATE, encoding="utf-8").read()))
     # a changed source must change the build (so --check can go red)
     with tempfile.TemporaryDirectory() as d:
         inst = os.path.join(d, "instance"); os.makedirs(inst)

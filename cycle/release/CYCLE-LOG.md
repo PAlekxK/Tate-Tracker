@@ -1682,3 +1682,60 @@ ruling, and none of these four needs Paul to resolve. But the count is held to f
 **▶️ NEXT: beat 1 — a BUILD exists.** QA serves `3e7bf8a`, 10 commits behind HEAD, no app surface among
 them. The build item routed here at beat 0 is the **extract round-trip divergence** (L4-P3).
 
+
+## Beat 1 — a BUILD exists
+
+Two build items, both routed here at beat 0, both landed before the deploy.
+
+**① The extract round-trip divergence — L4-P3.** `extract()` could not reproduce **6 of the tracked
+template's 44 placeholder sites**, and `build()` raises on the first one missing, so the CI red was a
+single symptom of several holes stacked behind each other:
+
+| what was missing | why nothing caught it |
+|---|---|
+| `themeMain` · `propertyImage` · `propertyIcon` · `perspectiveTitle` — **four keys with no rule at all** | `build()` raises on the FIRST such key, so fixing one only revealed the next |
+| **`{{PLACE_LOG}}`** — a whole placeholder KIND with no rule | found only after the four identity keys, for the same reason |
+| `journalTile`'s 4th site (the jump-strip label) | `placeholders()` returns a **SET**, and a set cannot notice a key with 4 sites coming back with 3 |
+
+⭐ **The `perspectiveTitle` one is the instructive failure.** There are **two** `<span class="ic-head-title">`
+sites — the Almanac card's and Mama's Perspective's — and the old code took the first with a bare
+`count=1` substitution, wrote `journalTile` into it, and left `perspectiveTitle` with no rule at all.
+**A positional match between two interchangeable sites is a coin-flip that happened to be right about
+one of them.** Both are now anchored on something unique (`ic-head-icon almanac`, `mp-head-toggle`).
+
+⛔ **And the dropped-duplicate class is an ESTATE-NEUTRALITY hazard, not a tidiness one.** A key whose
+4th site never became a placeholder means `--extract` would write **"Fernwood Almanac" into the
+engine's jump strip** — this household's literal text, in the file every other household is built
+from. That is the exact class the estate-neutrality work exists to prevent, and neither `--check`
+(both sides Fernwood, so the loss cancels) nor the `--extract` write gate (a set) could see it.
+
+✅ **Result:** `--selftest` **15/15**, round-trip byte-identical, **44/44 placeholders at the right
+multiplicity**, `--extract` now writes the tracked template byte-for-byte, `git diff` on the template
+clean. Two further repairs along the way: the clause asserting *"15 IDENTITY placeholders"* was
+**stale** — the template has had 22 for some time, and the clause only ever went red for an unrelated
+reason, which is how a wrong constant survives; and a **multiset** assertion was added, which is the
+invariant that would have caught every row in the table above.
+
+**② `K_COORDS` — L4-P4, the first item admitted under the critical-fail exception.** `clearAnswers()`
+cleared six keys and omitted `K_COORDS`, so on a shared browser person B inherited person A's
+coordinates. The list is now `ANSWER_KEYS`, declared once, because it was hand-maintained inline and
+had already drifted once before (the `K_PREF` ordering bug, recorded in its own comment).
+⚠️ **Three keys are named in that comment as arguably in the set and deliberately left out** —
+`K_COLOR`, `K_COLOR_CHOSEN`, `K_CONTACT_CHOSEN`. By the same reasoning they should not survive an
+owner change either, but that is a behaviour change nobody has ruled and the ruling covered the
+coordinate hole. Named rather than silently folded in or silently dropped.
+⛔ **The fix is NOT L4-P4's exit.** Clearing a key and clearing the leak are different claims; only
+the two-person walk closes it.
+
+### ⚠️ Two tooling defects found by using the tools
+
+1. **`release-state.py --pre-register` prints a past-tense success and writes nothing** unless `--write`
+   is also passed. It printed `✚ pre-registered: L4-P1, L4-P2, L4-P3, L4-P4` and the file was unchanged.
+   A tool that says it did the thing is worse than one that refuses.
+2. **The state artifact silently drops top-level keys it does not know.** A hand-added
+   `pre_registered_lap4` was deleted by the next `release-state.py` run, which rebuilds from `prior`
+   and deep-copies only `pre_registered`. The lap-4 questions now live in `pre_registered` via the
+   sanctioned `--pre-register` route, which is where they belonged.
+   ⭐ Both were found the same way: **by running the tool and then checking the world rather than the
+   output** — the repo's own standing rule, applied to its own instruments.
+

@@ -1143,8 +1143,18 @@
   // ORIGIN, so the page resumed a different person's progress and showed them an address they had
   // never typed, on the confirm screen, skipping the naming step entirely. The credential had
   // changed; the data had not. Every test rig missed it because they all open a fresh context.
+  // ⛔ THE ANSWER SET — every key holding a PERSON'S answers, wiped when the credential changes.
+  // Declared once, here, because this list was hand-maintained inline and drifted: K_COORDS was
+  // missing from it, so on a shared browser person B inherited person A's COORDINATES — one
+  // household's record reaching another, which is the leak class the estate-neutrality work exists
+  // to prevent. Admitted under beat 6's critical-fail exception and ruled by Paul 2026-09-08.
+  // ⚠️ THREE MORE KEYS ARE ARGUABLY IN THIS SET AND ARE DELIBERATELY NOT: K_COLOR ("the account's
+  // chosen accent"), K_COLOR_CHOSEN and K_CONTACT_CHOSEN. By the same reasoning they should not
+  // survive an owner change either — but that is a behaviour change nobody has ruled, and the
+  // ruling covered the coordinate hole. Named here rather than silently folded in or silently left.
+  var ANSWER_KEYS = [K_STEP, K_ADDR, K_PARTS, K_NAME, K_RANK, K_PREF, K_COORDS];
   function clearAnswers() {
-    [K_STEP, K_ADDR, K_PARTS, K_NAME, K_RANK, K_PREF].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+    ANSWER_KEYS.forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
   }
   var grant = read(K_GRANT);
   var owner = read(K_OWNER);
