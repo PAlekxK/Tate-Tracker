@@ -413,7 +413,23 @@ def main():
     ap.add_argument("--origin", choices=["qa", "lab", "home"], default="qa",
                     help="which origin to walk (default qa — gate 1). lab is gate 2. "
                          "⚠️ home is PRODUCTION and writes real rows into Mom's estate.")
+    # ⛔⛔ THE FAILURE BRANCH, WHICH NOTHING HAS EVER WALKED (spine step 10, 2026-09-08).
+    # `measured`: every walk on record runs `--fresh`, i.e. signs UP. Not one has arrived with a
+    # credential the record REFUSES — and that is the journey Paul actually took on 2026-09-08, when
+    # his grant was absent from the live store, /homes/ told him he had no homes, and the "add a
+    # home" door answered one-account-one-home. Gate ① has been green on a journey no real person
+    # had taken twice.
+    # ⭐ It is a walker, not a unit test, because the defect was never in one function: the Worker
+    # answered correctly (a deliberate 404), each client read not-2xx as null, and the SCREEN kept
+    # the empty state it had already painted. Only walking it end to end shows the sentence.
+    ap.add_argument("--dead-credential", action="store_true",
+                    help="arrive holding a credential the record does not know — the RETURNING "
+                         "person whose grant has gone. Walks the failure branch, which no walk on "
+                         "record has ever taken. Mutually exclusive with --fresh.")
     a = ap.parse_args()
+    if getattr(a, "dead_credential", False) and a.fresh:
+        raise SystemExit("journey-walk: --dead-credential and --fresh are opposites — one arrives "
+                         "with a credential that fails, the other creates an account.")
     if a.selftest:
         return selftest()
     if not a.role:
@@ -438,7 +454,12 @@ def main():
     # when this is present, so a test row can be found and removed later without guessing — and so a
     # reading of "what people told us" is never quietly a reading of what our own harness typed.
     # The run id IS the run folder, so a KV row joins to this walk's transcript with no inference.
-    url = base + "?g=" + (v.get("token") or "") + "&syn=" + run
+    # ⭐ A DEAD CREDENTIAL IS SHAPED LIKE A LIVE ONE AND IS NOT IN THE STORE — which is exactly the
+    # state that answers `unknown-or-other-estate` at the door. It is NOT an empty string: "no
+    # credential" and "a credential the record refuses" are different journeys and the whole finding
+    # is that the product renders them the same. The suffix makes it unmistakable in a door record.
+    _tok = ("dead-" + run + "-neverminted") if getattr(a, "dead_credential", False) else (v.get("token") or "")
+    url = base + "?g=" + _tok + "&syn=" + run
 
     # ⛔ THE SEATS MUST NOT TYPE THE SAME THING. Measured 2026-09-06: all four seats — mom, owner,
     # strict, wide-eyed — typed "A place / 1 Example Road / Jasper / GA / 30143", because this
