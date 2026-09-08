@@ -323,8 +323,11 @@
        2026-09-08 after re-opening a spent invite, and the only thing offered was "ask Paul". For
        Mom, "ask Paul" IS the escalation this door exists to avoid. -->
   <section id="s-nolink" class="card" hidden>
-    <p class="lede">This link isn't working.</p>
-    <p class="soft">If you've set up your place before, you can sign back in here.</p>
+    <!-- ⚠️ TWO WAYS IN, TWO OPENING LINES. Reached from a broken link this must explain the dead
+         end; reached deliberately from "Been here before?" that sentence is false and slightly
+         alarming. The lede is set by whichever route brought the reader here. -->
+    <p class="lede" id="si-lede">This link isn't working.</p>
+    <p class="soft" id="si-sub">If you've set up your place before, you can sign back in here.</p>
 
     <div class="field">
       <label for="si-user">Your username</label>
@@ -358,6 +361,19 @@
     <!-- Shown only to someone who arrived on a link. Without it she taps an invitation and meets a
          signup form with no explanation of why the thing she was invited to is asking her to join. -->
     <p id="s0invite" class="soft" style="margin-bottom:10px" hidden><strong>You've been invited.</strong> Create your account.</p>
+    <!-- ⭐⭐ ONE DOOR, TWO ANSWERS `[spine step 12, 2026-09-08]`. The sign-in door has existed and
+         worked since 5cee0a8 — username, password, POST /api/session — and a returning person
+         COULD NOT REACH IT. The routing above tests a localStorage key (`K_USER`), so a clean
+         browser is sent to CREATE AN ACCOUNT, under a username that is already taken.
+         ⛔ MEASURED, not argued: `journey-walk --dead-credential` arrives with a credential the
+         record refuses and lands on "You've been invited. Create your account." Paul walked the
+         same wall on 2026-09-08 and asked "is there a login screen that we should go through
+         first" — there was, and nothing could get to it. 20 people reached the QA door that day
+         and 0 got through.
+         ⭐ THE FIX IS TO STOP GUESSING. A device cannot know whether someone is new; the person
+         knows. So both answers are offered and neither is inferred from storage. -->
+    <p class="soft" style="margin-bottom:14px">Been here before?
+      <a href="#" id="s0-signin">Sign in instead ›</a></p>
     <!-- ⭐ THE INTRODUCTION `[paul-ruled 2026-09-05: "we" in general]`. Three "Paul"s appear further
          down this screen and nothing said who he was — on the screen where she is asked to trust a
          stranger with her address. It used to sit on s2, three screens late; the invite-routing
@@ -1890,6 +1906,32 @@
     if (grant) {
       el.s0invite.hidden = false;                    // say why she is being asked, since she was invited
     }
+    // ⭐ THE DOOR IS WIRED HERE, at the one place a returning person is turned away. Deliberate
+    // arrival rewrites the lede — reached this way, "This link isn't working" is false — and it
+    // RECORDS ITSELF, because B2i ships with B2: a route nothing counts is a route nobody can tell
+    // is being used. `door_reached` with reason "chose-sign-in" distinguishes someone who CHOSE the
+    // door from someone a broken link dumped there, and the two readings want different fixes.
+    try {
+      var _si = document.getElementById("s0-signin");
+      if (_si) _si.addEventListener("click", function (e) {
+        e.preventDefault();
+        try {
+          var L = document.getElementById("si-lede"), S = document.getElementById("si-sub");
+          if (L) L.textContent = "Welcome back.";
+          if (S) S.textContent = "Sign in and your place is where you left it.";
+        } catch (err) {}
+        // ⛔ Fire-and-forget, and never a gate: an instrumentation failure must not stand between a
+        // person and their own home. Same posture the door's own handler already takes.
+        try {
+          if (WORKER) fetch(WORKER + "/api/door", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ event: "door_reached", door: "entry", reason: "chose-sign-in" }),
+            keepalive: true })["catch"](function () {});
+        } catch (err) {}
+        show("s-nolink");
+        try { document.getElementById("si-user").focus(); } catch (err) {}
+      });
+    } catch (e) {}
     show("s0"); el.uname.focus(); return;
   }
 
