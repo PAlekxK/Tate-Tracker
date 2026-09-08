@@ -203,12 +203,17 @@ gate's credibility before the day it is genuinely owed, at Bob's estate. → eng
 
 | | | state |
 |---|---|---|
-| **S1** state artifact | `cycle/release/cycle-state.json` | ⬜ to build |
-| **S2** human gate | beats 3 and 5 — Paul walks, Paul clears | ✅ defined; ⬜ recording it is new |
-| **S3** a check seen to fail | `walk-integrity.py` + `tools/release-gate.py` | ✅ strongest element; gate now reads it |
-| **S4** closes | a lap closes when Paul clears a sha | ⬜ to record |
-| **S5** self-improvement | pre-registered per lap in `CYCLE-LOG.md` | ⬜ |
-| **S6** glanceable | `release-gate.py` prints one screen | ⬜ to build |
+| **S1** state artifact | `cycle/release/cycle-state.json` | ✅ **built** — written by `release-state.py`, hooked to post-commit, and read by the portfolio board since 2026-09-07 |
+| **S2** human gate | beats 3 and 5 — Paul walks, Paul clears; beats 6 and 10 since A-1 | ✅ defined **and recorded** — `beat.owner: "paul"` and `cleared_sha` is written only on his word |
+| **S3** a check seen to fail | `walk-integrity.py` + `tools/release-gate.py` | ✅ strongest element; both carry mutation-proven selftests |
+| **S4** closes | a lap closes when Paul clears a sha | ✅ **recorded** — the CHRONICLE is the source `[J-c]`, `lap_outcomes()` parses it, and a malformed heading fails loudly via `lap_heading_anomalies()` |
+| **S5** self-improvement | pre-registered per lap in `CYCLE-LOG.md` | 🟡 **half** — lap 1's two are DISPOSED (`answered` · `dropped`), but ⛔ **lap 3's P1–P5 exist in prose only**; `release-state.py` carries `pre_registered[]` forward and never adds, so there is nothing to discharge them against at close `[process-audit D3]` |
+| **S6** glanceable | `release-gate.py` prints one screen | ✅ **built**, and it now prints its own **coverage** line (viewport), not just its verdict |
+
+⚠️ **This table read `⬜ to build` on S1/S4/S5/S6 until 2026-09-07** — all four were built or ruled
+during laps 2 and 3 while the table 170 lines above went untouched, including by a commit that edited
+this very file. `[process-audit D5]` It is the same failure the audit found eight times over: **a
+claim living in two places, and the change reaching one.** Re-read this table at every lap close.
 
 ---
 

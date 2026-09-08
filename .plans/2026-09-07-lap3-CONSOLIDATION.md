@@ -2,7 +2,13 @@
 
 - row: process — no BACKLOG row, same posture as the lap-boundary PROCESS and the flex-point AUDIT
 - objective: O5 (the loops are the artifact)
-- kind: record
+- kind: census
+  <!-- `record` was written first and is NOT in KINDS. Reusing `census` rather than widening the
+       enum: this file IS a census — of the four channels Paul's input arrives on and which are
+       readable. [[feedback_reuse_vocabulary_before_adding_state]] — demonstrated need, not scarcity.
+       ⚠️ `record` is nonetheless in de-facto use by the -CAPTURE files, which escape grading
+       because their suffix is not in DOC_SUFFIXES either. Whether `record` earns a place in the
+       enum is a vocabulary call for whoever owns the tool, not a side effect of this fix. -->
 - class: engine · declared
 - seats: none — this is a census of CHANNELS, not a review. No surface, no copy, no model, no person
   is studied here. Seats enter at beat 7, after Paul disposes.
@@ -11,8 +17,13 @@
 - depends-on: .plans/2026-09-07-lap3-paul-feedback-CAPTURE-2.md
 - depends-on: .private/synthetic-walks/GATE2-paul-findings.md
 - ready: agent-proposed 2026-09-07 — **Paul rules**
-- stage: draft
 - gate: ⛔ NOTHING HERE EXECUTES and nothing is ranked. This is a coverage census.
+- stage-note: 2026-09-07 — `stage:` REMOVED and `-CONSOLIDATION` added to `DOC_SUFFIXES`
+  `[process-audit D6]`. This file was graded by no instrument at all: its suffix was in
+  neither the doc list nor the PLAN/PROPOSAL readiness glob, so beat 1's whole output looked
+  governed and was checked by nothing. Under R4 a document declares `kind:` and never
+  `stage:` — the stage information lives here instead, which is the same shape
+  `2026-09-07-lap3-PROCESS-AUDIT.md` chose for itself.
 - stage-note: 2026-09-07 — written because Paul asked three things in sequence: *"be sure we're
   pulling in feedback from both of my laps"*, then *"I also submitted feedback within the website in
   the application, not just talking through it to your terminal — make sure you see that in all my

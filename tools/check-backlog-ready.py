@@ -69,8 +69,15 @@ KINDS = {"audit", "process", "design", "state", "census", "charter", "practice",
 # Only documents whose FILENAME declares a type are graded here. The 16 pre-convention files in
 # `.plans/` carry no suffix and are left alone — a control that is red on every legacy file is one
 # nobody reads, which this repo has ruled against.
+# ⭐ `-CONSOLIDATION` added 2026-09-07 `[process-audit D6]`: beat 1's entire output was graded by
+# NOTHING — the suffix was in neither this tuple nor the PLAN/PROPOSAL readiness glob, so the file
+# was invisible to every instrument in the repo while looking exactly like a governed document.
+# ⚠️ `-PROPOSAL` is STILL absent and that is left alone deliberately: whether a proposal is a
+# DOCUMENT or an ITEM (it plausibly tracks a thing through concept -> build) is a real call that
+# changes what the gate means, and it belongs to whoever owns this tool — not to a session that
+# noticed the asymmetry while fixing something else.
 DOC_SUFFIXES = ("-AUDIT", "-PROCESS", "-DESIGN", "-STATE", "-CENSUS", "-CHARTER", "-PRACTICE",
-                "-DECISIONS", "-SCAN", "-REQUIREMENT", "-ARCHAEOLOGY", "-MINE")
+                "-DECISIONS", "-SCAN", "-REQUIREMENT", "-ARCHAEOLOGY", "-MINE", "-CONSOLIDATION")
 REPEATABLE = {"stage-note"}   # a dated LOG line, appended per event — many is the design, not a disagreement
 IN_FLIGHT = {"concept", "design", "journey", "build", "qa"}
 

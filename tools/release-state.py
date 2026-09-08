@@ -99,8 +99,20 @@ def derive(cleared=None, prior=None, sha=None):
         "generated_at": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
         "generated_by": "tools/release-state.py",
         "candidate_sha": sha[:7],
-        "beat": {"n": beat, "of": 5, "owner": owner,
-                 "name": {2: "the synthetic loop", 3: "Paul walks it", 5: "Paul cleared it"}[beat]},
+        # ⛔ "of": 5 WAS FALSE AFTER A-1 `[process-audit D2, 2026-09-07]`. The map gained beats 0 and
+        # 6-11 that night; this line kept publishing a five-beat loop, so `cycle-state.json` read
+        # "beat 2 of 5" while the loop was sitting in the estate-manager beats — and
+        # operating-layer's portfolio render recorded that false beat as verified.
+        # ⭐ AND THE HONEST HALF, which is why `derivable` exists rather than just bumping the 5:
+        # this tool derives from the GATE and GIT, and those can only ever speak to beats 2, 3 and 5.
+        # Beats 0, 1 and 6-11 are human or session beats with no artifact to read, so a number here
+        # is not evidence about them. Publishing `of: 11` alone would have swapped one false claim
+        # for a vaguer one; naming what is derivable says which part of the count is measured.
+        "beat": {"n": beat, "of": 11, "owner": owner,
+                 "name": {2: "the synthetic loop", 3: "Paul walks it", 5: "Paul cleared it"}[beat],
+                 "derivable": [2, 3, 5],
+                 "_note": "beats 0, 1 and 6-11 are human or session beats this tool cannot observe; "
+                          "`n` is only ever one of `derivable`. Read CYCLE-MAP.md for the full ladder."},
         "gate_1": {"seats_pass": seats_pass, "ux_clause": "UNCHECKABLE — no artifact convention",
                    "seats": seats},
         "lap_count": lap_count,
@@ -109,6 +121,10 @@ def derive(cleared=None, prior=None, sha=None):
         # Empty is not proof of completeness — only that nothing heading-shaped was rejected.
         "lap_heading_anomalies": [{"line": n, "text": t} for n, t in anomalies],
         "pre_registered": prior.get("pre_registered") or [
+            # ⛔ `disposition` IS THE SPINE'S ENUM — `open | answered | carried | dropped`
+            # (CYCLE-SPINE.md:210), and `answered` requires non-empty `evidence`. Lap 3 wrote
+            # "closed" and "retired" here, both off the enum — the same class as the
+            # `outcome: "cleared"` bug fixed in the neighbouring field, in the same commit.
             {"id": "instrumented-counted", "question": "at the lap-1 candidate sha, does every seat's capture.json show ≥1 app event via grant?",
              "disposition": "open", "evidence": None},
             {"id": "second-viewport", "question": "does a laptop-width walk find what 414 hides (Paul found one on 2026-09-06)?",

@@ -40,19 +40,21 @@
   {
    "id": "instrumented-counted",
    "question": "at the lap-1 candidate sha, does every seat's capture.json show ≥1 app event via grant?",
-   "disposition": "closed",
+   "disposition": "answered",
    "evidence": "4 of 4 seats at the lap-1 candidate c821051 show app.events=5 via ['grant'] (mom 110051 · owner 110154 · strict 110257 · wide-eyed 110358); mirrored by gate_1.seats.*.instrumented. Retro .plans/2026-09-07-lap2-RETRO.md §5.",
    "outcome": "yes",
-   "caveat": "⚠️ ANSWERED, NOT PROMOTED. The five events are generic app telemetry (session_start · text_size_served · jumpstrip_viewed · card_section_viewed · session_end), so a green `instrumented` proves the app phoned home, NOT that this lap's feature is instrumented. Promoting it into release-gate.CLAUSES as written would satisfy the letter and miss Paul's ask (A2). → retro C-6."
+   "caveat": "⚠️ ANSWERED, NOT PROMOTED. The five events are generic app telemetry (session_start · text_size_served · jumpstrip_viewed · card_section_viewed · session_end), so a green `instrumented` proves the app phoned home, NOT that this lap's feature is instrumented. Promoting it into release-gate.CLAUSES as written would satisfy the letter and miss Paul's ask (A2). → retro C-6.",
+   "_disposition_was": "closed — off the spine enum (open|answered|carried|dropped), corrected 2026-09-07"
   },
   {
    "id": "second-viewport",
    "question": "does a laptop-width walk find what 414 hides (Paul found one on 2026-09-06)?",
-   "disposition": "retired",
+   "disposition": "dropped",
    "evidence": "journey-view.py hardcodes viewport 414x848 with no flag, so zero laptop-width walks exist and none can be produced by the loop's own tooling. The question was addressed to an instrument that cannot answer it.",
    "outcome": "not-answered-by-design",
    "ruling": "paul-ruled 2026-09-07: retire the pre-registration; do NOT build the flag; DECLARE the gap instead. release-gate.py now prints a coverage line reading the viewport constant out of journey-view.py, so every gate states that a pass says nothing about laptop width. Counted, never graded — the line refuses nothing.",
-   "why_not_build": "Mom is the make-or-break user and she is on a phone at A+; 414 is the design centre and a laptop has no confirmed user but Paul. ⛔ But 'Paul will catch it' is not coverage — a channel he already covers is a LEADING INDICATOR, not a safety net — so the gap is stated every lap rather than left silently absent. The flag stays available if it ever earns itself."
+   "why_not_build": "Mom is the make-or-break user and she is on a phone at A+; 414 is the design centre and a laptop has no confirmed user but Paul. ⛔ But 'Paul will catch it' is not coverage — a channel he already covers is a LEADING INDICATOR, not a safety net — so the gap is stated every lap rather than left silently absent. The flag stays available if it ever earns itself.",
+   "_disposition_was": "retired — off the spine enum (open|answered|carried|dropped), corrected 2026-09-07"
   }
  ]
 }

@@ -60,7 +60,7 @@ that drifts, and this one is the one that must never quietly return zero.
 its members (`CLAUDE.md`, 2026-08-28). There is no watermark at all: an undisposed record is listed
 every run, forever, so nothing can bury one. There is no `--dispose-all`.
 """
-import argparse, collections, datetime as dt, importlib.util, json, os, sys
+import argparse, re, collections, datetime as dt, importlib.util, json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -135,6 +135,9 @@ NO_READER = {
 }
 
 DISPOSITIONS = ("act", "fold", "hold", "not-a-finding")
+
+# A daily key is `YYYY-MM-DD`. Used to decide whether a channel's keys may be CALLED days.
+DATE_KEY_RX = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 # §C.5's labelling contract. ⛔ COUNTED, NEVER GRADED: a grade would read red on every record written
 # before the contract existed, which is the permanently-red alarm this repo forbids. Its own
@@ -260,7 +263,8 @@ def sweep(envs, state, disp, days=None, write=True, chan=channels, feed=read_fee
         cfg = ENVIRONMENTS.get(env) or {}
         estate = cfg.get("estate")
         row = {"env": env, "estate": estate, "result": None, "why": None,
-               "channels": {}, "unread_channels": [], "records": [], "undisposed": [],
+               "channels": {}, "unread_channels": [], "channel_key_shape": {},
+               "records": [], "undisposed": [],
                "bad_days": [], "coverage": (0, 0), "divergent": [],
                "lastCheckedAt": (state["envs"].get(env) or {}).get("lastCheckedAt")}
         if not estate:
@@ -278,6 +282,11 @@ def sweep(envs, state, disp, days=None, write=True, chan=channels, feed=read_fee
         for kind, dates in sorted(found.items()):
             if kind in READS_HERE or kind in READ_ELSEWHERE:
                 continue
+            # ⭐ Say what the keys ACTUALLY are before naming them. A channel keyed by date gets
+            # "day"; anything else gets "key", and the reader is not told a span of time that the
+            # store never claimed.
+            row["channel_key_shape"][kind] = (
+                "day" if dates and all(DATE_KEY_RX.match(str(d)) for d in dates) else "key")
             row["unread_channels"].append((kind, len(dates),
                                            NO_READER.get(kind, "no reader is known to this tool")))
 
@@ -374,7 +383,15 @@ def render(report, show_all=False):
             lines.append("        … and %d more awaiting disposition — `--env %s --all` prints every one"
                          % (len(r["undisposed"]) - len(shown), r["env"]))
         for kind, n, why in r["unread_channels"]:
-            lines.append("        📦 channel `%s` holds %d day(s) and NO TOOL READS IT — %s" % (kind, n, why))
+            # ⛔ "day(s)" WAS A LIE ON ANY CHANNEL NOT KEYED BY DATE `[process-audit G8, 2026-09-07]`.
+            # The number is len(keys); for `library` that printed "holds 8114 day(s)" — 22 years —
+            # in every beat-0 sweep, because that channel's keys are not dates at all. The COUNT was
+            # right and the NOUN was wrong, which is the failure mode this repo names
+            # `[[reference_match_payload_not_container]]`: a plausible number under a word that does
+            # not describe it is worse than an error, because nobody checks it.
+            shape = r.get("channel_key_shape", {}).get(kind) or "key"
+            lines.append("        📦 channel `%s` holds %d %s(s) and NO TOOL READS IT — %s"
+                         % (kind, n, shape, why))
         if r["divergent"]:
             lines.append("        ⚡ personId(s) the local register does not know at %s: %s"
                          % (r["estate"], ", ".join(r["divergent"])))
