@@ -218,14 +218,38 @@ def journey_returning(answers, origin=""):
         "shot:R02-identity",
         # ⛔ THE HANDOFF IS THE TEST. A recognised person should be carried onward, not re-onboarded.
         # If `#gohome` is absent this action fails, and that is the answer, not an accident.
-        "click:#gohome", "shot:R03-handoff",
+        # ⛔⛔ THERE IS NO HANDOFF TO CLICK ANY MORE, and that is the FIX, not a regression.
+        # This stop used to be `click:#gohome` — the way onward from the onboarding handoff card. A
+        # recognised person never sees that card: `whoami` confirms the account and the product sends
+        # them straight to their place. `measured` 2026-09-08 at ec88009 — R01 arrives titled
+        # "Hollow Creek Road" with the place's own chrome, so the click timed out against a screen
+        # nobody is shown. Removing a step means removing its stop, which is the same rule as
+        # "adding a surface means adding its stop, in the same change."
+        "shot:R03-already-there",
         # Their own shelf: is the place they already made actually here?
         'click:a[href="/homes/"]', "shot:R04-places",
-        "goto:" + base + "/estate/", "shot:R05-estate",
+        # ⛔ CLICKED BACK, NEVER `goto:`. This was `goto:<origin>/estate/`, which is precisely the
+        # routing-around the suite's own handoff clause exists to forbid — it would have shown a
+        # working estate page even on a build where nothing could reach it. The person came from
+        # their place, so they go back the way a person does.
+        # ⚠️ THE SHELF'S OWN HREF, not a tidied one: `/estate/?fb=1&from=homes`. A prefix match is
+        # used because the query string is the shelf telling the estate page where the reader came
+        # from — inventing a bare `/estate/` selector here timed out against a link that exists.
+        'click:a[href^="/estate/"]', "shot:R05-estate",
         # ⭐ Through the door the same way a person goes through it.
         "click:#openapp", "shot:R06-the-app",
         # ⭐ W6 — "let me see and change what I told you." Only reachable by someone who has already
         # told us something, so a fresh walk can never test it.
+        # ⛔⛔ BACK TO THE SHELF FIRST, BECAUSE THERE IS NO OTHER WAY. `measured` 2026-09-08: the app
+        # and the estate page link ONLY to `/settings/place/`; `/settings/account/` is linked from
+        # `/homes/` and nowhere else. So from inside their own place, a person cannot reach their own
+        # account — they must leave to the shelf. The masthead reads "‹ Your homes · What you told me
+        # · Settings" and that Settings is the PLACE's, which is the ambiguity TIER 2 · 21 already
+        # names from the other direction.
+        # ⚠️ This walks the route that EXISTS rather than the one that should. The finding is recorded
+        # here and belongs to TIER 2 · 18 (the account-lifecycle sweep); the walk's job is to describe
+        # the product truthfully, not to assert the fix by routing as if it had landed.
+        'click:a[href="/homes/"]',
         'click:a[href="/settings/account/"]', "shot:R07-account-settings",
     ]
 
@@ -369,10 +393,16 @@ def selftest():
     # ⛔ THE ONE THAT MATTERS MOST. A returning walk must be reachable by CLICKING the handoff. If a
     # future edit routes past it with `goto:`, the walk would go green over a door nobody can open —
     # which is the exact shape of every false green this file already records.
-    check("the handoff is CLICKED, never routed around",
-          "click:#gohome" in tok and not any(x.startswith("goto:") and "estate" in x
-                                             for x in tok[:tok.index("click:#gohome")]),
-          "a goto: precedes the handoff, so a broken handoff would not fail the walk")
+    # ⛔ THE CLAUSE SURVIVES ITS OWN SUBJECT BEING DELETED, and it is stronger now. It used to assert
+    # `click:#gohome` is present and un-routed-around. The handoff card is gone from this journey —
+    # a recognised person is redirected past it — so asserting the click would pin the suite to a
+    # screen the product no longer shows. What it was DEFENDING is what is kept: the walk must reach
+    # the estate the way a person does, never by `goto:`, or a build where nothing can reach it still
+    # walks green. That is the identical failure the original clause named.
+    check("the returning walk REACHES the estate, never routes around to it",
+          not any(x.startswith("goto:") and "estate" in x for x in tok)
+          and any(x.startswith("click:") and "/estate/" in x for x in tok),
+          "a goto: reaches the estate, so an unreachable estate would still walk green")
 
     # 3 · every declared stop must actually be captured, or a stop silently stops existing
     shots = [x[5:] for x in fresh if x.startswith("shot:")]
