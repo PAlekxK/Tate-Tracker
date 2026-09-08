@@ -330,7 +330,27 @@ def build(template_text, instance_path):
         from pathlib import Path as _P
         entries = brn.parse_release_notes(_P(notes_path))[:5]   # the same "latest 5" build-release-notes.py inlines
     out = out.replace("{{RELEASE_NOTES}}", json.dumps(entries, ensure_ascii=False), 1)
-    if "{{DATA:" in out or "{{IDENTITY:" in out or "{{ESTATE:" in out or "{{DISPLAY:" in out or "{{RELEASE_NOTES}}" in out:
+
+    # ⭐ THE PLACE LOG — the second changelog `[paul-ruled 2026-09-07]`, DERIVED per household from
+    # that household's own dated records rather than authored. An instance whose sources are absent
+    # derives an empty list and the card hides itself, which is the correct output for a household
+    # hours old — "nothing has happened here yet", never a failure face.
+    if "{{PLACE_LOG}}" not in out:
+        raise RuntimeError("template has no {{PLACE_LOG}} placeholder — is the template stale? (--extract)")
+    place_rows = []
+    try:
+        import importlib.util as _il
+        _sp = _il.spec_from_file_location("bpl", os.path.join(HERE, "build-place-log.py"))
+        _bpl = _il.module_from_spec(_sp); _sp.loader.exec_module(_bpl)
+        _rows, _missing = _bpl.derive()
+        place_rows = [{"date": d, "kind": k, "text": t} for d, k, t in _rows[:12]]
+    except Exception as _e:                                   # noqa: BLE001
+        # ⛔ A derivation we could not run yields an EMPTY log and a loud line — never a silent one,
+        # and never a partial log that reads complete.
+        print("  ⚠️  place log NOT derived (%s) — the card will be empty, which is NOT the same as "
+              "'nothing happened here'" % type(_e).__name__)
+    out = out.replace("{{PLACE_LOG}}", json.dumps(place_rows, ensure_ascii=False), 1)
+    if "{{DATA:" in out or "{{IDENTITY:" in out or "{{ESTATE:" in out or "{{DISPLAY:" in out or "{{RELEASE_NOTES}}" in out or "{{PLACE_LOG}}" in out:
         raise RuntimeError("unfilled placeholder remains after build")
     if "<title>" not in out or n < 10:
         raise RuntimeError("built output does not look like the app — refusing to write")

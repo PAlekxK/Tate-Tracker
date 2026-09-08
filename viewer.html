@@ -7036,6 +7036,18 @@
   </div>
 
   <!-- RECENT UPDATES CARD — release-notes mini-feed (added 2026-05-21) -->
+  <div class="main-card" id="card-place-log">
+    <div class="main-card-header" data-toggle="place-log">
+      <div class="main-card-icon release-notes" aria-hidden="true">🏡</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">What&rsquo;s changed here</div>
+        <div class="main-card-summary" id="place-log-summary"></div>
+      </div>
+      <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
+    </div>
+    <div class="main-card-body"><div id="place-log-body"></div></div>
+  </div>
+
   <div class="main-card" id="card-release-notes">
     <div class="main-card-header" data-toggle="release-notes">
       <div class="main-card-icon release-notes" aria-hidden="true">🆕</div>
@@ -7244,6 +7256,12 @@ function estateKey(k) { return k.replace(/^tateTracker\./, "tateTracker." + ESTA
   } catch (e) { /* storage unavailable — the queue falls back to its own guards */ }
 })();
 const RELEASE_NOTES_DATA = [{"date": "2026-09-07", "title": "Wildlife is back on the strip", "bullets": ["**The Wildlife shortcut and the Wildlife tile had quietly gone missing.** The card itself was always there, with all 83 of them in it — the birds, the mammals, the amphibians, the snakes, the lizards, the insects and the fish at the lake. But the quick-link strip at the top and the summary tile had both stopped offering it, so the only way to reach any of it was to scroll. They are both back.", "**Nothing was lost, and nothing needed to be re-entered.** The app had simply stopped counting what it was holding, and a card holding nothing gets tidied out of the way on purpose. It was holding plenty.", "**The sky page says less about Jasper now, and only where it should.** A few lines that read as though they had been measured here were carrying numbers from somewhere else. They stay where they are true and step aside where they are not."]}, {"date": "2026-09-01", "title": "The map got its names right", "bullets": ["**The Fairway card is now The Field.** The open ground below the house is one field run two ways, and it now says so: **The Turf** (mown regularly) and **The Meadow** (let go, cut back hard once a year).", "**\"Fairway\" is gone from the property.** It turned out to be backwards. On a golf course a fairway is the *closely mown* corridor and the unmaintained ground is the rough — so the word had been sitting on the opposite half of the field. \"Meadow\" had drifted the same way in the other direction. Both now mean what they mean everywhere on the site.", "**The Green keeps its name**, because it earned it — it is the flat area left from when this ground was a golf course, and it is the one golf word still standing.", "**Fairway Border is now The Green Ring** — same ground, a name that says where it is.", "**New areas on the map:** the Western Fern and Azalea Garden, and Main Parking.", "**Plants can live in more than one place now.** The moss is on all three patios, the mountain laurel is in three gardens, and the azaleas are in two — the record could only ever hold one spot per plant before, so it was quietly wrong about all of them.", "**A new plant: Constellation Dogwood**, on the Green Ring — named off the nursery label.", "**The names that moved, in one place:** Fairway Border → **The Green Ring** · Fairway Turf → **Turf Grass** · Fairway Meadow → **Meadow Grass** · the Fairway card → **The Field**. The Green stayed The Green.", "**Some of the zones are still in progress.** The map is being walked and retraced area by area, so a few boundaries are rougher than they will be and more names may still move. More to come."]}, {"date": "2026-09-01", "title": "The refrigerator, because you asked for it", "bullets": ["**The refrigerator is on the record now, under Household Systems** — the LG 25.5 cu ft bottom-freezer, right where you asked for it. The specs came from you: the model number, the ice maker that works, and no water dispenser.", "**It carries its own rhythms** — the coils to vacuum twice a year, the door and drawer seals to check, and a yearly look at the actual temperature inside. None of them are dated yet, so none of them are nagging.", "**Two things it says plainly that we don't know.** Whether it's freestanding or built into the cabinets, and how old it is — both would be settled by one look at the plate inside the door. The card says so rather than guessing."]}, {"date": "2026-08-31", "title": "A round of polish, top to bottom", "bullets": ["**The radar's map is back to normal.** The map tiles under the rain had started printing a watermark; the rain layer itself was always fine. New map source, same radar.", "**The bird list reads cleanly at larger text** — species names and their season tags no longer crowd or cover each other.", "**Where there's more to scroll, the edge now says so.** The wildlife tabs and the Full Year plant grid fade at the edge when more is waiting — and Full Year opens on the current month instead of January.", "**One clock everywhere.** Every sunrise and sunset now reads like \"7:23 PM\" — no more \"19:58\" hiding among them.", "**The machines' cards read like the rest of the journal.** Our workshop bookkeeping moved off the page; the facts about each machine stayed."]}, {"date": "2026-08-31", "title": "The house's systems, on the record", "bullets": ["**Household Systems grew from one entry to five.** The propane furnace, the water heater, the washing machine and the breaker panel join the thermostat — each with what it is, what it needs, and the spare parts worth knowing about before something quits.", "**Each system carries its rhythms now** — the recurring chores, like changing the furnace filter or running the washer's cleaning cycle, with how often each wants doing. Nothing nags: a chore we haven't dated yet simply says so.", "**The breaker panel's hand-written door card is readable in the app** — all thirty circuits transcribed, with the hard-to-read rows marked honestly instead of guessed at."]}];
+// ⭐ THE SECOND CHANGELOG `[paul-ruled 2026-09-07]` — "a changelog for each property as well as at
+// the accounts / application generator level." RELEASE_NOTES_DATA is the PRODUCT's, identical at
+// every household. This one is the PLACE's, DERIVED from that household's own dated records by
+// tools/build-place-log.py, and different everywhere. One file was answering both questions, and its
+// own heading — "What's changed at Fernwood lately" — is false at any other house.
+const PLACE_LOG_DATA = [{"date": "2026-09-01", "kind": "place", "text": "named “The Turf”"}, {"date": "2026-09-01", "kind": "place", "text": "named “The Meadow”"}, {"date": "2026-09-01", "kind": "place", "text": "named “Western Fern and Azalea Garden”"}, {"date": "2026-09-01", "kind": "place", "text": "named “Main Parking”"}, {"date": "2026-09-01", "kind": "place", "text": "named “The Green Terrace”"}, {"date": "2026-09-01", "kind": "place", "text": "named “Hosta Garden”"}, {"date": "2026-08-31", "kind": "place", "text": "named “The bank”"}, {"date": "2026-08-31", "kind": "place", "text": "named “Eastern Woodlands”"}, {"date": "2026-08-31", "kind": "place", "text": "named “Western Upper Patio”"}, {"date": "2026-08-31", "kind": "place", "text": "named “Western Lower Patio”"}, {"date": "2026-08-31", "kind": "place", "text": "named “The Bluff”"}, {"date": "2026-08-31", "kind": "place", "text": "named “Lawn”"}];
 // C5 3b — THIS ESTATE'S MODULE SET, built by tools/build-viewer.py from estate.json (one fact, one source).
 // The strip's tiles carry data-module and render from the declared roster × this set — see applyModuleTiles().
 const ESTATE_MODULES = {"garden": "on", "motor-pool": "on", "equipment": "on", "house-systems": "on", "wildlife": "on", "place": "on", "weather": "on", "sky": "on"};
@@ -15490,6 +15508,21 @@ function renderNoteMarkdown(s) {
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
 
+function renderPlaceLog() {
+  const body = document.getElementById("place-log-body");
+  const summary = document.getElementById("place-log-summary");
+  if (!body) return;
+  const rows = (typeof PLACE_LOG_DATA !== "undefined" && Array.isArray(PLACE_LOG_DATA)) ? PLACE_LOG_DATA : [];
+  // ⛔ EMPTY IS "NOTHING HAS HAPPENED HERE YET", NEVER "BROKEN". A household hours old derives zero
+  // rows and that is the correct output — the card hides rather than showing a failure face.
+  if (!rows.length) { if (summary) summary.textContent = ""; return; }
+  body.innerHTML = rows.map(function (r) {
+    return '<div class="rn-entry"><div class="rn-entry-title">' + escapeHtml(r.date || "") +
+           "</div><div>" + escapeHtml(r.text || "") + "</div></div>";
+  }).join("");
+  if (summary) summary.textContent = rows.length + (rows.length === 1 ? " change" : " changes");
+}
+
 function renderReleaseNotes() {
   const body = document.getElementById("release-notes-body");
   const summary = document.getElementById("release-notes-summary");
@@ -19656,6 +19689,7 @@ renderWeeds();
 renderCandidates();
 renderReferences();
 renderReleaseNotes();
+renderPlaceLog();
 // Prose that names the place is filled from the record, never typed into markup (C4 5c).
 // `data-record-prose` names a path: fishing.cardSummary → FISHING_DATA._meta.cardSummary;
 // property.intros.x → PROPERTY_DATA.intros.x. Absent → the element is hidden.
@@ -19682,6 +19716,7 @@ function applyRecordProse() {
   const hideIf = (id, cond) => { const el = document.getElementById(id); if (el) el.style.display = cond ? "none" : ""; };
   hideIf("card-references", !!(typeof REFERENCES_DATA === "object" && REFERENCES_DATA && REFERENCES_DATA._meta && REFERENCES_DATA._meta.declaredAbsent));
   hideIf("card-release-notes", !(typeof RELEASE_NOTES_DATA !== "undefined" && Array.isArray(RELEASE_NOTES_DATA) && RELEASE_NOTES_DATA.length));
+  hideIf("card-place-log", !(typeof PLACE_LOG_DATA !== "undefined" && Array.isArray(PLACE_LOG_DATA) && PLACE_LOG_DATA.length));
   // `data-site` spans carry one derived word from the record (a region, a street);
   // the markup keeps a fallback the record overrides.
   const region = String(((PROPERTY_DATA.property || {}).region) || "").split(",")[0].trim();

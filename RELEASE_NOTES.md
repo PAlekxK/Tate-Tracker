@@ -1,6 +1,16 @@
-# Recent updates
+# Recent updates — THE PRODUCT'S CHANGELOG
 
-What's changed at Fernwood lately. Newest first.
+What's changed in **the app**. Newest first. Identical at every household.
+
+⭐ **There are two changelogs `[paul-ruled 2026-09-07]`** and this is the *product* one —
+authored, and the same for everyone. The other is the **place** log: derived per household by
+`tools/build-place-log.py` from that household's own dated records, and different everywhere.
+One answers *"why does the app look different?"*; the other answers *"did my thing land?"*
+
+⚠️ This subtitle read *"What's changed at Fernwood lately"* until 2026-09-07. It was a
+repo-facing line and **never shipped** — the app's card has always been titled *Recent
+updates* and only the dated entries below are inlined — but it named one property on the
+product's log, which is the same collision the two-changelog split exists to end.
 
 ---
 

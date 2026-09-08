@@ -7036,6 +7036,18 @@
   </div>
 
   <!-- RECENT UPDATES CARD — release-notes mini-feed (added 2026-05-21) -->
+  <div class="main-card" id="card-place-log">
+    <div class="main-card-header" data-toggle="place-log">
+      <div class="main-card-icon release-notes" aria-hidden="true">🏡</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">What&rsquo;s changed here</div>
+        <div class="main-card-summary" id="place-log-summary"></div>
+      </div>
+      <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
+    </div>
+    <div class="main-card-body"><div id="place-log-body"></div></div>
+  </div>
+
   <div class="main-card" id="card-release-notes">
     <div class="main-card-header" data-toggle="release-notes">
       <div class="main-card-icon release-notes" aria-hidden="true">🆕</div>
@@ -7244,6 +7256,12 @@ function estateKey(k) { return k.replace(/^tateTracker\./, "tateTracker." + ESTA
   } catch (e) { /* storage unavailable — the queue falls back to its own guards */ }
 })();
 const RELEASE_NOTES_DATA = {{RELEASE_NOTES}};
+// ⭐ THE SECOND CHANGELOG `[paul-ruled 2026-09-07]` — "a changelog for each property as well as at
+// the accounts / application generator level." RELEASE_NOTES_DATA is the PRODUCT's, identical at
+// every household. This one is the PLACE's, DERIVED from that household's own dated records by
+// tools/build-place-log.py, and different everywhere. One file was answering both questions, and its
+// own heading — "What's changed at Fernwood lately" — is false at any other house.
+const PLACE_LOG_DATA = {{PLACE_LOG}};
 // C5 3b — THIS ESTATE'S MODULE SET, built by tools/build-viewer.py from estate.json (one fact, one source).
 // The strip's tiles carry data-module and render from the declared roster × this set — see applyModuleTiles().
 const ESTATE_MODULES = {{ESTATE:modules}};
@@ -15490,6 +15508,21 @@ function renderNoteMarkdown(s) {
     .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 }
 
+function renderPlaceLog() {
+  const body = document.getElementById("place-log-body");
+  const summary = document.getElementById("place-log-summary");
+  if (!body) return;
+  const rows = (typeof PLACE_LOG_DATA !== "undefined" && Array.isArray(PLACE_LOG_DATA)) ? PLACE_LOG_DATA : [];
+  // ⛔ EMPTY IS "NOTHING HAS HAPPENED HERE YET", NEVER "BROKEN". A household hours old derives zero
+  // rows and that is the correct output — the card hides rather than showing a failure face.
+  if (!rows.length) { if (summary) summary.textContent = ""; return; }
+  body.innerHTML = rows.map(function (r) {
+    return '<div class="rn-entry"><div class="rn-entry-title">' + escapeHtml(r.date || "") +
+           "</div><div>" + escapeHtml(r.text || "") + "</div></div>";
+  }).join("");
+  if (summary) summary.textContent = rows.length + (rows.length === 1 ? " change" : " changes");
+}
+
 function renderReleaseNotes() {
   const body = document.getElementById("release-notes-body");
   const summary = document.getElementById("release-notes-summary");
@@ -19656,6 +19689,7 @@ renderWeeds();
 renderCandidates();
 renderReferences();
 renderReleaseNotes();
+renderPlaceLog();
 // Prose that names the place is filled from the record, never typed into markup (C4 5c).
 // `data-record-prose` names a path: fishing.cardSummary → FISHING_DATA._meta.cardSummary;
 // property.intros.x → PROPERTY_DATA.intros.x. Absent → the element is hidden.
@@ -19682,6 +19716,7 @@ function applyRecordProse() {
   const hideIf = (id, cond) => { const el = document.getElementById(id); if (el) el.style.display = cond ? "none" : ""; };
   hideIf("card-references", !!(typeof REFERENCES_DATA === "object" && REFERENCES_DATA && REFERENCES_DATA._meta && REFERENCES_DATA._meta.declaredAbsent));
   hideIf("card-release-notes", !(typeof RELEASE_NOTES_DATA !== "undefined" && Array.isArray(RELEASE_NOTES_DATA) && RELEASE_NOTES_DATA.length));
+  hideIf("card-place-log", !(typeof PLACE_LOG_DATA !== "undefined" && Array.isArray(PLACE_LOG_DATA) && PLACE_LOG_DATA.length));
   // `data-site` spans carry one derived word from the record (a region, a street);
   // the markup keeps a fallback the record overrides.
   const region = String(((PROPERTY_DATA.property || {}).region) || "").split(",")[0].trim();
