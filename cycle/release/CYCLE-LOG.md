@@ -2064,3 +2064,51 @@ and never taken through setup. It can exercise the **resume** path and cannot ex
 still unwalked by any seat"* — and it **remains unwalked**. The gap is in the HARNESS (no durable
 identity has a completed setup), not in the product, and it is the fixture that must change.
 
+
+### ⭐⭐ A IS PROVEN — and proving it showed that every FRESH walk on record was a fiction
+
+**A · the two-person falsifier PASSES.** `owner`, returning, at `ec88009`, **zero failed actions** —
+the first clean returning walk in the project's history:
+
+| stop | what the returning person met |
+|---|---|
+| R01-arrive | **"Hollow Creek Road"** — their own place, on a browser that never created the account |
+| R02-identity | their place |
+| R03-already-there | their place — **no handoff card, because they were never treated as new** |
+| R04-places | "Your homes" — their shelf |
+| R05 · R06 · R07 | their place · the app · **"Your account"** |
+
+Getting there took **three product fixes, and only the first was the one committed:**
+① recognition moved off the device-local `fw-username` onto the server (`hasAccount`) · ② `/api/session`
+had dropped `username` from the rotated grant, so signing in un-recognised you · ③ the finished-setup
+redirect pointed at `/viewer.html`, the app SHELL, which paints from what the DEVICE holds — a
+recognised person landed in a generic app reading *"Your address isn't on the map yet"* while the
+server had just returned their address in the same request. **Repointed to `/estate/`.**
+⭐ **Each was found by running the walk, not by reading the code. ② and ③ would have shipped.**
+
+### ⛔⛔ AND THE FINDING THAT OUTRANKS ALL OF IT — `--fresh` WAS NEVER FRESH
+
+Re-running the four fresh seats at `ec88009` **failed**: 5 failed actions each, 18 for `owner`, all of
+them the account-creation fields (`#uname`, `#uword`, `#uword2`, `#uemail`, `#go0`).
+
+**Cause, and `journey-walk.py` states it in its own comment — *"BOTH PATHS REFRESH":*** a `--fresh`
+walk signs in as the **durable identity** and arrives holding **that account's grant**. It is not a
+stranger. It only ever saw a signup form because the client asked `!read(K_USER)` — a device-local key
+that is empty in a fresh browser context.
+
+> ⭐ **So every fresh walk in this project's history was an EXISTING PERSON being shown a signup form
+> by a client-side cache.** The moment recognition became the server's — which is correct, and is the
+> committed fix — the fiction collapsed and the harness told the truth for the first time.
+
+⚠️ **What this does and does not invalidate.** The walks did exercise the signup SCREENS and everything
+downstream of them, so findings about naming, address, ranking, the receipt and the app stand. What
+they never exercised is **arrival as someone the estate does not know** — the first five seconds, and
+the only state a genuinely new household is ever in. `read-onboarding`, `watch-door` and every
+"20 people reached the QA door and 0 got through" reading is about walkers who already had accounts.
+
+⛔ **NOT FIXED, and deliberately left for Paul at COMMIT.** The remedy is that a fresh walker must
+arrive on an **unspent invite** — minted per run (`grant-mint mint --fixture-out` exists for exactly
+this) rather than borrowed from a durable identity. That changes how **every** walk authenticates,
+which is the instrument that certifies releases, and it is not a change to make at the end of a long
+session on my own judgement. **Gate ① cannot pass until it is decided**, and that is the honest state.
+
