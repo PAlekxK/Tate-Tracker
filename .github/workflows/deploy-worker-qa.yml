@@ -87,64 +87,31 @@ jobs:
               print("::error::QA Worker has GITHUB_* configured — promote-species must be unexercisable in QA"); sys.exit(1)
           print("QA /health asserted: env=qa kv_canary=qa github=false")'
 
-  pages-qa:
-    runs-on: ubuntu-latest
-    env:
-      CF_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      # Only the commit's tracked bytes. `git archive` cannot see an untracked or
-      # ignored file, which is the property this step exists for.
-      - name: Export the commit (tracked files only)
-        run: |
-          mkdir -p "$RUNNER_TEMP/pages-export"
-          git archive HEAD | tar -x -C "$RUNNER_TEMP/pages-export"
-          echo "exported $(find "$RUNNER_TEMP/pages-export" -type f | wc -l) files"
-          # QA build stamp (paul-asked 2026-09-03: "a bar across the top that says QA and the last
-          # time it was updated"). Written into the EXPORT only — never a tracked file, never on
-          # prod. viewer.html shows it in the QA banner when the origin is *.pages.dev.
-          python3 - "$RUNNER_TEMP/pages-export/qa-build.json" <<'EOF'
-          import json, os, subprocess, sys, datetime
-          sha = os.environ.get("GITHUB_SHA", "")
-          subject = subprocess.run(["git", "log", "-1", "--format=%s"], capture_output=True, text=True).stdout.strip()
-          json.dump({"sha": sha, "short": sha[:7], "branch": "staging",
-                     "deployedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
-                     "subject": subject[:160],
-                     "run": os.environ.get("GITHUB_SERVER_URL", "") + "/" + os.environ.get("GITHUB_REPOSITORY", "") + "/actions/runs/" + os.environ.get("GITHUB_RUN_ID", "")},
-                    open(sys.argv[1], "w"))
-          print("qa-build.json:", open(sys.argv[1]).read())
-          EOF
-
-      - name: Skip notice (secret FERNWOOD_AUG_2026 not visible)
-        if: env.CF_TOKEN == ''
-        run: |
-          echo "::warning::NO DEPLOY. Repo secret FERNWOOD_AUG_2026 is empty or absent, so the Pages QA upload was skipped. This run is green and deployed NOTHING."
-
-      - name: Upload to Cloudflare Pages (fernwood-qa, branch staging)
-        if: env.CF_TOKEN != ''
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.FERNWOOD_AUG_2026 }}
-        run: |
-          npx --yes wrangler@4 pages deploy "$RUNNER_TEMP/pages-export" \
-            --project-name "$PAGES_PROJECT" --branch staging \
-            --commit-hash "$GITHUB_SHA" --commit-message "$(git log -1 --format=%s)"
-
-      # The same check a human runs, pointed at QA: every asset the app fetches
-      # must be byte-identical to this commit. Pages serves asynchronously, so poll.
-      # The QA origin is behind Cloudflare Access (2026-09-04). qa_access.py reads the
-      # service token from these two env vars in CI (repo secrets, Paul's to set); with
-      # neither set it sends no headers and this step FAILS LOUD on the Access page —
-      # which is the honest state, not a green that fetched nothing.
-      - name: check-live against the QA origin
-        if: env.CF_TOKEN != ''
-        env:
-          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
-          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-        run: python3 tools/check-live.py --base "$QA_PAGES_URL" --ref HEAD --wait 180
+  # ⛔⛔ THE `pages-qa` JOB WAS REMOVED 2026-09-08. QA HAD TWO BUILD PATHS AND THEY DISAGREED.
+  #
+  # This job uploaded a bare `git archive HEAD` to the SAME Pages project and the SAME branch that
+  # `tools/pages-deploy.py --env qa` writes — so the origin was whichever ran last.
+  #
+  # ⭐ THEY DO NOT PRODUCE THE SAME BYTES, and it is not close. `measured` 2026-09-08:
+  #   · this job's export — the tracked tree — `viewer.html` 2,216,135 bytes, 12 road-name hits
+  #   · pages-deploy's export — 1,203,913 bytes, built from `instance/qa.json`, pruned to
+  #     HOUSEHOLD_ALLOW, with 914 removed paths TOMBSTONED
+  # So every push to `staging` replaced the neutral build with Fernwood's own and UN-TOMBSTONED
+  # every pruned path. The two also falsified each other's checks: the `check-live` step below
+  # REQUIRED the un-pruned build, and `check-estate-neutral` requires the pruned one.
+  #
+  # ⚠️ IT IS DRIFT, NOT A BUG. This workflow is dated 2026-09-03. QA joined pages-deploy's
+  # HOUSEHOLD_ALLOW set on 2026-09-07 `[paul-ruled]` — the fix for the class where "the environment
+  # whose entire job is to be a MIRROR of production was the one environment built by a different
+  # code path." That change landed in the tool and never landed here, and nothing compared them.
+  #
+  # ⭐ ONE WRITER NOW: `python3 tools/pages-deploy.py --env qa`. It is the only path that prunes,
+  # tombstones, builds from the instance, runs the neutrality falsifier, LOADS THE BUILD HEADLESS
+  # before shipping, and calls post-deploy afterwards. CI could not do those without carrying
+  # Playwright and the whole tool chain, and a second writer that does LESS is what caused this.
+  # The loop already points at that command: `qa-behind.py` and the post-commit hook both print it.
+  #
+  # ⚠️ WHAT THIS COSTS, stated: a push to `staging` no longer updates the QA ORIGIN — only the QA
+  # WORKER, below, which is what this workflow is named for. Deploying QA is now a deliberate act.
+  # That is the direction the release loop already runs in: gate ① is evidence AT A SHA, and an
+  # origin that moves on its own under a walk is what expires that evidence.
