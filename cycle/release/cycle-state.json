@@ -1,13 +1,13 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-08T10:11:49-04:00",
+ "generated_at": "2026-09-08T12:47:54-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "2e1b459",
+ "candidate_sha": "13b98a4",
  "beat": {
-  "n": 2,
+  "n": 3,
   "of": 11,
-  "owner": "session",
-  "name": "the synthetic loop",
+  "owner": "paul",
+  "name": "Paul walks it",
   "derivable": [
    2,
    3,
@@ -16,20 +16,48 @@
   "_note": "beats 0, 1 and 6-11 are human or session beats this tool cannot observe; `n` is only ever one of `derivable`. Read CYCLE-MAP.md for the full ladder."
  },
  "gate_1": {
-  "seats_pass": false,
+  "seats_pass": true,
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "mom": {
-    "run": null
+    "run": "2026-09-08T105817",
+    "at-sha": true,
+    "watched": true,
+    "countable": true,
+    "no-failed-actions": true,
+    "not-rate-limited": true,
+    "walked-in-qa": true,
+    "instrumented": true
    },
    "owner": {
-    "run": null
+    "run": "2026-09-08T105921",
+    "at-sha": true,
+    "watched": true,
+    "countable": true,
+    "no-failed-actions": true,
+    "not-rate-limited": true,
+    "walked-in-qa": true,
+    "instrumented": true
    },
    "strict": {
-    "run": null
+    "run": "2026-09-08T110025",
+    "at-sha": true,
+    "watched": true,
+    "countable": true,
+    "no-failed-actions": true,
+    "not-rate-limited": true,
+    "walked-in-qa": true,
+    "instrumented": true
    },
    "wide-eyed": {
-    "run": null
+    "run": "2026-09-08T110127",
+    "at-sha": true,
+    "watched": true,
+    "countable": true,
+    "no-failed-actions": true,
+    "not-rate-limited": true,
+    "walked-in-qa": true,
+    "instrumented": true
    }
   }
  },
