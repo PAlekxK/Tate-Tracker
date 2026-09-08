@@ -806,3 +806,62 @@ statement is narrower:** the split is justified by *cost shape*, which is measur
 ⭐ **Left for practice-steward, not settled here:** whether a bucket boundary that its owner does not
 perceive is a boundary worth maintaining. That is a METHOD question about how the work is organised — its
 lane exactly, and not mine.
+
+---
+
+## 15 · ✅ APPLIED — R1 IN FULL, AND THE ORDINAL RE-SORT `[paul-approved 2026-09-08]`
+
+*"Go ahead and do the full treatment on R1."* · *"Record all this and reorder the backlog. Keep that as
+your scope — don't launch into executing on anything else."*
+
+### 15.1 The four moves — `7bd0a49`
+
+| | section | lines | to |
+|---|---|---|---|
+| **R1-a** | `🔓 2026-09-06 — FOUR RULINGS` | 223 | new **`# 📜 THE RULING REGISTER`** |
+| **R1-b** | `⭐⭐ EVERY ITEM SHIPS WITH AN ASK…` | 39 | the lens region — **it becomes the fourth lens** |
+| **R1-c** | `🗂 THE USER'S OWN RECORD` | 74 | new **`# 🗂 THEMES`** |
+| **R1-d** | `🧪 SPLIT THE JOURNEY FROM THE READER` | 155 | new **`# 🗂 THEMES`** |
+
+⭐ **Anchored on heading TEXT, not line numbers** — the BOARD's measurements were three commits old and
+two of my own edits had already shifted the head. The BOARD instructed this itself.
+
+**Head-gap `672 → 186`** (limit 400). `check-backlog-drift.py` now reads **rested**, and the head marker is
+advanced to `(rationalized 2026-09-08)` — ⛔ **that marker is what resets the clock; moves without it leave
+the check red over work that was done.**
+
+⚠️ **186, not the predicted 181.** I added five lines to the head myself (naming FOCUS FREEZE in the
+declared order, and carrying the forward-looking filing rule). **Stated because a five-line gap between a
+predicted and an observed number is exactly what gets rounded away.**
+
+### 15.2 The re-sort — pure, and NOT a ranking
+
+**TIER 1** `1…6, 8, 9, 7, 10…14, 18, 17, 16, 15, 19, 19b, 19c, 20` → **strict ordinal order**.
+**TIER 2** `…19, 21, 20, 22…` → `…19, 20, 21, 22…`
+
+⛔ **This changes no row's priority and cannot.** The ordinals already existed; the file simply did not
+display them in their own order. **No number was changed** — that is the do-not-renumber ruling, which
+would have falsified eleven external citations, six in `worker/worker.js`.
+
+### 15.3 How both edits were verified — not asserted
+
+- **R1:** a sorted-line diff against the pre-move file shows **ZERO lines lost**; the only additions are
+  nine (four provenance pairs, the filing rule, the region headings). Every moved block's body is present
+  byte-identical.
+- **The re-sort:** ⭐ **the md5 of the sorted file content is IDENTICAL before and after** —
+  `3d7cfc76…` both sides. That is proof of pure reordering, not evidence of it.
+- **Both:** tier tables intact at **56 rows / 34 not struck**, and **zero** rows overflow their header.
+
+### 15.4 ⛔ WHAT I DID NOT DO — scope held deliberately
+
+The BOARD's apply sequence has ten steps. **I ran 1–4, 5 (the re-sort), 9 and 10.** Left untouched, on
+Paul's *"don't launch into executing on anything else"*:
+
+| step | why it is still open |
+|---|---|
+| **6 · C1** — qualify three unqualified citations (`tools/grant-mint.py:213`, `tools/guard-concurrent.py:69`, `cycle/release/CYCLE-LOG.md` ×3) | ⛔ **`tools/` and `cycle/` are the BUILD window's.** Not mine to edit at any approval level |
+| **7 · Q8** — move the clean sections to the archive region | ruled (*bottom region*) but **not built**, and ⚠️ four of eight ✅-headed sections carry live work |
+| **8 · B1** — mint § UX & DESIGN COHERENCE into THEMES | a **CREATE** act, and the region it belongs in only exists as of this commit |
+
+⭐ **The region for step 8 now exists and carries its own rule** — *a new THEME is filed into `# 🗂 THEMES`
+from the start.* So B1 has a home whenever Paul says; nothing is blocked by structure any more.
