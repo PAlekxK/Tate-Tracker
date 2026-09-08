@@ -1032,8 +1032,8 @@ append-only list of closed laps with `lap` incrementing on `--cleared`, or `outc
 
 ---
 
-## Lap 3 — 2026-09-07 · 🔓 **OPEN** — the proving lap: sweeps first, consolidate, options board last
-<!-- outcome:open -->
+## Lap 3 — 2026-09-07 · ✅ **CLOSED by Paul 2026-09-08** — the proving lap: sweeps first, consolidate, options board last
+<!-- outcome:closed at:2026-09-08T19:20:53Z -->
 
 Opened at `e6c6090`, main, clean. ⛔ **This lap opens on a BRIEFING, not on a re-derivation** —
 `.plans/2026-09-07-lap3-BRIEFING.md` is the entry document.
