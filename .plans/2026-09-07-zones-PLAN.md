@@ -7,10 +7,10 @@
 - seats: user-researcher → .user-research/2026-09-07-zones-uses-landscape.md
          engineering-partner → .engineering/2026-09-07-zones-v1-path.md
          ai-advisor → .plans/2026-09-06-ai-mapping-capability-SCAN.md
-         ux-expert → .ux-reviews/2026-09-06-map-drawing-mobile.json
-         content-steward → OWED, not waived: the v1 puts words in front of Mom (the confirm/correct prompt, the place-naming ask, the "everything is changeable" clause). No copy is drafted here and none ships without this seat
+         ux-expert → .ux-reviews/2026-09-07-zones-v1-surfaces.md
+         content-steward → .ux-reviews/2026-09-07-zones-v1-copy.md — review run 2026-09-07; DRAFTING still owed: the v1 puts words in front of Mom (the confirm/correct prompt, the place-naming ask, the "everything is changeable" clause). No copy is drafted here and none ships without this seat
          practice-steward → waived: this file scopes a PRODUCT feature, not a loop; the pipeline machinery it moves through is already designed at .plans/2026-09-07-pipeline-flex-point-AUDIT.md and is not re-opened here
-- trails-read: .user-research/2026-09-07-zones-uses-landscape.md · .user-research/2026-09-07-zones-plants-v1-journey.md (in flight) · .user-research/2026-09-06-defining-your-place-research.md · .user-research/2026-09-06-what-a-map-is-for.md · .engineering/2026-09-07-zones-v1-path.md (in flight) · .ux-reviews/2026-09-06-map-drawing-mobile.md · .plans/2026-09-06-maps-and-zones-PROPOSAL.md · .plans/2026-09-06-ai-mapping-capability-SCAN.md
+- trails-read: .ux-reviews/2026-09-07-zones-v1-copy.md · .ux-reviews/2026-09-07-zones-v1-surfaces.md · .ux-reviews/2026-09-07-zones-v1-surfaces.json · .content/2026-09-07-review-zones-v1-copy.json · .ux-reviews/2026-09-06-map-drawing-mobile.json · .plans/2026-09-07-capture-write-path-PLAN.md · .plans/2026-09-07-mapping-sources-SCAN.md · .user-research/2026-09-07-zones-uses-landscape.md · .user-research/2026-09-07-zones-plants-v1-journey.md (in flight) · .user-research/2026-09-06-defining-your-place-research.md · .user-research/2026-09-06-what-a-map-is-for.md · .engineering/2026-09-07-zones-v1-path.md (in flight) · .ux-reviews/2026-09-06-map-drawing-mobile.md · .plans/2026-09-06-maps-and-zones-PROPOSAL.md · .plans/2026-09-06-ai-mapping-capability-SCAN.md
 - depends-on: .plans/2026-09-06-maps-and-zones-PROPOSAL.md
 - depends-on: .plans/2026-09-06-ai-mapping-capability-SCAN.md
 - ready: agent-proposed 2026-09-07 — **Paul rules.** Nothing in § Sequence starts before the open rulings in §9.
