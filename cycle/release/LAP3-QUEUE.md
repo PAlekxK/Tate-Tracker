@@ -24,7 +24,7 @@
 
 | # | item | status |
 |---|---|---|
-| 5 | **The front door** — Paul verifies by signing in | ⬜ |
+| 5 | **The front door** — Paul verifies by signing in | 🟡 **F4 FIXED + 3 spinner exits**, proven against the recorded falsifier. ⛔ Not deployed — needs Paul's clear |
 | 6 | **Two changelogs** — per-property and product | ⬜ |
 | 7 | **The Almanac display name** (E1) | ⬜ |
 | 8 | **Deploy the tombstone fix** — committed `9b96e07`, waiting | ⬜ ⛔ needs Paul's clear |

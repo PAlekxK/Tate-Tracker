@@ -486,7 +486,11 @@
     fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
-        if (!d) return;                       // a non-2xx says nothing about her place
+        // ⛔ EVERY EXIT CLEARS THE SPINNER `[F4, 2026-09-07]`. `fetching` was set at :485 and NEVER
+        // set back — the only exit was `location.reload()`, which fires only when something changed.
+        // So a reconcile that succeeded and agreed, a non-2xx, and an offline throw ALL left
+        // "Fetching your place…" on screen forever. Three different truths, one dead screen.
+        if (!d) { fetching = false; render(); return; }   // a non-2xx says nothing about her place
         var changed = false;
         function put(k, v) {
           if (v == null || v === "") return;
@@ -502,10 +506,32 @@
         // A household the Worker could not place has `coordinates: null` and stays S0; `put` ignores
         // null, so a provider outage leaves a previously-placed household placed.
         if (d.coordinates) put(K_COORDS, JSON.stringify(d.coordinates));
+        // ⭐⭐ THE STAMP THE RECONCILE NEVER WROTE — this is F4, and it is the whole regression.
+        // Every row on this card is gated on `mine` (:269), which compares the stored owner stamp
+        // against the presented grant. The reconcile wrote the server's answer into six keys and
+        // left the SEVENTH — the stamp that says whose answer it is — untouched. So on any device
+        // whose stamp names a PREVIOUS grant, this page fetched the correct record, stored it, and
+        // then suppressed every row of it. Measured live on 2026-09-07: whoami returned
+        // `name: "Grant Park Condo"` with an address and a ranking while the screen read
+        // "Empty so far."
+        // ⭐ WHY STAMPING HERE IS CORRECT AND NOT A PAPER-OVER: `/api/grant/whoami` was just
+        // answered 200 FOR THIS GRANT, and the six puts above have just overwritten local state with
+        // that grant's record. The data and the stamp now describe the same person; leaving the old
+        // stamp is what made them disagree. The guard is kept — it is `owner === grant` that protects
+        // a shared device — and this only ever advances the stamp to the credential the SERVER just
+        // confirmed, never to one the page merely found lying around.
+        // ⚠️ If the record comes back blank, this stamps a blank record as genuinely this person's,
+        // and the card honestly renders an empty place UNDER THE RIGHT NAME. That is the intended
+        // outcome: today it renders an empty place under SOMEONE ELSE'S name, which is worse.
+        put(K_OWNER, grant);
         // Re-render only if the record actually disagreed, so the common case costs nothing and a
         // reader never sees her own screen flicker for no reason.
-        if (changed) location.reload();
-      })["catch"](function () { /* offline: the cached view stands, and says nothing false */ });
+        if (changed) { location.reload(); return; }
+        fetching = false; render();           // agreed with the record — stop pretending to fetch
+      })["catch"](function () {
+        // offline: the cached view stands, and says nothing false — but it must stop saying "fetching"
+        fetching = false; render();
+      });
   })();
 
   // ── telemetry: `complete` lives HERE now ───────────────────────────────────────────────────
