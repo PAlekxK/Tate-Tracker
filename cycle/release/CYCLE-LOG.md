@@ -2178,3 +2178,24 @@ committed item.
   `C6 § the sign-in door` and `TIER 2 · 11` — which I said I would send as wording, not edits.
 - **zones** (`handoff/handoff-zones-session.md`) — landed `3e43166`.
 
+
+### ⭐ THE BLOCKING RULING, MADE — it bundles into the testing-strategy item `[paul-ruled 2026-09-08]`
+
+*"I kinda feel like this meant an unspent invite per fresh run for the synthetics… I think that needs
+to be bundled into our larger testing strategy question in the backlog."*
+
+⛔ **So route ② — CARRY IT.** The unspent-invite change is **not** a one-off harness patch; it is part
+of the credential axis of the synthetic-testing redesign, and it goes to
+`BACKLOG.md` § **SPLIT THE JOURNEY FROM THE READER**.
+
+⭐ **This is the SAME ordering ruling Paul made this afternoon on the gate ① best-run defect**, for the
+same reason: *the three-axis redesign dissolves the defect, and patching first hardens the unit it
+replaces.* A fresh walker's credential is not a bug in `journey-walk.py` — it is **which of the three
+axes owns identity**, which is exactly what that row exists to settle. Fixing it now would answer the
+question in code before the question has been asked.
+
+⚠️ **CONSEQUENCE, stated plainly: gate ① does not go green this lap.** A, B and C are built, deployed
+and — for A — proven by a clean returning walk. The four fresh seats cannot pass at `ec88009` because
+the harness presents them a spent credential. **That is a true reading of an instrument that has just
+started telling the truth, and it is not a reason to make the instrument lie again.**
+
