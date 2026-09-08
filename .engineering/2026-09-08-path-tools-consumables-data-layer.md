@@ -30,6 +30,55 @@ Recorded here because this is the file that posed them. **These are decisions, n
 checkboxes at all · whether `owned: "no"` is worth the evidence it costs · and whether the eight
 proposed principles get drafted for the library.
 
+## ⛔ CORRECTION `2026-09-08` — THE BUCKET LAYER ALREADY EXISTS. Do not mint a rival.
+
+**This evaluation's §16 handoff note said the tools bucket and the agronomy data are "different
+axes, don't share the word." Its PREMISE is falsified — the shared layer already exists, spans
+both, and was ruled by Paul three weeks ago.** Verified in source, not taken on report:
+`tools/momlib.py:320-355`, `MODULES`, `C5 3a`, `[paul-stated 2026-09-03]`.
+
+A module is **a named bundle of domains an estate switches atomically**. The declared bundles:
+
+| module | `what` |
+|---|---|
+| ⭐ **`motor-pool`** | **"the garage — trucks, cars, bikes, the cart"** |
+| **`equipment`** | "power tools and yard equipment — mowers, blowers, saws" |
+| **`house-systems`** | "what keeps the house running — furnace, water heater, breaker panel" |
+| **`garden`** | "what you tend and fight, and the ground it grows in" |
+| **`place`** | "the ground itself — zones, the property record's spatial half" |
+| **`wildlife`** | "what visits" |
+
+⭐ **Paul asked on 9/08 for "a logical grouping — call it the garage." He had already built it on
+9/03 and written `"the garage"` into `motor-pool`'s own `what` string.** This is the register's
+founding failure mode — proposing to buy what is already on the shelf — reproduced by the design
+process itself, on the very project meant to prevent it. Note it as evidence, not as an aside.
+
+⚠️ **AND THE COMMENT ALREADY RULES OUT THE PARTITION ASSUMPTION** — the real error, which the
+"don't share the word" framing missed entirely:
+
+> *"Membership is NOT a partition — `zone` belongs to both the garden and the place.
+> A domain is ON if ANY on-module claims it."*
+
+Precedent for exactly the multi-membership this evaluation was agonising over:
+**THREE modules over ONE domain** — `motor-pool`, `equipment` and `house-systems` all claim the
+`vehicle` domain and each names the `group` it switches. `[paul-stated 2026-09-03]`:
+*"let's call it motor pool … and then just separately we'll have power tools and equipment and
+house systems."*
+
+### What this changes
+
+- ⛔ **Do NOT propose a new classification scheme.** Size the tools layer as **another `MODULES`
+  entry over an existing domain, exactly like motor-pool.** Far cheaper than §16 assumed.
+- ⚠️ **But Paul's 9/08 "garage" is BROADER than `motor-pool`** — he described *"vehicles, equipment,
+  tools and supplies… used to repair and keep engines running,"* which spans `motor-pool` (group
+  `vehicle`, 7) **and** `equipment` (group `equipment`, 10). So this is not a 1:1 match, and the
+  open question is not *what to call the bucket* but **whether tools and consumables join existing
+  modules or need a new domain to be members of.** They have no domain today.
+- ✅ **§16's MEASUREMENT survives and is untouched** — same-category machines share ZERO maintenance
+  interfaces (Husqvarna ∩ Kobalt = `[]`, one is cordless), different-category machines share four.
+  Work is orthogonal to `group`/`category`, so requirements must still be DERIVED, never bucketed.
+  The partition ruling above independently confirms it from Paul's own side.
+
 **Two case studies do most of the work here.** The soldering iron is a **fitment failure at the
 moment of purchase**. The Blue Thunder battery is a **provenance-and-lifecycle failure after
 purchase**. They exercise different halves of the schema and neither alone would have produced the
@@ -1015,3 +1064,245 @@ Offered for Paul's ruling; nothing written to `~/.claude/engineering-principles/
    silently closes a still-open gap.
 8. **A gate must name a bounded human action, or it is not a gate** *(cross-project)* — "caliper the
    tip," "one phone call"; never "more research needed."
+
+---
+
+## 16. BUCKETS — the grouping layer `[appended 2026-09-08, after Paul's ruling block]`
+
+Paul: *"is there a way to identify a logical grouping — call it the garage… that may make sense to
+group from a user-experience point of view, a hierarchy point of view, and maybe even **data
+retrieval** for that fleet repair or troubleshooting skill."*
+
+The third motivation is the load-bearing one: **a bucket as a RETRIEVAL SCOPE** — the sourcing or
+troubleshooting ask wants the machine, engine-side tools, automotive consumables and the vendors who
+stock them, and emphatically **not** the fertilizer. That is a precision-and-context-budget concern,
+not navigation.
+
+### 16.1 ⛔ MEASURED: the existing `category` axis is orthogonal to work — proven, not asserted
+
+Requirement sets computed from each machine's own `maintenance` block (`n/a` values excluded):
+
+| machine | `category` | requirement set |
+|---|---|---|
+| Husqvarna Z254F | `lawn-care` | fuel · oil · oilFilter · airFilter · fuelFilter · sparkPlug · 2 blade sets · 2 belts · keys |
+| **Kobalt KM2040X** | **`lawn-care`** | battery · batteryStorage · blade |
+| Echo PB-7910T | `lawn-care` | fuel(50:1) · airFilter · fuelFilter · sparkPlug |
+| **Stihl MS 290** | **`equipment`** | fuel(50:1) · airFilter · fuelFilter · sparkPlug · bar · chain |
+
+```
+same category (Husqvarna ∩ Kobalt),  shared work → []                                    ⛔ DISJOINT
+diff category (Echo ∩ Stihl),        shared work → [airFilter, fuel, fuelFilter, sparkPlug]
+```
+
+> ⭐⭐ **Two machines in the SAME category share ZERO maintenance interfaces. Two machines in
+> DIFFERENT categories share four.** `group`/`category` does not predict what work a machine needs.
+> This is not a hierarchy problem — **it is proof the two axes are empirically independent**, which is
+> the strongest possible argument that the bucket is a *different axis*, not a refinement of the
+> existing one.
+
+### 16.2 ⚠️ Correcting Paul's overlap read — right about supplies, wrong about equipment
+
+He is **right** that garden *consumables* barely overlap: fertilizer, soil amendment and seed share
+nothing with acetone and ABS rod. He is **wrong** that overlap is minimal overall, and the record
+says so:
+
+- **Seven `lawn-care` machines**, of which **five are engine-maintained** (Husqvarna, Echo PB-7910T,
+  Echo PB-250LN, Homelite blower/vac, Homelite trimmer) and two are battery (Kobalt, EGO).
+- **Plus two chainsaws** (`category: equipment`) that are landscaping-purpose engines.
+- **So ~7 landscaping-purpose machines draw garage-shelf consumables** — engine oil, spark plugs,
+  50:1 mix, bar-and-chain oil, stabilizer.
+
+> ⛔ **The overlap is not minimal; it is seven machines wide, and it is exactly the set his headline
+> job touches.** Winterizing is *precisely* the case where garden-domain machines need garage-domain
+> consumables. Do not soften this.
+
+⭐ A sharper way to say it: **2-stroke mix, bar oil and fuel stabilizer are landscaping-PURPOSE,
+garage-SHELF consumables.** That single sentence is why purpose and place must not be one field.
+
+### 16.3 ⭐ HOW MANY AXES — the word "garage" is doing three jobs at once
+
+That conflation is the container/payload error in miniature, and naming it is the ruling.
+
+| # | axis | question | valued | where it comes from | build? |
+|---|---|---|---|---|---|
+| 1 | **what it IS** | `group` / `category` | single | ✅ exists in `vehicles.json` | **leave alone — do not extend `category`** |
+| 2 | ⭐ **what it's FOR** — *Paul's bucket* | garage · landscaping · household | **single** | hand-assigned, ~stable | ✅ **cheap, do it** |
+| 3 | **what WORK it needs** | which interfaces it consumes | **many** | ⭐ **DERIVED from `requires[]`** | ✅ **free — already paid for by §4** |
+| 4 | **where it physically IS** | shelf / room / property | single + `asOf` | hand-captured, **decays** | ⚠️ **skip at v1** |
+
+**Paul's refined "landscaping bucket" is axis 2 — PURPOSE — and purpose is the better single-parent
+than place**, because it does not move. A thing's shelf changes; what it is *for* does not. That
+avoids the `asOf` decay problem that sinks axis 4 (things move and nobody logs the move), and it is
+more meaningful than axis 1, which §16.1 just proved is orthogonal to work.
+
+### 16.4 ⭐ The load-bearing motivation needs NO bucket at all — retrieval scope is derived
+
+This is the most useful finding in this section: **the most expensive-sounding of Paul's three
+motivations is the one already paid for.**
+
+A job's retrieval scope = *everything that `provides` an interface the job's targets `require`, plus
+the vendors who stock it.* Run against the real data, that scope:
+
+- **automatically excludes the Kobalt** from an engine-oil query — it declares no `engine-oil`
+  requirement. No human has to remember to exclude it.
+- **automatically includes the Stihl alongside the Echo** on a 50:1-mix query, *across the category
+  boundary that a bucket filter would have honoured and been wrong about*.
+- **automatically excludes fertilizer**, because nothing in the job's requires-set names that
+  interface.
+
+> ⭐ **Derive the many-to-many; store only the single-valued.** A hand-maintained multi-membership tag
+> set is a hand-maintained thing, and hand-maintained drift is this record's entire documented failure
+> mode. *(Ratified: "Generate the derivable; drift-lint the rest.")*
+
+So the strict-hierarchy-vs-tags question resolves as **neither**: tags are the right *semantics* for
+axis 3 and the wrong *storage*. Single-parent for axis 2; computed for axis 3.
+
+### 16.5 Testing Paul's hypothesis — *items get one home; JOBS span buckets*
+
+| case | test | verdict |
+|---|---|---|
+| **Winterization** | Husqvarna's home = `landscaping`; the job is garage-shaped and pulls oil, plug, stabilizer, tender from `garage` | ✅ **holds** — machine has one home, job crosses |
+| **Door panel** | every item's home = `garage` | ✅ holds trivially (single-bucket job) |
+| **Mom's fertilizer zones** | fertilizer, spreader, zones all `landscaping` | ✅ holds trivially |
+| **Heat gun** — plastic repair AND paint stripping | ⚠️ **this is not a test of the hypothesis.** Both are *garage* jobs. The heat gun has one home and serves two jobs in it — that exercises item↔**job** multiplicity (already handled), not item↔**bucket** multiplicity | ✅ not a falsifier; category error in the test |
+| **Bar oil / 50:1 mix / stabilizer** — the one I went looking for | landscaping-purpose, garage-shelf. Home = `garage` (what shape it is, where it lives); reached by landscaping jobs through the job | ✅ **holds — and this is the case that best shows why it works** |
+| **Chainsaws, Generac** | home genuinely ambiguous (land work vs shop-maintained; house-serving vs engine-maintained) | ⚠️ **ambiguous, not falsified** — see 16.6 |
+
+> ⭐ **Verdict: the hypothesis HOLDS on every case, and for the right reason.** It separates *where a
+> thing lives* (single-valued — a fact about the world) from *what a job needs* (many-to-many — a fact
+> about work). **It dissolves the strict-vs-tags tension rather than trading against it**, because the
+> multi-membership moves onto the JOB, which already has to name multiple items anyway. The
+> coordinator's read is correct and it is better than the place-based axis I was going to propose.
+
+**One refinement it needs, or it reintroduces the drift failure:** a job must not hand-list its items.
+
+```jsonc
+{ "job": "winterize-motorcycles",
+  "targets": ["dr200s-2017", "drz400s-2001"],          // NAMED
+  "needs":   "<derived from each target's requires[]>", // ⭐ DERIVED — never hand-listed
+  "plus":    ["fuel-stabilizer", "battery-tender"] }    // NAMED, job-specific extras
+```
+
+**Targets named · requirements derived · extras named.** The many-to-many that crosses buckets is
+*mostly computed*, so it cannot go stale the way a hand-tagged bucket would.
+
+### 16.6 Why single-parent is SAFE here — the property that makes ambiguity affordable
+
+The chainsaw's home is genuinely arguable. Single-parent forces a call; the call is somewhat
+arbitrary. That is acceptable, and the reason is structural:
+
+> ⭐ **The bucket is allowed to be slightly wrong because nothing load-bearing reads it.**
+> Retrieval is by **interface** (§16.4). Shopping is grouped by **store** (§16.7). The bucket serves
+> navigation and a coarse default filter — both forgiving. If a load-bearing query ever starts
+> reading the bucket field, that is the signal the design has drifted.
+
+### 16.7 Retrieval cost, honestly accounted
+
+The coordinator asked what a job-spanning model costs when the query walks one hop instead of
+filtering one field.
+
+| | field filter | one hop (derived) |
+|---|---|---|
+| work | one pass, n≈100 | two passes, n≈100 |
+| wall time | microseconds | **microseconds — unmeasurable at this scale** |
+| **precision** | ⛔ returns the Kobalt's battery for an oil job; misses bar oil for a chainsaw job | ✅ correct by construction |
+| legibility | one line a human holds in their head | three — **mitigated:** `shop.py --scope <job>` prints the resolved set, so nobody walks it by hand |
+
+**The real cost is legibility, not compute, and it is bought off by printing the resolved scope.**
+The benefit — precision — was the stated motivation. Endorse the hop.
+
+⚠️ One honest limit: a derived scope is only as good as the interface declarations. A machine with a
+thin `requires[]` gets a thin scope. **That is a feature** — the incompleteness is *visible and
+fixable*, versus a hand-tag that is confidently wrong. But it means axis 3 does not work until the
+fitment spine has coverage, which is slice 1 regardless.
+
+And one thing derivation genuinely cannot do: a purely **associative** grouping with no interface
+basis — *"the stuff I keep in the truck."* If Paul wants that, it is a stored set and it must be
+**explicitly its own thing** (`kits`), never conflated with axis 3.
+
+### 16.8 Does the bucket scope the SHOPPING LIST? ⛔ No — and this one matters
+
+Store and bucket are different groupings, and giving the bucket this job would be actively harmful.
+
+> ⭐⭐ **Bucketing the shopping list by domain would MANUFACTURE the very failure the aggregation
+> feature exists to prevent.** A Home Depot run buys acetone (garage) *and* soil conditioner
+> (landscaping). Split by domain, that becomes two lists — and the second trip is exactly the cost
+> Paul just ruled is real (*"a second trip, or a machine missed"*, `paul-stated 2026-09-08`).
+
+**The rule, stated once:**
+
+> **The bucket is an INPUT FILTER on what enters the list. The STORE is the OUTPUT GROUPING.**
+> Never the same field, never the same role.
+
+⭐ Note this strengthens the case for `vendors.json` early: store-grouping needs `whereBought`
+populated, and for the garden half the vendor **is** the identity (§7.2). Garden-at-v1 pulls
+`vendors.json` forward.
+
+### 16.9 ⛔ SCOPE BOUNDARY + HANDOFF NOTE — the agronomy data is a SEPARATE THREAD
+
+⭐ **`paul-ruled 2026-09-08`: "let's separate those questions."** Any reorganization of Fernwood's
+agronomy data — `plants.json`, `weeds.json`, `zones.json`, `turf.json`'s meadow regime — is **out of
+scope for this theme** and gets its own backlog thread.
+
+**Three things that ruling binds, stated so a future reader can check them:**
+
+1. **The bucket proposal above is NOT contingent on the agronomy question.** §16.1–16.8 stand on
+   `vehicles.json`'s 23 assets and the tools/consumables registry alone. Delete this subsection and
+   nothing upstream changes.
+2. **The schema is NOT sized to accommodate it.** `bucket` is one string on a catalog row with three
+   values (`garage` · `landscaping` · `household`). There is no extension point, no namespace, no
+   reserved vocabulary held open for plants. **If the other thread needs something, it should design
+   it — not inherit a shape bent speculatively toward it.**
+3. **The `landscaping` bucket means "an owned asset whose purpose is land work."** It does **not**
+   mean "the landscaping domain." That distinction is the whole of the handoff note below.
+
+#### Handoff note to the agronomy thread — *is this taxonomy coherently extensible there?*
+
+**No — different axes, and sharing the word would be the container/payload error again.** The tools bucket
+answers *"what is this owned asset FOR, so I can find it and service it."* The agronomy data answers
+*"what is this living subject, where is it, and what regime governs it."* A plant has no
+owner-purpose; it is not equipment, it is a **subject of observation** in a field journal.
+`zones.json` is spatial, `turf.json` is a management **regime**, `weeds.json` is an identification
+taxonomy, `candidates.json` is prospective. **Extending "landscaping" over them would make one word
+mean *purpose of an owned asset* on one side and *domain of a living subject* on the other — the
+container/payload error again, at the largest scale in the portfolio (314 KB of `plants.json` alone),
+and with a Mom-facing rendering surface attached.** So: **two different groupings wearing one name —
+do not share the word.**
+
+⭐ **But there IS a narrow, real bridge, and it is a different axis than the one being proposed:**
+`zones.json` is a **place** vocabulary, and the agronomy data is already organised spatially. If the
+tools registry ever wants axis 4 (*where is it*, which §16.3 recommends skipping at v1), `zones.json`
+is the natural vocabulary to borrow — and **that** would be coherent, because place genuinely is one
+axis across both. **So the live cross-thread question is a PLACE question, not a bucket question.**
+
+⚠️ **That bridge is a note for the other thread to consider on its own schedule, not a dependency of
+this one.** This theme skips axis 4 at v1 (§16.3) and takes on no obligation toward `zones.json`.
+
+### 16.10 What this adds to the build order
+
+Slots into §12 with **no new slice** — it is two small additions to existing ones:
+
+- **Slice 1 (fitment spine):** add `bucket` (one of `garage` · `landscaping` · `household`) to each
+  catalog row. One string. No new file, no new structure.
+- **After slice 3 (`--readiness`):** add `shop.py --scope <job|machine>` — the derived retrieval slice,
+  printed. This is what the `source-a-part` skill's **beat 0** consumes, and it is the whole of Paul's
+  load-bearing motivation.
+- **Not built:** axis 4 (physical location), a stored many-to-many tag set, and any bucket-grouping of
+  the shopping output.
+
+⚠️ **One flag for a different owner:** if a bucket ever *renders* to a reader, its labels are
+user-facing copy on a surface that reaches Mom (per the Track A tone contract in the ruling block).
+That is `content-steward`'s call, not mine.
+
+---
+
+**Principle #9, proposed alongside the eight in §15:**
+
+9. **Store what is single-valued; derive what is many-to-many** *(cross-project)* — when a grouping is
+   genuinely one-to-many (a thing's home, its purpose) store it and accept that it may be slightly
+   wrong, but only if nothing load-bearing reads it; when it is many-to-many (what work an item
+   serves), **derive it from the relation that already exists** rather than hand-maintaining a tag set.
+   A hand-maintained multi-membership is a hand-maintained thing, and hand-maintained drift is the
+   failure mode. **Corollary: an input filter and an output grouping are different roles and must never
+   share a field** — grouping a shopping list by domain instead of by store manufactures the second
+   trip the feature existed to prevent.
