@@ -323,9 +323,11 @@
        2026-09-08 after re-opening a spent invite, and the only thing offered was "ask Paul". For
        Mom, "ask Paul" IS the escalation this door exists to avoid. -->
   <section id="s-nolink" class="card" hidden>
-    <!-- ⚠️ TWO WAYS IN, TWO OPENING LINES. Reached from a broken link this must explain the dead
-         end; reached deliberately from "Been here before?" that sentence is false and slightly
-         alarming. The lede is set by whichever route brought the reader here. -->
+    <!-- ⚠️ THREE WAYS IN, THREE OPENING LINES. Reached from a broken link this must explain the
+         dead end; reached deliberately from "Been here before?" that sentence is false and
+         slightly alarming; and since 2026-09-08 there is a THIRD route — arriving from the legacy
+         Fernwood sunset banner, which carries NO `?g=` at all. The lede is set by whichever route
+         brought the reader here, and the default below is the broken-link one. -->
     <p class="lede" id="si-lede">This link isn't working.</p>
     <p class="soft" id="si-sub">If you've set up your place before, you can sign back in here.</p>
 
@@ -995,6 +997,28 @@
     }
     url.searchParams.delete("g");
     try { history.replaceState(null, "", url.pathname + url.search + url.hash); } catch (e) {}
+  }
+
+  // ⭐ A PERSON WHO BROUGHT NO LINK CANNOT BE TOLD THEIR LINK IS BROKEN `[paul-walked 2026-09-08]`.
+  // The sunset banner on legacy Fernwood now points here, at a bare `/onboarding/` with no `?g=` —
+  // so the FIRST sentence Mom reads on her way out of the app she knows would have been
+  // "This link isn't working." She clicked a link that worked perfectly and did exactly what it
+  // was for. Paul walked it minutes after the push and quoted the sentence back.
+  // ⛔ IT IS THE SAME DEFECT THE Q1a FIX ABOVE CORRECTED, FROM THE OTHER SIDE: that one stopped the
+  // product blaming a live credential; this one stops it blaming a credential that was never
+  // presented. Both print a failure the reader did not cause, at the one moment they are least
+  // able to tell whether it is their fault.
+  // ⚠️ NARROW BY CONSTRUCTION: only when NO `g` was in the address bar. A link that WAS presented
+  // and did not resolve still reads "This link isn't working", because then it is true.
+  if (!fromLink) {
+    try {
+      var _L = document.getElementById("si-lede"), _S = document.getElementById("si-sub");
+      if (_L) _L.textContent = "Sign in to your place.";
+      // Both readers are covered in one sentence, and neither is left without a next move: someone
+      // who has an account signs in; someone who does not is told the one thing that gets them one,
+      // in the banner's own words — "Paul will send you your link."
+      if (_S) _S.textContent = "If you set your place up before, sign back in here. If you haven\u2019t yet, Paul will send you your link.";
+    } catch (e) {}
   }
 
   // ⭐ Ask the Worker whether the arriving link is a credential at all, and only then let it win.
