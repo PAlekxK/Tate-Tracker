@@ -124,6 +124,30 @@ that picking from it is itself the bottleneck, a bounded ranking seat becomes a 
 
 ---
 
+### ⭐ THE BATTERY'S MIX — four fresh, one returning `[paul-ruled 2026-09-07]`
+
+*"Four new accounts, setups, and one returning. That sounds good for now. Let's adjust that over time
+as we get more people onboarded, but we're still troubleshooting the onboarding journey."*
+
+| | today | why |
+|---|---|---|
+| **fresh** (`--fresh`) | **4** — mom · owner · strict · wide-eyed | onboarding is the surface under active repair, so most of the battery points at it |
+| **returning** (non-`--fresh`) | **1**, on a durable identity | the state most of the product's life is spent in, and where the lap's headline defect lives |
+
+⭐ **IT IS A RATIO, NOT A NUMBER, AND IT IS MEANT TO MOVE.** Paul's own framing: the mix follows the
+population. While onboarding is being troubleshot, fresh-heavy is right. As real households arrive and
+*stay*, the weight shifts toward returning — because a battery that is 100% first-time walkers is
+testing the five minutes of the product that almost nobody is in.
+
+⛔ **WHY ONE RETURNING WALK IS NOT OPTIONAL EVEN AT ONE.** `measured` lap 2: **39 of 39 walks ran
+`--fresh`**, so no seat had ever arrived as a person who already exists — and the lap's worst defect
+(the owner guard suppressing correctly-fetched data) lives *only* in that state. A gate that is all
+fresh walkers certifies onboarding and says nothing about the fix that matters most. **The returning
+walk is what makes gate ① able to fail for the right reason.**
+
+⚠️ **Re-read this ratio at every lap close.** If it has not moved in three laps while households have
+arrived, it has stopped following the population and become a habit.
+
 ## GATE ① — the synthetic loop's exit, written so it can FAIL
 
 `[from Paul's own words, 2026-09-06]` — *"all the synthetics have gone through it in Chrome,
