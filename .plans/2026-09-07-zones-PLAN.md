@@ -13,8 +13,9 @@
 - trails-read: .ux-reviews/2026-09-07-zones-v1-copy.md · .ux-reviews/2026-09-07-zones-v1-surfaces.md · .ux-reviews/2026-09-07-zones-v1-surfaces.json · .content/2026-09-07-review-zones-v1-copy.json · .ux-reviews/2026-09-06-map-drawing-mobile.json · .plans/2026-09-07-capture-write-path-PLAN.md · .plans/2026-09-07-mapping-sources-SCAN.md · .user-research/2026-09-07-zones-uses-landscape.md · .user-research/2026-09-07-zones-plants-v1-journey.md (in flight) · .user-research/2026-09-06-defining-your-place-research.md · .user-research/2026-09-06-what-a-map-is-for.md · .engineering/2026-09-07-zones-v1-path.md (in flight) · .ux-reviews/2026-09-06-map-drawing-mobile.md · .plans/2026-09-06-maps-and-zones-PROPOSAL.md · .plans/2026-09-06-ai-mapping-capability-SCAN.md
 - depends-on: .plans/2026-09-06-maps-and-zones-PROPOSAL.md
 - depends-on: .plans/2026-09-06-ai-mapping-capability-SCAN.md
-- ready: agent-proposed 2026-09-07 — **Paul rules.** Nothing in § Sequence starts before the open rulings in §9.
+- ready: [paul-approved 2026-09-07] — *"I'm good to stamp everything as it is; obviously we can adjust as we learn more and actually progress."* ⚠️ **A stamp on a `design`-stage plan authorises the STAGE, not the build.** Nothing merges, deploys or reaches an origin without its own gate.
 - stage: design
+- stage-note: 2026-09-07 late — Paul stamped all three of this session's plans (*"good to stamp everything as it is"*), ratified the register rule NARROWED to load-bearing rulings, and ruled **Z-11, the cascade**. ⚠️ Two seat trails read NEWER than this file and that is honest: the plan was drafted first and the three review seats ran against it afterwards at Paul's instruction (*"call in the experts to review everything first"* — first meaning before the LEG 0 plan, not before this file). Their findings are folded at §0.
 - gate: ⛔ **THIS SESSION SHIPS NOTHING.** No production change, no deploy, no schema migration. Zones moves
   concept → design, and that is the intended outcome, not a shortfall.
 - stage-note: 2026-09-07 evening ET — scoped WITH Paul in conversation (J-g, which he re-scoped from
@@ -272,6 +273,10 @@ not in force (`BACKLOG.md` § 2026-09-06 · four rulings that existed in no file
 | **Z-8** | *"Definitely authorize online research for best practices."* + *"You can always use Claude and Chrome if anything is bot blocked."* | Standing for this epic's research strand. |
 | **Z-9** | ⭐⭐ *"Let's just make this sustainable, and understand that the way we're doing this in the long run is not necessarily gonna be the long term — this is just how we're developing the process. **It's manual right now, and that's why I'm kinda building the zones on Mom's behalf, but that's not the long term process we're building.**"* | **THE MANUAL OPERATOR STEP IS SCAFFOLDING WITH A KNOWN EXPIRY, not the target architecture.** See §5d — it changes what is worth building. |
 | **Z-10** | ⭐⭐ *"All the data you have about plants and where they're located, you're not gonna have in the production Fernwood when Mom sets it up — that's all in the frozen version. **The new version has none of that data, and we're gonna be defining zones first.** Then start adding plants, and we can figure out how to get that input from Mom, because that should be much easier to get her feedback on than designing zones — we've already thought through how she can add plants by taking a picture, how we can send her confirmation cards. **So the first thing is defining the zones, and not worrying about already having plants with zone data on them.**"* | **ZONES FIRST, PLANTS SECOND — and the plant record does not travel.** See §6b. It retracts a blocking item and re-points the v1. |
+
+| **Z-11** | ⭐⭐ *"Once we have the zones and confirmed them, then we very much can push for plant data — say **pick a zone and tell me about the plants in it**, or give me pictures of those plants. So then we've got this **cascade of information**: we got the address, then we picked the zones, then we asked for flowers or plants in those zones. **So we're building intelligently a data set**, and some of those things hopefully will resolve themselves over time."* | **THE CASCADE — each ask is SCOPED BY the previous answer.** See §6c. It dissolves the n=1 problem rather than designing around it. |
+
+| **Z-12** | ⭐⭐ *"That cascade — that's an important thing we have to think through **ideally at all times**, and kind of **have the key next questions to confirm, ready to go, to prompt the user**."* | **THE SYSTEM SHOULD ALWAYS KNOW ITS NEXT BEST QUESTION** — derived from where this household is in the cascade, not from a schedule. §6c-b, **with the guard that keeps it from becoming a nag.** |
 
 **Carried in from earlier and still binding:**
 
@@ -550,6 +555,78 @@ and it is exactly the spending Z-9 rules for: **the tracer is scaffolding; the w
 ⚠️ **It also re-prices the v1 honestly.** The v1 is not "~15 lines in `ZonePanel.open()`" at the place that
 matters. That estimate was true of the frozen instance, where the data already exists. At the new instance
 the v1's real leg 0 is a write path that does not exist yet.
+
+---
+
+## 6c · ⭐⭐ THE CASCADE — the sequence of asks IS the data model `[paul-ruled 2026-09-07, Z-11]`
+
+> **address → zones → the plants IN those zones**
+
+**Paul's answer to the n=1 problem, and it is better than the three options put to him.** The question was
+*"what does the app say when she has one plant and nothing due?"* — and the honest answer is that **under the
+cascade she never sits at n=1.** Plants are not captured one at a time in the abstract; they arrive
+**per place**, in a batch, because the ask is *"tell me about the plants in this zone"* and a person standing
+in a garden names several.
+
+⭐ **Three consequences, and the second is the one worth keeping.**
+
+1. **Each ask is scoped by the previous answer, which is why it is answerable.** *"What plants do you have?"*
+   is unbounded and produces nothing. *"What's in the Fern Garden?"* has a boundary she can see and walk. **The
+   zone is not just a place — it is the ask's denominator.**
+2. ⭐⭐ **The completeness answer arrives FREE, at capture time.** The v1's hardest problem is *"have I got them
+   all"* — a question the record cannot answer, because the record cannot know what it was never told. **But if
+   she names the plants in a zone while standing in it, that zone's set is CLOSED at the moment of capture, by
+   the only person who can close it.** ⛔ The set is closed **per place, on a date, by her** — never globally,
+   and never inferred. That is the first honest completeness denominator this project has had.
+3. **It re-reads the "12 placeless plants" retraction the right way round.** Placelessness was an artifact of
+   plants entered *before* zones existed (§6b). Under the cascade a placeless plant is **structurally
+   impossible for anything captured this way** — the place is the question that produced the answer.
+
+⚠️ **What it does NOT dissolve, so it is not claimed.** The n=1 window still exists for a plant that arrives by
+some other door (the photo path, a Guru turn, a note), and **the "quiet September" line is still a live
+defect** at that moment — the engine's own comment already calls it *"absence dressed as a reading."* The
+cascade makes it rare rather than impossible. ⭐ **Paul's own framing is the honest one:** *"some of those
+things hopefully will resolve themselves over time"* — **hopefully**, and the way to know is to run it.
+
+⛔ **And the AI boundary is untouched, which is why this is cheap.** Every step of the cascade is a
+deterministic ask answered by a person: an address typed, a place named, plants named in that place. **Nothing
+selects, filters or infers** — so Z-7's re-open trigger does not fire here.
+
+---
+
+### ⭐⭐ 6c-b · ALWAYS KNOW THE NEXT QUESTION — and the guard that keeps it honest `[Z-12]`
+
+**The stance:** at any moment, given what the record holds, there is a **next best question** — one that is
+answerable by the person, **scoped by what they have already told us**, and unlocks the most. The system
+should always have it ready.
+
+⭐ **A NEW AXIS, and naming it is what stops a duplicate being built.** `harvest-questions.py` already derives
+asks — but from **per-record uncertainty** (`momlib.markers()`: does this record admit a guess?). Z-12 derives
+from **cascade position**: *where is this household in the sequence, and what does the next answer unlock?*
+**Those are different questions and both are legitimate.** ⛔ **The supply must be ONE queue, not two** — the
+5-slot cap already binds with 8 on the bench and none approved, and two independent producers feeding one
+capped surface is how a card that matters gets pushed to slot 6 and rendered to nobody.
+
+> ### ⛔ THE GUARD, and it is half the ruling: **READY ≠ PUSHED.**
+> **The question is PREPARED so that when she opens a door, the right ask is already there. It is never fired
+> at her.** This sits one step from the exact thing §0's rule forbids — *the surface ANSWERS; it never
+> SUMMONS* — and "we always have the next question ready" is precisely how a calm system acquires a queue, a
+> badge and a notification without anyone deciding to add one.
+
+**Three checkable consequences:**
+
+1. **Readiness is measured at the DOOR, not at the clock.** *"Do we know what to ask if she opens the Fern
+   Garden today?"* is the question. *"Has she been asked recently?"* is not.
+2. ⭐ **The cascade gives the ask an ORDER the uncertainty markers cannot.** A confidence flag says *this field
+   is a guess*; it cannot say *this guess is unanswerable until she has named the place it lives in*. **Z-11's
+   scoping is what makes an ask answerable, so cascade position outranks field confidence when they disagree.**
+3. ⚠️ **It must survive the record it will actually meet.** At a blank instance the next question is *"what do
+   you call this place?"* — and there is no card, no marker and no `_foldTarget` behind it. **The existing
+   machinery cannot produce that ask**, which is the honest gap in this stance rather than a detail.
+
+⚠️ **UNSCOPED, deliberately.** This is a stance Paul stated, not a design. It needs its own row before anything
+is built — and the seat that should hold it is **user-researcher** (what is answerable, in what order), with
+**content-steward** on any wording that reaches her. **Neither has been asked.**
 
 ---
 

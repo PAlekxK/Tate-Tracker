@@ -13,6 +13,7 @@
 - depends-on: .plans/2026-09-07-capture-write-path-PLAN.md
 - trails-read: .plans/2026-09-06-ai-mapping-capability-SCAN.md · .plans/2026-09-07-mapping-sources-SCAN.md (ai-advisor's two scans — this plan builds on them and does not redo them) · .plans/2026-09-07-lap3-BRIEFING.md §8 (the grade-the-v1 rubric)
 - stage: concept
+- ready: [paul-approved 2026-09-07] — *"I'm good to stamp everything as it is; obviously we can adjust as we learn more and actually progress."* ⚠️ **A stamp on a `concept`-stage plan authorises the STAGE, not the build.** Nothing merges, deploys or reaches an origin without its own gate — and for this plan the handoff's own gate stands: verify, prepare and stage; do not merge.
 - stage-note: 2026-09-07 — design lane of release lap 3. NOTHING SHIPPED. No code written; five read-only, keyless, zero-cost network probes run and reported below.
 
 > ⚠️ **NO `ready:` LINE, DELIBERATELY.** `check-backlog-ready.py` will flag *"stage `concept` with no
