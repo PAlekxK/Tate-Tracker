@@ -146,12 +146,63 @@ and the subdivision is where the human is irreplaceable. `inferred`
 - ⚠️ **The ramp is CLIPPED at 30°** — 8.7% of the frame sits on the floor, and 30° cannot be told from
   45°.
 
+## 6 · ⭐⭐ THE FALSIFIER WAS DISCHARGED THE SAME SESSION — and it corrected §3
+
+§3 proposed the standing strand's **mowing-regime time-series test** as the instrument for the
+borders terrain cannot see. **It was run immediately.** All seven NAIP frames (2010→2023, sun 33°→64°)
+are **byte-identically registered** to the lidar frame — verified, not trusted.
+
+### ⛔ First operationalisation: FALSIFIED
+
+*"A mown edge is a persistent texture boundary."* Tested as `|∇(local range)|` on the border,
+permutation-ranked per frame. **`the-meadow` scored a median 51.7** across the seven frames
+(98·62·48·74·24·52·38) and **`the-turf` 55.0** (30·9·8·98·89·71·55) — squarely in the noise band
+against a prediction of ≥85, and **wildly unstable frame to frame.** `measured`
+
+⭐ Only **`lawn`** behaved as an edge (94.2 texture, 97.0 terrain) — the one zone both instruments
+independently agree on.
+
+### ✅ Second operationalisation: STRONGLY SUPPORTED — and it is a different claim
+
+⛔ **Killing the hypothesis on one operationalisation would have been this corpus's own named error.**
+The edge test asks *"is the border on a texture step?"*; the honest question for a management boundary
+is *"is the inside different from the outside?"* Re-run as interior vs. a 1.15× dilated ring:
+
+| zone | median ratio | per-frame (2010 → 2023) |
+|---|---|---|
+| ⭐ **`the-meadow`** | **0.71** | 0.55 · 0.71 · 0.65 · 0.67 · 0.80 · 0.90 · 0.82 |
+| `house` | 0.84 | roof — smooth by construction |
+| `the-turf` | 0.86 | 5 of 7 frames below 0.90 |
+
+**`the-meadow`'s interior is distinctly smoother than its surround in ALL SEVEN FRAMES across thirteen
+years.** That is a real, persistent, multi-date signal — and terrain scored the same zone **10.0**.
+
+> ### ⭐⭐ THE CORRECTED FINDING, and it changes the algorithm class
+> **The managed areas are detectable as REGIONS, not as EDGES.** Texture finds *that* the meadow is
+> mown; it does **not** find *where* the mowing stops. Terrain finds the built edges; it cannot see
+> the meadow at all.
+
+⚠️ **This is a real amendment to §5**, which frames every step as an edge and whose §5b debates
+livewire — an **edge-following** algorithm. For the managed half, **edge-following is the wrong
+algorithm class**: it wants region-growing off a texture seed, with the line itself left to the
+person. `inferred`
+
+⚠️ **The region test has power only for LARGE zones.** Seventeen of 21 testable zones sit at
+0.92–1.14 — no contrast — because a small zone's ring is tight and noisy. It is an instrument for
+`the-meadow` and `the-turf`, not a general one. `measured`
+
+
 ## Falsifier
 
 - **The split is falsified** if re-running with a non-rigid perturbation (per-vertex jitter) collapses
   the two columns together — that would mean the test measured *feature size*, not *derivability*.
-- **The mowing hypothesis (§3) is falsified** if the seven NAIP frames show no persistent tone
-  boundary along `the-meadow`'s traced border. ⭐ It is cheap and it has not been run.
+- ~~**The mowing hypothesis (§3) is falsified** if the seven NAIP frames show no persistent tone
+  boundary along `the-meadow`'s traced border.~~ ✅ **RUN 2026-09-08 — §6.** Falsified as an EDGE,
+  supported as a REGION. The prediction was right about the signal and wrong about its shape.
+- **The region finding is falsified** if the 0.71 contrast is an artifact of the dilation ring
+  reaching into woodland — i.e. if it measures *meadow vs forest* rather than *mown vs unmown*. ⚠️
+  **NOT YET SEPARATED**, and it is the obvious next control: test the ring against the unmown
+  meadow margin only, not the tree line.
 - ⛔ **The whole approach is falsified for the v1** if Paul's answer key is itself not stable — and
   `[paul-stamped 2026-09-08]` is *"our best answer so far,"* which is deliberately not a survey.
 
