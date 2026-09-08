@@ -13258,6 +13258,28 @@ const MomQueue = (function () {
   // Fail-soft: if the Worker isn't configured or the fetch fails, behavior falls
   // back to the localStorage-only dismissal (today's behavior). Deterministic,
   // AI-free — a plain reconcile of her own recorded taps.
+  // ⭐⭐ A TOMBSTONE IS AN ABSENT PATH, NOT A DOCUMENT `[2026-09-07, review-gate DESIGN §7]`.
+  // ⛔ MEASURED AGAINST THE LIVE ORIGIN: fernwood-home.pages.dev serves HTTP **200** with
+  // `{"tombstone":true,…}` for questions.json, zones.json, weather-history.json and
+  // weather-bias.json. `pages-deploy.py:182` writes those deliberately and CORRECTLY — a path merely
+  // DELETED stays in Cloudflare's edge cache for 7 days with nothing to invalidate it, so the
+  // tombstone replaces the cached object with something inert. The tombstone is not the bug.
+  // ⛔ THE BUG WAS HERE: every consumer guarded absence with `if (!res.ok) return`, and a tombstone
+  // is 200. So the absence guard was DEAD CODE ON PRODUCTION — the one environment built by a
+  // different code path (`pages-deploy.py:66` HOUSEHOLD), and the one nothing compares against QA.
+  // ⚠️ Three of the four were saved BY ACCIDENT, by a later shape check (`Array.isArray(data.days)`,
+  // `!data.headline`). That is luck, not a guard: `questions.json` had no such check and went on to
+  // render() and syncServerAnswers() over a parsed tombstone — and the next consumer written with
+  // only `!res.ok` inherits the same trap.
+  // ⭐ ONE definition of "absent", shared by all four, so a household origin cannot mean two things.
+  async function fetchOptionalJson(url, opts) {
+    const res = await fetch(url, opts);
+    if (!res.ok) return null;                          // genuinely missing
+    const data = await res.json();
+    if (data && data.tombstone === true) return null;  // present, inert, and NOT this home's
+    return data;
+  }
+
   async function syncServerAnswers() {
     if (typeof WorkerAPI === "undefined" || !WorkerAPI.isConfigured()) return;
     try {
@@ -13299,9 +13321,8 @@ const MomQueue = (function () {
     // that declares `questions` absent never asks.
     if (typeof ABSENT_DOMAINS !== "undefined" && ABSENT_DOMAINS.includes("questions")) return;
     try {
-      const res = await fetch("questions.json?_=" + Date.now(), { cache: "no-cache" });
-      if (!res.ok) return;                 // absent queue = correct calm behavior
-      const data = await res.json();
+      const data = await fetchOptionalJson("questions.json?_=" + Date.now(), { cache: "no-cache" });
+      if (data === null) return;           // absent OR tombstoned queue = correct calm behavior
       questions = Array.isArray(data && data.questions) ? data.questions : [];
     } catch (e) { questions = []; return; }
     render();               // fast first paint from localStorage
@@ -14060,9 +14081,8 @@ async function refreshZonesFromCloud() {
       // Cache-bust query + no-cache header — iOS Safari HTTP cache is the
       // exact bug we're working around. The viewer.html itself is the one
       // file iOS will keep stale; zones.json must be requested fresh.
-      const res = await fetch("zones.json?_=" + Date.now(), { cache: "no-cache" });
-      if (!res.ok) return;
-      cloud = await res.json();
+      cloud = await fetchOptionalJson("zones.json?_=" + Date.now(), { cache: "no-cache" });
+      if (cloud === null) return;
     }
     if (!cloud || !Array.isArray(cloud.zones)) return;
 
@@ -20220,9 +20240,7 @@ async function fetchWeatherHistory() {
   // stranger's house earns two locks, not one.
   if (ESTATE_STATION !== "present") return;
   try {
-    const res = await fetch("./weather-history.json");
-    if (!res.ok) return;
-    const data = await res.json();
+    const data = await fetchOptionalJson("./weather-history.json");
     if (!data || !Array.isArray(data.days)) return;
     WEATHER_DATA.history = data;
     if (typeof renderWeather === "function") renderWeather();
@@ -20238,9 +20256,7 @@ async function fetchWeatherBias() {
   // prose is Fernwood's own ("the mountain", "the gauge's sheltered spot by the pond").
   if (ESTATE_STATION !== "present") return;
   try {
-    const res = await fetch("./weather-bias.json");
-    if (!res.ok) return;
-    const data = await res.json();
+    const data = await fetchOptionalJson("./weather-bias.json");
     if (!data || !data.headline) return;
     WEATHER_DATA.bias = data;
     if (typeof renderRainfallPanel === "function") renderRainfallPanel();

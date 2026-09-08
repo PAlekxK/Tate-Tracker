@@ -285,6 +285,39 @@ def main():
                                  "it stops failing; then this deploy is allowed." % sha[:7])
             print("  gate ①: every seat passes every seat clause at %s" % sha[:7])
 
+            # ⭐⭐ AND PAUL'S CLEAR GATES IT TOO `[practice-steward, review-gate DESIGN §5, 2026-09-07]`.
+            # ⛔ WHAT THIS FIXES, MEASURED: `grep -c cleared_sha tools/release-gate.py
+            # tools/pages-deploy.py` returned 0 AND 0. `cycle-state.json` recorded Paul's clear as
+            # S4b — "written only by `--cleared <sha>` on Paul's word, never derived" — and then
+            # NOTHING ON EARTH CONSULTED IT before the one irreversible act in the loop. Gate ① is
+            # the SEATS' verdict; it says nothing about whether the human cleared this build.
+            # ⭐ WHY IT MATTERS MORE UNDER THE NEW ORDER, not less: with Paul's review moving to QA,
+            # his clear now PRECEDES the deploy instead of following it. A clear that precedes an act
+            # and is never read by that act is decoration. This line is what makes the whole
+            # arrangement enforceable rather than declarative.
+            # ⛔ IT REFUSES ON MISMATCH AND ON ABSENCE ALIKE — an unreadable or empty `cleared_sha`
+            # is NOT a pass. Fail-closed: "we could not tell" and "he cleared it" must never print
+            # the same, which is this repo's most repeated failure shape.
+            cleared = None
+            try:
+                with open(os.path.join(ROOT, "cycle", "release", "cycle-state.json"), encoding="utf-8") as fh:
+                    cleared = ((json.load(fh).get("last_lap") or {}).get("cleared_sha") or "").strip()
+            except (OSError, ValueError) as exc:
+                raise SystemExit("pages-deploy: ⛔ REFUSING — cannot read cycle-state.json to check "
+                                 "Paul's clear (%s). An unreadable gate is not an open gate."
+                                 % type(exc).__name__)
+            if not cleared:
+                raise SystemExit("pages-deploy: ⛔ REFUSING — `last_lap.cleared_sha` is empty, so no "
+                                 "build has been cleared. Paul clears it, then:\n"
+                                 "    python3 tools/release-state.py --cleared %s --write" % sha[:7])
+            if not sha.startswith(cleared):
+                raise SystemExit("pages-deploy: ⛔ REFUSING — Paul cleared %s; this deploy is %s.\n"
+                                 "    Production ships THE ARTIFACT HE CLEARED, never a newer one "
+                                 "[paul-ruled 2026-09-06, R4].\n"
+                                 "    Either deploy %s, or have him clear %s first."
+                                 % (cleared, sha[:7], cleared, sha[:7]))
+            print("  Paul's clear: %s ✅ (cycle-state.json last_lap.cleared_sha)" % cleared)
+
         # ⭐ EVERY ORIGIN THAT BUILDS ITS OWN APP LOADS IT BEFORE SHIPPING IT — QA included, because QA
         # is where the synthetics walk and a dead script there costs a whole battery (2026-09-06).
         if os.path.exists(os.path.join(export, "viewer.html")):
