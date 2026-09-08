@@ -171,6 +171,7 @@ not in force (`BACKLOG.md` § 2026-09-06 · four rulings that existed in no file
 | **Z-7** | *"Do we just want to provide links to various helpful websites to start? I think we can scope that together."* + `[paul-ruled]` *"that's fine on J-e."* | Events/neighbourhood starts as **LINKS** — membership by rule, nothing filtering, **no AI-boundary ruling owed.** ⭐ Re-open trigger, written where the code will be: **the first time anything SELECTS or FILTERS what appears on a card.** |
 | **Z-8** | *"Definitely authorize online research for best practices."* + *"You can always use Claude and Chrome if anything is bot blocked."* | Standing for this epic's research strand. |
 | **Z-9** | ⭐⭐ *"Let's just make this sustainable, and understand that the way we're doing this in the long run is not necessarily gonna be the long term — this is just how we're developing the process. **It's manual right now, and that's why I'm kinda building the zones on Mom's behalf, but that's not the long term process we're building.**"* | **THE MANUAL OPERATOR STEP IS SCAFFOLDING WITH A KNOWN EXPIRY, not the target architecture.** See §5d — it changes what is worth building. |
+| **Z-10** | ⭐⭐ *"All the data you have about plants and where they're located, you're not gonna have in the production Fernwood when Mom sets it up — that's all in the frozen version. **The new version has none of that data, and we're gonna be defining zones first.** Then start adding plants, and we can figure out how to get that input from Mom, because that should be much easier to get her feedback on than designing zones — we've already thought through how she can add plants by taking a picture, how we can send her confirmation cards. **So the first thing is defining the zones, and not worrying about already having plants with zone data on them.**"* | **ZONES FIRST, PLANTS SECOND — and the plant record does not travel.** See §6b. It retracts a blocking item and re-points the v1. |
 
 **Carried in from earlier and still binding:**
 
@@ -393,6 +394,65 @@ names what fires W6** — it does not solve it.
 
 ---
 
+## 6b · ⭐⭐ THE SEQUENCE — zones first, and the plant record does not travel `[paul-ruled 2026-09-07, Z-10]`
+
+### ⛔ What this RETRACTS, stated before what it adds
+
+**"Place the 13 placeless plants" was given to Paul as a BLOCKING item. It is not one.** That work
+improves only the **frozen** instance. ⚠️ **And the September watering-list demo in §2 — the argument that
+carried the v1 — was computed against a record that will not exist at the place Mom actually arrives.** It
+proved two things that still stand: the join is **computable**, and **silent undercount is a real failure
+mode**. It proved nothing about her first experience, and it was presented as though it had.
+
+### ⭐ The reframe, which is more useful than the demo was
+
+If she builds the record up plant by plant, **the record is incomplete at every moment, for a long time.**
+So *"here's what we know, and here's what's missing"* is **not an edge case to handle — it is the entire
+early experience**, from the first plant. The completeness gap must be designed as the NORMAL state, never
+as a defect to grow out of.
+
+### ⭐ And the frozen instance's own defects argue FOR this ordering
+
+**The 13 placeless plants and `pond-area` holding 16 of 35 placements are both symptoms of one thing:
+plants were entered before zones existed.** Paul's sequence structurally prevents both — **a plant added
+while she is in or naming a place carries its place for free**, so placelessness never occurs. That is a
+better argument for zones-first than any made earlier in this file.
+
+### ⛔⛔ BUT BOTH LEGS RUN THROUGH THE SAME WALL — verified at HEAD, not assumed
+
+The photo → confirm → add machinery is **real and shipped**: `/api/promote-species` (Phase F Option C,
+confirmed-twice add-to-Almanac), `/api/pending-species`, and the viewer's `gg-suggest` drafting / promoted /
+declined / error states. **And it writes to GitHub.** `handlePromoteSpecies` opens:
+
+```js
+if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) {
+  return json({ error: "github-not-configured", ... }, 503);
+}
+```
+
+⛔ **Mom's new production instance (`home`, `est-e6696a`) has no `GITHUB_TOKEN` — deliberately and
+permanently.** `wrangler.toml`: *"NO GITHUB_TOKEN, ever: GITHUB_BRANCH defaults to main, so a token here
+would promote species onto Mom's live branch."* **So adding a plant there returns 503 today, and it is not
+fixable by adding a token** — a token there writes to the live branch, which is the reason it is excluded.
+
+**All eight `ghPutFile` call sites are the same story** (`worker.js` 2832 · 2858 · 2906 · 2933 · 2993 ·
+3006 · **3955 `zones.json`** · 3969): plant JSON, `viewer.html`, the photo, the audio, and the zone save.
+**Zone-save writes to git. Plant-promote writes to git. Neither carries an estate.**
+
+> ### ⭐⭐ THEREFORE: THE FIRST THING TO BUILD IS NEITHER ZONES NOR PLANTS — IT IS THE PER-ESTATE WRITE PATH
+> Z-10's sequence does not dodge blocker B1; **it hits it from both sides.** The 09-06 proposal ranked it as
+> a *zone* problem. It is a **CAPTURE** problem: **on the instance Mom will actually use, nothing she
+> creates can be saved.**
+
+⭐ **This is good news for sequencing** — one piece of work unblocks both legs instead of two separate ones —
+and it is exactly the spending Z-9 rules for: **the tracer is scaffolding; the write path is the record.**
+
+⚠️ **It also re-prices the v1 honestly.** The v1 is not "~15 lines in `ZonePanel.open()`" at the place that
+matters. That estimate was true of the frozen instance, where the data already exists. At the new instance
+the v1's real leg 0 is a write path that does not exist yet.
+
+---
+
 ## 7 · The horizons `[Z-2]`
 
 ⛔ **Per Paul's own v1 rule** — *"a v1 shipped with no successor row is not a v1, it is an unfinished feature
@@ -400,7 +460,8 @@ with better manners"* — each horizon names what the one below it defers.
 
 | horizon | what | state |
 |---|---|---|
-| **V1 — now** | zones × plants. Paul draws; she confirms and corrects in words. Species-level. Names lead, geometry follows | 🎯 this file + two seat artifacts in flight |
+| ⛔ **LEG 0 — before either** | **the per-estate write path.** On Mom's instance nothing she creates can be saved: zone-save and plant-promote both write to git through eight `ghPutFile` sites with no estate concept, and `home` has no `GITHUB_TOKEN` by permanent design | 🔴 **§6b. Unblocks both legs of Z-10's sequence at once. Not started** |
+| **V1 — now** | ⭐ **ZONES FIRST** `[Z-10]` — she and Paul define places on a blank instance; **then** plants are added through the photo → confirm path, carrying their place at the moment of adding. Species-level. Names lead, geometry follows | 🎯 this file + three seat artifacts |
 | **NEAR** | the three primitives in the record (`geometry: {kind, coordinates}`) · a **plural, typed** place field on the nine domains that have none · household-system **points** — which needs the missing *subjects* first (well, septic, shut-off, spigots) · the staged operator pipeline steps 1–2 | scoped in §1 and §5; **not started** |
 | **LONG** | the derived first draft for a stranger's address · geometry leaving git · a map surface built into the neutral journey (⚠️ **there is no map in production at all today**, and the deploy allow-list enforces it) · the illustrated map · project sites over time | ⛔ downstream of the tenancy conversion, which has not begun |
 | **STANDING RESEARCH** `[Z-8]` | the mowing-regime time-series test · the Solar DSM probe · edge-snapping and its derived confidence · what the answer key can measure | ⭐ **the answer key has an expiry** — it only holds while the ground matches the 2018–2023 imagery |
@@ -416,6 +477,7 @@ hypotheses"* from a wish into a measurable program — and it is a wasting asset
 
 Named, so the deferral is a decision rather than an omission:
 
+0. ⭐ **The frozen instance's plant↔place data** `[Z-10]` — it does **not** travel. Improving it improves the answer key only, and is **not** on the v1's path.
 1. **W6 / plant instances** — species-level only. §6.
 2. **Lines and points in the schema** — the v1 uses areas plus names; the primitives are NEAR.
 3. **The place field on the other nine domains** — including the shut-off job, which additionally has no
