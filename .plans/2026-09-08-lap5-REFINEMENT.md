@@ -783,3 +783,26 @@ today**. ⛔ That is a question for whoever owns the release instrument, not a b
   flight as his own committed item C**.
 - ⚠️ **Membership must be re-probed at the moment of picking, never inherited from this file** — §13.5's
   own hazard, which caught two already-fixed rows this afternoon.
+
+### 14.1 ⭐ And a finding ABOUT the buckets, from how Paul answered `[paul-stated 2026-09-08]`
+
+*"And they do seem very much process oriented to me."*
+
+⛔ **That is not just agreement — it is evidence the three-way split is an AGENT-MADE distinction.**
+The BOARD separated B6 / B7 / B8 because their *subjects* differ (the product · the release instrument ·
+the loop's own record). **Paul reads them as one concern.** Both can be true — and when they are, the
+question is whether the seam earns its cost.
+
+**The test this corpus already uses:** *avoid columns unless each column changes what you do next*
+(Personal Kanban, cited in the METHOD §1.5's cargo list). ⚠️ **Applied here, the seam is doing less work
+than it looks:** Q13 existed *only* because the split existed. Three buckets produced a question that one
+bucket would not have posed, and the answer was *"all three."*
+
+⛔ **What I am NOT proposing:** merging them. **The split may still be right** — B7's cost-recoverability
+genuinely differs from B8's (§14), and that difference is invisible if they are one bucket. **The honest
+statement is narrower:** the split is justified by *cost shape*, which is measurable, and **not** by
+*subject*, which is what it was actually built on.
+
+⭐ **Left for practice-steward, not settled here:** whether a bucket boundary that its owner does not
+perceive is a boundary worth maintaining. That is a METHOD question about how the work is organised — its
+lane exactly, and not mine.
