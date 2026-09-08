@@ -894,3 +894,96 @@ at HEAD. That is the actual consolidation decision and it is one sentence.
 ### The row, DRAFTED not applied — bundled with §9.6 for Paul's go on canon
 
 > `| **🧭 THE GLANCE CONSOLIDATION — jump strip · summary tiles · cards, three layers repeating one thing** `[paul-raised 2026-09-07]` | ⚙️ engine · declared. Shape ruled 09-07 (strip stays · summaries collapse into cards · re-analyse the closed state); ⛔ **G-a — where RANKING goes — is unruled and is the point of the feature**; G-b's telemetry is `contested` and must be re-measured enumerating every card-open route first. → `.plans/2026-09-07-backlog-grooming-SCAN.md` §11 · census B1–B4 · C7-R1/R2 | — |`
+
+### 11.1 · ⭐ TWO SEATS RAN 2026-09-07 late — and both landed on the same answer to G-a
+
+Trails: `.ux-reviews/2026-09-07-glance-consolidation.json` · `.user-research/2026-09-07-glance-measurement-procedure.md`.
+⛔ Nothing executed. ⚠️ Both were re-briefed mid-flight with Paul's clean-slate engagement ruling
+(§11.2) and both say in their own output what it changed.
+
+**⛔ G-a IS ANSWERED, and by a fact neither seat had to argue for:** `orderCardsByRanking()`
+(`engine/viewer.template.html:18186`) — *"⭐ THE RANKING DECIDES THE ORDER `[paul-stated 2026-09-06]`:
+'we're building it based on this input that you provided us.' A person who put Gardening first found
+it fifth."* `measured`. **Card order is ALREADY the household's own declared ranking.**
+
+So frequency ranking does not fill an empty slot — **it overwrites a declared order with an inferred
+one on the same axis, nine days later.** Both seats recommend against it, independently:
+- **ux-expert:** recall dies (position is the only wayfinding on a 16-card page) · the ranking measures
+  its own past output and locks in · the strip and the page diverge on day one, putting the one working
+  affordance in disagreement with the page it points at · the face saying *"You put Gardening first"*
+  starts contradicting where Gardening sits.
+- **user-researcher:** ⭐ **construct mismatch** — *"how often accessed"* measures **habit**, a stable
+  trait; W4 asks *"what matters TODAY"*, a state. A frequency ranking returns the same order every day,
+  so it is **structurally incapable of answering the question the feature exists for.** Falsifier: if a
+  household's most-accessed card is also its most-recently-changed on most active days, access is a
+  serviceable proxy and the objection withdraws.
+
+⭐ **Where the instinct should go instead** (ux-expert's order): frequency ranks the **synthesis line**
+— a worklist by construction, which is where the ratified rule says a ranking belongs — **or** frequency
+**proposes** a change to her declared order and she ratifies it, which makes *"everything is
+changeable"* do real work rather than being asserted.
+
+**⛔ AND THE PROPOSAL AS STATED WOULD REGRESS A SHIPPED FIX** — `measured` tonight:
+
+| surface | reaches |
+|---|---|
+| **jump strip** (6) | Weather · Vehicles · Equipment · Household Systems · Gardening · Wildlife |
+| **tile row** (7 sub-lines) | Weather · Plants · Wildlife · **Astronomy** · **Fishing** · **Journal** · **Property** |
+
+**Four cards reach the top of the page ONLY through the tile row.** Deleting it restores exactly the
+defect BACKLOG Tier-2 row 1 was shipped to fix on 2026-07-29 — *the Journal was the most-opened card in
+the app (41 of 139 expansions) sitting 8th of 13 with no dashboard tile; she asked to look back and
+still could not find it.* ⭐ **The fix is a TRANSFER, not a deletion** — and Paul has already made one
+himself (09-07 beat 3: the Journal tile was removed for households *because* "Look back ›" existed).
+
+⭐ **The tile row is four jobs wearing one component, and only ONE is duplicated:** ① the summary text
+(genuinely duplicated — deleting it removes a second weather engine by construction, occurrence 4 of
+*one engine, one verdict*) · ② above-the-fold access for four cards the strip does not reach · ③
+**adjacency** — eight cells in one visual field become sixteen faces, no two of which are ever on
+screen together at 414 × A+ · ④ the aerial image, the only visual of the place above the cards.
+⚠️ **G-a's real loss is ADJACENCY, not ranking.**
+
+**The two questions that gate the build:** ⓐ an **additive second strip row** (her six untouched and
+first) — yes/no; ⭐ it satisfies Paul's own constraint, since a row of destinations **moves** and does
+not **ask**. ⓑ does a **synthesis line** exist, and is it one phrase or two.
+
+### 11.2 · ⭐⭐ THE CLEAN-SLATE ENGAGEMENT RULING `[paul-ruled 2026-09-07, late]`
+
+> *"we've been building out all these acknowledgment strips and asking all these questions and just
+> trying to prove out the mechanism and conceptualizing. So let's start fresh on our engagement rate
+> data and understand that this is just a starting point — but try to take a clean slate view in terms
+> of not over-indexing on Mom's past ignoring of our request for input."*
+
+⛔ **RETIRED:** any inference of the form *she did not respond to asks → she will not.* That window was
+**mechanism-proving on a prototype**, on a product now frozen. The new product's engagement record
+starts at **n=0**.
+
+✅ **SURVIVES — facts about the MECHANISM, not claims about her:** the queue renders one card at a time
+and every offer carries `position: 0` (so the visible set is 1, not 5) · the strip figure is
+`contested` and fired only from Paul's device · the card-open counter fires from a subset of the routes
+that open cards.
+
+⭐ **Not an oscillation.** Paul falsified the same inference himself earlier on 2026-09-07, producing
+the standing rule *"an empty engagement record is not an absent demand."* This generalises that
+correction from one finding to the whole record.
+
+⚠️ **THREE THINGS THE RULING TOUCHED, each reported rather than silently rewritten:**
+1. ⛔ **`renderEmptyCards()` (`engine/viewer.template.html:18403-18404`) has the retired count written
+   into ENGINE CODE as the stated rationale for a shipped design decision.** The behaviour may still be
+   right; **its justification is now inherited rather than checkable.**
+2. The ux seat **withdrew ground 2 of its own F13** from this morning's pass, and deleted an
+   engagement-based argument from F7 — which now stands on the governing principle and layout
+   arithmetic alone.
+3. A Fernwood candidate principle, *"demonstrated engagement sets altitude"*, rests entirely on the
+   retired record. **Unratified and one occurrence, so nothing needs unwinding** — but the next review
+   will pick it up and use it unless it carries a note.
+
+### 11.3 · Corrections this pass made to its own earlier claims
+- ⛔ **`card_expanded` has 2 emit sites, not 5** (`:8005` header · `:17781` programmatic). The other
+  three greps are comments. **The "5 sites" figure was this file's and it was a grep count.**
+- ⛔ **Nine routes open a card; two are instrumented.** Two of the silent ones are the **arrival
+  screen** — they fire for every brand-new household.
+- ⛔ **No event carries a position, an ordinal or the served order, and there is no `card_collapsed`
+  event at all** — so *born-open* and *never-opened* are the same record, and the #1 card auto-opens
+  silently. **Position 1 is over-exposed and under-counted at once**; the two biases do not cancel.
+  ⭐ **This is RC-2 (§9) arriving on its first test case.**
