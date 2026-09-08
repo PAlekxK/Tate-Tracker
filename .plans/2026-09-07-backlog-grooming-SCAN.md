@@ -1006,8 +1006,18 @@ correction from one finding to the whole record.
 ### ⭐ Why GL-1 is better than the seats knew — `measured` after the ruling
 The "stated preference" both seats treated as the confound is captured at the onboarding interests step
 **by tap order** (*"the order she taps IS the ranking"*), stored as `fw-onboard-interests`. And:
-- it is **`localStorage`, per-device** — it does not follow the person to a second browser (the **M3**
-  class: her text size does not sync either);
+- ⛔ ~~*it is `localStorage`, per-device — it does not follow the person to a second browser (the M3
+  class)*~~ — **FALSE. RETRACTED 2026-09-08, found by practice-steward.** `measured`: the ranking is
+  **stored ACCOUNT-SIDE** (`worker.js:604` carries `ranked` among the fields that ride at sign-in;
+  `:3441` · `:3484` write it to the grant and the account) and it is **hydrated back to a new device
+  from the server record** (`estate/index.html:504` — `if (d.ranked) put(K_RANK, …)`).
+  ⭐ **The defect is a READ PATH, not data loss** — the viewer takes the ranking from `localStorage`
+  rather than from `whoami`. ⚠️ **The M3 comparison was wrong too:** `textSize` has **zero** server
+  presence (`worker.js` contains no mention of it); `ranked` has full server presence. **The remedy is
+  therefore much smaller than this file said** — point the viewer at the copy that already exists,
+  rather than build a store. ⛔ **This was corrected to Paul in conversation and NOT corrected here for
+  five hours** — the second wrong SSOT row committed into the file written to find wrong SSOT rows,
+  and the reason B4 (measure) must not float after the ruling;
 - **it had never rendered for anyone.** The engine's own comment: *"⛔ THIS WAS DECLARED AND NEVER
   ASSIGNED… the viewer never read it, so the line 'You put Gardening first' had never rendered for
   anyone and every card fell to variant B. Three seats read their walks and each said the ranking
