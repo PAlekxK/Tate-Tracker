@@ -1943,3 +1943,42 @@ where we don't enact the fix… because the project can't see the inbox."*
 **▶️ NEXT: DISPOSE (2/12) — Paul's.** Three records at `home` await `act` · `fold` · `hold` ·
 `not-a-finding`.
 
+
+### Beat 3 · READ — and it corrected beat 2 `[user-researcher, 2026-09-08]`
+
+Artifact: `.user-research/2026-09-08-lap5-READ.md`. Ranked the three `act`/`fold` records, and the
+finding that matters is a **correction to the mechanism this session recorded at DISPOSE**.
+
+⛔ **I wrote "the wrong branch is reaching a household that has no station." FALSE**, verified against
+the **shipped production build** (`fernwood-home.pages.dev/viewer`, 1,212,428 bytes,
+`ESTATE_STATION = "declared-absent"`) rather than the source. The **right** branch is reaching it —
+the calm path fires correctly and renders the honest sentence **inside a status dot**:
+
+```js
+STATION_DECLARED_ABSENT
+  ? '<span class="live-dot stale"></span> No station here — regional readings'
+```
+
+The code's own comment states it: *"the CALM path… the card says 'No station here — regional
+readings' **with a stale dot**."* ⭐ **RIGHT WORDS, WRONG COMPONENT** — an amber degradation dot beside
+a sentence saying nothing is wrong. **A declaration is not a status.** The fix is to suppress the dot,
+which is smaller and different from the copy change scoped at DISPOSE. ⭐⭐ **And it is a CLASS:**
+`viewer.html:16736` gates on **runtime liveness** and ignores the declaration entirely — latent at the
+condo only because `fishing` is absent there. **4 of 5 instances declare `declared-absent`.**
+
+**Its provenance ruling, which is the part that should outlive this lap:** this is **an operator
+inspecting his own product, on a REAL household, and both halves bind.** Records 1 and 3 use
+vocabulary no customer has (*"no left border"*, *"jump strip"*) and travel as **operator inspection**.
+Record 2 is a **fact-of-household** claim the builder bias cannot reach — the same class as the
+2026-07-26 rainfall precedent — and travels as **customer evidence**. ✅ Promoted to the research
+library on Paul's approval: *"a fact-of-household report survives the builder-user bias; a preference
+report does not"* (`~/.claude/user-research/fernwood.md`).
+
+⭐ **AND THE STANDING QUESTION WAS ASKED AND ANSWERED.** CLAUDE.md's rule — *before any finding about
+her behaviour becomes an organising claim, ask Paul what she has asked him for lately* — was put to
+him at this beat. **His answer: *"Mom hasn't asked for anything lately. She's been very busy."***
+⛔ **RECORD THAT AS A REASON, NOT AS SILENCE.** The rule exists because on 2026-09-07 two research
+passes read an empty record as absent demand and were falsified in one sentence. A stated cause
+("she's been busy") is a different datum from an unexplained quiet window, and the next lap must not
+re-read this window as disengagement. ⚠️ The invite `p-b91e4d` remains **unspent** at last reading.
+
