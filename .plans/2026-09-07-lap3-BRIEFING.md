@@ -36,7 +36,7 @@ Census §J. Several rows elsewhere wait on these, and **an agent may not settle 
 | **J-a** | Does the FOCUS FREEZE bind Mom's arrivals on `est-e6696a`? | E3, every Mom row, **and GAP 1 below** |
 | **J-b** | Who may value-rank (the product-steward trial, R7) | F1, F2, the whole staged pipeline |
 | **J-c** | The `last_lap` state contract | F3, R6, R7 |
-| **J-d** | Colour precedence — account accent vs estate theme | C5 |
+| ~~**J-d**~~ | ⛔ **NOT A RULING OWED — IT WAS ALREADY ANSWERED.** `VOCABULARY.md §3g` `[paul-ruled 2026-09-06]`: the SCREEN decides. Inside a place (or its settings, or anything derived from it) the place's colour paints; in account settings, the profile colour. They have separate territories and never compete. This row was written from pre-09-06 text and never re-read against the ruling | — |
 | **J-e** | C7 Q4 — the AI boundary for events/neighbourhood | D3 |
 | **J-f** | The five catch-up rulings R1–R5 | H12, **both gaps** · ⚠️ **R2 is irreversible the first time anything is shown or pre-filled** |
 | **J-g** | Which **zone thread** the dedicated session is about | F4 · scope was never given; the 812-line proposal is unread |
@@ -231,7 +231,7 @@ together."*
 ⭐ **His own instinct — start with LINKS — is the safest possible version of the boundary and needs no
 AI ruling at all.** A link is membership-by-rule. Folded into the same scoping session as J-g.
 Remaining open: **J-c** (the lap-state contract — I applied one shape tonight; ratify or reverse) and
-**J-d** (colour precedence).
+~~**J-d** (colour precedence)~~ — ⛔ **withdrawn 2026-09-07: already ruled 09-06**, see `VOCABULARY.md §3g`. Putting it to Paul a second time cost his attention on a settled question; the rule that follows is written there.
 
 ### ✅ J-e — CLOSED for now: draw the line when it is crossed
 `paul-ruled 2026-09-07`: *"that's fine on J-e, and we will continue to refine and understand how that

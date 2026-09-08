@@ -331,6 +331,34 @@ ever pretending to be a place.
 at build and read by nothing (C7). Two writers for one value is how a fork starts: whichever becomes
 authoritative, the other must be derived from it or deleted. **Open, and it is Paul's.**
 
+### ⛔ THIS WAS RE-ASKED ON 2026-09-07 AND SHOULD NOT BE ASKED AGAIN
+
+`paul-stated 2026-09-07`: *"We keep talking about the colors, but that should be settled. It's just
+based on whether you're looking at a specific property or you're on the account menu. Right? We've
+talked about this."*
+
+**He is right, and the ruling above already said it.** A lap-3 session listed colour precedence as an
+OPEN ruling (`J-d`), researched it, formed a recommendation, and put it to him — and his answer was a
+rougher restatement of §3g, which had been ruled a day earlier and which he had already overruled a
+seat to establish. **The cost was his attention, twice, on a question with an answer.**
+
+⭐ **HOW IT HAPPENED, because the mechanism matters more than the instance.** The question was carried
+forward in `BACKLOG.md` row 19c and in the lap-3 census as *"⛔ Paul's ruling on which wins"* — text
+written **before** 09-06 and never re-read against the ruling that answered it. Nothing checked the
+open-questions list against this file. ⚠️ **It is the same shape as the lap-3 process audit's own
+headline finding**: a claim living in two places, and the change reaching one.
+
+⛔ **THE RULE THIS EARNS: before putting a ruling to Paul, grep VOCABULARY.md and the chronicles for
+the noun.** A question that already has an answer is not a cheap question — it spends the one
+resource this project cannot manufacture, and it teaches him that the register cannot be trusted to
+know what he has already said.
+
+⭐ **AND THE FALSIFIER FOR "IT IS SETTLED": there is no third case.** Every surface is either inside a
+place or it is not. If a screen is ever found that is genuinely neither — nor derived from one — that
+is a NEW question about that screen, and it does not re-open this one.
+
+---
+
 ## 3h · ENVIRONMENTS — four names, and the one that had to change `[paul-ruled 2026-09-07]`
 
 ⛔ **This file had NO environment section until today**, which is why the worst name in the system
