@@ -102,7 +102,8 @@ because the seat has no CREATE verb at all.
 `.plans/*` headers, the chronicles, the seat trail directories, and the four checks
 (`check-backlog-ready`, `check-backlog-drift`, `qa-divergence`, `release-state`).
 **Writes:** BACKLOG row fields (stage, pointer, stage-note, seat citation), plan header keys, and one
-queue file of questions it could not cite. **Nothing else, ever.**
+queue file of questions it could not cite — ⭐ **named 2026-09-07 as
+`.plans/2026-09-07-product-steward-queue.md`** `[process-audit G3]`; it was promised here and never named, so beat 8's escape clause had no destination. **Nothing else, ever.**
 
 ## 4 · When it fires — event-shaped, never standing
 
