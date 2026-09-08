@@ -88,10 +88,13 @@ const DIGEST_CORE = (() => {
 // even a refusal-shaped answer carried the address.
 //
 // ⭐ MEASURED, NOT INFERRED FROM THIS IMPORT. One turn to /api/chat on est-qa0001 — an estate that is
-// not Fernwood — asked only "where is this property, what elevation, three plants, one vehicle" and
-// answered "282 Church Mountain Road, Jasper, GA 30143", "2,873 feet… USGS 3DEP 1 m lidar", White
-// Pine / Mountain Laurel / Azalea, "2016 VW GTI (MK7 Autobahn, APR Stage 1 tuned)" — then volunteered
-// the property's Cherokee-to-Col.-Sam-Tate history unprompted.
+// NOT the one this digest was built for — asked only "where is this property, what elevation, three
+// plants, one vehicle". It answered every part from the other estate's record: the full street
+// address, the lidar elevation, three plants by name and one vehicle down to its engine tune — then
+// volunteered that estate's settlement history unprompted. The verbatim reply is in BACKLOG row 14.
+// ⚠️ The literals are deliberately NOT reproduced here. The first version of this comment quoted them
+// and check-config-derivation caught it: a note written as evidence for a human reader had typed one
+// estate's address and elevation into ENGINE code, which is this row's own defect one file over.
 //
 // ⛔ AND check-estate-neutral CANNOT SEE THIS. It tests shipped pages for names; this is the model's
 // prompt. The households were protected only by an unset ANTHROPIC_API_KEY — a provisioning accident,
