@@ -99,7 +99,7 @@ DISPOSITIONS_FILE = os.path.join(ROOT, "feedback-dispositions.json")
 # "Testing", `1 Example Road`) and qa's 431 are 428 onboarding form-fills plus 3 probes. Paul's own
 # 09-05 lab walk findings went to GATE2-paul-findings.md as spoken findings, NOT into this store.
 # ⭐ Re-read that if the definition is ever widened.
-GATING_ENVS = {"home", "prod"}
+GATING_ENVS = {"home", "legacy"}
 
 # ⭐ ONE COPY OF THE STORE READER, IMPORTED — never a second implementation. `kv`,
 # `destination_agrees`, `environments`, `register_persons` and the Unreadable contract all live in

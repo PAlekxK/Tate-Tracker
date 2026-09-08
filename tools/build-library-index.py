@@ -177,7 +177,7 @@ def selftest():
     print("\n%s" % ("✅ controls hold." if ok else "🔴 a control failed.")); return 0 if ok else 1
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(); ap.add_argument("--check", action="store_true"); ap.add_argument("--load", action="store_true"); ap.add_argument("--env", choices=("qa", "prod")); ap.add_argument("--selftest", action="store_true")
+    ap = argparse.ArgumentParser(); ap.add_argument("--check", action="store_true"); ap.add_argument("--load", action="store_true"); ap.add_argument("--env", choices=("qa", "legacy")); ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     if a.selftest: sys.exit(selftest())
     if a.check: sys.exit(check())

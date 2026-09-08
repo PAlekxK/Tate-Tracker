@@ -331,6 +331,58 @@ ever pretending to be a place.
 at build and read by nothing (C7). Two writers for one value is how a fork starts: whichever becomes
 authoritative, the other must be derived from it or deleted. **Open, and it is Paul's.**
 
+## 3h · ENVIRONMENTS — four names, and the one that had to change `[paul-ruled 2026-09-07]`
+
+⛔ **This file had NO environment section until today**, which is why the worst name in the system
+survived for months.
+
+| name | what it is | estate | who is on it |
+|---|---|---|---|
+| **`dev`** *(`lab` in tooling today)* | where a build is made and tested first | `est-lab0001` | nobody — 38 records, all fixtures |
+| **`qa`** | ⭐ **the MIRROR of production**, and where Paul's review gate is moving | `est-qa0001` | the synthetic walkers |
+| **`prod`** *(`home` in tooling today)* | ⭐ **THE PRODUCT BEING BUILT** | `est-e6696a` | Paul. Mom's invite is minted and **unspent** |
+| **`legacy`** *(was `prod`)* | 🧊 the FROZEN Fernwood — the first instance, kept as a **data control** | `est-3c9f1a` | ⭐ **Mom, right now, today** |
+
+### ⭐ Why `prod` → `legacy` — and it is not because the estate is going away
+
+`paul-ruled 2026-09-07`. **Two different things read as "production" and the wrong one had the name.**
+The frozen Fernwood was labelled `prod` while the product actually being built ships to `home`.
+
+⛔ **IT MISLED THIS PROJECT ON THE RECORD, the same day it was renamed.** A session read a `prod`
+feedback row — *"Vehicles"*, a ranking-add on the motor-pool screen — as *"the live product,
+therefore Paul's, since he is the only account there."* True of `home`. **False of `est-3c9f1a`,
+where Mom has been the primary user for months.** It came within one check of attributing her input
+to him. `[[project_fernwood_device_misattribution]]` — attribute from authored CONTENT only; the env
+label is not content.
+
+⚠️ **`legacy` MUST NOT BE READ AS "dead" or "being switched off".** Two facts it has to carry:
+1. ⭐ **Mom is on it today.** She has never arrived on the new product — her invite is still in the
+   store, unspent. Until she does, `legacy` is the only real user's live app.
+2. ⭐ **It is frozen deliberately, as a DATA CONTROL.** Her 23 hand-traced zones survive there as the
+   answer key, which is exactly why nothing is pre-filled into her new account `[paul-ruled, J-f]`.
+   Breaking it is irreversible.
+
+### ⚠️ The rename is a LABEL. `ENV_NAME` is still `"production"`, on purpose
+
+`wrangler.toml:25` still declares `ENV_NAME = "production"` for that estate, and that is **not an
+oversight to tidy up.** `ENV_NAME` is a RUNTIME value: `/health` reports it, **every new feedback and
+zone-audio record is stamped with it**, and `check_destination()` matches it against a live
+`env-canary` key in KV. Changing it would make new records disagree with every historical one *and*
+break the canary until KV is rewritten on Mom's live estate. **That is a migration, not a rename**,
+and the canary fallbacks in `watch-accounts.py` and `grant-mint.py` deliberately still map
+`legacy → "production"` for exactly this reason.
+
+⭐ **The general rule this earns:** *a name a human reads and a value a machine stores are two
+different things, and they are renamed on two different clocks.* Renaming the first is free;
+renaming the second is a data migration.
+
+⚠️ **And a rename has a cost this one paid immediately:** `feedback-dispositions.json` is keyed by
+`env|estate|kind|id`, so relabelling `prod → legacy` **orphaned a disposition** — the record read as
+UNDISPOSED again and F6 ARM re-blocked. It was migrated (key rewritten, `_key_was` recorded, reason
+and timestamp intact), never re-disposed. **Any future env rename must sweep that ledger.**
+
+---
+
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
 **This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets

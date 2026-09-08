@@ -86,6 +86,21 @@ def now_iso():
 
 
 # ---- the roster of what to watch -------------------------------------------------------------
+# ⭐⭐ THE TOP-LEVEL TOML IS `legacy`, NOT `prod` `[paul-ruled 2026-09-07]`.
+# ⛔ WHY THE OLD NAME HAD TO GO: it named the FROZEN Fernwood — estate `est-3c9f1a`, the app Mom
+# has used for months — "prod", while the product actually being built ships to `home`
+# (`est-e6696a`). Two different things read as "production" and the wrong one had the name.
+# ⚠️ IT MISLED THIS PROJECT ON THE RECORD, 2026-09-07: a session read a `prod` feedback row as
+# "the live product, therefore Paul's — he is the only account there" and came within one check of
+# attributing MOM's input to him. The env label was the whole of the error.
+# ⛔ THIS IS A LABEL ONLY — no Cloudflare env is renamed and no data moves. `legacy` is the sentinel
+# for the toml's TOP LEVEL, which takes no `--env` flag; the wrangler envs (qa · lab · home · bob ·
+# paul) are untouched.
+# ⚠️ AND `ENV_NAME` IS DELIBERATELY STILL "production" — see wrangler.toml:25. That value is a
+# RUNTIME var: `/health` reports it, every new feedback and zone-audio record is STAMPED with it,
+# and `check_destination` matches it against a live `env-canary` key in KV. Changing it would make
+# new records disagree with every historical one AND break the canary until KV is rewritten on
+# Mom's live estate. That is a migration, not a rename, and it is not being done as a side effect.
 def environments():
     """env name → {estate, kv, envName}, READ FROM `worker/wrangler.toml`, never restated here.
 
@@ -103,7 +118,7 @@ def environments():
         v = node.get("vars") or {}
         return {"estate": v.get("ESTATE_ID"), "kv": kvs[0].get("id"), "envName": v.get("ENV_NAME")}
 
-    envs = {"prod": one(doc)}
+    envs = {"legacy": one(doc)}
     for name, node in (doc.get("env") or {}).items():
         envs[name] = one(node)
     # An environment that declares no estate cannot be keyed, so it cannot be watched. Say so
@@ -122,10 +137,10 @@ def kv(env, verb, *args, timeout=120):
     """One `wrangler kv key <verb>` call against ONE environment's bound namespace.
 
     `--binding OBSERVATIONS` resolves through `worker/wrangler.toml`, so cwd matters — the same
-    reason `grant-mint.py:run_kv` sets it. `prod` is the toml's TOP LEVEL and takes no `--env`.
+    reason `grant-mint.py:run_kv` sets it. `legacy` is the toml's TOP LEVEL and takes no `--env`.
     """
     cmd = wrangler_bin() + ["kv", "key", verb, "--binding", "OBSERVATIONS", "--remote"]
-    if env != "prod":
+    if env != "legacy":
         cmd += ["--env", env]
     cmd += list(args)
     try:
@@ -191,7 +206,9 @@ def destination_agrees(env):
     control `grant-mint.py:env_agrees()` runs before a mint, read through the same `--env` flag the
     listing will use, so it probes the actual destination rather than restating the roster.
     """
-    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or ("production" if env == "prod" else env)
+    # ⚠️ The fallback still says "production" for `legacy` ON PURPOSE: the canary living in KV
+    # holds ENV_NAME, which is unchanged. The LABEL moved; the stored value did not.
+    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or ("production" if env == "legacy" else env)
     got = (kv(env, "get", "env-canary") or "").strip().splitlines()
     got = got[-1].strip() if got else ""
     if not got:

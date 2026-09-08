@@ -1,115 +1,117 @@
 {
-  "_comment": "Per-record dispositions for feedback arrivals, keyed (env|estate|channel|record id). ⛔ THIS FILE IS TRACKED IN A PUBLIC REPO. No note text and no personId ever land here — the words live in .private/ and person ids live in the private sibling's grants.json. A `why` is written by a human and goes public with it: say where the record went, never what anybody said. A batch may never be cleared by one of its members, so there is no bulk write and no watermark.",
-  "dispositions": {
-    "home|est-e6696a|feedback|fb-53e7l33b-mtre3ll8": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:58:56Z",
-      "disposition": "fold",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "fb-53e7l33b-mtre3ll8",
-      "ts": "2026-09-07T15:22:47.180Z",
-      "why": "FOLDS INTO CENSUS ROWS D3 / C7-R5 (events and neighbourhood as a domain). Same content as walk finding F10: the place card should be about the PROPERTY — local events, festivals — not weather. It is the material behind Paul own \"start with LINKS\" instinct on J-e, which he closed for now; the reopen trigger is the first time anything SELECTS or FILTERS what appears on a card."
-    },
-    "home|est-e6696a|feedback|homes-second-home": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:58:56Z",
-      "disposition": "fold",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "homes-second-home",
-      "ts": "2026-09-07T15:21:16.347Z",
-      "why": "FOLDS INTO BACKLOG ROWS 19/19b (roles and invitation). Same ask as walk finding F14 and asked TWICE on 2026-09-07 — once here at 11:17 ET into the store, once aloud during the evening walk. Recorded as a repeat; the count is the signal, and per Paul ruling the count is recorded and ranks nothing."
-    },
-    "home|est-e6696a|feedback|onboard-addr-confirm-zl9lzb": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:58:55Z",
-      "disposition": "not-a-finding",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "onboard-addr-confirm-zl9lzb",
-      "ts": "2026-09-07T15:17:24.801Z",
-      "why": "Form field, not feedback: the step-4 address confirmation of the same run. Correct capture. NOTE it is the record whose ABSENCE from the 10:22 ET run I misread as a silent failure — see CYCLE-LOG retraction."
-    },
-    "home|est-e6696a|feedback|onboard-address-pexfq4": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:58:55Z",
-      "disposition": "not-a-finding",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "onboard-address-pexfq4",
-      "ts": "2026-09-07T15:17:18.354Z",
-      "why": "Form field, not feedback: the address value captured at step 2 of the same run. Correct capture of a requested value."
-    },
-    "home|est-e6696a|feedback|onboard-address-sfkst2": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:04:49Z",
-      "disposition": "not-a-finding",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "onboard-address-sfkst2",
-      "ts": "2026-09-07T14:22:47.252Z",
-      "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
-    },
-    "home|est-e6696a|feedback|onboard-interests-kgw378": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:04:49Z",
-      "disposition": "not-a-finding",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "onboard-interests-kgw378",
-      "ts": "2026-09-07T14:23:06.046Z",
-      "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
-    },
-    "home|est-e6696a|feedback|onboard-interests-other-atz6kh": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:58:55Z",
-      "disposition": "fold",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "onboard-interests-other-atz6kh",
-      "ts": "2026-09-07T15:17:56.492Z",
-      "why": "FOLDS INTO CENSUS ROW D4 (route an unanticipated interest). \"Houseplants!\" arrived via onboard-interests-other — the \"something else\" free text ON the interests step — so it is a twelfth interest named exactly where the product asked for one, NOT a module request. That answers the briefing third small question about which class it is; whether to build anything for it stays Paul."
-    },
-    "home|est-e6696a|feedback|onboard-name-10ws5c9": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:04:49Z",
-      "disposition": "not-a-finding",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "onboard-name-10ws5c9",
-      "ts": "2026-09-07T14:22:35.184Z",
-      "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
-    },
-    "home|est-e6696a|feedback|onboard-name-16slk8z": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:58:55Z",
-      "disposition": "not-a-finding",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "onboard-name-16slk8z",
-      "ts": "2026-09-07T15:17:05.499Z",
-      "why": "Form field, not feedback: the place-name value (\"Grant Park Condo\") captured at step 1 of Paul own onboarding, 2026-09-07 15:17Z. The product recorded what it asked for and did so correctly. Nothing to act on; the value itself lives on the account row."
-    },
-    "home|est-e6696a|feedback|onboard-onboarding-note-1lx0poj": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:58:55Z",
-      "disposition": "fold",
-      "env": "home",
-      "estate": "est-e6696a",
-      "id": "onboard-onboarding-note-1lx0poj",
-      "ts": "2026-09-07T15:17:42.902Z",
-      "why": "FOLDS INTO CENSUS ROW D1 (property type as a declared input). Paul typed \"It is a condo property type. I am right by the beltline and Grant Park itself!\" into a free-text note because there is no property-type field to put it in — which is exactly the evidence D1 rests on, now with its own record id. No new row: D1 already exists and already cites this behaviour."
-    },
-    "prod|est-3c9f1a|feedback|ask-next-motor-pool-mtqmfjqf": {
-      "channel": "feedback",
-      "disposedAt": "2026-09-08T00:58:56Z",
-      "disposition": "hold",
-      "env": "prod",
-      "estate": "est-3c9f1a",
-      "id": "ask-next-motor-pool-mtqmfjqf",
-      "ts": "2026-09-07T02:28:15.399Z",
-      "why": "HELD UNDER THE FOCUS FREEZE, which still governs the frozen estate est-3c9f1a even though J-a freed Mom arrivals on est-e6696a. RELEASE CONDITION (a hold without one is abandonment with manners): the freeze lifts, OR the migration reaches the ask-next surface. ⛔ DELIBERATELY UNATTRIBUTED: personId is null and the note \"Vehicles\" carries nothing that identifies an author. est-3c9f1a is the OLD Fernwood where Mom has been the primary user for months — NOT est-e6696a, which holds one account. A ranking-add on the motor-pool screen there is at least as likely hers as Paul. Attribute from authored CONTENT only."
-    }
+ "_comment": "Per-record dispositions for feedback arrivals, keyed (env|estate|channel|record id). ⛔ THIS FILE IS TRACKED IN A PUBLIC REPO. No note text and no personId ever land here — the words live in .private/ and person ids live in the private sibling's grants.json. A `why` is written by a human and goes public with it: say where the record went, never what anybody said. A batch may never be cleared by one of its members, so there is no bulk write and no watermark.",
+ "dispositions": {
+  "home|est-e6696a|feedback|fb-53e7l33b-mtre3ll8": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:58:56Z",
+   "disposition": "fold",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "fb-53e7l33b-mtre3ll8",
+   "ts": "2026-09-07T15:22:47.180Z",
+   "why": "FOLDS INTO CENSUS ROWS D3 / C7-R5 (events and neighbourhood as a domain). Same content as walk finding F10: the place card should be about the PROPERTY — local events, festivals — not weather. It is the material behind Paul own \"start with LINKS\" instinct on J-e, which he closed for now; the reopen trigger is the first time anything SELECTS or FILTERS what appears on a card."
+  },
+  "home|est-e6696a|feedback|homes-second-home": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:58:56Z",
+   "disposition": "fold",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "homes-second-home",
+   "ts": "2026-09-07T15:21:16.347Z",
+   "why": "FOLDS INTO BACKLOG ROWS 19/19b (roles and invitation). Same ask as walk finding F14 and asked TWICE on 2026-09-07 — once here at 11:17 ET into the store, once aloud during the evening walk. Recorded as a repeat; the count is the signal, and per Paul ruling the count is recorded and ranks nothing."
+  },
+  "home|est-e6696a|feedback|onboard-addr-confirm-zl9lzb": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:58:55Z",
+   "disposition": "not-a-finding",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "onboard-addr-confirm-zl9lzb",
+   "ts": "2026-09-07T15:17:24.801Z",
+   "why": "Form field, not feedback: the step-4 address confirmation of the same run. Correct capture. NOTE it is the record whose ABSENCE from the 10:22 ET run I misread as a silent failure — see CYCLE-LOG retraction."
+  },
+  "home|est-e6696a|feedback|onboard-address-pexfq4": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:58:55Z",
+   "disposition": "not-a-finding",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "onboard-address-pexfq4",
+   "ts": "2026-09-07T15:17:18.354Z",
+   "why": "Form field, not feedback: the address value captured at step 2 of the same run. Correct capture of a requested value."
+  },
+  "home|est-e6696a|feedback|onboard-address-sfkst2": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:04:49Z",
+   "disposition": "not-a-finding",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "onboard-address-sfkst2",
+   "ts": "2026-09-07T14:22:47.252Z",
+   "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
+  },
+  "home|est-e6696a|feedback|onboard-interests-kgw378": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:04:49Z",
+   "disposition": "not-a-finding",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "onboard-interests-kgw378",
+   "ts": "2026-09-07T14:23:06.046Z",
+   "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
+  },
+  "home|est-e6696a|feedback|onboard-interests-other-atz6kh": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:58:55Z",
+   "disposition": "fold",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "onboard-interests-other-atz6kh",
+   "ts": "2026-09-07T15:17:56.492Z",
+   "why": "FOLDS INTO CENSUS ROW D4 (route an unanticipated interest). \"Houseplants!\" arrived via onboard-interests-other — the \"something else\" free text ON the interests step — so it is a twelfth interest named exactly where the product asked for one, NOT a module request. That answers the briefing third small question about which class it is; whether to build anything for it stays Paul."
+  },
+  "home|est-e6696a|feedback|onboard-name-10ws5c9": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:04:49Z",
+   "disposition": "not-a-finding",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "onboard-name-10ws5c9",
+   "ts": "2026-09-07T14:22:35.184Z",
+   "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
+  },
+  "home|est-e6696a|feedback|onboard-name-16slk8z": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:58:55Z",
+   "disposition": "not-a-finding",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "onboard-name-16slk8z",
+   "ts": "2026-09-07T15:17:05.499Z",
+   "why": "Form field, not feedback: the place-name value (\"Grant Park Condo\") captured at step 1 of Paul own onboarding, 2026-09-07 15:17Z. The product recorded what it asked for and did so correctly. Nothing to act on; the value itself lives on the account row."
+  },
+  "home|est-e6696a|feedback|onboard-onboarding-note-1lx0poj": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:58:55Z",
+   "disposition": "fold",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "onboard-onboarding-note-1lx0poj",
+   "ts": "2026-09-07T15:17:42.902Z",
+   "why": "FOLDS INTO CENSUS ROW D1 (property type as a declared input). Paul typed \"It is a condo property type. I am right by the beltline and Grant Park itself!\" into a free-text note because there is no property-type field to put it in — which is exactly the evidence D1 rests on, now with its own record id. No new row: D1 already exists and already cites this behaviour."
+  },
+  "legacy|est-3c9f1a|feedback|ask-next-motor-pool-mtqmfjqf": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T00:58:56Z",
+   "disposition": "hold",
+   "env": "legacy",
+   "estate": "est-3c9f1a",
+   "id": "ask-next-motor-pool-mtqmfjqf",
+   "ts": "2026-09-07T02:28:15.399Z",
+   "why": "HELD UNDER THE FOCUS FREEZE, which still governs the frozen estate est-3c9f1a even though J-a freed Mom arrivals on est-e6696a. RELEASE CONDITION (a hold without one is abandonment with manners): the freeze lifts, OR the migration reaches the ask-next surface. ⛔ DELIBERATELY UNATTRIBUTED: personId is null and the note \"Vehicles\" carries nothing that identifies an author. est-3c9f1a is the OLD Fernwood where Mom has been the primary user for months — NOT est-e6696a, which holds one account. A ranking-add on the motor-pool screen there is at least as likely hers as Paul. Attribute from authored CONTENT only.",
+   "_key_was": "prod|est-3c9f1a|feedback|ask-next-motor-pool-mtqmfjqf",
+   "_key_migrated": "2026-09-07 — the env LABEL `prod` was renamed to `legacy` [paul-ruled]. This ledger is keyed by (env|estate|kind|id), so the rename orphaned this disposition: the sweep began looking for a key that did not exist and the record read as UNDISPOSED again. Migrated, not re-disposed — the original reason and disposedAt are intact."
   }
+ }
 }

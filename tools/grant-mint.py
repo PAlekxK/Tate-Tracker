@@ -60,7 +60,7 @@ def environments():
         kvs = node.get("kv_namespaces") or [{}]
         v = node.get("vars") or {}
         return {"estate": v.get("ESTATE_ID"), "kv": kvs[0].get("id"), "envName": v.get("ENV_NAME")}
-    envs = {"prod": one(doc)}
+    envs = {"legacy": one(doc)}
     for name, node in (doc.get("env") or {}).items():
         envs[name] = one(node)
     return envs
@@ -156,7 +156,7 @@ def kv_cmd(env, verb, key, value=None):
     cmd = ["node", wr[-1] if wr else "wrangler", "kv", "key", verb, "--binding", "OBSERVATIONS", "--remote"]
     if env not in ENVIRONMENTS:
         raise Refuse("env %r is not declared in worker/wrangler.toml (declared: %s)" % (env, ", ".join(sorted(ENVIRONMENTS))))
-    if env != "prod":
+    if env != "legacy":
         cmd += ["--env", env]   # `prod` is the toml's top level and takes no flag
     cmd.append(key)
     if value is not None:
@@ -191,7 +191,7 @@ def kv_list_keys(env, prefix):
     wr = sorted(glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/wrangler/bin/wrangler.js")),
                 key=os.path.getmtime)
     cmd = ["node", wr[-1] if wr else "wrangler", "kv", "key", "list", "--binding", "OBSERVATIONS", "--remote"]
-    if env != "prod":
+    if env != "legacy":
         cmd += ["--env", env]
     cmd += ["--prefix", prefix]
     r = subprocess.run(cmd, cwd=os.path.join(ROOT, "worker"), capture_output=True, text=True, timeout=120)
@@ -317,7 +317,7 @@ def env_agrees(env, dry=False):
     of the actual destination rather than a restatement of the roster. A fixture must assert its own
     destination; so must a credential.
     """
-    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or ("production" if env == "prod" else env)
+    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or ("production" if env == "legacy" else env)
     if dry or KV_OFFLINE:
         return                      # nothing is written, so there is no destination to confirm
     # cwd MATTERS: `--binding` resolves through worker/wrangler.toml, exactly as run_kv does. Without
