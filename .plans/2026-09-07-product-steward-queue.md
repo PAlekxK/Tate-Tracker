@@ -26,6 +26,17 @@
   round read one lap's own three records and one battery, and **neither is a steady-state reading.**
   Full round: `.plans/2026-09-08-lap5-CARRY.md`.
 
+- stage-note: 2026-09-08 — **second real use, same day.** Lap 5's BOARD (beat 5, GROOM & BUCKET) opened
+  **Q7–Q13** against **zero** BACKLOG writes — that beat's own exit condition forbids touching the file
+  (*"it FLAGS; it never reorders"*), so the §6.7 ratio is **structurally meaningless** at this beat and
+  is recorded as a charter finding rather than a result. Full round:
+  `.plans/2026-09-08-lap5-BOARD.md`. ⭐ **Q1 CLOSED** (`b998b30` corrected the disposition's `why` to
+  TIER 2 · 11 — the *class* is carried instead into the BOARD's B8). ⭐ **Q2 CLOSED** — the UX/design
+  theme is minted as **B1 · UX & DESIGN COHERENCE**, with its members, its library
+  (`~/.claude/design-principles/`), its supply (`/ux-sweep`, OWED) and its own falsifier. ⭐ **Q5
+  ANSWERED for this lap** at beat 3 — Paul: *"Mom hasn't asked for anything lately. She's been very
+  busy"*; ⛔ the standing half (which beat OWNS the act) is still open. **Q3 · Q4 · Q6 remain open.**
+
 ---
 
 ## ⭐ THE TWO DESTINATIONS, NAMED — this is the whole point of the file
@@ -84,6 +95,75 @@ never edits*. Read every *"beat 8"* below as **CARRY**.
 - ⛔ **The stakes are R7's own, stated in the charter:** *"A trial that is not instrumented is renewed by inertia, which is the one outcome R7 exists to prevent."* At lap close the disposal rule is *"the ledger decides which"*, and the ledger holds **one round** — which reads identically to *only one round ever ran*.
 - why it could not be cited: **it is a code defect in this seat's own instrument, and code is not in this seat's write set.** Charter §3 is exhaustive: *"BACKLOG row fields, plan header keys, and one queue file of questions it could not cite. **Nothing else, ever.**"* ⛔ **And hand-writing `.private/product-steward-ledger.json` was DECLINED for the same reason it would be tempting** — a hand-written row would make `--ledger` read as though the writer worked, which is the failure this entry exists to make visible. **Fail loud, not tidy.**
 - what would close it: **restore `cmd_record` with its seventh parameter** (the deleted six-argument body is recoverable at `890efd5^`), **add a selftest clause that fails when `--record` cannot write** — otherwise the same silence returns — then record round 2 from `.plans/2026-09-08-lap5-CARRY.md` §4.1, whose numbers are **12 carried · 6 already · 5 questions · 0 unwritten** at `bfa3f23`, with the confound stated. ⚠️ **Until then `--ledger` under-reports the trial by one round and every reading of both falsifiers is drawn from a single data point.**
+
+### Q7 · Nine live ordinal collisions in `BACKLOG.md`. Mandate the qualified form, or mint stable slug ids?
+- raised-by: 2026-09-08 BOARD (beat 5) · `.plans/2026-09-08-lap5-BOARD.md` §1.3, measured by parsing the three tier tables at `71119d6`
+- the finding: `measured` — TIER 1 ∩ TIER 2 collide on **11, 14, 15, 16, 18, 19, 20**; TIER 1 ∩ TIER 3 on **6**; TIER 2 ∩ TIER 3 on **7**. **Nine live.** One has already produced a wrong citation in a tracked file — `feedback-dispositions.json`'s `why` for `fb-vurlf77f` read *"TIER 1 · 11 (the weather card from an address)"*, a right title on a wrong tier, so a reader landed on a row about bird audio (Q1, fixed `b998b30`).
+- why it could not be cited: ⛔ **renumbering is not available.** `measured`: eleven `TIER n · m` or bare `row N` citations live outside `BACKLOG.md`, **six of them inside `worker/worker.js`**, plus `viewer.html`, `engine/viewer.template.html`, `CLAUDE.md`, `tools/grant-mint.py:213` and `tools/guard-concurrent.py:69`. A renumber would silently falsify comments in a running Worker. So the choice is **C1** (mandate `TIER n · m` everywhere; cheap, does not fix the class) against **stable slug ids** (`T2-11-weather-from-address`; fixes it permanently, is a schema change and a rewrite of every external citation). **A seat that picked would be choosing the file's identity scheme.**
+- what would close it: **Paul's word** on C1 vs slugs, and on whether the proposed `tools/check-row-citations.py` (BOARD §1.3 · C3) is worth its own maintenance.
+
+- ✅ **RULED `[paul-ruled 2026-09-08]` — DO NOT RENUMBER; mandate the qualified form.** Paul's words:
+  *"Two seven is fine. We can ratify — if everyone says don't renumber it, let's not renumber it."*
+  ⭐ **Both windows reached this independently, with different parsers**, and the BOARD measured the cost
+  (eleven external citations, six in `worker/worker.js`). **Write `TIER 2 · 11`, never *"row 11"*.**
+  ⛔ **Slug ids are NOT adopted** — not rejected on merit, simply not needed once the qualified form is
+  mandated. Whether `tools/check-row-citations.py` earns its maintenance is still open and is the only
+  part of Q7 not closed.
+
+### Q8 · Where does the archive go — a bottom `# 🗄 ARCHIVE` region, or a companion `BACKLOG-ARCHIVE.md`?
+- raised-by: 2026-09-08 BOARD (beat 5) · §1.4
+- the finding: **178 lines across four sections read finished with no live rider** (`measured`, each grepped for `🔴 🟠 🟡 ⏸ OWED / NOT FIXED / still open`): `✅ M1` (77) · `✅ Z-ACK` (34) · `✅ L1` (48) · `✅ SHIPPED 2026-07-29 — the Tier-1 correctness pass` (19). A fifth, `✅ SHIPPED 2026-07-29 (evening)` (55), is `inferred` clean. ⚠️ **Archiving closes ZERO head-gap** — every candidate sits below TIER 1. It is for the reader, not the metric.
+- why it could not be cited: **the precedent cuts both ways inside this same file.** `PICKUP-LOG-ARCHIVE.md` is the companion-file precedent; `## KILLED / SUPERSEDED` at `BACKLOG.md:3735` is the bottom-region precedent. Two right answers is not something a seat resolves.
+- what would close it: **Paul's word.** ⛔ Whichever he picks, **three of eight ✅/SHIPPED-headed sections carry live work** — `A1` holds the live R1/R2 monitoring definitions, `FLEET LAP 1 · BEAT 6` holds `⏸ Emissions hardware STAYS OPEN` and two `fleet_probe.py` defects *FILED, NOT FIXED*, and `The shape system` holds `🔬 NEXT LAP` and `🟡 PARTLY FIXED`. **They must not be swept in**, and splitting their riders out is a judgment edit, not a move.
+
+- ✅ **RULED `[paul-ruled 2026-09-08]` — a bottom `# 🗄 ARCHIVE` region in `BACKLOG.md`.** Paul's words:
+  *"Let's just put it at the bottom so there's not two separate documents to maintain."* ⛔ The reason is
+  the ruling's own scope test: **a companion file is a second document with a second staleness rule**, and
+  this corpus's most-repeated failure is two registers each reading current.
+  ⚠️ **Unchanged by this ruling: FOUR of eight ✅/SHIPPED-headed sections carry live work** and must not
+  move — `A1` (live R1/R2 spec), `FLEET LAP 1 · BEAT 6`, the shape system, and **Z-ACK** (regraded
+  2026-09-08, `.plans/2026-09-08-lap5-REFINEMENT.md` §10.3). **Archiving closes ZERO head-gap** — it is
+  for the reader, never the metric.
+
+### Q9 · 26 plans and 1 seat trail that no ranked row cites — is a plan REQUIRED to have a row?
+- raised-by: 2026-09-08 BOARD (beat 5) · §2 · B8, from `check-backlog-ready.py` and `product-steward --triggers` T2
+- the finding: `measured` today — **26 `.plans/` documents flagged `no BACKLOG.md row points at this plan (orphan)`**, inside 141 readiness flags across 38 plans; plus **1 uncited seat trail**, `.user-research/2026-09-08-localized-feed-and-property-type.md`. ⭐ **This is Q3 generalized** — Q3 asks it of `2026-09-08-setup-journey-PLAN.md`; the census says it is a property of the corpus.
+- why it could not be cited: ⛔ **the predicate may be wrong, and that changes the answer entirely.** A `-PROPOSAL` that was considered and set down *should* have no row. If "orphan" means *considered and closed*, 26 is healthy and the check over-reports; if it means *unreachable work*, it is the largest single reachability gap on the board. **Nothing in the record distinguishes the two today**, and inventing the distinction would be a seat deciding what a plan is.
+- what would close it: **a ruling on what an orphan means** — or a `closed:` header key that lets a plan say it is finished, which makes the count read honestly under either reading.
+
+### Q10 · `release-state.py` reports `beat 9/12 (Paul walks it)` while lap 5 is running beat 5. Which number is the lap's position?
+- raised-by: 2026-09-08 BOARD (beat 5) · §2 · B8
+- the finding: `measured` today — `python3 tools/release-state.py` prints *"FIRED · beat 9/12 (Paul walks it) · owner: paul · candidate bfa3f23 · seats pass: True"* while the lap is executing **GROOM & BUCKET (5)** and has not reached COMMIT. `python3 tools/check-release-docs.py` is **✅ green**: the map and the code agree on the beat *list*, so this is not the drift that check is built to see.
+- why it could not be cited: `inferred`, and **which of the two readings is the defect is a judgement.** The derived beat may be reading **evidence state** — a gate that passed on an earlier build — where a reader takes it for **lap position**; or the lap's own reckoning may be what is wrong. `check-release-docs`'s own rule is *flags, never edits*, and its note records that this call *"has gone both ways."*
+- what would close it: **Paul's word**, or a ruling that `release-state` publishes the two readings separately. ⚠️ It matters because **`beat.owner: paul` is how this loop announces that a human gate is open**, and it is currently announcing one at the wrong gate.
+
+- 🔬 **DIRECTED, not ruled `[paul-directed 2026-09-08]`:** *"You tell me — do some analysis, bring in the
+  process steward, and let's fix this so it doesn't happen again."* ⛔ **So the deliverable is not the
+  number.** The number is a symptom; the ask is the mechanism that let a derived beat report a position no
+  lap was at, and a change that stops it recurring. **practice-steward is to be dispatched.** Open.
+
+### Q11 · Does the pointer-head region get a declared LINE BUDGET — and what happens to § FOCUS FREEZE?
+- raised-by: 2026-09-08 BOARD (beat 5) · §1.2, §1.6
+- the finding: `measured` across lap 5's own commits — the head-gap went **510 → 554 → 604 → 648 → 672** as beats 1–4 filed into the head region: **+162 lines in one day, every beat of the lap widening the thing beat 5 exists to close.** The proposed move set buys **219 lines of headroom**, i.e. **~1.4 laps at this lap's own rate**, after which beat 5 re-runs the identical move forever. ⭐ Separately, **§ FOCUS FREEZE** — the one head section the proposal keeps — has the same defect one altitude down: **five successive amendments (09-03 → 09-04)**, each partly superseding the last, so its operative state is derivable only by reading all five in order.
+- why it could not be cited: a **line budget is a process rule** (and possibly a new clause in `check-backlog-drift`), and **rewriting the freeze block is a judgment edit** — the 09-02 rationalization is explicit that splitting is not a move. Both are outside a seat's verbs.
+- what would close it: **a ruling on a head budget** and whether the drift check should measure it; and separately, **whether § FOCUS FREEZE is rewritten to state its current position once.**
+
+### Q12 · K12 and TIER 2 · 22 disagree about `transcript.personId`. Which is right?
+- raised-by: 2026-09-08 BOARD (beat 5) · §1.5, on the 09-07 kill list's one unapplied entry
+- the finding: `.plans/2026-09-07-backlog-grooming-SCAN.md` §4d killed it — *"a finding that was correctly recorded and then filed as a row. It has no v1, no falsifier and nothing to build… that belongs in the walk harness's own documentation, next to the field."* **CARRY then wrote the same finding into TIER 2 · 22** at F13, as a member of *the gate's own camera*, on the strength of **two seats tripping on it and one nearly filing a false alarm**.
+- why it could not be cited: ⛔ **both readings are defensible and they imply opposite acts** — write a comment, or treat undocumented harness fields as a defect class that costs seat-hours and manufactures false findings. **Neither is stale**: K12 is one day old, F13 is hours old. A seat choosing between two live judgements would be overturning one of them.
+- what would close it: **Paul's word**, or a citation showing the two are about different scopes (the field's own documentation vs. the class of undocumented harness fields) — in which case **both stand** and only the row's wording needs to say so.
+
+- ❓ **MORE INFORMATION REQUESTED `[paul-2026-09-08]`:** *"I don't know what this is. I need more
+  information."* ⛔ **Do not read this as a deferral** — the question as posed was unanswerable because it
+  assumed context Paul does not hold. **Owed: a restatement that says what `transcript.personId` IS, what
+  the two registers each claim, and what breaks under each answer.** Open, and the debt is the asker's.
+
+### ⚠️ Q13 · Which of B6, B7, B8 does Paul's *"process related items"* mean?
+- raised-by: 2026-09-08 BOARD (beat 5) · §2 · B8, from `[paul-ruled 2026-09-08]` at lap 5's open
+- the finding: the steer is *"if there were backlog and process related items in the backlog, let's consolidate those and implement them first, so we don't wind up back in a situation where we don't enact the fix… because the project can't see the inbox."* The BOARD makes them findable as three distinct kind-shaped buckets: **B8** the loop's record of itself · **B7** the release instrument · **B6** instrumentation of the product. **All three answer to the name.**
+- why it could not be cited: ⛔ **answering it IS the ranking.** *"Implement them first"* is a COMMIT-beat act and naming which bucket goes first is precisely the verb this seat does not have — `cycle/release/CYCLE-MAP.md:85`: *"he picks. This is a human gate and no instrument is ever built for it."*
+- what would close it: **Paul, at COMMIT.** ⭐ The board's obligation was to make the three findable and distinct so the question costs one sentence instead of a re-read; that half is done.
 
 ⚠️ **The inbox beat 8 will work from**, `measured` by `python3 tools/product-steward.py` at HEAD
 `cfd41fb`: **20 ruling lines that nothing in the register carries**, plus **8 more UNCHECKABLE by
