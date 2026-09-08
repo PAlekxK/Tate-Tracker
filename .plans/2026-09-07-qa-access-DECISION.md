@@ -13,6 +13,49 @@
 
 ---
 
+## 0 · ✅ RULED AND DONE — 2026-09-07
+
+**Access was DROPPED from QA**, both applications (the apex and the `*.` wildcard covering preview
+deploys). ⭐ **The order mattered:** the neutrality condition attached to this recommendation FAILED
+first — QA served `<title>Fernwood</title>` — and chasing that found the real cause, `pages-deploy`'s
+`HOUSEHOLD` set excluding `qa`. Fixing that also caught a leak I had shipped an hour earlier. Access
+came off only once the condition read `rendered=0` against the live origin.
+
+### ⭐ THE FOLLOW-ON RULING — Paul uses his REAL address in QA `[paul-ruled 2026-09-07]`
+
+*"I need my real address in QA to be able to tell whether anything makes sense."* Correct: a fictional
+address yields nonsense weather and a nonsense "what grows here", so the walk cannot answer the only
+question it exists to answer.
+
+**Measured before agreeing, because the question deserved a number rather than a reassurance:**
+
+| | address in the public build | `whoami` with no grant |
+|---|---|---|
+| `fernwood-home` (production) | **0** | **404** |
+| `fernwood-qa` | **0** | **404** |
+
+⭐ **An address is not in the public bytes of either origin.** It lives in KV behind a grant token; the
+other read routes are 401; every unauthenticated endpoint (`feedback`, `door`, `onboarding-metrics`)
+is **write-only**. ⛔ **So Access was never what protected an address** — production has been public in
+exactly this way the whole time, holding his real address, and nobody had noticed because nothing was
+ever exposed.
+
+**What removing Access DID change:** a stranger with the URL can reach QA's **signup form**. That is
+an abuse surface — junk accounts on a synthetic estate, visible in `watch-accounts.py` — not a data
+leak. Three shapes were put to Paul; he ruled **(3) leave it open**:
+
+1. ⛔ put Access back — closes it, and restores the mirror defect that hid a live production bug from
+   QA all evening;
+2. ⛔ put Access on production too — they would match, but it changes what a real person meets at the
+   front door of a product whose whole open defect cluster is that door;
+3. ✅ **leave it** — the estate is synthetic, the build is verified neutral, and a junk signup costs
+   nothing and is observable.
+
+⚠️ **The residual, stated rather than glossed:** QA writes real rows, so his address now sits in QA's
+KV as well as production's. `reset-production-estate.py --estate est-qa0001` clears it on his word.
+
+---
+
 ## 1 · WHAT IS ACTUALLY GATED — measured, not assumed
 
 | surface | status |
