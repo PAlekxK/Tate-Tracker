@@ -3,6 +3,18 @@
 State artifact: `cycle/release/cycle-state.json` · chronicle: `CYCLE-LOG.md` beside this file ·
 gate check: `tools/release-gate.py`.
 
+<!-- map-control: python3 tools/check-release-docs.py -->
+
+⚠️ **The control above existed before this line did, and that is the defect being fixed.**
+`check-release-docs.py` was built 2026-09-07 as this loop's drift control — it compares the beats
+this map declares against the beats `release-state.py` publishes and the envs `watch-feedback`
+gates on, and it found two drifts on its first live run. But the map never *declared* it, so
+`cycle-docs-check.py` read this loop as **"no map-control declared… genuinely unguarded and a
+hand-written map is drifting with nothing checking it"** — the one loop in the repo whose control
+had to be remembered rather than found. **A capability the loop cannot reach by running its own
+procedure is not a capability the loop has**, which is this repo's most-repeated finding and is
+recorded four times in `CLAUDE.md`. Declared 2026-09-08.
+
 ---
 
 ## The loop, in Paul's words

@@ -803,3 +803,4 @@ with a test attached, or only noise? Blue Thunder is the natural first subject.
 <!-- meta-lap: 2026-09-05 — cascade/onboarding work only; the fleet loop did not run. -->
 
 <!-- meta-lap: 2026-09-07 — repo moved for the frozen-Fernwood catch-up plan and the release loop (other window); no fleet lap ran and nothing here touched the fleet. -->
+<!-- meta-lap: 2026-09-08 — engine work only: the per-estate canon guard on the Worker's model routes and the legacy frost deploy. No fleet lap ran. The fleet is touched only as digest CONTENT (23 vehicles ride in the record the guard now scopes); no vehicle record, service entry or fleet surface changed. -->
