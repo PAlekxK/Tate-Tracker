@@ -63,7 +63,7 @@ and the state artifact (`cycle-state.json`) is already shared. These beats live 
 | **8** | CARRY | product-steward | each finding reaches a row it can **cite**, or opens a question where it cannot |
 | **9** | BUCKET | product-steward | the board is laid out on **two axes** — kind-shaped buckets it owns, carried severity it cites `[paul-ruled 2026-09-07]` |
 | **10** | ⭐ COMMIT THE SCOPE | ⭐ **Paul** | he picks. **This is a human gate and no instrument is ever built for it** |
-| **11** | ARM | main session | zero records undisposed **on a real estate** (`home` · `prod`); the next beat 0 may open. ⭐ See the G1 note below |
+| **11** | ARM | main session | zero records undisposed **on a real estate** (`home` · `legacy`); the next beat 0 may open. ⭐ See the G1 note below |
 
 ⭐ **Where the three sweeps fire, and what each gates** — the important half is that they gate
 DIFFERENT things and one of them gates nothing at all:

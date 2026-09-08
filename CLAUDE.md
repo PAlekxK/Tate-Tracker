@@ -28,7 +28,8 @@ python3 tools/check-arrival-dispositions.py --pickup # ⭐ DID ANYONE ACTUALLY L
 python3 tools/read-mom-engagement.py --pickup # ⭐ WHAT SHE DID — sessions/opens/journal since the last lap; silence in the answer record is not silence in the app
 python3 ~/.claude/tools/health-probe.py --only fernwood  # ⭐ IS THE RECORD ITSELF INTACT — weather history, the Action, Pages, the Worker
 python3 tools/check-ux-sweep.py            # ⭐ is a HOLISTIC two-pass UX sweep owed? (accumulation, not cadence)
-python3 tools/check-loop-docs.py           # ⭐ do the loop's DOCS still describe the loop's CODE? (the 3x divergence)
+python3 tools/check-loop-docs.py           # ⭐ do the loop's DOCS still describe the loop's CODE? (the 3x divergence) — ⚠️ MOM-CYCLE ONLY
+python3 tools/check-release-docs.py        # ⭐ the same question for the RELEASE loop, which had NO drift control at all until 2026-09-07 [paul-ruled: "having no drift control, that sounds negative — is that something we can take care of as well?"]. Compares the beats CYCLE-MAP declares against the beats release-state.py publishes and the envs watch-feedback gates on. It found two drifts on its first live run, one of them created an hour earlier by the prod→legacy rename. ⛔ Flags, never edits — which of the two is right is a judgement, and it has gone both ways
 python3 tools/check-backlog-drift.py       # ⭐ is a BACKLOG RATIONALIZATION owed? (accumulation, not cadence — and it does NOT fire a lap)
 python3 tools/check-backlog-ready.py       # ⭐ does every row that CLAIMS readiness have the trail behind it? (silent at zero; flags, never edits — `.plans/2026-09-03-backlog-readiness-PROPOSAL.md`)
 python3 tools/check-vocabulary.py          # ⭐ is VOCABULARY.md still TRUE of the schema? (rejected names, double-bookings, aspirational terms)
