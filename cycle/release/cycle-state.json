@@ -1,13 +1,19 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-07T19:25:00-04:00",
+ "generated_at": "2026-09-07T20:56:13-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "fbd5072",
  "beat": {
   "n": 2,
-  "of": 5,
+  "of": 11,
   "owner": "session",
-  "name": "the synthetic loop"
+  "name": "the synthetic loop",
+  "derivable": [
+   2,
+   3,
+   5
+  ],
+  "_note": "beats 0, 1 and 6-11 are human or session beats this tool cannot observe; `n` is only ever one of `derivable`. Read CYCLE-MAP.md for the full ladder."
  },
  "gate_1": {
   "seats_pass": false,
