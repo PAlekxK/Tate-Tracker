@@ -659,6 +659,18 @@ async function handleSession(request, env, scope) {
                    "profileAccent", "coordinates"]) {
     if (acct[f] !== undefined && acct[f] !== null) grantRow[f] = acct[f];
   }
+  // ⛔⛔ AND THE USERNAME, WHICH THIS LIST DID NOT CARRY — found by the lap-5 walk, in the fix's own
+  // premise. `whoami` answers "has this grant been spent on an account?" with `!!grant.username`,
+  // and `username` is stamped at ACCOUNT CREATION only. Signing in ROTATES the credential and writes
+  // a NEW grant row from this list — so the moment anyone signed in, their new grant lost the one
+  // field that says they have an account, `hasAccount` went false, and the door they had just come
+  // through opened again on the next arrival.
+  // ⭐ IT IS NOT IN THE LOOP ABOVE ON PURPOSE. That loop copies what the PERSON supplied — their
+  // place, address, ranking, accent — and skips nulls so an older account cannot overwrite with
+  // absence. The username is not something they supplied to this grant; it is the identity the grant
+  // BELONGS to, and it is known here without consulting `acct` at all. Same reason `tokenHash` is
+  // written separately below rather than added to that list.
+  grantRow.username = username;
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
   if (acct.tokenHash && acct.tokenHash !== tokenHash) {
     await env.OBSERVATIONS.delete(keyFor(scope, "grant", acct.tokenHash));
