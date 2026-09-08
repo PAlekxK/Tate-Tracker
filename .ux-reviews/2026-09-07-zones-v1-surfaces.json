@@ -1,0 +1,230 @@
+{
+  "review_id": "ux-2026-09-07-zones-v1-surfaces",
+  "project": "fernwood",
+  "subject": "Zones x plants v1 — is the list primary, how a partial set is shown honestly, where confirm lives, and the n=0/n=1/n=3 states. Design lane of release lap 3; ships nothing.",
+  "review_date": "2026-09-07",
+  "reviewer_mode": "review",
+  "review_level": "flow / IA, with one screen-component pass on ZonePanel",
+  "companion_prose": ".ux-reviews/2026-09-07-zones-v1-surfaces.md",
+  "seat_limits": {
+    "no_shell": "This seat had no Bash tool. Could not serve locally, could not run Playwright, could not run herConditions() or any repo check. Every measurement below is either read from viewer.html at HEAD (tagged CODE@HEAD) or carried forward from the 2026-09-06 rendered run at 414x848 A+ with the producing code re-verified unchanged (tagged MEASURED-09-06).",
+    "could_not_check": [
+      "Whether Mom's new production instance carries a basemap — F3's severity turns on it entirely.",
+      "Whether a garden-on / plants-empty build keeps the Plants card (C7 0a strips it for a plantless ESTATE; garden-on-with-no-records is a different path). F1 renders if the card exists.",
+      "How a place-partitioned list looks at her conditions — it does not exist yet."
+    ]
+  },
+  "user_context": {
+    "primary_user": "Mom, n=1. Resident steward, 70s, phone at 414x848 served A+ (text_size_served: lg, 8 of 8 reports). One-handed, half-engaged, ~2-turn ceiling. Navigates by the jump strip 5-for-5; depth 2 and depth 3 both zero; 0 for 35 on every ask-shaped affordance.",
+    "core_jobs_to_be_done": [
+      "When I've decided to do a garden job, know which plants it applies to and where, so I can finish without missing any. (validated, paul-relayed 2026-09-07 — she is not lost, she is worried about missing one.)",
+      "When I'm setting up, name the parts of my place. (validated n=1 — 16 names in one evening at a kitchen table.)"
+    ],
+    "context_of_use": "Two contexts, different: standing on the property holding a bag of fertilizer (the completeness read), and in bed with coffee (the record read). No cell reception away from the house; Wi-Fi near the house only; heavy canopy. Permanent.",
+    "assumptions_made": [
+      "The completeness JTBD is validated but paul-relayed and n=1.",
+      "The empty-instance experience has ZERO observations — nobody has ever seen a blank Fernwood.",
+      "Zero people have ever been shown a map of their own place and asked to react."
+    ],
+    "user_context_confidence": "medium"
+  },
+  "principles_applied": [
+    "The glance and the repository (Tate-Tracker/CLAUDE.md governing principle)",
+    "Make every surface read at half-engagement (fernwood.md)",
+    "Caution as noticing, not warning (fernwood.md)",
+    "One engine, one verdict (fernwood.md, paul-ratified, 3 occurrences)",
+    "Tone-coherence across all chrome (fernwood.md)",
+    "Give before you ask — a surface that only extracts gets ignored (fernwood.md, candidate)",
+    "Ask what she can SEE, never what she has to KNOW (fernwood.md, candidate)",
+    "For a user whose only validated behaviour is 'opens and glances,' an affordance must live where she already looks (fernwood.md, candidate)",
+    "A modeled value placed flush with a measured one borrows its credibility (fernwood.md, candidate)",
+    "A menu's order is a PLACE; a worklist's order is a RANKING (cross-project/ordering-and-layout.md, paul-ratified, 2 occurrences)",
+    "Ordering first, then type in service of it (cross-project/ordering-and-layout.md, paul-stated)",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md)",
+    "A correct 'no' still owes a next move (cross-project/interaction-and-friction.md)",
+    "Scope is communicated by where you tap, not auto-detected (cross-project/interaction-and-friction.md)",
+    "Paul's four standing rules of 2026-07-29, esp. rule 1 (one affirmative grammar; the components, not lookalikes)",
+    "Don Norman — knowledge in the world; reversibility and forcing functions; gulf of evaluation",
+    "Nielsen heuristics 1 (visibility of system status), 5 (error prevention), 6 (recognition over recall)",
+    "Shneiderman 1996, The Eyes Have It — cited and DECLINED for this task (exploration taxonomy, her task is enumeration)",
+    "Cleveland & McGill 1984, graphical perception ranking — RECALLED, not re-retrieved this session"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "area": "empty-state",
+      "severity": "critical",
+      "observation": "CODE@HEAD. renderPlantsSummary() line 14433: `if (activeTypes.length === 0) summary = total + \" plants · A quiet \" + MONTHS[currentMonth] + \" here\";`. At n=0 plants this renders on the COLLAPSED Gardening card header as \"0 plants · A quiet September here\". Inside, renderThisMonthPlants() line 18836 renders \"A quiet September at the property. / Browse By Species or Year View to plan ahead.\" One branch serves both 'nothing to do this month' and 'we have no record of your plants'.",
+      "user_impact": "On a blank instance the first thing she reads at half-engagement, without opening anything, is a confident false claim about her own property. The property is not quiet; the record is empty. This is F16 (silent undercount) at n=0, where the undercount is TOTAL and the surface is at its most confident. The second string then routes her to two tabs that are also empty, violating 'a correct no still owes a next move'.",
+      "principle_invoked": "A value's provenance must be shown as honestly as the value itself (cross-project) + Make every surface read at half-engagement (fernwood) + the project doctrine that a confidently-wrong record is worse than an honestly-unsure one",
+      "recommendation": "Split the branch: derive the empty state from BOTH total and matches. total===0 gets orient + explain, and a CONSEQUENCE rather than an instruction — e.g. 'Nothing recorded here yet. When you tell us about a plant, it'll show up here — and where it grows.' Exact words are content-steward's; the shape is the finding. Do NOT use the standard empty-state third beat ('prompt the action') — it is a summons — and do NOT seed starter content, which breaks the blank-slate ruling irreversibly.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "hierarchy",
+      "severity": "critical",
+      "observation": "The partial-set lie is told by the GROUP HEADER, not by the copy. Rendering '📍 Lower 40 → 💧 Panicle Hydrangea' produces the inference 'the hydrangeas are in Lower 40', because a group header is read as a complete partition everywhere else. Verified: of five hydrangeas exactly one is placed; hub `hydrangea`, `hydrangea-dreamcloud` and `endless-summer-pop-star-hydrangea` carry zones:[]; 'Annabelle' and bigleaf-blue are roster lines with no record and cannot be placed at any resolution. The proposed countermeasure in both the plan §2 and the journey §2 is a global FOOTNOTE ('12 plants don't have a place yet').",
+      "user_impact": "A global denominator does not repair a local claim. The reader looking at that row never connects a whole-list count of 12 to it, and because the family is SPLIT she may reasonably conclude the 12 are other plants — i.e. that hydrangeas ARE covered. Same shape as the 14x rainfall failure (three unlabelled 'week' figures), except she reaches the opposite conclusion, which is unfalsifiable from the screen. The cost is a plant that does not get watered and a person who believes she finished.",
+      "principle_invoked": "A modeled value placed flush with a measured one borrows its credibility (fernwood) — inverted: an ABSENCE must be rendered at the same altitude as the presences, or the presences over-claim",
+      "recommendation": "Two designs, both, not either. (B) Render the placeless set as a FIRST-CLASS GROUP in the same list at the same weight — '❓ Not in a place yet · 12' — so the partition is exhaustive and countable (6+3+2+12=23). Register per 'Caution as noticing, not warning': a number is allowed, a badge is not. (C) Where a listed plant belongs to a hub, the row carries its family's denominator — 'Panicle Hydrangea — one of the five hydrangeas; the other four aren't placed yet' — in the shipped provenance-chip grammar, because that is where the wrong inference is formed. THE CHECKABLE RULE: any list that groups by a partition must be able to state, per group AND per family, what is not in it; if the render cannot compute the complement it may not render the group.",
+      "effort": "medium"
+    },
+    {
+      "id": "F3",
+      "area": "empty-state",
+      "severity": "critical",
+      "observation": "CODE@HEAD. renderPropertyMap() line 10580 guards `if (!meta.baseImage && !meta.baseImageFallbackPng) return '';` — implementing Paul's 09-04 ruling for the no-BASEMAP case only. There is no guard for the no-ZONES case. If her new instance carries a basemap (same property, aerial is an instance asset), then at n=0 zones she gets a 364px aerial photograph of her own land with nothing drawn on it, and the bright green '+ Add a place' pill (.pmap-add-btn, filled rgba(106,138,74,.94), lines 1099-1120) as the single loudest object on it.",
+      "user_impact": "09-06's 'the most prominent object on her map is an edit button' at maximum — the ONLY object is an edit button. On the first screen of a blank instance, the app's opening move is to ask her to draw, which is the one act the whole 'we draw, they confirm' ruling exists to avoid asking her for. At n=1 zone it is barely better: one polygon on a stage that is never fitted (no fit exists anywhere in the render path) is a pin, not a map.",
+      "principle_invoked": "Paul's own 2026-09-04 ruling — 'better to not display something rather than display something that's empty' — applied to a SURFACE rather than to an estate; plus Make every surface read at half-engagement",
+      "recommendation": "Extend the existing guard by one condition: `if (!zones.length) return '';`. Then set a THRESHOLD rather than n>=1 — proposal, to be tuned: render the map when there are >=3 places AND their union covers a stated fraction of the stage; below that, places render as a list only. COULD NOT CHECK whether her instance carries a basemap — if it does not, this finding is moot and should be downgraded.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "CODE@HEAD. ZonePanel's four actions are all `.pmap-panel-btn` — background #f4f8ee, color #2a4a2a, font-family inherit (DM Sans), 16px, 52px min-height, stacked, same weight. 'Looks right' (line 11227) carries a typed ✓ in a span. The ratified affirmative `.gg-suggest-btn-yes` (line 5406) is background var(--green-primary), white text, Crimson Text 14px, ✓ via ::before. So the affirmative is a LOOKALIKE, not the component. The fourth button is '🗑 Delete this place' (line 11237), styled .danger but the same size, behind only a browser confirm() (line 11411).",
+      "user_impact": "Violates Paul's standing rule 1 of 2026-07-29 verbatim ('the ribbon's buttons are literally those components, not lookalikes, so they cannot drift') — ZonePanel was built after that rule and did not inherit it. Four same-weight buttons make no recommendation, so the panel is a four-way choice for a reader with a two-turn ceiling. And on a blank-slate instance the first thing she can do to a place is destroy it, with no undo.",
+      "principle_invoked": "One affirmative grammar everywhere she taps (paul-stated 2026-07-29, rule 1) + Norman on reversibility and forcing functions + Nielsen 5 (error prevention)",
+      "recommendation": "If the panel keeps a confirm at all (see F5), the affirmative must be the literal gg-suggest component, not a restyle. CUT 'Delete this place' from the resident surface for v1 — highest-consequence, lowest-value control in the panel, one browser confirm() from irreversible, on an instance whose premise is that the record starts blank and accrues. The operator can delete.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "flow",
+      "severity": "important",
+      "observation": "ZonePanel is reachable only by tapping a polygon (open(zoneId), line 11317) on a surface whose depth-2 engagement is zero. Its affirmative can only produce a yes, against a population where acquiescence and social desirability both increase with age. Meanwhile the completeness surface generates a correction of an entirely different kind — 'the laurel's not on here' — which acquiescence cannot produce, because acquiescence produces silence, not an addition.",
+      "user_impact": "A yes on 23 boundaries is evidence the button works and nothing else. The v1 would spend its one showing on an instrument that cannot fail. Meanwhile the correction that IS self-validating has nowhere to go: flagZone captures no words and the only mic is labelled 'What's growing here?'.",
+      "principle_invoked": "Ask what she can SEE, never what she has to KNOW (fernwood candidate) + Give before you ask (fernwood candidate) + the pre-registered falsifier 'an instrument that can only produce a yes has measured nothing'",
+      "recommendation": "Under list-primary, confirm does not MOVE — it DISSOLVES. (a) Keep ZonePanel and keep the mic; it is genuinely good and offline-aware. (b) Relabel the mic so it can catch 'that's not right' as well as 'what's growing' — CONTENT-STEWARD'S CALL, not mine. (c) Move the correction affordance onto the LIST ROW, one quiet control PER GROUP (not per plant), because the group header is what makes the false claim. (d) Do not build a confirm queue, and do not build the guided walkthrough I recommended on 2026-09-06 — I RETRACT it; it is a push, and the trigger must be hers. (e) zone.status should be DERIVED from use rather than tapped — confirmZone is currently the ONLY writer of 'confirmed', which is the mechanism keeping 23/23 at draft. That last one is a schema call; flagged, not designed.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The journey §7 says the list door 'is the primary surface, not an alternate door' and stops. It does not say WHICH list. Measured at HEAD: renderThisMonthPlants() (line 18831) already groups plants by care action, renders under the 'This Month' tab which is class=\"plant-view-tab active\" (line 6828) and the default (currentPlantView = \"this-month\", line 18733), inside card-plants, which the jump strip reaches directly (line 6540) — the affordance that ran 5 for 5.",
+      "user_impact": "If nobody names the existing surface, someone will build a new one — a fifth plant view or a new card — and Fernwood will have two engines computing one worklist. That is this project's most-repeated failure ('One engine, one verdict', paul-ratified, three occurrences on two domains, with the standing note that a fourth occurrence means the two functions should have been one). It also means the v1's list half is far cheaper than anyone has priced it: an amendment to a shipped default-on surface, not a build.",
+      "principle_invoked": "One engine, one verdict (fernwood, paul-ratified) + For a user whose only validated behaviour is opens-and-glances, an affordance must live where she already looks (fernwood candidate)",
+      "recommendation": "Name the container before anyone writes the join. Recommend amending renderThisMonthPlants rather than building a new surface — it is already on her only proven navigation path and already default-on.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "hierarchy",
+      "severity": "important",
+      "observation": "Whether place is a GROUPING or a FILTER is undecided, and the two artifacts write example output two different ways: the plan's '📍 Pond Area · inspect 7 · water 6' is action-within-place; the shipped list is place-nowhere. Her question — 'what zones have what plants that need the fertilizer?' — is care-type FILTERED then place GROUPED, which changes the list's primary axis. Neither artifact cites the ratified rule that governs it.",
+      "user_impact": "Three different products are reachable from the same sentence, and one of them (sorting places by how much work is in them) actively destroys the recall that makes an index worth having — a place would change position because an unrelated plant got watered.",
+      "principle_invoked": "A menu's order is a PLACE; a worklist's order is a RANKING — never let one set the other (cross-project, paul-ratified 2026-08-01, two occurrences, off watch)",
+      "recommendation": "The rule gives a clean ruling: the PLACE GROUPS are an index — ordered by something stable (her own naming order, or the jump strip's order) — and the PLANTS INSIDE a group are a worklist — ranked. Do NOT sort places by 'most work first'. Then settle grouping-vs-filtering by rendering two exhibits at 414x848 A+ through the existing /design-options mechanism and letting Paul pick from pictures, not prose.",
+      "effort": "medium"
+    },
+    {
+      "id": "F8",
+      "area": "flow",
+      "severity": "important",
+      "observation": "Z-10's 'a plant added while she is in or naming a place carries its place for free' is presented as structurally preventing placelessness. It does — and it introduces the opposite defect: whatever place is in context becomes the default. Nothing in the plan or the journey rules on whether the add flow may pre-select a place.",
+      "user_impact": "This is the exact mechanism behind pond-area holding 48% of all placements, and behind the CMMS finding that technicians log against the parent asset 'just to close the ticket, permanently destroying the granularity of your data'. At n=3 it is invisible; by n=30 it is baked into a record that cannot be un-concentrated without re-asking her.",
+      "principle_invoked": "Scope is communicated by where you tap, not auto-detected (cross-project) + the AI boundary's capture-path clause",
+      "recommendation": "Make it an explicit design decision with a stated bias control. Because it is a capture-path decision, no auto-detection and no 'we think this is the Pond Area' — a place must be declared by where she taps or by what she says, never inferred. Consider making 'no place yet' an equal-weight option at add time rather than a fallback, so an honest blank is as cheap as a wrong assignment.",
+      "effort": "medium"
+    },
+    {
+      "id": "F9",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "CODE@HEAD, re-verified tonight and unchanged: `body.text-lg .pmap-zone-label { font-size: 19px; }` (line 1253) overrides the presentation attribute font-size=\"36\" (line 10621). A CSS length applied to SVG content is in USER UNITS, so A+ renders labels at 19 viewBox units against the default's 36. MEASURED-09-06 at 414x848: ~8.7px default, ~4.6px at A+, declared 19px / rendered height 6px, 49 colliding label pairs, property fills 14.8% of the stage, no fit anywhere in the render path.",
+      "user_impact": "The accessibility text-size control makes her map labels ~47% smaller, on the make-or-break user's surface, in the mode she is served in 8 of 8 reports. She cannot read the place names on her own map. This is also why the map cannot serve as the falsification surface: nothing on it is legible enough to falsify.",
+      "principle_invoked": "Make every surface read at half-engagement (fernwood) + An artifact must carry its own status in its pixels (cross-project) — an unreadable status is not carried",
+      "recommendation": "Not new; carried forward from 2026-09-06 F6/F22 and confirmed still live. It matters HERE because it determines whether the map may sit above the list at all (see the §2 recommendation). Residual test still owed: toggle A ↔ A+ live and measure the label height in both, then turn the three numbers into a standing check (property fill % · min rendered label px in BOTH text modes · label collisions = 0).",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "area": "consistency",
+      "severity": "nice-to-have",
+      "observation": "The plan §1 says zones[].type is 87% one value — 'a default, not a taxonomy' — and that anything grouping by type today inherits the error, so 'fix the data before building a consumer on it'. My own 2026-09-06 review §3.4 then recommends tinting regions BY TYPE (planted / lawn / water / built / wooded). Two artifacts in the same lane collide and neither names it.",
+      "user_impact": "A type-tinted map would render both parking areas, the bank, the bluff and stable grounds as planted beds. If the v1's list ever orders, filters, colours or labels by type, it is a consumer of a broken field.",
+      "principle_invoked": "A value's provenance must be shown as honestly as the value itself (cross-project)",
+      "recommendation": "I RETIRE my own 2026-09-06 §3.4 type-tint recommendation. It is BLOCKED, not deferred, until zones[].type is corrected. Record the block so the next reader does not re-derive it as a fresh idea.",
+      "effort": "low"
+    },
+    {
+      "id": "F11",
+      "area": "error-handling",
+      "severity": "important",
+      "observation": "CODE@HEAD. flagZone (line 11400) sets status='flagged', records history and closes — it captures no words. The only free-response channel in the panel is a mic labelled 'What's growing here?' (line 11222). So a reader unsure about a BOUNDARY is offered a question about PLANTS.",
+      "user_impact": "The un-confident path exists as a STATUS, not a CHANNEL. 'Not quite right' produces a flag we cannot interpret — the exact failure the confirm queue already measured, where one tap in 13 offers is permanently uninterpretable because no choice was recorded. Under completeness the mislabel happens to land in our favour, because 'what's growing here' is close to the right prompt for a membership correction — but by luck, not design.",
+      "principle_invoked": "A correct 'no' still owes a next move (cross-project) + Visibility of system status (Nielsen 1)",
+      "recommendation": "Every 'something's wrong' path must end somewhere words can land. The mic is the receptacle and it is already built and already offline-aware; its LABEL is the gap. Wording is content-steward's. Design requirement: the flag must not be able to fire without offering the words channel in the same breath.",
+      "effort": "low"
+    },
+    {
+      "id": "F12",
+      "area": "empty-state",
+      "severity": "nice-to-have",
+      "observation": "fern-garden — a place Mom named for a plant — holds zero plants, and both ferns in canon are filed elsewhere (cinnamon-fern → st-francis-garden; sensitive-fern → western-fern-azalea-garden). 10 of 23 zones hold zero plants.",
+      "user_impact": "A list that suppresses empty groups is a list that cannot show what it does not know — the same defect as the drawn map being 'complete by construction'. Rendering the empty group converts the project's worst trust risk into its best question, and it is a built-in test object: if fern-garden renders empty and she says nothing, the place-as-prompt claim is falsified.",
+      "principle_invoked": "Grouping asserts exhaustiveness (proposed, F2) + the honest-uncertainty doctrine",
+      "recommendation": "Empty groups render. 'Fern Garden — nothing recorded here yet.' Never suppress a group for being empty; suppression is the same act as the silent undercount, one level up.",
+      "effort": "low"
+    }
+  ],
+  "retractions_of_prior_review": [
+    "2026-09-06 §4.1 — the guided walkthrough as the confirm mechanism. RETRACTED. It was designed for a reader with no demand; she has one, and a walkthrough is a summons with better manners against tonight's ruling that the surface answers and never summons.",
+    "2026-09-06 §4.2 — the four-way correction taxonomy. DEMOTED, not retired. Drag-the-shape and 'a bit bigger / smaller' answer a GEOMETRY complaint; tonight demotes geometry and promotes MEMBERSHIP. The table's last row — 'you've missed one' → speak it — is PROMOTED to first and is the only correction v1 needs.",
+    "2026-09-06 §6 — 'zones must not be part of onboarding'. HALF RETRACTED. The map still stays out; the NAMING question belongs in onboarding and belongs first, and zones-first makes that stronger. Beats 2 and 3 assumed plants already existed and do not survive Z-10.",
+    "2026-09-06 §3.4 — 'tint regions by type'. BLOCKED (see F10), not deferred.",
+    "2026-09-06 §2 — the framing that the map is the reading surface. SUPERSEDED. Everything measured about the map remains true; fixing it is no longer on the v1's critical path."
+  ],
+  "prior_review_still_holds": [
+    "F6/F22 the SVG user-unit label bug — re-verified at HEAD (lines 1253 vs 10621), unchanged.",
+    "F21 no fit anywhere in the render path; 14.8% property fill — re-verified at HEAD (line 10678, reset to scale=1).",
+    "F7/F23 the dash as a contrast rule applied as a constant — re-verified at HEAD (line 973); 23/23 still draft.",
+    "F10 the arithmetic-mean label anchor on the reading surface — re-verified at HEAD (lines 10619-10620).",
+    "F1/F4/F5 '+ Add a place' is the loudest object; confirming has no affordance at rest — re-verified.",
+    "§3.5 the map looks as good as its worst-drawn region — STRENGTHENED: at n=1-3 every region is the worst region.",
+    "§4.3 never slippy tiles; honest local ack at the moment of capture — unchanged.",
+    "§5 a place may exist before it has a shape — STRONGLY CONFIRMED by Z-10 and the condo; now load-bearing."
+  ],
+  "open_questions_for_user": [
+    "Does Mom's new production instance carry a basemap? F3's severity turns on it entirely and I could not check.",
+    "Grouping vs filtering (F7): place-within-action, action-within-place, or place-as-a-filter-chip. This is yours and it should be made in front of two rendered exhibits at 414x848 A+, not in prose.",
+    "Does the map ship in the v1 at all? 'Paul draws' and 'a map renders on her surface' are two decisions and the plan treats them as one. The v1 can exercise the drawing entirely in the operator tool. That option appears nowhere.",
+    "May the add-a-plant flow pre-select a place (F8)? It needs a ruling with a stated bias control, and it is a capture-path decision so the AI boundary binds."
+  ],
+  "follow_up_research_suggested": [
+    "Render the list twice at 414x848 A+ — place-within-action and action-within-place, both carrying the 'not in a place yet' row and the family denominator — through /design-options. Settles F7, which everything else waits on.",
+    "Run the app at n=0 and screenshot the Gardening card. Five minutes; confirms or kills F1 and F3, the two critical findings resting on code-reading rather than a render.",
+    "Toggle A ↔ A+ live and measure map label height in both; then make the three 09-06 numbers a standing check (property fill % · min rendered label px in both modes · label collisions = 0).",
+    "When she next asks for a fertilizer list, answer it with the surface, in the room. The only arrangement that gets a real trigger and an attributable session at once — and waiting costs nothing because the trigger recurs."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "An empty record and an empty period must never render the same sentence. 'Nothing to do' is a claim about the world; 'nothing recorded' is a claim about us. Checkable: an empty state derives from BOTH total and matches; one branch may not serve both.",
+      "scope": "cross-project",
+      "rationale": "From F1 — measured in shipped code. It generalises to any list, feed, search result or dashboard built on a record that starts blank, which every instance of the engine now does. Conflating the two teaches the reader that our silence is the world's silence, which is the most expensive thing this product can teach the one person who can falsify it."
+    },
+    {
+      "principle": "Grouping asserts exhaustiveness — a group header that cannot state its complement may not be drawn. Checkable in one line: the render computes placed ∪ unplaced, or it refuses.",
+      "scope": "cross-project",
+      "rationale": "From F2. Structure makes the claim and no wording inside the group can retract it, which is why the proposed footnote is insufficient. Likely a second occurrence of the honest-surfaces family — it is 'provenance shown as honestly as the value' applied to a SET rather than to a value."
+    },
+    {
+      "principle": "A map earns its place at a threshold, not at n >= 1. A spatial view of one or two things is a pin, not a map, and it costs the frame it occupies. Below the threshold, render the list.",
+      "scope": "cross-project",
+      "rationale": "From F3 and the n=1 case. Possible second occurrence of the 2026-09-06 candidate 'a feature smaller than its own error bar must not be drawn as a shape' — same operation (cartographic collapse) one level up, applied to the artifact rather than to a feature within it."
+    },
+    {
+      "principle": "A surface that ANSWERS a question the user brought must never also SUMMON. Test: remove every count, badge, overdue and notification, and ask whether the surface still works. If it does not, it was a task manager.",
+      "scope": "fernwood",
+      "rationale": "Paul's 2026-09-07 ruling stated as a design constraint with a falsifier attached. It is also what forced the retraction of my own 09-06 walkthrough, which is the evidence that the rule bites on real proposals rather than only on obvious ones."
+    },
+    {
+      "principle": "Where an established component exists for an act, a new surface uses the COMPONENT, not a lookalike.",
+      "scope": "fernwood",
+      "rationale": "SECOND OCCURRENCE of Paul's 2026-07-29 rule 1, now with a measured violation: ZonePanel's 'Looks right' is a DM Sans outlined button with a typed ✓ where the ratified affirmative is a filled Crimson Text component with a ::before glyph. Worth hardening from a note about the ribbon into a general rule, because it drifted the first time nobody was looking — which is exactly what the original rule predicted."
+    }
+  ]
+}
