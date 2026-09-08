@@ -82,6 +82,15 @@ def _station(ident):
 
 
 IDENTITY = {
+    # ⭐ THE PLACE'S OWN DECLARED COLOUR `[paul-walked 2026-09-08, Q2]`. `identity.theme.main` has been
+    # declared in every instance file since it was written and READ BY NOTHING — measured 2026-09-07
+    # as "ruled and declared and unread". This is its first reader: the viewer derives the whole
+    # ground from it when nobody has chosen a colour yet, instead of keeping the stylesheet's
+    # hardcoded FERNWOOD greens, which is what made every unconfigured household wear Fernwood's mint.
+    # ⛔ EMPTY IS A LEGAL ANSWER and means "no declared seed" — the viewer then leaves the ground
+    # alone rather than inventing one. A malformed value is treated the same way: the regex on the
+    # other side refuses anything that is not #rrggbb, so a typo cannot paint a household.
+    "themeMain":   lambda ident, prop: ((ident.get("theme") or {}).get("main") or ""),
     "title":       lambda ident, prop: ident["name"],
     "h1":          lambda ident, prop: ident["name"],
     # ⛔ A FRAGMENT IS WORSE THAN A BLANK. Measured 2026-09-06 by the `owner` seat reading its own

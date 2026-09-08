@@ -6440,7 +6440,35 @@
     // eleven call sites, which is a design decision and Paul's, not a hardening change.
   } catch (e) {}
   try {
+    // ⭐⭐ THE GROUND FOLLOWS THE SEED — AND WHEN NOBODY HAS PICKED, IT FOLLOWS THE INSTANCE'S
+    // DECLARED SEED, NOT FERNWOOD'S `[paul-walked 2026-09-08, Q2 — the mint band, reported twice]`.
+    // ⛔ THE DEFECT: this read `if (!valid(hex)) return;` — so a household where nobody had tapped a
+    // swatch fell straight out of this function and kept the `:root` defaults, which are FERNWOOD'S
+    // greens (#edf7e6 / #e2f0d8). Every household with no chosen colour wore Fernwood's ground. That
+    // is the mint band Paul saw on his own condo, twice, and it is the same shape as the other five
+    // instances of this assumption: correct while there was one household, false the moment there
+    // were two.
+    // ⭐ `identity.theme.main` HAS BEEN DECLARED IN EVERY INSTANCE FILE AND READ BY NOTHING — measured
+    // 2026-09-07, "declared and unread". This is its first reader. The same mix() derives the ground
+    // from it, so a place's ground follows the place's own declared colour by construction.
+    // ⚠️ AND WHAT THIS DOES NOT FIX, STATED PLAINLY: all five instances currently declare the SAME
+    // value — #2f5d3a, Fernwood's green — and three of them say so in their own `_note`. So the
+    // MECHANISM is now right and the DATA is still Fernwood's everywhere. What colour a fresh
+    // household should wear before anyone picks is a product call and it is Paul's, not a default I
+    // get to invent here.
     var hex = localStorage.getItem("fw-accent");
+    if (!/^#[0-9a-fA-F]{6}$/.test(hex || "")) {
+      // ⛔⛔ HOUSEHOLD BUILDS ONLY, AND THIS GUARD IS LOAD-BEARING. The 2026-09-06 ruling is exact:
+      // *"Defaults are the exact greens this page has always worn; a STORED CHOICE re-derives them."*
+      // So Fernwood's unchosen ground must stay the hand-tuned literals in `:root`. Deriving it from
+      // its own declared seed instead produced #f0f4f1 against the stylesheet's #edf7e6 — greyer,
+      // visibly different, and it would have changed MOM'S APP with nobody having asked for it.
+      // Caught by proving the fix before shipping it rather than after.
+      // ⭐ `__HOUSEHOLD_NAME` is precisely the "is this somebody else's place" gate, so the fallback
+      // fires only where the stylesheet's Fernwood defaults were never the right answer.
+      var isHousehold = (typeof window !== "undefined" && !!window.__HOUSEHOLD_NAME);
+      if (isHousehold && typeof INSTANCE_THEME_MAIN === "string") hex = INSTANCE_THEME_MAIN;
+    }
     if (!/^#[0-9a-fA-F]{6}$/.test(hex || "")) return;
     var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
     var mix = function (t) {            // t<0 darkens toward black, t>0 lightens toward white
@@ -6539,6 +6567,11 @@
     <a href="#" data-jump="card-household"><span class="js-glyph" aria-hidden="true">🏠</span><span class="js-label">Household Systems</span></a>
     <a href="#" data-jump="card-plants"><span class="js-glyph" aria-hidden="true">🌿</span><span class="js-label">Gardening</span></a>
     <a href="#" data-jump="card-wildlife"><span class="js-glyph" aria-hidden="true">🐾</span><span class="js-label">Wildlife</span></a>
+    <!-- ⭐ ADDED 2026-09-08 `[paul-walked, Q6]`: "Sky and Stars is interesting to see… note that it's
+         NOT in the jump strip, although Weather is." It renders as a card and had no shortcut, so the
+         only way to it was to scroll — which is the same defect RELEASE_NOTES records for Wildlife,
+         whose shortcut "had quietly gone missing" while the card stayed. Twice now. -->
+    <a href="#" data-jump="card-celestial"><span class="js-glyph" aria-hidden="true">✨</span><span class="js-label">Sky &amp; Stars</span></a>
   </nav>
 
   <!-- ═══ CARD 2 — FERNWOOD ALMANAC ════════════════════════════════════════
@@ -7255,6 +7288,9 @@ function estateKey(k) { return k.replace(/^tateTracker\./, "tateTracker." + ESTA
     });
   } catch (e) { /* storage unavailable — the queue falls back to its own guards */ }
 })();
+// ⭐ The instance's OWN declared colour — the seed a place wears before anyone picks one.
+// First reader of `identity.theme.main`, which every instance has declared and nothing read.
+const INSTANCE_THEME_MAIN = "{{IDENTITY:themeMain}}";
 const RELEASE_NOTES_DATA = {{RELEASE_NOTES}};
 // ⭐ THE SECOND CHANGELOG `[paul-ruled 2026-09-07]` — "a changelog for each property as well as at
 // the accounts / application generator level." RELEASE_NOTES_DATA is the PRODUCT's, identical at
@@ -9684,6 +9720,21 @@ function renderWeather() {
   html +=     '<p>If a source goes offline, the dependent sections will simply be missing — the indicators at the top of the card show which feeds are live.</p>';
   html +=   '</div>';
   html += '</details>';
+
+  // ⭐ CLIMATE — the long-run baseline, on the card that shows the short-run readings `[Q3]`.
+  // ⛔ LAST, DELIBERATELY, and below the sources note: it is CONTEXT, not a glance. The card leads
+  // with what is happening now — that is the freshness-sets-altitude rule — and a 25-year normal
+  // must never sit above today's conditions.
+  // ⚠️ Same ids as before (`prop-climate-panel` · `climate-data-badge` · `prop-climate-inner`), so
+  // `fetchClimateNormals()`'s later re-render still finds its target. Moving the panel and renaming
+  // its hooks in one step is how a moved thing quietly stops updating.
+  var __clim = (typeof PROPERTY_DATA !== "undefined" && PROPERTY_DATA) ? PROPERTY_DATA.climate : null;
+  if (__clim) {
+    html += '<div class="prop-panel full-width" id="prop-climate-panel">';
+    html += '<div class="prop-panel-title">Climate <span id="climate-data-badge" style="font-size:10px;font-weight:400;color:#8aa080;margin-left:6px;">Loading ERA5 actuals…</span></div>';
+    html += '<div id="prop-climate-inner">' + renderClimateInner(__clim) + '</div>';
+    html += '</div>';
+  }
 
   document.getElementById("weather-content").innerHTML = html;
 
@@ -14366,13 +14417,13 @@ function renderProperty() {
   html += '</div>';
   }
 
-  // ── Climate ──
-  if (climate) {
-  html += '<div class="prop-panel full-width" id="prop-climate-panel">';
-  html += '<div class="prop-panel-title">Climate <span id="climate-data-badge" style="font-size:10px;font-weight:400;color:#8aa080;margin-left:6px;">Loading ERA5 actuals…</span></div>';
-  html += '<div id="prop-climate-inner">' + renderClimateInner(climate) + '</div>';
-  html += '</div>';
-  }
+  // ⭐ CLIMATE MOVED TO THE WEATHER CARD 2026-09-08 `[paul-walked, Q3]`: "I did open the Grant Park
+  // Condo card and CLIMATE is there. That's something I'd expect to have under Weather."
+  // ⛔ He is right, and the reason is the project's own source-hierarchy rule: this card answers
+  // *what is this place* — soil, elevation, watershed, aspect — while climate is the long-run half
+  // of the same question the weather card already answers in the short run. Normals sitting one card
+  // away from the readings they are the baseline FOR is a split a reader has to reassemble.
+  // The panel is unchanged; only its parent moved. See renderWeather().
 
   // ── Resources ──
   // ⛔ EVERY ROW HERE WAS ALREADY CANON-GATED. THE PANEL AND ITS CLOSING PARAGRAPH WERE NOT — and
@@ -16771,7 +16822,7 @@ async function fetchNWSSkyCover() {
   const lat = siteCoords().lat;
   const lon = siteCoords().lon;
   try {
-    const pointsRes = await fetch("https://api.weather.gov/points/" + lat + "," + lon);
+    const pointsRes = await fetch("https://api.weather.gov/points/" + lat.toFixed(4) + "," + lon.toFixed(4));
     if (!pointsRes.ok) throw new Error("points HTTP " + pointsRes.status);
     const points = await pointsRes.json();
     const gridUrl = points?.properties?.forecastGridData;
@@ -20241,7 +20292,7 @@ async function fetchTodayLine() {
 async function fetchFireWeatherAlerts() {
   if (!Number.isFinite(siteCoords().lat) || !Number.isFinite(siteCoords().lon)) return;   // this estate declares no coordinates (C7 paper model) — nothing to ask a location API
   try {
-    const url = "https://api.weather.gov/alerts/active?point=" + siteCoords().lat + "," + siteCoords().lon;
+    const url = "https://api.weather.gov/alerts/active?point=" + siteCoords().lat.toFixed(4) + "," + siteCoords().lon.toFixed(4);
     const res = await fetch(url);
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
@@ -21441,9 +21492,23 @@ const GardenGuru = (function () {
         });
       }
     } catch (e) {
+      // ⛔⛔ SAY WHICH SYSTEM FAILED `[paul-walked 2026-09-08, Q7 — and it is lap 2's F9, still live]`.
+      // This read "The Almanac can't reach the network just now — try again in a moment", which is
+      // the copy for a FAILED DELIVERY. But this catch is on the ASK path — a question to the
+      // assistant — while a note SAVES through a separate local path that had already succeeded.
+      // So a person who wrote something and asked something in the same breath was told, in effect,
+      // that their writing had not landed. It had.
+      // ⭐ Paul hit this twice: as F9 in lap 2 ("I do see that my entry did get saved… and it says on
+      // this phone") and again on QA tonight, on a new build. A reader cannot tell "my writing was
+      // lost" from "the assistant is away", and those call for opposite actions — rewrite it, versus
+      // wait a minute. The sentence now names the half that failed and, more importantly, the half
+      // that did not.
+      // ⚠️ Also: the old line hardcoded "The Almanac" one line below a branch that correctly used
+      // JOURNAL_NAME — so a household that renamed it was told about a thing it had never heard of.
       const errMsg = e.notConfigured
         ? "The " + JOURNAL_NAME + " isn't connected yet. Open Sync settings in the " + JOURNAL_NAME + " to connect to the Worker."
-        : "The Almanac can't reach the network just now — try again in a moment.";
+        : "Anything you wrote is saved. The " + JOURNAL_NAME + " just can't answer right now — "
+          + "try asking again in a moment.";
       turns.push({ role: "assistant", content: errMsg, ts: new Date().toISOString(), isError: true });
     }
     isWaiting = false;
