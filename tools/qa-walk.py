@@ -24,6 +24,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 NODE_SCRIPT = r"""
 const url = process.argv[process.argv.length - 1];
+const MEASURE_SRC = require('fs').readFileSync(process.argv[process.argv.length - 2], 'utf8');
 const { chromium } = require('playwright');
 (async () => {
   // the MCP server's cached browser, so this needs no install; any Chromium under the cache will do
@@ -68,15 +69,26 @@ const { chromium } = require('playwright');
     }));
     Object.assign(out, basics, { scriptErrors: errors.slice() });
     if (!basics.mainCards) { out.reason = 'the page never rendered a .main-card — wrong document?'; console.log(JSON.stringify(out)); process.exit(2); }
-    const dir = new URL(url).pathname.replace(/[^/]*$/, '');
-    const verdict = await page.evaluate(async (dir) => {
-      let r = await fetch(dir + 'tools/measure-nesting-width.js');
-      if (!r.ok) r = await fetch('/tools/measure-nesting-width.js');          // a build served from a subfolder (the condo scratch)
-      if (!r.ok) return { error: 'measure script ' + r.status };
-      (0, eval)(await r.text());
+    // ⛔⛔ THE MEASURE SCRIPT IS INJECTED FROM DISK, NEVER FETCHED FROM THE ORIGIN (fixed 2026-09-08).
+    // It used to `fetch(dir + 'tools/measure-nesting-width.js')` and eval the response. That broke
+    // silently when QA joined pages-deploy's HOUSEHOLD_ALLOW set on 2026-09-07: `tools/` is not in the
+    // allow-list, so the path is TOMBSTONED — and a tombstone answers **HTTP 200 with
+    // `content-type: application/javascript`** and a JSON body. So `r.ok` was TRUE, both fallbacks were
+    // skipped, and `eval` choked on the JSON's first colon: `SyntaxError: Unexpected token ':'`, surfaced
+    // as exit 2, which this tool's own docstring defines as "the walk could not run". A BROKEN GATE read
+    // as a flaky harness. Measured: the layout gate at her conditions had not run on QA since 09-07.
+    // ⭐ This is exactly the class `post-deploy.py` was built for — an origin answering 200 for a
+    // runtime-fetched path the export never contained — reaching the gate that guards her layout.
+    // ⭐ The fetch was never necessary: this harness runs beside the file. Injecting it also means the
+    // gate measures the CURRENT script rather than whatever an origin last shipped, and removes any
+    // reason to ship a dev tool to a household origin.
+    const verdict = await page.evaluate(async (src) => {
+      try { (0, eval)(src); }
+      catch (e) { return { error: 'measure script did not evaluate: ' + e.message }; }
+      if (typeof measureNestingWidth === 'undefined') return { error: 'measure script defined no measureNestingWidth' };
       const v = await measureNestingWidth.herConditions();
       return { clean: v.clean, counts: v.counts, high: v.findings.filter(f => f.sev === 'HIGH') };
-    }, dir);
+    }, MEASURE_SRC);
     out.verdict = verdict;
     out.ok = !!verdict.clean && !errors.length && !basics.objectObject && !!basics.modules && !(out.empties && out.empties.length);
     console.log(JSON.stringify(out));
@@ -104,7 +116,7 @@ def main():
     exes = sorted(glob.glob(os.path.expanduser("~/Library/Caches/ms-playwright/chromium-*/chrome-mac*/*.app/Contents/MacOS/*")), key=os.path.getmtime)
     if exes:
         env["QA_WALK_CHROMIUM"] = exes[-1]
-    r = subprocess.run(["node", "-e", NODE_SCRIPT, "--", a.url], capture_output=True, text=True, env=env, timeout=180)
+    r = subprocess.run(["node", "-e", NODE_SCRIPT, "--", os.path.join(HERE, "measure-nesting-width.js"), a.url], capture_output=True, text=True, env=env, timeout=180)
     line = (r.stdout.strip().split("\n") or [""])[-1]
     try:
         out = json.loads(line)
