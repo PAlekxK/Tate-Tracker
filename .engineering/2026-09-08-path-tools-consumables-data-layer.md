@@ -32,9 +32,20 @@ proposed principles get drafted for the library.
 
 ## ⛔ CORRECTION `2026-09-08` — THE BUCKET LAYER ALREADY EXISTS. Do not mint a rival.
 
-**This evaluation's §16 handoff note said the tools bucket and the agronomy data are "different
-axes, don't share the word." Its PREMISE is falsified — the shared layer already exists, spans
-both, and was ruled by Paul three weeks ago.** Verified in source, not taken on report:
+> ### ⚠️ AMENDED SAME DAY — this heading over-claimed, and the over-claim was the same error again
+> **§16's handoff note CONCLUSION STANDS: "different axes, don't share the word" is correct**, for
+> the reason it gave — **a plant has no owner-purpose**; it is a subject of observation, not an
+> asset with a use. What is recorded below is a REAL and USEFUL finding about vocabulary Paul has
+> already ruled, **not** a refutation of §16.
+> ⛔ **The bad step, named precisely:** `MODULES` bundles **domains** for estate-level switching.
+> The tools bucket is **one string with three values on a catalog row**. Verifying that the
+> CONTAINER spans both sides proved nothing about the PAYLOADS — `match-the-payload-not-the-container`,
+> committed here while documenting that exact rule. Both this window and the lap-5 refinement
+> window made it independently within one hour, on the project built to prevent it. **That is the
+> most useful evidence this file contains about how hard the problem is.**
+
+**A ruled bundling vocabulary already exists and must be reused rather than re-minted.**
+Verified in source, not taken on report:
 `tools/momlib.py:320-355`, `MODULES`, `C5 3a`, `[paul-stated 2026-09-03]`.
 
 A module is **a named bundle of domains an estate switches atomically**. The declared bundles:
@@ -67,8 +78,10 @@ house systems."*
 
 ### What this changes
 
-- ⛔ **Do NOT propose a new classification scheme.** Size the tools layer as **another `MODULES`
-  entry over an existing domain, exactly like motor-pool.** Far cheaper than §16 assumed.
+- ⛔ **Do NOT mint rival vocabulary.** Paul has already named these bundles; reuse `motor-pool` ·
+  `equipment` · `garden` · `place` rather than inventing garage/landscaping words beside them.
+  ⚠️ **But this is a NAMING constraint, not a mechanism ruling** — the tools bucket is a per-item
+  field and `MODULES` bundles domains. Do not collapse the two because they share a vocabulary.
 - ⚠️ **But Paul's 9/08 "garage" is BROADER than `motor-pool`** — he described *"vehicles, equipment,
   tools and supplies… used to repair and keep engines running,"* which spans `motor-pool` (group
   `vehicle`, 7) **and** `equipment` (group `equipment`, 10). So this is not a 1:1 match, and the
