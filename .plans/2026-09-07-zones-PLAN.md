@@ -1,0 +1,384 @@
+# ZONES — scoped as a feature · the epic, its v1, and what it defers
+
+- row: BACKLOG.md § ▶️ NEXT · zones as an epic (**ROW TO ADD** — see § Row to add; the orphan flag is expected until it lands)
+- objective: O3
+- class: engine · declared
+- question: what a named place IS, what it is FOR, and in what order the possible becomes buildable
+- seats: user-researcher → .user-research/2026-09-07-zones-uses-landscape.md
+         engineering-partner → .engineering/2026-09-07-zones-v1-path.md
+         ai-advisor → .plans/2026-09-06-ai-mapping-capability-SCAN.md
+         ux-expert → .ux-reviews/2026-09-06-map-drawing-mobile.json
+         content-steward → OWED, not waived: the v1 puts words in front of Mom (the confirm/correct prompt, the place-naming ask, the "everything is changeable" clause). No copy is drafted here and none ships without this seat
+         practice-steward → waived: this file scopes a PRODUCT feature, not a loop; the pipeline machinery it moves through is already designed at .plans/2026-09-07-pipeline-flex-point-AUDIT.md and is not re-opened here
+- trails-read: .user-research/2026-09-07-zones-uses-landscape.md · .user-research/2026-09-07-zones-plants-v1-journey.md (in flight) · .user-research/2026-09-06-defining-your-place-research.md · .user-research/2026-09-06-what-a-map-is-for.md · .engineering/2026-09-07-zones-v1-path.md (in flight) · .ux-reviews/2026-09-06-map-drawing-mobile.md · .plans/2026-09-06-maps-and-zones-PROPOSAL.md · .plans/2026-09-06-ai-mapping-capability-SCAN.md
+- depends-on: .plans/2026-09-06-maps-and-zones-PROPOSAL.md
+- depends-on: .plans/2026-09-06-ai-mapping-capability-SCAN.md
+- ready: agent-proposed 2026-09-07 — **Paul rules.** Nothing in § Sequence starts before the open rulings in §9.
+- stage: design
+- gate: ⛔ **THIS SESSION SHIPS NOTHING.** No production change, no deploy, no schema migration. Zones moves
+  concept → design, and that is the intended outcome, not a shortfall.
+- stage-note: 2026-09-07 evening ET — scoped WITH Paul in conversation (J-g, which he re-scoped from
+  *"which of the four zone threads"* to *"the breadth is the job"*). Every ruling in §3 is his, verbatim,
+  from this session. Read-only up to this file: no tracked file edited outside `.plans/` and
+  `.user-research/`, nothing deployed, no paid API called.
+
+---
+
+## 0 · Why this file exists
+
+Zone work has been going on since 2026-07-17. It has produced 23 traced areas, three linear features, two
+operator tools, a confirm panel, a name index in Garden Guru, five expert reports and an 812-line proposal.
+
+**It has never had a product.** Paul, this session:
+
+> *"We've been talking about this and working on bits and pieces of it, but there's no cohesive product or
+> feature or strategy. That's what we're doing here."*
+
+So this is the scope: what a named place **is**, what it is **for**, what the **v1** is, and what gets
+**deferred to later horizons on purpose** rather than by forgetting.
+
+⭐ **It is an EPIC, in Paul's own framing** — *"something we keep working on, because the potential is
+limitless, but we do want to set up some near-term goals and then long-term goals and keep researching
+what's possible even longer-term."* So this file carries three horizons and a standing research strand,
+not a single deliverable.
+
+---
+
+## 1 · What a place IS — the primitive
+
+> ⭐⭐ **The engine primitive is not "a zone with vertices." It is a NAMED PLACE, GEOMETRY OPTIONAL.**
+
+Fernwood's `western-garden` and the condo's `guest bathroom` are the same object at different scales, and
+only one of them will ever have polygons. This is the single change that lets one engine serve both planned
+instances, and it has now been reached **four times independently**:
+
+| reached from | by | what it says |
+|---|---|---|
+| the naming session | 16 names, 0 shapes; **not one name has changed** across every re-trace since | names outlive shapes |
+| the condo model | no land, no parcel; an aerial shows a roof belonging to sixty people | containers, not boundaries |
+| ⭐ **production code** | `build-digest.py::digest_zones()` strips vertices and history — **~94% of the file** — and keeps `id / name / type / status` for Guru | **the one shipped consumer of the zone record is a NAME INDEX**, and has been since July |
+| the record's own corrections | `Upper-Uber Wall Area` and `The Path` were both retired as polygons | some places are not areas at all |
+
+**Three geometries, one record.** The proposed shape is `geometry: {kind, coordinates}` with three
+validators — **not** a `lines` key beside `zones`. Areas, lines and points.
+
+⚠️ **The deferral that was meant to add lines already fired and nobody noticed.** `zones.json`
+`_meta.fold_2026_08_31` deferred linear features *"until a schema v3 adds them."* **Schema v3 shipped, added
+`partOf`, and did not add lines.** The gate fired; the deferral is still open.
+
+### The action axis already exists and is untrustworthy
+`zones[].type` carries `planted / turf / structure` — and `main-parking`, `lower-parking`, `the-bank`,
+`the-bluff` and `stable-grounds` are **all typed `planted`**, which is a default leaking. Anything that
+groups by type today inherits the error. **Fix the data before building a consumer on it.**
+
+---
+
+## 2 · What a place is FOR — four lenses, and the split that organises them
+
+Paul, asked what zones are for, declined the menu: *"I think it's all of these things."* He is right, and
+they are **lenses on one object**, not four features:
+
+| lens | what it is | in his words |
+|---|---|---|
+| **portrait** | something to be proud of | *"these are the specific gardens, this is how you take care of them, this is where we did this work, here's pictures of this project"* |
+| **index** | every record answers *"where?"* and can be found by it | *"where is a certain water shut-off valve, where are the property boundaries"* |
+| **actions** | a way to organise the work | maintenance, intervals, what this place needs now |
+| **capture scaffold** | the frame that makes someone name things | the kitchen table |
+
+> ### ⭐⭐ THE ORGANISING FINDING — the record's filler is not the record's reader
+> **Portrait and capture serve the person who is PRESENT. Index and actions serve the person who is ABSENT.**
+> Only the present person can fill the record; only the absent one needs it. So most retrieval features are
+> a promise to someone who is not there, funded by labour from someone who gets nothing back for it.
+
+⭐ **And the one form of absence that dissolves it: absent IN TIME.** Paul's own *"sites of different
+projects over time"* is **him, later** — the only absence a resident steward can be persuaded to care
+about, because it is about herself. That is where portrait and index stop competing.
+
+⚠️ **The finding this must be tested against, and it is uncomfortable:** for the resident steward a map's
+job is **not retrieval — she knows where everything is, which is why she can name it.** Depth-2 and depth-3
+engagement are zero for her. A v1 that measures itself on retrieval is measuring the wrong person.
+
+---
+
+## 3 · The rulings register — Paul, 2026-09-07, this session
+
+*Recorded here verbatim because this repo has already measured that a ruling which is not in the register is
+not in force (`BACKLOG.md` § 2026-09-06 · four rulings that existed in no file).*
+
+| # | ruling | consequence |
+|---|---|---|
+| **Z-1** | *"There's all these different concepts of zone work… really need to spend some time scoping it out as a feature — what it means, concepts, journeys."* | The breadth IS the job. J-g is scoped, not narrowed. |
+| **Z-2** | *"Have this zone concept be like an epic… the potential is limitless, but we do want to set up some near-term goals and then long-term goals and keep researching what's possible even longer-term."* | Three horizons + a standing research strand. §7. |
+| **Z-3** | ⭐ *"The first use that I want us to implement is the connection between zones and gardening and plants… that should be really like a deep dive deep deep deep."* | **v1 = zones × plants.** Everything else is preliminary research. §6. |
+| **Z-4** | ⭐ *"I think the v1 journey should include drawing, even if it's me doing the drawing just to test it out."* | The v1 exercises **both halves** of *we draw, they confirm*. It is not a geometry-free shortcut. |
+| **Z-5** | ⭐ *"If we build this from the ground up around points of interest and walls and then subdivide those, you get a much cleaner looking disposition. [The] other one, it's just a million little mouse clicks."* | **Structure-first, not region-first.** §5. |
+| **Z-6** | *"Having a step or two in the process where there's just kind of a formatting and beautification step… if we can help just follow that wall a little more smoothly based on the pixels."* | Edge refinement is a named step — **and is split from cosmetic smoothing.** §5b. |
+| **Z-7** | *"Do we just want to provide links to various helpful websites to start? I think we can scope that together."* + `[paul-ruled]` *"that's fine on J-e."* | Events/neighbourhood starts as **LINKS** — membership by rule, nothing filtering, **no AI-boundary ruling owed.** ⭐ Re-open trigger, written where the code will be: **the first time anything SELECTS or FILTERS what appears on a card.** |
+| **Z-8** | *"Definitely authorize online research for best practices."* + *"You can always use Claude and Chrome if anything is bot blocked."* | Standing for this epic's research strand. |
+
+**Carried in from earlier and still binding:**
+
+- ⛔ **Mom starts BLANK** `[paul-ruled 2026-09-07, J-f]` — nothing pre-filled. The 23 hand-traced zones stay
+  on the frozen instance as the **ANSWER KEY**. **Irreversible if broken.**
+- ⛔ **Z-ACK is CLOSED** `[paul-ruled 2026-09-07]` — *"I'll take care of it in person."* **Design no
+  acknowledgment surface for the zone work, and do not re-raise it.**
+- **"We draw, they confirm"** `[paul-ruled 2026-09-06]`, whose durable form is: *the division of labour
+  follows who holds which knowledge — an extent can be proposed by a sensor; an identity can only come from
+  someone who has stood there.*
+- **The site's physical premise** — no cell reception, Wi-Fi only near the house, heavy canopy. Permanent.
+  Never propose a design whose mitigation is "improve the signal."
+
+---
+
+## 4 · What is TRUE at HEAD — measured this session, not assumed
+
+| | |
+|---|---|
+| zones | **23**, all `type` present, **23 of 23 `status: draft`** |
+| ⛔ zones ever confirmed | **0**, in 40+ days. `ZonePanel` fires `zone_confirmed` and it has **never fired** |
+| plants | 40 · **27 carry `zones[]`** · 6 of those in more than one zone |
+| ⛔ **code that reads `plant.zones`** | **NONE.** Grepped every render path in `viewer.html`. The join is written and rendered nowhere |
+| distribution | `pond-area` holds **16 of 42** placements (59%). **10 of 23 zones hold zero plants** — including **`fern-garden`**, a zone named for a plant containing none |
+| plants with no place at all | **13**, including `hydrangea` (the hub record carrying the whole roster), `white-pine`, `holly`, `clematis`, `wisteria`, `lizards-tail` |
+| household systems | **6** records in `vehicles.json`. The **well, septic, main shut-off, spigots and crawlspace hatch are records nowhere in canon** |
+| domains that can express a place | **2 of 11** (`plants.zones[]`, `turf.zoneId`) |
+| overlap | **93 of 107 m²** of all zone overlap came from **two linear features modelled as areas** |
+| participation | zone journey **0 taps in 10 offers**; every ask-shaped surface **0 for 35**; one kitchen table **16 names in an evening** |
+
+⭐ **Read the first three rows together.** The confirm act is built and has never run; the join is written and
+never read. **The v1 is not mostly a build — it is mostly a wiring-up of things that already exist and have
+never been connected to each other.**
+
+---
+
+## 5 · The staged operator pipeline — Z-5, and why it is right
+
+Paul's insight, and the record backs it harder than his memory did. `Upper-Uber Wall Area` was created
+2026-07-17 as a 10-vertex polygon and retired 08-31 in his own words — *"It's a wall. More of a dividing
+line than a zone."* The Path likewise, and its retirement note carries the number:
+
+> *"a path has a length and no inside, so recording it as an area forced it to overlap everything it runs
+> through: 47.1 m² into Eastern Patio, 43.3 m² into Fern Garden, 2.7 m² into Eastern Woodlands — **93 of the
+> 107 m² of overlap in the whole area set.**"*
+
+⭐ **The lines were traced at 13:39 on 08-31, AFTER all sixteen areas — which is precisely why the areas
+overlap.** Structure-last cost 87% of the overlap; structure-first would have prevented it.
+
+**And it converges from three directions that were not talking to each other:** Lynch's four primitives
+(district · **edge · path** · landmark, with the explicit prediction that a districts-only map is close to
+the least legible subset, *because districts are what people are worst at bounding and best at naming*); the
+capability scan's finding that the driveway is best solved **topologically** — a least-cost path joining road
+to house, which survives canopy where a classifier does not; and the seam question that is the best confirm
+question anyone has drafted — *"is there a wall between the lawn and the pond, or do they run together?"* —
+which is a question about **lines**.
+
+### 5a · The four steps
+
+| step | who | what | how |
+|---|---|---|---|
+| **1 · the frame** | free, deterministic | parcel · road frontage · building footprints · water · woods/open line | ⭐ **downloads, not inferences.** The roof is a file (MS/Overture). The road is a file (TIGER). The boundary is a file (Regrid — **the one paid item, a BUY decision**). Water is a one-line NIR threshold and NAIP carries NIR |
+| **2 · the edges** | model proposes · **Paul accepts** | driveway · walls · paths · tree line | driveway as a **least-cost path**, not a segmentation |
+| **3 · the regions** | Paul, but now easy | the areas | ⭐ closed **against edges that already exist** rather than freehanded in open space |
+| **4 · the names** | **only the household** | every name | **0 of 16 derivable.** Permanently |
+
+⭐⭐ **The payoff is bigger than "easier."** If regions are built from **shared** lines (planar enforcement),
+adjacent zones **cannot** disagree — the 24 touching pairs and 11 sub-metre slivers stop existing *by
+construction*, and Tier 2 of the smoothing plan becomes **unnecessary rather than deferred.**
+⏳ *Engineering seat is testing whether that is true given how `zones.json` and the save path actually work,
+and whether a cheaper 80% (vertex snapping with a tolerance) gets most of it.*
+
+### 5b · ⛔ Two steps wearing one word — and they must not merge
+
+Z-6 asks for a *"formatting and beautification step."* It is **two different operations**:
+
+| | what it is | what it does to the map |
+|---|---|---|
+| ① **refinement against evidence** | **intelligent scissors / livewire** — click roughly, the algorithm follows the strongest edge in the pixels between the clicks | makes the line **more accurate** |
+| ② **cosmetic smoothing** | Chaikin, Douglas-Peucker simplification, round joins | makes the line **look better**; accuracy-neutral at best |
+
+⛔ **② has already been tried and measured.** Tier 1 smoothing shipped 2026-09-04 (`6408706`) and the verdict
+in the record is blunt: *"it worked exactly as designed and the map does not look meaningfully better."* If a
+cosmetic pass runs under an accuracy label, the map **looks more precise without being more precise** — which
+is the confidently-wrong instrument this project exists to refuse.
+
+⭐ **The gift buried in ①:** gradient magnitude along a snapped path is a **derived per-segment confidence**.
+A wall that locked onto a hard gradient renders **crisp**; a boundary eyeballed across open ground renders
+**soft**. The honesty encoding stops being a keystroke someone remembers and becomes a measurement — which
+retires the manual operator confidence stamp the 09-06 proposal wanted as its step 0.
+⏳ *Engineering seat is testing whether that confidence is sound or is a number that will be trusted beyond
+what it measures.*
+
+### 5c · ⚠️ The hazard, and the instrument that answers it
+
+The basemap is a **10 January leaf-off NAIP frame at 34.55°N**, sun near 32°. Paul's own words at the trace:
+*"a lot of shadows and that made it very hard to be exact with positioning and borders."* **An edge-follower
+snaps to a shadow every time** — a shadow is the strongest gradient in that frame and it is not a wall.
+
+⭐⭐ **So for walls the photograph is the wrong instrument.** A wall is a **height step**, not a colour change.
+On elevation it is unambiguous and **shadow-free by construction** — the sun angle does not exist in a DSM.
+The photo shows you a shadow; the elevation shows you the wall.
+
+⛔ **And the probe that decides whether this is buildable here has never been run.** Google Solar
+`dataLayers` at 34.5496, −84.3674 — one call, ~$0.075, ten minutes. HIGH returns **0.1 m RGB + a 0.1 m
+shadow-free DSM** (6× the basemap, 10× the lidar posting); a 404 closes the question. Verified this session:
+no such call exists anywhere in the repo, and `LAND-SOURCES.md` still records the canopy-height model as
+*"not yet built."* **→ Ruling R-Z1, §9.**
+
+---
+
+## 6 · THE V1 — zones × plants `[Z-3, Z-4]`
+
+**What it is.** The connection between a named place and the plants in it, with Paul drawing the places and
+the householder confirming and correcting them in words.
+
+**Why this one is the right first slice, stated honestly rather than flatteringly:**
+
+- ✅ The data half already exists — 27 of 40 plants carry a place, and **plural is already exercised** (6 in
+  more than one zone; the moss case was never hypothetical).
+- ✅ The surface already exists — `ZonePanel` has rename, **confirm**, flag, delete and an offline-aware voice
+  recorder that queues until she is back on Wi-Fi. It is the one capture path already built for the site's
+  no-signal premise.
+- ✅ It is the only domain pair that can be built without touching the nine place-less domains.
+- ⚠️ **And it is the case with the LEAST automation leverage.** The gardens are exactly the zones a model
+  cannot draw — nine planted zones under 50 m², 39% of the zones, 2.6% of the area, **4–11 px across against
+  their own ±14 px error bar.** The scan's words for them: *"hands off — Paul draws them."* **That is not an
+  argument against the v1; it is the reason the v1 must lead with names rather than shapes** — and it is what
+  makes the same v1 work at a condo, where a balcony and a windowsill have no polygon at all.
+
+⏳ **The journey — including its failure paths — is in flight** at
+`.user-research/2026-09-07-zones-plants-v1-journey.md`. **That artifact, not this section, is what moves the
+epic to the `journey` stage.** It is scoped to cover: where the journey starts from a blank slate; both
+halves of *we draw, they confirm* as one journey; the condo variant; and what happens when she declines,
+says nothing, contradicts herself, renames something we already named, or cannot say why a drawing is wrong.
+
+⏳ **The engineering path** is in flight at `.engineering/2026-09-07-zones-v1-path.md`.
+
+### ⚠️ The gate inside the v1 that is not ours to wish away
+`plants.json` is **species-level**. It answers *"hydrangeas are in the Green Ring and the Western Fern &
+Azalea Garden"*; it cannot answer *"where is the one that isn't doing well."* That is **W6**, the instance
+model, deferred in the plant taxonomy rule since July. Botanical gardens crossed this exact line decades ago:
+retrieval of a *specific* plant needs an **accession**, not a species. **The v1 ships at species level and
+names what fires W6** — it does not solve it.
+
+---
+
+## 7 · The horizons `[Z-2]`
+
+⛔ **Per Paul's own v1 rule** — *"a v1 shipped with no successor row is not a v1, it is an unfinished feature
+with better manners"* — each horizon names what the one below it defers.
+
+| horizon | what | state |
+|---|---|---|
+| **V1 — now** | zones × plants. Paul draws; she confirms and corrects in words. Species-level. Names lead, geometry follows | 🎯 this file + two seat artifacts in flight |
+| **NEAR** | the three primitives in the record (`geometry: {kind, coordinates}`) · a **plural, typed** place field on the nine domains that have none · household-system **points** — which needs the missing *subjects* first (well, septic, shut-off, spigots) · the staged operator pipeline steps 1–2 | scoped in §1 and §5; **not started** |
+| **LONG** | the derived first draft for a stranger's address · geometry leaving git · a map surface built into the neutral journey (⚠️ **there is no map in production at all today**, and the deploy allow-list enforces it) · the illustrated map · project sites over time | ⛔ downstream of the tenancy conversion, which has not begun |
+| **STANDING RESEARCH** `[Z-8]` | the mowing-regime time-series test · the Solar DSM probe · edge-snapping and its derived confidence · what the answer key can measure | ⭐ **the answer key has an expiry** — it only holds while the ground matches the 2018–2023 imagery |
+
+### ⭐ What the freeze bought, and what it costs to keep
+Freezing Fernwood made its 23 hand-traced zones **the answer key**. Every automation hypothesis in the
+standing strand is falsifiable here and **unfalsifiable anywhere else**. That turns *"test some automating
+hypotheses"* from a wish into a measurable program — and it is a wasting asset.
+
+---
+
+## 8 · What the v1 explicitly DEFERS
+
+Named, so the deferral is a decision rather than an omission:
+
+1. **W6 / plant instances** — species-level only. §6.
+2. **Lines and points in the schema** — the v1 uses areas plus names; the primitives are NEAR.
+3. **The place field on the other nine domains** — including the shut-off job, which additionally has no
+   subject records to point at.
+4. **Any automated extent proposal** — steps 1–2 of §5 are operator-track research, not v1 scope.
+5. **The illustrated map, the layer toggle, the plat** — all downstream of the v1's evidence.
+6. **Everything the uses landscape catalogued that is not plants** — buried infrastructure, project sites,
+   the coverage denominator, place-as-unit-of-sharing. ⚠️ *Preliminary but thorough research, per Z-3, and
+   parked deliberately.*
+7. ⛔ **Not deferred — REFUSED:** an acknowledgment surface for the zone work (Z-ACK is closed, Paul does it
+   in person); a householder-facing drawing tool as the primary path; a survey register; **anything that
+   presents a ±30 ft record as a locate.**
+
+---
+
+## 9 · ⭐ RULE THIS — open, and Paul's
+
+| # | the ruling | recommendation |
+|---|---|---|
+| **R-Z1** | **Run the Google Solar `dataLayers` probe** at the property coordinates? One paid API call (~$0.075) against Paul's own address. It decides whether wall-snapping and the whole edge layer are buildable at Fernwood or are a research direction. | **Yes** — it is the cheapest decision-changing measurement available, and a 404 is as useful as a HIGH. ⛔ Not run without his word: it is outbound and paid. |
+| **R-Z2** | **Is the Regrid parcel purchase in scope for the epic?** The property boundary is the one item in step 1 that is not free, and *"where are the property boundaries"* is one of Paul's stated uses. | **His call — a spend, not an engineering choice.** Note the boundary is **assessor-grade, never a survey**, and must always say so on its face. |
+| **R-Z3** | **The cross-project pattern** the user-researcher seat proposed — *"the record's filler is not the record's reader"* — written to `~/.claude/user-research/cross-project.md`? | **His call.** It is `inferred` at two projects. |
+| **R-Z4** | **Does the answer-key measurement get scheduled, or stay opportunistic?** It is a wasting asset (§7). | **Recommend scheduling one comparison run** once step 1 of the pipeline exists — otherwise it decays unmeasured. |
+
+---
+
+## Row to add
+
+This agent may not edit `BACKLOG.md` under another session's live lane. One line, for Paul or the main
+session, under ▶️ NEXT:
+
+`| **🗺 ZONES AS A FEATURE — the epic: named place (geometry optional), staged operator pipeline, v1 = zones × plants** `[paul-scoped 2026-09-07, J-g/Z-1..Z-8]` | ⚙️ engine · declared. Scoped WITH Paul, design lane of lap 3; ships nothing. → `.plans/2026-09-07-zones-PLAN.md` | — |`
+
+---
+
+## Files touched
+
+**By this session:** `.plans/2026-09-07-zones-PLAN.md` (new) ·
+`.user-research/2026-09-07-zones-uses-landscape.md` (new) ·
+`.user-research/2026-09-07-zones-plants-v1-journey.md` (new, in flight) ·
+`.engineering/2026-09-07-zones-v1-path.md` (new, in flight). **No tracked source file, no data file, no
+deploy.**
+
+**By the v1, when it is built (NOT this session):** `viewer.html` (the `ZonePanel` body — it renders no
+plants today; and the first reader of `plant.zones` anywhere) · `plants.json` (the 13 placeless records and
+the `pond-area` concentration) · `zones.json` (`type` is wrong on five records) · `RELEASE_NOTES.md` ·
+re-inline via `tools/reinline.py`. ⚠️ **`viewer.html` is not shipped to a household origin at all** — the
+deploy allow-list carries eight named files and none of them is the viewer, so a household map surface is a
+*new build*, not an inheritance.
+
+## Sequence
+
+0. ⛔ **Paul rules §9** — nothing below R-Z1 starts before it.
+1. Fold the two in-flight seat artifacts into §6 and re-grade this file. **Stage moves `design` → `journey`
+   when the journey artifact lands with its failure paths.**
+2. Content-steward drafts nothing until the journey names the moments that need words.
+3. ⛔ **STOP. The build is a separate ruling.** This file ends at a designed, journey-mapped v1 with its
+   deferrals named. Whether it is built, and when, is Paul's ranking call across lanes — no seat here may
+   make it.
+
+## Falsifier
+
+- ⛔ **The v1's own premise:** *a person will correct a map somebody else drew for them.* It has **zero
+  observations** behind it. The whole of *we draw, they confirm* rests on it, and one showing tests it.
+- **The structure-first claim (Z-5/§5) is falsified** if the engineering seat finds shared-edge regions cost
+  more than the slivers they prevent, or if a cheap vertex-snap gets the same result.
+- **The derived-confidence idea (§5b) is falsified** if gradient magnitude turns out to track image contrast
+  rather than boundary truth — i.e. if it reads *high* on the shadow edges of §5c.
+- **The v1 is falsified as a retrieval feature** if the journey seat confirms the present steward does not
+  retrieve. ⚠️ That would not kill the v1 — it would move it from index to **capture and portrait**, which
+  changes what "worked" means and must be settled before, not after.
+- ⚠️ **An instrument that can only produce a yes has measured nothing.** Against an 0-for-35 record, a
+  confirm surface that cannot produce a "no" is not evidence.
+
+## QA
+
+**Nothing to QA — this session ships nothing.** What is checkable about this file itself:
+
+- `python3 tools/check-backlog-ready.py` — this file is graded. **Exactly three flags are expected, and any
+  fourth is a defect here:** ① *orphan*, until the § Row to add lands; ② *engineering-partner cites
+  `.engineering/2026-09-07-zones-v1-path.md` which does not exist* — that seat is in flight and the flag
+  clears when it lands; ③ `stage: design` with no `[paul-approved]` stamp, which a design-stage draft
+  awaiting his ruling **cannot** carry by rule.
+- ⚠️ **A NAMING HAZARD MEASURED ON THIS FILE, 2026-09-07.** It was first written as
+  `2026-09-07-zones-EPIC.md` and was graded by **NOTHING**: `check-backlog-ready.py` globs only
+  `*-PLAN.md` / `*-PROPOSAL.md` for readiness, and `-EPIC` is not in `DOC_SUFFIXES` either, so it fell
+  between both and drew zero flags — which reads identically to a clean file. The tool's own comment at
+  `tools/check-backlog-ready.py:73` predicts exactly this. Renamed to `-PLAN.md`, which surfaced **12
+  flags** immediately. ⭐ **A silent pass and a clean pass are indistinguishable, and this repo's own rule
+  applies: never green by absence.** Whether the suffix list should fail closed on an unknown suffix is a
+  real question and is **not** settled here.
+- `python3 tools/product-steward.py` — this file **cites** `.user-research/2026-09-07-zones-uses-landscape.md`,
+  `…/2026-09-06-what-a-map-is-for.md` and `.ux-reviews/2026-09-06-map-drawing-mobile.*`, which were flagged
+  T2 *uncited trail* this session. Those flags should clear.
+- ⛔ **`python3 tools/check-estate-neutral.py` is NOT satisfied by this file and must not be claimed.** This
+  document names Fernwood's places throughout, correctly — it is Fernwood's scope. **Any engine artifact the
+  v1 produces is a different question**, and the bare form of that check does not scan `viewer.html` at all.
