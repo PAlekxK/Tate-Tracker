@@ -25,13 +25,25 @@ for `c4-environments` is **Paul's ruling**, stated on the plan's own face and no
 
 ## ⭐ START HERE — two checks that could refute this whole plan
 
-The engineering seat pre-registered these **against its own scope**. Both are single read-only requests.
+The engineering seat pre-registered these **against its own scope**. **Check 2 is read-only; CHECK 1 IS NOT — read its box before running anything.**
 **Run them first. If either fails, the plan is rewritten, not patched.**
 
-1. **POST to each of the five household capture endpoints against `home`** — `/api/feedback`,
-   `/api/observations`, `/api/conversations`, `/api/zone-feedback`, `/api/zone-audio`.
+1. **Prove the five household capture endpoints work — but ⛔ NOT BY POSTING TO `home`.**
+   `/api/feedback`, `/api/observations`, `/api/conversations`, `/api/zone-feedback`, `/api/zone-audio`.
    **Expected: all five succeed.** ⛔ *"If more than `zone-save` is broken, my scope correction is wrong
    and the plan should be rewritten, not patched."*
+
+   > ### ⛔⛔ THE SEAT CALLED THIS READ-ONLY. IT IS NOT, AND THE REPO HAS ALREADY PAID FOR THIS ONCE.
+   > A POST to these endpoints **creates real records in Mom's production estate.** `BACKLOG.md` ▶️ NEXT ·
+   > TIER 2 · row 6 records the identical mistake: *"Test turns persist to `conversation:<id>` → listed by
+   > `/api/conversations` → read as an **arrival**, so probing makes Paul read as owing Mom a reply. Worse:
+   > a test conversation lands in the store **the Journal reads back** — it is visible to Mom."*
+   >
+   > **Run it against `lab` instead** (`est-lab0001`), which carries the same "no `GITHUB_TOKEN`" shape and
+   > is what lab exists for — or use the **`origin` predicate already shipped for exactly this** (row 6,
+   > 2026-07-29). ⛔ **Do not write test records into `est-e6696a` under any circumstances.** If you
+   > genuinely cannot answer the question without touching `home`, **stop and ask Paul** — do not decide it
+   > yourself.
 2. **`GET /api/zones` against `home`.**
    **Expected: it returns Fernwood's 23 zones ("The bank", "Eastern Woodlands", …).** ⛔ *"If it returns
    empty, I'm wrong about the fallback — I read the path, I did not exercise it."*
