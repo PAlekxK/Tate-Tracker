@@ -386,6 +386,55 @@ want from the card" has no read*, and under W-5 that household is now most of th
 
 ---
 
+## 0-PRIME-B · ⭐ PAUL'S WEATHER RULINGS — 2026-09-07 late, working the items one by one
+
+| | ruling, verbatim | settles |
+|---|---|---|
+| **W-7** | ⭐⭐ *"it's important about elevation — let's have the user confirm their elevation. Some of these critical figures, let's always surface it and have them confirm it as best they can."* | **a standing design rule, wider than elevation — see below** |
+| **W-8** | *"That makes sense to build the seams together. I go with your lean there."* | ✅ **Q3 RULED — a PER-ESTATE KV row**, built once for the station credential **and** the history store **and** estate-persistent notes (GL-10). One seam, three consumers |
+| **W-9** | *"we're gonna have to build some smart checks on what sources to show… we're in the state of Georgia so we show that; we're not in the state of Georgia, we don't. That's data we're pulling from the address."* | ⭐ **Q8 generalises** — not a one-off hide but a **source-applicability rule** keyed on address-derived facts |
+| **W-10** | *"Six sounds good."* | ✅ **Q16 RULED — the two asks sit BESIDE THE ADDRESS at setup**, where the promise is made |
+| **W-11** | *"Seven sounds good."* | ✅ **file the row and stamp it** — it stops being an orphan |
+| **W-12** | *"for tier two we have a lot of information now. Let's dispatch a dedicated research agent to see what else is available and how we could use it and come up with a recommendation."* | ⛔ **the agent's tier-2 v1 cut is NOT taken** — research first → `.plans/2026-09-07-weather-tier2-sources-SCAN.md` |
+
+### ⭐⭐ W-7 IS A STANDING RULE, AND IT TURNS THE ELEVATION DEFECT INTO THE FEATURE
+
+The agent's caution was *"tier 2 must label elevation `estimated` or it manufactures confident
+wrongness at every new household."* **Paul's ruling is better than the caution:** do not merely label
+it — **surface it and ask the person to confirm it.**
+
+⭐ **This is the governing design principle's third strand — the LOOP — applied to a DERIVED figure
+rather than to a measured one.** CLAUDE.md already states it: *the place we admit "~65°F, estimated" is
+exactly where we invite "log the real reading"*, and *close the loop visibly*. Elevation is the same
+shape: the 90 m model reads **86 ft high** on this spur, the idiom (`estimated — verify on-site`)
+already exists at `viewer.template.html:13795`, and the person standing on the ground is the only one
+who can settle it.
+
+⛔ **Consequences, and they bind every tier-2 row:**
+1. **Every critical derived figure ships with its confirmable form** — what we show, how it is marked
+   unconfirmed, what the person is asked, and **what changes when they confirm or correct it.**
+2. ⭐ **It composes with the release contract (RC-1…RC-3):** the confirmation IS the item's ask, and a
+   confirmed figure IS a ribbon-worthy attribution. **This is the input-to-value cycle closing on
+   itself** — the derived value invites the correction, and the correction is what the ribbon credits.
+3. ⚠️ **Capture stays deterministic and AI-free**, and the ask must say USE · NOT-use · WHO SEES IT ·
+   reversibility. A confirmation is a capture surface like any other.
+4. ⛔ **It must be TRUE that correcting is cheap** — *"never call a thing changeable and then make
+   changing it costly."*
+
+### ⭐ W-9 — the source-applicability rule, stated as a mechanism
+
+⛔ **Q8's fix is no longer "hide the burn tier outside GA."** It is: **address-derived facts gate which
+sources apply.** W0 already returns **lat/lon, county FIPS and state**, so the inputs exist today.
+⚠️ **Reuse the existing declaration vocabulary before minting state** — `momlib.DOMAINS` and
+`estate.json`'s module set (`on · on-minimal · off · declared-absent`) are the patterns
+(`feedback_reuse_vocabulary_before_adding_state`). Mechanism proposal → the tier-2 scan, §4 of its brief.
+
+⚠️ **Q8 remains BLOCKING for tier 1 regardless of the mechanism's shape:** `(m >= 4 && m <= 8)` is a
+Georgia EPD literal in engine code, so a Maine household is told Georgia's burning law today. **The v1
+cannot ship tier 1 to a non-Georgia household without at least the narrow fix.**
+
+---
+
 ## 0 · The one-line
 
 **Give every household the weather card from nothing but its address; ask two yes/no questions; each
