@@ -26,7 +26,7 @@
 |---|---|---|
 | 5 | **The front door** — Paul verifies by signing in | 🟡 **F4 FIXED + 3 spinner exits**, proven against the recorded falsifier. ⛔ Not deployed — needs Paul's clear |
 | 6 | **Two changelogs** — per-property and product | ✅ **BUILT** — `build-place-log.py` derives 89 at Fernwood, 12 inlined, card renders, product log names itself. ⛔ Not deployed |
-| 7 | **The Almanac display name** (E1) | ⬜ |
+| 7 | **The Almanac display name** (E1) | ✅ **BUILT** — settings field → `/api/profile` → `whoami` → reconcile → viewer. Display varies, internal fixed, proven 6 ways. ⛔ Not deployed |
 | 8 | **Deploy the tombstone fix** — committed `9b96e07`, waiting | ⬜ ⛔ needs Paul's clear |
 
 ## ⛔ Standing constraints on every item here

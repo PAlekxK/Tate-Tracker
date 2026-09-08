@@ -96,6 +96,19 @@
     <p class="quiet">However you write it is how it reads.</p>
   </div>
 
+  <!-- ⭐ E1 `[paul-ruled 2026-09-07]`: "everyone may have a different take on what makes sense or
+       feels the most natural." The 2026-07-30 consolidation onto one name was right about the name
+       THE CODE USES; Mom's own answer — "Journal" — was right about the name ON SCREEN. They only
+       ever collided because one string did both jobs. This is the display half.
+       ⚠️ The placeholder shows the CURRENT default rather than sitting empty, so the field answers
+       "what is it called now?" before it asks "what would you call it?" -->
+  <div class="card">
+    <label for="jn">What you call the Almanac</label>
+    <input id="jn" type="text" maxlength="40" autocapitalize="words">
+    <p class="quiet">The record of this place — where notes, questions and what grows here live.
+      Leave it empty to use the usual name.</p>
+  </div>
+
   <div class="card">
     <label>Its colour</label>
     <div class="swatches" id="swatches"></div>
@@ -124,7 +137,8 @@
     ? "https://" + label + ".paul-kirschenbauer.workers.dev"
     : "https://fernwood.paul-kirschenbauer.workers.dev";
 
-  var K_GRANT = "fw-grant", K_NAME = "fw-onboard-name", K_COLOR = "fw-accent", K_USER = "fw-username";
+  var K_GRANT = "fw-grant", K_NAME = "fw-onboard-name", K_COLOR = "fw-accent", K_USER = "fw-username",
+      K_JOURNAL = "fw-journal-name";   // ⭐ E1 — the DISPLAY name only; nothing keys off it
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
   function store(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function el(id) { return document.getElementById(id); }
@@ -162,6 +176,12 @@
     document.documentElement.style.setProperty("--accent", chosen);
   }
   el("nm").value = read(K_NAME) || "";
+  el("jn").value = read(K_JOURNAL) || "";
+  // ⭐ Show the name it currently goes by, so the field can be read before it is answered.
+  try {
+    var hh = read(K_NAME);
+    el("jn").placeholder = hh ? (hh + " Almanac") : "Almanac";
+  } catch (e) {}
   // A default sat on is not a choice (strict seat, round 5): say so, the way the receipt page does for
   // contact. And no "your other homes" three screens from "I can't set up a second home yet".
   try {
@@ -199,11 +219,15 @@
 
   el("save").addEventListener("click", function () {
     var nm = (el("nm").value || "").trim();
+    var jn = (el("jn").value || "").trim();
     var btn = el("save");
     btn.disabled = true; btn.innerHTML = "Saving…";
     var body = {};
     if (nm) body.name = nm;
     if (chosen) body.accent = chosen;
+    // ⛔ SENT EVEN WHEN EMPTY, unlike the fields above. "" is a real answer here — it means "go back
+    // to the usual name" — and a person who clears the box must be able to undo their own change.
+    body.journalName = jn;
     var u = read(K_USER);
     if (u) body.username = u;
     var h = { "Content-Type": "application/json" };
@@ -216,6 +240,7 @@
         // when it was not, which this project has broken twice.
         if (nm) store(K_NAME, nm);
         if (chosen) store(K_COLOR, chosen);
+        try { if (jn) { localStorage.setItem(K_JOURNAL, jn); } else { localStorage.removeItem(K_JOURNAL); } } catch (e) {}
         // ⭐ THE LOOP CLOSES ON THE RETURN TRIP: back to her home, already wearing the change.
         location.href = "/estate/";
       })["catch"](function () {

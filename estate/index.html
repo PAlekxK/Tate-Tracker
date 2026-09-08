@@ -231,7 +231,7 @@
   // Same key names as onboarding — this page READS what that flow wrote and writes none of them.
   var K_GRANT = "fw-grant", K_ADDR = "fw-onboard-addr", K_PARTS = "fw-onboard-parts",
       K_NAME = "fw-onboard-name", K_COLOR = "fw-accent", K_OWNER = "fw-onboard-owner",
-      K_USER = "fw-username", K_RANK = "fw-onboard-interests",
+      K_USER = "fw-username", K_RANK = "fw-onboard-interests", K_JOURNAL = "fw-journal-name",
       K_PREF = "fw-onboard-contact",
       // W0 · the household's own coordinates, mirrored from the record so the viewer can paint
       // weather/sky/place from THIS place before first paint. Derived, never typed by anyone.
@@ -524,6 +524,10 @@
         // and the card honestly renders an empty place UNDER THE RIGHT NAME. That is the intended
         // outcome: today it renders an empty place under SOMEONE ELSE'S name, which is worse.
         put(K_OWNER, grant);
+        // ⭐ E1 — the display name rides the same reconcile as every other fact, so a household that
+        // renamed its Almanac on one device sees that name on the next. `put` ignores null, so a
+        // record without one leaves the local value alone.
+        put(K_JOURNAL, d.journalName);
         // Re-render only if the record actually disagreed, so the common case costs nothing and a
         // reader never sees her own screen flicker for no reason.
         if (changed) { location.reload(); return; }

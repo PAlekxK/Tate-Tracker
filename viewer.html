@@ -7275,6 +7275,23 @@ let ESTATE_NAME = "Fernwood";
 if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) ESTATE_NAME = window.__HOUSEHOLD_NAME;
 let JOURNAL_NAME = "Fernwood Almanac";
 if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) JOURNAL_NAME = window.__HOUSEHOLD_NAME + " Almanac";   // "Tell the My Home Almanac" (mom seat, round 3)
+// ⭐⭐ E1 — THE HOUSEHOLD'S OWN WORD WINS `[paul-ruled 2026-09-07]`: "everyone may have a different
+// take on what makes sense or feels the most natural… systematically replacing the name in the
+// displays, but keeping that module still have an internal name that's consistent."
+// ⛔ THIS IS THE DISPLAY NAME AND ONLY THE DISPLAY NAME. `JOURNAL_NAME` is already used for prose
+// only — 7 sentences a person reads. Nothing keys off it: the module's identity in code, in canon
+// and in every stored record is untouched, which is exactly what lets one household say "Journal"
+// and another say "Almanac" without forking anything.
+// ⭐ WHY THIS SETTLES AN OLD ARGUMENT RATHER THAN REOPENING IT. The 2026-07-30 consolidation onto
+// "Almanac" was right about the name THE CODE USES — Almanac carried three referents, Journal one,
+// and anchoring on Journal would have cost the property's own tagline. Mom's answer "Yes, Journal"
+// (validated, folded 07-29) was right about the name ON SCREEN. They collided only while one string
+// did both jobs. And with N households there is no single "most natural name", so a fixed display
+// string is wrong by construction whichever word wins.
+try {
+  var __jn = localStorage.getItem("fw-journal-name");
+  if (__jn && __jn.trim()) JOURNAL_NAME = __jn.trim();
+} catch (e) { /* a browser that refuses storage keeps the default, and says nothing false */ }
 const STATION_NAME = "Fernwood Weather Vane";
 // C7 1c — does this estate HAVE a station? "present" · "declared-absent" · "undeclared" (the build's
 // loud non-default). Declared-absent: no proxy call, the weather card says regional, no error dot.

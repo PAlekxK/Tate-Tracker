@@ -620,6 +620,7 @@ async function handleSession(request, env, scope) {
   return json({ personId: acct.personId, token, name: acct.placeName || null, accent: acct.accent || null,
                 email: acct.email || null, phone: acct.phone || null,
                 contactPref: acct.contactPref || "email",
+                journalName: acct.journalName || null,
                 // the response reports what the GRANT actually says. It claimed administrator
                 // unconditionally, so a member signed in and was told she was an administrator —
                 // the Worker enforced correctly while the client was told something else.
@@ -3466,6 +3467,18 @@ export default {
         if (typeof b.phone === "string") acct.phone = b.phone.trim().slice(0, 40) || null;
         if (["email", "phone", "none"].indexOf(b.contactPref) >= 0) acct.contactPref = b.contactPref;
         if (typeof b.profileAccent === "string") acct.profileAccent = b.profileAccent.slice(0, 9);
+        // ⭐ THE ALMANAC'S DISPLAY NAME `[paul-ruled 2026-09-07]` — "everyone may have a different
+        // take on what makes sense or feels the most natural… systematically replacing the name in
+        // the displays, but keeping that module still have an internal name that's consistent."
+        // ⛔ DISPLAY ONLY. Nothing keys off this: the module's identity in code, in canon and in
+        // every stored record is unchanged. It is the WORD ON SCREEN and nothing else, which is what
+        // lets one household call it the Journal and another the Almanac without forking anything.
+        // ⚠️ An empty string is a real value here — it means "go back to the default" — so it is
+        // stored as null rather than ignored, unlike the fields above where absent means unchanged.
+        if (typeof b.journalName === "string") {
+          var jn = b.journalName.trim().slice(0, 40);
+          acct.journalName = jn || null;
+        }
         if (typeof b.address === "string") acct.address = b.address.slice(0, 300);
         if (b.addressParts && typeof b.addressParts === "object") acct.addressParts = b.addressParts;
         if (Array.isArray(b.ranked)) acct.ranked = b.ranked.slice(0, 20);
