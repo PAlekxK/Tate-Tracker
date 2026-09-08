@@ -105,7 +105,19 @@ else
   # shape that hides a bug: the common path passes and the rare one is broken.
   # ⚠️ One screen above this line there is already a bash-3.2 warning about `mapfile`. Writing that
   # warning did not stop me writing this. Found by paulkirschenbauer-06 running the path.
-  ( cd worker && npx --yes wrangler@4 deploy ${WRANGLER_ARGS[@]+"${WRANGLER_ARGS[@]}"} )
+  # ⭐ STAMP THE WORKER WITH THE SHA IT IS BUILT FROM (spine step 11, 2026-09-08). The Pages half of
+  # a deploy has always been stamped and the Worker half never was, so post-deploy.py printed the
+  # same uncovered line every run: nothing could say whether a Worker ran the code QA certified.
+  # `--var` is a DEPLOY-TIME override, so it never has to be committed to wrangler.toml and can
+  # never go stale in the file. A deploy that skips it reports null — unstamped — never a wrong sha.
+  BUILD_SHA="$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
+  if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
+    # ⚠️ A DIRTY TREE IS NOT ITS HEAD, and saying so is the whole value of the stamp. Deploying
+    # uncommitted work is legitimate; letting /health claim it is a clean sha is not.
+    BUILD_SHA="${BUILD_SHA}-dirty"
+  fi
+  echo "==> stamping BUILD_SHA=${BUILD_SHA}"
+  ( cd worker && npx --yes wrangler@4 deploy ${WRANGLER_ARGS[@]+"${WRANGLER_ARGS[@]}"} --var BUILD_SHA:"$BUILD_SHA" )
 
   # ⛔ THE HEALTH CHECK MUST PROVE IT REACHED THE ENVIRONMENT IT DEPLOYED TO. The old one read a
   # hardcoded URL, so a deploy to any environment printed the top level's OK — a check that passes

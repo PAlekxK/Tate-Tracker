@@ -535,6 +535,12 @@ async function handleAccountCreate(request, env, scope) {
     relationship: Array.isArray(invite.relationship) && invite.relationship.length ? invite.relationship : ["member"],
     capability: invite.capability === "administrator" ? "administrator" : "member",
     entry: true, vault: false, issuedAt: new Date().toISOString(), issuedBy: personId,
+    // ⭐ THE LINK BACK TO THE ACCOUNT (2026-09-08). The account row has always held `tokenHash` —
+    // it knows its grant — and the grant knew nothing about the account, so nothing on the door
+    // path could reach it. That one-way link is why a geocode could land on a grant and never on
+    // the account it belongs to. `measured`: production held `est-e6696a:geocode:2026-09-08` while
+    // `hydrate` reported `coordinates` ABSENT on the account.
+    username,
     consent: [{ scope: "founding-request", agreedOn: new Date().toISOString().slice(0, 10),
                 agreedBy: personId, recordedBy: personId, consentSource: "self", how: "account-signup" }],
   };
@@ -3414,6 +3420,17 @@ export default {
         ts: new Date().toISOString(),
         env: env.ENV_NAME ?? null,
         kv_canary: kvCanary,
+        // ⛔⛔ WHICH CODE IS THIS. Spine step 11. Until now the Pages half of a deploy was stamped
+        // (`qa-build.json`) and the Worker half was not, so `post-deploy.py` printed the same
+        // uncovered line after every single deploy: "worker BUILD IDENTITY — /health carries no sha
+        // in ANY environment, so nothing can say whether this Worker runs the code QA certified."
+        // A gate that certifies a build cannot be anchored to a Worker that will not say which build
+        // it is. `measured` 2026-09-08: grep for BUILD_SHA across worker/, tools/ and .github/
+        // returned ZERO.
+        // ⚠️ It reads a VAR, so it is honest by construction: a deploy that forgets to set it reports
+        // `null` — unstamped — rather than inheriting a stale value and lying. Null is UNKNOWN, and
+        // nothing downstream may read unknown as a pass.
+        build_sha: env.BUILD_SHA ?? null,
         estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
         legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
         ...(env.CHAT_DAILY_BUDGET_USD ? { chat_budget: await (async () => {   // Guru 3b — reported wherever a budget is DECLARED, in dollars
@@ -3742,6 +3759,26 @@ export default {
             if (placed === "placed") {
               await env.OBSERVATIONS.put(keyFor(scopeOf(env), "grant", await sha256Hex(request.headers.get(GRANT_HEADER))),
                                          JSON.stringify(grant));
+              // ⛔⛔ AND THE ACCOUNT, WHICH THIS BRANCH USED TO SKIP — the third instance of
+              // write-landed-binding-didn't, after `hydrate` and the `reviewed` field with no writer.
+              // This retry placed the household on its GRANT and stopped there, so the account row —
+              // the thing `hydrate` copies FROM, and the thing that outlives any single credential —
+              // never learned where the place is. Rotate the credential and the placement is gone,
+              // silently, exactly like the placeName was.
+              // ⚠️ Guarded three ways because whoami IS the door: only when the grant carries its
+              // username (new grants do; older ones fall back to today's behaviour rather than
+              // failing), and the whole thing sits inside the caller's try/catch, which the comment
+              // above already rules — "a provider outage must never be the reason someone cannot
+              // read who they are." A failure here loses a copy, never the door.
+              if (grant.username) {
+                const _ak = accountKey(scopeOf(env), grant.username);
+                const _raw = await env.OBSERVATIONS.get(_ak);
+                if (_raw) {
+                  const _acct = JSON.parse(_raw);
+                  _acct.coordinates = grant.coordinates;
+                  await env.OBSERVATIONS.put(_ak, JSON.stringify(_acct));
+                }
+              }
             }
           }
         } catch (e) { /* the door opens regardless */ }

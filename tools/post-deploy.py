@@ -185,13 +185,29 @@ def check(env, expected, out=print):
                     findings.append("worker kv_canary %r != env %r — the binding and the vars "
                                     "disagree about which environment this is"
                                     % (h["kv_canary"], h["env"]))
-                # ⛔ COUNTED, NOT GRADED. No environment publishes a build identity, so "is this the
-                # Worker QA certified" is currently UNANSWERABLE. It is named every run rather than
-                # quietly omitted — an absent question nobody sees is how this class survives.
-                if "sha" not in h:
-                    uncovered.append("worker BUILD IDENTITY — /health carries no sha in ANY "
-                                     "environment, so nothing can say whether this Worker runs the "
-                                     "code QA certified")
+                # ⭐ ANSWERABLE SINCE 2026-09-08 (spine step 11). This was UNCOVERED for the life of
+                # the tool — "no environment publishes a build identity, so is this the Worker QA
+                # certified is currently UNANSWERABLE" — and it was named every run rather than
+                # quietly omitted, which is the only reason it was still findable when the spine
+                # reached it. Now /health reports `build_sha`, stamped at deploy from git HEAD.
+                # ⛔ THREE OUTCOMES, NEVER TWO. Absent is UNKNOWN and stays uncovered; a mismatch is
+                # a FINDING; `-dirty` is a finding of its own kind, because a Worker built from an
+                # uncommitted tree is not any sha and must not be reported as one.
+                wsha = h.get("build_sha")
+                if not wsha:
+                    uncovered.append("worker BUILD IDENTITY — /health reports no build_sha, so this "
+                                     "deployment cannot say which code it runs (deploy via "
+                                     "tools/deploy-worker.sh to stamp it)")
+                elif str(wsha).endswith("-dirty"):
+                    findings.append("worker was built from an UNCOMMITTED tree (build_sha=%s) — it "
+                                    "matches no commit, so no gate can be anchored to it" % wsha)
+                elif expected and not str(expected).startswith(str(wsha).split("-")[0]) \
+                            and not str(wsha).startswith(str(expected)[:len(str(wsha))]):
+                    findings.append("worker build_sha %r is not the sha this deploy expected (%r) — "
+                                    "the Pages half and the Worker half are different code"
+                                    % (wsha, expected))
+                else:
+                    covered.append("worker build_sha (%s)" % wsha)
     except Unreadable as e:
         uncovered.append("worker (%s)" % e)
 
