@@ -312,6 +312,9 @@
     font-family: "DM Sans", -apple-system, sans-serif;
   }
   .sunset-banner[hidden] { display: none; }
+  /* Quieter than the lede on purpose: the banner's job is the date and the reassurance,
+     and this sits above both without competing with either. */
+  .sunset-note { font-size: 12.5px; line-height: 1.4; color: #6b5c38; font-style: italic; margin-bottom: 6px; }
   .sunset-lede { font-size: 15px; font-weight: 600; line-height: 1.3; }
   .sunset-body { font-size: 13.5px; line-height: 1.45; margin-top: 3px; color: #5c4d29; }
   .sunset-body b { font-weight: 600; color: #4a3d1e; white-space: nowrap; }
@@ -6352,6 +6355,12 @@
      with you" is the natural warm line and it would be the app lying to the one person whose
      trust this whole project runs on. -->
 <div id="sunset-banner" class="sunset-banner" hidden role="status" aria-live="polite">
+  <!-- ⭐ PAUL'S WORDS, VERBATIM `[paul-stated 2026-09-08]`, and deliberately NOT smoothed. He
+       wrote it, he is the gate on anything that reaches her, and the standing rule on this
+       surface is adopt the author's words rather than improve them. It is static: it says why
+       the date moved, it never carries the date itself, and it must never grow instructions —
+       the primer below already owns "nothing for you to do". -->
+  <div class="sunset-note" id="sunset-note">We&rsquo;ve extended availability out of infinite generosity and strong desire to support general well-being in the world.</div>
   <div class="sunset-lede" id="sunset-lede"></div>
   <div class="sunset-body" id="sunset-body"></div>
   <div class="sunset-primer" id="sunset-primer"></div>
@@ -6366,10 +6375,15 @@
 (function () {
   try {
     /* ── THE ONE CONSTANT. Every display below is DERIVED from it; there is no second
-       hardcoded time anywhere. 2026-09-08 13:00:00 EDT = 17:00:00 UTC. 24h from Paul's
-       12:36 ET ruling, rounded UP to the hour so the banner reads cleanly — she loses
-       nothing by the rounding. */
-    var SUNSET_AT = 1788930000000;
+       hardcoded time anywhere. NOW 2026-09-09 13:00:00 EDT = 17:00:00 UTC.
+       ⭐ EXTENDED TWICE ON 2026-09-08 `[paul-stated]`. First +12h, because the original
+       deadline was 72 minutes away and the migration path it points at does not work: on
+       this day Paul could not get into his own home on QA — his grant was absent from the
+       live store, the shelf rendered "could not check" as "you have no homes", and his real
+       setup landed unlinked. Then to +24h, because +12h landed at 1:00 AM and she would
+       have gone to bed with Fernwood and woken without it. A deadline is only humane at an
+       hour when the person who can help is awake. Rounded to the hour; she loses nothing. */
+    var SUNSET_AT = 1788973200000;
     /* ── THE ONE DESTINATION. Bare origin, no path, no credential. `/` redirects to
        `estate/`, whose no-grant empty state is the sentence the copy primes her for. */
     var SUNSET_TO = "https://fernwood-home.pages.dev/";
