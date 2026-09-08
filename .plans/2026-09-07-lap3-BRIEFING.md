@@ -59,8 +59,14 @@ password — **has never been tapped by any seat, ever**, because the harness ca
 ⛔ **And 39 of 39 lap-2 walks ran `--fresh`: no seat has ever arrived as a person who already exists.**
 
 ### GAP 1 — Does a real person who is not the builder get through the door at all?
-- **Cost:** ~20 minutes, and it rides on a visit **already ruled to happen** — the transition is a
-  guided visit in person (`BACKLOG` ruling 3, 09-06). No new event to schedule.
+- ⛔ **SUPERSEDED 2026-09-07 — THERE IS NO VISIT TO RIDE ON.** `[paul-ruled]`: the onboarding link
+  was **texted to her**, so she arrives on her own at a moment nobody controls, and *"let's not gate
+  anything on a Mom visit or depend on it."* See `BACKLOG.md` ruling **3b**.
+  ⭐ **This does not lower GAP 1's value — it removes its INSTRUMENT.** The question stands and is
+  now unanswerable by observation, so it has to be answered by the product being right and by
+  telemetry that can see a bounce: rows **T1** (a `door` reader — the route exists and nothing calls
+  it) and **T2** (`onboarding-metrics` has no GET route at all). Until one of those lands, an arrival
+  that fails is invisible.
 - ⛔ **BLOCKED ON J-a.** Paul's word, not a sweep's.
 - **Protocol — on HER phone, before anything else.** Open the invite, then read four things:
   1. does the screen ever print a name that is not hers (the F4 falsifier)
@@ -274,7 +280,7 @@ evidence the pipeline failed.
 person."*
 **What this settles:** the debt orphaned by J-f is **not** a product problem and no acknowledgment
 mechanism is to be built for it. ⛔ Do not design a ribbon, a card, a message or a surface to thank
-her for the 23 zones — it is handled by the person who owes it, at the guided visit.
+her for the 23 zones — it is handled by the person who owes it, in person, whenever he chooses. ⚠️ 2026-09-07: no longer "at the guided visit" — there is no visit (ruling 3b). Z-ACK is unaffected: it was always Paul discharging it as a person, and he can talk to her any time. It simply has no scheduled occasion, and needs none.
 ⭐ This is the right shape and worth naming: the thing owed was never really a feature. The product
 was only ever going to be a proxy for a person saying thank you, and a proxy would have been worse
 than the thing itself. **Close the row; do not re-raise it.**

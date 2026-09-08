@@ -192,7 +192,53 @@ released the loop, not the deploy"* 09-05; *"this lifts the FEATURES hold, not t
 channels"* 09-04). So: **Track B → WORK: LIFTED · PUSH: FROZEN · CHANNEL: n/a.** Mom's channels, prod,
 and the zone/season work are untouched by this line.
 
-**⭐ 3. THE TRANSITION IS A GUIDED VISIT — this SUPERSEDES the 09-04 "a LINK, not a visit" ruling above**
+**⭐⭐ 3b. SUPERSEDED 2026-09-07 — SHE ARRIVES ON HER OWN, AND NOTHING MAY BE GATED ON A VISIT**
+`[paul-ruled 2026-09-07]` — *"we're kinda moving away from that, because we texted her the onboarding
+link, and so therefore she can do it at any point. And that's why we're trying to make things kinda
+somewhat self-explanatory and foolproof. So let's just say I can talk to Mom anytime I need to step
+in, but let's not gate anything on a Mom visit or depend on it. Let's try to do things without her
+where we can, or have her do it through the application, through the website, as much as possible
+and is feasible."*
+
+⭐ **THIS IS NOT AN OSCILLATION, AND THE DISTINCTION MATTERS** (09-04 said LINK, 09-06 said VISIT,
+09-07 says LINK again — that pattern is exactly what `[[feedback_everything_is_changeable]]`'s
+journey-aware caveat exists to catch). **The world changed underneath the ruling: the link was
+TEXTED.** A guided visit is no longer available as a gate even if it were wanted, because she may
+already be through the door. This reverses a decision by reversing its precondition, not its merits.
+
+**What it settles, and each of these is binding:**
+1. ⛔ **Nothing is gated on a visit.** GAP 1, GAP 2 and GAP 3 stop being blockers and become
+   opportunistic at best. No plan, row or beat may wait on one.
+2. ⭐ **The PRODUCT carries the load** — *"self-explanatory and foolproof."* Anything a visit would
+   have explained is now work the onboarding flow owes.
+3. ⭐ **Paul can step in any time**, by his own word — so a person is available for RESCUE. That is
+   not the same as a person being available as an INSTRUMENT.
+4. ⭐ **Prefer doing it without her, or through the app.** Where a question can be answered from the
+   record or from a surface she already uses, it does not become an ask.
+
+⛔ **THE CONSEQUENCE HE DID NOT STATE, AND IT INVERTS THE LAP'S PRIORITIES.** The 09-07 beat-7 read
+named the critical customer risk as *her first open printing someone else's name over an empty
+place*, and its argument rested on GAP 1 being **the only instrument that could see it**. There is
+now **no instrument at all**: `door` has a working `GET /api/door` that **no tool calls** (row T1),
+and `onboarding-metrics` has **no GET route in the Worker at all** (row T2). So if she arrives and
+bounces, **nothing in this loop will ever show it** — she does not report, she stops (0 taps in 35
+offers), and her invite is unspent and live right now.
+
+⭐ **So T1 and T2 change class.** They were legibility improvements. They are now **the only way this
+project could ever learn what happened at her first open**, and the risk they cover is the one the
+research seat called critical. ⛔ And the identity defect is now something to **FIX**, not to
+OBSERVE — the plan of watching her arrive and reading four things off the screen no longer exists.
+
+⚠️ **AND ONE THING IS PROBABLY ALREADY LOST, stated so it is not discovered later as a surprise.**
+GAP 2 — *"how would you expect to look at Paul's condo and come back to your own place?"* — was
+valuable **only if asked before she has seen the UI**, because after that her words are our words.
+The link is already in her hands. That window may have closed the moment it was sent, and it will
+close silently. **Do not schedule GAP 2; ask it only if a natural moment arises before she opens the
+app, and treat it as gone otherwise.**
+
+---
+
+**⭐ 3. ~~THE TRANSITION IS A GUIDED VISIT~~ — SUPERSEDED BY 3b ABOVE. This SUPERSEDED the 09-04 "a LINK, not a visit" ruling**
 `[paul-stated 2026-09-06]` — *"We will have mom establish a new account and property, which I'll guide
 her in person to be fernwood. then we will sunset her access to the current fernwood she has access to,
 but keep it's data for reference."* Consequences: (i) the onboarding flow no longer has to carry
