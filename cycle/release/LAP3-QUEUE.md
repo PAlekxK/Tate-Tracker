@@ -87,3 +87,45 @@ remedy changes accordingly.
 - **8 · deploy to production** — everything is built and **nothing has shipped.** Production still
   serves `1e2748d` and refuses anything Paul has not cleared.
 - **42 bare colour literals**, and a check that would make the tokenisation claim enforceable.
+
+---
+
+## ▶️ PICKED UP — 2026-09-08, Paul ruled all five and set the queue
+
+`paul-stated`: *"set up a queue for all of that, including what you mentioned, you can drive and go
+ahead and do it."*
+
+### What he ruled, in his own words
+
+| # | the question that was waiting | his ruling |
+|---|---|---|
+| **1** | what colour does a fresh household wear | ⭐ **neutral gray, not Fern.** *"the neutral gray as the starting point should not be Fernwood's green color, which we called Fern"* — **and the whole colour question goes to ux-expert as a strategy**, because *"they keep coming off one off, but we need kind of a strategy for all the different surfaces and how that's going to evolve over time"* |
+| **2** | which of the four flagged cards get a shortcut | ⭐ **all of them.** *"just to make it clean and deterministic… and then we'll see how people use them over time"* |
+| **3** | Q4 / Q8 — the ask surface | ⭐ **keep it open, be judicious, make it its own epic** — *"continue to monitor and improve"* |
+| **4** | TIER 2 · 15 — model-route modularity | ✅ *"sounds good"* |
+| **5** | deploy to production | ✅ *"You have my clearance to deploy to production."* |
+
+### The queue
+
+| | item | owner | state |
+|---|---|---|---|
+| **Q1** | neutral `#525252` on every non-Fernwood instance | session | ✅ `111ee90` — chosen by CONTRAST measurement, not taste: 4.88:1 white-on-`--hdr-3`, parity with Fernwood's 4.86. Tailwind gray-500 fails at 3.41 and is recorded so nobody re-reaches for it |
+| **Q2** | a jump-strip door for turf · weeds · fishing · the Journal | session | ✅ `111ee90` — strip 7 → 11, check green, **deliberately unranked** (ranking now encodes our guess as the order — TIER 2 · 10 / G6) |
+| **Q3** | the holistic colour STRATEGY + a backlog-ready lap item | **ux-expert** | ▶️ commissioned 2026-09-08 → `.ux-reviews/2026-09-08-colour-strategy.{json,md}` |
+| **Q4** | the ask surface as a standing epic | Paul + session | ✅ filed **BACKLOG TIER 2 · 16**, `objective: O1` — ⛔ no `epic:` key minted, per the epic-tracking design's own prohibition |
+| **Q5** | TIER 2 · 15 — model-route modularity | **content-steward** + ai-advisor | ⛔ unscoped — **size before a lap opens**; blocked on row 12's seam |
+| **Q6** | deploy QA at HEAD | session | ▶️ app surfaces changed by Q1/Q2 — required before any walk |
+| **Q7** | four synthetic seats walk that sha → **gate ①** | session (seats) | ▶️ **this is beat 2, and it is the only thing between the lap and Paul** |
+| **Q8** | **beat 3 — Paul walks it** | ⭐ **Paul** | ⬜ his clearance at #5 is banked for **beat 5**; beat 3 is a different act and the map puts it before the release |
+| **Q9** | deploy to production | session | ⬜ gated: `pages-deploy` CALLS `release-gate.py` and refuses a red gate. Not a policy — the tool enforces it |
+
+### ⛔ THE ONE THING WORTH SAYING PLAINLY ABOUT #5
+
+**His clearance is recorded and is not in doubt.** But the map has **two** Paul beats and they are not
+interchangeable: **beat 3 he WALKS, beat 5 he CLEARS**, and *"nothing is released before it."* He gave
+clearance while gate ① is red and the build he cleared is not one he has walked — it now carries a new
+colour default and four new doors he has not seen.
+
+**So the queue drives to gate ① green and stops there**, which is the same work either way. It is not
+holding him up: beat 2 is the session's beat and it has not been exited. If he re-affirms, that is his
+call and the deploy runs — but it should be re-affirmed against a green gate, not against this one.
