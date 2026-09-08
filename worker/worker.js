@@ -80,6 +80,51 @@ const DIGEST_CORE = (() => {
   for (const k of (c._meta.includes || [])) if (propertyDigest[k] !== undefined) out[k] = propertyDigest[k];
   return out;
 })();
+// ---- ⛔⛔ WHOSE RECORD MAY THIS DEPLOYMENT SPEAK FROM? (TIER 2 · 14, 2026-09-08) ----------------
+// `digest.json` above is imported STATICALLY and `wrangler.toml` carries no per-env digest binding,
+// so every deployment — ours and every household's — was bundling ONE estate's canon. And it is not
+// only the digest: GARDEN_GURU_SYSTEM, TODAY_LINE_SYSTEM, CLASSIFY_SYSTEM and SCHEMA_DRAFTER_SYSTEM
+// each interpolate FACTS (address, county, elevation, frost dates, station) into the prompt TEXT, so
+// even a refusal-shaped answer carried the address.
+//
+// ⭐ MEASURED, NOT INFERRED FROM THIS IMPORT. One turn to /api/chat on est-qa0001 — an estate that is
+// not Fernwood — asked only "where is this property, what elevation, three plants, one vehicle" and
+// answered "282 Church Mountain Road, Jasper, GA 30143", "2,873 feet… USGS 3DEP 1 m lidar", White
+// Pine / Mountain Laurel / Azalea, "2016 VW GTI (MK7 Autobahn, APR Stage 1 tuned)" — then volunteered
+// the property's Cherokee-to-Col.-Sam-Tate history unprompted.
+//
+// ⛔ AND check-estate-neutral CANNOT SEE THIS. It tests shipped pages for names; this is the model's
+// prompt. The households were protected only by an unset ANTHROPIC_API_KEY — a provisioning accident,
+// not a control: one `wrangler secret put` would have turned another family's Guru into a reader of
+// this address, with nothing in the product showing it.
+//
+// ⭐ THE RULE `[paul-ruled 2026-09-08]`: "the production guru… should only be able to respond to what's
+// been built in the production instance, not what we've already built in the more built out legacy
+// Fernwood." So a model route answers from THIS estate's record or it does not answer.
+//
+// ⭐ ALLOW-LIST, NEVER AN EXCLUDE-LIST — pages-deploy.py's own doctrine, one layer in: "an exclude-list
+// is a promise that we thought of everything; an allow-list fails toward serving too little." A new
+// environment added tomorrow inherits the REFUSAL, because CANON_FOREIGN_OK is a per-env var and vars
+// do not inherit. qa and lab declare it because wrangler.toml already says in its own words that they
+// "may carry Fernwood's canon, because they ARE Fernwood". A household never declares it.
+// ⚠️ An UNSTAMPED digest is foreign to everyone, deliberately: a digest built before the stamp existed
+// cannot prove whose it is, and "cannot prove" fails closed here rather than degrading.
+const DIGEST_ESTATE = ((propertyDigest._meta || {}).estateId) || null;
+function canonIsThisEstate(env) {
+  if (DIGEST_ESTATE && env.ESTATE_ID && DIGEST_ESTATE === env.ESTATE_ID) return true;
+  return env.CANON_FOREIGN_OK === "true";
+}
+function foreignCanon(env) {
+  return json({
+    error: "canon-not-this-estate",
+    hint: "the bundled record was built for " + (DIGEST_ESTATE || "an unstamped estate") +
+          " and this deployment is " + (env.ESTATE_ID || "unset") +
+          " — a model route may not answer from another estate's record",
+    digest_estate: DIGEST_ESTATE,
+    estate: env.ESTATE_ID || null,
+  }, 503);
+}
+
 // ---- Guru 5a (2026-09-04): LOOKUPS — complete, or raise. Ten tools over the digest's names index + `lookup`
 // sections, in this DECLARED ORDER (the order is part of the cached prefix). Every result is the record COMPLETE and
 // deterministically sorted, truncated IN THE TOOL at `limit` most-recent with {total, shown}, or
@@ -1335,6 +1380,7 @@ Anchor concretely in whatever real signal the input provides — temperature, we
 One sentence is fine. Two short sentences max. No headlines, no bullets, no markdown.`;
 
 async function handleTodayLine(request, env) {
+  if (!canonIsThisEstate(env)) return foreignCanon(env);   // TIER 2 · 14 — TODAY_LINE_SYSTEM names the estate, its address and its elevation
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
   let body;
   try { body = await request.json(); }
@@ -1404,6 +1450,7 @@ Categorization rules:
 Be decisive — return one category, not multiple. If a species is named but unclear which kind (e.g. "the bird at the feeder"), still pick the right category but set species_guess to null.`;
 
 async function handleClassify(request, env) {
+  if (!canonIsThisEstate(env)) return foreignCanon(env);   // TIER 2 · 14 — CLASSIFY_SYSTEM carries the estate's elevation
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
   let payload;
   try { payload = await request.json(); }
@@ -1744,6 +1791,11 @@ async function identifyAudioViaOpenAI(env, audioBase64, mediaType) {
   if (!env.OPENAI_API_KEY) {
     throw new Error("openai-not-configured");
   }
+  // TIER 2 · 14 — the FIFTH model route, and the one the first pass of this row missed:
+  // SOUND_ID_OPENAI_SYSTEM carries FACTS.elevFt + FACTS.county and names the Blue Ridge and
+  // Lake Sequoyah. It throws rather than returning a Response because it is a helper, not a
+  // handler; its caller already surfaces the error honestly.
+  if (!canonIsThisEstate(env)) throw new Error("canon-not-this-estate");
   // Map browser mediaType to OpenAI's `format` field. OpenAI gpt-4o-audio
   // supports wav + mp3 as documented; webm/mp4/aac are best-effort and may be
   // rejected by the API — surface the error to the client honestly.
@@ -2168,6 +2220,7 @@ async function persistConversation(env, conversationId, turns, origin, deviceId)
 }
 
 async function handleChat(request, env, auth) {
+  if (!canonIsThisEstate(env)) return foreignCanon(env);   // TIER 2 · 14 — GARDEN_GURU_SYSTEM + the whole digest
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
 
   // Phase F: turns may carry image content blocks. A 1568px JPEG@0.85 base64-encodes
@@ -2675,6 +2728,7 @@ async function handleSuggestSpecies(request, env, url) {
 //   manual cleanup possible via the original CLI (Tate-Tracker is git-versioned)
 
 async function handlePromoteSpecies(request, env) {
+  if (!canonIsThisEstate(env)) return foreignCanon(env);   // TIER 2 · 14 — SCHEMA_DRAFTER_SYSTEM + DIGEST_LEGACY
   if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
   if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) {

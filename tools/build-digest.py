@@ -606,6 +606,15 @@ def compose(est=None, load=load):
         del digest["vehicles"]
     if absent_lines:
         digest["_meta"]["declares"] = absent_lines
+    # ⛔ WHOSE RECORD IS THIS. The Worker imports ONE digest.json statically and every
+    # model route below reads it, so an unstamped digest is a record with no owner and
+    # the Worker cannot tell its own estate's canon from another household's. Measured
+    # 2026-09-08: est-qa0001's Guru answered a bare "where is this property" with
+    # Fernwood's street address, elevation, plants and a vehicle. The stamp is what
+    # `canonIsThisEstate()` (worker.js) compares ESTATE_ID against; absent, it refuses.
+    # Nested `{id, handle}` per estate.json's own rule — the id is the coordinate.
+    _eid = (est or {}).get("estateId")
+    digest["_meta"]["estateId"] = (_eid.get("id") if isinstance(_eid, dict) else _eid) or None
     digest["core"] = digest_core(load_filtered, est, on, on_non, groups, digest)
     digest["lookup"] = digest_lookup(load_filtered, groups)
     return digest
