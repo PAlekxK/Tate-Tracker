@@ -63,7 +63,7 @@ and the state artifact (`cycle-state.json`) is already shared. These beats live 
 | **8** | CARRY | product-steward | each finding reaches a row it can **cite**, or opens a question where it cannot |
 | **9** | BUCKET | product-steward | the board is laid out on **two axes** — kind-shaped buckets it owns, carried severity it cites `[paul-ruled 2026-09-07]` |
 | **10** | ⭐ COMMIT THE SCOPE | ⭐ **Paul** | he picks. **This is a human gate and no instrument is ever built for it** |
-| **11** | ARM | main session | zero records undisposed; the next beat 0 may open |
+| **11** | ARM | main session | zero records undisposed **on a real estate** (`home` · `prod`); the next beat 0 may open. ⭐ See the G1 note below |
 
 ⭐ **Where the three sweeps fire, and what each gates** — the important half is that they gate
 DIFFERENT things and one of them gates nothing at all:
@@ -72,7 +72,32 @@ DIFFERENT things and one of them gates nothing at all:
 |---|---|---|
 | health (`health-probe.py --only fernwood`) | beat 0 | ⛔ **nothing, by design.** A red is an AGENDA ITEM, not a block. Blocking a lap on it would make the loop unable to open in order to fix the thing that is broken |
 | accounts (`tools/watch-accounts.py`) | beat 0 | ⭐ the **CONSOLIDATION** beat. ⚠️ its `exit 3` — *an unreadable namespace is UNREADABLE, never "no new accounts"* — must never be read as clean |
-| feedback (`tools/watch-feedback.py`) | beat 0, and again at close | ⭐ the **COMMITMENT POINT (beat 10)**. The board may not be laid out while records nobody has read are sitting in the store |
+| feedback (`tools/watch-feedback.py`) | beat 0, and again at close | ⭐ the **COMMITMENT POINT (beat 10)**. The board may not be laid out while records nobody has read are sitting in the store **on a real estate** |
+
+### ⛔ G1 — WHY BEATS 10 AND 11 SAY "ON A REAL ESTATE" `[paul-ruled 2026-09-07]`
+
+As first written tonight, both conditions counted **every** record in **every** environment. `measured`
+hours later: **477 awaiting — qa 431 · lab 38 · home 7 · prod 1.** Disposal is deliberately one
+hand-written reason per record, there is no `--dispose-all`, and F3 is Paul's beat alone — so closing
+the lap meant roughly two hours of Paul writing justifications for **his own loop's synthetic
+walkers**. Beat 11 could never arm and beat 10's gate could never open: **two ratified conditions
+deadlocked the lap on the night they were ratified.**
+
+⭐ **The fix is a DEFINITION, not a bulk clear.** `qa` and `lab` are estates this loop drives with its
+own walkers; `home` and `prod` are where real people arrive. The gate always meant *a person said
+something and nobody has read it* — counting our own form-fills made it mean something else and
+thereby defeated it. `GATING_ENVS` in `watch-feedback.py` carries the reasoning and the falsifier.
+
+⛔ **Nothing is hidden and nothing was mass-disposed.** The 469 are still swept, still listed, still
+individually disposable, still in the header count — they simply do not BLOCK. **And UNREADABLE still
+blocks from anywhere**, gating estate or not: *"we could not look"* is never downgraded by where.
+
+⚠️ **A `--dispose-class` was the other route and was deliberately NOT built.** A bulk disposition over
+a named class is the `--dispose-all` this tool refuses to have, and once it exists it clears real
+records as easily as synthetic ones. The cheaper fix needs no such tool, so it does not get one.
+
+**Proven by a PAIRED mutation control** (`--selftest`): the same undisposed record blocks from a real
+estate and does not block from a synthetic one, plus a third leg holding the fail-closed half.
 
 ### ⭐ WHEN A LAP CLOSES — two halves `[paul-ruled 2026-09-07, A-5]`
 

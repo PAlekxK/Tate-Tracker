@@ -75,6 +75,32 @@ STATE = os.path.join(PRIVATE, "watch-feedback-state.json")
 # that a record existed, and what was decided about it.
 DISPOSITIONS_FILE = os.path.join(ROOT, "feedback-dispositions.json")
 
+# ⭐⭐ WHICH ENVIRONMENTS CAN BLOCK A LAP `[paul-ruled 2026-09-07, process-audit G1]`
+# ⛔ THE PROBLEM THIS FIXES. Beat 11 exits at "zero records undisposed" and beat 10's gate is
+# "the board may not be laid out while records nobody has read are sitting in the store." Measured
+# 2026-09-07: 477 awaiting — qa 431 · lab 38 · home 7 · prod 1. Disposal is deliberately one
+# hand-written reason per record with no `--dispose-all`, and F3 is Paul's beat alone. So both
+# conditions were UNREACHABLE and the lap could not close: ~2 hours of Paul writing justifications
+# for machine output. An exit condition no mechanism can produce is not an exit condition.
+# ⭐ THE FIX IS A DEFINITION, NOT A BULK CLEAR. `qa` and `lab` are estates the loop drives with its
+# OWN synthetic walkers — every record there was written by us. `home` and `prod` are the estates
+# real people reach. The gate was always meant to mean *a person said something and nobody has read
+# it*; counting our own walkers' form-fills made it mean something else and defeated it.
+# ⛔ NOTHING IS HIDDEN AND NOTHING IS MASS-DISPOSED. Non-gating records are still swept, still
+# listed, still individually disposable, and still counted in the header — they simply do not BLOCK.
+# Same posture as watch-accounts' "unacknowledged and not hidden".
+# ⭐ WHY NOT A `--dispose-class` (the other route on the table): a bulk disposition over a named
+# class is precisely the `--dispose-all` this tool refuses to have, and once built it could clear
+# real records as easily as synthetic ones. The cheaper fix needs no such tool, so it does not get
+# one. `[[feedback_reuse_vocabulary_before_adding_state]]`
+# ⚠️ FALSIFIER, and it is checkable at any sweep: if a HUMAN ever leaves feedback on `qa` or `lab`,
+# this definition silently stops it gating. Verified 2026-09-07 for the 469 records then present —
+# all 38 lab notes are fixtures (`seq 1`-`seq 8`, `burst 6`, "This is a test run", "A place",
+# "Testing", `1 Example Road`) and qa's 431 are 428 onboarding form-fills plus 3 probes. Paul's own
+# 09-05 lab walk findings went to GATE2-paul-findings.md as spoken findings, NOT into this store.
+# ⭐ Re-read that if the definition is ever widened.
+GATING_ENVS = {"home", "prod"}
+
 # ⭐ ONE COPY OF THE STORE READER, IMPORTED — never a second implementation. `kv`,
 # `destination_agrees`, `environments`, `register_persons` and the Unreadable contract all live in
 # watch-accounts.py; re-typing the destination proof here is exactly how a fail-closed control
@@ -438,9 +464,15 @@ def arm_check(report):
     UNDISPOSED ARRIVAL blocks it. Fail-closed: an unreadable environment is not green."""
     lines, blocked = [], False
     for r in report:
+        gating = r["env"] in GATING_ENVS
         if r["result"] == "UNREADABLE":
+            # ⛔ UNREADABLE BLOCKS FROM ANY ENVIRONMENT, gating or not. "We could not look" is never
+            # downgraded by where we could not look — the fail-closed half is not what G1 relaxed.
             lines.append("   ⛔ %-5s — UNREADABLE, so it is NOT green: %s" % (r["env"], r["why"]))
             blocked = True
+        elif r["undisposed"] and not gating:
+            lines.append("   ▫ %-5s — %d undisposed, NOT gating (this loop's own walkers write here; "
+                         "still listed and still disposable)" % (r["env"], len(r["undisposed"])))
         elif r["undisposed"]:
             lines.append("   ⛔ %-5s — %d record(s) awaiting Paul's disposition" % (r["env"], len(r["undisposed"])))
             blocked = True
@@ -450,7 +482,11 @@ def arm_check(report):
             blocked = True
         else:
             lines.append("   ✅ %-5s — every arrival disposed" % r["env"])
-    head = "🔒 F6 ARM — the next beat 1 is BLOCKED" if blocked else "🔓 F6 ARM — nothing is undisposed"
+    gating_n = sum(len(r["undisposed"]) for r in report if r["env"] in GATING_ENVS)
+    other_n = sum(len(r["undisposed"]) for r in report if r["env"] not in GATING_ENVS)
+    head = ("🔒 F6 ARM — the next beat 1 is BLOCKED" if blocked else "🔓 F6 ARM — nothing gating is undisposed")
+    head += ("  ·  %d awaiting on a real estate%s"
+             % (gating_n, (" (+%d on a synthetic estate, not gating)" % other_n) if other_n else ""))
     return "\n".join([head] + lines), blocked
 
 
@@ -560,7 +596,39 @@ def selftest():
         dispose(st, dp, k, "not-a-finding", "looked; nothing in it")
     rep = sweep(["home"], st, dp, chan=fake_chan, feed=fake_feed)
     txt, blocked = arm_check(rep)
-    check("F6 opens once every arrival is disposed", not blocked and "nothing is undisposed" in txt)
+    check("F6 opens once every arrival is disposed", not blocked and "nothing gating is undisposed" in txt)
+
+    # ⭐ G1's MUTATION PROOF `[paul-ruled 2026-09-07]`. The change above relaxed WHICH environments
+    # can block, and a relaxation that is not proven both ways is how a gate quietly stops gating.
+    # These two legs are a PAIR and must stay a pair: the same undisposed record blocks from a real
+    # estate and does not block from a synthetic one.
+    qa_chan = {"qa": {"feedback": ["2026-09-07"]}}
+    qa_recs = {("qa", "2026-09-07"): [
+        {"id": "fb-synth", "ts": "2026-09-07T15:00:00Z", "personId": "p-qa-synth-1",
+         "estateId": "est-qa0001", "env": "qa", "note": "seq 1", "sentiment": None,
+         "sessionId": "s9", "deviceId": None, "context": {"surface": "app"}}]}
+    st2, dp2 = {"envs": {}, "records": {}}, {"dispositions": {}}
+    def qa_chan_fn(env, estate):
+        return qa_chan[env]
+
+    def qa_feed_fn(env, estate, dates):
+        return [(d, r) for d in dates for r in qa_recs.get((env, d), [])], []
+
+    rep_qa = sweep(["qa"], st2, dp2, chan=qa_chan_fn, feed=qa_feed_fn)
+    txt_qa, blocked_qa = arm_check(rep_qa)
+    check("G1 an undisposed record on a SYNTHETIC estate does NOT block F6",
+          not blocked_qa and "NOT gating" in txt_qa)
+    check("G1 ...and it is still COUNTED and named, never hidden",
+          "1 undisposed" in txt_qa and len(rep_qa[0]["undisposed"]) == 1)
+    # ⛔ The fail-closed half is NOT relaxed: unreadable blocks from anywhere.
+    def dead_chan(env, estate):
+        raise Unreadable("pretend canary empty")
+
+    rep_bad = sweep(["qa"], {"envs": {}, "records": {}}, {"dispositions": {}},
+                    chan=dead_chan, feed=qa_feed_fn)
+    _t, blocked_bad = arm_check(rep_bad)
+    check("G1 an UNREADABLE synthetic estate still BLOCKS — 'we could not look' is never downgraded",
+          blocked_bad)
     check("F6 says nothing about how old anything is",
           "late" not in txt.lower() and "overdue" not in txt.lower() and "days" not in txt.lower())
 
