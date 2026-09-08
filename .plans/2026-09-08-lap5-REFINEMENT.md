@@ -545,9 +545,10 @@ own.** Beside `garden`, `MODULES` carries *"⭐ **THREE modules over ONE domain*
 'let's call it motor pool … and then just separately we'll have power tools and equipment and house
 systems.'"* — three modules claiming the one `vehicle` domain, each naming the `group` it switches.
 
-⛔ **So the risk is NOT sharing the word.** It is assuming the bucket **partitions** — §12.2. The tools
-theme's bucket layer should be sized as *another `MODULES` entry over an existing domain*, exactly like
-motor-pool, **not** as a new classification scheme. `proposed`.
+⛔⛔ **CORRECTED 2026-09-08, SAME DAY — the sentence that stood here was wrong, and §12.6 says how.**
+It read *"the risk is NOT sharing the word."* The engineering pass came back **negative** and it is right.
+**I answered a question they did not ask:** I established that the *mechanism* spans both, and then wrote
+a conclusion about the *word*. Those are two different objects. §12.6.
 
 ### 12.5 Grade, scope and what is not established
 
@@ -563,3 +564,56 @@ motor-pool, **not** as a new classification scheme. `proposed`.
   than the one I located. **I found one and measured it. I did not prove it is the only one.**
 - ⛔ **Kept independent in both directions, as instructed:** this is **not** a dependency of the tools
   theme, and the tools theme is not a dependency of it. The tools theme is ready to move; this is not.
+
+
+---
+
+## 12.6 · ⛔ I WAS WRONG IN §12.4, AND THE ERROR IS THE ONE THIS REPO NAMES MOST OFTEN
+
+The tools window's engineering pass answered the extensibility question **NO — different axes, don't share
+the word** — and I accept it. Its argument, which I could not fault:
+
+- the tools bucket answers *"what is this **owned asset** for"*;
+- the agronomy data answers *"what is this **living subject**, where is it, what regime governs it"*;
+- **a plant has no owner-purpose.** It is a subject of observation, not an asset with a use. Sharing the
+  word *landscaping* would make it mean *purpose of an owned asset* on one side and *domain of a living
+  subject* on the other.
+
+### What I actually got wrong, stated precisely
+**§12.1–12.3 stand and are unaffected** — they are about the agronomy side alone and every one of them is
+`measured`. **The defective step was §12.4's conclusion.** I verified that the **MECHANISM** (`MODULES`, a
+named bundle of domains switched per estate) genuinely spans both — `garden` and `motor-pool` are entries
+in one dict, and *three modules over one domain* is Paul's own ruling. All true. **Then I concluded
+something about the WORD.** The tools-side `landscaping` is not a `MODULES` entry at all: it is **one
+string with three values on a catalog row**. A shared container proved nothing about the payloads.
+
+> ⛔ **That is `[[reference_match_payload_not_container]]`, committed by the window that had just spent the
+> afternoon finding address collisions for everyone else.** The wrapper check returned a plausible answer
+> rather than an error — which is exactly what that rule says it will do. It is in my own index and I did
+> not apply it to myself.
+
+### ⭐ Their bridge finding is better than either of our framings — and it lands on a seam I had already measured
+They propose the real cross-thread axis is **PLACE, not bucket**: `zones.json` is a *location* vocabulary,
+so the live question — **if one is ever wanted** — is whether owned assets and living subjects share a
+location vocabulary. That is orthogonal to the bucket layer entirely.
+
+⭐ **It lands exactly on §12.2's measured seam:** *"membership is NOT a partition — `zone` belongs to both
+the garden and the place."* **Two windows reached the same seam from opposite sides**, one from the module
+declaration and one from an asset schema. That convergence is worth more than either finding alone, and it
+is the second time today two windows have independently agreed (cf. §10.2, the ordinal collisions).
+⛔ **Still not a dependency in either direction**, per Paul's separation ruling.
+
+### Recorded so the tools theme's readiness is not misread
+- **The bucket adds NO new build slice** — one string on each catalog row in slice 1, plus a `--scope`
+  flag after slice 3. **It does not change that theme's shape or size.** `measured` by that window.
+- Its schema is **deliberately not sized speculatively** for agronomy: one string, three values, no
+  reserved namespace — and `landscaping` there is defined narrowly as *"an owned asset whose purpose is
+  land work,"* **not** *"the landscaping domain."* ⭐ Naming that distinction on the row is what keeps the
+  collision from being re-made later.
+
+### One thing their read gets slightly out of date, offered without insistence
+Their closing read is that this seed's *"first job is still to surface what the standing questions actually
+ARE."* **That job is now partly discharged** — §12.3 located and measured one: `meadow` naming a place, a
+care regime and an organism at once, with `BACKLOG.md:3225` already calling the id a stale artifact.
+⛔ **But their caution survives in the half that matters:** I found **one**, and I did not prove it is the
+only one. **That remains the seed's first job.**
