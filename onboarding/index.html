@@ -1154,8 +1154,17 @@
   }
 
   function paintName() {
-    var estate = read(K_NAME), who = read(K_USER);
-    el.head.textContent = estate || who || "My Home";
+    // ⛔ THE <h1> IS THE PLACE'S NAME SLOT, AND A USERNAME IS NOT A PLACE (fixed 2026-09-08).
+    // This read `estate || who || "My Home"`, so before a place is named the masthead printed the
+    // USERNAME in the display serif — directly above the card asking "What do you call it?".
+    // TWO SEATS hit it independently on the same build. wide-eyed: "I nearly retyped it into the box.
+    // For a real person the app's first act is to christen their family place `bstrong62`." owner
+    // logged the same screen as "the masthead is the username in display serif for one screen".
+    // ⭐ It is a CATEGORY ERROR, not a copy problem, and K_USER's own declaration says so: "who is
+    // signed in — THE TOP BAR'S MIDDLE STATE". It was never the <h1>'s value; it reached it through
+    // a fallback chain nobody re-read. "My Home" is the honest placeholder until she gives a name,
+    // and it is the same word the rest of the flow already uses.
+    el.head.textContent = read(K_NAME) || "My Home";
     paintHandoff();
   }
 

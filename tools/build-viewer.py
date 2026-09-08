@@ -145,6 +145,8 @@ IDENTITY = {
     # binary asset referenced by path leaks a household more completely than any string could.
     # An instance with no imagery declares "" and the tile renders without a photograph.
     "propertyImage":   lambda ident, prop: ident.get("propertyImage", ""),
+    # The place's own mark. Neutral by default — a mountain is Fernwood's fact, not the engine's.
+    "propertyIcon":    lambda ident, prop: ident.get("propertyIcon") or "🏡",
 }
 IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "title":       re.compile(r"(<title>)(.*?)(</title>)"),

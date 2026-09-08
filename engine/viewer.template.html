@@ -7104,7 +7104,16 @@
   <!-- PROPERTY CARD -->
   <div class="main-card" id="card-property">
     <div class="main-card-header" data-toggle="property">
-      <div class="main-card-icon property" aria-hidden="true">🏔️</div>
+      <!-- ⛔ THE GLYPH IS THE PLACE'S, NOT THE ENGINE'S (2026-09-08). This was a hardcoded 🏔️, so a
+           downtown Bangor address wore a mountain — the wide-eyed seat caught it as the ONE hit in an
+           otherwise clean Georgia hunt: zero matches for Fernwood, Jasper, Tate, Sequoyah, Blue Ridge,
+           2,873, KJZP or "our gauge" anywhere in its rendered capture, and then Fernwood's own
+           self-portrait sitting on its address card.
+           ⚠️ The seat also reported a "mountain-scene thumbnail" beside it. VERIFIED FALSE before
+           acting: propertyImage is "" for every household instance, so there is no second asset —
+           what it saw was this glyph inside the 42px gradient icon square. One defect, not two.
+           A seat's claims are `assumption` by its own charter; this is what checking one looks like. -->
+      <div class="main-card-icon property" aria-hidden="true">{{IDENTITY:propertyIcon}}</div>
       <div class="main-card-meta">
         <div class="main-card-title">{{IDENTITY:propertyTile}}</div>
         <div class="main-card-summary" id="property-summary">Land · Sky · History</div>
@@ -19821,7 +19830,18 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
   // where the words go"). True today: a member's notes stay on the device — see the notes card.
   const row = document.querySelector(".ui-input-row");
   if (row && !document.querySelector(".ui-who")) { const q = document.createElement("p"); q.className = "ui-who"; q.textContent = "Stays on this phone for now — nobody else sees it."; row.insertAdjacentElement("afterend", q); }
-  document.querySelectorAll("#card-fieldnotes .main-card-title, .dash-cell[onclick*='card-fieldnotes'] .dash-cell-label, .ic-card--almanac .ic-head-title").forEach(el => { el.textContent = jt; });
+  // ⛔ FOUR SITES, NOT THREE — the jump-strip chip joined this list 2026-09-08 and was missed on the
+  // way in. JOURNAL_NAME is a BUILD-TIME placeholder that is then OVERRIDDEN AT RUNTIME by the
+  // household's own name, and this is the single writer that pushes the runtime value into the DOM.
+  // The chip I added the same morning was a static placeholder, so it kept the build default while
+  // the card two inches below it showed the real name. ALL FOUR SEATS hit it independently:
+  // "My Home Almanac" vs "the condo Almanac" / "Hollow Creek Road Almanac" / "The Old Miller's Place
+  // on the Bend Almanac". The mom seat read them as two different things and went looking for the
+  // second one; the owner seat put it best — THE GENERIC NAME WAS THE ONE USED FOR NAVIGATION.
+  // ⭐ The lesson is the one this repo keeps paying for: when a surface is added, add it to the
+  // WRITER, not just to the markup. A new site that renders the right thing at build time and the
+  // wrong thing at runtime is invisible to every check that compares bytes.
+  document.querySelectorAll("#card-fieldnotes .main-card-title, .dash-cell[onclick*='card-fieldnotes'] .dash-cell-label, .ic-card--almanac .ic-head-title, .jump-strip a[data-jump='card-fieldnotes'] .js-label").forEach(el => { el.textContent = jt; });
 }
 renderWeatherSummary();
 renderWeather();

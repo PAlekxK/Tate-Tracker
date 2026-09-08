@@ -19,7 +19,8 @@
       "_note": "paul-stated 2026-09-04: 'green is for Fernwood'. Placeholder hex until the build reads the CURRENT rendered green from the template (slice ②) — this value must be derived from what she sees today, not typed here."
     },
     "perspectiveTitle": "Mama&rsquo;s Perspective",
-    "propertyImage": "images/property-map/base-naip-2022-01-leafoff"
+    "propertyImage": "images/property-map/base-naip-2022-01-leafoff",
+    "propertyIcon": "🏔️"
   },
   "absent": [],
   "display": {
