@@ -110,8 +110,22 @@ else
   # same uncovered line every run: nothing could say whether a Worker ran the code QA certified.
   # `--var` is a DEPLOY-TIME override, so it never has to be committed to wrangler.toml and can
   # never go stale in the file. A deploy that skips it reports null — unstamped — never a wrong sha.
+  # ⛔⛔ SCOPED TO THE WORKER'S OWN SOURCE. The first version asked whether the WHOLE REPO was dirty
+  # and answered yes forever, for two compounding reasons measured on its own first runs: step [1/4]
+  # of this script REBUILDS worker/digest.json, and the post-commit hook rewrites
+  # cycle/release/cycle-state.json AFTER every commit. So the tree is never clean at deploy time and
+  # committing just re-dirties it — three consecutive stamps read `-dirty` on trees whose only diff
+  # was a file a tool had written seconds earlier.
+  # ⭐ THE BUG WAS THE QUESTION, NOT THE CODE. A stamp on the Worker asserts "this Worker is running
+  # committed code", so it must ask about `worker/` and nothing else — the narrowest question that
+  # is actually the one being claimed. A broader question made every answer true and therefore
+  # useless, which is the same shape as a check that fires every run.
+  # digest.json stays excluded within that scope: this script rebuilds it, and step [2/4]'s
+  # check-digest-fresh.py fails the deploy unless it matches a fresh rebuild from canon — so a diff
+  # there says the rebuild happened, never that unreviewed work is shipping.
   BUILD_SHA="$(git rev-parse --short HEAD 2>/dev/null || echo unknown)"
-  if ! git diff --quiet 2>/dev/null || ! git diff --cached --quiet 2>/dev/null; then
+  _dirty="$(git status --porcelain -- worker/ 2>/dev/null | grep -v ' worker/digest.json$' || true)"
+  if [ -n "$_dirty" ]; then
     # ⚠️ A DIRTY TREE IS NOT ITS HEAD, and saying so is the whole value of the stamp. Deploying
     # uncommitted work is legitimate; letting /health claim it is a clean sha is not.
     BUILD_SHA="${BUILD_SHA}-dirty"
