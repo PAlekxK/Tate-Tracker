@@ -4221,7 +4221,17 @@
     background: var(--tint-96, #f2f8ec); border: 1.5px solid var(--edge-card);
   }
   .jump-strip a .js-glyph { font-size: 17px; line-height: 1; flex: 0 0 auto; }
-  .jump-strip a .js-label { line-height: 1.15; }
+  /* ⛔ A HOUSEHOLD'S OWN NAME CANNOT BE ALLOWED TO CHANGE THE CHIP'S SHAPE (2026-09-08).
+     The naming fix earlier today put the REAL name in this chip instead of a short default, and two
+     seats caught the cost the same round. owner ("Hollow Creek Road Almanac") wrapped to two lines
+     and sat visibly taller than its neighbours; wide-eyed ("The Old Miller's Place on the Bend
+     Almanac") wrapped to THREE and, in its own words, "reads as a broken card before it reads as
+     navigation" — a tall block alone on its row beside half a row of dead space.
+     ⭐ Clamped to two lines rather than truncated to one: this is a NAVIGATION chip and the card it
+     points at carries the full name, but a household's own name must never be silently cut to a
+     stub. The full string stays reachable — the writer sets `title` — and every chip keeps one
+     height, which is what made the strip read as a strip. */
+  .jump-strip a .js-label { line-height: 1.15; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .jump-strip a:hover, .jump-strip a:active {
     /* ⚠️ The background was ALREADY tokenised here while the two colours beside it were not — which
        is how a half-converted rule reads as converted. The press ink is the DARKENED seed, not a
@@ -19841,7 +19851,11 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
   // ⭐ The lesson is the one this repo keeps paying for: when a surface is added, add it to the
   // WRITER, not just to the markup. A new site that renders the right thing at build time and the
   // wrong thing at runtime is invisible to every check that compares bytes.
-  document.querySelectorAll("#card-fieldnotes .main-card-title, .dash-cell[onclick*='card-fieldnotes'] .dash-cell-label, .ic-card--almanac .ic-head-title, .jump-strip a[data-jump='card-fieldnotes'] .js-label").forEach(el => { el.textContent = jt; });
+  document.querySelectorAll("#card-fieldnotes .main-card-title, .dash-cell[onclick*='card-fieldnotes'] .dash-cell-label, .ic-card--almanac .ic-head-title, .jump-strip a[data-jump='card-fieldnotes'] .js-label").forEach(el => {
+    el.textContent = jt;
+    // the chip clamps to two lines, so the full name has to stay reachable somewhere
+    if (el.classList.contains("js-label") && el.parentElement) el.parentElement.title = jt;
+  });
 }
 renderWeatherSummary();
 renderWeather();
