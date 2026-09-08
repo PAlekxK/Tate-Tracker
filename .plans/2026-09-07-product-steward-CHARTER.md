@@ -89,7 +89,7 @@ argument, is what the seat is for.**
 | may | may not |
 |---|---|
 | **UPDATE** a row's stage, pointer or stage-note where a ruling says so | **CREATE** a backlog item |
-| **LINK** a seat trail to the row it answers | **RANK** anything |
+| **LINK** a seat trail to the row it answers | **RANK** anything **across lanes** — ⭐ see §J-b below: a seat MAY state criticality **inside its own lane** with its evidence `[paul-ruled 2026-09-07]`. **The test: it is in-lane only if it stays true with the item's business value set to zero.** |
 | ⭐ **BUCKET** rows into named groups it can cite `[paul-ruled 2026-09-07]` | **ORIGINATE a severity** — it carries one, it never assigns one |
 | **CITE** — append a `[paul-ruled <date>] <file:line>` provenance line | **DECIDE** where no citation exists |
 | **OPEN A QUESTION** in a queue file when it cannot cite | **CLOSE** a question |

@@ -73,7 +73,7 @@
     "coldAirDrainageEffect_F": "8–15°F colder in valley bottoms / hollows on calm clear nights vs. mid-slope"
   },
   "frostDates": {
-    "source": "NOAA 1991–2020 Climate Normals for Jasper GA, elevation-adjusted for confirmed 1,338 ft above KJZP (2,873 ft vs 1,535 ft)",
+    "source": "NOAA 1991-2020 Climate Normals, station USC00094648 / JASPER 1 NNW (1,465 ft), elevation-adjusted +/-10 days for the 1,338 ft above the KJZP datum (2,873 vs 1,535 ft). KJZP is the elevation datum only - it publishes no frost normals. Corrected 2026-09-08; the 8-day conservatism vs the station's own T36 dates is unresolved and recorded in .plans/2026-09-07-weather-card-PLAN.md 0-PRIME-G.",
     "valleyFloor_KJZP": {
       "note": "Official climate-normal dates for the Jasper/KJZP station (1,535 ft) — your baseline reference.",
       "lastSpring_50pct": "April 23",
