@@ -266,6 +266,34 @@ individuals — which also means *content behind a disclosure is content she has
    surface — the ask design question is **scoping work Paul has seeded, not a change to make
    quietly** (`BACKLOG.md` § **A-ASK**).
 
+**⭐⭐ AND THE NEXT RUNG: AN EMPTY ENGAGEMENT RECORD IS NOT AN ABSENT DEMAND** `[paul-affirmed
+2026-09-07]`. The two rules above measure what she DOES in the app. Neither can see a thing she wants
+that the app has never offered — and **that gap produced a wrong organising claim that survived two
+full research passes.**
+
+**Measured 2026-09-07, in the zones scoping session.** Both passes concluded, from real telemetry —
+depth-2 and depth-3 zero, every ask-shaped affordance 0-for-35 — that *"the resident steward does not
+need retrieval; she knows where everything is, which is why she can name it."* It became the
+organising finding of a 535-line and a 463-line artifact and shaped a feature's whole design.
+
+**Paul falsified it in one sentence:** *"she actually keeps asking very specifically for this zone
+layout… 'I'm breaking out the fertilizer — what plants? I don't wanna miss any. What zones have what
+plants that need the fertilizer?'"* She knows **location**; she does not know **identity, timing, or
+the SET.** ⭐ **She is not lost — she is worried about missing one.** Both readings were of real data
+and **only one of them was of her**: the instrument said she was not engaging, and her son said she
+had been asking for this exact thing, by name, for weeks.
+
+> ### ⭐ THE RULE, and it costs one line
+> **Before any finding about her BEHAVIOUR becomes an organising claim, ask Paul what she has asked
+> him for lately.**
+
+**Why it belongs here and not in a seat's foundation:** it is a session-start act, it is cheap, and
+**Paul is the highest-bandwidth instrument this project has and is on no checklist.** Every tool in
+the block above reads a channel; none of them reads him. ⚠️ **It is not a licence to substitute his
+recall for the record** — the standing rules still hold (a relayed report is real input; an agent
+never fetches her words). It is the opposite failure being guarded: **the record's silence was read
+as her indifference, and it was our gap.**
+
 **⭐ ZONE AUDIO IS PART OF THE SWEEP, not a leftover** `[paul-stated 2026-08-14]`: *"zone audio
 should definitely be read and measured as part of the mom cycle early on… when we do a full sweep
 for feedback, it should include that for sure. If that particular thing is me, that's fine, we can
