@@ -465,3 +465,101 @@ a tone contract.** Filing it as a pure parent would quietly lose that.
   what a renderer structurally cannot, because the stale claims live in prose a renderer never touches.
 
 ⛔ **Not ranked. Not applied. Not minted.** Placement is Paul's, and the spine ruling is his too.
+
+---
+
+## 12 · ROUTED IN — **the landscaping / agronomy taxonomy question** `[paul-ruled 2026-09-08: "let's separate those questions"]`
+
+Paul separated this from the tools theme and routed it here. The handing window was **explicit that it had
+not researched it** — *"I have not opened any of those files… if those questions are already written down
+somewhere, that's where scoping starts."* ⭐ **That was the right instinct and it pays off immediately:
+they are written down, and most of the answer is already ruled.**
+
+### 12.1 ⭐⭐ THE FINDING — **the bucket layer Paul is proposing ALREADY EXISTS, is ruled, and is called `MODULES`**
+
+`tools/momlib.py:333` `measured`:
+
+```python
+MODULES = {
+  "garden": {"members": ("plant", "weed", "zone"),
+             "non_domain_members": {"turf": "care regimes, not entities (NON_DOMAINS) — "
+                                            "but TURF_DATA renders, so garden must reach it"},
+             "what": "what you tend and fight, and the ground it grows in"},
+```
+
+**A module is a NAMED BUNDLE of domains an estate switches on or off as ONE atomic declaration**
+(C5 3a, `[paul-stated 2026-09-03]`, Q1 ruled unit B). ⛔ **`garden` IS the "landscaping bucket."** It exists,
+it is ruled, it already spans plants + weeds + zones, and it already reaches turf.
+
+⭐ **And the measurement that decided it is *the meadow problem itself*** — verbatim in that comment:
+*"`turf` is NOT in DOMAINS (it is a care regime, declared a non-domain) yet `TURF_DATA` is a real inlined
+const and turf IS a garden member. A domain switch cannot reach it; a bundle names it."*
+**The plants-vs-meadow ambiguity is the evidence the module layer was built on.** `measured`.
+
+⛔ **So: do not mint a landscaping bucket. Cite `MODULES["garden"]`.** Per the standing rule this corpus
+names as its most-repeated failure. `proposed`.
+
+### 12.2 ⛔ THE ONE THING THAT WOULD BREAK PAUL'S INSTINCT — **the bucket is NOT a partition**
+
+Same declaration, and it is load-bearing:
+
+> ⚠️ *"**Membership is NOT a partition** — `zone` belongs to both the garden and the place. A domain is ON
+> if ANY on-module claims it."*
+
+**A grouping that "resolves" plants vs weeds vs meadow by sorting each into one box would contradict a
+ruled property of the layer that already exists.** If the hope is *a thing belongs to exactly one bucket*,
+that hope is already ruled out — and ruled out for a good reason, since a zone is genuinely both. `inferred`
+from one measured declaration. ⭐ **This is the single most useful thing to put in front of Paul before he
+spends thought on it.**
+
+### 12.3 ✅ THE STANDING QUESTION, NOW MEASURED RATHER THAN REFERRED TO
+
+The handing window could only say Paul referred to *"some of the questions we have"* as already-known.
+**Here is the concrete one. `meadow` names three different kinds of thing in three files, simultaneously:**
+
+| register | what it is | value |
+|---|---|---|
+| `zones.json` | a **place** | zone `the-meadow` — *"The Meadow"*, `status: draft` (and `the-turf` beside it) |
+| `turf.json` | a **care regime** — declared a NON-domain | `regimes[] → id: meadow` |
+| `plants.json` | a **plant** | `meadow-grass`, carrying `zones: [{zoneId: "the-meadow"}]` |
+
+`measured` at HEAD, read out of the three files. ⭐ **And the record already caught it** — `BACKLOG.md:3225`:
+*"Its `entityRef` is a **plant** (`meadow-grass`), its prompt says 'the turf and meadow' — **both live
+zones** — and she never sees the id. The id is a **stale naming artifact**, not a…"*
+
+> ### The question, stated so it can be answered
+> **Not** *"should there be a landscaping bucket"* — there is one. It is:
+> **when one word names a place, a care regime and an organism at once, which register owns the name, and
+> what do the other two call it?** That is a **vocabulary** question inside an existing module, not a
+> grouping question over the modules. ⛔ **Sizing it as a taxonomy reorganisation would be the larger,
+> slower, wrong shape** — which is exactly why Paul was right to separate it from the tools theme.
+
+### 12.4 ⭐ This also answers the tools window's in-flight engineering question, ahead of its seat
+
+It asked, as a handoff note: *"if a bucket layer exists over tools and consumables, is the same taxonomy
+coherently extensible over the agronomy data later, or would sharing the word be the container/payload
+error again?"*
+
+**Measured answer: the shared layer already exists and already spans both, and the precedent is Paul's
+own.** Beside `garden`, `MODULES` carries *"⭐ **THREE modules over ONE domain** `[paul-stated 2026-09-03]`:
+'let's call it motor pool … and then just separately we'll have power tools and equipment and house
+systems.'"* — three modules claiming the one `vehicle` domain, each naming the `group` it switches.
+
+⛔ **So the risk is NOT sharing the word.** It is assuming the bucket **partitions** — §12.2. The tools
+theme's bucket layer should be sized as *another `MODULES` entry over an existing domain*, exactly like
+motor-pool, **not** as a new classification scheme. `proposed`.
+
+### 12.5 Grade, scope and what is not established
+
+- **Class:** `L1 theme` in SEEDS' own vocabulary — but ⚠️ **smaller than it was handed to me**, per §12.3.
+- **Objective:** **O1 · O2** (Mom is the performer in the garden; it reaches her surface and carries Track A's
+  tone contract), and **O3** where the module layer transfers. ⛔ **Not O4** — that is the tools theme's.
+- **The check:** ⭐ falls straight out of naming the question, as the handing window predicted it would —
+  *a reader that reports every id whose name collides with a zone name or a turf regime.* `meadow-grass`
+  fails it today, so it is a check that **already fails**, which is worth more than one that already passes.
+- ⛔ **NOT established:** whether `meadow-grass` should be renamed, retired, or left (`BACKLOG.md:3225`
+  calls the id a stale artifact but the row it sits in is about something else); whether the other 23
+  `status: draft` zones carry the same collision; and whether Paul's *"questions we have"* includes more
+  than the one I located. **I found one and measured it. I did not prove it is the only one.**
+- ⛔ **Kept independent in both directions, as instructed:** this is **not** a dependency of the tools
+  theme, and the tools theme is not a dependency of it. The tools theme is ready to move; this is not.
