@@ -1342,3 +1342,46 @@ roughly a step list. **The board was wrong and the correction is recorded rather
 
 ⚠️ **And the accepted risk, taken knowingly:** phase 1 holds four items against a build band of
 **1/1**. Paul accepted the exception rather than dropping the renames.
+
+### ⛔ BEAT 3 — PAUL WALKED QA AND IT FAILED. Re-enters beat 2.
+
+`paul-ruled 2026-09-08`: *"Yes. That's a beat 2 failure to me. So let's take all my feedback, work
+through it, action it to the point that all the synths passed on it, and then I'll walk through it
+again."*
+
+⭐ **This is the first walk under the NEW gate** — his review at QA rather than production
+`[paul-ruled 2026-09-07]` — and the first time the loop has been exercised end to end in its new
+shape. It failed, which is the gate doing its job on its first real use.
+
+⛔ **Beat 4 applies: the failure re-enters beat 2, and it is NEVER patched under Paul and handed
+back.** The seats must pass it before it reaches him again.
+
+**Eight findings, filed under build `3723a70` in `GATE2-paul-findings.md`.** Two were found
+INDEPENDENTLY by a synthetic seat hours earlier — Q1 by the `mom` seat's returning walk, Q7 (which is
+lap 2's F9) reproduced on a new build.
+
+⭐⭐ **Q1 IS THE BLOCKER AND IT IS NOT A BUG IN A LINK.** `measured`: his account `pkirsch` exists at
+`est-qa0001`; the invite grant returns **404, consumed by account creation**. The invite is
+single-use, spent at signup, and **nothing replaces it**. So: use link → create account → close tab →
+**locked out, told the link is bad.** The message is worse than silence — it blames the link, which
+worked perfectly and did exactly what it was for.
+
+⚠️ **Mom's invite `p-b91e4d` is unspent, live, and one-shot.** The moment she uses it, closing her
+browser locks her out and she reads *"the link isn't working."* She does not report; she stops.
+
+⭐⭐ **Q8 is the whole-walk finding and it subsumes Q4:** *"I'm not being asked for my input on
+anything."* This product renders absences as STATUSES and never as ASKS — *"no station here", "nothing
+here yet", "your address isn't on the map yet"* — each reporting a lack while inviting nothing. That
+is `CLAUDE.md`'s own glance/repository/**loop**, strand 3, the flywheel and the moat, and **it did not
+appear once on his walk.** It converges with the research seat's `W2`, reached hours earlier from the
+opposite direction.
+
+⛔⛔ **CORRECTED 2026-09-08, and the correction is the finding.** This entry first said *"every
+affordance that ASKS Mom has scored zero."* **False.** `read-mom-funnel.py --rotation`: she has
+**answered five asks**, and `q-weed-stiltgrass` held the ONLY slot she can see for 10 days across 13
+offers. *"Another question ›"* has never been tapped on her device, so every card below the first has
+had **zero exposure — which is not zero response.** The defect is EXPOSURE, not appetite. ⭐ The
+research seat handed me a one-command falsifier rather than an opinion, and running it overturned a
+claim I had repeated in three artifacts and to Paul several times. Paul's own examples are a different shape — *"are you interested in any of the following types
+of events or publications we found in your neighbourhood?"* is a **menu over things we already went and
+found**, not a blank prompt. The product does the work first and asks him to choose.

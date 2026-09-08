@@ -313,9 +313,35 @@
   <!-- ── the link did not resolve. Calm, blameless, and it reveals NOTHING: the same
          screen for no token, an unknown token, another estate's token, or a revoked
          one — the Worker already answers all four with a byte-identical 404. ────── -->
+  <!-- ⭐⭐ THE SIGN-IN DOOR `[paul-ruled 2026-09-08: "sounds like we definitely need a sign in door then"]`.
+       ⛔ WHY IT LIVES HERE, ON THE DEAD END. `/api/session` has existed and been routed the whole
+       time — it verifies the password, MINTS a fresh token, rotates the grant and copies the place's
+       facts onto it. `grep api/session` across every .html returned NOTHING: not one line of UI ever
+       called it. That is row 20 exactly — "an account's facts and its credential are two separate
+       records, and exactly one code path reconciles them: the one with no door."
+       ⭐ This screen is where a locked-out person actually lands. Paul landed here himself on
+       2026-09-08 after re-opening a spent invite, and the only thing offered was "ask Paul". For
+       Mom, "ask Paul" IS the escalation this door exists to avoid. -->
   <section id="s-nolink" class="card" hidden>
     <p class="lede">This link isn't working.</p>
-    <p class="soft">Ask Paul to send you a fresh one — it only takes him a second.</p>
+    <p class="soft">If you've set up your place before, you can sign back in here.</p>
+
+    <div class="field">
+      <label for="si-user">Your username</label>
+      <input id="si-user" type="text" autocomplete="username" autocapitalize="none" spellcheck="false">
+    </div>
+    <div class="field">
+      <label for="si-word">Your password</label>
+      <input id="si-word" type="password" autocomplete="current-password">
+    </div>
+    <button type="button" id="si-go"><span class="tick">✓</span>Sign in</button>
+    <p class="trouble" id="si-trouble" hidden></p>
+
+    <!-- ⚠️ Kept, and moved BELOW the door. It is the honest fallback for someone who never had an
+         account, and for someone who has forgotten the password — there is no reset, which this
+         project already records as its own word-of-mouth dependency. -->
+    <p class="quiet" style="margin-top:18px">Never set one up, or can't remember?
+      Ask Paul to send you a fresh link — it only takes him a second.</p>
   </section>
 
   <!-- ── SCREEN 1 · she is recognised ──────────────────────────────────────────── -->
@@ -923,10 +949,111 @@
   // on, and a credential that outlives its one use in three places is a credential we handed out.
   var url = new URL(location.href);
   var fromLink = url.searchParams.get("g");
+  var heldGrant = read(K_GRANT);
   if (fromLink) {
-    store(K_GRANT, fromLink);
+    // ⛔⛔ A LINK MUST NOT REPLACE A CREDENTIAL THAT WORKS `[paul-walked 2026-09-08, Q1a]`.
+    // This read `store(K_GRANT, fromLink)` — UNCONDITIONALLY — so re-opening an invite you had
+    // already spent overwrote your live account credential with a dead one. Paul hit it on QA
+    // minutes after signing up: his account existed, his browser still held its grant, he pasted the
+    // old invite into a new tab, and the app told him *"the link isn't working"* — blaming the one
+    // thing that had worked perfectly and done exactly what it was for.
+    // ⭐ THE INVITE IS SUPPOSED TO DIE. `worker.js:513` deletes it at account creation, deliberately:
+    // "every invite ever issued remained a live administrator credential for anyone who still had
+    // the link." That is right and stays. The defect was only ever on this side — adopting a
+    // credential without asking whether it is one.
+    // ⚠️ THE SHARED-DEVICE RULE IS UNCHANGED. A DIFFERENT, VALID grant still takes over and still
+    // clears the previous person's answers below; that protection was never about dead links.
+    if (!heldGrant || heldGrant === fromLink) {
+      store(K_GRANT, fromLink);                       // no session to lose — the ordinary invite path
+    } else {
+      // We hold something already. Adopt the arriving link ONLY if it actually resolves.
+      window.__linkPending = fromLink;                // decided by verifyArrivingLink() below
+    }
     url.searchParams.delete("g");
     try { history.replaceState(null, "", url.pathname + url.search + url.hash); } catch (e) {}
+  }
+
+  // ⭐ Ask the Worker whether the arriving link is a credential at all, and only then let it win.
+  // ⛔ FAIL-CLOSED TOWARD THE SESSION THE PERSON ALREADY HAS: any answer that is not a clean 200
+  // leaves the held grant in place. "We could not check" and "the link is dead" both mean *do not
+  // throw away something that works*.
+  // ⭐⭐ Q1b — THE SIGN-IN DOOR. Everything behind it already existed; this is the handle.
+  function wireSignIn() {
+    var btn = document.getElementById("si-go");
+    if (!btn) return;
+    function attempt() {
+      var u = (document.getElementById("si-user").value || "").trim();
+      var w = document.getElementById("si-word").value || "";
+      var t = document.getElementById("si-trouble");
+      t.hidden = true;
+      // ⛔ Do not send an empty pair — a blank submit would spend a PBKDF2 round and teach nothing.
+      if (!u || !w) {
+        t.hidden = false; t.textContent = "Both boxes, then tap Sign in."; return;
+      }
+      btn.disabled = true; btn.innerHTML = "Signing in…";
+      fetch(WORKER + "/api/session", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: u, word: w })
+      })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          if (!d || !d.token) {
+            // ⛔ ONE MESSAGE FOR BOTH FAILURES, mirroring the Worker, which answers "no such account"
+            // and "wrong password" with a byte-identical 404 on purpose — a distinguishable pair is a
+            // username oracle. The copy must not undo server-side care by being more specific.
+            btn.disabled = false; btn.innerHTML = '<span class="tick">\u2713</span>Sign in';
+            t.hidden = false;
+            t.textContent = "That username and password don't go together. Have another look — "
+                          + "or ask Paul for a fresh link.";
+            return;
+          }
+          // ⭐ A NEW CREDENTIAL, so the answers cached against the OLD one must not survive it —
+          // the same shared-device rule the invite path follows.
+          if (read(K_OWNER) && read(K_OWNER) !== d.token) { clearAnswers(); }
+          store(K_GRANT, d.token);
+          store(K_OWNER, d.token);
+          if (u) store(K_USER, u);
+          location.href = "/estate/";        // ⭐ back to their place, not back to setup
+        })
+        ["catch"](function () {
+          btn.disabled = false; btn.innerHTML = '<span class="tick">\u2713</span>Sign in';
+          t.hidden = false;
+          t.textContent = "No connection right now — try again once you're back on wi-fi.";
+        });
+    }
+    btn.addEventListener("click", attempt);
+    // Enter from either box signs in, which is what a keyboard does everywhere else.
+    ["si-user", "si-word"].forEach(function (id) {
+      var el2 = document.getElementById(id);
+      if (el2) el2.addEventListener("keydown", function (e) { if (e.key === "Enter") attempt(); });
+    });
+  }
+
+  function verifyArrivingLink() {
+    var pending = window.__linkPending;
+    if (!pending) return;
+    fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": pending } })
+      .then(function (r) {
+        if (!r.ok) return null;                       // spent, revoked, or not ours
+        return r.json();
+      })
+      .then(function (d) {
+        if (!d) {
+          // ⭐ SAY THE TRUE THING. The link is spent AND you are still signed in — which is the
+          // sentence Paul needed and did not get.
+          var t = document.getElementById("trouble0");
+          if (t) {
+            t.hidden = false;
+            t.textContent = "That invite has already been used — but you're still signed in on this "
+                          + "device, so you haven't lost anything.";
+          }
+          return;
+        }
+        store(K_GRANT, pending);                      // a genuinely valid, different credential
+        if (read(K_OWNER) && read(K_OWNER) !== pending) { clearAnswers(); }
+        store(K_OWNER, pending);
+        location.reload();
+      })["catch"](function () { /* offline: keep the working session, say nothing false */ });
   }
   // ⛔ A NEW PERSON MUST NOT INHERIT THE LAST ONE'S SESSION. Found 2026-09-05 by walking a fresh
   // grant in a browser that had already been walked: fw-onboard-step/addr/parts are keyed to the
@@ -960,6 +1087,8 @@
     if (hex) document.documentElement.style.setProperty("--accent", hex);
   }
   wireHandoff();
+  verifyArrivingLink();   // ⭐ Q1a — decide the arriving link AFTER the page is wired
+  wireSignIn();           // ⭐ Q1b — the door
   paintAccent();
   if (el.head) paintName();                                          // before any fetch resolves
 
