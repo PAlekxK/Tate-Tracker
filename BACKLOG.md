@@ -563,6 +563,50 @@ unleash a synthetic with no direction it may not even really focus on what we wa
 also a **regression** library; directing every lap's battery at the new thing is how the old paths stop
 being walked. Both halves are his and both are binding.
 
+### ⭐ THE READERS ARE USER-RESEARCHER'S, AND THEY LINK TO RESEARCH — NOT INVENTED BY THE HARNESS `[paul-ruled 2026-09-08]`
+
+*"User researchers should have input on the different personas that are reading the testing… the way
+that those things are read and the personas of who reads them should very much be linked to customer
+research demographics and hypotheses."*
+
+⛔ **MEASURED THE DAY IT WAS RULED, and the gap runs BOTH WAYS — which makes this bigger than adding a
+citation.**
+
+1. **The seats cite no research at all.** `.private/walk-answers/<seat>.json` declares exactly
+   `place · line1 · city · state · zip · _why · interests`. That is a **test fixture with a
+   rationale**, not a persona. `grep` for any reference to `user-research`, `persona` or
+   `proto-persona` across all four seat files returns **nothing**.
+2. ⛔ **AND THERE ARE NO PERSONA ARTIFACTS TO CITE.** `.user-research/` holds **journeys and
+   syntheses** — setup, zones, fishing, places-and-settings — and **zero proto-personas**. The
+   audience material that exists is *patterns* (`~/.claude/user-research/fernwood.md`: make-or-break
+   user · builder-user bias · confidence cuts both ways), which describe the audience but do not
+   constitute readers.
+
+**So the ruling cannot be enacted as written yet** — there is nothing on the research side to link to.
+⭐ **The cheap path is PROMOTION, not invention:** `mom`, `owner`, `strict` and `wide-eyed` have
+accumulated real, evidenced character over many laps — their reports carry stable postures
+(minimum-disclosure; non-technical make-or-break; enthusiastic explorer; engaged rural owner) that
+were *derived from behaviour in the walks themselves*. **Promote those into proper research artifacts
+with their evidence and their falsifiers, rather than minting a fresh set** — and then the readers
+cite the artifact instead of the artifact being back-filled from the readers.
+
+⚠️ **The trap this ruling exists to prevent, stated plainly:** a reader persona invented by the
+testing harness is **a hypothesis the product wrote about its own customers and then used to grade
+itself.** Four seats agreeing tells you nothing if all four were imagined by the same author as the
+thing under test. Linking readers to research demographics and hypotheses is what makes seat
+agreement evidence rather than an echo.
+
+⚠️ **AND THE HONEST LIMIT ON "DEMOGRAPHICS":** this product has **one real household** and one
+partially-engaged make-or-break user. Real demographic grounding does not exist yet, so the first
+version links readers to **stated hypotheses with falsifiers** — which is checkable now — and treats
+demographic grounding as something the estate roster earns later. ⛔ Do not let "linked to research"
+become a claim that these personas are validated; **n=1 is still n=1**, and `~/.claude/user-research/fernwood.md`
+already carries the rule that the builder's preference claims do not survive the builder-user bias.
+
+**Owner: user-researcher** — it has input on who the readers ARE, per this ruling. ⛔ It does not own
+the journeys (those are the path under test) and it does not own the properties (those are fixtures).
+Three axes, three owners, and this row's whole point is that they stop being one object.
+
 **Open questions this does not answer** (for whoever scopes it): does a lens have any *inputs* of its
 own, or only a reading posture? · who owns fixtures once they leave the seat file? · does gate ① then
 require every journey × every lens, or a declared subset per lap? · how does the ruled 4-fresh/1-returning
