@@ -617,3 +617,58 @@ ARE."* **That job is now partly discharged** — §12.3 located and measured one
 care regime and an organism at once, with `BACKLOG.md:3225` already calling the id a stale artifact.
 ⛔ **But their caution survives in the half that matters:** I found **one**, and I did not prove it is the
 only one. **That remains the seed's first job.**
+
+---
+
+## 12.7 · ⛔ THE REVERSAL — verified in source, and **I accept half of it, not all of it**
+
+The tools window re-checked `tools/momlib.py:320-355` itself and withdrew its negative. **I verified all
+three of its claims independently before accepting anything** `measured` at HEAD:
+
+| its claim | my check | verdict |
+|---|---|---|
+| `motor-pool`'s `what` reads *"the garage — trucks, cars, bikes, the cart"* | verbatim in `MODULES` | ✅ |
+| tools/consumables have **no domain** today | `DOMAINS` = `plant weed bird mammal amphibian snake lizard insect fish vehicle zone` — **11 keys, none of them tools** | ✅ |
+| Paul's 9/08 *"garage"* is broader than `motor-pool` | `vehicles.json` groups: **vehicle 7 · equipment 10 · household-system 6**; `equipment`'s own `what` is *"power tools and yard equipment — mowers, blowers, saws"* | ✅ |
+
+### ⛔ What I do NOT accept: the reason given for the reversal
+It withdrew on the grounds that *"the risk was never sharing the word — the shared layer already exists."*
+**That is the same inference I was corrected for making, run in the opposite direction.** The shared layer
+is a fact about the **mechanism**; *should this word mean the same thing on both sides* is a question about
+the **payload**. ⭐ **Its original semantic argument was never refuted and I still think it holds:
+a plant has no owner-purpose. A subject of observation is not an asset with a use.**
+
+> **So: my §12.6 OVER-corrected.** I conceded the mechanism claim along with the bad inference, and the
+> mechanism claim was right — it is now verified in source twice, by two windows. **The inference was
+> still invalid.** A conclusion that turns out defensible does not retroactively make the step that
+> reached it sound. ⛔ **Two windows made the same container/payload error in opposite directions inside
+> one hour.** That is the finding, and it is worth more than either answer.
+
+### ✅ AND ITS FINAL FRAMING SUPERSEDES BOTH OF OURS — this is the question to carry
+> **Not what to call the bucket. Whether tools and consumables JOIN an existing module or need a DOMAIN of
+> their own — they have none today, and a module's members are domains.**
+
+`measured` and correct. ⭐ **It dissolves the vocabulary argument rather than settling it:** until
+tools/consumables have a domain, there is no `MODULES` entry to name, so the word was never the live
+question. Smaller, better-posed, and it does not change the theme's slices.
+
+### ⭐ A fourth thing neither of us had — **the PLACE bridge already exists as a module too**
+`MODULES` carries, beside the others:
+
+```
+"place": {"members": ("zone",), "what": "the ground itself — zones, the property record's spatial half"}
+```
+
+**That is precisely the bridge axis the tools window proposed** — *"whether owned assets and living
+subjects share a **location** vocabulary, orthogonal to the bucket layer."* It is already declared, already
+named, and already the reason §12.2's *"membership is NOT a partition"* warning exists (`zone` is claimed
+by both `garden` and `place`). ⛔ **So if that bridge is ever wanted, it is a question about joining
+`place`, not about building anything.** `proposed`.
+
+### ⭐ The instance worth keeping, and it is theirs
+`motor-pool`'s `what` string has read *"the garage"* since **2026-09-03**. Paul asked on **2026-09-08** for
+*"a logical grouping — call it the garage."* **Five days apart, same word, and the design process proposed
+buying what was already on the shelf** — inside the project whose whole premise is answering *"do I already
+own this?"* ⛔ **Recorded as evidence, not as an embarrassment**, exactly as they filed it: it is the
+cleanest available instance of the pattern that theme exists to catch, and it was found by the theme's own
+work rather than asserted.
