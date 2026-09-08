@@ -1245,3 +1245,71 @@ placeholder). **That is the other lane's in-flight state and wants their attenti
    **Adding artifacts makes this worse.**
 3. ⛔ **`stage: journey` IS SELF-ATTESTED** — `user-research` appears **zero times** in
    `check-backlog-ready.py`. The rung this file defines has no proof behind it.
+
+---
+
+# 13 · ⭐ THE RULINGS TAKEN ON RECOMMENDATION — 2026-09-08
+`[paul-ruled: "Wherever you have a clear recommendation, go ahead and do it"]` · and its refinement:
+*"if these are things that are better to fix now, let's just do it. But if we can package them with the
+backlog items, appropriate, we can do that."*
+
+⭐ **That refinement is the useful half and it is what sorted this list.** The test is not *is it
+important* but **does leaving it cost something, or does it want a row?**
+
+## 13a · FIXED — six, because leaving each one cost something
+
+| | what | where it landed |
+|---|---|---|
+| **1** | ⭐ **The proxy/target pattern**, banked with its positive-control remedy | `~/.claude/practice-principles/positive-controls.md` — **cross-project, and deliberately NOT filed with `reading-the-world.md`**; that rule's remedy is *go one layer down*, which does nothing when the artifact was opened and simply answered a different question |
+| **2** | **The charter edit — all four sites** | `agents/practice-steward.md` (boundary row) · `agent-foundations/practice-steward.md` (`SKILL.md` is a symlink, one edit covers both) · `agents/user-researcher.md` · this repo's product-steward CHARTER. **Each carries the steward's own test, proposed against its own interest: a criticality statement is in-lane only if it stays true with the item's business value set to zero** |
+| **3** | **The frost provenance** | `property.json` names `USC00094648 / JASPER 1 NNW (1,465 ft)`; **KJZP is the elevation datum only and publishes no frost normals.** That wrong fact was in **Guru's system prompt** |
+| **4** | **The weather `ready:` stamp** | the tier-2 cut that held it is ruled |
+| **5** | **The bare `RANK anything`** | qualified in place — it sat 58 lines above its own reconciliation |
+| **6** | **My own `localStorage` claim** | retracted in §11.4 — the second wrong SSOT row in this file |
+
+## 13b · RULED, no build — recorded so they are in force
+
+| | ruling | recommendation taken |
+|---|---|---|
+| **R-a** | **The register rule** — *a load-bearing ruling not in the register is not in force* | ✅ **RATIFY.** Cited 3× tonight, ratified 0×, while doing the actual work — it is why ~30 rulings were recorded verbatim rather than remembered. **Citing an unratified rule is the worst of both: it binds behaviour without earning the right to** |
+| **R-b** | **A route back for a late measurement** | ✅ **A RULE, NOT A TOOL:** *a measurement that lands after a ruling goes into the artifact carrying that ruling, in the same turn, or it does not count.* ⭐ Worked example is mine — corrected verbally, false in the file for five hours |
+| **R-c** | **`fernwood-11`** | **The right instrument, sited wrong** — see the decision-card block. **Paul still rules it, before the contract's first lap** |
+| **R-d** | **Slate vs beat 9** | ✅ **A slate IS beat 9's output, prepared out-of-band and adopted at the next beat 9.** ⛔ Do not mint a second artifact class with its own home and staleness rule |
+| **R-e** | **A commit-body reader** | ⛔ **DO NOT BUILD ONE.** ~91,500 bytes of commit body tonight, ~31% of the written record, and no tool reads one. **The fix is upstream: if a finding is load-bearing it goes in an artifact.** Building a reader would ratify the wrong habit |
+| **R-f** | **`fernwood-5` · `fernwood-6`** | ✅ **RETIRE both.** Premises dead; if either matters it returns with a live one |
+| **R-g** | **Weather Q6 / Q11** | Q6 is self-answering — **that IS the base card**. **Q11 AQI: out of the v1** (needs a paired device and an engine-wide key) |
+| **R-h** | **`last_lap`** | ✅ **RATIFY tonight's shape.** ⚠️ The edit is in `cycle/release/*` — **routed to that lane, not applied here** |
+
+## 13c · PACKAGED INTO ROWS — four, because each wants a lane
+
+**TIER 2 · 12** the per-estate canon store (one seam, four consumers; ⭐ *"plant capture" is the wrong
+unit*) · **TIER 2 · 13** the telemetry census (GL-8, census before build) · **TIER 2 · 14** ⭐ **one
+digest, N estates** · **TIER 1 · 14** the `reviewed` field, ruled *delete*, edit routed because another
+lane holds `worker.js`.
+
+## 13d · ⚠️ THE THING I GOT WRONG WHILE DOING THIS, ONE HOUR AFTER BANKING THE RULE FOR IT
+
+I probed whether the digest carried the frost provenance string by grepping `build-digest`'s stdout,
+got no hit, and reported **"the edit is free — no rebuild, no deploy."** `check-digest-fresh` then
+exited **1**, and a semantic diff shows the digest carries `property/frostDates/source` directly.
+⭐ **Measure a proxy, report the target — one hour after writing `positive-controls.md`. And what
+caught it was running the real check, not being more careful**, which is that file's own claim,
+demonstrated against its author.
+
+⭐⭐ **The second-order finding is worth more than the first.** My correction was written as
+**documentation** — a `[CORRECTED]` clause and an `[UNRESOLVED]` clause, 935 characters — and it went
+**straight into the model's context, +219 tokens.** ⛔ **A provenance note written for a human reader
+lands in Garden Guru's system prompt.** Rewritten to 389 characters carrying the fact and a pointer,
+with the reasoning left in the plan where a human reads it. Net **+72**.
+⚠️ **`property.json` is not documentation. It is production context.**
+
+## 13e · ⛔ NOT DONE, and each says why
+
+- **The worker deploy.** The digest is fresh on disk and **nothing is deployed.** `deploy-worker.sh`
+  now **refuses without `--env`**, and the only estate the correction is *about* is **the frozen
+  Fernwood**, whose deploy is gated by the data-control ruling. **Paul's call, and it should ship with
+  TIER 2 · 14 rather than alone.**
+- **Q8's code fix**, the wildlife marker back-fill (authoring judgement), the `reviewed` deletion, and
+  the `last_lap` edit — **all routed to the lanes that own those files.**
+- **QA is 9 commits behind HEAD with app surfaces changed.** Nobody walks anything until
+  `pages-deploy.py --env qa` runs.
