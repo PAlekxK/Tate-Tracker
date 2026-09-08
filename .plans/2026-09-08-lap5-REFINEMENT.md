@@ -672,3 +672,79 @@ buying what was already on the shelf** — inside the project whose whole premis
 own this?"* ⛔ **Recorded as evidence, not as an embarrassment**, exactly as they filed it: it is the
 cleanest available instance of the pattern that theme exists to catch, and it was found by the theme's own
 work rather than asserted.
+
+---
+
+## 13 · ⭐ THE CHEAPER-NOW-THAN-LATER BUCKET `[paul-stated 2026-09-08]`
+
+> *"I'd like to queue up in the backlog… prioritizing things that are cheaper to fix now than later.
+> That should be a big bucket of systemic process fixes, if there are any."*
+
+⛔ **Why this is not me ranking.** Every other bucket in this lap groups by KIND. This one groups by a
+**criterion Paul supplied himself**, and the criterion is a **property of the item**, not a preference
+about it. ⭐ Note what it is *not*: the METHOD ruled WSJF / RICE / cost-of-delay **scoring** out of scope
+as *"value ranking, Paul's alone."* This is the legitimate path to the same neighbourhood — **he states
+the criterion, I measure which items carry it.** Ordering **within** the bucket remains his.
+
+### 13.1 The test, stated so it can be failed
+
+> **Does the remediation cost GROW with time, commits, or adoption — and is any part of the delay window
+> UNRECOVERABLE?**
+
+⛔ **Falsifier:** *if fixing it in six months costs the same as fixing it today, it does not belong here* —
+however valuable it is. **This bucket is about slope, not worth.** A high-value item with a flat cost curve
+belongs somewhere else.
+
+That test splits cleanly in two, and **the split matters more than the membership**:
+
+| | what delay does | can it be paid later? |
+|---|---|---|
+| **(a) RISING PRICE** | the fix stays possible; it gets dearer per lap as things come to depend on it | **yes, at a higher price** |
+| **(b) UNRECOVERABLE WINDOW** | the fix stays cheap — but the observations lost while it was broken never come back | ⛔ **no. There is no later.** |
+
+⭐ **(b) is not "more important" — it is differently shaped**, and I say so as a property rather than a
+ranking: an (a) item still *has* a later. A (b) item's delay is spent, not deferred. **Paul ranks; the
+distinction is evidence he can rank with.**
+
+### 13.2 ⛔ (b) UNRECOVERABLE — every lap of delay is spent, not deferred
+
+| item | the mechanism, `measured` |
+|---|---|
+| **M2 · `mom-queue-watch.py`** | two early `return 0` paths write no state — `:140` (no token) and `:151` (**offline / Worker down**). A **broken** run and a **quiet** run read identically. Every silent run is an observation on **Mom's own channel** that cannot be reconstructed afterward. ⚠️ Its written evidence is stale (`lastRun` reads today) — **the row needs re-evidencing, not closing** |
+| **The freeze register** | ⛔ ratified `[paul-approved 2026-09-07]` and **never built**: `freeze.json` and `tools/freeze.py` **do not exist**, and `git grep 'FOCUS FREEZE' -- '*.py'` returns **0**. Every lap run under an unmechanised freeze is a lap whose scope compliance cannot be checked afterward |
+| **TIER 2 · 13 · the telemetry census** | Paul's own GL-8: *"we keep uncovering uninstrumented stuff."* Usage that was never emitted is not recoverable retroactively. ⛔ Its own clause is the guard: **an event with no reader is not instrumentation** — more writers is not more instrumentation |
+| **Production activity blindness** (his COMMIT item **C**) | `read-mom-engagement.py` has no `--env` and is hardcoded to Mom's device on legacy, so **nothing can see what real production accounts DO.** ⭐ He picked this before the bucket existed |
+
+### 13.3 (a) RISING PRICE — cheap now, dearer every lap
+
+| item | what makes the price rise, `measured` |
+|---|---|
+| **`DOC_SUFFIXES` / `KINDS`** | 13 suffixes today. Every new governed-looking file with an ungraded suffix joins an invisible set. ⭐ **The precedent is in the tool's own comment:** `-CONSOLIDATION` was added 09-07 because *"beat 1's entire output was graded by NOTHING."* `-METHOD` and `-REFINEMENT` are in that state now |
+| **Orphan plans — Q9** | **26** plans + 1 seat trail cited by no ranked row, inside **141 readiness flags across 38 plans**. Grows with every plan written |
+| **The head-gap — Q11** | **+162 lines in one lap**; R1 buys ~**1.4 laps**. Without a line budget, beat 5 repeats this move forever |
+| **Ordinal collisions** | ⭐ **the proof the criterion is real.** Renumbering was free at row 1. It is now **unavailable** — 11 external citations, **6 inside `worker/worker.js`**. The price already rose past the point of payment |
+| **The `meadow` collision** | one word naming a **place**, a **care regime** and an **organism** at once. Every new record referencing it deepens the ambiguity |
+| **Tools/consumables: join a module or mint a domain** | cheapest **before** the catalog has rows. `DOMAINS` has 11 keys and none is a tool |
+| **L2 · the concurrency guard** | one state slot, `lap: null`. Cost scales with concurrent windows — **1 when written, 4 today** |
+
+### 13.4 ⭐ The worked example is from this lap, and it is the cleanest one available
+
+I renamed the BOARD's move sets `M1…M4` → `R1-a…R1-d` **on exactly this criterion** — *"free to fix while
+nothing cites it, expensive in one lap."* Beside it sits the ordinal collision, **the same defect one year
+older**, now unfixable at any acceptable price. ⛔ **Same class, caught at both ends of its cost curve, in
+one afternoon.** That is the argument for the bucket, and it is measured rather than argued.
+
+### 13.5 ⚠️ Two rows this bucket would have swept up that are ALREADY FIXED
+
+Checked against the world before filing, per *an unchecked box is not open work* — **both of these are
+carried as 🔴 open by the BOARD's B8 and are not:**
+
+- ✅ **`--record` is REPAIRED.** `tools/product-steward.py:850` — *"⛔ **RESTORED 2026-09-08**"*, the
+  function is defined and reachable from `main()` at `:1149`, and the CLI accepts `--record`. **B8 lists
+  it 🔴 dead and Q6 asks who repairs it. It is repaired.** `measured`
+- ✅ **`BACKLOG.md`'s dropped table cells** — applied this session at `586c79e`; **zero overflow rows
+  remain** across all 53 tables.
+
+⛔ **Both were true when written.** That is the bucket's own occupational hazard: **a register of
+cheap-now items decays exactly like any other register**, so membership must be re-probed at the moment of
+ranking, never inherited from this file.
