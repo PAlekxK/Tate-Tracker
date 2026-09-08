@@ -46,9 +46,44 @@ prevention.** No downstream artifact should present it as saving a trip.
 
 | **Do buckets extend over the agronomy data?** (raised late — a "landscaping" bucket Paul thought might resolve plants-vs-weeds-vs-meadow) | ⛔ **SEPARATED — `paul-ruled 2026-09-08`: *"let's separate those questions."*** The bucket layer here is sized to TOOLS, CONSUMABLES AND SOURCING only. Any reorganisation of `plants.json` · `weeds.json` · `zones.json` · `turf.json`'s meadow regime is **its own thread**, routed to the lap-5 backlog-refinement window as a second, deliberately-unscoped seed. ⚠️ **Neither may become a dependency of the other, in either direction** — the stated reason for separating was that this theme is ready to move and must not stall behind a larger taxonomy question. |
 
-**What did NOT get ruled on and is still open:** the intake floor · whether guides keep ownership
-checkboxes at all · whether `owned: "no"` is worth the evidence it costs · and whether the eight
-proposed principles get drafted for the library.
+### ⭐ ALL FIVE REMAINING DECISIONS RULED — `paul-approved 2026-09-08`
+
+*"I'm good with your recommendation for all these at this point."* Each on the recommendation as
+written in §14:
+
+| # | Ruling |
+|---|---|
+| **Intake floor** | ⭐ **RETURNS-FIRST, and NO volume cap at v1.** Never propose from raw purchase count — it is anti-correlated with satisfaction here. Propose from *purchase → no return → a later use event*, and above all from **returns**. A cap set before a single lap has run is an invented number. |
+| **Guide checkboxes** | ⭐ **Strip the ownership CLAIMS; KEEP the task checkboxes.** `- [ ] Degrease both faces` is a worklist item ticked at the bench and stays. `- [x] ✅ OWNED — acetone` is a fact that rots and goes. ⚠️ **Different things wearing the same syntax** — an implementer reading "remove the checkboxes" must not strip the worklist Paul reads on paper in a garage. |
+| **`owned: "no"`** | ⭐ **`yes` and `unknown` ONLY at v1.** Add `no` when a specific case demands it; when added it MUST require naming where someone looked. |
+| **Preference layer public?** | ⭐ **PRIVATE at v1.** Easier to publish something private than to unpublish something public; it carries its own redaction design; and a preference list is a map of holdings by implication. |
+| **`source-a-part` — skill or fleet beat?** | ⭐ **Standalone SKILL, no cross-loop door yet.** Matches how 2026-09-08 actually happened — on-demand, no lap running. Per [[feedback_build_doors_on_measured_demand]]: build the door when the meter says so. |
+
+### ⭐⭐ WHERE THIS IS HEADED — the Almanac chat, `paul-stated 2026-09-08`
+
+*"how this all gets strung together and triggered within the Almanac chat box — you can eventually
+ask a question there and it understands, oh, they're trying to fix something, I need to go to the
+garage. Oh, they need a part, here's how I source that part."*
+
+**A connection point already exists and is IN BUILD RIGHT NOW.** `.plans/2026-09-03-guru-retrieval-PLAN.md`
+— row `BACKLOG.md § A6 · How to evolve Guru's capability`, objective **O2**, `class: engine ·
+must-not-diverge`, `stage: build`, `ready: [paul-approved 2026-09-03]`. Its scope line is literally
+the architecture Paul describes: **"from digest-stuffing to a core + lookups + retrieval."**
+
+- ⭐ **"Lookups" is the extension point.** A sourcing/registry lookup joins a family that plan is
+  already building — not a new mechanism. C6 already treats *"the vault as a lookup"* with a grant map.
+- ⭐ **The private-data path is ALREADY RULED** — Guru Q4, `paul-stated 2026-09-03`: the private tier
+  **joins, behind a login the box asks for mid-conversation.** The registry lives in `.private/`, so
+  that is exactly the door it needs, and it does not have to be invented.
+- ⚠️ **The open sub-question inside that ruling is where tools/consumables gets decided:** *which*
+  private fields the box may speak. Live now, at step 7.
+
+⛔ **TIMING is the only actionable part:** the lookup shape is being set THIS LAP; a hook for a future
+registry lookup either exists in that design or does not. ⚠️ **A NOTE, not a dependency** — the tools
+theme does not block on Guru and Guru must not block on it. Do not widen the guru-retrieval build for
+a registry that does not exist; the honest ask is only that the lookup family not be closed.
+
+**Still open after this:** whether the eight proposed principles (§15) get drafted for the library.
 
 ## ⛔ CORRECTION `2026-09-08` — THE BUCKET LAYER ALREADY EXISTS. Do not mint a rival.
 
