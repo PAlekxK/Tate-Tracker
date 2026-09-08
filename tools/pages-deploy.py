@@ -63,7 +63,23 @@ ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.p
 # app is https://palekxk.github.io/Tate-Tracker/viewer.html (CLAUDE.md:540), a NON-`.pages.dev`
 # origin, which viewer.html:7041 resolves to the TOP-LEVEL worker (est-3c9f1a). Pruning this Pages
 # project cannot reach her instance.
-HOUSEHOLD = {"bob", "paul", "home"}
+# ⭐⭐ `qa` JOINED THIS SET 2026-09-07 `[paul-ruled]`, and it is the fix for a class rather than a bug.
+# ⛔ WHAT IT WAS COSTING. Everything below — the prune to HOUSEHOLD_ALLOW, the tombstoning, the
+# index.html replacement, the neutrality falsifier — ran for this set ONLY. So QA, the environment
+# whose entire job is to be a MIRROR of production, was the one environment built by a different code
+# path. Two findings came out of that in a single evening:
+#   1. production answered HTTP 200 with `{"tombstone":true,…}` for four paths the app fetches at
+#      runtime, and QA could not have shown it because QA never tombstones;
+#   2. `check-estate-neutral --url https://fernwood-qa.pages.dev` reported `<title>Fernwood</title>`
+#      — QA was serving the TRACKED index.html, Fernwood's, because the replacement at :196 is inside
+#      this branch. Production says "My Home"; QA announced another household.
+# ⭐ Finding 2 is why Cloudflare Access could not simply be dropped from QA: the neutrality condition
+# on that ruling FAILED, and it failed for exactly this reason.
+# ⚠️ SAFE TO ADD, CHECKED RATHER THAN ASSUMED: `instance/qa.json` exists, so the refusal at :232
+# cannot fire; and every path the synthetic walkers touch — onboarding, estate, homes,
+# settings/place, settings/account, viewer.html — is already in HOUSEHOLD_ALLOW, so the prune cannot
+# take a surface a walk needs.
+HOUSEHOLD = {"bob", "paul", "home", "qa"}
 HOUSEHOLD_ALLOW = ("onboarding/index.html", "estate/index.html", "homes/index.html",
                    "settings/place/index.html", "settings/account/index.html",
                    # ⭐ viewer.html IS SHIPPED, AND IT IS NOT THE TRACKED ONE `[paul-ruled 2026-09-06,

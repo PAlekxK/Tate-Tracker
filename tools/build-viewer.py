@@ -342,7 +342,8 @@ def build(template_text, instance_path):
         import importlib.util as _il
         _sp = _il.spec_from_file_location("bpl", os.path.join(HERE, "build-place-log.py"))
         _bpl = _il.module_from_spec(_sp); _sp.loader.exec_module(_bpl)
-        _rows, _missing = _bpl.derive()
+        # ⛔ THE HOUSEHOLD BEING BUILT, never the repo root — see build-place-log._load.
+        _rows, _missing = _bpl.derive(canon=canon)
         # ⛔ GROUPED BY DAY, via the tool's own `group()` — never re-shaped here. Building the payload
         # in this file is how the inlined data came to have a different shape from the one the tool
         # emits and the renderer expects: `--json` said {date,title,bullets} while the build inlined

@@ -48,9 +48,22 @@ from datetime import datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def _load(name):
+def _load(name, canon=None):
+    """Read one canon file FROM THE HOUSEHOLD BEING BUILT — never from the repo root.
+
+    ⛔⛔ THE BUG THIS SIGNATURE EXISTS TO PREVENT, and it shipped for about an hour on 2026-09-07.
+    `canon` defaulted to the repo root, which is FERNWOOD'S canon. So building QA's app inlined
+    Fernwood's zone names, its three vehicles, "Church Mountain" and "Appalachian Almanac" into a
+    stranger's build — and this file's own docstring said it derived from "the household's own dated
+    records", which is the sentence that made it look safe.
+    ⭐ SIXTH INSTANCE OF ONE ASSUMPTION. The lap-2 retro named the pattern and gave the search string:
+    *a comment saying "this is safe because…" whose premise is about Fernwood.* This was written the
+    same evening that retro was read. It was caught only because `qa` was added to HOUSEHOLD minutes
+    later and the neutrality falsifier ran on a QA build for the first time; the deploy REFUSED and
+    nothing reached the origin.
+    """
     try:
-        with open(os.path.join(ROOT, name), encoding="utf-8") as fh:
+        with open(os.path.join(canon or ROOT, name), encoding="utf-8") as fh:
             return json.load(fh)
     except (OSError, ValueError):
         # ⛔ A source we cannot read contributes NOTHING and says so to the caller via `missing`.
@@ -58,12 +71,17 @@ def _load(name):
         return None
 
 
-def derive(sources=None):
-    """[(date, kind, text)] newest first, plus the sources that could not be read."""
+def derive(sources=None, canon=None):
+    """[(date, kind, text)] newest first, plus the sources that could not be read.
+
+    ⛔ `canon` is the household being built. An instance whose canon holds none of these files
+    derives an EMPTY log, which is the correct answer for a household with no history — never
+    another household's history.
+    """
     s = sources or {}
     missing, out = [], []
 
-    veh = s.get("vehicles", _load("vehicles.json"))
+    veh = s.get("vehicles", _load("vehicles.json", canon))
     if veh is None:
         missing.append("vehicles.json")
     else:
@@ -75,7 +93,7 @@ def derive(sources=None):
                 if d:
                     out.append((d, "fleet", "%s — %s" % (label, what)))
 
-    q = s.get("questions", _load("questions.json"))
+    q = s.get("questions", _load("questions.json", canon))
     if q is None:
         missing.append("questions.json")
     else:
@@ -88,7 +106,7 @@ def derive(sources=None):
                 # settled. This is the loop closing where a person can see it.
                 out.append((d, "settled", x.get("resolution") or x.get("prompt") or x.get("id")))
 
-    z = s.get("zones", _load("zones.json"))
+    z = s.get("zones", _load("zones.json", canon))
     if z is None:
         missing.append("zones.json")
     else:
@@ -207,6 +225,15 @@ def selftest():
 
     rows3, _ = derive({"vehicles": {"vehicles": []}, "questions": {"questions": []}, "zones": {"zones": []}})
     ck("M4 a brand-new household derives ZERO and that is not an error", rows3 == [])
+
+    # ⛔ THE LEG THAT WOULD HAVE CAUGHT THE TENANCY LEAK. A canon directory holding none of these
+    # files must derive NOTHING — not the repo root's Fernwood data. This is the sixth instance of
+    # "correct code whose premise was about Fernwood", so it gets an assertion, not a comment.
+    import tempfile
+    empty = tempfile.mkdtemp()
+    rows4, missing4 = derive(canon=empty)
+    ck("M7 a canon with no records derives ZERO — never the repo root's household",
+       rows4 == [] and sorted(missing4) == ["questions.json", "vehicles.json", "zones.json"])
     print("\n%s selftest (%d failure(s))" % ("✅" if not fails else "🔴", len(fails)))
     return 1 if fails else 0
 
