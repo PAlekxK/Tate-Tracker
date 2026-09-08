@@ -313,3 +313,90 @@ backlog"*) has replied. Its position, which I accept:
   the predicate (*seeing / enacting*) selected the wrong rows and should be rebuilt from the incident.
 - **On §0:** if the BOARD lands and its rationalization contradicts anything here, **the BOARD wins on
   disposition and ordering** — it read the whole file for that purpose and this file did not.
+
+---
+
+## 10 · JOB ① — **VERIFICATION OF THE BOARD'S RATIONALIZATION DIFF** (added after the BOARD landed)
+
+⛔ **I did not write a second rationalization.** The BOARD's §1 is the proposed diff; the standing rule is
+*agent PROPOSES, main session REVIEWS — verify the claims yourself.* This section is that review.
+**Everything below is re-derived at HEAD `9a762b0` by this window, independently.**
+
+### 10.1 ✅ The arithmetic and the move set — **fully verified, every figure**
+
+| claim | re-derived | verdict |
+|---|---|---|
+| M1 `FOUR RULINGS` = 138–360 | **223 lines**, next heading at 361 | ✅ |
+| M2 `EVERY ITEM SHIPS` = 424–462 | **39 lines**, next heading at 463 | ✅ |
+| M3 `THE USER'S OWN RECORD` = 463–536 | **74 lines**, next heading at 537 | ✅ |
+| M4 `SPLIT THE JOURNEY` = 537–691 | **155 lines**, next heading at 692 | ✅ |
+| total moved **491** | 223+39+74+155 = **491** | ✅ |
+| head-gap today **672** | TIER 1 at 692, head marker 20 → **672** | ✅ |
+| after R1 → **181** | 692−491 = 201; 201−20 = **181** | ✅ |
+| minimal M1+M4 → **294** | 378 moved; 692−378−20 = **294** | ✅ |
+| *"five sections the declared order does not name, **560 lines**"* | FOCUS FREEZE 69 + FOUR RULINGS 223 + EVERY ITEM SHIPS 39 + USER'S OWN RECORD 74 + SPLIT THE JOURNEY 155 = **560** | ✅ **exact** |
+
+⚠️ **My first pass reported all four spans as MISMATCH. That was my own off-by-one**, not the BOARD's —
+my span function excluded the section's last line. Recorded because the standing rule cuts both ways:
+**I verified the verifier and had to verify myself.**
+
+### 10.2 ✅ The slope — **reproduces exactly, all six commits**
+
+Re-read `BACKLOG.md` out of each commit and re-located its `TIER 1` heading:
+
+`dcf99ec` 510 → `20cda10` 554 → `1cbbf04` 604 → `5998f67` 604 → `37ced32` 648 → `b998b30` **672**.
+Line counts identical too (4,027 → 4,257). **+162 in one day, every beat of lap 5 widening the gap beat 5
+exists to close.** `measured`, twice, by two windows. ⭐ **This is the strongest-supported claim in either
+document**, and it is the BOARD's argument, not mine.
+
+### 10.3 ⛔ ONE SUBSTANTIVE CORRECTION — **Z-ACK must not be archived. It is FOUR of eight, not three.**
+
+The BOARD grades `## ✅ ~~🎗 Z-ACK~~ — CLOSED 2026-09-07` as **✅ archive whole**, riders being *"one
+cross-reference to another live row, not its own rider."* **I read the section. It carries three live
+things, and two of them are its own:**
+
+1. ⛔ **A standing prohibition, in force:** *"**Do not design a ribbon, a card, a message or any surface
+   for it, and do not re-raise the row.**"* `[paul-ruled 2026-09-07]`. That is a **rule**, not a record.
+   Archiving it removes an active *do-not-build* instruction from the ranked surface — and the failure it
+   prevents (someone re-raising the row and building a proxy for a thank-you) is exactly the kind that
+   recurs once the reason leaves the reader's line of sight.
+2. 🔴 **A conditional instruction addressed to work Paul launched a window for TODAY:** *"**When the zone
+   work ships:** the ribbon leads on her sixteen names, with the changeable clause on the retirements
+   (`parking-bank`, `upper-uber-wall-area`) — `parking-bank` was a fold call, not her instruction."*
+   ⭐ **A dedicated zones session opened this afternoon.** Archiving this section would take that
+   instruction off the surface in the same lap the work it fires on begins. `measured`.
+3. The live cross-reference the BOARD did name — *"Lap 4's open finding 'paul-relayed input has nowhere to
+   live' is still open and this is its biggest instance."*
+
+⛔ **Proposed: regrade Z-ACK to DO NOT ARCHIVE**, which makes the BOARD's own headline finding *stronger,
+not weaker* — **four of eight ✅/SHIPPED-headed sections carry live work**, and the clean archive falls
+from 178 lines to **144** (3 sections), or 199 with the `inferred` fifth. ⭐ **The line count was never the
+point, and the BOARD says so itself: archiving closes ZERO head-gap.** The finding is the point.
+
+### 10.4 ✅ Everything else in §1.4 and §1.5 that I checked
+
+- **A1 · PASSED 07-26** — ⛔ confirmed carrying the **live R1/R2 monitoring definitions** (`:929`, `:930`).
+- **FLEET LAP 1 · BEAT 6** — ⛔ confirmed: `⏸ Emissions hardware STAYS OPEN` (`:1861`) and
+  `### 🐛 TWO DEFECTS IN fleet_probe.py — FILED, NOT FIXED` (`:1898`).
+- **The shape system** — ⛔ confirmed, and **stronger than graded**: besides `🔬 NEXT LAP` and
+  `🟡 MEASURED + PARTLY FIXED` it also carries **`⏸ GATED — Mom-facing, NOT shipped, awaiting Paul`**
+  (`:3628`). A Mom-facing item awaiting Paul, under a `SHIPPED` heading.
+- **The three graded clean** (M1 feedback reader 77 · L1 48 · SHIPPED 07-29 Tier-1 pass 19) — **zero
+  riders each.** ✅ confirmed.
+- **`SHIPPED 07-29 (evening)`**, graded 🟡 `inferred` with *"re-grep before applying"* — **I re-grepped.**
+  Both `⏸ needs Paul` threads are struck **and** read `✅ DECIDED 2026-08-02` (`:3500`, `:3501`).
+  ⭐ **The `inferred` grade can be promoted to `measured`.** The instruction to re-check was right and it
+  cleared.
+- **K4** — *"`grep 'which wins'` returns zero"*: **confirmed, zero.** ✅
+
+### 10.5 What I did NOT verify, and am not implying I did
+
+The ten buckets' membership in §2; the eleven external citations behind the do-not-renumber argument
+(I accept them as the BOARD's `measured`, and they only strengthen a conclusion I reached independently);
+Q8–Q12's substance; and the six sections of §1.4 I did not re-grep line by line. ⛔ **Absence of a check
+is not a pass.**
+
+> ### The one-line verdict
+> **The BOARD's rationalization diff is sound and its arithmetic is exact. Apply-blocking issue: one —
+> regrade Z-ACK to DO-NOT-ARCHIVE before §1.7's sequence runs.** Everything else I checked holds, and the
+> slope argument is the strongest claim either window produced. ⛔ **Still not applied. Still Paul's.**
