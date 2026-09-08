@@ -551,7 +551,9 @@ retrieval; recognition is what happens without my asking."*
 ---
 
 
-## 🧪 SPLIT THE JOURNEY FROM THE READER — a synthetic-testing redesign `[paul-proposed 2026-09-08]`
+## 🧪 SPLIT THE JOURNEY FROM THE READER — the TESTING-ARCHITECTURE row `[paul-proposed 2026-09-08]`
+
+> ⭐ **THREE axes are now bundled here: the journey/reader split · PROPERTIES · and CREDENTIAL (added 2026-09-08).** ⛔ **This stopped being a testing-tidiness row and became the testing-**architecture** row** — each axis was routed here because patching it first would harden the unit the redesign replaces.
 
 *(Moved here from the pointer-head region at lap 5's GROOM & BUCKET, 2026-09-08 — reading order only;
 no row deleted, no status changed. Proposal: `.plans/2026-09-08-lap5-BOARD.md` §1.2 · applied `[paul-approved]`.)*
@@ -714,6 +716,34 @@ same lap-5 slate.
 # 📜 THE RULING REGISTER — rulings in force, and why they are written down
 
 ---
+
+### ⛔ THE CREDENTIAL AXIS — `--fresh` WAS NEVER FRESH `[paul-ruled 2026-09-08]`
+
+> *"I kinda feel like this meant an unspent invite per fresh run for the synthetics… I think that needs to
+> be bundled into our larger testing strategy question in the backlog."* — **Paul**
+
+`tools/journey-walk.py:515` says it in its own comment — ⛔ **"BOTH PATHS REFRESH"** `measured`. A `--fresh`
+walk signs in as the **durable identity** and arrives holding **that account's grant**. It met a signup form
+only because the client asked a **device-local key** that is empty in a fresh browser
+(`onboarding/index.html:1167`, `read(K_USER)`). When lap 5 moved recognition to the **server**, the fiction
+collapsed and the four fresh seats failed at `ec88009`.
+
+⭐ **So every fresh walk in this project's history was an existing person being shown a signup form by a
+cache.** ⚠️ **What still stands:** the signup SCREENS and everything downstream were genuinely exercised, so
+those findings hold. **What was NEVER exercised:** arrival as *someone the estate does not know* — the only
+state a new household is ever in. ⛔ **And it reframes every *"N reached the door and 0 got through"*
+reading: those walkers already had accounts.**
+
+⛔ **RULED INTO THIS ROW RATHER THAN PATCHED.** The remedy — a fresh walker arrives on an **unspent invite,
+minted per run** (`tools/grant-mint.py --fixture-out` already exists for it, `:591` `measured`) — **is not a
+bug fix in the harness.** It is *which of the three axes owns identity*, which is what this row exists to
+settle. ⭐ **Same ordering ruling Paul made on the gate ① best-run defect: the redesign dissolves it, and
+patching first hardens the unit it replaces.**
+
+⚠️ **Consequence, recorded rather than softened: gate ① does NOT go green in lap 5.** A, B and C are built
+and deployed, and **A is proven** by a clean returning walk (`2026-09-08T181620`, zero failed actions). The
+fresh seats cannot pass while the harness hands them a spent credential — **a true reading from an
+instrument that has just started telling the truth, and not a reason to make it lie again.**
 
 ## 🔓 2026-09-06 — FOUR RULINGS, and the reason this block exists
 
