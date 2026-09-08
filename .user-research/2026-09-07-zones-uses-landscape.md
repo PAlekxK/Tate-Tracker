@@ -23,6 +23,36 @@ constraints_honoured: "Mom starts BLANK · Z-ACK closed (no acknowledgment surfa
 
 # The uses landscape for a named place
 
+> ## ⛔ RETRACTION BANNER — added 2026-09-07 evening, after this file was written
+>
+> **This file's organising finding is FALSIFIED. The catalogue is not.**
+>
+> Falsified: *"the resident steward does not need retrieval — she knows where everything is"* and
+> everything derived from it — **§1's present/absent lens split, all of §3 (the presence test), and
+> §7's "the one dependency that cuts across all five tiers."** Also withdrawn: the proposed
+> cross-project pattern *"the record's filler is not the record's reader."*
+>
+> **What falsified it:** `validated` — Paul, 2026-09-07, unprompted: *"Mom has a picture of each plant
+> in her head and where it is, **but she doesn't know exactly which plant is which**… **she actually
+> keeps asking very specifically for this zone layout.** 'I'm breaking out the fertilizer — what
+> plants? I don't wanna miss any.'"*
+>
+> ⭐ **The correction:** she knows **location**; she does not know **identity, timing, or THE SET.** The
+> job is **COMPLETENESS, not wayfinding** — she is not lost, she is worried about missing one. The
+> place is not the answer, it is the **partition** that makes *"did I get them all"* checkable. She
+> reads the join **backwards** from how this file assumed: not *"where is X"* but *"for this job, what
+> is the set."* **Filler and reader are the same person.**
+>
+> ⚠️ **How it survived:** it was `inferred` from telemetry (depth 2/3 zero, 0-for-35) and never checked
+> against the one person who speaks with her weekly. Both were real data; only one was about her.
+>
+> **What still stands:** §4's twelve-plus uses, §5's name-only shelf and place-field census, §6's five
+> outside practices, §8's could-not-verify list, and the evidence log. **Read the corrections in
+> `.user-research/2026-09-07-zones-plants-v1-journey.md` §R before using §1, §3 or §7.**
+>
+> *Marked rather than edited away: two research passes carried this claim, and that is itself a
+> finding.*
+
 **What this is.** The *"what is all of this possibly for"* pass. It enumerates uses, says who each
 serves and whether that person is in the room, says what data each one demands, and then orders them
 by **dependency and evidence** — never by value, which is Paul's to rank.
@@ -97,6 +127,11 @@ Worked example — one use, four readings:
 > fill the record; only the absent one needs it. That asymmetry is the structural fact of this whole
 > epic, and every use below is tested against it.**
 
+> ⛔ **FALSIFIED 2026-09-07 — see the retraction banner.** The **actions** lens serves the person who
+> is **present, holding a bag of fertilizer**, not the absent one. The asymmetry does not exist:
+> filler and reader are the same person. The four lenses remain a useful frame; **this particular
+> reading of who each one serves is wrong.**
+
 `inferred` — from the presence/tenure model in what-a-map-is-for §2 plus the depth-2/depth-3-zero
 telemetry, against Paul's four stated jobs. Falsifier in §3.4.
 
@@ -116,7 +151,13 @@ Each use carries:
 
 ---
 
-## 3 · The presence test
+## 3 · The presence test — ⛔ FALSIFIED 2026-09-07, see the retraction banner
+
+> ⛔ **Everything in this section rests on a claim Paul falsified the same day it was written.** The
+> resident steward's job is **completeness**, not retrieval — so §3.2's "supply/demand mismatch" is
+> wrong: **the person who fills the record and the person who needs it are the same person.** Retained
+> unedited as the record of a wrong turn. The corrected reading is in
+> `.user-research/2026-09-07-zones-plants-v1-journey.md` §R and §2.
 
 ### 3.1 The definition, and it has two axes
 
@@ -713,6 +754,15 @@ Stated plainly, per the brief.
 
 ## Evidence log
 
+- ⛔ **2026-09-07 (evening): `validated` — paul-stated, FALSIFYING this file's §3.** *"she actually
+  keeps asking very specifically for this zone layout. 'I'm breaking out the fertilizer — what plants?
+  I don't wanna miss any.'"* She knows location; she does not know identity, timing or the set. **The
+  job is completeness, not wayfinding.**
+- ⛔ **2026-09-07 (evening): `contradicted`** — *"the resident steward does not need retrieval"* (§3)
+  and the derived cross-project pattern *"the record's filler is not the record's reader."* Withdrawn,
+  not written to the library. **The half that stands:** she does know where things are.
+- ⚠️ **2026-09-07 (evening): method note** — this claim was `inferred` from telemetry and never checked
+  against Paul. **An empty engagement record is not an absent demand.**
 - 2026-08-30: `validated` — Paul + his mother, in person, annotated NAIP aerial on the table: **~16
   area names, 0 geometry, one evening.** The only validated instance of any use in this document
   (§4.13). Exact strings partly `[vision-UNVERIFIED]`.

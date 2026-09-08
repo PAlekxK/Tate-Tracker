@@ -18,6 +18,7 @@ sources:
   - "desk research 2026-09-07, Paul-authorised — 8 searches; peer-reviewed sources separated from vendor prose; 4 unreachable sources listed in §10"
 status: PROPOSAL — nothing built, nothing designed as UI, nothing committed to canon. Nothing ships from this session.
 constraints_honoured: "Mom starts BLANK · Z-ACK closed (no acknowledgment surface designed, not re-raised) · her words adopted never improved · AI boundary intact · lines/points a known gap not a discovery"
+revision: "REV 2 — 2026-09-07 evening. The organising finding of REV 1 was FALSIFIED by Paul the same day. The retraction is marked in place (§R) rather than edited away; §2, §3.0, §4, §5, §7 and §8 are rewritten around COMPLETENESS. Everything else stands."
 ---
 
 # The zones × plants journey — v1, with its failure paths
@@ -32,6 +33,81 @@ happy-path journey for a user who is 0-for-35 on ask-shaped surfaces would be fi
 
 ---
 
+## R · ⛔ RETRACTION — the organising finding of REV 1 was wrong
+
+**Marked, not deleted. Two research passes carried it, and that is itself the finding.**
+
+### What I claimed (REV 1, and the whole of `2026-09-07-zones-uses-landscape.md` §3)
+
+> *"The resident steward does not need retrieval — she knows where everything is, which is why she can
+> name it."* → therefore retrieval serves the **absent**; portrait and capture serve the **present**;
+> and **"the record's filler is not the record's reader."**
+
+### What falsified it
+
+`validated` — **Paul, 2026-09-07, unprompted:**
+
+> *"Mom has a picture of each plant in her head and where it is, **but she doesn't know exactly which
+> plant is which**, what the differences are between all the different azaleas and hydrangeas, **what
+> time of year to work on them**, and where they are and how to put all that together… **she actually
+> keeps asking very specifically for this zone layout.** 'I'm breaking out the fertilizer — what
+> plants? I don't wanna miss any. What zones have what plants that need the fertilizer?' Same with
+> pruning… all the zones, names and boundaries have been developed with Mom and **come from her head,
+> because she wants it overlaid with all the other information we have.**"*
+
+### What was right, what was wrong
+
+| | |
+|---|---|
+| ✅ **Right, and still load-bearing** | She knows **where** things are. Paul confirms it in the same breath. That half of the finding is untouched. |
+| ⛔ **Wrong — the inference from it** | I concluded that because she knows location, a map has no job for her. **It has a job; I had the direction of the join backwards.** |
+
+> ⭐⭐ **THE CORRECTED FINDING. She does not need WAYFINDING. She needs COMPLETENESS.**
+>
+> She is not lost. **She is worried about missing one.** That is a *set* problem, not a *location*
+> problem — and the place is not the answer, it is the **partition** that makes "did I get them all"
+> checkable.
+>
+> **She reads the join backwards from how I assumed.** Not *"where is X?"* but *"for this job, what is
+> the set, and have I done all of it?"* Same join — the 09-06 *"a map is a JOIN"* finding survives
+> completely — opposite direction.
+
+### What this overturns
+
+1. ⛔ **The presence/absence framing is inverted, not qualified.** The **actions** lens — which I filed
+   as serving the absent and warned was a task-manager risk — serves the person who is **present,
+   holding a bag of fertilizer.**
+2. ⛔ **"The record's filler is not the record's reader" is WITHDRAWN.** Its premise is falsified at the
+   project it was derived from. **Filler and reader are the same person.** Not written to the
+   cross-project library; Paul has been told.
+3. ⚠️ **`2026-09-07-zones-uses-landscape.md` still carries the old finding** in its §1, §3 and §7. It
+   carries a retraction banner pointing here. Its **catalogue of uses, data demands and outside
+   practices stands** — only the presence/absence organising claim falls.
+
+### ⭐ How it survived two passes — a method note worth keeping
+
+It was **inferred from telemetry** (depth 2 and 3 zero; 0-for-35 on ask-shaped surfaces) and **never
+checked against the one person who speaks with her weekly.** The instrument said she was not engaging.
+Her son said she keeps asking for this exact thing, by name, repeatedly. **Both were real data and
+only one of them was about her.**
+
+⚠️ **This is not a new rule — it is a failure to apply an existing one.** CLAUDE.md already carries
+*"AN EMPTY ANSWER RECORD IS NOT A QUIET USER"* (2026-08-15), which added engagement telemetry because
+arrivals were the wrong instrument. This is the next rung of the same ladder:
+
+> **An empty engagement record is not an absent demand.**
+
+And it is a missed application of *"LATCH ONTO WHAT SHE STARTS"* (2026-09-01): **she initiated this
+ask, repeatedly, through the channel that demonstrably works — a conversation — and two research
+passes read the app's silence instead.** Paul-relayed input is already first-class doctrine here. The
+failure was not asking him.
+
+⭐ **The cheap standing fix, and it costs one line:** before any finding about her behaviour is used as
+an organising claim, **ask Paul what she has asked him for lately.** He is the highest-bandwidth
+instrument this project has and he is not on the checklist.
+
+---
+
 ## 0 · What I verified at HEAD, and where I disagree with the numbers I was handed
 
 I was told to verify rather than trust. Six of eight measurements reproduce; two do not.
@@ -41,7 +117,7 @@ I was told to verify rather than trust. Six of eight measurements reproduce; two
 | `plant.zones` is read by **zero** code in `viewer.html` | ✅ **Confirmed.** The only `.zones.length` in the file is `payload.zones.length` in the sync telemetry. No plant-rendering path touches a plant's place. | **agrees** |
 | `ZonePanel` exists with confirm/rename/flag/delete + an offline-aware voice recorder; fires `zone_confirmed`; has never fired; lists no plants | ✅ **Confirmed**, and the buttons read *"Looks right" · "Different name" · "Not quite right" · "Delete this place"*, plus a mic labelled **"What's growing here?"** | **agrees** |
 | `pond-area` holds **16 of 42** placements | ⚠️ **16 confirmed; 42 is not.** I count **33 placements across 27 plants** (`plants.json` carries 53 `zoneId` keys, but 20 of those are inside `photos[]`, tagging where a *photograph* was taken). So **pond-area is 16 of 33 — 48% of every placement in canon.** | **partly disagrees — and my number makes the finding stronger** |
-| **10 of 23** zones hold zero plants | ⚠️ I count **11**: `the-bank` · `the-bluff` · `lawn` · **`fern-garden`** · `lower-40` · `lower-parking` · `stable-grounds` · `house` · `the-green` · `main-parking` · `the-green-terrace` | **disagrees by one** |
+| **10 of 23** zones hold zero plants | ⛔ **REV 1 said 11. REV 1 WAS WRONG — you were right.** My grep was truncated at 40 results and I missed `lower-40`, which holds `hydrangea-panicle` and `garden-phlox`. **The correct list is your 10**: `the-bank` · `the-bluff` · `lawn` · **`fern-garden`** · `lower-parking` · `stable-grounds` · `house` · `the-green` · `main-parking` · `the-green-terrace`. 13 distinct zones hold plants. | ⭐ **my correction was the error — corrected back** |
 | 13 of 40 plants have no place, including `hydrangea` | ✅ **Confirmed** — 13 records carry `"zones": []`. | **agrees** |
 | `zones[].type` is untrustworthy | ✅ **Confirmed and worse: 20 of 23 zones are typed `planted`**, including both parking areas, the bank, the bluff, stable grounds, lower-40 and the green terrace. Only `house` (`structure`) and three turf zones differ. **A field with one value in 87% of rows is a default, not a classification.** | **agrees, understated** |
 | 93 of 107 m² of overlap came from **two** linear features modelled as areas | ⚠️ **One, not two.** `.plans/2026-08-31-zones-traced-with-mom.json`: *"'The Path' now exists BOTH as a 17-vertex polygon and as a 13-point line. The polygon… accounts for 93 of the 107 m² of overlap"* — and *"93.5 m² — **87% of all overlap was one feature modelled as the wrong shape**."* Total: 107.0 m² across 17 areas, 4.1% of 2,618 m². | **corrects the attribution; the argument survives intact** |
@@ -78,40 +154,129 @@ resolution recorded.
    *"No identity layer in v1 — every edit is anonymous."* A `zone_confirmed` event cannot distinguish
    her tap from Paul's test tap. **This is the instrument problem and §8 is built around it.**
 
+5. ⭐⭐ **ADDED REV 2 — the join fails in the dangerous direction, and this is now the headline
+   measurement.** Computed by the coordinator against September (`care.*.months` is 0-indexed, so
+   September = `8`):
+
+   | September, by place | |
+   |---|---|
+   | Pond Area | inspect **7** · propagate **5** · water **6** |
+   | St Francis Garden | water **3** |
+   | The Green Ring | water **2** |
+   | ⛔ **plants needing water with NO PLACE** | **12** — including 3 of the 4 hydrangea records, White Pine, Holly, Clematis and Wisteria |
+
+   ⚠️ **My verification, stated honestly:** I confirmed the *shape* and spot-checked three —
+   `white-pine`, `hydrangea` and `holly` each carry `water.months: [5,6,7,8]` **and** `"zones": []` at
+   HEAD. I could not run the full join (no shell in this seat), so **the count of 12 and the per-place
+   figures are the coordinator's computation, not mine.**
+
+   ⭐ Two further facts I did verify that make it sharper: **`hydrangea-panicle` IS placed
+   (`lower-40`); the hub `hydrangea`, `hydrangea-dreamcloud` and `endless-summer-pop-star-hydrangea`
+   are not.** So the family is split — *some* hydrangeas appear on a list and *some* do not, which is
+   worse than none appearing.
+
+   > ⛔⛔ **A worklist built today would be confident, complete-looking, and missing roughly a third of
+   > the property. She would not fail to find something. She would finish, and believe she was done.**
+
 ---
 
-## 2 · What this v1 actually is, run against my own organising finding
+## 2 · What this v1 actually is — REWRITTEN REV 2
 
-The brief asks me to be honest here rather than flattering, so:
+> ⭐⭐ **v1 is a COMPLETENESS INSTRUMENT. It is a worklist she opens in order to do work — not a
+> confirm surface we offer her, and not a picture we show her.**
 
-> ⭐⭐ **v1 is a CAPTURE and PORTRAIT play. It is not a retrieval play, and it should not be judged as
-> one.**
+Her stated problem has three parts and only one of them is spatial:
 
-The resident steward does not need to be told where her plants are — she is the reason we know. Every
-retrieval reading of zones × plants (*"where do I go for the hosta"*) serves someone absent, and
-nobody absent is in this trial. What the present person gets is: **a picture of her place with her
-words on it** (portrait), and **a frame that makes her say things nobody thought to ask** (capture).
+| she does not know | where it already lives in the record |
+|---|---|
+| **which plant is which** — *"the differences between all the different azaleas and hydrangeas"* | `plants.json` — identity, photos, `variety` |
+| **when to work on them** | `care.*.months`, `peakWindow`, `seasonNotes` |
+| ⭐ **the SET for a given job** — *"what zones have what plants that need the fertilizer?"* | ⛔ **nowhere. This is the only missing piece.** |
 
-Three consequences, and they are the difference between a v1 that teaches us something and one that
-produces a green tick:
+⭐⭐ **So the v1 is an ASSEMBLY, not a build.** Every ingredient exists: identity, timing, and the
+partition. The one thing that does not exist is the surface that puts them together — and I verified
+that no code in `viewer.html` reads a plant's `zones`. Paul said it exactly: *"where they are and how
+to put all that together… she wants it overlaid with all the other information we have."*
 
-1. **"It worked" cannot mean "she used it to find a plant."** It means *she corrected something*, or
-   *she said something we did not have*.
-2. **The plant list on a place is not the feature. It is the PROMPT.** A place showing three plants is
-   a picture inviting *"the laurel's there too."* `inferred` — the one validated elicitation in this
-   project was a picture that provoked a correction, not a question that requested an answer.
-3. ⭐ **Which makes §0(a) the single most valuable object in the v1.** *Fern Garden — no plants
-   recorded here* is either the best prompt in the build or the worst trust hit in it, and which one
-   depends entirely on how it is worded. It is a place she named for its ferns; the record says it has
-   none; and the record is wrong, not her. **A surface that renders her naming as an empty container
-   tells her the app does not know her place.** Handled the other way, it is the strongest single
-   question we could ask her.
+### The three consequences that replace REV 1's
+
+1. ⭐ **The trigger is HERS, and this is what keeps the tone doctrine intact.** She has already decided
+   to fertilize; she is holding the bag. The system is not generating an obligation, it is answering a
+   question she brought. **That is the whole difference between the forbidden thing and the wanted
+   thing:**
+
+   | forbidden | wanted |
+   |---|---|
+   | *"17 actions due"* — the system says it is time | *"You're fertilizing? Here is the set."* — she says it is time |
+
+   ⛔ **The rule that follows: the surface must never be the thing that says it is time.** No overdue,
+   no counts of pending work, no notification. It answers; it does not summon. `inferred`, from the
+   standing tone doctrine applied to Paul's quote.
+
+2. ⭐ **Geometry accuracy gets demoted again; MEMBERSHIP accuracy gets promoted.** ±30 ft is completely
+   irrelevant to *"did I miss one."* What matters is whether **every plant is assigned to some place**
+   and whether the assignments are right. That makes REV 1's two headline data findings **more**
+   important, not less: 13 plants with no place, and `pond-area` holding 48% of everything.
+
+3. ⚠️ **A list of names does not solve her stated identity gap.** If she cannot tell the azaleas apart,
+   then *"the azaleas in the Western Garden"* only helps if she can recognise them when she gets
+   there. `plants.json` already carries property photos with zone tags. **The unit of a worklist is a
+   recognisable thing, not a name** — flagged as a research implication, not a UI proposal.
+
+### ⭐⭐ The requirement that is the v1's best feature — show what it does not know
+
+> *"Water these 4 · 12 plants don't have a place yet, so they're not on any list."*
+
+This is the honesty-marker doctrine applied to a **set** instead of a value, and it is the same
+instrument as *"~65°F, estimated."* I stress-tested it against my own failure paths and it survives
+all of them:
+
+| tested against | result |
+|---|---|
+| **F1 she declines** | ✅ It is not an ask. It is a footnote on a list she opened for her own reasons. She can ignore it permanently and the list still works. |
+| **F15 she never opens it** | ✅ ⭐ **The strongest thing about the correction: the surface now has a PULL, not just our push.** Push (*"I don't wanna miss any"*) and pull (a list that answers it) are both hers. Every prior surface had only our push, and every prior surface is 0-for-35. |
+| **F11 her named place is empty** | ✅ **Reframed and defused.** *Fern Garden — nothing placed here yet* stops being a verdict on her naming and becomes one row of a known, counted gap. |
+| ⛔ **F16 silent undercount** (new, §4) | ✅ **This is the only thing that prevents it.** Without the line, the list is confidently wrong. |
+| **the trust risk** | ⚠️ Real but the right way round. She is the documented person who catches wrong numbers — the 14× rainfall. Telling her the record is incomplete **aligns with her instinct**; hiding it sets up the one failure she would not catch. |
+| **the "keep it coming" nag risk** | ⚠️ Genuine. A line that never changes becomes furniture — this project already wrote that rule. ⭐ **The count is what saves it: 12 → 0 is progress, and it is reachable in one sitting with Paul.** A number that moves is not a nag. |
+
+⛔ **And it is a capture prompt without being an ask** — which is precisely the property the 0-for-35
+record says every ask-shaped affordance lacks.
 
 ---
 
 ## 3 · The journey
 
-### 3.0 Where it starts — and structure-first does NOT mean shapes-before-names
+### 3.0a ⭐⭐ REV 2 — the journey does not start with us. It starts with her, and it already happens.
+
+**REV 1 opened at Leg 0, with Paul drawing, and reached her at Leg 4 as something we offer.** That was
+a consequence of the retracted finding: if she has no demand, we have to manufacture the occasion.
+
+**She has a demand, and it recurs.** `validated` (paul-relayed, 2026-09-07) — *"she actually keeps
+asking very specifically for this zone layout… 'I'm breaking out the fertilizer — what plants? I don't
+wanna miss any.'"*
+
+> ⭐ **The journey's real step 1 is an event we did not build and cannot schedule: she decides to do a
+> job.** Everything the operator does is preparation for a moment that is already occurring, off-system,
+> today — and being answered by a phone call to her son.
+
+**Three things follow, and they change the shape of the trial:**
+
+1. **The operator legs are first in BUILD order, not in JOURNEY order.** Legs 0–2 are get-ready work.
+   Nothing about them should be sequenced as though she is waiting to be shown something.
+2. ⭐⭐ **The first run should be the one SHE asks for.** Not a demo, not a showing. Wait for the next
+   *"I'm fertilizing — what do I need?"* and answer it **with the surface, together.** That is the only
+   arrangement that gets a **real trigger and a witnessed session at the same time**, which is exactly
+   what the instrument problem (§8) needs. It costs nothing to wait — the trigger is seasonal and
+   recurring.
+3. ⭐ **Confirmation becomes a by-product of use rather than an act we solicit.** She is not asked *"is
+   this boundary right?"* She is doing a job, and a wrong membership shows up as *"the laurel's not on
+   here."* ⚠️ **This strengthens the confirm leg's motivation and weakens its attribution** — a
+   correction made in passing, mid-task, is harder to capture than one made in a panel. §8 handles it.
+
+⚠️ **What does NOT change: Paul still draws, structure-first, and Legs 0–3 below stand as written.**
+
+### 3.0b Structure-first does NOT mean shapes-before-names
 
 There is an apparent conflict between Paul's structure-first ruling and the names-outlive-shapes
 finding. **They govern different things and are compatible:**
@@ -218,10 +383,15 @@ evening**, against 0 for 35 through in-app asks.
 
 ---
 
-### Leg 4 — The showing *(her leg — and the confirm machinery already exists)*
+### Leg 4 — ~~The showing~~ **The using** *(her leg — REV 2 renames it)*
 
-**What she sees.** Her place, her names, one place at a time. `ZonePanel` today: the name, a status
-word, four buttons, a mic.
+> ⭐ **REV 2.** This was *"the showing."* Under completeness it is not a showing at all — **she arrives
+> here carrying a job.** The confirm machinery is the same; the occasion is entirely different, and the
+> difference is that she has a reason to be here that we did not supply.
+
+**What she sees.** Her place, her names, one place at a time — **and what the record says is in it for
+the job she came to do.** `ZonePanel` today: the name, a status word, four buttons, a mic. ⛔ **It
+lists no plants**, which is the single gap between what exists and what the v1 needs.
 
 **What she does.** *Looks right* · *Different name* · *Not quite right* · (·*Delete this place*·).
 
@@ -233,6 +403,14 @@ word, four buttons, a mic.
 | **Different name** | ⭐ a real correction on the durable layer, and one she cannot be wrong about | anything about geometry |
 | **Not quite right** | something is wrong | ⛔ **what** — the flag sets a status and captures no words |
 | nothing | ⛔ uninterpretable | — |
+| ⭐ **REV 2 — "the laurel's not on here"** | **the membership is wrong, and she found it by doing the work** | nothing about the boundary — and under completeness **that no longer matters** |
+
+⭐ **REV 2 adds a fifth response the panel cannot currently receive, and it is the most valuable one.**
+A completeness surface generates a new class of correction — *the set is wrong* — which is neither a
+name correction nor a boundary complaint. It arrives as a sentence, mid-task, and there is nowhere for
+it to go: the flag captures no words, and the only mic is labelled *"What's growing here?"* ⚠️ Which,
+by luck rather than design, is **almost exactly the right prompt** — it is the one existing affordance
+that would catch it.
 
 **Failure paths**
 
@@ -310,14 +488,36 @@ Every failure the brief named, with where it lives and what it costs.
 | F8 | The drawing is wrong and she cannot express it | 4 | — | ⭐ asking for a vertex manufactures failure at her least confident moment; **words, never vertices** |
 | F9 | Transcription error by the operator | 3, 5 | **happened** — 2 of 7 hand-typed placements wrong | canon says she said something she did not |
 | F10 | Everything lands in the biggest container | 5 | **pond-area 48%** | the join exists and carries no information |
-| F11 | Her named place is empty | 5 | **fern-garden: 0 plants** | trust hit at the exact point of her contribution |
+| F11 | Her named place is empty | 5 | **fern-garden: 0 plants** | ⚠️ **REV 2 — downgraded.** Under completeness this is *visible* absence, and §2's "what it does not know" line defuses it. It is no longer the headline risk. |
 | F12 | The confirm never syncs | 4 | sync requires per-device config | the one event we need is invisible |
 | F13 | The confirm destroys canon | 4 | `sanitizeZone` fixed, undeployed | silent field loss |
 | F14 | We cannot tell it was her | 4, 8 | `whoAmI() === "device"` | ⛔ **the whole trial becomes unattributable** |
-| F15 | She never opens the map | 4, 6 | depth 2 and 3 = 0 | v1 measures nothing |
+| F15 | She never opens the map | 4, 6 | depth 2 and 3 = 0 | ⚠️ **REV 2 — materially reduced.** She now has her own reason to open it. Still the second-biggest risk, no longer the biggest. |
+| ⛔⛔ **F16** | ⭐ **SILENT UNDERCOUNT — the list is complete-looking and wrong** | 5, 6 | **12 plants needing September water have no place**; 3 of 4 hydrangea records unplaced while `hydrangea-panicle` IS listed | ⛔ **NEW IN REV 2, AND IT IS NOW THE WORST FAILURE IN THE DOCUMENT.** She finishes and believes she is done. |
 
-⭐ **F14 is the one that invalidates the others.** Every other failure still teaches something. F14
-means we cannot tell whether anything happened at all.
+### ⭐⭐ Why F16 outranks everything, including F14
+
+Every other failure is a failure to *get* something. **F16 is a failure that produces a confident wrong
+answer and then goes home.**
+
+- **It is invisible by construction.** An empty place (F11) is visibly empty — she would notice. A place
+  showing 6 waterings when there should be 9 shows nothing at all. **Silent undercount beats visible
+  absence at hiding itself.**
+- **The cost is not a wrong number on a screen.** It is a plant that does not get watered, and a person
+  who believes she did her job — which is the exact opposite of the confidence the product exists to
+  build.
+- ⭐ **The project already has the doctrine and this is its highest-stakes application yet:** *a
+  confidently-wrong record is worse than an honestly-unsure one.* Everywhere else that rule protects a
+  displayed value. Here it protects an **outcome on the ground.**
+- ⭐ **And the split family is worse than total absence.** If no hydrangea appeared, the gap would be
+  obvious. `hydrangea-panicle` appears and the other three do not — so the list *looks* like it covers
+  hydrangeas.
+
+⛔ **F16 is the reason §2's "show what it does not know" is a requirement and not a nicety.** It is the
+only countermeasure, and nothing else in the journey addresses it.
+
+⚠️ **F14 remains the worst MEASUREMENT failure** — without attribution we cannot tell whether anything
+happened. **F16 is the worst USER failure.** They are different classes and both need answers.
 
 ---
 
@@ -349,6 +549,27 @@ is a true statement about a species and an area, and it is most of what she will
 > ⭐ **What fires the W6 gate, stated so it is checkable:** the first time **a resident makes a claim
 > about ONE individual that the record cannot hold** — *"that one, by the steps"* / *"the pond one is
 > sick."* Not a hypothetical, not a count. **One utterance.**
+
+### ⭐⭐ REV 2 — completeness fires a SECOND gate, and it is nearer than the first
+
+*"I don't wanna miss any"* is **a question about a count**, and a species record cannot answer one.
+
+- *"Water the hydrangeas"* names a species. **It does not say how many, or how many places to stand.**
+- The record's own shape proves the problem: `hydrangea` is a hub with a five-member roster and
+  `"zones": []`. Placing the hub gives the roster **one** location. But `hydrangea-panicle`,
+  `hydrangea-dreamcloud` and `Pop Star` are separate identities in different ground — and
+  `'Annabelle'` and `bigleaf-blue` are **roster lines with no record of their own**, so they cannot be
+  placed at all, ever, at any resolution the current schema offers.
+- ⚠️ So even after all 13 unplaced plants are placed, **the hydrangea count is still unanswerable** —
+  and hydrangeas are one of the two families Paul named as her stated identity gap.
+
+> **The second W6 trigger: the first time the answer to *"have I got them all?"* depends on knowing
+> HOW MANY of one identity there are.** That is not a hypothetical — it is the v1's own job, so this
+> gate is likely to fire during the trial rather than after it.
+
+⛔ **Still do not solve W6 in v1.** But note the change: under REV 1, W6 was a listening exercise. Under
+completeness it is **a known limit of the product's headline claim**, and the honest move is to say so
+on the surface — the same "what it does not know" grammar, applied to counts instead of places.
 
 ⛔ **Do not solve W6 in v1.** But **do listen for it**, because Leg 3 is the most likely place in the
 whole project for that sentence to be said, and if nobody is listening it will be transcribed away
@@ -400,11 +621,13 @@ handover artifact. This is where the absent user is finally served.
 
 | deferred | why it is safe to defer | when it comes back |
 |---|---|---|
-| **Retrieval as a claim** | nobody absent is in the trial | v2, when a second reader exists |
+| ~~**Retrieval as a claim**~~ | ⛔ **REV 2 — NOT DEFERRED. It is the v1.** Just not *wayfinding* retrieval: **set retrieval** — *"for this job, which places and which plants."* | — |
+| **Wayfinding retrieval** (*"where is X"*) | she knows where things are; this half of REV 1 stands | v2, when an absent reader exists |
 | **W6 / plant instances** | species×area answers most sentences | §5's one utterance |
 | **Points** | v1's subject is areas and plants | v2, with household systems |
 | **Non-plant domains** | nine have no place field | v2 |
-| **The list door** | ⚠️ **the riskiest deferral** — depth 2 and 3 are zero, so a map-only v1 may be invisible to its only user | ⭐ **it may not be deferrable at all**; flagged for Paul, not decided here |
+| **The list door** | ⛔⛔ **REV 2 — NOT DEFERRABLE. It is the primary surface, not an alternate door.** A completeness answer *is* a list: *"these 4, in these 2 places."* The map organises it; the map is not it. This reverses REV 1's framing, where the list was a fallback for a reader who does not tap. | **v1** |
+| ⭐ **"What it does not know"** | ⛔ **not deferrable** — §2 and F16. The only countermeasure to a confidently-wrong worklist. | **v1** |
 | **A householder drawing tool** | Paul's ruling; market agrees | not scheduled |
 | **The portrait/export** | a renderer, not a schema question | v3 |
 | **Identity on an edit** | ⛔ **not safely deferrable** — see §8 | must be settled before the trial, not after |
@@ -429,12 +652,18 @@ paper-based mapping returns 2.5× the response of internet-based).
 Against the 0-for-35 record, **an instrument that can only produce a yes has measured nothing.** So
 the success criteria are asymmetric by design:
 
+> ⭐ **REV 2 changes the top of this table.** Under the retracted finding, the best available outcome
+> was a correction. Under completeness there is a better one: **she uses it to do a job and finishes
+> the job.**
+
 | signal | what it means | tag it would earn |
 |---|---|---|
-| ⭐ **She renames one place** | a correction on the durable layer she cannot be wrong about | `validated` — the strongest single outcome available |
+| ⭐⭐ **She asks for it again, unprompted, for a second job** | ⛔ **the strongest outcome available, and REV 1 could not even express it.** Pull, not push. It is the one signal no ask-shaped surface in this project has ever produced. | `validated` |
+| ⭐⭐ **She says "the laurel's not on here"** | the completeness instrument caught a gap **by being used**, and F16 is being defended in the field | `validated` — best-case for the whole v1 |
+| ⭐ **She renames one place** | a correction on the durable layer she cannot be wrong about | `validated` |
 | ⭐ **She names a place that is not on the map** | the draft's blanks work as a prompt | `validated` |
-| ⭐ **She says a plant is somewhere the record does not have it** | the join surface functions as an elicitation device | `validated` |
-| **She corrects an operator-supplied name** | operator names are received as proposals, not as facts | `validated`, and it settles Paul's seven |
+| ⭐ **She says a plant is somewhere the record does not have it** | the join functions as an elicitation device | `validated` |
+| **She corrects an operator-supplied name** | operator names are received as proposals, not facts | `validated`, and it settles Paul's seven |
 | **She confirms everything and changes nothing** | ⚠️ **ambiguous** — a good draft, or acquiescence (§9) | ⛔ **not evidence the map is right** |
 | **She does nothing** | ⛔ uninterpretable | none |
 
@@ -448,11 +677,24 @@ Pre-registering these is the point — otherwise a zero gets read whichever way 
    things in conversation. *(That contrast is the control. Without it, zero means nothing.)*
 2. **The elicitation premise is falsified** if the blank ground produces no new names at n=2. It
    already survived at n=1.
-3. **My own §2 claim — that this is capture and portrait, not retrieval — is falsified** if she opens
-   the map to answer a question she could have answered by walking outside.
+3. ~~**My own §2 claim — that this is capture and portrait, not retrieval — is falsified** if she opens
+   the map to answer a question she could have answered by walking outside.~~
+   ⛔ **RETRACTED — already falsified before the trial, by Paul (§R).** Kept struck rather than deleted
+   so the next reader does not re-derive it.
+   **Its replacement:** ⭐ **the completeness claim is falsified** if she is given an accurate,
+   complete-looking worklist for a job she is actually doing and **does not use it** — if she still
+   works from her head, or still phones Paul. *That* is the test, and it is the one the retracted
+   finding predicted she would fail.
 4. **The place-as-prompt claim is falsified** if `fern-garden` renders empty and she says nothing about
    it. That one object is a built-in test.
 5. **The join's value is falsified** if, after the fold, she cannot tell that anything changed.
+6. ⭐ **NEW — the "show what it does not know" requirement is falsified** if the 12-unplaced line is
+   present, she reads it, and **the count never moves.** A gap she is told about and does not close is
+   a gap she does not care about, and the line should then be a report for Paul rather than a line on
+   her surface.
+7. ⭐ **NEW — the tone constraint is falsified** if the worklist reads to her as something she is
+   *behind on*. One question settles it and it must be asked out loud: *"does this feel like a list of
+   what needs doing, or a list of what you asked for?"*
 
 ⚠️ **And one non-falsifier, named so it is not smuggled in:** *she tapped "Looks right" on all 23* is
 **not** evidence the boundaries are right. It is evidence the button works.
@@ -577,6 +819,28 @@ coordinator):
 
 ## Evidence log
 
+- ⛔ **2026-09-07 (REV 2): `validated` — paul-stated, and it FALSIFIES this file's REV 1 organising
+  finding.** *"Mom has a picture of each plant in her head and where it is, but she doesn't know
+  exactly which plant is which… she actually keeps asking very specifically for this zone layout. 'I'm
+  breaking out the fertilizer — what plants? I don't wanna miss any.'"* **She knows location; she does
+  not know identity, timing, or the set. The job is COMPLETENESS, not wayfinding.** §R.
+- ⛔ **2026-09-07 (REV 2): `contradicted`** — REV 1's *"the resident steward does not need retrieval"*
+  and the derived cross-project pattern *"the record's filler is not the record's reader."* **Both
+  withdrawn.** Kept on the record rather than deleted, so the path is not re-walked. Its **half that
+  stands**: she does know where things are.
+- ⚠️ **2026-09-07 (REV 2): method note** — the falsified claim was `inferred` from telemetry and never
+  checked against Paul, who speaks with her weekly. **An empty engagement record is not an absent
+  demand.** A missed application of the standing *"latch onto what she starts"* doctrine, not a new
+  rule.
+- ⭐ **2026-09-07 (REV 2): `validated` (record, HEAD, spot-checked)** — `white-pine`, `hydrangea` and
+  `holly` each carry `water.months: [5,6,7,8]` (month 8 = September) **and** `"zones": []`.
+  `hydrangea-panicle` **is** placed (`lower-40`) while the hub and two rebloomers are not — **the
+  family is split, which hides the gap better than total absence would.** ⚠️ The coordinator's count of
+  **12** unplaced-but-needing-water, and the per-place September figures, are **their computation; I
+  have no shell and could not run the full join.**
+- ⚠️ **2026-09-07 (REV 2): correction of my own correction** — REV 1 said 11 zones hold zero plants.
+  **It is 10.** My grep was truncated at 40 results and missed `lower-40`. 13 distinct zones hold
+  plants. The coordinator's original figure was right.
 - 2026-08-30: `validated` — aerial on a table, one open question: **16 names, 0 geometry, one evening**
   (Leg 3's only evidence). Strings partly `[vision-UNVERIFIED]`.
 - 2026-08-31: `validated` — paul-stated: *"It's a wall. More of a dividing line than a zone."* Two of
@@ -601,9 +865,9 @@ coordinator):
 - 2026-09-07: `validated` (code, HEAD) — `ZoneJourney` asks *"What would you point out to me here?"*
   This — not `ZonePanel` — is the surface with the **0 taps in 10 offers** record.
 - 2026-09-07: `validated` (record, HEAD) — **33 placements across 27 plants; 16 in `pond-area` (48%)**;
-  **13 of 40 plants have `zones: []`** including `hydrangea`; **11 of 23 zones hold zero plants**
-  including **`fern-garden`**; **both ferns in canon sit elsewhere**; **20 of 23 zones typed
-  `planted`**; **23 of 23 `status: draft`**.
+  **13 of 40 plants have `zones: []`** including `hydrangea`; **10 of 23 zones hold zero plants**
+  (corrected in REV 2 from 11) including **`fern-garden`**; **both ferns in canon sit elsewhere**;
+  **20 of 23 zones typed `planted`**; **23 of 23 `status: draft`**.
 - 2026-09-07: `inferred` (peer-reviewed, wrong population) — **82%** of AI-generated OSM buildings were
   modified by human mappers. Population caveat stated in §9.
 - 2026-09-07: `inferred` (peer-reviewed) — paper PPGIS ≈ **2.5×** internet PPGIS response; internet

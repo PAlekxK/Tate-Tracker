@@ -170,6 +170,7 @@ not in force (`BACKLOG.md` § 2026-09-06 · four rulings that existed in no file
 | **Z-6** | *"Having a step or two in the process where there's just kind of a formatting and beautification step… if we can help just follow that wall a little more smoothly based on the pixels."* | Edge refinement is a named step — **and is split from cosmetic smoothing.** §5b. |
 | **Z-7** | *"Do we just want to provide links to various helpful websites to start? I think we can scope that together."* + `[paul-ruled]` *"that's fine on J-e."* | Events/neighbourhood starts as **LINKS** — membership by rule, nothing filtering, **no AI-boundary ruling owed.** ⭐ Re-open trigger, written where the code will be: **the first time anything SELECTS or FILTERS what appears on a card.** |
 | **Z-8** | *"Definitely authorize online research for best practices."* + *"You can always use Claude and Chrome if anything is bot blocked."* | Standing for this epic's research strand. |
+| **Z-9** | ⭐⭐ *"Let's just make this sustainable, and understand that the way we're doing this in the long run is not necessarily gonna be the long term — this is just how we're developing the process. **It's manual right now, and that's why I'm kinda building the zones on Mom's behalf, but that's not the long term process we're building.**"* | **THE MANUAL OPERATOR STEP IS SCAFFOLDING WITH A KNOWN EXPIRY, not the target architecture.** See §5d — it changes what is worth building. |
 
 **Carried in from earlier and still binding:**
 
@@ -322,6 +323,38 @@ in the neighbourhood*, which on a 33°-sun January frame **is the shadow**. The 
 honest replacement is geometric, not photometric: sun altitude, capture date and a 1 m DEM are all already
 in the repo, so **shadows can be PREDICTED and masked deterministically** rather than detected.
 
+### ⭐⭐ 5d · WHAT IS DURABLE AND WHAT IS SCAFFOLDING `[paul-ruled 2026-09-07, Z-9]`
+
+> *"It's manual right now, and that's why I'm kinda building the zones on Mom's behalf, **but that's not
+> the long term process we're building.**"*
+
+**This is the sustainability answer, and it is a spending rule.** The 09-06 proposal reached the same place
+from the capability side (*Challenge 1: as practicality, "we draw, they confirm" dies at N=2 — both tracer
+tools carry the same hardcoded Fernwood bounds*). Paul has now stated it himself, from the process side.
+
+| | survives | why |
+|---|---|---|
+| ✅ **THE RECORD** — names, the place primitive, the plant↔place join, the schema | **yes** | ⭐ **Measured: the 16 names have survived every re-trace, both tracer rewrites, a fold to canon and five rulings. Not one has changed.** The vertices have been redrawn repeatedly; the names never have |
+| ⚠️ **THE TRACER** — `area-trace.html`, `zone-capture.html`, the manual draw | **no — scaffolding** | it exists to develop the process and to produce the answer key. It has a known expiry |
+| ⚠️ **"Paul draws every household's map"** | **no** | it is a services business, not a product — the one shape this quarter's work cannot survive |
+
+**Three consequences, and the third is the one that gets violated quietly:**
+
+1. **Invest in the record; treat the tools as disposable.** A beautiful tracer is a sunk cost the moment
+   the first draft is derived. Cheap and good-enough is the correct standard for the operator layer.
+2. **Keep the operator tools cheap but keep their OUTPUT durable.** The 23 zones and 16 names are the answer
+   key (R-Z4) — the artifact outlives the instrument that made it.
+3. ⛔ **DO NOT LET THE MANUAL STEP SHAPE THE SCHEMA.** The record must be designed for the automated future,
+   not for Paul-with-a-mouse. A field that exists because it was convenient to trace by hand is debt the day
+   drafting is automated. **This is the failure mode the "sustainable" ask is actually guarding against**, and
+   it is invisible while the manual step is the only step.
+
+⭐ **And it re-reads Z-4 correctly.** *"The v1 journey should include drawing, even if it's me doing the
+drawing just to test it out"* is not a commitment to the manual path — **it is a test instrument.** Paul
+draws in v1 in order to learn the process, and the learning is the deliverable, not the drawing.
+
+---
+
 ---
 
 ## 6 · THE V1 — zones × plants `[Z-3, Z-4]`
@@ -406,8 +439,8 @@ Named, so the deferral is a decision rather than an omission:
 | **R-Z2** | **Parcel boundary — buy Regrid?** | ✅ **RULED: NO, use what is free** `[paul-ruled 2026-09-07]` — *"Between Regrid and, like, Pickens County parcels, this is where we're saying the vision versus the short term reality. So yeah, let's just use what's free today."* **Pickens County GIS for Fernwood.** Regrid is not per-property: monthly base + per-record overage, pricing behind an account. It becomes a real decision **the day household N arrives**, and it is off the v1's critical path. |
 | **R-Z3** | **The cross-project pattern** — *"the record's filler is not the record's reader."* | ⛔ **WITHDRAWN, and the underlying finding is RETRACTED — see §2.** Paul falsified its premise at Fernwood. The seat is holding; nothing was written to the library. |
 | **R-Z4** | **Does the answer-key measurement get scheduled?** | ✅ **RULED: YES** `[paul-ruled 2026-09-07]` — *"Down the road, we'll compare what we derive to the twenty three zones."* It is a **named step** that fires once step 1 of the pipeline exists, not an opportunistic idea. ⚠️ It is a **wasting asset** (§7). |
-| **R-Z5** | ⛔ **NEW AND BLOCKING — where does the v1 ship, given the condo is `garden: off`?** Rulings "v1 = zones × plants" and "the condo is the first instance" **do not compose**: `.plans/2026-09-03-c7-condo-paper-model-PLAN.md` `[paul-approved 2026-09-03]` sets `garden: off` with a falsifier already enforcing zero plant candidates. **The v1 has no surface at the first instance that ships.** | **Recommend: ship the v1 to Mom's blank production Fernwood and keep the condo as the ONBOARDING trial.** That contradicts no stamped plan. ⛔ Paul's, not an agent's — it re-points a ruling he made. |
-| **R-Z6** | 🔴 **NEW AND BLOCKING — the zone leak.** `handleZonesGet`'s KV-miss branch calls `ghGetFile(env, "zones.json")` with **no estate guard**, and a fresh estate is by definition a KV miss. The only thing preventing it is `viewer.html:14044` early-returning on `ABSENT_DOMAINS.includes("zones")` — **and removing `zones` from that list is exactly what "build the zone feature" means.** | ⛔ **Close before any zone work reaches an origin.** It breaks the blank-slate ruling **unrecoverably** — she cannot un-see the answer key. One request against `home` or `lab` confirms it; the path was read, not exercised. |
+| **R-Z5** | 🅿️ **PARKED, NOT OPEN** `[paul-ruled 2026-09-07]` — *"We'll have to use Fernwood to prove it, but we have a lot of work defining and playing with this in dev before we even really try to promote it to QA and feel good about moving it to production. So where does v1 actually ship — we can hold off on that for a while."* **Do not re-raise it as a blocker.** The question was: where does the v1 ship, given the condo is `garden: off`? Rulings "v1 = zones × plants" and "the condo is the first instance" **do not compose**: `.plans/2026-09-03-c7-condo-paper-model-PLAN.md` `[paul-approved 2026-09-03]` sets `garden: off` with a falsifier already enforcing zero plant candidates. **The v1 has no surface at the first instance that ships.** | **Recommend: ship the v1 to Mom's blank production Fernwood and keep the condo as the ONBOARDING trial.** That contradicts no stamped plan. ⛔ Paul's, not an agent's — it re-points a ruling he made. |
+| **R-Z6** | ✅ **RULED — B + C + D** `[paul-ruled 2026-09-07: "I go with your recommendation"]`. ⚠️ **AND IT IS NOT LEAKING TODAY — the seat's 🔴 was latent, not live.** `handleZonesGet`'s fallback is guarded by `if (env.GITHUB_TOKEN && env.GITHUB_REPO)`, `GITHUB_TOKEN` is a **secret**, and only the top-level production env (`est-3c9f1a`, the frozen Fernwood) holds one. ⛔ **But the containment is accidental and the guard rail is MISLABELLED:** every `wrangler.toml` comment gives the reason as *promote-species*, never zones. **The ruled fix: (B) a declared per-env switch, default OFF — never a hardcoded `est-3c9f1a`, which is the literal-in-engine-code mistake this repo has made three times (`validVertex`'s 6 km box, both tracers); (C) name zones in the token comment in all five env blocks, whenever someone next touches the file; (D) a check asserting every non-frozen env returns an empty zone list.** ⛔ **NOT WRITTEN IN THIS SESSION** — build-stage work; routed to the lane that owns the Worker. The original finding was: `handleZonesGet`'s KV-miss branch calls `ghGetFile(env, "zones.json")` with **no estate guard**, and a fresh estate is by definition a KV miss. The only thing preventing it is `viewer.html:14044` early-returning on `ABSENT_DOMAINS.includes("zones")` — **and removing `zones` from that list is exactly what "build the zone feature" means.** | ⛔ **Close before any zone work reaches an origin.** It breaks the blank-slate ruling **unrecoverably** — she cannot un-see the answer key. One request against `home` or `lab` confirms it; the path was read, not exercised. |
 
 ---
 
