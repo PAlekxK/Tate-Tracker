@@ -1,4 +1,35 @@
 {
   "_comment": "Per-record dispositions for feedback arrivals, keyed (env|estate|channel|record id). ⛔ THIS FILE IS TRACKED IN A PUBLIC REPO. No note text and no personId ever land here — the words live in .private/ and person ids live in the private sibling's grants.json. A `why` is written by a human and goes public with it: say where the record went, never what anybody said. A batch may never be cleared by one of its members, so there is no bulk write and no watermark.",
-  "dispositions": {}
+  "dispositions": {
+    "home|est-e6696a|feedback|onboard-address-sfkst2": {
+      "channel": "feedback",
+      "disposedAt": "2026-09-08T00:04:49Z",
+      "disposition": "not-a-finding",
+      "env": "home",
+      "estate": "est-e6696a",
+      "id": "onboard-address-sfkst2",
+      "ts": "2026-09-07T14:22:47.252Z",
+      "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
+    },
+    "home|est-e6696a|feedback|onboard-interests-kgw378": {
+      "channel": "feedback",
+      "disposedAt": "2026-09-08T00:04:49Z",
+      "disposition": "not-a-finding",
+      "env": "home",
+      "estate": "est-e6696a",
+      "id": "onboard-interests-kgw378",
+      "ts": "2026-09-07T14:23:06.046Z",
+      "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
+    },
+    "home|est-e6696a|feedback|onboard-name-10ws5c9": {
+      "channel": "feedback",
+      "disposedAt": "2026-09-08T00:04:49Z",
+      "disposition": "not-a-finding",
+      "env": "home",
+      "estate": "est-e6696a",
+      "id": "onboard-name-10ws5c9",
+      "ts": "2026-09-07T14:22:35.184Z",
+      "why": "Retained data log of a SUCCESSFUL onboarding, not debris. The 10:22 ET (14:22Z) run created est-e6696a:account:pkirsch + its grant under personId p-lnxakyzniuwk; Paul asked at ~11:05 ET for those two keys to be deleted so his beat-3 walk would start blank, explicitly keeping the feedback ('we keep the data log for analysis'). The orphaned personId is that deletion working as asked. Cited: cycle/release/CYCLE-LOG.md:797. Superseded by the 15:17Z run under p-yjnw9lt41nww."
+    }
+  }
 }

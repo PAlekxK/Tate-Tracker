@@ -1188,3 +1188,32 @@ that just retired `second-viewport`.
 production feedback rows, disposed `not-a-finding` citing the 11:05 ET deletion. That is the §3.1
 end-to-end proof — F1 → F2 → F3 → F5 → F6 — on a record whose right answer is already known, which is
 the cheapest possible first trip through a path that has never carried anything.
+
+### Beat 1 · THE END-TO-END PROOF RAN — and it proved FOUR of the six beats, not six
+
+⭐ **F3 fired for the first time in the loop's existence.** Three production records disposed
+`not-a-finding` on Paul's authorisation (*"if your recommendation for F3 is to dispose of it, that's
+fine"*), each citing `CYCLE-LOG.md:797` — the 11:05 ET deletion that explains them.
+
+| beat | | evidence |
+|---|---|---|
+| **F1** sweep | ✅ | 6 environments, 0 unreadable |
+| **F2** label | 🟡 **partial** — the three carried `⚠️ unlabelled: surface` and were disposed anyway | disposition does not require a full label, which is itself worth knowing |
+| **F3** dispose | ✅ **FIRST EVER** | 3 records, one reason each; `--dispose-all` does not exist and no pattern match is possible |
+| **F4** researcher reads | ⛔ **NOT EXERCISED** | by design — F4 reads only `act`/`fold`, and `not-a-finding` is excluded |
+| **F5** carry to a row | ⛔ **NOT EXERCISED** | same reason: nothing to carry |
+| **F6** count falls | ✅ **exactly** | 480 → **477**, and home still lists **10 records** with 7 awaiting |
+
+⛔ **SO THE CHAIN IS NOT PROVEN END TO END, AND CALLING IT PROVEN WOULD BE THE ERROR THIS LOOP KEEPS
+CATCHING.** A `not-a-finding` legitimately stops at F3. **F4 and F5 have still never carried anything**,
+which was the original worry, and the next proof needs a record disposed **`act` or `fold`** —
+necessarily one of Paul's real findings, not a housekeeping row.
+
+⭐ **What F6 demonstrated, and it answers Paul's own concern directly.** He asked that a disposed
+record be *"kept somewhere just in case, isolated with an index that explains it's out of date."*
+`measured`: after disposal the store still reports **10 records** — nothing was deleted or moved.
+`dispose()` writes only a ledger entry (`env · estate · channel · id · ts · disposition · why ·
+disposedAt`) and the tool's own line says **`feedback-dispositions.json` is TRACKED — commit it; the
+words stay in `.private/`.** ⭐ **The index he asked for already exists, is version-controlled, and
+deliberately holds no `personId`** — the repo is public, so the ledger records *our conduct*, never
+the person.
