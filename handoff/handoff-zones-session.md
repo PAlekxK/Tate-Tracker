@@ -155,6 +155,33 @@ or a suggestive smear?**
 3. **TIER 2 · 7 / 9** — the zone count in circulation is **two numbers**: 23 in canon, 18 served.
    `.plans/2026-09-06-maps-and-zones-STATE.md:170` already says *"12 of 18"*. **Say which, each time.**
 
+### 🔴 A CONCURRENCY FAILURE HAPPENED HERE, LIVE — and it refines the guard `[measured 2026-09-08]`
+
+⛔ **`git add -- <explicit path>` DOES NOT PROTECT YOU. The index is SHARED.**
+
+This window staged 7 files with explicit pathspecs, then ran `git commit`. In the gap between the two,
+another window committed — and **swept this window's staged files into ITS commit**, `71c31a6`
+(*"all six recommendations approved…"*), together with its own `BACKLOG.md` edit. This window's
+`git commit` then reported **"no changes added to commit."**
+
+⭐ **Nothing was lost** — every file and both new sections verified present at HEAD. **The commit
+BOUNDARY was lost:** this window's work carries another window's message, and a `BACKLOG.md` edit it
+did not make sits in the same commit.
+
+⛔ **NOT REPAIRED, deliberately.** Fixing it means rewriting `71c31a6` — another session's sha, which
+`BACKLOG.md`'s own lap-4 hazard row names as the thing that makes a second session *"see a divergence
+it did not cause."* **The content is correct; the archaeology is wrong. That is the cheaper defect.**
+
+> ### ⭐ THE REFINEMENT, and it is one line
+> The header's rule — *"Commit small, stage explicit paths"* — reads as though explicit staging is the
+> protection. **It is not.** `git add` writes to `.git/index`, which every window in this tree shares,
+> so a concurrent `commit` takes whatever is in it. **The protection is `git commit -- <paths>`**,
+> which commits those paths directly and does not depend on what is sitting in the shared index.
+
+⚠️ This is the **third** distinct hole now measured in this tree's concurrency story — after the
+`record-commit` slot overwrite and the `before-push` baseline (header, § L2). All three share a shape:
+**a control that reads green while another window moves the state underneath it.**
+
 ### ⚠️ Repo conditions observed
 HEAD moved **~15 commits** under other windows during this session (`9a762b0` → `1092809` → `c9aa4e1`
 → … → `ab47279`). Every commit here used `git commit -- <explicit path>`. **The concurrency hazard in
