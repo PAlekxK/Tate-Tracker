@@ -94,7 +94,8 @@ def judge(run_dir, sha):
     tpath = os.path.join(run_dir, "transcript.json")
     if not os.path.exists(tpath):
         return {"at-sha": (False, "no transcript"), "watched": (None, "no transcript"),
-                "countable": (None, "no transcript"), "no-failed-actions": (None, "no transcript")}
+                "countable": (None, "no transcript"), "no-failed-actions": (None, "no transcript"),
+                "walked-in-qa": (None, "no transcript")}
     try:
         t = json.load(open(tpath, encoding="utf-8"))
     except Exception as e:
@@ -109,6 +110,15 @@ def judge(run_dir, sha):
         out["at-sha"] = (at, "%s" % (before[:7] or "unknown"))
 
     out["watched"] = (bool(t.get("watched")), "watched=%s" % t.get("watched"))
+
+    # ⛔ FAIL CLOSED ON A TRANSCRIPT THAT DOES NOT SAY. An older run predating the field cannot prove
+    # where it happened, and "cannot prove" is not "passed" — that equivalence is the defect this
+    # whole lap has been removing from other instruments.
+    _origin = t.get("origin")
+    if _origin is None:
+        out["walked-in-qa"] = (False, "transcript records no origin — cannot prove where this ran")
+    else:
+        out["walked-in-qa"] = (_origin == "qa", "origin=%s" % _origin)
 
     rpath = os.path.join(run_dir, "REPORT.md")
     if not os.path.exists(rpath):
@@ -198,6 +208,13 @@ CLAUSES = [
     ("countable", "the seat READ its own walk  (\"documented their experiences\")"),
     ("no-failed-actions", "zero failed actions  (\"until it no longer fails\")"),
     ("not-rate-limited", "OUR OWN origin did not 429  (a third party's is a caveat, not a refusal)"),
+    # ⛔⛔ WHERE THE WALK HAPPENED. Owed since 2026-09-07 as D3 and grep-zero until now: gate ① is the
+    # QA gate, and it could be passed by four walks taken at `lab`. Nothing in the gate read the
+    # origin the walker actually visited — `at-sha` proves WHICH BUILD, `watched` proves HOW, and
+    # nothing proved WHERE. `measured` 2026-09-08: every transcript already carries `origin` and
+    # `originUrl`; the gate simply never looked. A clause that exists in the record and in no check
+    # is the shape this repo names "a capability the loop cannot reach".
+    ("walked-in-qa", "the walk happened at the QA origin  (gate ① is the QA gate)"),
 ]
 
 
@@ -280,7 +297,10 @@ def selftest():
     # declared `rateLimited`) since 2026-09-07; a base without them reads UNCHECKABLE, which is
     # correct behaviour and made M0 fail. A fixture that drifts from the writer is how a green clause
     # ends up unable to fire — the defect this whole clause exists because of.
-    base = {"buildBefore": "a" * 40, "buildAfter": "a" * 40, "watched": True,
+    # ⭐ `origin` joined this fixture with the walked-in-qa clause (2026-09-08). M0 went red the
+    # moment the clause landed, because a "fully clean run" that cannot say WHERE it happened is not
+    # clean any more — which is the clause proving itself against the selftest's own baseline.
+    base = {"buildBefore": "a" * 40, "buildAfter": "a" * 40, "watched": True, "origin": "qa",
             "stops": [{"stop": "01", "status": "walked"}], "failedActions": [],
             "rateLimited": False, "httpFailures": []}
 
@@ -310,6 +330,24 @@ def selftest():
         v = mk(os.path.join(tmp, "othersha"), dict(base, buildBefore="b" * 40, buildAfter="b" * 40))
         print("  %s M4 a run at ANOTHER build → 'at-sha' goes red (evidence expires)" % ("✅" if v["at-sha"][0] is False else "🔴"))
         ok &= v["at-sha"][0] is False
+
+        # ⛔ M4b/M4c/M4d · WHERE THE WALK HAPPENED. Gate ① is the QA gate and until 2026-09-08 it
+        # could be passed by four walks taken at `lab` — `at-sha` proves which build, `watched` proves
+        # how, and nothing proved where. Every transcript already carried `origin`; nothing read it.
+        # ⭐ M4d is the one that matters: a transcript that does not SAY must fail, because "cannot
+        # prove" is not "passed" — the equivalence this lap has been removing everywhere else.
+        v = mk(os.path.join(tmp, "atlab"), dict(base, origin="lab"))
+        bit = v["walked-in-qa"][0] is False
+        print("  %s M4b a walk at LAB fails 'walked-in-qa' (gate ① is the QA gate)" % ("✅" if bit else "🔴")); ok &= bit
+
+        v = mk(os.path.join(tmp, "atqa"), dict(base, origin="qa"))
+        bit = v["walked-in-qa"][0] is True
+        print("  %s M4c a walk at QA passes it" % ("✅" if bit else "🔴")); ok &= bit
+
+        _noorigin = dict(base); _noorigin.pop("origin", None)
+        v = mk(os.path.join(tmp, "noorigin"), _noorigin)
+        bit = v["walked-in-qa"][0] is False
+        print("  %s M4d a transcript that does not SAY fails it — cannot-prove is not passed" % ("✅" if bit else "🔴")); ok &= bit
 
         # ⛔ M7a/M7b · THE RATE-LIMIT CLAUSE, in the shape the writer really emits: run-level
         # `rateLimited`, per-stop `walked`. The old walk-integrity fixture hand-wrote a per-stop
