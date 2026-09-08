@@ -1037,6 +1037,33 @@
           store(K_GRANT, d.token);
           store(K_OWNER, d.token);
           if (u) store(K_USER, u);
+          // ⛔⛔ AND THE PLACE FACTS THE SERVER JUST HANDED US. Measured on Paul, 2026-09-08: he
+          // signed in cold and landed in a place called "My Home" while `whoami` in the same browser
+          // returned "Grant Park Condo", his accent, his address, his coordinates and four ranked
+          // items. The record was perfect and the device knew nothing, because sign-in stored the
+          // TOKEN and threw the rest of the response away.
+          // ⭐ The Worker had already been fixed for exactly this — its own comment reads "the place's
+          // name and the accent used to live only in localStorage, so clearing a browser reset her to
+          // 'My Home' in Stone… they are stored on the account and returned on every session." The
+          // server returned them; the client never stored them. Half a fix, on the half nobody walked.
+          // ⚠️ The app paints its masthead from localStorage BEFORE any network call, which is the ux
+          // rule that the glance renders with zero authorization round-trips. So this cache is not an
+          // optimisation to be removed later — it is what that rule requires, and the record
+          // reconciles it afterwards.
+          try {
+            if (d.name) store(K_NAME, d.name);
+            if (d.accent) store(K_COLOR, d.accent);
+            if (d.address) store(K_ADDR, d.address);
+            if (d.addressParts) store(K_PARTS, JSON.stringify(d.addressParts));
+            if (d.ranked) store(K_RANK, JSON.stringify(d.ranked));
+            if (d.contactPref) store(K_PREF, d.contactPref);
+            if (d.coordinates) store(K_COORDS, JSON.stringify(d.coordinates));
+            // ⚠️ the literal, because K_JOURNAL is declared in estate/index.html and NOT here —
+            // as written it threw a ReferenceError straight into the catch below, which would
+            // have swallowed it and skipped this one field silently. Caught by reading the
+            // declarations rather than by trusting that a syntax check means it runs.
+            if (d.journalName) store("fw-journal-name", d.journalName);
+          } catch (e) { /* a cache that cannot be written must not stop a sign-in */ }
           // ⛔ TO THEIR PLACE — WHICH IS NOT `/estate/` (fixed 2026-09-08, Paul walked it).
           // This read `location.href = "/estate/"` under the comment "back to their place, not back
           // to setup". The intent was right and the destination was the EARLY DAYS receipt screen,

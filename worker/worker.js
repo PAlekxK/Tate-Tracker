@@ -675,6 +675,20 @@ async function handleSession(request, env, scope) {
                 email: acct.email || null, phone: acct.phone || null,
                 contactPref: acct.contactPref || "email",
                 journalName: acct.journalName || null,
+                // ⭐ THE REST OF THE PLACE FACTS, added 2026-09-08 after Paul signed in cold and
+                // landed in a place called "My Home". `name` and `accent` came back and nothing
+                // else did, so the device could paint the masthead and had no address, no ranking
+                // and no coordinates — which meant "What you told me" was EMPTY for someone who had
+                // told us everything, on the one journey where the device knows nothing and the
+                // record knows all of it.
+                // ⛔ THIS IS THE SAME FIELD SET grant-mint.py CALLS `PLACE_FACTS` AND `hydrate`
+                // COPIES. Sign-in is the code path that is supposed to hydrate a credential; it was
+                // returning a subset, so the one route a person can reach did less than the
+                // operator command. Keep the two lists in step.
+                address: acct.address || null,
+                addressParts: acct.addressParts || null,
+                ranked: acct.ranked || null,
+                coordinates: acct.coordinates || null,
                 // the response reports what the GRANT actually says. It claimed administrator
                 // unconditionally, so a member signed in and was told she was an administrator —
                 // the Worker enforced correctly while the client was told something else.
