@@ -1038,6 +1038,25 @@ append-only list of closed laps with `lap` incrementing on `--cleared`, or `outc
 Opened at `e6c6090`, main, clean. ⛔ **This lap opens on a BRIEFING, not on a re-derivation** —
 `.plans/2026-09-07-lap3-BRIEFING.md` is the entry document.
 
+### ⛔ READ THIS BEFORE CITING A BEAT NUMBER IN LAP 3 — there are TWO numberings
+
+`[process-audit D1, corrected 2026-09-07]`
+
+| | |
+|---|---|
+| ✅ **AUTHORITATIVE** | `cycle/release/CYCLE-MAP.md` § The beats — **beat 1 = "a BUILD exists"**, and beats 0 and 6–11 are the estate-manager beats Paul folded in with A-1 |
+| ⛔ **SUPERSEDED** | `.plans/2026-09-07-lap3-PROCEDURE-PROPOSAL.md` §4, where **beat 1 = "CONSOLIDATE"**. That document was written BEFORE A-1 was ruled, so its numbering never matched the map it proposed changes to |
+
+⛔ **The collision was live in this file and in commit `9880e58`**, which used the proposal's numbering
+for consolidation work. ⭐ **And `9880e58` is the commit that WROTE THE RULE against this** — *"a walk
+is filed under the sha it walked; a sha is unambiguous across every sequence in this repo, an ordinal
+is not"* — after the same collision had hidden both of Paul's walks in `GATE2-paul-findings.md`. The
+rule was written and not applied one file over, the same night. **That is the shape the process audit
+found eight times: a claim in two places, and the change reaching one.**
+
+⭐ **THE STANDING RULE, generalised from the GATE2 fix: name the WORK, not the ordinal.** Where a beat
+number is genuinely needed, write it as *map beat N* so the register it belongs to travels with it.
+
 ### Beat 0 · opened — what Paul ruled, and what the sweeps returned
 
 **Nine rulings taken this session** (`paul-ruled 2026-09-07`), each now applied:
@@ -1184,12 +1203,15 @@ that just retired `second-viewport`.
 | 5 · run the three sweeps | ✅ health 1 amber (CI-side) · accounts 0 unreadable, Mom's invite still unspent · feedback 480 awaiting, 0 unreadable |
 | 6 · open lap 3 | ✅ this heading |
 
-⭐ **Beat 1 (consolidate) is next**, and its first record is already chosen: the three orphaned
+⭐ **CONSOLIDATE is next** (map beat 7 · *read*), and its first record is already chosen: the three orphaned
 production feedback rows, disposed `not-a-finding` citing the 11:05 ET deletion. That is the §3.1
 end-to-end proof — F1 → F2 → F3 → F5 → F6 — on a record whose right answer is already known, which is
 the cheapest possible first trip through a path that has never carried anything.
 
-### Beat 1 · THE END-TO-END PROOF RAN — and it proved FOUR of the six beats, not six
+### CONSOLIDATE · THE END-TO-END PROOF RAN — and it proved FOUR of the six beats, not six
+
+⚠️ **This section was headed "Beat 1" until 2026-09-07 and that was a COLLISION, now corrected**
+`[process-audit D1]`. See the note at the top of this lap.
 
 ⭐ **F3 fired for the first time in the loop's existence.** Three production records disposed
 `not-a-finding` on Paul's authorisation (*"if your recommendation for F3 is to dispose of it, that's

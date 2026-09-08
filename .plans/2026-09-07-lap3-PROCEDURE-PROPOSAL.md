@@ -20,13 +20,36 @@
 - ready: agent-proposed 2026-09-07 — **Paul rules**
 - stage: draft
 - wip-exception: none needed — `draft` is not in `check-backlog-ready.IN_FLIGHT`, so this document opens no WIP. Declared so the in-flight count stays honest.
-- stage-note: 2026-09-07 — ⚠️ **two expected flags, neither a defect to repair.** (1) *orphan* — no `BACKLOG.md` row points here, same as every process document in `.plans/`; its siblings escape only because `-PROCESS` and `-AUDIT` are in `DOC_SUFFIXES` and `-PROPOSAL` is not. (2) *"stage `draft` with no `ready: [paul-approved …]` stamp"* — this **contradicts the checker's own comment** at `check-backlog-ready.py:50`: *"`draft` sits BEFORE `ready`, so it is not 'past ready' and needs no approval stamp."* The code flags every stage except `ready`; the comment says `draft` is exempt. **Reported, not resolved** — which one is right is a one-line call for whoever owns that tool, and it is not mine to make.
+- stage-note: 2026-09-07 — ⚠️ **two expected flags, neither a defect to repair.** (1) *orphan* — no `BACKLOG.md` row points here, same as every process document in `.plans/`; its siblings escape only because `-PROCESS` and `-AUDIT` are in `DOC_SUFFIXES` and `-PROPOSAL` is not. (2) *"stage `draft` with no `ready: [paul-approved …]` stamp"* — this **contradicts the checker's own comment** at `check-backlog-ready.py:50`: *"`draft` sits BEFORE `ready`, so it is not 'past ready' and needs no approval stamp."* The code flags every stage except `ready`; the comment says `draft` is exempt. ~~**Reported, not resolved**~~ → ✅ **RESOLVED 2026-09-07** `[paul-ruled: "number four seems like it's worth fixing"]`: the COMMENT was right and the code was wrong. `check-backlog-ready.py` now exempts `draft` as well as `ready`. ⚠️ The `-PROPOSAL`-not-in-`DOC_SUFFIXES` half of this note still stands and is still deliberately unresolved — whether a proposal is a document or an item changes what the gate means.
 - gate: ⛔ **THIS IS A PROPOSAL AND NOTHING IN IT STARTS.** No step below runs until §7 is ruled.
   ⛔ **Nothing here is ranked.** Every ordering is dependency and sequence. Where the lap needs a
   value call — *which concepts enter which stage, what we take on* — this document **lays out the
   board and stops**, which is option (b) of the F3 blocker.
 - stage-note: 2026-09-07 evening — written at `92be1bf`. Every tool named here was executed tonight;
   every count carries its predicate. Grades: `measured` · `inferred` · `proposed`.
+
+---
+
+## ⛔ STATUS, 2026-09-07 — THIS DOCUMENT'S GATE LINE IS NO LONGER TRUE, AND ITS BEAT NUMBERS ARE SUPERSEDED
+
+`[process-audit D1 + the status pass it recommended]`
+
+Its `gate:` above reads *"NOTHING IN IT STARTS. No step below runs until §7 is ruled."* **§7 WAS
+RULED on 2026-09-07 and beats 0 and 1 ran against it**, so that line is now false where it sits.
+
+**Disposition of each part, so nothing is left ambiguous:**
+
+| part | state |
+|---|---|
+| **§7 A-1, A-2, A-3, A-5, A-6** | ✅ **RULED** by Paul 2026-09-07 and applied — see `cycle/release/CYCLE-LOG.md` § Lap 3 |
+| **§7 A-4** (does the FOCUS FREEZE bind Mom on `est-e6696a`?) | ⛔ **MOOT** — it was already answered by J-a the same evening. The question was stale, not open |
+| **§4's BEAT NUMBERING** | ⛔ **SUPERSEDED by `CYCLE-MAP.md`.** This file's *"BEAT 1 · CONSOLIDATE"* predates A-1; in the map beat 1 is **"a BUILD exists"** and the estate-manager beats are 0 and 6–11. ⚠️ **Do not cite a beat number from this document.** |
+| **§2.1's warning** that `design` and `journey` are not strictly sequential | ⬜ **never ruled** — stated, unsolved, and still true: the checker compares by list index |
+| **§2.2's WIP numbers** | 🟡 ruled as a **first cut** (A-3), with their own falsifier to be read at close |
+
+⛔ **`stage: draft` is CORRECT and stays** — `draft` opens no WIP and needs no approval stamp. **No
+`superseded` stage is being minted for this**; that is precisely the ceremony the ladder exists to
+avoid `[[feedback_reuse_vocabulary_before_adding_state]]`.
 
 ---
 

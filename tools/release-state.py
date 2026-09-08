@@ -13,7 +13,7 @@ tool that computes it is the CYCLE-SPINE's own recorded failure mode. S2 is `bea
 reads "paul", a human gate is open and no session may pretend to pass it. S4b is `cleared_sha`,
 written only by `--cleared <sha>` on Paul's word, never derived.
 """
-import argparse, datetime as dt, importlib.util, json, os, subprocess, sys
+import argparse, copy, datetime as dt, importlib.util, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, "cycle", "release", "cycle-state.json")
@@ -120,7 +120,13 @@ def derive(cleared=None, prior=None, sha=None):
         # ⛔ Non-empty means a hand-typed heading did not parse and A LAP IS MISSING FROM THE COUNT.
         # Empty is not proof of completeness — only that nothing heading-shaped was rejected.
         "lap_heading_anomalies": [{"line": n, "text": t} for n, t in anomalies],
-        "pre_registered": prior.get("pre_registered") or [
+        # ⛔ DEEP-COPIED, NOT ALIASED. `prior.get("pre_registered")` hands back the SAME LIST OBJECT
+        # the prior state holds, so anything that appends to the derived state also appends to
+        # `prior` — and the `same` guard below then compares a list against itself, finds no
+        # difference, and SKIPS THE WRITE. Measured 2026-09-07 the moment `--pre-register` was added:
+        # it reported "✚ pre-registered: P1…P5" and wrote nothing, which is the worst shape a bug can
+        # take — a success line over a no-op. Any future writer of this field would have hit it too.
+        "pre_registered": copy.deepcopy(prior.get("pre_registered")) or [
             # ⛔ `disposition` IS THE SPINE'S ENUM — `open | answered | carried | dropped`
             # (CYCLE-SPINE.md:210), and `answered` requires non-empty `evidence`. Lap 3 wrote
             # "closed" and "retired" here, both off the enum — the same class as the
@@ -137,6 +143,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--cleared", help="Paul cleared this sha (his word, typed by a session on his say-so)")
+    # ⭐ D3 `[process-audit, 2026-09-07]`: this tool CARRIED `pre_registered[]` forward and could never
+    # ADD to it, so a lap's own pre-registrations lived in prose in the retro and nothing existed to
+    # discharge them against at close. Beat 0's exit requires DISPOSING the prior lap's — it never
+    # required WRITING this lap's, and the gap is exactly the "amend before reset" half of
+    # `[[feedback_retro_improvement_closes_a_cycle]]`, which is two-sided by ruling.
+    ap.add_argument("--pre-register", metavar="FILE",
+                    help="a JSON list of {id, question, ...} to ADD to pre_registered[]. "
+                         "⛔ Refuses to overwrite an id that already exists — a disposition is "
+                         "evidence and must never be silently replaced by a re-registration.")
     ap.add_argument("--sha", help="derive against this build instead of HEAD (the deployed, walked candidate when HEAD moved by a non-app commit)")
     a = ap.parse_args()
     prior = None
@@ -163,6 +178,33 @@ def main():
         except Exception as e:
             note = "  (could not read QA's served sha: %s — deriving against HEAD)" % (str(e)[:60])
     st = derive(cleared=a.cleared, prior=prior, sha=sha)
+    if a.pre_register:
+        try:
+            incoming = json.load(open(os.path.expanduser(a.pre_register), encoding="utf-8"))
+        except (OSError, ValueError) as exc:
+            print("  ⛔ --pre-register: cannot read %s (%s)" % (a.pre_register, type(exc).__name__))
+            return 1
+        if not isinstance(incoming, list):
+            print("  ⛔ --pre-register: the file must hold a JSON LIST of {id, question, ...}")
+            return 1
+        have = {q.get("id") for q in st["pre_registered"]}
+        added, refused = [], []
+        for q in incoming:
+            qid = (q or {}).get("id")
+            if not qid or not (q.get("question") or "").strip():
+                refused.append("%r — every pre-registration needs an id AND a question" % qid)
+                continue
+            if qid in have:
+                # ⛔ NEVER OVERWRITE. An existing entry may already carry a disposition and its
+                # evidence; re-registering over it would erase the discharge and read as fresh.
+                refused.append("%s — already present; refusing to overwrite (it may hold a disposition)" % qid)
+                continue
+            st["pre_registered"].append(dict(q, disposition=q.get("disposition") or "open",
+                                             evidence=q.get("evidence")))
+            have.add(qid); added.append(qid)
+        for r in refused:
+            print("  ⛔ %s" % r)
+        print("  ✚ pre-registered: %s" % (", ".join(added) if added else "none"))
     print("release loop — %s · beat %d/%d (%s) · owner: %s · candidate %s · seats pass: %s"
           % (st["state"], st["beat"]["n"], st["beat"]["of"], st["beat"]["name"], st["beat"]["owner"],
              st["candidate_sha"], st["gate_1"]["seats_pass"]))

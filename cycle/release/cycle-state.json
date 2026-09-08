@@ -1,6 +1,6 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-07T20:56:13-04:00",
+ "generated_at": "2026-09-07T21:13:54-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "fbd5072",
  "beat": {
@@ -61,6 +61,47 @@
    "ruling": "paul-ruled 2026-09-07: retire the pre-registration; do NOT build the flag; DECLARE the gap instead. release-gate.py now prints a coverage line reading the viewport constant out of journey-view.py, so every gate states that a pass says nothing about laptop width. Counted, never graded — the line refuses nothing.",
    "why_not_build": "Mom is the make-or-break user and she is on a phone at A+; 414 is the design centre and a laptop has no confirmed user but Paul. ⛔ But 'Paul will catch it' is not coverage — a channel he already covers is a LEADING INDICATOR, not a safety net — so the gap is stated every lap rather than left silently absent. The flag stays available if it ever earns itself.",
    "_disposition_was": "retired — off the spine enum (open|answered|carried|dropped), corrected 2026-09-07"
+  },
+  {
+   "id": "P1-viewport-disposed",
+   "question": "second-viewport gets a disposition — build the flag, or kill the pre-registration. Not a third lap open.",
+   "settles": "cycle-state.json pre_registered[] shows disposition != 'open' for second-viewport, with evidence non-null.",
+   "at_open": "measured 2026-09-07: ALREADY SATISFIED — disposition 'dropped', evidence non-null, ruled by Paul (declare the coverage gap rather than build the flag).",
+   "disposition": "answered",
+   "evidence": "second-viewport disposition = 'dropped' with evidence and a paul-ruled note; release-gate.py now prints a viewport coverage line read from journey-view.py, mutation-proven both ways."
+  },
+  {
+   "id": "P2-returning-journey-walked",
+   "question": "Does the returning journey get walked at all in lap 3? Not 'does it pass' — does ONE non---fresh run exist at the cleared sha with fewer than 5 failed actions?",
+   "settles": "one transcript with fresh:false, failedActions length < 5, at lap 3's cleared sha.",
+   "at_open": "measured 2026-09-07: 0 of 39 lap-2 walks ran non---fresh; the only returning battery ever run took 12-15 failed actions per seat and all four reports went UNREAD.",
+   "blocked_by": "retro C-2 — journey-walk.py:177-190 branches on `fresh` for exactly ONE stop, so a returning walker lands past the whole script and every action times out. ⛔ Until C-2 lands this CANNOT be answered, and it must discharge as `carried` with this blocker named, never as a miss.",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "P3-unread-walk-runs",
+   "question": "Does the unread rate fall below lap 2's 12 of 39 on the SAME predicate, or does the loop instead DISPOSE of unread runs (read | superseded-and-kept | discard)? Either counts.",
+   "settles": "re-run the same count at lap 3's close, plus a disposition record if the second route is taken.",
+   "at_open": "measured lap 2: 12/39 (31%). ⚠️ PREDICATE WARNING: 175 seat run-folders exist across all laps, so a naive recount is NOT comparable — the 39 was lap-2 runs only. Re-derive with the lap-2 predicate or the number means nothing.",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "P4-production-record-disposed",
+   "question": "Does any production feedback record reach disposition != null? One is enough to prove the beat exists; zero proves it does not.",
+   "settles": "tools/watch-feedback.py --env home reports < 10 awaiting.",
+   "at_open": "measured 2026-09-07 at lap-3 open: 10 of 10 awaiting, 0 disposed.",
+   "disposition": "answered",
+   "evidence": "SATISFIED and then some — all 10 home records disposed 2026-09-07 (3 not-a-finding, 4 fold, and 3 earlier not-a-finding), so `--env home` now reports 0 awaiting, not merely <10. F6 ARM opened for the first time in the loop's existence."
+  },
+  {
+   "id": "P5-agent-proposed-pile",
+   "question": "Does the `ready: agent-proposed` pile stop growing? The count at lap 3's close against lap 2's 25 — a fall OR a flat line both pass; only growth fails.",
+   "settles": "the same grep over .plans/*.md at lap 3's close.",
+   "at_open": "⛔ measured 2026-09-07 MID-LAP: 38, against a baseline of 25 — ALREADY GROWN BY 13, so on today's trajectory this pre-registration FAILS. ⭐ The retro called this 'the pre-registration on my own output, and the one that should bind hardest' and it is the one currently going the wrong way. ⚠️ The counter-reading, stated so the number is not read alone: `paul-` stamps went 1 -> 14 in the same window, so the pile grew while Paul was ruling faster than ever. Whether that is a failure or a healthy burst is HIS call at close, not a session's.",
+   "disposition": "open",
+   "evidence": null
   }
  ]
 }
