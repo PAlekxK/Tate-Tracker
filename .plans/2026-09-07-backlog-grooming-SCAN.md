@@ -1042,3 +1042,53 @@ ranking would be stated"* was detecting.
 and per-device. GL-1 makes personalization the product's direction, and **today the only personalization
 that exists does not survive a new phone** (the M3 class). **The behaviour record must live server-side
 from the start** or adaptive order inherits the same hole.
+
+### 11.5 · ⭐ THREE MORE RULINGS — 2026-09-07, late
+
+| | ruling, verbatim | what it settles |
+|---|---|---|
+| **GL-6** | *"For number one, that sounds good to me. I go with that."* | ⛔ **INSTRUMENTATION LANDS BEFORE THE ADAPTIVE ORDER.** If only one gate makes it, **G6** — record the served order on every `session_start`. ⭐ The clean-slate ruling put the record at **n=0**, so instrumenting first costs **zero history**; the window only narrows |
+| **GL-7** | *"I support what you're saying there and go with your recommendation."* | the cross-project pattern **splits in two**; the discriminator is **re-affirmability as a conjunction** — *can the person, today, SEE it and CHANGE it?* Both yes → silence is endorsement. Either no → silence means nothing. ⚠️ **Self-liquidating: the ground must be recorded WITH the decision**, or a future ranking-edit surface silently invalidates GL-1 |
+| **GL-8** | ⭐⭐ *"we should have all this instrumented, for sure. We keep uncovering uninstrumented stuff, and we need to instrument it all really."* | **a STANDING ruling, wider than the glance — see below** |
+
+### ⭐⭐ GL-8 · INSTRUMENT IT ALL — and it is RC-2 pointed backwards
+
+**RC-2 (§9) governs NEW work:** every backlog item carries a telemetry ask **and** a check. **GL-8 is
+the backfill of that same rule against what already exists.** Paul's *"we keep uncovering"* is
+measured — tonight alone, in one session:
+
+| found | state |
+|---|---|
+| `GET /api/door` existed and **no tool called it** | ✅ fixed tonight (`watch-door.py`) |
+| `/api/onboarding-metrics` had **no GET route at all**, write-only | ✅ shipped tonight |
+| **9 routes open a card; 2 emit** | ⛔ open |
+| **no event carries a position, an ordinal or the served order** | ⛔ open — blocks GL-1 |
+| **no `card_collapsed` event anywhere** — born-open and never-opened are one record | ⛔ open |
+| client-side gates (station · burn · terrain · sky) uninstrumented, **measured at zero while the same Worker carried 23 telemetry writers** | ⛔ open — census **G3** |
+| the geocode **was** instrumented and `grep -n geocode tools/*.py` returned **ZERO** — a record nothing read | ✅ fixed 09-07 (`read-geocodes.py`) |
+| the owner-stamp guard withholds the credential **at the metrics site**, so an affected device reads as *a device nobody used* | ⛔ open — **a defect that suppresses its own telemetry** |
+
+> ### ⛔ THE CLAUSE THAT KEEPS "INSTRUMENT IT ALL" FROM MAKING THINGS WORSE
+> **An event with no reader is not instrumentation.** Two of tonight's finds were exactly that, and
+> **23 telemetry writers already existed** while the thing anyone needed was unread. So GL-8 means
+> **event + reader**, never *add more writers* — otherwise it manufactures the very condition it was
+> ruled to end.
+
+**⭐ Proposed shape — agent-proposed, Paul rules:**
+1. **v1 is a CENSUS, not a build.** Every user-visible route or action × *does it emit?* × *what reads
+   it?* Read-only, cheap, and it produces **the number**, which nobody has. ⚠️ Sibling to seed **P-15**
+   (*the tool census — what exists, what has no caller*), which audits `tools/`; this audits the
+   record. **Defers:** any instrumentation decision until the size is known.
+2. **Then Paul cuts** what is instrumented now. ⭐ The glance's **G1–G6 are already ruled (GL-6) and go
+   first** — they are the only ones with a deadline, because GL-1 destroys their window.
+3. **Then the gate:** mechanise RC-2 — *an event with no reader is red; a user-visible route with no
+   event is red.* Same shape as `check-arrival-dispositions.py`, where a disposition keyed by record
+   means nothing can be swept. ⚠️ **With E4's falsifier attached:** green for two laps running means it
+   is not measuring anything — delete it.
+
+⛔ **THE CONSTRAINT THAT RIDES WITH GL-8, and it is not negotiable:** **instrument OUTCOMES, never
+people.** `watch-door.py`'s own rule is the model — *it reports what happened at a door, never who was
+standing at it*; door records carry `personId: null` by construction and a deviceId is a browser
+bucket. More instrumentation on household surfaces means more records about people unless this is
+held. ⭐ It also has to survive the administrator generalisation: at an estate Paul does not live in,
+*"instrument it all"* reads very differently.
