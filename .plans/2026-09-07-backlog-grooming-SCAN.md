@@ -1160,3 +1160,78 @@ belongs"*); the research seat's construct-mismatch finding says a frequency sign
 ✅ **THE GLANCE SLATE IS NOW FULLY SCOPED** — shape ruled (GL-1…GL-5), evidence ruled (GL-6, GL-7),
 gates ruled (GL-12, GL-13). ⛔ **What remains is not a decision, it is a sequence:** instrument first
 (G1–G6), then adapt. It is the first slate in this file to reach that state.
+
+---
+
+# 12 · ⭐⭐ THE BOARD AT CLOSE — 2026-09-08, ~01:00 ET
+
+**Every live item, its rung, the artifact that proves the rung, what blocks it, and the next concrete
+step.** ⛔ Not ranked — grouped by what each is waiting on. This is the section a future lap loads from.
+
+## 12a · READY TO BUILD — the decision work is done
+
+| item | rung | what proves it | next step |
+|---|---|---|---|
+| **🧭 Glance consolidation** `TIER 2 · 10` | **design** | shape ruled `GL-1…GL-13` · two seat trails (`.ux-reviews/…glance-consolidation.json`, `.user-research/…glance-measurement-procedure.md`) | ⛔ **instrument G1–G6 FIRST** (position · `orderSource` · a close signal · the 7 silent open routes · `session_start` records the served order), **then** adapt. Shipping in the other order makes position and access mutually causal forever |
+| **🌦 Slate 1 · the numbers** | **concept → build-ready** | census G1's four defects verified at HEAD; `daysUntil()` re-measured tonight | one session. All four are estate-independent — no ruling, no person, no data about anyone |
+
+## 12b · ONE RULING FROM READY
+
+| item | rung | blocked on — **specifically** | next step |
+|---|---|---|---|
+| **🌦 Weather v1** `TIER 2 · 11` | **concept** | ⏳ **the tier-2 v1 cut** — research landed (`…weather-tier2-sources-SCAN.md`, 815 lines, 84 probes) and **Paul has not cut it** | read §12e, pick the tier-2 slice, then **stamp `ready:`**. ⛔ Q8 (the Georgia burn literal) is **blocking** and independent |
+| **⛔ Slate 2 · the leak band** | **concept** | nothing — **it has no plan file, which is the only thing missing** | write the plan: 5 named sites + one payload-shaped assertion. ⭐ The search pattern for the sixth is recorded: *a comment saying "this is safe because…" whose premise is about Fernwood* |
+| **🔊 Slate 5 · honesty markers** | **concept** | ⛔ **card SUPPLY** — 4 domains wired = new cards to Mom against a 5-slot cap with 8 benched, none approved | back-fill the six wildlife marker paths; **hold the harvester wiring** at Paul's gate |
+| **🎙 `/api/zone-audio` `reviewed`** | **draft** | ⛔ **Paul picks one of two legal shapes** | write it via the disposition (needs a Worker PATCH), or delete the field |
+
+## 12c · BLOCKED ON SOMETHING REAL, and the blocker is named
+
+| item | blocked on | who |
+|---|---|---|
+| **🏠 Slate 3 · places · roles · settings** | committed items **4 + 5** — the returning step list and the front door. **39 of 39 lap-2 walks ran `--fresh`**, so no seat has ever been the person the bug happens to | in flight, another lane |
+| **📝 Slate 6 / LEG 0 · capture write path** `TIER 2 · 8` | its own first act — **the R-Z6 probe returned `HTTP 401` = UNCHECKABLE**, and *"may rewrite the plan rather than patch it"* | a session with `home`'s token via `/secrets` |
+| **🗺 Zones epic** `TIER 2 · 7` | **LEG 0.** Zone-save has a KV path under its git gate, so LEG 0 is a gate move | after LEG 0 |
+| **🌱 Plant capture / the per-estate canon store** | ⛔ **not a build — a data-model decision.** Plant capture has **nothing** under its git gate: canon *is* `plants.json` in this repo. Fires **W6** | size it before a lap opens, not during |
+| **🧊 Slate 11 · frozen instance** | **Mom having a real production account.** Invite `p-b91e4d` minted 09-07, **unspent** | the other window |
+| **🔧 Slate 8 · fleet** | nothing technical — **PUSH frozen** `[paul-stated 09-06]` | may be built, may not ship to her |
+
+## 12d · OPEN RULINGS — each is one sentence, and each releases something
+
+| | ruling owed | releases |
+|---|---|---|
+| **1** | `fernwood-11` — is the confirm queue the wrong instrument, or the right one asked wrong? | ⭐ the release contract's first lap; otherwise its first act puts more cards into a surface measured 0-for-35 |
+| **2** | `last_lap` — ratify or reverse tonight's shape | R6 · R7 · a lap boundary nothing marks |
+| **3** | the **charter edit** — 4 files, 1 clause each (steward specified them; 3 live outside this repo) | every seat you ask for criticality is currently being asked to break its own foundation |
+| **4** | **GL-8's shape** — census first, then your cut, then mechanise RC-2 as a check? | the instrument-it-all backfill |
+| **5** | **slate vs beat-9** — is a slate the release loop's bucket prepared out-of-band, or its own class? | two producers of one artifact class, no contract |
+| **6** | `fernwood-5` · `fernwood-6` — re-mint or retire (premises overtaken / false) | two stale cards |
+| **7** | **the frost dates** — is canon's 8-day conservatism deliberate? | §0-PRIME-G of the weather plan |
+| **8** | **Open-Meteo's non-commercial clause** | ⭐ Paul's own action **at build-run load**, per his ruling |
+
+## 12e · WHAT THE RESEARCH RETURNED, in the four things that decide the weather cut
+
+1. ⭐ **USGS EPQS = 2,873.28 ft** at Fernwood against canon's hand-measured **2,873** — free, keyless, 1 m. Open-Meteo is **86 ft** off; a coarse grid is **1,019 ft** off. **Tier 2's value tracks the terrain.**
+2. ⛔ **Pollen — the first advisory named — has no free US source.** `200` + `null` at three US points, real data in Berlin. Visible only because of the positive control.
+3. ⛔ **97 civic features within 8 km at the condo; ZERO at Fernwood.** A radius is the wrong primitive, **jurisdiction is the right one** — and that is *why* civic links need no AI ruling and events do.
+4. ⚠️ **Open-Meteo's free tier is non-commercial**, and it carries the forecast, the archive, the elevation *and* air quality. Second licence trap today in a second domain.
+
+## 12f · ⚠️ CARRIED IN THE WORKING TREE, uncommitted, deliberately
+
+**The `.toFixed(4)` fix is applied to both `engine/viewer.template.html` and `viewer.html`** (2 sites
+each, parse-verified) and **is NOT committed**: another lane holds ~50 uncommitted lines in the same
+two files (the Sky & Stars strip link, the Climate panel). ⛔ **Committing that path would sweep their
+in-flight work into this session's message.** It rides out with their commit, or on Paul's word.
+
+⚠️ **And `build-viewer.py --check` throws `unfilled placeholder remains after build` — PREDATING this
+fix** (the health probe recorded the build check failing 09-07, and `.toFixed(4)` cannot create a
+placeholder). **That is the other lane's in-flight state and wants their attention before any deploy.**
+
+## 12g · The three standing hazards a future lap inherits
+
+1. ⛔ **THE GEOCODER HAS NEVER RUN OUTSIDE QA.** `home`, `paul`, `bob`, `lab` all read *"the geocoder
+   was not asked."* **Every weather claim is built on a population of zero** until a retry fires.
+2. ⛔ **THE DETECTOR'S OUTPUT IS UNREADABLE** — 126 flags, 25 of them one repeated line, inside a block
+   of **42 `python3` invocations**. The weather orphan printed **all day** and nobody read it.
+   **Adding artifacts makes this worse.**
+3. ⛔ **`stage: journey` IS SELF-ATTESTED** — `user-research` appears **zero times** in
+   `check-backlog-ready.py`. The rung this file defines has no proof behind it.
