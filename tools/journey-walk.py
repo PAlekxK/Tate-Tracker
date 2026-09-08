@@ -171,7 +171,17 @@ STOP_NAMES = ["01-arrive", "02-account", "02b-naming", "03-named", "04-address",
               # it. Gate ① was certifying the onboarding AROUND the product and never the product.
               # Same gap as the line above, one layer out again: the walk kept ending wherever the
               # last thing built happened to end.
-              "12-the-app"]
+              "12-the-app",
+              # ⛔⛔ ADDED 2026-09-08 BECAUSE A GATE WENT GREEN ON WORK NOBODY WALKED. All four seats
+              # returned zero-failure runs on a build whose two headline changes — the receipts card
+              # and the one-tap shelf — neither of them had touched, and all four SAID SO rather than
+              # letting the clean run stand as evidence. The owner seat put it best: "a zero-failure
+              # run is not evidence about a screen nobody walked."
+              # ⭐ This is the shape Paul's customer-journey beat exists to close: the harness's stops
+              # came from the HARNESS, so the seats could only test the journey it already knew, and
+              # anything shipped after the stops were written was invisible to the gate that certifies
+              # it. Adding a surface now means adding its stop, in the same change.
+              "13-told", "14-shelf-to-place"]
 
 
 def journey_returning(answers, origin=""):
@@ -280,7 +290,17 @@ def journey(fresh, answers, origin=""):
              # from. A walk that skips this cannot answer the question Paul actually asked.
              # ⭐ THROUGH THE DOOR, since 2026-09-06 there is one: the estate page's "Open your place ›".
              # A walk that arrives by typed URL cannot tell whether a person could get here.
-             "goto:" + base + "/estate/", "click:#openapp", "shot:12-the-app"]
+             "goto:" + base + "/estate/", "click:#openapp", "shot:12-the-app",
+             # ⭐ 13 · THE RECEIPTS, REACHED THE WAY A PERSON REACHES THEM — from the masthead link,
+             # not by scrolling to a known id. The card was built inside the hidden reference drawer
+             # on 2026-09-08 and shipped unreachable; a stop that scrolled straight to it would have
+             # passed on a card no reader could find. What is being tested is the ROUTE.
+             "click:[data-open-told]", "shot:13-told",
+             # ⭐ 14 · THE SHELF IS THE WAY IN `[paul-ruled 2026-09-08]` — "we should just be able to
+             # access the home from the list of homes". Until today the row went to the Early days
+             # screen and a person tapped again to arrive. This walks the row itself: it must land in
+             # the PLACE, in one tap, and the stop is named for the claim rather than for the screen.
+             "goto:" + base + "/homes/", "click:.home", "shot:14-shelf-to-place"]
     return acts
 
 

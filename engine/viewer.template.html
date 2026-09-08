@@ -7103,6 +7103,58 @@
     </div>
   </div>
 
+  <!-- ⛔⛔ OUT OF THE REFERENCE DRAWER AND ONTO THE PAGE, 2026-09-08 — second attempt, and the first
+       one moved it from one part of the drawer to another. It was built inside `ref-drawer-body`,
+       which ships `hidden`; ALL FOUR SEATS walked the whole journey and none of them ever saw it.
+       The mom seat named it exactly: "the receipts were BUILT but not PLACED."
+       ⚠️ The first fix placed it beside `card-property` on the reasoning that the place card is what
+       WE know and this is what YOU told us — and card-property is ITSELF in the drawer, so the card
+       stayed hidden. Caught by checking line numbers instead of trusting a first-occurrence match,
+       which had reported the drawer's opening tag and the card in the wrong order.
+       ⭐ It now sits as the LAST card before the Reference drawer: after the living cards, in the
+       page proper, reachable by scrolling and by the masthead link. Deliberately NOT above the
+       weather — Paul's other ruling is that a receipt is shown ONCE by the ribbon when it is new and
+       the standing record is somewhere you GO. Furniture at the top of every arrival is the Early
+       days screen's mistake moved indoors. -->
+  <!-- ⛔⛔ MOVED OUT OF THE REFERENCE DRAWER, 2026-09-08. It was built inside `ref-drawer-body`,
+       which ships `hidden` — so it was not on the page at all. ALL FOUR SEATS walked the whole
+       journey and none of them ever saw it. The mom seat put it exactly right: "the receipts were
+       BUILT but not PLACED." Paul's ruling was "there's the what you told me, right, at the top,
+       and that tracks everything that's been provided" — a drawer is not the top.
+       ⭐ IT SITS BESIDE THE PROPERTY CARD because that is what it is about: the place card is what
+       we know about this place, and this is what YOU told us about it. It is deliberately NOT above
+       the weather — his other ruling is that a receipt is shown ONCE by the ribbon when it is new,
+       and the standing record is somewhere you GO. Furniture at the top of every arrival is the
+       Early days screen's mistake moved indoors. -->
+  <!-- ⭐⭐ WHAT YOU TOLD ME — INSIDE THE APP `[paul-ruled 2026-09-08]`.
+       "there's the what you told me at the top, and that tracks everything that's been provided…
+       I can always go there for reference. But any new input that comes in should be in the
+       acknowledgment strip on the Grant Park condo page, not an intermediary page, which is what
+       the early days page is now. That early days page fits fine in the onboarding process, but
+       only in the onboarding process."
+       ⛔ WHY THIS CARD HAD TO EXIST BEFORE `/estate/` COULD RETIRE. "What you told me" in the
+       masthead was a LINK TO `/estate/` — the receipts were never in the app at all, so retiring
+       that page would have deleted the answer to "where did what I told you go". D3 rules the fix
+       is a TRANSFER, never a deletion; this is the transfer.
+       ⭐ AND IT IS A REFERENCE, NOT AN ANNOUNCEMENT — the other half of the same ruling. `/estate/`
+       re-showed the same receipt on every arrival, which is why he was "rereviewing what I told
+       you" each time he signed in. A receipt is shown ONCE, by the acknowledgment ribbon, when it
+       is new. This card is the standing record you go to, and it never pushes itself at anyone. -->
+  <div class="main-card" id="card-told">
+    <div class="main-card-header" data-toggle="told">
+      <div class="main-card-icon told" aria-hidden="true">📋</div>
+      <div class="main-card-meta">
+        <div class="main-card-title">What you told me</div>
+        <div class="main-card-summary" id="told-summary"></div>
+      </div>
+      <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
+    </div>
+    <div class="main-card-body">
+      <div class="told-list" id="told-body"></div>
+    </div>
+  </div>
+
+
   <!-- REFERENCE DRAWER (Concept A, 2026-07-05) — the estate's durable/reference
        cards behind one shelf, below the 6 living cards. Order (D2): property,
        vehicles, candidates, references, release-notes. The moved cards are
@@ -7180,34 +7232,6 @@
       <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
     </div>
     <div class="main-card-body"><div id="place-log-body"></div></div>
-  </div>
-
-  <!-- ⭐⭐ WHAT YOU TOLD ME — INSIDE THE APP `[paul-ruled 2026-09-08]`.
-       "there's the what you told me at the top, and that tracks everything that's been provided…
-       I can always go there for reference. But any new input that comes in should be in the
-       acknowledgment strip on the Grant Park condo page, not an intermediary page, which is what
-       the early days page is now. That early days page fits fine in the onboarding process, but
-       only in the onboarding process."
-       ⛔ WHY THIS CARD HAD TO EXIST BEFORE `/estate/` COULD RETIRE. "What you told me" in the
-       masthead was a LINK TO `/estate/` — the receipts were never in the app at all, so retiring
-       that page would have deleted the answer to "where did what I told you go". D3 rules the fix
-       is a TRANSFER, never a deletion; this is the transfer.
-       ⭐ AND IT IS A REFERENCE, NOT AN ANNOUNCEMENT — the other half of the same ruling. `/estate/`
-       re-showed the same receipt on every arrival, which is why he was "rereviewing what I told
-       you" each time he signed in. A receipt is shown ONCE, by the acknowledgment ribbon, when it
-       is new. This card is the standing record you go to, and it never pushes itself at anyone. -->
-  <div class="main-card" id="card-told">
-    <div class="main-card-header" data-toggle="told">
-      <div class="main-card-icon told" aria-hidden="true">📋</div>
-      <div class="main-card-meta">
-        <div class="main-card-title">What you told me</div>
-        <div class="main-card-summary" id="told-summary"></div>
-      </div>
-      <span class="main-card-chevron"><span class="mcc-label">Open</span><span class="mcc-arrow">▼</span></span>
-    </div>
-    <div class="main-card-body">
-      <div class="told-list" id="told-body"></div>
-    </div>
   </div>
 
   <div class="main-card" id="card-release-notes">
