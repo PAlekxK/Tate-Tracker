@@ -691,6 +691,82 @@ Named, so the deferral is a decision rather than an omission:
 
 ---
 
+## 9a · ⭐⭐ R-Z6 IS CLOSED — EXERCISED, NOT READ · `measured 2026-09-08`
+
+**The blocker was never a credential.** `BACKLOG.md` TIER 2 · 8, `.plans/2026-09-08-lap5-BOARD.md:378` and
+`handoff/handoff-zones-decisions.md` all carried the same state: *the R-Z6 probe returned `HTTP 401` =
+UNCHECKABLE*, releasable only by *"a session with `home`'s token via `/secrets`"*. **That is now measured
+false.** `/health` is **ungated on every environment** and reports `configured.github` directly, which is
+the exact predicate `handleZonesGet`'s fallback is guarded on. No token was required to answer it.
+
+### What was actually run — read-only, no `d` param, so no `zones-last-seen` write occurred
+
+| env | estate | `configured.github` | consequence for `handleZonesGet` |
+|---|---|---|---|
+| **prod** (frozen Fernwood) | `est-3c9f1a` | ⚠️ **true** | git fallback CAN fire — and there `zones.json` **is** that estate's own data |
+| **qa** | `est-qa0001` | **false** | fallback branch unreachable |
+| **lab** | `est-lab0001` | **false** | fallback branch unreachable |
+| ⭐ **home** (Mom's production) | `est-e6696a` | **false** | ⭐ **fallback branch unreachable** |
+| **bob** | `est-9a74df` | **false** | fallback branch unreachable |
+| **paul** | `est-d93508` | **false** | fallback branch unreachable |
+
+`worker.js` guards the fallback with `if (env.GITHUB_TOKEN && env.GITHUB_REPO)`. With `github: false` the
+branch **cannot execute**, so a KV miss returns `{_meta:{}, zones:[]}` — empty, not Fernwood's answer key.
+
+**And the second path is closed too**, which no artifact had checked: a household origin does not serve the
+file either. `fernwood-home.pages.dev/zones.json` → `{"tombstone":true,…}`; `myhome-bob.pages.dev/zones.json`
+→ the noindex HTML page. `zones.json` is not in `pages-deploy.py`'s `HOUSEHOLD_ALLOW`.
+
+> ⭐ **So R-Z6's "latent, not live" reading is CONFIRMED EMPIRICALLY, by both paths, at HEAD.** The 🔴 on
+> TIER 2 · 8 is releasable. ⛔ **Row 7 is no longer blocked behind an unanswerable question.**
+
+⛔ **WHAT DOES NOT CHANGE, and it is the whole of ruling B.** The containment is still **ACCIDENTAL**: what
+prevents the leak is the absence of a credential withheld for an *unrelated* reason (promote-species writing
+to `main`), and **every `wrangler.toml` comment still gives that reason and never mentions zones.** Nothing
+declares *"zones must not fall back at a household."* **B + C + D stand as ruled** — a declared per-env
+switch defaulting OFF, zones named in the token comment in all five env blocks, and a check asserting every
+non-frozen env returns an empty zone list. ⭐ **D is now cheap and has a proven method: it is this table.**
+
+### ⛔ AND THE PROBE FOUND SOMETHING NOBODY ASKED IT FOR — `measured 2026-09-08`
+
+The positive control (production, with the master token) **did not return 23.**
+
+| | zones | schemaVersion | canon stamp |
+|---|---|---|---|
+| `origin/main:zones.json` — the file | **23** | **3** | `2026-09-01` |
+| ⚠️ **production KV — what is actually SERVED** | **18** | **2** | `2026-08-31T22:43:57.734Z` |
+
+`handleZonesGet` **prefers KV** and reaches git only on a miss, so **the 2026-09-01 fold never reached the
+served record.** Eight zones on disk are absent from the served set — `hosta-garden`, `main-parking`,
+`the-green`, `the-green-ring`, `the-green-terrace`, `the-meadow`, `the-turf`, `western-fern-azalea-garden` —
+and three served zones (`fairway`, `fairway-border`, `the-green-house`) are **not in canon at all**.
+`/api/zones-sync-status` says `allCaughtUp: false`, and the one device it has ever seen is at
+**2026-07-17** — seven weeks behind. *(Not a geometry artifact: all 23 disk records and all 18 served
+records carry `vertices`.)*
+
+⛔ **This is §4's own failure shape, committed by §4.** That table reads **`zones | 23`** — **true of the
+FILE, false of the SERVED RECORD**, which is precisely *"true of the layer queried, false of the question
+asked."* **Only the positive control caught it**, exactly as the method lesson predicted.
+
+**Three consequences, and the first is Paul's to rule:**
+
+1. ⭐ **R-Z4's answer key is ambiguous and was not known to be.** *"We'll compare what we derive to the
+   twenty three zones"* — but the frozen instance **serves 18**. Which set is the key: the 23 in canon, or
+   the 18 Mom's app actually holds? ⚠️ It is also a **wasting asset** (§7), and it is now wasting in a
+   second way nobody had priced: **the two copies are drifting from each other.**
+2. **It sharpens R-Z6 rather than softening it.** The leak path, if it ever fired, reads **git** — so it
+   would serve the **23**, a set *production itself does not serve*. The blank-slate ruling would be broken
+   by a record even the answer key does not match.
+3. ⚠️ **`.plans/2026-09-06-maps-and-zones-STATE.md:170` already says "12 of 18 zones"** while this plan says
+   23. **Both numbers have been in circulation and nothing said they measure different things.** They are
+   not a contradiction to fix by picking one — they are two real records, and the corpus needs to say which
+   it means, each time.
+
+⛔ **Nothing was written, deployed or reconciled.** Whether the served record is brought up to canon is a
+change to the **frozen** instance and therefore **Paul's alone** — `[paul-stated 2026-09-06: WORK is lifted,
+PUSH is frozen]`.
+
+
 ## Row to add
 
 This agent may not edit `BACKLOG.md` under another session's live lane. One line, for Paul or the main
