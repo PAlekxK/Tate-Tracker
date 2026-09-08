@@ -987,3 +987,58 @@ correction from one finding to the whole record.
   event at all** — so *born-open* and *never-opened* are the same record, and the #1 card auto-opens
   silently. **Position 1 is over-exposed and under-counted at once**; the two biases do not cancel.
   ⭐ **This is RC-2 (§9) arriving on its first test case.**
+
+### 11.4 · ⭐⭐ PAUL'S RULINGS ON THE GLANCE — 2026-09-07, late
+
+| | ruling, verbatim | consequence |
+|---|---|---|
+| **GL-1** | *"Behavior should be able to override household stated ranking. I don't even know where that ranking would be stated. So I think we do want to try to make this adaptive and personalized — so behavior should drive this."* | ⛔ **G-a is RULED against both seats' recommendation** — knowingly, and the fact below makes it the better call |
+| **GL-2** | the pre-registered measurement procedure — *"two sounds good"* | the six instrumentation gates become real work. ⭐ **This is RC-2's first instance** |
+| **GL-3** | the cross-project pattern — *"three sounds good"* | ⚠️ sent back to the seat to draft in a **refined** form, or withdraw |
+| **GL-4** | *"the jump strip is always, like, the top six accessed cards, obviously less if there are less cards populated, but no more than six. Let's start with that as the jump strip rule."* | ⭐ the strip becomes **derived**, capped at 6 |
+| **GL-5** | *"we gotta make sure the jump strip matches the cards below it"* | ⭐ **strip and page order share ONE source** — which answers the ux seat's sharpest objection by construction |
+
+### ⭐ Why GL-1 is better than the seats knew — `measured` after the ruling
+The "stated preference" both seats treated as the confound is captured at the onboarding interests step
+**by tap order** (*"the order she taps IS the ranking"*), stored as `fw-onboard-interests`. And:
+- it is **`localStorage`, per-device** — it does not follow the person to a second browser (the **M3**
+  class: her text size does not sync either);
+- **it had never rendered for anyone.** The engine's own comment: *"⛔ THIS WAS DECLARED AND NEVER
+  ASSIGNED… the viewer never read it, so the line 'You put Gardening first' had never rendered for
+  anyone and every card fell to variant B. Three seats read their walks and each said the ranking
+  vanished at the last door."*
+- **there is no surface to change it** — `settings/` holds `account` and `place`, no ranking.
+
+⭐ **So it is stated once, by tap order, on one device, never shown back, never editable.** A one-time
+artifact, not a standing preference — which is exactly what Paul's *"I don't even know where that
+ranking would be stated"* was detecting.
+
+### ⛔ WHAT GL-1 AND GL-4 DO NOT SETTLE — three, and the first two are load-bearing
+
+1. ⛔ **THE COLD START.** Strip = top-six-accessed **and** the tile row deleted means a card outside the
+   top six has **no above-the-fold door** — so it cannot be accessed, so it can never enter the top six.
+   **Today that is 10 of 16 cards, including the Journal — the most-opened card in the app** (41 of 139
+   expansions, `BACKLOG.md` Tier-2 row 1). ⭐ The ux seat's **additive second strip row** solves it and
+   is compatible with GL-4: **row 1 = the top six by access, capped; row 2 = the remainder.**
+   For a household at n=0 the honest seed is the **declared onboarding ranking** — the only signal that
+   exists then, and it gives that one-time artifact a real job instead of discarding it.
+2. ⛔ **THE STRIP MUST NOT RANK ITSELF.** If strip contents are a function of past strip use it locks in
+   on day one. **Rank on non-strip access** (`via != "strip"`). `measured`: `expandCard` already carries
+   provenance — `via` values `strip`, `dash` ×8, `ack` ×3, `almanac-history` across 13 call sites — so
+   this is **free today and impossible to retrofit later**.
+3. ⚠️ **THE CONSOLIDATION AND THE STRIP RULE INTERACT.** `measured`: **8 of the 13 instrumented open
+   routes are `dash`** — the tile row is currently the **largest single source of the access signal
+   GL-4 depends on**. Delete it and most of the evidence goes with it, unless the card-face opens that
+   replace it are instrumented **first**. Those are currently among the nine silent routes.
+
+> ### ⛔ THE SEQUENCING RULE THAT FALLS OUT OF ALL THREE, and it is not an opinion
+> **Instrumentation lands BEFORE anything adaptive ships.** The moment order is driven by access,
+> position and access are mutually causal forever, and no later analysis can separate *"she opens
+> Weather most"* from *"Weather was on top."* Today no event carries a position, an ordinal or the
+> served order, and there is no `card_collapsed` event at all. ⭐ GL-2 is therefore the **precondition**
+> for GL-1 and GL-4 being measurable, not a parallel task — and Paul ruled both, in that order.
+
+⚠️ **AND ONE DEFECT THIS INHERITS, named now rather than found later:** the ranking is `localStorage`
+and per-device. GL-1 makes personalization the product's direction, and **today the only personalization
+that exists does not survive a new phone** (the M3 class). **The behaviour record must live server-side
+from the start** or adaptive order inherits the same hole.
