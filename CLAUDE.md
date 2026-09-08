@@ -566,6 +566,29 @@ decision, and `module` will need to name sets across both, which is exactly that
 
 **Live status for every Fernwood thread lives in `BACKLOG.md` (repo root) — read status there, not from the dated "Pickup point" log below (that log is historical, not current status).**
 
+## 🔄 THE OPERATING MODEL PAUL IS BUILDING TOWARD `[paul-stated 2026-09-08]`
+
+**His words, and they are the target the loops are converging on:** *"a more agile approach to
+grooming, rationalizing the backlog, selecting a commitment to work on, working on it, testing it,
+clearing it, deploying it. I think we're making a lot of progress towards that operating model and
+way of working."*
+
+**Seven steps. The release loop's eleven beats already cover five of them.** The mapping — which
+beat owns which step, and where his words and the beats do NOT agree — is the table in
+`cycle/release/LAP3-AUDIT.md` §5. ⭐ **Read it there; it is not copied here on purpose.**
+
+⛔ **The one hole it found, because it changes what a lap does:** **`groom` has NO owning beat.**
+`check-backlog-drift.py` exists but is a **mom-cycle pickup trigger** whose own doctrine says it
+*"does NOT fire a lap"*, and the 09-07 grooming ran as a hand-commissioned `.plans/` SCAN. And
+**`work it` maps to a single beat** (`1 · a BUILD exists`), which is why every lap mints its own work
+register and the map names none of the three that now exist.
+
+⚠️ **THIS SECTION EXISTS BECAUSE THE STATEMENT WAS RECORDED ONLY IN A LAP-SCOPED BRIEF.** A brief is
+read at one beat 0 and then superseded; this is a standing statement of how Paul wants the work run,
+and it outlives lap 3. **That is the session's own most-repeated lesson applied to itself** — a thing
+recorded only where the loop will not re-read it is rediscovered later at full cost, which is exactly
+what happened to `54e3b57`'s deadlock finding (raised 09-07, rebuilt from scratch 09-08).
+
 ## Cross-project linkage — vehicles ↔ photo-organizer `[paul-stated 2026-08-03, "marrying more threads"]`
 
 `~/Developer/photo-organizer` reads **`vehicles.json` IN PLACE** (never copies) to map repair/
