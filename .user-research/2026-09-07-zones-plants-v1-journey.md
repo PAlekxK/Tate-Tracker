@@ -18,7 +18,7 @@ sources:
   - "desk research 2026-09-07, Paul-authorised — 8 searches; peer-reviewed sources separated from vendor prose; 4 unreachable sources listed in §10"
 status: PROPOSAL — nothing built, nothing designed as UI, nothing committed to canon. Nothing ships from this session.
 constraints_honoured: "Mom starts BLANK · Z-ACK closed (no acknowledgment surface designed, not re-raised) · her words adopted never improved · AI boundary intact · lines/points a known gap not a discovery"
-revision: "REV 2 — 2026-09-07 evening. The organising finding of REV 1 was FALSIFIED by Paul the same day. The retraction is marked in place (§R) rather than edited away; §2, §3.0, §4, §5, §7 and §8 are rewritten around COMPLETENESS. Everything else stands."
+revision: "REV 3 — 2026-09-07 late. Adds §S (what changed + one error of mine) and §W (THE FIRST WALKTHROUGH, concretely). REV 2's §2 stress-test is SUPERSEDED and marked in place. REV 2 — the organising finding of REV 1 was FALSIFIED by Paul the same day; retraction marked in §R rather than edited away. Superseded material is struck and kept, never deleted."
 ---
 
 # The zones × plants journey — v1, with its failure paths
@@ -105,6 +105,226 @@ failure was not asking him.
 ⭐ **The cheap standing fix, and it costs one line:** before any finding about her behaviour is used as
 an organising claim, **ask Paul what she has asked him for lately.** He is the highest-bandwidth
 instrument this project has and he is not on the checklist.
+
+---
+
+## S · REV 3 — what changed, and one error of mine
+
+**Paul, after the end-to-end chain was walked:** *"That's probably a customer journey we need to define
+clearly, with the constraints that we are working with, for this first walkthrough."* So REV 3 adds
+**§W — the first walkthrough**, concretely. REV 2's analysis stands except where marked below.
+
+### ① The v1 is an AMENDMENT to a shipped surface — verified, and it is stronger than stated
+
+`validated` (code, HEAD, 2026-09-07) — `renderThisMonthPlants()` (`viewer.html:18831`) **already groups
+plants by care action**: `activeTypes.forEach(type => …)` over `plantsNeedingCare(type)`, each group
+headed by its own `tag t-<type>` pill. `This Month` is the default tab; the jump strip — her 5-for-5
+affordance — points at `card-plants`.
+
+> ⭐⭐ **Her sentence — "I'm breaking out the fertilizer, what plants?" — already has a surface, on her
+> only proven path, grouped the right way.** It is missing exactly two things: **the place partition**
+> and **the honest gap.**
+
+**This confirms REV 2's list-primary call and goes further than I did.** I wrote that the list "is the
+primary surface, not an alternate door." It is more than that: **it already exists and she already
+reaches it.** The v1 is two additions to a card she opens by habit — not a new surface, and (see ③)
+**not a map.**
+
+### ② ⛔ MY ERROR — I cleared a line that is false, and I cleared it for the wrong reasons
+
+REV 2 §2 stress-tested *"12 plants don't have a place yet, so they're not on any list"* against my
+failure paths and passed it. **That was wrong three times over, and the way it was wrong matters more
+than the line.**
+
+| what I got wrong | the correction |
+|---|---|
+| ⛔ **The sentence is false.** | **Every one of those plants has a place — she can walk to it.** What has no place is **our record.** ⭐ The test I should have used, and now will: ***could she say this sentence aloud and be right?*** |
+| ⛔ **I tested it for nagginess and ask-shapedness, never for TRUTH.** | I applied evidence tagging rigorously to *my* claims and not once to *the product's* claims. **A sentence the app says to her is a claim about her world and deserves the same tag.** |
+| ⛔ **I cleared a composite without decomposing it.** | I passed the line as "not an ask" while its second half — *"Want to say where they are?"* — **ends in a question mark**, which is precisely the shape that is 0-for-35. |
+| ⛔⛔ **And it is migration copy.** | Placeless plants are a **frozen-Fernwood condition**. **At Mom's blank instance there are no plants at all** — the gap runs the *other* way: **empty places, and kinds we cannot point to.** |
+
+⭐ **The deeper failure, and it is the same shape as the one in §R:** I reasoned from **the record I
+could read** instead of **the situation she will be in** — with `Mom starts BLANK` written in my own
+frontmatter. Telemetry over her, then Fernwood's canon over her instance. **Twice in one day, the
+available data stood in for the person.**
+
+**What a replacement must satisfy** *(requirements only — copy is not my lane)*:
+1. She could say it aloud and be right.
+2. It describes **our record**, never her property.
+3. It does not end in a question mark and does not solicit.
+4. ⭐ It survives the count going **UP** — naming a new place *increases* the number of places holding
+   nothing, and that is **progress, not regress.** A line framed as a debt being paid down teaches her
+   that growth is failure. The honest frame is *the record's own edges*, which move both ways.
+5. At blank start it expresses **empty places and kinds we cannot point to**, not placeless plants.
+
+### ③ ⚠️ The empty-state claim is TRUE but not where it was said to be — I measured it
+
+The handed claim was *"the empty state lies TODAY, and n=0 is where she starts."* **The string exists;
+the timing is different, and the difference decides where §W begins.**
+
+`validated` (code, HEAD): **four** "quiet" strings, not one — `renderThisMonthPlants` (`:18839`,
+*"A quiet September at the property"*), `renderPlantsSummary` (`:14438`, *"0 plants · A quiet Sep
+here"*), `renderTimeline` (`:15622`), and the **dashboard strip** (`:18571`). ⚠️ **Two of those are on
+her glance path** — she would see them without opening anything.
+
+⛔ **But at a household instance an empty module is HIDDEN, not rendered.** `viewer.html:18285`:
+`if (household && moduleState(mod) === "empty") { card.style.display = "none"; return; }` —
+`[paul-stated 2026-09-07, beat 3, with the real screen in front of him]`: *"Let's not show any of the
+empty modules… at the start."*
+
+> ⭐⭐ **So at n=0 the app does not lie to her. It shows her nothing.** The Plants card is not on the
+> screen. **The first walkthrough cannot begin with her opening it**, and that is the single most
+> important input to §W.
+
+**Where the lie actually fires — two windows, both reachable:**
+
+1. ⭐ **At n=1, not n=0.** The moment her first plant lands, the module stops being empty and the card
+   appears. If that plant has no care in the current month, **the first thing the app ever says about
+   her garden is that it is quiet** — about a garden with one recorded plant. *The lie is not in the
+   empty state; it is in the state immediately after it.*
+2. ⭐ **At the name-missing fork, and it is MEASURED.** `viewer.html:6423–6435` records that
+   `__HOUSEHOLD_NAME` does two jobs — the name to print **and**, in eleven places, the test for *"is
+   this a household at all."* Measured 2026-09-07 in a local build with `fw-grant` +
+   `fw-onboard-coords` and no place name: **every empty module rendered.** So a grant with
+   **coordinates and no place name** gets the pre-ruling surface — the Plants card appears, empty,
+   saying *"A quiet September at the property."* **One unset field decides which of two apps she
+   opens.**
+
+⭐ **And the engine already knows.** `viewer.html:18351` carries the finding verbatim: *"THE ENGINE'S
+OWN BODY ASSERTS A CONDITION FROM NO DATA — 'the garden's resting', 'A quiet Sep at the property'…
+on a place that holds nothing (wide-eyed + owner, round 4: **'absence dressed as a reading'**)."*
+**This is not an undiscovered defect. It is a discovered one with a fix applied to the hidden case and
+not to the n=1 case.**
+
+### What REV 2 this supersedes
+
+| REV 2 | status |
+|---|---|
+| §2's *"show what it does not know"* **stress-test table** | ⛔ **SUPERSEDED** — the tested sentence is false and instance-wrong. The **requirement** survives; **my clearance of that wording does not.** Marked in place. |
+| §7's deferral row *"What it does not know — v1"* | ⚠️ **Stands as a requirement**, with §S② as its specification. |
+| §3.0a *"the first run should be the one she asks for"* | ✅ **Promoted — it is now the spine of §W.** |
+| §7's *"list door — v1"* | ✅ **Strengthened** by ①: not merely primary, **already shipped.** |
+| Everything in §0, §1, §4–§6, §8–§10 | ✅ **Stands.** |
+
+---
+
+## W · THE FIRST WALKTHROUGH
+
+**Not the mature journey. The first one that will actually happen** — real trigger, real room, empty
+record, and every constraint below binding at once.
+
+### W.0 · The constraints this is written inside
+
+| | |
+|---|---|
+| She starts with **nothing** — no zones, no plants | `[Z-10]` |
+| ⛔ **She cannot save a place** — `handleZoneSave` returns **503 `github-not-configured`** at `home` (verified, `worker/worker.js:3850`) | **step one cannot complete in the app** |
+| ⛔ **No map in production** — the deploy allow-list ships 8 named files; `viewer.html` is not one | a map surface is a **new build** |
+| **Paul draws** as a *test instrument*, not a commitment | `[Z-4]` |
+| The confirm act has **never fired**; `ZonePanel` has never been **offered** | reachable only by tapping a polygon |
+| `whoAmI()` returns `"device"` | the fix is **procedural: be in the room** |
+| No cell signal away from the house; heavy canopy | permanent |
+| ⛔ **Z-ACK closed** — no acknowledgment surface | ⚠️ but that closes a **surface**, not **attribution**: the provenance chip is *credit, don't thank*, and stays |
+
+### W.1 · ⭐ Does the first walkthrough touch a map at all?
+
+**No — and that is a finding, not a concession.**
+
+Three independent constraints point the same way: there is **no map in production**; she **cannot save
+a place** (503); and the surface her sentence needs **already exists on her proven path** (§S①). A map
+would be a new build, standing between her and a card she already opens.
+
+> ⭐⭐ **The first walkthrough is the Plants card plus a naming conversation over an aerial that is a
+> PROP IN THE ROOM, not a surface in the app.**
+
+That is precisely the arrangement with the only validated result this project has — a photograph on a
+table returned **16 names in one evening** — and it sidesteps the 503 and the missing build entirely.
+⭐ **It also makes Paul's "even if it's me doing the drawing" a real test instrument:** he draws
+*after* the room, from what she said, and the drawing is scored by **whether her names survived it** —
+not by whether the polygons are good.
+
+### W.2 · The walkthrough, step by step
+
+⚠️ **Step 1 is not ours and cannot be scheduled.** Do not manufacture it; the trigger recurs.
+
+| # | step | who is present | what is on screen | what we learn |
+|---|---|---|---|---|
+| **0** | **Preconditions checked** — is her device's sync configured? does her grant carry a **place name** (§S③)? is the `sanitizeZone` fix deployed? | Paul alone | none | ⛔ **If the name is missing she gets a different app.** Check before, not after. |
+| **1** | ⭐ **She raises it** — *"I'm getting the fertilizer out, what needs it?"* | her, by phone or in person | none | **that the trigger is real and recurs.** It has never been captured with a timestamp. |
+| **2** | **Paul comes over.** No demo framing. He is answering the question she asked. | both | none yet | — |
+| **3** | **The aerial goes on the table.** *"What do you call this bit?"* | both | ⛔ **paper/screen prop, not the app** | **whether the 08-30 ritual repeats.** n goes 1 → 2. |
+| **4** | She names places. Paul writes her words **on the picture**. | both | — | her vocabulary at blank start; **whether the blanks provoke additions** |
+| **5** | ⭐ **They walk the plants she is about to fertilize**, place by place, and she says what is in each | both, outdoors | ⛔ **no network** — paper or the local-first mic | ⭐⭐ **the join, captured at its source.** This is the v1's actual content. |
+| **6** | Back indoors: Paul opens the **Plants card** — This Month, already grouped by care action | both | ✅ **the shipped surface** | ⭐ **whether the existing grouping answers her sentence unaided.** If it does, the v1 is smaller than anyone thought. |
+| **7** | ⭐ **The known-gap moment** — the list is shown while Paul knows it is incomplete, and he says nothing | both | the card | ⭐⭐ **F16 tested for real, in a room, before it can cost a plant.** Does she notice something missing? ⚠️ **Do not manufacture a gap — do not pre-fix the real one, and watch.** Observation, not deception. |
+| **8** | She reacts — or does not | both | — | the completeness premise, directly |
+| **9** | ⛔ **Nothing is saved from her device.** Paul transcribes; the fold happens after, by hand | Paul alone | — | — |
+| **10** | Later: Paul draws the regions from her names (Legs 0–2) | Paul alone | tracer | **whether her names survived the drawing** |
+
+⭐ **Steps 3–5 are the 2026-08-30 session repeated with a second question attached.** That is the whole
+design: **one validated ritual, extended by one ask, at the moment she asked for it.**
+
+### W.3 · What the first screen says when the record is empty
+
+Nobody has written the day-one line, and §S③ says the screen is **blank, not wrong** — the card is
+hidden. So there are two distinct copy problems and only one of them is urgent:
+
+| state | what happens today | what it needs |
+|---|---|---|
+| **n = 0**, name present | card **hidden** (paul-ruled) | ⚠️ **the honest question is whether hidden is right for the module she is about to fill.** Hiding is correct for modules she will never use; the garden is the one she came for. **Paul's call, not mine — I flag the tension and do not resolve it.** |
+| **n = 0**, name missing | ⛔ card renders *"A quiet September at the property"* | the fork closed, or the string fixed |
+| ⭐ **n = 1, quiet month** | ⛔ card appears and says the property is quiet | **the urgent one.** The first sentence the app ever says about her garden must not be false. |
+| **n growing** | four "quiet" strings, two on her glance path | one vocabulary |
+
+⭐ **The requirement, not the copy:** at every one of these states the sentence must be a claim about
+**the record**, and it must be true if she read it aloud. *"A quiet September at the property"* fails
+that test at every n below saturation — the property is not quiet; **we have not been told about it
+yet.**
+
+### W.4 · Failure paths for THIS walkthrough
+
+| failure | what it looks like | what to do |
+|---|---|---|
+| ⭐ **The trigger never comes** | she does not raise it | ⛔ **Do not manufacture it, and do not read it as disinterest** — the finding would be that the ask is seasonal and we mistimed it. ⚠️ **Waiting has a real cost and it should be stated:** the walkthrough is hostage to her calendar. If a season passes, ask Paul what she asked for instead — the §R instrument. |
+| ⛔ **She names a place and the save 503s in front of her** | the client surfaces `ZoneSyncStatus.set("failed", …)` with the literal `HTTP 503: {"error":"github-not-configured"}` | ⛔⛔ **This must not be allowed to happen at all.** It is a raw error string at the exact moment she has just contributed — the worst possible pairing. ⭐ **W.2 avoids it by construction: nothing is saved from her device.** Paul transcribes. **The 503 is not fixed by this walkthrough; it is routed around.** |
+| ⭐ **She names a place Paul already named differently** | **has happened once** — "Fern Garden" vs "Western Fern Garden" | **Precedent is the rule: the operator's zone renames.** ⚠️ But last time that produced *"Western Fern and Azalea Garden"* — **a name neither of them uses.** In the room, the better move is to **ask her** what to call the other one. She is present; last time she was not. |
+| **She corrects something and cannot say why** | *"that's not right"* and nothing more | ⭐ **A room absorbs this and a form cannot.** Paul asks; the answer is a sentence. ⛔ Never reach for a vertex. |
+| **The room runs out of time** | 30–45 min is realistic; the 08-30 session was one evening | ⭐ **Order is the hedge: steps 3–5 first.** They carry the validated ritual and the join. **Steps 6–8 are the ones to drop** — the card is shipped and will still be there next week; the conversation will not. |
+| ⛔ **The Plants card is not on the screen** (§S③) | empty module hidden | **Anticipate it.** If step 6 opens to nothing, that is a finding about the day-one state, not a bug to debug in front of her. |
+| **The name field never landed** | she gets the pre-ruling surface | caught at step 0 if step 0 is run |
+| **She is polite** | agrees with everything | ⚠️ acquiescence rises with age (§9). ⭐ **The countermeasure is step 7** — a known gap is a question that cannot be answered with agreement. |
+
+### W.5 · ⚠️ What we will have learned — and what we will NOT
+
+**One witnessed session, n=1, run by her son, on a record he built.** The observer effect is total. Be
+precise about the boundary.
+
+**It CAN establish:**
+
+| | |
+|---|---|
+| ⭐ **That the trigger is real, and its shape** | she generated it; it has never been recorded |
+| ⭐ **That the naming ritual repeats at blank start** (n: 1 → 2) | the strongest generalisation available to us |
+| ⭐ **Whether the shipped care-action grouping answers her sentence unaided** | ✅ this is a genuine product answer and it is available in one session |
+| ⭐⭐ **Whether she notices an incomplete set** (step 7) | **the F16 premise, tested where it is safe** |
+| **Whether operator-supplied names land** | 7 exist; she has never seen them |
+| **Which correction channel she actually uses** | words, in a room, is the prediction |
+
+**It CANNOT establish — and no amount of care in the room changes this:**
+
+| | |
+|---|---|
+| ⛔ **Whether she would use it ALONE** | a witnessed session is not solo use. **The single largest gap.** |
+| ⛔ **Anything about the confirm act in the product** | she will not touch `ZonePanel`; there is no map |
+| ⛔ **Any rate, percentage or trend** | n=1 |
+| ⛔ **Anything about strangers, tenure, or another household** | one person, one property, one operator who is her son |
+| ⛔ **That the surface caused anything** | Paul in the room is a confound that cannot be removed — ⭐ *and removing it would cost the attribution the `whoAmI()` gap makes necessary.* **The trade is deliberate: attribution now, independence later.** |
+| ⛔ **That a "yes" means anything** | an instrument that can only produce a yes has measured nothing |
+
+⭐⭐ **So the honest framing of the whole exercise: this is a WITNESSED FIRST USE, not a test of
+adoption.** It answers *does this shape fit her question*. It cannot answer *will she come back* — and
+the only thing that answers that is **§8's top signal: she asks for it again, unprompted, for a second
+job.** That is a second session, not this one, and it is the one worth waiting for.
 
 ---
 
@@ -226,6 +446,14 @@ to put all that together… she wants it overlaid with all the other information
 ### ⭐⭐ The requirement that is the v1's best feature — show what it does not know
 
 > *"Water these 4 · 12 plants don't have a place yet, so they're not on any list."*
+
+> ⛔ **SUPERSEDED IN REV 3 — the sentence below is FALSE and it is frozen-instance copy.** Every one of
+> those plants has a place; she can walk to it. What has no place is **our record**. And the version
+> that ships with *"Want to say where they are?"* is an **ask**, which I cleared as "not an ask."
+> **The requirement survives; my clearance of this wording does not.** See §S② for the four
+> requirements a replacement must meet — including that at Mom's blank instance the gap runs the other
+> way (**empty places**, not placeless plants). The table is kept unedited as the record of a wrong
+> turn.
 
 This is the honesty-marker doctrine applied to a **set** instead of a value, and it is the same
 instrument as *"~65°F, estimated."* I stress-tested it against my own failure paths and it survives
@@ -819,6 +1047,27 @@ coordinator):
 
 ## Evidence log
 
+- ⭐ **2026-09-07 (REV 3): `validated` (code, HEAD)** — `renderThisMonthPlants()` (`:18831`) **already
+  groups plants by care action**; `This Month` is the default tab; the jump strip points at
+  `card-plants`. **The v1 is an amendment to a shipped surface on her only proven path**, missing the
+  place partition and the honest gap.
+- ⭐ **2026-09-07 (REV 3): `validated` (code, HEAD)** — `viewer.html:18285`: on a household, an **empty
+  module is HIDDEN** `[paul-stated 2026-09-07, beat 3]`. **So at n=0 the app does not lie — it shows
+  nothing.** The lie fires in **two other windows**: at **n=1 in a quiet month**, and at the
+  **name-missing fork** (`:6423–6435`, *measured* 2026-09-07 — a grant with coordinates and no place
+  name renders every empty module). **Four "quiet" strings exist** (`:18839`, `:14438`, `:15622`,
+  `:18571`); two are on her glance path. ⭐ The engine already names the defect at `:18351` —
+  *"absence dressed as a reading."*
+- ⭐ **2026-09-07 (REV 3): `validated` (code, HEAD)** — `handleZoneSave` (`worker/worker.js:3850`)
+  returns **503 `github-not-configured`** without GitHub credentials. At `home` there are none, so the
+  client surfaces the raw string. **§W routes around it: nothing saves from her device.**
+- ⛔ **2026-09-07 (REV 3): `contradicted` — MY OWN clearance of *"12 plants don't have a place yet."***
+  The sentence is **false** (the plants have places; the record does not), its shipped form **ends in a
+  question mark** against a 0-for-35 record, and it is **frozen-instance copy** — at Mom's blank
+  instance there are no plants, and the gap is **empty places**. ⚠️ **Same failure shape as §R:** I
+  reasoned from the record I could read rather than the situation she will be in, with
+  `Mom starts BLANK` in my own frontmatter. **Twice in one day, available data stood in for the
+  person.**
 - ⛔ **2026-09-07 (REV 2): `validated` — paul-stated, and it FALSIFIES this file's REV 1 organising
   finding.** *"Mom has a picture of each plant in her head and where it is, but she doesn't know
   exactly which plant is which… she actually keeps asking very specifically for this zone layout. 'I'm
