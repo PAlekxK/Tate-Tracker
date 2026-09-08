@@ -77,6 +77,43 @@ and the state artifact (`cycle-state.json`) is already shared. These beats live 
 | **10** | ⭐ COMMIT THE SCOPE | ⭐ **Paul** | he picks. **This is a human gate and no instrument is ever built for it** |
 | **11** | ARM | main session | zero records undisposed **on a real estate** (`home` · `legacy`); the next beat 0 may open. ⭐ See the G1 note below |
 
+### 🔬 PROPOSED BEAT — **10b · THE CUSTOMER JOURNEY UPDATE** `[paul-stated 2026-09-08]` · ⛔ NOT IN FORCE
+
+> *"we need to have a real clear, like, customer journey update at the end of each lap that feeds what
+> the synthetics are actually trying to do and know how they're interacting."*
+
+⛔ **Deliberately proposed BESIDE the table and not inside it**, so the beat count stays 11 and
+`check-release-docs.py` stays green until Paul ratifies. A beat that renumbers the loop's own
+machinery is not a thing a session adds on its own initiative.
+
+| | |
+|---|---|
+| **where** | between **10 · COMMIT THE SCOPE** and **11 · ARM** — end of lap, after the scope is picked and before the next lap can open |
+| **who** | main session drafts · **Paul ratifies the update itself** |
+| **exit** | the map is current at HEAD **and the next battery's seat briefs cite it** |
+
+**What it is.** One update to the customer journey — the SHOULD, the IS, and what moved this lap —
+written where `.plans/2026-09-08-setup-journey-PLAN.md` lives, and then **fed to the synthetics**: the
+seats' briefs are derived from its stages rather than from whatever the harness happened to know.
+
+⭐ **Why it goes at the END and not the start.** It is a product of the lap, not an input to it: the
+lap is what changes the journey, and a journey update written before the work describes the journey
+you intended rather than the one you built. It feeds the NEXT lap's synthetics, which is what makes
+it a beat rather than a document.
+
+⛔ **THE FALSIFIER, and it is the whole point:** the next battery's seat briefs **cite it**. A journey
+update that no walk consumes is a report. This beat is defined by what it FEEDS.
+
+⚠️ **Measured 2026-09-08, which is why Paul asked for it.** Three rounds of four seats walked a
+journey nobody had drawn. The harness's stops came from the harness, so the seats could only test the
+paths it already knew — and **the return path had no stop because no map said there was one.** The
+one journey a real person took twice was the one nothing had ever walked. `journey-walk.py` now has
+`--dead-credential` precisely because that gap was found by Paul walking it, not by a battery.
+
+⚠️ **On ratification it renumbers 11 → 12** and `check-release-docs.py` will go red until
+`CYCLE-MAP.md`, `release-state.py` and the beat count agree. **That is the control working**, and it
+is the reason this is a proposal rather than an edit.
+
 ⭐ **Where the three sweeps fire, and what each gates** — the important half is that they gate
 DIFFERENT things and one of them gates nothing at all:
 
