@@ -4208,16 +4208,25 @@
     padding: 2px 2px 12px;
     font-family: "DM Sans", -apple-system, sans-serif; font-size: 15px;
   }
+  /* ⭐ THE STRIP FOLLOWS THE SEED TOO `[paul-walked 2026-09-08]`: "seems like those jump strip
+     buttons also have that mint color." He was right, and it falsifies the claim written beside the
+     derivation itself — *"every light-green literal in the stylesheet reads var(--tint-<band>)"*.
+     These three did not, so the strip kept Fernwood's mint on every household however the ground
+     was seeded. Same var(--token, <its green>) form as the rest: Fernwood renders its own greens by
+     FALLBACK and is byte-identical, a household's seed sets the bands. */
   .jump-strip a {
     display: flex; align-items: center; gap: 7px;
     min-height: 44px; padding: 6px 10px; border-radius: 12px;
-    color: #2f5a3a; text-decoration: none;
-    background: #f2f8ec; border: 1.5px solid var(--edge-card);
+    color: var(--tint-64, #2f5a3a); text-decoration: none;
+    background: var(--tint-96, #f2f8ec); border: 1.5px solid var(--edge-card);
   }
   .jump-strip a .js-glyph { font-size: 17px; line-height: 1; flex: 0 0 auto; }
   .jump-strip a .js-label { line-height: 1.15; }
   .jump-strip a:hover, .jump-strip a:active {
-    color: #1f4528; background: var(--tint-92, #e6f2da); border-color: #3a7a3a;
+    /* ⚠️ The background was ALREADY tokenised here while the two colours beside it were not — which
+       is how a half-converted rule reads as converted. The press ink is the DARKENED seed, not a
+       tint band: every band lightens, so none of the six could ever express it. */
+    color: var(--green-press, #1f4528); background: var(--tint-92, #e6f2da); border-color: var(--green-primary, #3a7a3a);
   }
   body.text-lg .jump-strip { font-size: 17px; }
   body.text-lg .jump-strip a .js-glyph { font-size: 19px; }
