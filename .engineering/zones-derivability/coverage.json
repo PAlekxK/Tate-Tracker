@@ -1,0 +1,94 @@
+{
+ "eastern-patio": {
+  "coverage": 100.0,
+  "terrain": 97.5
+ },
+ "lawn": {
+  "coverage": 100.0,
+  "terrain": 97.0
+ },
+ "main-parking": {
+  "coverage": 100.0,
+  "terrain": 95.0
+ },
+ "fern-garden": {
+  "coverage": 87.0,
+  "terrain": 90.5
+ },
+ "lower-40": {
+  "coverage": 100.0,
+  "terrain": 90.0
+ },
+ "house": {
+  "coverage": 100.0,
+  "terrain": 89.0
+ },
+ "the-green-ring": {
+  "coverage": 99.5,
+  "terrain": 85.5
+ },
+ "hosta-garden": {
+  "coverage": 100.0,
+  "terrain": 69.5
+ },
+ "western-garden": {
+  "coverage": 100.0,
+  "terrain": 65.5
+ },
+ "the-bank": {
+  "coverage": 100.0,
+  "terrain": 59.0
+ },
+ "western-lower-patio": {
+  "coverage": 100.0,
+  "terrain": 59.0
+ },
+ "the-green-terrace": {
+  "coverage": 100.0,
+  "terrain": 56.0
+ },
+ "western-upper-patio": {
+  "coverage": 100.0,
+  "terrain": 44.5
+ },
+ "pond-area": {
+  "coverage": 93.8,
+  "terrain": 44.5
+ },
+ "eastern-woodlands": {
+  "coverage": 28.7,
+  "terrain": 44.0
+ },
+ "st-francis-garden": {
+  "coverage": 88.6,
+  "terrain": 35.0
+ },
+ "the-turf": {
+  "coverage": 64.7,
+  "terrain": 31.5
+ },
+ "lower-parking": {
+  "coverage": 69.6,
+  "terrain": 15.0
+ },
+ "stable-grounds": {
+  "coverage": 28.5,
+  "terrain": 13.0
+ },
+ "the-green": {
+  "coverage": 84.4,
+  "terrain": 10.0
+ },
+ "the-meadow": {
+  "coverage": 12.6,
+  "terrain": 10.0
+ },
+ "the-bluff": {
+  "coverage": 94.3,
+  "terrain": 9.0
+ },
+ "western-fern-azalea-garden": {
+  "coverage": 86.2,
+  "terrain": 8.5
+ }
+}
