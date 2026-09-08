@@ -5,7 +5,7 @@
 - class: engine · **declared** *(this is a research artifact, not shared machinery. ⚠️ If any of it becomes a **source registry** that the onboarding path reads, that registry is `engine · must-not-diverge` — a second copy of "where the parcel comes from" is exactly the drift this repo pays for. Paul assigns the tier.)*
 - question: what mapping data exists at every scale from a room to the globe; what it takes to **reach** it; whether we may **store and serve** it; and what it costs at household **N**
 - seats: ai-advisor (sole). ⛔ Not a substitute for engineering-partner on any build; nothing here is scoped as work.
-- stage: **research**
+- kind: census
 - gate: ⛔ **NOTHING SHIPPED.** No code, no deploy, no purchase, **no API key created, no paid call made, no account signed up for.** Four **free, unauthenticated, read-only** probes were run (§Probes run). No tracked file edited outside this one.
 - extends: `.plans/2026-09-06-ai-mapping-capability-SCAN.md` (mine, 817 lines). ⭐ **Part II §10 is not redone.** Where it was right this file says so in one line and moves on; §§3–9 below extend it along **five axes it did not carry**: the indoor scale, access mechanics, storability-as-product-boundary, cost at scale, and how each source *fails*.
 - trails-read: `.plans/2026-09-06-ai-mapping-capability-SCAN.md` · `LAND-SOURCES.md` · `images/property-map/*.bounds.json` · `.user-research/2026-09-06-what-a-map-is-for.md` §3 · `OBJECTIVES.md` · `property.json` §soils
