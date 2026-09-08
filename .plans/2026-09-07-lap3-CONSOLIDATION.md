@@ -187,3 +187,54 @@ ignore is not a mistake.** The fix is therefore *not* "commit it".
 irreversible failure tonight, needs no new repo, and does not touch the privacy posture. But it is his
 call, and a fourth option is that the register was never meant to be durable, in which case that is
 worth saying out loud once.
+
+---
+
+## 6 · ⭐ T3 — A NULL AUTHOR MUST SAY WHY IT IS NULL `[paul-stated 2026-09-07]`
+
+Paul, on the frozen-estate record: *"we need to be sure that for everything, you know, we know who
+wrote it… let's be sure we identify that instrumentation as something to mark."*
+
+### What is already right, and must not be "fixed"
+
+`measured` in `worker/worker.js`: attribution is **fail-closed by design and recently hardened.**
+`PERSON_UNKNOWN` (`:357`) is `{personId: null, estateId: null}`; `declarePerson()` is a **guard** that
+THROWS if a record arrives already carrying a person (`:365`), so **the only legal writer of a
+non-null person is `attributeTo(record, grant)`** (`:383`), which stamps `personSource: "grant"`
+alongside the value. `:3229` attributes only when a valid grant is present.
+
+⛔ **So a null author is not a bug and must not be "solved" by inventing one.** A record written
+without a grant genuinely has no attributable person, and guessing would be the misattribution rule
+this repo already lost time to `[[project_fernwood_device_misattribution]]`.
+
+### ⛔ The actual gap — null carries no predicate
+
+A non-null person says **where it came from** (`personSource: "grant"`). **A null says nothing.** So
+these three collapse into one indistinguishable value:
+
+1. written with no grant at all (an unauthenticated surface — legitimately anonymous);
+2. written with a grant the Worker could not resolve;
+3. written before attribution existed on that path.
+
+⭐ **That is exactly the failure this lap has now hit twice** — a negative result whose predicate is
+not attached to it. `ask-next-motor-pool-mtqmfjqf` is the live case: it reads `personId: null`, and
+nothing in the record says whether that means *nobody was signed in* or *we could not tell*.
+
+### The row
+
+| | |
+|---|---|
+| **v1** | `PERSON_UNKNOWN` gains **`personSource`** with a reason — e.g. `"unattributed-no-grant"` · `"unattributed-grant-unresolved"` — mirroring the `"grant"` case already there. One field, same shape, fail-closed unchanged. A null then states its own predicate. |
+| **how we would know it worked** | a sweep can separate *anonymous by design* from *attribution lost*, without opening the note. Today it cannot, at any of the 477. |
+| **what it needs** | one edit at `PERSON_UNKNOWN` and its call sites; `estateSource` gets the same treatment for the same reason |
+| ⛔ **what v1 DEFERS** | **backfill.** Existing records — including the frozen-estate one — stay null with no reason, because the predicate was never captured and inventing one retroactively is the misattribution this row exists to prevent. **A v1 must name what it defers, so: this one never explains a record already written.** |
+| **stage** | `concept`. ⚠️ It touches `worker.js`, and the build band is at **1/1** — so it enters the build lane behind something, or with a declared `wip-exception:` |
+
+⚠️ **And the correction that produced this row, recorded because the premise was reasonable and
+wrong:** Paul's read was *"if it's in production, I'm the only one that's written in production."*
+`measured` from `worker/wrangler.toml`: **`prod` is `est-3c9f1a` — the FROZEN OLD FERNWOOD**, where
+Mom has been the primary user for months. The new production is `home` / `est-e6696a`, which holds
+exactly one account. ⭐ **The env label `prod` reads like "the live product" and is not.** A
+`"Vehicles"` ranking-add on the motor-pool screen of the old Fernwood is at least as likely hers.
+**This is the single strongest argument for T3**: the one record where authorship actually mattered is
+the one where the environment's own name pointed at the wrong person.

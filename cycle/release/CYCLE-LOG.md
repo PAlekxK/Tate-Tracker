@@ -1217,3 +1217,50 @@ disposedAt`) and the tool's own line says **`feedback-dispositions.json` is TRAC
 words stay in `.private/`.** ⭐ **The index he asked for already exists, is version-controlled, and
 deliberately holds no `personId`** — the repo is public, so the ledger records *our conduct*, never
 the person.
+
+### ⭐ BEAT 6 CLOSED — all 8 gating records disposed, and F6 ARM IS OPEN FOR THE FIRST TIME
+
+`paul-ruled 2026-09-07`: *"I'm good with your recommendations."* Eight records, eight reasons:
+
+| record | disposition | why, in one line |
+|---|---|---|
+| `onboard-name-16slk8z` · `-address-pexfq4` · `-addr-confirm-zl9lzb` | **not-a-finding** ×3 | form values the product captured correctly; not feedback |
+| `onboard-onboarding-note-1lx0poj` | **fold** → D1 | he typed *"It's a condo property type"* into free text because no property-type field exists |
+| `onboard-interests-other-atz6kh` | **fold** → D4 | *"Houseplants!"* arrived in the interests **"something else"** box — a twelfth interest, **not** a module ask |
+| `homes-second-home` | **fold** → 19/19b | the roles/invite ask, **twice on one day** — count recorded, nothing ranked |
+| `fb-53e7l33b-mtre3ll8` | **fold** → D3 / C7-R5 | the place card is about the PROPERTY; the material behind *start with links* |
+| `ask-next-motor-pool-mtqmfjqf` | **hold** | FOCUS FREEZE on `est-3c9f1a`; release when the freeze lifts or the migration reaches `ask-next` |
+
+⭐⭐ **`🔓 F6 ARM — 0 awaiting on a real estate (+469 not gating)`.** The first time this loop has ever
+been able to arm. Beat 10's gate is open too.
+
+⭐ **And F4/F5 finally have an input.** Four `fold` records exist, so the beats that had never carried
+anything now have something to carry — the gap left open when the earlier proof covered only four of
+six beats.
+
+### ⚠️ THE CORRECTION THAT CAME OUT OF THE LAST RECORD — `prod` IS NOT THE LIVE PRODUCT
+
+Paul's premise, reasonable and wrong: *"it's gotta be me. If it's in production, I'm the only one
+that's written in production."*
+
+`measured` from `worker/wrangler.toml`:
+
+| env flag | estate | what it actually is |
+|---|---|---|
+| **`prod`** | `est-3c9f1a` | ⛔ **the FROZEN OLD FERNWOOD** — where **Mom** has been the primary user for months |
+| **`home`** | `est-e6696a` | the new production Paul built on — **one** account, his |
+
+So the premise holds for `home` and fails for `prod`, and the `"Vehicles"` ranking-add on the
+motor-pool screen is **at least as likely Mom's**. It stays unattributed
+`[[project_fernwood_device_misattribution]]` — attribute from authored CONTENT only, and *"Vehicles"*
+identifies nobody.
+
+⭐ **The env's own NAME is the trap.** `prod` reads as *the live product* and points at the archive.
+`[[reference_match_payload_not_container]]`, third instance this lap.
+
+⭐ **→ T3 is filed** (`.plans/2026-09-07-lap3-CONSOLIDATION.md` §6), and it is Paul's ask made
+concrete: attribution is already fail-closed and correct — `declarePerson()` THROWS on a smuggled
+person and only `attributeTo()` may write one — but a **non-null person says where it came from
+(`personSource: "grant"`) and a null says nothing at all.** v1 gives null a reason; it explicitly
+**defers backfill**, because inventing a predicate for a record already written is the very
+misattribution the row exists to prevent.
