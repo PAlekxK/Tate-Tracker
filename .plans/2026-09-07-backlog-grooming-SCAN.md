@@ -1137,3 +1137,21 @@ CONTRACT, not a reorganization** — *"nothing was merged, nothing renamed, noth
 **declared** where its axis lived. GL-11 should declare the four dimensions per input class, not
 migrate records. ⚠️ Its own worked precedent: `momlib.markers()` normalises every domain's honesty
 field so a producer asks *"does this admit a guess?"* instead of knowing field names.
+
+### 11.7 · The two build gates — RULED `[paul-ruled 2026-09-07]`
+
+*"For C eight and nine, those both sound good. I go with your recommendations as well."*
+
+| | ruling | consequence |
+|---|---|---|
+| **GL-12** | ✅ **the additive second strip row** — row 1 = the top six by access, capped, hers first and untouched; row 2 = the remainder | ⛔ **this is what solves the COLD START.** Without it, 10 of 16 cards have no above-the-fold door and can never be accessed into the top six — the Journal among them |
+| **GL-13** | ✅ **the synthesis line exists — ONE phrase** | ⭐ it is where *what matters today* lives, which is the resolution of the habit-vs-state objection: **the strip is a habit surface** (and habit is the right signal for navigation), **the synthesis line is the state surface** |
+
+⭐ **Both seats arrived at GL-13 from opposite directions** — the ux seat recommended frequency rank the
+**synthesis line** (*"a worklist by construction — exactly where the ratified rule says a ranking
+belongs"*); the research seat's construct-mismatch finding says a frequency signal cannot answer a
+*today* question. **One phrase, carrying state, resolves both.**
+
+✅ **THE GLANCE SLATE IS NOW FULLY SCOPED** — shape ruled (GL-1…GL-5), evidence ruled (GL-6, GL-7),
+gates ruled (GL-12, GL-13). ⛔ **What remains is not a decision, it is a sequence:** instrument first
+(G1–G6), then adapt. It is the first slate in this file to reach that state.

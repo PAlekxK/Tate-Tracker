@@ -673,6 +673,39 @@ python3 -m http.server 8765
 
 **Every user-facing change ships with a release note.** When a release lands something Mom or Paul would notice on the dashboard (a new card, a new affordance, a visible behavior change), add a `## YYYY-MM-DD — Title` entry to `RELEASE_NOTES.md` (newest stays at top, field-journal voice, bullets describe what changed *for the user* — not the engineering), then run `python3 tools/build-release-notes.py` to re-inline `RELEASE_NOTES_DATA` (latest 5) into viewer.html. The "Recent updates" card renders it. Purely behind-the-scenes work (refactors, data plumbing) doesn't need an entry. If a release shipped without a note, backfill it.
 
+## ⭐⭐ EVERY ITEM SHIPS WITH AN ASK, A CHECK AND AN ATTRIBUTION `[paul-ruled 2026-09-07]`
+
+**Four fields, verifiable AT THE BUILD COMMIT** — Paul's own words: *"with each new release, a new set
+of questions… included and related to each build commit for each lap"* · *"each backlog item associated
+with a telemetry ask **and check**"* · *"an update message to the acknowledgment ribbon… linked to any
+feedback that they provided… with a hyperlink they can click to take them down to that section."*
+
+| | field |
+|---|---|
+| **the ask** | the question(s) the item ships with — confirm, or inform next steps |
+| **the telemetry event AND its reader** | ⛔ **an event with no reader is not instrumentation** |
+| **the ribbon line + its `links:[{phrase,card}]` target** | only where the item traces to feedback |
+| **the release note** | for everything else — `RELEASE_NOTES.md`, above |
+
+⛔ **THE RIBBON STAYS ATTRIBUTION, NOT INFORMATION** (2026-08-04). It refreshes on HER events, never on
+our shipping cadence — a change nobody caused belongs in *Recent updates*. ⭐ The two rules only agree
+because the ribbon line is *"linked to any feedback that they provided"*: **the asks are what create the
+attribution that makes the ribbon legitimate.**
+
+⭐ **The reader clause is the load-bearing half, and it is measured.** On 2026-09-07 `GET /api/door`
+existed and **no tool called it**; `/api/onboarding-metrics` had **no GET route at all** — two laps of
+onboarding signal were invisible while the same Worker carried 23 telemetry writers. **More writers is
+not more instrumentation.**
+
+⭐ **AND THE BACKFILL IS RULED TOO** `[paul-ruled 2026-09-07]`: *"we should have all this instrumented,
+for sure. We keep uncovering uninstrumented stuff, and we need to instrument it all really."* ⛔ Its
+constraint: **instrument OUTCOMES, never people** — `watch-door.py`'s own rule is the model, *it reports
+what happened at a door, never who was standing at it.*
+
+Full contract, the assembled ask template (the ranking axis · the observable rule · the bench gate), and
+the open ruling on which surface serves the ask (`fernwood-11`):
+`.plans/2026-09-07-backlog-grooming-SCAN.md` §9.
+
 ## ⭐⭐ The domain manifest — how the record is organized, holistically (Paul, 2026-08-02)
 
 **`momlib.DOMAINS` is THE declaration of every domain, and `tools/check-domains.py` is what stops it
