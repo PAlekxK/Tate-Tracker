@@ -297,7 +297,8 @@
     //     cached view, the default is an authored positive claim, and it is false. Not fixed here
     //     because the honest fix is to render this card from the reconcile rather than before it,
     //     which is a bigger change than tonight should carry.
-    var placed = false;
+    // ⭐ HOISTED 2026-09-08 so the ROWS renderer can agree with the header above it.
+    placed = false;
     if (mine) {
       try {
         var c = JSON.parse(read(K_COORDS) || "null");
@@ -432,6 +433,8 @@
   }
 
   var fetching = false;
+  // whether this household has coordinates — read by BOTH the door copy and the rows empty state
+  var placed = false;
   // set when the record could not be asked at all — distinct from an empty answer
   var reachUnknown = false;
 
@@ -470,7 +473,21 @@
         ? "Open your invitation link and your place will be here."
         : (fetching ? "Fetching your place…"
                     : (reachUnknown ? "We couldn’t reach your place just now — nothing is lost."
-                                    : "Nothing here yet."));
+                                    // ⛔⛔ THE THIRD STRING. On 2026-09-07 this card was fixed so
+                                    // `#doorstate` and `#doorlede` could not contradict each other —
+                                    // "both sentences or neither", in that fix's own words. THIS one
+                                    // lives in a different function and kept saying the opposite:
+                                    // Paul walked it 2026-09-08 and read "Your place is set up.
+                                    // Weather and sky are already in there" above "Nothing here yet",
+                                    // and called the journey contradictory. Fixing two of three
+                                    // strings left the defect where it was — the class fix applied
+                                    // to the instance, again.
+                                    // ⭐ A PLACED household HAS something: its weather and its sky.
+                                    // What it has none of is anything the PERSON put there, and that
+                                    // is a different sentence. ⚠️ Wording is content-steward's (B9);
+                                    // this removes a contradiction rather than settling the voice.
+                                    : (placed ? "Nothing you’ve added yet."
+                                              : "Nothing here yet.")));
       host.appendChild(p);
     }
   }
