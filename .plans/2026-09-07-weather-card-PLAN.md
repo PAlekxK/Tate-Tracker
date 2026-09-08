@@ -435,6 +435,206 @@ cannot ship tier 1 to a non-Georgia household without at least the narrow fix.**
 
 ---
 
+## 0-PRIME-C · ⭐ W-13 — THE ADVISORY LAYER IS ASK FODDER `[paul-ruled 2026-09-07, late]`
+
+> *"For the weather, for example, we may wanna ask whether people are interested in different pollen
+> advisories or sun advisories, or there's anything in particular that is of interest to them related
+> to the weather. There's probably all kinds of alerts and stuff we could pull — **let's use that as
+> fodder to ask people**."*
+
+⭐ **The move is the input-to-value cycle pointed at the ADVISORY layer.** Not *"which advisories should
+we show"* — **"which advisories are worth asking about."** The two existing opt-ins (radar · the
+household's own station) stop being the whole of D2/D3 and become **the first two of a class.**
+
+**Two shapes, and they are different instruments:**
+
+| | shape | precedent that already exists |
+|---|---|---|
+| **a** | **a closed set of advisory opt-ins** — pollen · UV · air quality · severe · frost/freeze · wind · fire weather · drought | the radar/station asks (W-1), `postAnswer` with `field:` |
+| **b** | **an open *"anything else about the weather here?"*** | ⭐ the shape that produced ***"Houseplants!"*** on `onboard-interests-other`, and the **WHAT'S MISSING** line `read-onboarding.py` prints **first** — *the only line where someone can name a need we never anticipated* |
+
+⛔ **THE SUPPLY CONSTRAINT IS A HARD CAP, and it decides the FORM.** The confirm queue is **5 slots
+with 8 cards benched and none approved**, and in practice renders **one at a time**. **Eight advisory
+classes cannot become eight cards.** ✅ **W-10 already rules the site** — the weather opt-ins sit
+**beside the address at setup**, not in the queue. So the v1 form is **one multi-select at setup plus a
+free text**, not a queue of asks. ⚠️ Confirm the form with the ux and content seats before it is built;
+it reaches a person.
+
+⛔ **THE DELIVERY CONSTRAINT, stated at the ruling rather than discovered in the build.**
+**Fernwood is a page you open, not a push channel** — there is **no notification path today**, and the
+site premise is permanent (*no cell reception; Wi-Fi only near the house; coverage falls off with
+distance*). **So an "alert" here is a CARD, not an alert.** ⭐ **An advisory someone opted into and did
+not receive in time is worse than one never offered** — trust is the load-bearing emotion, and this is
+the same class as *capture must not lie*. **Every advisory offered must degrade honestly as a
+card-on-next-open, or say plainly that it cannot.**
+
+⚠️ **AND THE ASK-COPY RULE APPLIES, since these reach a person:** every ask states **USE · NOT-use ·
+WHO SEES IT · reversibility**, capture stays deterministic and AI-free, and the phrasing is
+human-confirmed before it ships.
+
+⭐ **The discriminator the research must return** (brief extended to the tier-2 scan, axis 2): **which
+advisories are worth ASKING about versus just SHOWING.** Free + national + universally wanted should
+probably just render; niche, keyed or regional is ask fodder. **That distinction is the deliverable,
+not the list.**
+
+---
+
+## 0-PRIME-D · ⭐ W-14 — CIVIC INFORMATION FROM THE ADDRESS `[paul-ruled 2026-09-07, late]`
+
+> *"There's probably also just good publicly available information you can pull based on the address —
+> like the local fire department, police department, local library. I don't know, we can be creative.
+> **Let's not limit ourselves too much.**"*
+
+⛔ **THIS IS NOT WEATHER, AND SITING IT CORRECTLY IS THE POINT.** It is the **events / neighbourhood
+domain** that already has a row — `BACKLOG.md` **C7-R5** · census **D3** · `PRODUCT-ENGINE.md`
+§ *"And a domain family that does not exist yet."* **It extends that thread; it does not open a new
+one.** (Recorded here because the ruling arrived inside the weather conversation.)
+
+✅ **ITS STARTING FORM IS ALREADY RULED** `[paul-ruled 2026-09-07, J-e]` — **start with LINKS**, because
+**a link is membership-by-rule**: nothing is filtering, so there is nothing for a model to silently
+drop. ⭐ Paul's instinct and the AI boundary agree here without anyone having to trade.
+
+> ### ⛔ THE TRIPWIRE, quoted exactly because it is the thing that will be crossed without anyone noticing
+> **"The first time anything SELECTS or FILTERS what appears on the card, the order-not-membership rule
+> must be ruled before that ships."**
+>
+> ⭐ **A curated link to *your* local library is membership-by-rule. A ranked list of "things near you"
+> is SELECTION.** Every candidate must be placed on one side of that line before it is built.
+
+**Where the inputs already exist:** W0 returns **lat/lon, county FIPS and state** — the same
+address-derived facts W-9's source-applicability rule keys on. ⭐ **So this is the same mechanism, a
+second consumer.**
+
+⚠️ **THREE CONSTRAINTS, each with a live precedent in this repo:**
+1. ⛔ **PRIVACY, and it is not hypothetical.** The Wundermap link hands a third party the household's
+   coordinates to **11 decimal places with no disclosure**, on a screen where the Google link discloses
+   (census **G5**). **Security is a stated selling point.** For every outbound civic link: what does the
+   third party learn, at what precision, and is it disclosed? ⛔ **Never send more precision than the
+   lookup needs — a library serves a town, not a point.**
+2. ⚠️ **COVERAGE will be the sharp finding.** Fire, police and library boundaries are **municipal**, the
+   patchiest data tier in the US. The mapping scan's result was that free **solved the condo and did not
+   solve Fernwood**; expect the same asymmetry and measure it rather than assume it.
+3. ⚠️ **THE COUNTERWEIGHT TO *"don't limit ourselves"*, so the scope does not drift into a directory.**
+   C7-R5's measured defect is Pickens-County events rendering at a **Midtown** address, **at the bottom
+   of the card**, violating *freshest data near the top*. ⭐ **A civic link is DURABLE, not FRESH** — so
+   where durable-but-useful content sits, relative to a glance ordered by freshness, is an open design
+   question. **It may not belong on the weather card at all.**
+
+⭐ **One candidate worth naming rather than leaving to a list:** the **county Extension office**. For a
+property whose entire record is plants, the land-grant Extension service is the most on-point civic
+source there is — and it is the one that most plausibly earns a place beside the garden rather than the
+weather.
+
+---
+
+## 0-PRIME-E · ⭐ W-15 · W-16 — EVENTS (which crosses the boundary) and the EXTENSION OFFICE
+
+### W-15 · *"maybe worth asking what kind of events people are interested in — like live music or festivals or sports — and then maybe there's the option to pull in information of stuff that's going on in the neighborhood or the city"* `[paul-ruled 2026-09-07]`
+
+⛔⛔ **THIS IS THE FIRST THING IN THE THREAD THAT CROSSES J-e's TRIPWIRE, and the trigger is Paul's own.**
+Axis 3's civic links are **membership-by-rule** — a link to *your* library is decided by jurisdiction
+and nothing filters. **Events are not.** You cannot list every event in a city, so **something selects
+and something orders.** J-e's re-open condition, verbatim:
+
+> *"The first time anything SELECTS or FILTERS what appears on the card, the order-not-membership rule
+> must be ruled before that ships."*
+
+✅ **The artifact for that ruling already exists** — `.plans/2026-09-07-place-card-AI-BOUNDARY.md`
+(ai-advisor, `stage: concept`, **unstamped**). ⛔ **So this is not a new decision to invent; it is an
+existing one that just became due.**
+
+⚠️ **THE ASK IS CHEAP; THE SUPPLY IS THE QUESTION.** Event *kinds* (live music · festivals · sports ·
+markets) is the **same multi-select shape as W-13's advisory classes**, and W-10 already sites it —
+beside the address at setup, not in the queue. ⛔ **But where do event listings come from?** Expected to
+be the **worst-covered source class in the whole scan** — no free, national, licence-clean source is
+known to exist; the plausible ones are keyed/commercial ticketing platforms, ToS-restricted, or
+per-city calendars. ⭐ **A clear negative is a valuable result here**: if there is no free national
+source, the feature changes from a build into a decision about spending. Sent to the research as axis 4.
+
+⭐ **AND THE HOUSEHOLD THAT MOST NEEDS IT IS THE ONE SERVED WORST TODAY.** C7-R5's measured defect:
+**Pickens-County events render at a Midtown Atlanta address, at the BOTTOM of the location card** —
+wrong content, wrong place, wrong altitude. **The condo is C7's whole premise** (urban, no garden), and
+events are the domain that would carry it. ⭐ **Events are also the only thing in this scan that
+EXPIRES**, which makes them the one candidate that plausibly belongs *near the top* of a glance ordered
+by freshness — the opposite of the civic links, which are durable.
+
+### ✅ W-16 · THE COUNTY EXTENSION OFFICE — confirmed `[paul-ruled 2026-09-07: "Yes. The extension office is awesome."]`
+
+⭐ **Why it is the strongest civic candidate rather than one more row in a list** — and it is the only
+one where the case is about *this product* rather than about civic completeness:
+
+1. **It is the human authority for the exact thing this record is made of.** Cooperative Extension is
+   the land-grant service for **soil testing · plant and pest identification · local planting
+   calendars**. `proposed` — the specific offices and services are for the research to verify.
+2. ⭐ **It pairs with Garden Guru instead of competing with it.** Guru drafts an identification behind
+   Paul's gate; the Extension office is where a guess becomes **verified on the ground**. That is this
+   project's own honesty doctrine — *a confidently-wrong record is worse than an honestly-unsure one* —
+   with a real-world destination attached to the `inferred → verified` transition.
+3. ⭐ **Soil is the sharpest case.** Canon carries `soilNotes` per plant and a soil series on the
+   property record, **all of it inferred from surveys.** A soil test is the ground truth for something
+   the record currently guesses — and it is exactly the shape of W-7 (*surface the derived figure and
+   let the person confirm it*), one step further out into the world.
+4. ⚠️ **It probably belongs beside the GARDEN, not the weather.** A durable civic link on a glance
+   ordered by freshness is misplaced; on the plants surface it is a tool the reader would actually use.
+
+---
+
+## 0-PRIME-F · ⭐⭐ W-17 · W-18 — ORGANIZATIONS, AND THE SITING RULE THAT RESOLVES THE WHOLE THREAD
+`[paul-ruled 2026-09-08, same session, past midnight]`
+
+### W-17 · *"Certainly local neighborhood associations — not necessarily the HOA — but local conservancies, organizations, especially that may line up with the interest of the user."*
+
+⭐ **THIS ONE SITS EXACTLY ON J-e's LINE, and which side it falls on is a BUILD choice, not a data
+choice.** The other civic sources are decided by **jurisdiction alone**. This class is decided by
+**jurisdiction JOINED TO THE HOUSEHOLD'S OWN DECLARED INTERESTS** —
+
+| build | what it is | boundary |
+|---|---|---|
+| *"land-trust and native-plant links **because this household ranked Gardening**"* | ✅ a **JOIN on their own answer** — deterministic | **membership-by-rule; no ruling needed** |
+| *"the most relevant local organizations for you"* | ⛔ **SELECTION** | needs the order-not-membership ruling first |
+
+**Same data, two builds, opposite sides of the line.** ⭐ **The cheap version is the safe one**, which is
+rare and worth taking.
+
+⭐⭐ **AND THE REPO ALREADY HAS A WORKED EXAMPLE OF THIS CLASS THAT NOBODY HAD CONNECTED.**
+`research-resources.md` already inventories the **Atlanta Astronomy Club** (*"the nearest organized
+astronomy community for a Pickens County stargazer"*), **DarkSky International** and **Deerlick
+Astronomy Village** — and files them as ***"Property card → Community link list, depth tier: deep-dive
+link."*** **The class, the siting AND the depth tier were all proposed already**, for an interest
+Fernwood genuinely has (Bortle 3). ⚠️ *"Not necessarily the HOA"* is Paul's own qualifier — a
+property-owners' association is a **separate, lower-value case** than an interest-aligned organisation.
+
+⚠️ **Discoverability is the hard part** and is expected to be worse than municipal boundaries — there is
+no registry of *"local conservancies."* ⭐ The candidate worth probing is the **IRS exempt-organizations
+file**: federal, free, national, and **classified by purpose (NTEE) with a location** — the coverage
+profile every other civic source lacks. Sent to the research.
+
+### ⭐⭐ W-18 · THE SITING RULE — *"Not all this belongs on the weather card. Some of this definitely just belongs on the property summary card."*
+
+⛔ **THIS IS NOT A NEW RULE. It is `[[Freshness sets altitude]]` and the glance-and-repository principle
+applied to the new content** — which is why it resolves cleanly instead of needing a design round:
+
+| | content | where | why |
+|---|---|---|---|
+| **THE GLANCE** — near-horizon, decision-shaped, **expires** | derived conditions (axis 1) · advisories (axis 2) · **events** (axis 4) | the **weather card** | fresh sets altitude; an event is the only thing in the scan that expires |
+| **THE REPOSITORY** — durable, reference, **does not expire** | civic links · interest-aligned organizations · **the Extension office** (axis 3) | the **PROPERTY SUMMARY CARD** | *"relocate depth, don't delete it"* |
+
+⭐ **Three independent things had already pointed here and none of them knew about the others:**
+1. `research-resources.md` filed the astronomy community links on the **Property card** months ago.
+2. **C7-R5's measured defect** is events rendering at the **bottom** of the location card — *"violates
+   our rules about getting the freshest data near the top."*
+3. This file's own W-14 and W-16 notes concluded a durable civic link is misplaced on a
+   freshness-ordered glance, and that the Extension office belongs beside the **garden**.
+
+⛔ **CONSEQUENCE FOR THE V1: the weather card does not grow a directory.** Axis 3 lands on the property
+card and is **out of the weather row's scope** — it becomes C7-R5 / D3 work with its own row.
+⭐ **That shrinks the weather v1 back to something buildable**, which is the practical value of the
+ruling.
+⚠️ **Still open, and it is a real question rather than a detail:** the **Extension office** may deserve
+the garden surface rather than the property card — the two are not the same, and W-16 argues garden.
+
+---
+
 ## 0 · The one-line
 
 **Give every household the weather card from nothing but its address; ask two yes/no questions; each
