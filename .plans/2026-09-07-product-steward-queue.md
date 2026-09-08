@@ -200,6 +200,19 @@ carried no judgement at all.
 ## Entry format
 
 ```
+- ✅ **RULED `[paul-ruled 2026-09-08]` — ALL THREE.** *"I think all three of these are important and worth
+  prioritizing."* ⭐ **This closes Q13 as posed.** The question was *which bucket did "process related"
+  mean*, and the answer is that the phrase was never exclusive: **B6 (instrumentation of the product),
+  B7 (the release instrument) and B8 (the loop's own record) are all in scope.**
+- ⚠️ **What it does NOT settle, stated plainly so nobody reads it as settled:** *"all three"* is a **SCOPE**
+  ruling, not a **SEQUENCE**. The three buckets hold ~30 members between them and the WIP band is
+  `build 1/1`. **Nothing here says which member is picked next, and no instrument is proposed for it.**
+- ⭐ **The discriminator Paul has ALREADY ratified, and it is a property rather than a preference:** the
+  cheaper-now-than-later criterion `[paul-stated 2026-09-08]` — *does the remediation cost GROW with time,
+  and is any part of the delay window UNRECOVERABLE?* ⛔ **It cuts ACROSS all three buckets** rather than
+  ordering them, so it narrows the next pick without ranking anything. Applied to the now-in-scope set:
+  `.plans/2026-09-08-lap5-REFINEMENT.md` §13.
+
 ### Q<n> · <the question, in one line>
 - raised-by: <beat 8 run date> · from <chronicle file:line, or the seat trail>
 - the finding: <what was carried>

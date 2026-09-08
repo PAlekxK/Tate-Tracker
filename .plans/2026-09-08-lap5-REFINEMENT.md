@@ -748,3 +748,38 @@ carried as 🔴 open by the BOARD's B8 and are not:**
 ⛔ **Both were true when written.** That is the bucket's own occupational hazard: **a register of
 cheap-now items decays exactly like any other register**, so membership must be re-probed at the moment of
 ranking, never inherited from this file.
+
+---
+
+## 14 · Q13 CLOSED — **all three** `[paul-ruled 2026-09-08]`, and what that leaves
+
+*"I think all three of these are important and worth prioritizing."* ⭐ **The question dissolved rather than
+resolved:** it assumed *"process related items"* named one bucket. It named a concern that **all three
+carry** — B6 (instrumentation of the product), B7 (the release instrument), B8 (the loop's own record).
+
+⛔ **Scope ≠ sequence, and the gap is not rhetorical.** Three buckets hold **~30 members**; the WIP band is
+`build 1/1`. **A set of thirty that is entirely in scope is not more actionable than a set of thirty that
+was never bucketed** — unless something narrows the next pick. That something must not be a ranking.
+
+### ⭐ It already exists, Paul supplied it, and it cuts ACROSS the three rather than ordering them
+
+His own **cheaper-now-than-later** criterion (§13) is a **property of an item**, not a preference about it,
+and it is orthogonal to bucket membership. Applied to the now-in-scope set `measured`:
+
+| | B6 · the product | B7 · the release instrument | B8 · the loop's record |
+|---|---|---|---|
+| **(b) UNRECOVERABLE** — the delay is *spent*, not deferred | the telemetry census · production activity blindness (**his committed item C**) | ⚠️ **needs a judgment I cannot make — see below** | `mom-queue-watch`'s two silent returns · the **freeze register**, ratified 09-07 and never built |
+| **(a) RISING PRICE** — dearer per lap, but payable later | — | gate ①'s best-run-per-seat | doc suffixes · 26 orphans · the head-gap slope · L2 · C2 · C3 |
+
+⚠️ **The B7 cell is genuinely open and I am not filling it by inference.** Whether a walk battery run under
+a gate that hides failing returning walks is *unrecoverable* (the runs are gone) or merely *expensive* (the
+battery can be re-run) depends on whether a re-run reproduces the same conditions — **and a battery ran
+today**. ⛔ That is a question for whoever owns the release instrument, not a box for me to tick.
+
+### What this changes, and what it does not
+- ✅ **Q13 is closed.** The three buckets stand as scoped, findable and distinct — which was beat 5's job.
+- ⛔ **The next pick is still Paul's**, and the cheaper-now lens narrows it **without anyone ranking**:
+  the **(b)** row is four named items, three of them already measured, and one of them is **already in
+  flight as his own committed item C**.
+- ⚠️ **Membership must be re-probed at the moment of picking, never inherited from this file** — §13.5's
+  own hazard, which caught two already-fixed rows this afternoon.
