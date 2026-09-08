@@ -1,6 +1,16 @@
 {
  "_comment": "Per-record dispositions for feedback arrivals, keyed (env|estate|channel|record id). ⛔ THIS FILE IS TRACKED IN A PUBLIC REPO. No note text and no personId ever land here — the words live in .private/ and person ids live in the private sibling's grants.json. A `why` is written by a human and goes public with it: say where the record went, never what anybody said. A batch may never be cleared by one of its members, so there is no bulk write and no watermark.",
  "dispositions": {
+  "home|est-e6696a|feedback|fb-269pc0tz-mtt4bul3": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T20:49:15Z",
+   "disposition": "act",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "fb-269pc0tz-mtt4bul3",
+   "ts": "2026-09-08T20:24:48.279Z",
+   "why": "[paul-ruled 2026-09-08 at DISPOSE] BECOMES ITS OWN THEME, filed as BACKLOG § THE USER'S OWN RECORD. Paul: 'what you told me becomes its own kind of theme of just tracking, in general, what information we've been provided by the user, what we wanna ask next, how we can use all that information… we can figure out how to action it independently.' ⛔ Disposed `act` rather than `hold` because it CREATES work (a tracked theme); WHEN it is actioned is COMMIT's call, not this beat's. The record itself asks three things — should 'What you told me' be a card at all · if it is, it needs a jump-strip entry · it is redundant with content already carried indirectly by the other cards. ⭐ Converges with four prior findings on the same surface from three independent readers."
+  },
   "home|est-e6696a|feedback|fb-53e7l33b-mtre3ll8": {
    "channel": "feedback",
    "disposedAt": "2026-09-08T00:58:56Z",
@@ -10,6 +20,26 @@
    "id": "fb-53e7l33b-mtre3ll8",
    "ts": "2026-09-07T15:22:47.180Z",
    "why": "FOLDS INTO CENSUS ROWS D3 / C7-R5 (events and neighbourhood as a domain). Same content as walk finding F10: the place card should be about the PROPERTY — local events, festivals — not weather. It is the material behind Paul own \"start with LINKS\" instinct on J-e, which he closed for now; the reopen trigger is the first time anything SELECTS or FILTERS what appears on a card."
+  },
+  "home|est-e6696a|feedback|fb-gu2zv3t9-mtt494f1": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T20:46:53Z",
+   "disposition": "act",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "fb-gu2zv3t9-mtt494f1",
+   "ts": "2026-09-08T20:22:41.053Z",
+   "why": "[paul-ruled 2026-09-08 at DISPOSE] A FORMATTING question, not a card question — Paul drew that line explicitly and it separates this from record 3 (fb-269pc0tz), which asks whether 'What you told me' should be a card at all. Concrete defect: contents misformatted, no left border on the card. ⭐ ROUTE TO A UX/DESIGN THEME at GROOM & BUCKET, not to a one-off fix — paul-stated: 'I would wanna build up a bucket or theme of just, like, UX and design work… so we continue to build a UX design library and do things cohesively.' Converges with mom and strict (QA, independently) on the same card for a different reason: it is read-only, carrying the setup receipt's three headings with none of its change-links."
+  },
+  "home|est-e6696a|feedback|fb-vurlf77f-mtt49x18": {
+   "channel": "feedback",
+   "disposedAt": "2026-09-08T20:49:15Z",
+   "disposition": "fold",
+   "env": "home",
+   "estate": "est-e6696a",
+   "id": "fb-vurlf77f-mtt49x18",
+   "ts": "2026-09-08T20:23:18.140Z",
+   "why": "[paul-ruled 2026-09-08 at DISPOSE] FOLDS INTO TIER 1 · 11 (the weather card from an address), which already owns the household's-own-station opt-in. Paul: 'I think we have something about this covered in the backlog in weather, but let's just add this to that as additional evidence.' ⭐ WHAT THE EVIDENCE ADDS: the product conflates TWO different states — 'your station is offline' (a fault) and 'you have no station' (a fact about a condo). Wide-eyed saw the CORRECT form at QA on the same build — the station row read 'No station here — regional readings' — so the honest string exists and the wrong one is reaching production. ⚠️ It also converges with row 11's existing Q4 member in TIER 2 · 16, Paul's own earlier walk line: 'if you ask me for the station, remove the indicator' — same defect, reported twice, weeks apart, by the same person on two different origins."
   },
   "home|est-e6696a|feedback|homes-second-home": {
    "channel": "feedback",
@@ -102,6 +132,8 @@
    "why": "FOLDS INTO CENSUS ROW D1 (property type as a declared input). Paul typed \"It is a condo property type. I am right by the beltline and Grant Park itself!\" into a free-text note because there is no property-type field to put it in — which is exactly the evidence D1 rests on, now with its own record id. No new row: D1 already exists and already cites this behaviour."
   },
   "legacy|est-3c9f1a|feedback|ask-next-motor-pool-mtqmfjqf": {
+   "_key_migrated": "2026-09-07 — the env LABEL `prod` was renamed to `legacy` [paul-ruled]. This ledger is keyed by (env|estate|kind|id), so the rename orphaned this disposition: the sweep began looking for a key that did not exist and the record read as UNDISPOSED again. Migrated, not re-disposed — the original reason and disposedAt are intact.",
+   "_key_was": "prod|est-3c9f1a|feedback|ask-next-motor-pool-mtqmfjqf",
    "channel": "feedback",
    "disposedAt": "2026-09-08T00:58:56Z",
    "disposition": "hold",
@@ -109,9 +141,7 @@
    "estate": "est-3c9f1a",
    "id": "ask-next-motor-pool-mtqmfjqf",
    "ts": "2026-09-07T02:28:15.399Z",
-   "why": "HELD UNDER THE FOCUS FREEZE, which still governs the frozen estate est-3c9f1a even though J-a freed Mom arrivals on est-e6696a. RELEASE CONDITION (a hold without one is abandonment with manners): the freeze lifts, OR the migration reaches the ask-next surface. ⛔ DELIBERATELY UNATTRIBUTED: personId is null and the note \"Vehicles\" carries nothing that identifies an author. est-3c9f1a is the OLD Fernwood where Mom has been the primary user for months — NOT est-e6696a, which holds one account. A ranking-add on the motor-pool screen there is at least as likely hers as Paul. Attribute from authored CONTENT only.",
-   "_key_was": "prod|est-3c9f1a|feedback|ask-next-motor-pool-mtqmfjqf",
-   "_key_migrated": "2026-09-07 — the env LABEL `prod` was renamed to `legacy` [paul-ruled]. This ledger is keyed by (env|estate|kind|id), so the rename orphaned this disposition: the sweep began looking for a key that did not exist and the record read as UNDISPOSED again. Migrated, not re-disposed — the original reason and disposedAt are intact."
+   "why": "HELD UNDER THE FOCUS FREEZE, which still governs the frozen estate est-3c9f1a even though J-a freed Mom arrivals on est-e6696a. RELEASE CONDITION (a hold without one is abandonment with manners): the freeze lifts, OR the migration reaches the ask-next surface. ⛔ DELIBERATELY UNATTRIBUTED: personId is null and the note \"Vehicles\" carries nothing that identifies an author. est-3c9f1a is the OLD Fernwood where Mom has been the primary user for months — NOT est-e6696a, which holds one account. A ranking-add on the motor-pool screen there is at least as likely hers as Paul. Attribute from authored CONTENT only."
   }
  }
 }
