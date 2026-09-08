@@ -122,13 +122,23 @@ READ_ELSEWHERE = {
     "account": "watch-accounts.py",
     "chat-budget": "the Worker itself (a daily spend counter, not an arrival)",
     "cost-log": "/api/cost-log",
+    # ⭐ MOVED OUT OF `NO_READER` 2026-09-07, the day they stopped being unread. Both were built this
+    # lap: `72b9276` added tools/watch-door.py to read them, `b8aa535` added GET
+    # /api/onboarding-metrics. ⛔ Correcting the STRING in NO_READER would not have been enough —
+    # anything in that dict prints "NO TOOL READS IT" regardless of what its reason says, so a
+    # corrected reason under the wrong heading is a truer sentence that still reads false.
+    "door": "watch-door.py — arrivals, and who reached the door without getting through",
+    "onboarding-metrics": "watch-door.py · GET /api/onboarding-metrics (worker.js, 2026-09-07)",
 }
 # Kinds that carry a person's input and have NO deterministic reader anywhere. Listing them by name
-# is the whole remedy: `onboarding-metrics` is POST-only in worker.js — there is no GET handler at
-# all — so it has been written for days and read by nothing.
+# is the whole remedy — and the entries here are a CLAIM ABOUT THE WORLD that expires the moment
+# someone writes a reader, so they must be re-read whenever one is built.
 NO_READER = {
-    "onboarding-metrics": "POST-only in worker.js (:3296); there is no GET route anywhere",
-    "door": "written by /api/door; no tool in this repo reads it on a new estate",
+    # ⚠️ `door` and `onboarding-metrics` LIVED HERE UNTIL 2026-09-07 and their entries said "there is
+    # no GET route anywhere" and "no tool in this repo reads it". Both were falsified the same evening
+    # by this lap's own commits, and both kept printing for hours — at every beat 0, and at beat 6
+    # where this tool GATES the commitment point. A tool that describes the world it lives in has to
+    # be re-read when that world changes, and nothing connected the two.
     "observations": "read only by the frozen estate's mom-cycle tools",
     "zone-audio": "read only by the frozen estate's mom-cycle tools",
     "conversations": "read only by the frozen estate's mom-cycle tools",
@@ -525,7 +535,13 @@ def selftest():
     DISPOSITIONS_FILE = os.path.join(tmp, "feedback-dispositions.json")
 
     chans = {"home": {"feedback": ["2026-09-07"], "grant": ["x"], "account": ["y"],
-                      "onboarding-metrics": ["2026-09-06", "2026-09-07"], "door": ["2026-09-06"]}}
+                      # ⚠️ `zone-audio` is the fixture BECAUSE it is still genuinely unread. This
+                      # used `onboarding-metrics`, which moved to READ_ELSEWHERE on 2026-09-07 when a
+                      # reader was built — and the control correctly FAILED rather than passing over
+                      # a channel that no longer had anything to name. A fixture that names a real
+                      # member of the set under test has to be re-pointed when that set changes;
+                      # re-pointing it keeps the BEHAVIOUR asserted, which is what the control is for.
+                      "zone-audio": ["2026-09-06", "2026-09-07"], "door": ["2026-09-06"]}}
     recs = {("home", "2026-09-07"): [
         {"id": "fb-1", "ts": "2026-09-07T15:00:00Z", "personId": "p-a", "estateId": "est-e6696a",
          # ⚠️ A SENTINEL NOBODY WOULD WRITE IN PROSE. It was "the words", which appears verbatim in
@@ -568,7 +584,7 @@ def selftest():
     check("every record arrives awaiting a disposition", len(rep[0]["undisposed"]) == 4)
     check("coverage is COUNTED, not graded", rep[0]["coverage"] == (1, 4) and "1 of 4 fully labelled" in out)
     check("a channel with no reader is NAMED, not skipped",
-          any(c[0] == "onboarding-metrics" for c in rep[0]["unread_channels"]) and "NO TOOL READS IT" in out)
+          any(c[0] == "zone-audio" for c in rep[0]["unread_channels"]) and "NO TOOL READS IT" in out)
     # ⛔ REGRESSION GUARD on a check that was DELETED. Two different people each using the same
     # control once is normal onboarding, and a first version reported it as a suspected capture lie
     # on its first live run. Nothing may re-derive that heuristic.
