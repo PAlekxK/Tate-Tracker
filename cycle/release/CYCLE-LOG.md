@@ -1531,3 +1531,98 @@ input and stays his, per record; `qa`/`lab` records are our own walk exhaust and
 **Open, and named so the next lap does not rediscover them:** the sunset-door fix awaits a battery ·
 production's model routes refuse until row 15 · gate ① needs re-running at whatever sha opens beat 0
 · the critical-fail exception is `agent-proposed` and unratified.
+
+---
+
+## Lap 4 — 2026-09-08 · 🔓 **OPEN at beat 0** — opened on lap 3's brief, three sweeps red, gate ① red at a sha nobody deployed
+<!-- outcome:open -->
+
+Opened at `7528928`, `main`, clean tree. ⛔ **This lap opens on the brief lap 3 wrote for it** —
+`cycle/release/LAP3-AUDIT.md`, whose own head says *"read at: beat 0, before the sweeps. §7 is the
+only part you must act on."* It was found by asking for it, not by the procedure offering it: nothing
+in `CYCLE-MAP.md`'s beat-0 row names the artifact the previous lap is supposed to leave behind.
+⭐ **That is §7·3's finding happening to §7 itself** — the map names no work register, so the brief a
+lap writes for its successor is reachable only from memory. `measured`.
+
+### ⛔ The reading that had to be corrected before anything ran
+
+`release-gate.py` was run first, per §7·1, and printed **🔴 0 of 4 seats at `7528928`**. That is a red
+against a build **that was never deployed and never chosen**: `qa-behind.py` reports QA serving
+`3e7bf8a`, seven commits back, and all seven are chronicle/state/CLAUDE.md — *"no app surface
+changed."* The gate is correct; the sha is not a candidate.
+
+And `release-state.py` printed **`FIRED · beat 2/11 · owner: session`**, which reads as *we are in the
+synthetic loop*. It is not. `cycle-state.json`'s own `_note` disqualifies it: *"beats 0, 1 and 6–11 are
+human or session beats this tool cannot observe; `n` is only ever one of `derivable` [2, 3, 5]."*
+**Beat 0 is structurally invisible to the instrument**, so it reports the lowest derivable beat and a
+red gate. The chronicle settles it — lap 3 `outcome:closed`, and no lap 4 heading existed until this
+line. ⭐ **Paul caught this from the outside before any walk was launched** (*"I think we should be
+starting a new lap"*), against two instruments that both read otherwise.
+
+### The three sweeps — recorded, including what is UNREADABLE
+
+| sweep | reading |
+|---|---|
+| **accounts** (`watch-accounts.py`) | 🔔 arrivals at `qa`, **213 more that predate the watcher**, **366+ ⚡ DIVERGENT rows**, 🔴 **17 accounts carrying an address and no coordinates** (all `syn-strict-*`) — nothing downstream of `SITE_PLACED` can run for them · 👻 one grant gone from the store since the last run |
+| **feedback** (`watch-feedback.py`) | ✅ **0 undisposed on a real estate** — beat 6's 09-08 scoping holds on its first live run after the amendment; the 587 are `lab`/`qa` walk exhaust, backlog material. ⚠️ **Three channels named as read by nothing:** `conversation` (21 keys), `geocode` (9), `library` (8,114) · `legacy` adds `zones` (1) |
+| **health** (`health-probe.py --only fernwood`) | 🔴 **Build check (viewer) — 5 consecutive failures**, up from 3 at session start. **Root-caused below.** 8 other checks green |
+
+### 🔴 The CI red, root-caused — and `--check` cannot see it
+
+`build-viewer.py --check` is **green**. `--selftest` is **red**, and CI runs both:
+
+```
+🔴 extract → build round-trips the live viewer byte for byte
+     → RuntimeError: template has no identity placeholder themeMain
+🔴 SUITE ABORTED — every clause after it did NOT RUN.
+```
+
+`measured`: `extract(viewer.html)` recovers **16 of the tracked template's 22 `{{IDENTITY:}}`
+occurrences**, losing `themeMain` (×2), `perspectiveTitle` and `propertyImage`. The tracked template
+is intact — `themeMain` present, tree clean — so **this is not the `--fix`/`--extract` corruption trap
+CLAUDE.md documents; it is that trap's underlying divergence, which CLAUDE.md records as *"unruled."*
+It has now stopped being a latent hazard and become a red CI check.
+
+⭐ **Why `--check` stays green over it, and this is the transferable part:** `--check` compares
+`viewer.html` against `build(tracked template, fernwood.json)`. Both sides are Fernwood, so a
+round-trip that silently drops identity placeholders **cancels out**. The clause that can see it is the
+one comparing an *extracted* template against the live file — and that clause is not in CLAUDE.md's
+session-start block. **Seventh instance of the shape:** a capability the loop cannot reach by running
+its own procedure is not a capability the loop has.
+
+⚠️ **And a second, smaller defect three lines below the comment that warns against it.** `selftest()`
+carries an explicit note that *"a selftest that raises reports NOTHING"* and wraps its clauses in
+thunks for exactly that reason — then calls `present_but_absent = build(t, cfg_path)` **bare** at
+`:553`. That is what turned a 3-clause failure into `SUITE ABORTED`, so the six clauses after it —
+including the declared-absence precedence assertions — are **unmeasured, not passing.**
+
+### The gate sweep — all three triggers RED
+
+| trigger | reading |
+|---|---|
+| `check-ux-sweep.py` | 🔍 **OWED** — last two-pass run 2026-08-31 (8d), ⚡ **121 commits** to `viewer.html` against a limit of 20 |
+| `check-backlog-drift.py` | 📋 **OWED** — ranked list **443 lines below its own head** (limit 400); `BACKLOG.md` is **3,960 lines**; 75 commits since the 09-03 run |
+| `check-backlog-ready.py` | ⛔ `.plans/2026-09-08-setup-journey-PLAN.md` — missing `class:`, objective traces to nothing, 4 unreadable seat lines, 4 missing sections, and **`stage: concept` with no `ready:` stamp — built without the gate** |
+
+### Lap 3's pre-registrations, disposed
+
+| id | disposition | evidence |
+|---|---|---|
+| `P2-returning-journey-walked` | **carried** | Discharged exactly as its own text mandates — *"it must discharge as `carried` with this blocker named, never as a miss."* Blocker unchanged: `journey-walk.py:177-190` branches on `fresh` for one stop only, so a returning walker lands past the script. Retro **C-2** has not landed. |
+| `P3-unread-walk-runs` | **answered — FAILED** | `measured` in the lap-3 window (2026-09-07T21:00 → now): **18 unread of 43 runs = 42%**, against lap 2's **12 of 39 = 31%**. The rate ROSE. ⚠️ **Predicate caveat, stated so the number is not read alone:** the window boundary is this session's choice, not a recorded one; the corpus-wide figure is 91 refused of 206. The second route (dispose of unread runs) is **partially** satisfied — `walk-integrity.py` refuses-and-keeps them and says *"that is the trail, not a fault"* — but there is no per-run disposition record. |
+| `P5-agent-proposed-pile` | **measured — PAUL'S CALL** | `grep -o "ready: *agent-proposed" .plans/*.md` → **63**, against lap 2's baseline **25** and mid-lap 3's **38**. Grown **2.5×**. ⛔ **Its own text reserves the reading:** *"Whether that is a failure or a healthy burst is HIS call at close, not a session's."* ⚠️ **And the counter-reading does NOT hold on the matching predicate:** `ready: paul-*` is **3**, not the 14 the mid-lap note implied — that 14 was a broader `paul-` stamp count, a different measure. On the like-for-like predicate the ratio is **63 : 3**. |
+
+*(`instrumented-counted` · `second-viewport` · `P1` · `P4` were already disposed at lap 3.)*
+
+### §7's seven, verified at HEAD — five still open
+
+| § | item | state at `7528928` |
+|---|---|---|
+| 1 | run the gate first | ✅ done — and it re-read the sha, see above |
+| 2 | repair `LAP3-QUEUE.md`'s two Q-series | 🔴 **OPEN** — `:59` and `:112` both start at Q1, Q4 means two things, Q5 missing from the first series. **Do not carry an ordinal out of it.** |
+| 3 | give the spine a home the loop can reach | 🔴 **OPEN** — `CYCLE-MAP.md` names no work register; `grep` for one returns nothing |
+| 4 | dispose spine steps 14 · 15 · 18 · 21 | 🔴 **OPEN, and 14 is confirmed live:** `clearAnswers()` at `onboarding/index.html` clears `[K_STEP, K_ADDR, K_PARTS, K_NAME, K_RANK, K_PREF]` and **omits `K_COORDS`** — so on a shared browser, B inherits A's coordinates. ⭐ **That is one household's record reaching another**, which is one of the four classes in beat 6's own unratified critical-fail definition |
+| 5 | track the two hooks | 🔴 **OPEN** — `pre-push` and `post-commit` live in `.git/hooks`, `core.hooksPath` unset, no `.githooks/`. **A fresh clone has neither** |
+| 6 | take beat 6's fix to its siblings | 🔴 **OPEN** — `release-gate.py:277` still hardcodes the UX clause as UNCHECKABLE; it fires at Paul every run |
+| 7 | ask Paul the three questions | ▶️ **put to him at this beat 0** |
+
