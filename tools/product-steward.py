@@ -847,6 +847,20 @@ def verdict(rounds):
     if not owed:
         return "MEASURED", []
     return "INCONCLUSIVE", owed
+
+
+def cmd_record(sha, carried, already, questions, unwritten, note, confounded=None):
+    """Append one round to the R7 falsifier ledger.
+
+    ⛔ RESTORED 2026-09-08. `890efd5` replaced this function's `def` line with `def verdict(rounds):`
+    and left THE WHOLE BODY BEHIND — stranded inside `verdict` after its own `return`, so it was
+    unreachable dead code, while `main()` still called a `cmd_record` that no longer existed.
+    ⭐ TWO DEFECTS FROM ONE EDIT, and `--selftest` was GREEN over both: `--record` raised
+    NameError at the CLI, and `cmd_ledger()` went on telling every reader to *"record a round with
+    --record"*. Found at CARRY by the seat that could not record its own round — which is the only
+    reason it was found at all, since nothing else calls it. A writer nobody exercises is a writer
+    nobody can trust, and a green selftest over a dangling call is the shape this repo keeps meeting.
+    """
     led, err = load_ledger()
     if led is None:
         print("🔴 UNCHECKABLE: ledger unreadable (%s). Refusing to overwrite what it could not read." % err)
