@@ -460,6 +460,73 @@ Full contract + the assembled ask template: `.plans/2026-09-07-backlog-grooming-
 
 ---
 
+## 🧪 SPLIT THE JOURNEY FROM THE READER — a synthetic-testing redesign `[paul-proposed 2026-09-08]`
+
+⛔ **CAPTURED TO EXPLORE LATER, NOT RANKED AND NOT RULED.** Paul's own words: *"we can put all that in
+the backlog to explore later so it doesn't get lost."* Nothing here is scoped; it goes through
+GROOM & BUCKET and COMMIT like anything else.
+
+**His proposal.** Today a "seat" is one thing that both *drives* a journey and *reads* it. Split them:
+
+- a **library of JOURNEYS** — *"a login journey for an existing customer, then an onboarding of a new
+  customer"*, growing over time as we define more;
+- a set of **READERS / LENSES** — critical, wide-eyed, and so on — where *"both of those journeys would
+  be read by these readers."*
+
+⭐ **HIS OBSERVATION, VERIFIED 2026-09-08 by execution.** Of lap 4's five walks, **four traverse the
+same 16 stops in the same order**; only the typed data and the number of ranking taps differ (42 · 43 ·
+44 · 45 actions — the variation is inputs, not path). The **fifth**, the returning walk, is a genuinely
+different journey (12 actions, 7 stops) — and it is the **only one that produced a stop-level finding.**
+⚠️ One correction to his phrasing, because it makes the case stronger rather than weaker: the four are
+not literally identical runs. They are **one path with four fixtures.**
+
+### ⭐ THE ARGUMENT THAT IS STRONGER THAN "THEY ALL DO THE SAME THING"
+
+**A seat currently conflates a FIXTURE with a LENS, and the two want different lifetimes.**
+`mom` is simultaneously *test data* (`"the condo"`, an apartment number in line 1) and a *reading
+posture* (non-technical, the make-or-break user). `strict` is both a PO box **and** a
+minimum-disclosure skeptic. Because one name carries both, **you cannot ask the skeptical lens to read
+the returning journey without also inheriting the PO box.** Fixtures belong to a journey; lenses belong
+to a reader; today they are welded.
+
+### Four things from lap 4 that argue for it, all measured
+
+1. **The only STOP came from the only distinct journey.** Four readers on one path produced four
+   no-stops; one reader on a second path produced the release-blocking finding.
+2. **`strict` measured all 16 fresh stops byte-identical between `95b8559` and `bfa3f23`** — so four
+   fifths of the battery certified a path that had not changed, on a lap whose only app-surface change
+   (`K_COORDS`) fires *exclusively* on an owner change that no fresh walk enters.
+3. **Three seats independently reported the same two findings.** Convergence is real evidence — and it
+   is also three readers' attention spent to learn one thing twice over.
+4. ⭐⭐ **IT DISSOLVES THE GATE ① DEFECT INSTEAD OF PATCHING IT.** `release-gate.py:233-240` keeps the
+   *best-scoring run per seat*, so the owner seat's failing returning walk was discarded in favour of
+   its own clean fresh walk. The proposed `(seat, journey-kind)` patch is a workaround for a **unit**
+   that is wrong. Under Paul's split the unit becomes **(journey × lens)** natively, and the bug cannot
+   be expressed. ⛔ **If this is adopted, do NOT ship the `(seat, journey-kind)` patch first** — it
+   would harden the very unit this replaces.
+
+### ⭐ AND THE HALF THAT IS ABOUT COVERAGE, NOT TIDINESS
+
+Paul: *"that journey focus also focuses the test on ensuring that we're testing what's new… if we just
+unleash a synthetic with no direction it may not even really focus on what we wanted to focus on."*
+⚠️ **With his own guard attached:** *"we don't only want to test what's new."* A journey library is
+also a **regression** library; directing every lap's battery at the new thing is how the old paths stop
+being walked. Both halves are his and both are binding.
+
+**Open questions this does not answer** (for whoever scopes it): does a lens have any *inputs* of its
+own, or only a reading posture? · who owns fixtures once they leave the seat file? · does gate ① then
+require every journey × every lens, or a declared subset per lap? · how does the ruled 4-fresh/1-returning
+**ratio** re-express itself when journeys and readers are separate axes? ⛔ That ratio is
+`[paul-ruled 2026-09-07]` and is *"a ratio, not a number, meant to move"* — it must be re-derived under
+the new model, not silently dropped.
+
+**Related, and deliberately not merged into this row:** there is still **no activity sweep for
+production accounts** — `read-mom-engagement.py` has no `--env` and is hardcoded to Mom's device on the
+legacy origin `[paul-raised 2026-09-08]`. Different axis (what real people do, not what synthetics do),
+same lap-5 slate.
+
+---
+
 ## 🔥 TIER 1 · FIX NOW — remaining
 
 *Nothing blocks these. All agent-drivable. **The Mom-facing ones are wording changes and stay gated on

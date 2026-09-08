@@ -1534,8 +1534,8 @@ production's model routes refuse until row 15 · gate ① needs re-running at wh
 
 ---
 
-## Lap 4 — 2026-09-08 · 🔓 **OPEN at beat 0** — opened on lap 3's brief, three sweeps red, gate ① red at a sha nobody deployed
-<!-- outcome:open -->
+## Lap 4 — 2026-09-08 · ✅ **CLOSED SHORT by Paul** — a maintenance lap that found the loop's own order was wrong
+<!-- outcome:closed at:2026-09-08T21:05:00Z -->
 
 Opened at `7528928`, `main`, clean tree. ⛔ **This lap opens on the brief lap 3 wrote for it** —
 `cycle/release/LAP3-AUDIT.md`, whose own head says *"read at: beat 0, before the sweeps. §7 is the
@@ -1852,4 +1852,47 @@ for two seats and proves nothing.
 `name: null, address: null` — a returning person with an **unfinished** setup. **The finished-setup
 redirect is therefore still unwalked by any seat**, at any build. That is a second, independent
 reason to hold, and it is not fixed by fixing the recognition bug.
+
+
+### ✅ LAP 4 CLOSED SHORT — 2026-09-08 `[paul-ruled]`
+
+*"Close lap 4 short, start lap 5 clean."* **Nothing was deployed to production and nothing was
+cleared** — there is no `cleared_sha` for this lap, deliberately. `bfa3f23` stays at QA as a probe
+that produced findings.
+
+⛔ **WHY IT CLOSED SHORT, and it is the lap's actual finding.** Lap 4 reached WALK with **no
+commitment behind it**. The build came from `LAP3-AUDIT.md` §7's maintenance list — a CI red and a
+storage-key hole — because the ladder put COMMIT at the *end*, arming the *next* lap. Paul read the
+beat table and named it in one line: *"the commit really is at the very end of the process and arms
+the next lap. And that just doesn't really align with the lap that we just did."*
+
+⭐ **The audit had already measured this and reserved the call for him** (§3): the map read 0 → 11
+while a lap ran **0 → 6,7,8,9,10 → 1,2,3,4,5 → 11**, and *"which one is the defect is Paul's call; a
+session may not renumber the loop."* He ruled the numbering was the defect. **The ladder now reads in
+execution order and COMMIT (6) gates BUILD (7)** — `b744051`, verified by `check-release-docs.py`.
+
+**What lap 4 shipped, all of it maintenance and none of it committed scope:**
+
+| | |
+|---|---|
+| the CI red | `extract()` reproduced 16 of 22 identity sites and no `PLACE_LOG`; now **44/44 at the right multiplicity**, `--selftest` 15/15, `Build check (viewer)` green after 5 failures |
+| `K_COORDS` | `clearAnswers()` omitted it, so a second person on a shared browser inherited the first's coordinates. Now `ANSWER_KEYS`, declared once |
+| the returning-walk recorder | scored every run against the **fresh** stop roster, so returning walks were thrown away. Now `roster_of(acts)`, mutation-proven |
+| five walks | four fresh no-stop, **one returning STOP** — the recognition defect, verified in code |
+
+**Pre-registrations at close:**
+
+| id | disposition |
+|---|---|
+| `L4-P3-ci-red-cleared` | ✅ **answered — YES.** Fixed, not worked around; the clause that sees the divergence was verified still present by grep, and the fix ADDED one |
+| `L4-P1-agent-proposed-pile` | **carried** — the rationalization it depends on has not run |
+| `L4-P2-rationalization-ran` | **carried** — ⚠️ and the gap WIDENED: the ranked list went 443 → **510** lines below its own head, partly because this lap filed a new row into it |
+| `L4-P4-critical-fail-is-a-mechanism` | **carried** — the `K_COORDS` fix landed but is undeployed, and its two-person falsifier has never been run. ⛔ The fix is not the exit |
+
+⚠️ **Left open and named so lap 5 does not rediscover them:** the **returning-recognition defect**
+(a device-local `fw-username` decides recognition before the server is asked) · **gate ① keeps the
+best-scoring run per seat**, so a failing returning walk is invisible to it · the **finished-setup
+redirect is unwalked by any seat at any build** · three seats' *"what grows there is sold and not
+built"* · three seats' *"the email you gave appears on no screen"* · **no activity sweep exists for
+production accounts** (`read-mom-engagement.py` has no `--env`).
 
