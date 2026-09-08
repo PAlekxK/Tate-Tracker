@@ -1,146 +1,172 @@
-# LAP 3 · THE OPTIONS BOARD — everything that could advance, and what each would cost
+# WHAT WE COULD DO NEXT — lap 3's options, in plain words
 
-- row: process — no BACKLOG row, same posture as every process document in `.plans/`
-- objective: O5 (the loops are the artifact) · bears on O3
-- kind: queue
-- class: engine · declared
-- seats: user-researcher → `.user-research/2026-09-07-beat7-what-matters-most.md` (beat 7, the READ)
-         practice-steward → `2026-09-07-lap3-PROCESS-AUDIT.md` + `2026-09-07-review-gate-to-qa-DESIGN.md`
-         product-steward → this layout (beat 9, BUCKET) · `2026-09-07-product-steward-CHARTER.md`
-         engineering-partner → ⛔ **OWED, NOT WAIVED.** Rows B2, B3, C1 and D2 each need a build it
-         has not costed. Their "what it costs" cells are `proposed`, by a session, not by that seat.
-         ux-expert · content-steward · ai-advisor → waived: no surface, copy or model is decided here.
-- depends-on: .plans/2026-09-07-lap3-BRIEFING.md
-- depends-on: .user-research/2026-09-07-beat7-what-matters-most.md
-- depends-on: .plans/2026-09-07-lap3-PROCESS-AUDIT.md
-- depends-on: .plans/2026-09-07-review-gate-to-qa-DESIGN.md
-- depends-on: .plans/2026-09-07-lap3-CONSOLIDATION.md
+- row: process · kind: queue · class: engine · declared · objective: O5
+- seats: user-researcher · practice-steward · product-steward (layout). ⛔ **engineering-partner has
+  NOT run this lap** — see "What this list is missing" at the bottom. Not waived; owed.
 - ready: agent-proposed 2026-09-07 — **Paul rules**
-- gate: ⛔⛔ **NOTHING HERE IS RANKED AND NOTHING HERE EXECUTES.** Rows are grouped by **what they are
-  blocked on** — a kind, not a value. Severity is **CARRIED** from the seat that claimed it, with a
-  citation, and is never originated here `[paul-ruled 2026-09-07: product-steward may bucket, on two
-  axes; it may not rank]`. **Paul picks.**
-- stage-note: 2026-09-07 — beat 10's input, built at the commitment point and not before
-  `[paul-stated: "the options list we should build more extensively once we are in lap three and have
-  collected all the feedback and input and data that's out there"]`. Every prerequisite is now met:
-  the three sweeps ran, beat 6 disposed all 8 gating records, beat 7 read them.
+- gate: ⛔ **Nothing here is ranked and nothing here starts.** Grouped by *what's stopping it*.
+- stage-note: 2026-09-07 — rewritten in plain language at Paul's request. The first version used the
+  loop's internal shorthand and he could not read it, which meant it failed at the one job it had.
+  ⭐ **A decision surface the decider cannot read is not a decision surface.**
 
 ---
 
-## 0 · HOW TO READ THIS
+## Where things stand right now
 
-**Two axes, and only one of them is mine.**
+**Production is stable and untouched.** It serves the build you cleared (`1e2748d`). Nothing has
+shipped to it tonight, on purpose.
 
-| axis | who produced it | what it is |
-|---|---|---|
-| **bucket** (the sections below) | product-steward | **what a row is BLOCKED ON.** Kind-shaped, unordered, citable from the row itself |
-| **severity** (the `claimed` column) | ⛔ **the LANE SEAT that claimed it** | carried verbatim with its citation. No row's severity was decided here |
+**Mom has the link.** It was texted, it has not been used, and she can open it at any moment.
 
-⛔ **The buckets do not sort best-to-worst.** If they could, they would be a ranking with coarser
-grain, which is out of bounds. *"Blocked on your word"* is not better or worse than *"blocked on a
-build"* — it is a different **kind** of stuck, and it tells you which of them only you can unstick.
-
-⭐ **`ships?` is the column the staged pipeline exists for.** A row that advances a rung and ships
-NOTHING is a successful outcome this lap `[A-5]`, not a failed one. Zones is the named test case.
-
-⚠️ **`v1 defers` is mandatory on anything marked v1-ready** `[the v1 rule, briefing §8]` — *"we'll
-refine it later"* is only honest if the refinement has somewhere to live.
+**One thing changed tonight that you should know:** production now **refuses** to deploy anything
+except the build you've cleared. That's new and deliberate. To release something, you clear it first.
 
 ---
 
-## 1 · ⛔ BLOCKED ON YOUR WORD — nothing moves until you rule
+## 1 · WAITING ON YOU — building can't unstick these
 
-These are stuck on a decision. **No amount of building unsticks them.**
+### 1a. Move your review from production to QA — **you said go**
+Rename the environments so they mean what they say, finish making QA a real copy of production, and
+keep the new post-deploy check.
+- **Changes for a person:** nothing.
+- **Cost:** touches 9 files. ⚠️ *You asked about the "no drift control" worry — that's fixable and
+  I'm doing it as part of this.* It means: today, nothing checks whether the release loop's
+  instructions still match the release loop's code. Two such checkers exist but both only look at
+  Mom's cycle, not this one.
 
-| # | what it is | claimed | ships? | cost | v1 defers |
-|---|---|---|---|---|---|
-| **A1** | **Move the review gate to QA** — adopt the design: rename `lab→dev`, `home→prod`, `prod→legacy` *(legacy already done)*, close mirror defects M1–M5, add `post-deploy` *(already built)* | practice-steward: *"the shape is right, and the deviation from standard practice is the CURRENT arrangement"* | ⛔ nothing to a user | the renames touch **9 files** and there is **no drift control** on the release map | keeps `ENV_NAME` as-is — that is a data migration, not a rename |
-| **A2** | **Cloudflare Access on QA — keep or drop** | steward: *"a HOLD whose release condition was never written; the privacy seat recommended AGAINST it"* | nothing | a config change either way | — |
-| **A3** | **May a synthetic walker touch your household?** The steward declined to rule it | steward: **declined — "that is his"** | nothing | — | — |
-| ~~**A4**~~ | ⛔ **WITHDRAWN — the finding was wrong.** The Journal→Almanac rename is **Paul's own ruling, `BACKLOG.md:476`, 2026-07-30**, made knowingly against her answer as a CONSOLIDATION and dropped from tracking on his instruction 08-02. No synthetic seat overrode her. ⭐ **REPLACED BY E1 below**, which is his reframing and is a better question | — | — | — | — |
-| **A5** | **`second-viewport`** — retired by declaring the coverage gap. ⭐ **Already ruled; listed only so it is not re-raised** | — | — | done | — |
+### 1b. Cloudflare Access on QA — keep it or drop it? **You asked for a full recommendation.**
+QA currently sits behind a login wall; production doesn't. That's the single biggest way QA *isn't*
+a copy of production. Recommendation coming separately, in the context of the whole stack.
 
----
+### 1c. Synthetic testers and your household — **you ruled: no**
+They may not touch your real household. You're open to them **cloning** it and walking the copy.
+That's now written down; building the clone is a separate question nobody has costed.
 
-## 1b · ⭐ THE ROW PAUL MINTED WHILE RULING — display name vs internal name
-
-| # | what it is | claimed | ships? | cost | v1 defers |
-|---|---|---|---|---|---|
-| **E1** | ⭐ **Let a household name its own Almanac.** `paul-stated 2026-09-07`: *"there's a bigger question we've talked about in the backlog — whether everyone can customize the name of their Almanac, because everyone may have a different take on what makes sense or feels the most natural. So that would be a way of systematically replacing the name in the displays, but keeping that module still have an internal name that's consistent."* | `paul-stated` | ✅ **yes** — the noun on a surface every household reads | a DISPLAY-name field + one accessor; ⛔ engineering-partner owed | v1 = the Almanac only, one name, set in settings. **Defers** every other module's display name, and defers whether the name is per-place or per-account |
-
-⭐⭐ **WHY THIS DISSOLVES THE CONFLICT RATHER THAN SPLITTING IT.** The 07-30 consolidation was right
-*because scattered names confused her* — that argument is about the **internal** name, and it is
-untouched. Her *"Journal"* answer was right *because it was her word for it* — that is about the
-**display** name. They were only ever in tension while one string had to serve both. ⭐ **And it is
-the multi-tenant form of the same insight**: with N households, "the most natural name" is not one
-answer, so a fixed display string is wrong by construction no matter which word wins.
-
-⚠️ **It also makes the 07-30 ruling checkable at last.** `BACKLOG.md:476` says the open question is
-*"does Almanac land for her"* and that **if she wants Journal it goes back everywhere.** Under E1 that
-stops being a rename and becomes a setting she can change herself — which is exactly *"have her do it
-through the application"* `[ruling 3b]`.
+### 1d. Naming the Almanac — **you reframed this into a real feature (see 3a)**
+~~Was: "Mom said Journal, the build says Almanac."~~ **Withdrawn — that was my error.** You ruled the
+rename yourself on 2026-07-30 as a deliberate consolidation. Your reframing replaces it.
 
 ---
 
-## 2 · ⭐ BLOCKED ON NOTHING — buildable now, and each SHIPS NOTHING TO A USER
+## 2 · I CAN DO THESE NOW — and none of them changes anything anyone sees
 
-⭐ **This is the bucket ruling 3b just made load-bearing.** *"Let's do things without her where we
-can."* Every row here can be done without Mom, without you, and without a deploy to her.
+⭐ **This is the group your "let's do things without her where we can" points at.** No Mom, no you,
+no deploy to her.
 
-| # | what it is | claimed | ships? | cost | v1 defers |
-|---|---|---|---|---|---|
-| **B1** | **T1 · a `door` reader** — `GET /api/door` works and **no tool calls it**. It is the channel that shows *"someone opened the invite and stopped"* | ⭐⭐ **user-researcher, CRITICAL, in lane, with a falsifier**: her first open is *"irreversible AND invisible"* — and per **3b there is now no other instrument** | nothing | small — a reader over an existing route | v1 = arrivals per day per estate, flagging any with no matching account. Defers correlating a door arrival to a later account |
-| **B2** | **T2 · `GET /api/onboarding-metrics`** — POST-only today, **no GET anywhere**, so every onboarding behaviour signal from both laps is unreadable by the loop | same as B1 — it is the other half of the same blindness | nothing user-facing (a Worker route) | small — mirror `/api/feedback`'s shape | v1 = a read-only range query. Defers any analysis on top of it |
-| **B3** | **T3 · give a NULL author a reason** — `personSource: "grant"` exists; a null says nothing, so *"nobody was signed in"*, *"the grant would not resolve"* and *"this path predates attribution"* are one value | `paul-stated 2026-09-07`: *"we need to be sure that for everything we know who wrote it"* | nothing | one field at `PERSON_UNKNOWN` + call sites | ⛔ **defers BACKFILL** — records already written stay null forever; inventing a predicate for them is the misattribution this row prevents |
-| **B4** | **M2 · add `"qa"` to `HOUSEHOLD`** — QA and production are built by **different branches of one script**, which is *why* a live production defect was invisible in its own mirror | practice-steward: *"the biggest mirror defect, and one nobody had named"* | ⛔ changes **what QA serves** | ~one line — but verify the `:236` index rewrite first | — |
-| **B5** | **Beat 8 · carry the 20 uncarried ruling lines** — each to a row it can cite, or a question in the named queue | product-steward T1 trigger: **20 lines carried by nothing**, +8 UNCHECKABLE | nothing | one pass; the destination file now exists | — |
-| **B6** | **C-2 · make the RETURNING journey walkable** — `journey-walk.py` branches on `fresh` at exactly ONE stop, so a returning walker lands past the whole script | ⭐ blocks **P2**, a pre-registration that otherwise discharges as `carried`, never answered | nothing | a real build — engineering-partner owed | — |
+### 2a. Learn whether someone opened the invite and gave up
+Right now, if Mom opens her link and can't get in, **we would never know.** She doesn't complain —
+she stops. There's a record of arrivals sitting on the server and **nothing reads it**.
+- **Why it matters:** the research seat called this the most serious risk to the customer — her first
+  screen showing someone else's name over an empty place. It called it *"irreversible and invisible
+  at once."* Since there's no visit any more, this is the only way we'd ever find out.
+- **Cost:** small. The route already exists; nothing calls it.
+- **First version:** how many arrived, per day, and which ones never became an account.
+  **Leaves for later:** tying a specific arrival to the account it later became.
+
+### 2b. Make the onboarding measurements readable at all
+The app records what people do during setup. **There is no way to read it back** — it can be written
+and never fetched. Every setup signal from both laps is currently invisible.
+- **Cost:** small — a read route, mirroring one that already exists for feedback.
+- **First version:** read it back over a date range. **Leaves for later:** any analysis on top.
+
+### 2c. When we don't know who wrote something, record *why* we don't know
+Today a record either names its author or is blank — and blank means three different things at once:
+nobody was signed in · we couldn't verify them · this path predates the feature.
+- **Why it matters:** you asked for this directly — *"be sure that for everything we know who wrote
+  it."*
+- **Leaves for later:** ⛔ **older records stay blank forever.** Guessing an author after the fact is
+  exactly the mistake this prevents.
+
+### 2d. Build QA the same way we build production
+QA and production are built by **different halves of the same script**. That is *why* a real
+production bug was invisible in the environment meant to mirror it.
+- **Cost:** about one line, but it changes what QA serves, so it needs care.
+
+### 2e. File the 20 decisions that nothing has acted on
+Twenty things you've ruled are recorded in the log and **carried into no working list**.
+- **Cost:** one pass through them.
+
+### 2f. Let a test walk the app as someone who already has an account
+Every test we run pretends to be a brand-new person. **Nobody has ever tested "come back tomorrow."**
+That's the exact situation the worst current bug lives in.
+- **Cost:** a real build. Blocks 4a below.
 
 ---
 
-## 3 · ⛔ BLOCKED ON ANOTHER ITEM — order is forced, not chosen
+## 3 · CHANGES SOMETHING PEOPLE SEE
 
-| # | what it is | blocked by | claimed |
-|---|---|---|---|
-| **C1** | **The identity seam** (W1 · F4 · F6 · row 20) — *"an account's facts and its credential are two separate records, and exactly one code path reconciles them — the one with no door."* **15 census ids collapsed into this** | ⭐ **B6.** The steward's finding stands: *"until C-2 lands, no amount of design work on this seam can be certified by the loop"* — the harness cannot walk a returning person, and F4 **is** a returning person's defect | user-researcher: **W1, the critical want** · `validated` |
-| **C2** | **Deploy the tombstone fix** (committed `9b96e07`, not deployed) | ⭐ **the new `cleared_sha` gate** — production now refuses anything but `1e2748d`. It ships when you clear a build | — |
-| **C3** | **`4a3a61b` — two knowingly-shipped defects, on `main`, NEVER WALKED** | a round at that sha; the gate is per-sha so its evidence expires | — |
+### 3a. Let each household name its own Almanac — **your idea tonight**
+> *"Everyone may have a different take on what makes sense or feels the most natural. So that would
+> be a way of systematically replacing the name in the displays, but keeping that module still have
+> an internal name that's consistent."*
+
+⭐ **This settles an old argument instead of re-fighting it.** The 2026-07-30 consolidation was right
+because scattered names confused her — that's about the name *the code uses*. Her answer "Journal" was
+right because it was her word — that's about the name *on screen*. They only ever collided because one
+string did both jobs.
+
+⭐ **And it's the right shape for many households:** with more than one home, "the most natural name"
+isn't one answer, so a fixed name is wrong no matter which word wins. It also turns your open question
+— *does "Almanac" land for her?* — into something she can just change herself, which is what you asked
+for: have her do it in the app.
+- **First version:** the Almanac only, one name, set in settings.
+  **Leaves for later:** every other module's name, and whether the name belongs to the place or the person.
 
 ---
 
-## 4 · THE DESIGN LANE — advances a rung, ships nothing, and that is the point
+## 4 · CAN'T START YET — something else has to land first
 
-| # | what it is | rung now → target | ships? |
-|---|---|---|---|
-| **D1** | ⭐ **Zones** — `paul-ruled 2026-09-07`: **off the table for implementation**; concept/design only. A concurrent session has it at `design` with a journey artifact | concept → **design** *(reached)* → journey | ⛔ **nothing, by ruling.** The named test case for whether a lap can advance and deploy nothing |
-| **D2** | **W2 · what fills a card** (D1–D5 · F10 · F11) — the place card is about the **property**, not the weather | concept | nothing yet |
+### 4a. The front-door problem — the biggest single thing on this list
+Getting in, staying in, and the app knowing it's you. **Fifteen separate items collapse into this
+one.** In one sentence: an account's *facts* and its *credential* are two different records, and the
+one path that reconciles them has no door.
+- ⛔ **Blocked by 2f.** Not for lack of will: the bug only happens to someone who already exists, and
+  no test can currently be that person — so we can't prove a fix worked.
+
+### 4b. Ship the bug fix I made tonight
+Production was serving placeholder files for four things the app reads, and answering "success" while
+doing it. Fixed and committed, **not deployed** — it's waiting behind the new rule that production
+only takes builds you've cleared.
+
+### 4c. A build with two known bugs fixed has never been tested
+It's sitting on the main branch, unwalked.
 
 ---
 
-## 5 · ⬜ NOT ON THE BOARD, AND WHY — the honest column
+## 5 · DESIGN ONLY — ships nothing, and that's the point
 
-⛔ **A board that lists only what can move is a board that hides what cannot.**
+### 5a. Zones — **you ruled: not being implemented**
+Concept and design work only, running in its own session. It has reached the design stage with a
+journey written.
+⭐ **This is the deliberate test of whether we can move something forward and ship nothing without
+that reading as a wasted lap.**
 
-| | why it is not a row |
+### 5b. What actually fills a place card
+Your finding: the card should be about the **property** — local events, festivals — not the weather.
+
+---
+
+## 6 · NOT ON THIS LIST, AND WHY
+
+| | |
 |---|---|
-| **GAP 1** (does a real person get through the door?) | ⛔ **its instrument no longer exists** `[3b]`. It is not blocked — it is **unanswerable by observation**. B1 and B2 are what replace it |
-| **GAP 2** (is "add a place" founding or switching?) | ⚠️ **probably already spent.** It was only valid before she saw the UI, and the link is in her hands. Ask only if a natural moment arises; treat as gone |
-| **GAP 3** (does she know where her writing went?) | opportunistic, per 3b — never scheduled |
-| **Bob's two houses** | ⛔ `assumption` throughout — **nobody has asked him**, and he has no household |
-| **Z-ACK** | ✅ closed. Paul discharges it as a person, any time |
-| **J-d colour precedence** | ✅ **was never open** — ruled 09-06, `VOCABULARY.md §3g`. Re-raised in error this lap |
+| **"Can a real person get in the door?"** | Not blocked — **we just can't watch any more.** 2a and 2b replace it |
+| **"Is 'add a place' founding or switching?"** | ⚠️ **Probably already spent.** Only answerable before she'd seen the app, and she has the link |
+| **"Does she know where her writing went?"** | Only if it comes up naturally |
+| **Bob's two houses** | Nobody has asked him anything. Every claim is a guess |
+| **Thanking Mom for the 23 zones** | ✅ Closed — you do it as a person, whenever |
+| **The colour question** | ✅ You ruled it 2026-09-06. I re-raised it in error |
 
 ---
 
-## 6 · ⚠️ WHAT THIS BOARD COULD GET WRONG
+## ⚠️ What this list is missing
 
-- **Severity is carried from ONE seat.** engineering-partner has not run this lap, so **no build-side
-  criticality is represented at all** — and Paul's own J-b ruling says a critical build finding must
-  be surfaced unprompted. **A whole lane is silent, and that is a gap in this board, not evidence
-  there is nothing there.**
-- **The costs in §2 are `proposed` by a session**, not costed by the seat that would build them.
-- ⭐ **Repetition is deliberately NOT a column.** *"Asked 4×"* measures how long a row has been stuck,
-  not how much anyone needs it `[user-researcher, beat 7]`. Sorting by it would rank by our own
-  latency and call it customer signal.
-- **n=1 and the builder.** Every `validated` here except Mom's folded answers is Paul's own word about
-  a product he wrote. The one population that matters most has **n=0 on this product**.
+**No engineering view.** The engineering seat hasn't run this lap, so **nothing here reflects what a
+builder would call urgent** — and your own rule is that a critical build problem gets raised
+unprompted. A whole perspective is silent. That's a hole in this list, not evidence there's nothing in it.
+
+**Nearly all the evidence is yours.** You're one person, and the builder. The person this has to work
+for has **never used it**.
+
+**Sorting by "asked most often" would be wrong.** How many times something's been raised measures how
+long it's been stuck, not how much anyone needs it.
