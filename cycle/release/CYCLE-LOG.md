@@ -1404,3 +1404,65 @@ The stop point, the Q1–Q8 table and the three things that need his word are in
 
 Today's commits are lap-3 work, not a new lap: `ff8de29` (jump-strip tokenisation + two seat
 artifacts) and `6037f1b` (the lap mark itself).
+
+---
+
+### 🔬 2026-09-08 — gate ① battery at `95b8559`: 4 of 4 seats, four reads written
+<!-- meta-lap: 2026-09-08 -->
+
+**The battery re-ran because HEAD had moved under it.** The previous four walks were taken at
+`a68e326`; three backlog commits landed after, so `at-sha` would have expired the evidence the
+moment the gate read it. QA was redeployed to `95b8559` and all four seats re-walked:
+`mom 142837 · owner 142947 · strict 143057 · wide-eyed 143205` — **16/16 stops, 0 failed actions,
+0 page errors, watched, build unmoved across every walk.**
+
+`release-gate.py`: **every clause green for all four seats.** The gate reads 🟡 rather than a bare
+pass only because the **UX clause is UNCHECKABLE** (no artifact convention exists yet) — that half
+is a human's, and it is the one thing standing between this build and beat 5.
+
+**All four seats say ship.** What they found instead is recorded in the rows that already own it —
+`TIER 2 · 11 · 16 · 17 · 18`, plus a new **`TIER 2 · 22`** for the one defect that had no home.
+
+⭐⭐ **THE READ THAT MATTERS MOST IS A REFUSAL TO CLOSE ITS OWN FINDING.** The receipts card was
+built this lap to answer the `mom` seat's *"recognised on the way in, forgotten on arrival."* Given
+the card, in her walk, on the page, she says **it does not close it and cannot**: *"a record I have
+to go and find is retrieval; recognition is what happens without my asking."* Her page opens with
+Weather and Sky & Stars three times each and names her ranked #1 nowhere. **The build did the thing
+that was asked and the finding survived it** — which is exactly what a seat is in the gate to be able
+to say, and why a green objective half is not a verdict about a reader.
+
+⭐ **AND THE ANSWER ALREADY EXISTS ONE SCREEN EARLIER.** *Early days* — the handoff — shows address,
+contact choice and ranked order above the fold with *"Change the order ›"*. It is the best moment in
+the walk and the one screen she never sees again. **The app had the answer to her finding on the
+doorstep and set it down before coming inside.**
+
+⛔ **TWO SEATS REFUSED TO TESTIFY TO A STOP THAT PASSED, AND THEY WERE RIGHT.**
+`14-shelf-to-place.png` is byte-identical to `12-the-app.png` — the tap ends on the same `/viewer`
+top the previous stop already photographed, and `transcript.json` records only each stop's FINAL
+URL, so `/homes/` appears nowhere a reader can reach. The stop **did** pass (`journey-walk.py:303`
+is `goto:/homes/` → `click:.home`, and a missed selector lands in `failedActions`, which is 0) —
+but its proof lives in the action log, invisible to the readers the gate requires. Three seats, one
+build, identical artifacts, **two verdicts**, and the disagreement is entirely about the instrument.
+Filed as `TIER 2 · 22`.
+
+⛔ **A HOUSEHOLD NEVER GETS A CLIMATE PANEL.** Three seats' extracts carry `CLIMATE LOADING ERA5
+ACTUALS…` at every app stop and never the resolved badge nor the honest failure. Diagnosed from the
+code, not from the badge: the archive request asks for **thirty years of daily rows**, does not
+return inside `WEATHER_STALL_MS`, the stall guard fires, `renderClimateInner({})` is empty for a
+household with no canon, and the panel is **correctly hidden**. ⚠️ **The badge text is hidden DOM,
+not a visible stall** — no screenshot carries it and the property card is collapsed at every app
+stop. So it is a **missing panel**, not a stuck spinner, and **Fernwood is immune by having canon**,
+which is why four laps never saw it. Filed into `TIER 2 · 11`.
+
+**Clean from every seat:** the estate-neutrality hunt is **four for four** — `wide-eyed` ran it a
+fourth time across the new receipts card and found zero hits for Jasper, Georgia, Tate Mountain,
+Church Mountain, Sequoyah, Blue Ridge, 2,873, the coordinates, KJZP, Ambient, "our gauge" or a pond;
+`mom` went looking first for the 09-07 leak class at her condo and found the weather card naming
+itself a stranger's (*"No station here — regional readings"*, every figure *regional est.*).
+`strict`'s refusal holds in all three places — a PO box yields no weather, no coordinates, no county,
+**nothing invented**, and the only value on any screen it did not supply is the date. The curly
+apostrophe survives every surface including both fields on Settings.
+
+**What is owed, and to whom:** the UX clause and the production deploy are Paul's. The five findings
+above are recorded. **Nothing was committed after the walks** — a commit moves local HEAD and
+`at-sha` expires the battery, so `BACKLOG.md` is deliberately left dirty until the deploy decision.

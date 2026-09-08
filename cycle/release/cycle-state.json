@@ -1,13 +1,13 @@
 {
- "state": "FIRED",
- "generated_at": "2026-09-08T14:09:36-04:00",
+ "state": "ARMED",
+ "generated_at": "2026-09-08T14:48:46-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "3992b8b",
+ "candidate_sha": "95b8559",
  "beat": {
-  "n": 3,
+  "n": 5,
   "of": 11,
   "owner": "paul",
-  "name": "Paul walks it",
+  "name": "Paul cleared it",
   "derivable": [
    2,
    3,
@@ -20,7 +20,7 @@
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "mom": {
-    "run": "2026-09-08T135743",
+    "run": "2026-09-08T142837",
     "at-sha": true,
     "watched": true,
     "countable": true,
@@ -30,7 +30,7 @@
     "instrumented": true
    },
    "owner": {
-    "run": "2026-09-08T135849",
+    "run": "2026-09-08T142947",
     "at-sha": true,
     "watched": true,
     "countable": true,
@@ -40,7 +40,7 @@
     "instrumented": true
    },
    "strict": {
-    "run": "2026-09-08T135952",
+    "run": "2026-09-08T143057",
     "at-sha": true,
     "watched": true,
     "countable": true,
@@ -50,7 +50,7 @@
     "instrumented": true
    },
    "wide-eyed": {
-    "run": "2026-09-08T140054",
+    "run": "2026-09-08T143205",
     "at-sha": true,
     "watched": true,
     "countable": true,
@@ -67,7 +67,7 @@
   "opened": "2026-09-07",
   "outcome": "open",
   "closed_at": null,
-  "cleared_sha": "1e2748d"
+  "cleared_sha": "95b8559"
  },
  "lap_heading_anomalies": [],
  "pre_registered": [
