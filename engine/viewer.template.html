@@ -4217,7 +4217,7 @@
   .jump-strip a {
     display: flex; align-items: center; gap: 7px;
     min-height: 44px; padding: 6px 10px; border-radius: 12px;
-    color: var(--tint-64, #2f5a3a); text-decoration: none;
+    color: var(--accent-ink, #2f5a3a); text-decoration: none;   /* ⛔ NOT a --tint band: every band lightens, so a seeded household read 2.68:1. See --accent-ink. */
     background: var(--tint-96, #f2f8ec); border: 1.5px solid var(--edge-card);
   }
   .jump-strip a .js-glyph { font-size: 17px; line-height: 1; flex: 0 0 auto; }
@@ -6476,7 +6476,25 @@
       // ⭐ `__HOUSEHOLD_NAME` is precisely the "is this somebody else's place" gate, so the fallback
       // fires only where the stylesheet's Fernwood defaults were never the right answer.
       var isHousehold = (typeof window !== "undefined" && !!window.__HOUSEHOLD_NAME);
-      if (isHousehold && typeof INSTANCE_THEME_MAIN === "string") hex = INSTANCE_THEME_MAIN;
+      // ⛔⛔ THE SEED IS SUBSTITUTED HERE, NOT READ FROM A CONST — and this is a REPAIR, not a style
+      // preference. This line used to read `typeof INSTANCE_THEME_MAIN === "string"`. That const is
+      // declared in a DIFFERENT <script> (this one is 6417–6541; that one opens at 7206), and a
+      // top-level `const` does not exist until its own script is parsed. So at pre-paint time the
+      // identifier was simply UNDECLARED — and `typeof` on an undeclared name returns "undefined"
+      // rather than throwing, so the guard failed CLOSED, silently, with no error in any console.
+      // ⭐ MEASURED IN A BROWSER 2026-09-08, which is the only way this was ever going to be found:
+      // on a household build with __HOUSEHOLD_NAME set, `--hdr-2` read #2a6040 — the STYLESHEET's
+      // Fernwood green — and `--tint-64` / `--accent-ink` were EMPTY STRINGS. The block returned early
+      // every time. **No household has ever been seeded.**
+      // ⛔ WHAT THAT MEANS FOR THE 09-07 MINT-BAND FIX: it is INERT. That commit repointed the CSS at
+      // `var(--tint-*, <a Fernwood green>)`, and since no --tint-* is ever set, every household renders
+      // the Fernwood FALLBACK. The leak it was written to close — "the mint band was Fernwood's ground
+      // on somebody else's house" — is still fully live, and every check read green because Fernwood
+      // is byte-identical either way. A fix whose mechanism cannot fire is not a fix.
+      // ⭐ Fernwood is UNAFFECTED in both directions: isHousehold is false for it, so this branch never
+      // runs and its hand-tuned `:root` greens stand, exactly as the 09-06 ruling requires.
+      var seed = "{{IDENTITY:themeMain}}";
+      if (isHousehold && /^#[0-9a-fA-F]{6}$/.test(seed)) hex = seed;
     }
     if (!/^#[0-9a-fA-F]{6}$/.test(hex || "")) return;
     var r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
@@ -6506,6 +6524,36 @@
     // greens by fallback and a household's seed sets the six bands here, by lightness.
     s.setProperty("--tint-96", mix(0.94)); s.setProperty("--tint-92", mix(0.88)); s.setProperty("--tint-88", mix(0.80));
     s.setProperty("--tint-82", mix(0.70)); s.setProperty("--tint-74", mix(0.58)); s.setProperty("--tint-64", mix(0.44));   // ≈ the 72% mix ux-expert derived from the shipped #2f5a3a → #1f4528
+    // ⛔⛔ INK IS NOT A BAND. Every --tint-* above LIGHTENS the seed, so none of them can ever carry
+    // text — and one declaration was doing exactly that. `.jump-strip a` read `var(--tint-64, #2f5a3a)`:
+    // Fernwood renders the dark FALLBACK at 7.94:1 and is fine, but a seeded household renders the BAND
+    // and lands at 2.68:1 against 4.5 AA. Found by ux-expert 2026-09-08, hours after the commit that
+    // fixed the mint band introduced it, and on the one affordance the record shows working (5 offered,
+    // 5 tapped) — which Paul had just ruled onto every domain card.
+    // ⭐ MEASURED, and the sweep is the useful half: 30 declarations use a lightening band as ink, and
+    // this is the ONLY regression. The other 29 were already low-contrast secondary text in Fernwood
+    // (photo credits, empty states, chevrons) — a pre-existing condition, not something seeding broke.
+    // The predicate that separates them: a dark fallback (real ink, >=4.5 on white) behind a lightening
+    // band. That is the check worth keeping, not a list of the 30.
+    // ⭐ AND THE VALUE IS DERIVED FROM THE REQUIREMENT, NEVER PICKED. A fixed darken cannot work: at
+    // mix(-0.20) four test seeds clear AA and a PALE seed still fails at 2.53, because darkening pale
+    // ink by a percentage leaves it pale. So this walks the seed down until it actually clears the
+    // ratio against its own --tint-96 fill. Measured across six seeds: Fernwood and both neutrals need
+    // 0 steps, a bright seed 1, a pale seed 9, near-white 11 — all converge, none is assumed.
+    var _lum = function (h) {
+      var v = [1, 3, 5].map(function (i) {
+        var c = parseInt(h.slice(i, i + 2), 16) / 255;
+        return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+    };
+    var _ratio = function (a, b) {
+      var la = _lum(a), lb = _lum(b), hi = Math.max(la, lb), lo = Math.min(la, lb);
+      return (hi + 0.05) / (lo + 0.05);
+    };
+    var _bg = mix(0.94), _ink = hex;
+    for (var _k = 1; _k <= 20 && _ratio(_ink, _bg) < 4.5; _k++) _ink = mix(-0.05 * _k);
+    s.setProperty("--accent-ink", _ink);
   } catch (e) {}                            /* storage can throw in a private window; the page is fine */
 })();
 </script>
