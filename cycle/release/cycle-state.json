@@ -1,6 +1,6 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-08T15:21:07-04:00",
+ "generated_at": "2026-09-08T15:48:58-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "3e7bf8a",
  "beat": {
@@ -35,10 +35,10 @@
  },
  "lap_count": 3,
  "last_lap": {
-  "lap": 3,
-  "opened": "2026-09-07",
-  "outcome": "closed",
-  "closed_at": "2026-09-08T19:20:53Z",
+  "lap": 4,
+  "opened": "2026-09-08",
+  "outcome": "open",
+  "closed_at": null,
   "cleared_sha": "95b8559"
  },
  "lap_heading_anomalies": [],
@@ -102,8 +102,49 @@
    "question": "Does the `ready: agent-proposed` pile stop growing? The count at lap 3's close against lap 2's 25 — a fall OR a flat line both pass; only growth fails.",
    "settles": "the same grep over .plans/*.md at lap 3's close.",
    "at_open": "⛔ measured 2026-09-07 MID-LAP: 38, against a baseline of 25 — ALREADY GROWN BY 13, so on today's trajectory this pre-registration FAILS. ⭐ The retro called this 'the pre-registration on my own output, and the one that should bind hardest' and it is the one currently going the wrong way. ⚠️ The counter-reading, stated so the number is not read alone: `paul-` stamps went 1 -> 14 in the same window, so the pile grew while Paul was ruling faster than ever. Whether that is a failure or a healthy burst is HIS call at close, not a session's.",
+   "disposition": "carried",
+   "evidence": "measured 2026-09-08 at lap 4 beat 0: `grep -o \"ready: *agent-proposed\" .plans/*.md` = 63 (baseline 25 at lap 2, 38 mid-lap 3). Like-for-like counterpart `ready: paul-*` = 3, ratio 63:3. ⚠️ The mid-lap counter-reading ('paul- stamps 1 -> 14') used ANY `paul-` stamp, a looser predicate, and does not hold on the matching one — recorded so it is not re-borrowed.",
+   "outcome": "grew 25 -> 63; NOT read as a failure",
+   "ruling": "paul-ruled 2026-09-08, on a CORRECTED premise. His first answer was conditional — 'if this is the feedback I provided during the last lap... it's not a failure' — and the condition was FALSE: the 63 are agent-authored proposals awaiting his ruling, not his input. Re-put with that correction, he ruled: 'with your recommendation. That sounds like us letting the process do the work.' ⭐ THE DISPOSITION IS A ROUTE, NOT A VERDICT: the 63 enter the owed backlog rationalization as candidate rows to be combined and ranked, and P5 is CARRIED into lap 4 against a baseline of 63 — so if the pile is healthy inventory it shrinks through rationalization, and if it is not it reads ~90 at lap 4's close and the question answers itself. Neither reading is asserted now."
+  }
+ ],
+ "pre_registered_lap4": [
+  {
+   "id": "L4-P1-agent-proposed-pile",
+   "carried_from": "P5-agent-proposed-pile",
+   "question": "Does the `ready: agent-proposed` pile fall below 63 once the rationalization has run?",
+   "settles": "`grep -o \"ready: *agent-proposed\" .plans/*.md` at lap 4's close, against 63.",
+   "at_open": "measured 2026-09-08: 63 (vs `ready: paul-*` = 3).",
    "disposition": "open",
-   "evidence": "MEASURED, NOT RULED — 2026-09-08: `grep -o 'ready: *agent-proposed' .plans/*.md` = 63, against baseline 25 (lap 2) and 38 (mid-lap 3). Grown 2.5x. On the criterion as written (a fall or a flat line pass; only growth fails) this FAILS. ⛔ Held open on purpose: the row reserves the reading — 'Whether that is a failure or a healthy burst is HIS call at close, not a session's.' ⚠️ The counter-reading does NOT survive a like-for-like predicate: `ready: paul-*` = 3, so the ratio is 63:3. The mid-lap note's '1 -> 14' counted any `paul-` stamp, a different measure."
+   "evidence": null,
+   "_note": "⛔ A FALL IS NOT AUTOMATICALLY A PASS. Rationalization may KILL rows, which shrinks the count without anything being ruled. Report the split — combined · killed · ruled — or the number lies in the flattering direction. This is the same defect class as a count without its predicate."
+  },
+  {
+   "id": "L4-P2-rationalization-ran",
+   "question": "Did the owed backlog rationalization actually run and get APPLIED, or did it stay a proposal?",
+   "settles": "`check-backlog-drift.py` is silent at lap 4's close AND BACKLOG.md carries a newer `(rationalized <date>)` head marker.",
+   "at_open": "measured 2026-09-08: OWED — last run 2026-09-03 (5d), ranked list 443 lines below its own head (limit 400), BACKLOG.md 3,960 lines, 75 commits since.",
+   "disposition": "open",
+   "evidence": null,
+   "_note": "⭐ This is the pre-registration L4-P1 DEPENDS ON. If the rationalization never runs, L4-P1's number means nothing whichever way it moves — so read this one FIRST."
+  },
+  {
+   "id": "L4-P3-ci-red-cleared",
+   "question": "Does `Build check (viewer)` go green — i.e. does the extract round-trip divergence get FIXED rather than worked around?",
+   "settles": "`python3 tools/build-viewer.py --selftest` exits 0, and health-probe reports 0 consecutive failures.",
+   "at_open": "measured 2026-09-08: 5 consecutive CI failures. extract() recovers 16 of the template's 22 {{IDENTITY:}} occurrences, losing themeMain, perspectiveTitle, propertyImage. Routed to beat 1 as a build item [paul-approved].",
+   "disposition": "open",
+   "evidence": null,
+   "_note": "⛔ SUPPRESSING THE CLAUSE COUNTS AS A FAIL, NOT A PASS. The honest resolutions are: make extract() round-trip, or DECLARE the divergence the way second-viewport's coverage gap was declared. Deleting the clause that can see it is the one route this pre-registration exists to forbid."
+  },
+  {
+   "id": "L4-P4-critical-fail-is-a-mechanism",
+   "question": "Does the first item admitted under the newly-ratified critical-fail exception (spine step 14, K_COORDS) actually SHIP — or does the exception turn out to be a phrase?",
+   "settles": "`clearAnswers()` in onboarding/index.html includes K_COORDS at lap 4's close, and the step-14 falsifier passes: set up place A, sign in as B on the same browser, B never sees A's rows.",
+   "at_open": "measured 2026-09-08: clearAnswers() clears [K_STEP, K_ADDR, K_PARTS, K_NAME, K_RANK, K_PREF] and OMITS K_COORDS (onboarding/index.html:833,1084). Admitted under beat 6's exception, ratified by Paul the same day.",
+   "disposition": "open",
+   "evidence": null,
+   "_note": "⭐ This tests the MECHANISM, not the bug. A one-line fix that lands proves an exception ratified at beat 0 can move an item; the same bug still open at close proves the exception is decoration. ⛔ And the fix alone is not the exit — the two-person falsifier is, because clearing a key and clearing the LEAK are different claims."
   }
  ]
 }

@@ -1644,3 +1644,41 @@ failure."* It is not his feedback. `ready: agent-proposed` counts **agent-author
 ruling** — `.plans/*-PROPOSAL.md`, `-PLAN.md`, `-AUDIT.md` — which is why lap 2's retro called it *"the
 pre-registration on my own output, and the one that should bind hardest."* Put back to him.
 
+
+### ✅ BEAT 0 CLOSED — 2026-09-08
+
+All five exit conditions met: lap 3 closed and machine-readable · **every lap-3 pre-registration
+disposed** (P2 `carried`, P3 `answered`, P5 `carried` on a corrected premise; the rest were already
+disposed) · the gate sweep run, all three triggers RED · the three sweeps run and recorded, including
+what is UNREADABLE · a dated lap heading exists.
+
+**P5's disposition is a ROUTE, not a verdict** `[paul-ruled]` — *"with your recommendation. That sounds
+like us letting the process do the work."* The 63 enter the owed backlog rationalization as candidate
+rows to be combined and ranked; the question is **carried into lap 4 against a baseline of 63**. If the
+pile is healthy inventory it shrinks through rationalization; if it is not, it reads ~90 at lap 4's
+close and answers itself. ⛔ Neither reading is asserted now, and that is the point.
+
+### Lap 4's pre-registrations — four, each falsifiable without Paul
+
+| id | question | at open |
+|---|---|---|
+| **L4-P1** | does `ready: agent-proposed` fall below 63 once rationalization has run? | **63** (vs `ready: paul-*` = 3) |
+| **L4-P2** | did the rationalization actually **run and get applied**, or stay a proposal? | **OWED** — 443 lines of head-gap, 3,960-line file, 75 commits |
+| **L4-P3** | does `Build check (viewer)` go green — is the extract divergence **fixed**, not worked around? | **5 consecutive failures** |
+| **L4-P4** | does the first item admitted under the ratified critical-fail exception (step 14) **ship** — or is the exception a phrase? | `clearAnswers()` omits `K_COORDS` |
+
+⭐ **Read L4-P2 before L4-P1** — if the rationalization never runs, P1's number means nothing whichever
+way it moves. ⛔ **And each carries the trap that would let it pass dishonestly, named on its own face:**
+P1 can shrink by KILLING rows rather than ruling them (report the split — combined · killed · ruled);
+P3 can go green by **deleting the clause that sees the divergence**, which is the one route it exists to
+forbid; P4's exit is the two-person falsifier, not the one-line fix, because clearing a key and clearing
+the leak are different claims.
+
+⚠️ **Minting four agent-authored pre-registrations in the same beat that found 63 agent-authored
+proposals is worth naming rather than passing over.** They are not the same object — a pre-registration
+is a falsifiable check on our own work with a stated failure condition, not a proposal awaiting a
+ruling, and none of these four needs Paul to resolve. But the count is held to four deliberately.
+
+**▶️ NEXT: beat 1 — a BUILD exists.** QA serves `3e7bf8a`, 10 commits behind HEAD, no app surface among
+them. The build item routed here at beat 0 is the **extract round-trip divergence** (L4-P3).
+
