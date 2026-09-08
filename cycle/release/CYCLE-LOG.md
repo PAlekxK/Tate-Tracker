@@ -1385,3 +1385,22 @@ research seat handed me a one-command falsifier rather than an opinion, and runn
 claim I had repeated in three artifacts and to Paul several times. Paul's own examples are a different shape — *"are you interested in any of the following types
 of events or publications we found in your neighbourhood?"* is a **menu over things we already went and
 found**, not a blank prompt. The product does the work first and asks him to choose.
+
+---
+
+### 🌙 2026-09-08 — lap 3 STOPPED at beat 2, not closed
+<!-- meta-lap: 2026-09-08 -->
+
+Paul: *"I'm pretty wiped out. Let's go ahead and just kinda mark where we are at the lap and close
+out so I can pick the lap back up tomorrow."*
+
+**The lap is OPEN and sits at beat 2** — Paul failed it at beat 3 on his QA walk, and beat 4 sends a
+failure back into beat 2 rather than letting it be patched under him and handed back. Every Q1–Q8
+fix is committed; four fresh synthetic walks ran; **nothing has been deployed to production**, which
+is his own standing hold.
+
+The stop point, the Q1–Q8 table and the three things that need his word are in
+**`cycle/release/LAP3-QUEUE.md` § WHERE THE LAP STOPPED** — read that, not this entry.
+
+Today's commits are lap-3 work, not a new lap: `ff8de29` (jump-strip tokenisation + two seat
+artifacts) and `6037f1b` (the lap mark itself).
