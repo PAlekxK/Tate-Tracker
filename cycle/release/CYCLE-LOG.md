@@ -1466,3 +1466,68 @@ apostrophe survives every surface including both fields on Settings.
 **What is owed, and to whom:** the UX clause and the production deploy are Paul's. The five findings
 above are recorded. **Nothing was committed after the walks** — a commit moves local HEAD and
 `at-sha` expires the battery, so `BACKLOG.md` is deliberately left dirty until the deploy decision.
+
+---
+
+### 🏁 2026-09-08 — lap 3 CLOSES: production shipped, and the lap audited itself
+<!-- meta-lap: 2026-09-08 -->
+
+Paul: *"let's wait on everything that's ongoing and try to bring the lap to a close."*
+
+**What shipped.** Gate ① passed 4/4 at `95b8559`; Paul confirmed the UX clause and cleared the sha;
+**production shipped on both halves** — Pages and the Worker, the latter stamped so `/health` can
+say which code it runs. `post-deploy` clean with nothing uncovered. The legacy sunset banner now
+points at `/onboarding/` rather than the bare origin, pushed to `main` at `f641030` after the
+pre-push hook correctly refused UNCHECKABLE (the fixture checker does not exist on the frozen
+branch) and the check was run from a checkout that has it.
+
+**The audit is the lap's own deliverable** — `cycle/release/LAP3-AUDIT.md`, read at beat 0. Its
+three operative findings, and the third is the one that costs something tomorrow:
+
+1. **Gate ① is RED at HEAD for the third time today.** The charter written at 12:32 already records
+   the first two, and the rule was broken twice more by the session that wrote it. ⚠️ **Nothing
+   shipped ungated** — production went out at `95b8559` with a green gate and a matching
+   `cleared_sha`. What expired is the evidence, not the deploy. **A written rule is not a
+   mechanism**, and this one is still not wired.
+2. **The lap's registers do not point at each other.** The sequence spine is cited **0/0/0** times by
+   the chronicle, the queue and the backlog, and was committed *after ten of its own steps had
+   landed*. `LAP3-QUEUE.md` carries two different Q1–Q8 series and one Q reading both ✅ and NOT DONE.
+   Today's true state lived only in whoever was awake.
+3. **The four-tier milestone is real on one line and prose everywhere else.** `grep -c rung` in
+   `pages-deploy.py` is **0** and its gate is still `if a.env == "home":` — the tier definition
+   widened "production" to three origins while the gate stayed keyed to one deployment name.
+
+⭐ **AND THE BRIEF'S SUBJECT MATTER HAPPENED TO THE BRIEF.** The audit seat measured 27 uncommitted
+insertions it had not made, applied the concurrent-session guard, refused to commit, and named the
+cause as a second session. **It was right to refuse and wrong about the cause** — they were the main
+session's, ten minutes old. An agent cannot tell *"a human is editing beside me"* from *"my own
+orchestrator is editing beside me"*, and those call for opposite actions. Corrected in place rather
+than deleted: a control that is right for the wrong reason is one nobody can calibrate.
+
+**Two things Paul walked in production, after the deploy, that the seats could not have found.**
+
+⛔ **The sunset door told him his link was broken.** He clicked the new banner link and read *"This
+link isn't working"* — having clicked a link that worked perfectly. Same sentence and same defect as
+this morning's Q1a fix, from the other side: that one stopped the product blaming a live credential;
+this stops it blaming a credential that was never presented. Fixed on the branch; **not deployed**,
+because production now requires a battery. **Mom meets that sentence at the 1:00 PM sunset unless it
+ships first.**
+
+⛔ **His Almanac is dead, exactly as ruled.** The digest is stamped `est-3c9f1a`, `env.home` is
+`est-e6696a`, no `CANON_FOREIGN_OK` — so `/api/chat` returns `foreignCanon` and row 14's floor is
+working. ⭐ **His question is row 15's whole argument in one line:** he asked for local events, the
+Beltline, and Grant Park's history — content **Fernwood's canon could never have supplied**, so
+*"let it answer from Fernwood"* was never the alternative. A second, smaller defect rides along: the
+client has two error branches and a **permanent** refusal falls into the one that says *"try asking
+again in a moment."*
+
+**And a contradiction removed rather than a beat weakened.** Beat 6 (DISPOSE) claimed *"every swept
+record"* while beat 11's exit, `GATING_ENVS` and the tool's own F6 ARM line all scoped it to a real
+estate — so the instrument printed **587 records awaiting Paul's disposition** when he owed **0**.
+Paul: *"all that stuff needs to go in the backlog and be part of our rationalization and commitment
+step."* ⭐ The line is **whose words they are**, never volume: a real-estate record is a person's
+input and stays his, per record; `qa`/`lab` records are our own walk exhaust and are read in context.
+
+**Open, and named so the next lap does not rediscover them:** the sunset-door fix awaits a battery ·
+production's model routes refuse until row 15 · gate ① needs re-running at whatever sha opens beat 0
+· the critical-fail exception is `agent-proposed` and unratified.
