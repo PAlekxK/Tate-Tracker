@@ -290,10 +290,77 @@ track**, and it is what §5b's dead gradient-confidence idea was reaching for an
 
 ### The first executable step, sized
 
-**Render the break-of-slope ridges near the house as actual candidate polylines** and put them beside
-the traced answer key. It needs no new data, no dependency and no network — the field is already
-computed in `field.py`. **It answers the question that decides the whole approach: is a derived edge
-something a person would ACCEPT, or is it a suggestive smear?** ⚠️ **Not yet run.**
+~~**Render the break-of-slope ridges near the house as candidate polylines** beside the traced answer
+key. **It answers the question that decides the whole approach: is a derived edge something a person
+would ACCEPT, or is it a suggestive smear?**~~ ✅ **RUN — §9.** Answer: **neither.** It is a set of
+real, acceptable FRAGMENTS that never close into a place — and the anchor's value turned out to be
+scoping rather than extraction, which retires step 1 of the loop above as I drafted it.
+
+
+## 9 · ⭐⭐ THE CANDIDATE RENDER — RUN `[paul-ruled 2026-09-08: "go ahead, run the candidate render"]`
+
+**§8's first executable step is discharged.** Exhibit: `.engineering/zones-derivability/candidates.png`
+(three panels, staged to `~/Desktop/ATTACH-THESE`). Code: `ridges.py`, `anchor.py`. `measured`
+
+### ⛔ FIRST, THE NEGATIVE RESULT, because it is the bigger finding
+
+**Seeded region-grow FAILS. Two formulations, both refused.** The obvious reading of *"click the
+house and re-process around it"* is: operator clicks, machine returns a polygon. **It does not work.**
+
+| formulation | idea | result |
+|---|---|---|
+| **slope-similarity** | grow while slope stays within 6° of the seed's | **6 of 10 leaked** past 400k px and were REFUSED — *including `house`*. Best IoU **0.40** |
+| **break-as-barrier** | grow but never cross a ridge (watershed) | **worse** — 8 of 10 leaked. Best IoU **0.30** (`lower-40`) |
+
+⭐⭐ **The cause is one sentence: THE RIDGES HAVE GAPS.** A rim with a single-pixel hole is not a
+barrier, and a flood fill finds the hole every time. **There is no closed contour anywhere in this
+frame.** ⛔ **Nothing was returned as a guess** — a runaway grow returns `None`, by construction.
+
+### ✅ WHAT THE MACHINE *CAN* OFFER: fragments, and they are real
+
+70 components ≥40 px; **8 span more than 40 m**; mean extent 18.5 m.
+
+**Null control (200 rigid shifts, ±12 m) — because 98% coverage is exactly the number to distrust:**
+
+| set | true border | a WRONG nearby border | lift |
+|---|---|---|---|
+| ⭐ the **7 TERRAIN-recoverable** zones | **98%** | 77% | **+21%** |
+| ⛔ the **6 mis-led** zones | 63% | 65% | **−3%** |
+
+**The split from §3 reproduces on a completely different statistic.** ⚠️ **And the raw 98% is
+misleading on its own** — a wrong border already scores 77%, because ridge material is dense in the
+built core. **Only the lift is evidence.**
+
+⛔ **Precision is 45%.** *Fifty-five per cent of what the machine offers corresponds to nothing the
+operator drew* — mostly drainage lines in woodland, visible as the red streaks in panel 3.
+
+### ⭐ THE ANCHOR EARNS ITS KEEP — but not the way it was proposed
+
+`house` cannot be *grown*. But **one click on it removes 41 of 70 candidates** (60 m radius →
+**29 remain**). ⭐ **So the anchor's value is SCOPING, not extraction** — it cuts the operator's
+accept/reject work by **59%** without deriving a single boundary.
+
+> ### ⭐⭐ THE FINDING THAT CHANGES THE DESIGN
+> **The machine proposes EDGES TO SNAP TO. It never proposes a PLACE.**
+> Closure is the human's, and that is not a limitation to engineer away — **it is §5 step 3 exactly as
+> written** (*"the regions | Paul, but now easy | closed against edges that already exist"*). ⭐ **The
+> pipeline was right and the reason is now measured**: the edges exist, they simply never close.
+
+⚠️ **This retires the region-grow idea in §8's step 1, which is mine, not Paul's.** His words —
+*"what's the clearest thing to click… and then that allows you to re-process around that"* — survive
+intact and are **supported**: the click re-scopes. It was my reading of it as *extraction* that the
+measurement kills.
+
+### What the exhibit shows, in one line each
+
+| panel | |
+|---|---|
+| **STEP 0** | 70 fragments over the whole property — candidates in the woods that mean nothing |
+| **STEP 1** | one click on the house; 29 survive; the rest go grey |
+| **STEP 2** | green where a fragment sits on a traced border, red where it matches nothing. ⭐ **Green clusters in the built core; red runs through woodland and along the meadow** |
+
+⭐ **`the-meadow` draws almost no candidates at all (13% coverage)** — visible as empty ground in every
+panel. §6 already said why: it is a **region**, not an edge, and this is that finding rendered.
 
 
 ## Falsifier
