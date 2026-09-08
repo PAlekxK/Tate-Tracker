@@ -1,6 +1,6 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-08T16:35:37-04:00",
+ "generated_at": "2026-09-08T16:43:04-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "bfa3f23",
  "beat": {
@@ -61,14 +61,12 @@
    }
   }
  },
- "lap_count": 3,
+ "lap_count": 4,
  "last_lap": {
-  "lap": 4,
+  "lap": 5,
   "opened": "2026-09-08",
-  "outcome": "closed",
-  "closed_at": "2026-09-08T21:05:00Z",
-  "cleared_sha": null,
-  "_note": "CLOSED SHORT [paul-ruled 2026-09-08]. cleared_sha is null ON PURPOSE — nothing was cleared and nothing deployed. A maintenance lap that reached WALK with no commitment behind it, which is what surfaced the ladder's order defect."
+  "outcome": "open",
+  "closed_at": null
  },
  "lap_heading_anomalies": [],
  "pre_registered": [

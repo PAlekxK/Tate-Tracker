@@ -1896,3 +1896,50 @@ redirect is unwalked by any seat at any build** · three seats' *"what grows the
 built"* · three seats' *"the email you gave appears on no screen"* · **no activity sweep exists for
 production accounts** (`read-mom-engagement.py` has no `--env`).
 
+
+---
+
+## Lap 5 — 2026-09-08 · 🔓 **OPEN at OPEN (1/12)** — the first lap run in the corrected order
+<!-- outcome:open -->
+
+Opened at `20cda10`, `main`, clean tree. ⭐ **The first lap whose BUILD will be gated by a COMMIT that
+happened first.** Lap 4 closed short precisely because it could not say that.
+
+**Sweeps at open — all three run, output recorded, nothing green by absence.**
+
+| sweep | reading |
+|---|---|
+| **accounts** | 6 environments, **0 unreadable**. `home` 1 account / 3 grants · `bob` 0/0 · `paul` 0 accounts / 1 unspent grant · `legacy` 0/0 · `lab` 20 accounts with **⚡ divergent rows** (server-minted, local register does not know them) · `qa` heavily divergent. Three credentials GONE FROM THE STORE (spent or revoked — the tool does not choose) |
+| **feedback** | ⚠️ **3 awaiting Paul on a REAL ESTATE** — up from **0** at lap 4's open. All three at `home`, all from `p-yjnw9lt41nww` (the `pkirsch` account), 2026-09-08 20:22–20:24Z, on the open-standing card: two `app/card-household`, one `app/card-property`. ⛔ **Their words were NOT read by this session** — they are in `.private/feedback-sweep` and DISPOSE is Paul's beat. 581 on our own environments, which are backlog material and not his queue. **Three channels still read by nothing:** `conversation` (21) · `geocode` (2 at home, and it has a reader now — `read-geocodes.py` — which this tool does not know about) · `zones` (1 at legacy) |
+| **health** | ✅ **9 green, 0 red.** The `Build check (viewer)` red that ran 5 consecutive failures cleared in lap 4 |
+
+**Gate sweep — all three triggers still RED, and one got worse.**
+
+| trigger | reading |
+|---|---|
+| `check-ux-sweep` | 🔍 **OWED** — 8 days, **120 commits** to `viewer.html` against a limit of 20 |
+| `check-backlog-drift` | 📋 **OWED, and WIDER: 554 lines** of head-gap (was 443 at lap 4's open, 510 mid-lap). **Lap 4 widened it by filing into it** — 4,071 lines now. ⭐ **GROOM & BUCKET (5) owns this** |
+| `check-backlog-ready` | 🚦 WIP bands: design 1/2 · build 1/1 (+3 excepted) · **concept 12**. ⬜ **8 typed documents carry NO header block at all — not graded, and NOT clean** |
+
+⚠️ **Lap 4's carried pre-registrations arrive here:** `L4-P1` (the 63 falls?) · `L4-P2` (did the
+rationalization run?) · `L4-P4` (does the critical-fail item ship, proven by its two-person
+falsifier?). **P2 is now the lap's own front half** — GROOM & BUCKET is beat 5.
+
+### ⛔ WHAT LAP 5 OPENS OWING, from lap 4's walks — none of it committed yet
+
+**Process first** `[paul-ruled 2026-09-08]`: *"if there were backlog and process related items in the
+backlog, let's consolidate those and implement them first, so we don't wind up back in a situation
+where we don't enact the fix… because the project can't see the inbox."*
+
+| | carried from lap 4 |
+|---|---|
+| 🔴 **returning-recognition** | a device-local `fw-username` decides recognition and returns before `/api/grant/whoami` is asked. The fix is written 40 lines below, applied to a different key |
+| 🔴 **gate ① keeps the best-scoring run per seat** | so a failing returning walk is invisible to it. ⛔ **Do NOT patch this with `(seat, journey-kind)`** — the three-axis redesign Paul filed today dissolves it, and patching first would harden the wrong unit |
+| ⚠️ **the finished-setup redirect is unwalked** | by any seat, at any build |
+| ⚠️ **no activity sweep for production accounts** | `read-mom-engagement.py` has no `--env`; hardcoded to Mom's device on legacy `[paul-raised 2026-09-08]` |
+| ⚠️ **"what grows there" sold and not built** | three seats independently; Gardening and Wildlife are the only ranking items NOT badged *"an idea — not built yet"* |
+| ⚠️ **the email you gave appears on no screen** | three seats independently |
+
+**▶️ NEXT: DISPOSE (2/12) — Paul's.** Three records at `home` await `act` · `fold` · `hold` ·
+`not-a-finding`.
+
