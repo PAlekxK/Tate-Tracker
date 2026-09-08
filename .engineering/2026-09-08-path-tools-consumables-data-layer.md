@@ -82,6 +82,22 @@ house systems."*
   `equipment` · `garden` · `place` rather than inventing garage/landscaping words beside them.
   ⚠️ **But this is a NAMING constraint, not a mechanism ruling** — the tools bucket is a per-item
   field and `MODULES` bundles domains. Do not collapse the two because they share a vocabulary.
+- ⭐ **THE REAL OPEN QUESTION, and it dissolves the vocabulary argument rather than settling it:**
+  a module's members are DOMAINS, and **tools and consumables have no domain.** MEASURED
+  `2026-09-08` off `tools/momlib.py`: `DOMAINS` holds exactly **11** keys — `plant · weed · bird ·
+  mammal · amphibian · snake · lizard · insect · fish · vehicle · zone` — and **none** is tool,
+  consumable, supply, part or material. So there is no `MODULES` entry to name yet, and the word
+  was never the live question. The question is **whether tools and consumables join an existing
+  module or need a domain of their own.** Smaller, better-posed, and it does not touch the slices.
+- ⚠️ **Paul's 9/08 "garage" spans TWO existing modules, not one** — `motor-pool` (group `vehicle`,
+  7) and `equipment` (group `equipment`, 10, where the mowers live). Confirmed independently by the
+  lap-5 window. So `motor-pool` is not a drop-in name for what he described.
+- ✅ **THE PLACE BRIDGE ALREADY EXISTS AND NEEDS NOTHING BUILT.** `MODULES["place"] =
+  {"members": ("zone",), "what": "the ground itself — zones, the property record's spatial half"}`.
+  That is exactly the location axis §16's handoff note proposed as the narrow real bridge to the
+  agronomy thread — already declared, already named, and precisely **why** the "membership is NOT a
+  partition" warning exists, since `zone` is claimed by both `garden` and `place`. If that bridge is
+  ever wanted it is a question about **joining `place`**, not about building anything.
 - ⚠️ **But Paul's 9/08 "garage" is BROADER than `motor-pool`** — he described *"vehicles, equipment,
   tools and supplies… used to repair and keep engines running,"* which spans `motor-pool` (group
   `vehicle`, 7) **and** `equipment` (group `equipment`, 10). So this is not a 1:1 match, and the
