@@ -400,3 +400,68 @@ is not a pass.**
 > **The BOARD's rationalization diff is sound and its arithmetic is exact. Apply-blocking issue: one —
 > regrade Z-ACK to DO-NOT-ARCHIVE before §1.7's sequence runs.** Everything else I checked holds, and the
 > slope argument is the strongest claim either window produced. ⛔ **Still not applied. Still Paul's.**
+
+---
+
+## 11 · INBOUND — TOOLS, CONSUMABLES & SOURCING · **registered, PROPOSED, not applied**
+
+The third window handed this over at the end of the lap. ⛔ **I did not write it into `BACKLOG.md`** —
+same standing as everything else here.
+
+### 11.1 ✅ Its most important claim was that I should NOT mint what I was about to — and it is right
+
+It reported *"four rows for this already exist in the file you own."* **Verified, all four, at the exact
+lines given** `measured`:
+
+| row | line | level · objectives · status |
+|---|---|---|
+| **`P-02` · ASSET LIFECYCLE AND RESIDENCY** | 3935 | `L2 capability` · **O4 · O3** · `validated` |
+| **`P-08` · THE TRIP ASSEMBLER** | 4007 | `L3 feature` · **O4** (tests O3) · `validated` |
+| **`P-09` · READINESS — do I already own what this job needs** | 4020 | `L3 feature` · **O4** · `validated` |
+| **`P-10` · THE ORDER BANK** | 4031 | `L4 grace-note` · **O4** · `validated` |
+
+All four sit in `# 🌱 SEEDS — the 2026-09-04 latent-idea mine`. **P-09 is the theme's core** and says so
+itself: *"availability and owned-consumables are tracked nowhere,"* under Paul's own 2026-08-31 words
+(`C08-096`). ⭐ **This is *prefer citing an existing row to minting one* working**, caught by the window
+that had the least reason to look for it.
+
+### 11.2 ⭐ Its open question answers itself from the rows — and so does the level
+
+It asked me to route an objective. **The rows already carry one: `O4` on all four, with `O3` on the two
+that test transfer.** No routing needed; it is declared.
+
+⭐ **And SEEDS already has a level vocabulary that includes the word:** `L1 theme` · `L2 capability` ·
+`L3 feature` · `L4 grace-note` — `P-12` is filed `L1 theme / L2 capability` today. **So this does not need
+a new class either.** Per `[[feedback_reuse_vocabulary_before_adding_state]]`: **file it as an `L1 theme`
+over the four existing rows.** `proposed`.
+
+### 11.3 ⛔ BUT THE PARENT-OF-FOUR FRAMING UNDER-REPRESENTS IT, AND THIS IS MY ONE CORRECTION
+
+**All four existing rows are `O4` — Paul's fleet and household record.** The handover's own load-bearing
+finding is that **the garden half is Mom's job, not Paul's**: *"I'm breaking out the fertilizer — what
+plants? I don't wanna miss any"* (Paul's relay, 2026-09-07), whose success criterion is **completeness**
+where his is **one trip**. That is **O1/O2**, and **no P- row carries it.** `measured`.
+
+⛔ **So the theme is not merely a parent over four existing rows — it adds a half none of them holds**,
+and that half is the one that reaches a person's surface and collides with Track A's named anti-persona
+(*"the property-management professional who wants a maintenance system of record"* — which is what an
+inventory registry is by default). **One substrate, two renderings, and only the Track A rendering carries
+a tone contract.** Filing it as a pure parent would quietly lose that.
+
+### 11.4 What stays open — and one of them is not mine, the other is not anyone's yet
+
+- ⛔ **The many-spines question is DEFERRED, not answered.** Paul ruled the registry lives in Fernwood
+  `.private/` with a config-seam shape — so `home-record` and `bronco-parts` cannot reach it. The window
+  flagged this as *known and accepted*, which is the honest grade. ⚠️ It remains
+  `[[project_many_spines_architecture]]`: **measured, unsolved, do not build a fix without Paul.**
+- ⚠️ **A `validated` promotion resting on an episode nobody captured.** *"A seasonal put-away has cost him
+  a second trip / a missed machine"* promotes multi-entity aggregation `assumption → validated`. **The
+  episode itself is not in the record** — the window says so and says to ask which machine and which
+  season before citing it. ⛔ **Do not let that figure harden.** It is the shape this repo names most often.
+- Unruled by Paul: the intake floor, and whether guides keep ownership checkboxes at all.
+- **The check it pre-registered is good and it fails today** — a drift-lint grepping guide prose for
+  ownership vocabulary against the registry; `guides/bolores-door-panel-repair.md` carried three ownership
+  claims found wrong, including a *"fully stocked"* claim for a path with **no owned tool**. ⭐ It catches
+  what a renderer structurally cannot, because the stale claims live in prose a renderer never touches.
+
+⛔ **Not ranked. Not applied. Not minted.** Placement is Paul's, and the spine ruling is his too.
