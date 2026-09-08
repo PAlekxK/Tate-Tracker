@@ -4,6 +4,12 @@
   "_ruled": "[paul-ruled 2026-09-05] — 'include all of them, and yeah, include Fernwood as well.' Paul took the full candidate set over ux-expert's recommended five.  — AMENDED [paul-ruled 2026-09-06]: the swatch is now `fern` / \"Fern\". The original ruling stands as made and is kept above; it was made when Fernwood was the only estate. With a second household arriving, an engine-tier palette offering a swatch named after ONE household invited a new reader to paint their place after somebody else's house. tools/pages-deploy.py refused the first household export over exactly this. The HEX is unchanged, and an accent persists as a hex rather than an id, so no existing choice moves.",
   "_known_trade": "⚠️ THREE GREENS (pine, spruce, fernwood) and a widened lightness band. ux-expert recommended ONE green and ONE blue because two of either is a discrimination task for a reader with documented difficulty reading, and proposed spruce as a SWAP for dusk rather than an addition; it flagged fernwood as outside the band (measured, not decided). Paul ruled the full set knowing this. Recorded as a KNOWN TRADE, not an oversight — if chip selection is later measured to be error-prone, this line is where to look first.",
   "default": "stone",
+  "unchosen": {
+    "hex": "#4A4640",
+    "_rule": "WHAT AN UNCONFIGURED BUILD PAINTS BEFORE ANYONE PICKS — and it is deliberately NOT a palette member and is never named on a surface. `default` is a different fact: the pre-selected SWATCH when a person opens the picker. Overloading one key with both would have made palette.py's own member assertion fail, or left a false line here.",
+    "_ruled": "[paul-ruled 2026-09-08] 'the neutral gray as the starting point should not be Fernwood's green color, which we called Fern.' Hex is ux-expert's 2026-09-08 colour strategy: a near-neutral graphite, a hair WARM on purpose — a cool neutral is a desaturated Stone, so the first swatch a reader tries would look like a no-op.",
+    "_contrast": "Recomputed by tools/palette.py --check like any member, but reported apart and never counted as a choice. A stored hex with no check is the thing this file's _contrast note already refuses."
+  },
   "colors": [
     {
       "id": "stone",

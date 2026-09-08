@@ -41,7 +41,7 @@ def main():
     ap.add_argument("--check", action="store_true")
     a = ap.parse_args()
     p = json.load(open(FILE, encoding="utf-8"))
-    rows, bad = [], []
+    rows, bad, unchosen_row = [], [], None
     for c in p["colors"]:
         on_white, as_ink = ratio(c["hex"], WHITE), ratio(c["hex"], GROUND)
         worst = min(on_white, as_ink)
@@ -51,6 +51,23 @@ def main():
     if p["default"] not in [c["id"] for c in p["colors"]]:
         bad.append(({"id": p["default"], "name": "(default)"}, 0.0))
 
+    # ⭐ `unchosen` IS CHECKED LIKE A MEMBER AND COUNTED AS NONE (2026-09-08). It is what an
+    # unconfigured build paints before anyone picks — a different fact from `default`, which is the
+    # pre-selected SWATCH in the picker. Overloading one key would either fail the member assertion
+    # above or leave a false line in this file. ⚠️ It is checked because this file's own `_contrast`
+    # note refuses stored ratios on the grounds that a hand-kept fact rots; a stored HEX with no
+    # check is the same defect one step earlier. Absent is a FAILURE, not a skip: build-viewer reads
+    # this key for every estate that declares no colour, so an unreadable one has households wearing
+    # nothing — and until today it had them wearing Fernwood's green.
+    _u = (p.get("unchosen") or {}).get("hex")
+    if not _u:
+        bad.append(({"id": "unchosen", "name": "(unchosen — MISSING)"}, 0.0))
+    else:
+        _w, _i = ratio(_u, WHITE), ratio(_u, GROUND)
+        unchosen_row = (_u, _w, _i, min(_w, _i))
+        if min(_w, _i) < AAA:
+            bad.append(({"id": "unchosen", "name": "(unchosen)"}, min(_w, _i)))
+
     if not a.check:
         print("estate accent palette — %d colours, ratios recomputed from the hex\n" % len(rows))
         print("  %-9s %-8s %-10s %-10s %s" % ("id", "hex", "on white", "as ink", "level"))
@@ -59,6 +76,12 @@ def main():
                 c["id"], c["hex"], w, i,
                 "AAA" if worst >= AAA else ("AA" if worst >= AA else "⛔ FAILS"),
                 "   ← default" if c["id"] == p["default"] else ""))
+        if unchosen_row:
+            _h, _w, _i, _worst = unchosen_row
+            print("  %-9s %-8s %-10.2f %-10.2f %s   ← unchosen (not a choice; what a fresh estate wears)"
+                  % ("unchosen", _h, _w, _i, "AAA" if _worst >= AAA else ("AA" if _worst >= AA else "⛔ FAILS")))
+        else:
+            print("  unchosen  ⛔ MISSING — build-viewer has nothing to paint an unchosen estate with")
         band = max(r[3] for r in rows) - min(r[3] for r in rows)
         print("\n  lightness band spread: %.2f  (ux-expert kept its recommended five within 0.64;" % band)
         print("  a wider band means one estate's affirmative reads weaker than another's)")

@@ -90,7 +90,7 @@ IDENTITY = {
     # ⛔ EMPTY IS A LEGAL ANSWER and means "no declared seed" — the viewer then leaves the ground
     # alone rather than inventing one. A malformed value is treated the same way: the regex on the
     # other side refuses anything that is not #rrggbb, so a typo cannot paint a household.
-    "themeMain":   lambda ident, prop: ((ident.get("theme") or {}).get("main") or ""),
+    "themeMain":   lambda ident, prop: ((ident.get("theme") or {}).get("main") or _unchosen()),
     "title":       lambda ident, prop: ident["name"],
     "h1":          lambda ident, prop: ident["name"],
     # ⛔ A FRAGMENT IS WORSE THAN A BLANK. Measured 2026-09-06 by the `owner` seat reading its own
@@ -218,6 +218,22 @@ def _display_value(cfg, instance_path):
         raise RuntimeError("%s must declare display.defaultTextSize as one of %s (got %r) — the served default is a decision, not a fallback"
                            % (instance_path, TEXT_SIZES, v))
     return v
+
+
+def _unchosen():
+    """The colour an estate that has NOT chosen one wears. ⛔ ONE source: engine/palette.json's
+    `unchosen`. It is deliberately not a palette member (that is `default` — the pre-selected swatch
+    when a person opens the picker) and it is never named on a surface.
+    ⚠️ RAISES rather than defaulting. Four instance files each repeating one hex is the drift this
+    repo keeps paying for, and it had already happened: on 2026-09-08 all five declared Fernwood's
+    #2f5d3a, so every household was shipping Fernwood's ground. A silent fallback here would rebuild
+    exactly that — an unreadable palette must fail the build, never quietly paint something."""
+    with open(os.path.join(ROOT, "engine", "palette.json"), encoding="utf-8") as fh:
+        u = (json.load(fh).get("unchosen") or {}).get("hex")
+    if not (isinstance(u, str) and re.fullmatch(r"#[0-9a-fA-F]{6}", u)):
+        raise SystemExit("build-viewer: engine/palette.json has no readable `unchosen.hex` — an "
+                         "instance that declares no colour has nothing to wear")
+    return u
 
 
 def _modules_literal(canon):
