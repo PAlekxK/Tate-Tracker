@@ -2533,6 +2533,23 @@ its DROPPED and PARTIAL rows exactly as lost as the ideas it was written to find
 | `.plans/2026-09-07-dropped-ideas-MINE.md` | **Paul's conversation turns** — 4,227 read in full | 131 arcs · 114 landed · **5 partial · 2 dropped** · 10 superseded, plus a §4 naming nine things it structurally cannot see |
 | `.plans/2026-09-07-idea-sweep-CENSUS.md` | **the artifact axis** — the complement | 268 tracked files across 13 directories · 105 cited by a ranked surface · 130 cited only by a peer · **33 cited by nothing** |
 | `BACKLOG.md` § SEEDS · `PRODUCT-ENGINE.md` § RECOVERED FROM VOICE MEMOS | Paul's turns | 27 rows · the 09-04 memo recovery |
+| ⭐ `.plans/2026-09-07-backlog-grooming-SCAN.md` | **the DISPOSITION axis** — every item NOT in lap 3's committed scope, put on the ladder | **11 slates** (groupings loadable as one lap) · **12 kills** with citations · 9 blockers each naming its blocker · the **per-release contract** (§9) · the **build sequence** (§10) · the **glance** rulings GL-1…GL-13 (§11) |
+
+⚠️ **AND THE POINTER ABOVE WAS ADDED BECAUSE THE SCAN HAD THIS SECTION'S OWN DEFECT**
+`[practice-steward, 2026-09-07]`. Its eleven slates, its stage rubric and its build sequence were
+**cited by nothing** — the same shape this section exists to fix, in the file written to fix it.
+⛔ **A pointer makes them FINDABLE; it does not make them LOADABLE.** Nothing consumes a slate yet,
+and whether a slate *is* the release loop's beat-9 bucket prepared out-of-band, or a distinct artifact
+class needing its own home and staleness rule, is **Paul's — two producers of one artifact class
+currently have no contract between them.**
+
+⛔ **AND THE HARDER FINDING, measured the same night:** the weather plan's orphan flag had been printing
+**all day** from the session-start block and nobody read it — **126 flags across 30 files, 25 of them
+that same orphan line, inside a block of 42 `python3` invocations.** ⭐ **The detector was never
+missing; its output is unreadable.** (Proof: the count fell 26 → 25 the moment the weather row landed.)
+**Adding artifacts makes the reading problem worse, not the detection problem better** — the proposed
+remedy is a NEW-since-the-lap-opening-sha partition on that output, derived from git and never typed.
+Full audit: `.plans/2026-09-07-process-once-over-AUDIT.md`.
 
 ⭐ **WHY THE CENSUS RAN THE ARTIFACT AXIS RATHER THAN A FOURTH MINE.** Three mines already existed and
 **all three start from Paul's words** — so an idea that originated in an *agent proposal* is invisible

@@ -718,8 +718,13 @@ remembered.
 > `measured` — `GET /api/door` existed and **no tool called it**; `/api/onboarding-metrics` had **no
 > GET route at all** and was write-only, so **every onboarding signal from two laps was invisible**.
 > **A telemetry ask without a reader is the exact failure**, and RC-2's phrasing already excludes it.
-> ⭐ This also **settles census G3**, which had been sitting as *"where instrumentation sits in the
-> process — retro material, unsettled."* It sits on the item, at its build commit.
+> ⚠️ **CORRECTED 2026-09-07 late, by practice-steward** — an earlier draft of this line claimed RC-2
+> *"settles census G3."* **It does not, and §11.5's table is the one that is right** (it lists G3 as
+> ⛔ open under GL-8). **RC-2 is forward-only** — it governs what a NEW item must carry. **G3 is about
+> surfaces that already exist and are uninstrumented**, which is GL-8's backfill, not RC-2's contract.
+> What RC-2 *does* settle is the **site**: instrumentation sits on the item, at its build commit.
+> ⭐ Leaving the two to disagree would have been this corpus's own most-repeated defect — a wrong SSOT
+> row — inside the file written to find them.
 
 > ### ⚠️ THE ONE TENSION, and Paul's own prior ruling resolves it rather than this file
 > The ribbon is **ATTRIBUTION, NOT INFORMATION** `[paul-stated 2026-08-04]`: *"it refreshes on HER
