@@ -361,9 +361,13 @@ def main():
         # ⭐ VERIFY BY USE. The deploy reporting success is the tool's claim; the origin serving the
         # sha is the fact. QA sits behind Access and cannot be checked this way without a token, so
         # it says so rather than reporting a green it did not earn.
-        if a.env == "qa":
-            print("  ⚠️  qa is behind Cloudflare Access — not verifying the served sha from here.")
-            return 0
+        # ⛔ THE ACCESS SKIP IS GONE `[paul-ruled 2026-09-07 — Access dropped from QA]`. This read
+        # "qa is behind Cloudflare Access — not verifying the served sha from here" and returned 0
+        # WITHOUT CHECKING. That was true while QA was gated; the moment Access came off it became a
+        # skipped verification wearing an explanation — and it would have kept skipping forever,
+        # because nothing connected the dashboard change to this line. Same claim-in-two-places shape
+        # the process audit found eight times, caught here only because the deploy printed it.
+        # ⭐ QA now verifies exactly like every other origin, which is the point of it being a mirror.
         deadline = time.time() + a.wait
         while time.time() < deadline:
             try:
