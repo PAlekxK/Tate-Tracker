@@ -1233,9 +1233,20 @@
     });
   }
 
+  // ⛔ THE SERVER'S ANSWER, CACHED FOR THIS PAGE LOAD ONLY. Set when whoami confirms the grant has
+  // been spent on an account. It is deliberately NOT written to localStorage: the whole defect being
+  // fixed was a device-local key standing in for a fact only the server holds, and curing that by
+  // writing a different device-local key would just move it.
+  var SERVER_KNOWS_ME = false;
+
   function paintHandoff() {
     if (!el.handoff) return;
-    el.handoff.hidden = !(read(K_USER) && read(K_GRANT));
+    // ⛔ THE SAME DEVICE-LOCAL DEFECT, SECOND SITE. This read `!(read(K_USER) && read(K_GRANT))`, so
+    // `#gohome` — the way onward for someone who already exists — lived in a hidden div that unhid
+    // only on the browser that had created the account. The `owner` seat's returning walk timed out
+    // clicking it and the seat established the important half: it was a MISSING control, not a
+    // broken one. A person on a second device was recognised by nobody and offered no way forward.
+    el.handoff.hidden = !((read(K_USER) || SERVER_KNOWS_ME) && read(K_GRANT));
     // ⭐ NAME THE DESTINATION WITH HER OWN NAME FOR IT. "your place" was doing double duty — the
     // physical property AND the app — and two buttons one screen apart read "See your place" and
     // "Open your place" while going to completely different destinations. Paul could not tell what
@@ -1979,7 +1990,16 @@
   // by account creation, so a returning reader skips s0 and resumes, and a first-time reader makes an
   // account whether or not she was invited. That is Paul's rule — route through creation UNLESS the
   // account exists — expressed as the one condition that actually distinguishes the two.
-  if (!read(K_USER)) {
+  // ⛔⛔ THE FRONT DOOR, EXTRACTED 2026-09-08 — it used to be the BODY of `if (!read(K_USER))`,
+  // and that condition is the lap-5 STOP. `fw-username` is DEVICE-LOCAL and is set only by
+  // account creation, so "have I seen this browser create an account" was standing in for "does
+  // this person exist". Anyone arriving on a valid link from a SECOND DEVICE met a blank
+  // "Create your account" form — which is Mom's exact path: she is texted a link and opens it on
+  // a phone that never signed up. The `owner` seat walked it at bfa3f23 and reported R02, the
+  // "who does it think I am" stop, as answering NOBODY.
+  // ⭐ THE RULE WAS ALREADY WRITTEN twelve lines below and this code could not obey it:
+  // "Recognition is the SERVER's to confirm, never this page's." It now does.
+  function showFrontDoor() {
     if (grant) {
       el.s0invite.hidden = false;                    // say why she is being asked, since she was invited
     }
@@ -2017,8 +2037,13 @@
         try { el.uname.focus(); } catch (err) {}
       });
     } catch (e) {}
-    show("s0"); el.uname.focus(); return;
+    show("s0"); el.uname.focus();
   }
+
+  // ⛔ NO CREDENTIAL AT ALL is the only case this page may decide by itself. Everything else waits
+  // for whoami. A stranger with no grant gets the door; a person WITH a grant is the server's to
+  // recognise — on any device, including one that has never seen them.
+  if (!grant) { showFrontDoor(); return; }
 
   // Recognition is the SERVER's to confirm, never this page's. An unknown, revoked or
   // other-estate credential returns the router's own 404 — deliberately byte-identical to a
@@ -2041,6 +2066,18 @@
         show("s-nolink"); return;
       }
       if (!who) { show("s-nolink"); return; }
+      // ⛔ A VALID LINK THAT HAS NEVER BEEN SPENT IS A NEW PERSON, and they still create an account.
+      // This is the branch that makes the fix above safe: now that recognition no longer keys on a
+      // device-local username, EVERY grant-holder reaches whoami — including a first-time invitee
+      // who must not be routed past signup into the naming screen. `hasAccount` is the server's
+      // answer to "has this grant been spent", added to whoami the same day for exactly this.
+      // ⚠️ FAIL CLOSED: an older Worker that does not send the field yields `undefined`, which is
+      // falsy, so the door shows and nobody is let past signup by a missing field. The cost of the
+      // wrong guess in this direction is one extra sign-in; in the other it is a stranger inside.
+      if (!who.hasAccount) { showFrontDoor(); return; }
+      // ⭐ The server said yes, so this page load may now offer the way onward — see paintHandoff.
+      SERVER_KNOWS_ME = true;
+      try { paintHandoff(); } catch (e) {}
       // ⛔⛔ THE RECORD DECIDES WHETHER SETUP IS DONE — NOT A LOCAL STEP COUNTER (fixed 2026-09-08).
       // The line below routed purely on `fw-onboard-step`, and anything that was not "2"/"3"/"4"
       // fell through to step 1 — the NAMING screen. The comment above it claimed "someone who has

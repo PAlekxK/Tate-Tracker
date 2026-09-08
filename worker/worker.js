@@ -3814,7 +3814,20 @@ export default {
                       // from THIS household before first paint. Null is DECLARED, never absent: a
                       // null here means "we could not place it", which the cards render as S0 —
                       // it never means "not asked yet", and it is never a default coordinate.
-                      coordinates: grant.coordinates || null });
+                      coordinates: grant.coordinates || null,
+                      // ⛔⛔ THE ONE BIT THE DOOR COULD NOT ASK FOR, added 2026-09-08 to fix the lap-5
+                      // STOP. `onboarding` decided "is this a returning person" from `fw-username` —
+                      // a DEVICE-LOCAL localStorage key set only by account creation — so anyone
+                      // arriving on a valid link from a second device was met with "Create your
+                      // account". That is Mom's exact path: she is texted a link and opens it on a
+                      // phone that never signed up. The page's own next comment already states the
+                      // rule it was breaking — "Recognition is the SERVER's to confirm, never this
+                      // page's" — and it could not comply, because whoami returned no field that
+                      // answers "has this grant been spent on an account?"
+                      // ⭐ A BOOLEAN, NOT THE USERNAME. The caller needs to know THAT an account
+                      // exists, not WHICH; returning the identifier would put a name on the wire to
+                      // answer a yes/no question. Minimal disclosure, same as `entry`/`vault` above.
+                      hasAccount: !!grant.username });
       }
     }
     if (url.pathname === "/api/grant/whoami") return json({ error: "not-found", path: url.pathname }, 404);   // no grant presented → the same 404
