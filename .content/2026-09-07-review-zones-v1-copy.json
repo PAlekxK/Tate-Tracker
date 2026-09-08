@@ -1,0 +1,228 @@
+{
+  "review_id": "content-2026-09-07-zones-v1-copy",
+  "project": "fernwood",
+  "subject": "Zones v1 copy — the headline completeness line, the answers-never-summons rule, the name collision, partial family sets, and the empty fern-garden",
+  "surface": "UI — in-app worklist + ZonePanel (phone, outdoors, likely offline)",
+  "audience": "Mom, standing in the garden holding a bag of fertilizer, 414x848 at A+ text",
+  "voice_charter_applied": "fernwood.md + cross-project/voice-and-stance.md",
+  "tone_register": "answering — she brought the trigger; not celebratory, not instructional, never apologetic",
+  "review_date": "2026-09-07",
+  "reviewer_mode": "review",
+  "could_be_anyone_test": "fail",
+  "anchor_check": "fail",
+  "companion_artifact": ".ux-reviews/2026-09-07-zones-v1-copy.md",
+  "ships": false,
+  "findings": [
+    {
+      "id": "F1",
+      "area": "accuracy",
+      "severity": "critical",
+      "observation": "\"12 plants on the property don't have a place yet\" asserts something the reader knows is false — every one of those plants has a place; she can walk to it. What has no place is our record.",
+      "voice_principle_invoked": "Trust is the load-bearing emotion (CLAUDE.md, 14x rainfall incident) + honesty markers + describe-don't-grade",
+      "recommendation": "Relocate the gap to the record. This also dissolves Paul's blame objection as a side effect, because it names a subject who owes the work and that subject is us. Test any candidate: could she say this sentence out loud and be right?",
+      "alternative_drafts": [
+        "12 more we haven't written a place for yet — so they can't be on this list.",
+        "There are 12 more around here we haven't written down a place for."
+      ]
+    },
+    {
+      "id": "F2",
+      "area": "voice",
+      "severity": "critical",
+      "observation": "\"Want to say where they are?\" is an ask, on the project whose ask-shaped affordances are 0-for-35. The journey's own F1 row claims the line \"is not an ask\" — that is true of sentence one and false of sentence two.",
+      "voice_principle_invoked": "latch onto what she starts (CLAUDE.md 2026-09-01) + the ribbon doctrine: intent is carried by STRUCTURE, not by explaining itself",
+      "recommendation": "Delete the question. Make the line itself the control — the count and the missing names are the door, the same way the provenance chip invites without asking.",
+      "alternative_drafts": ["…so they can't be on this list."]
+    },
+    {
+      "id": "F3",
+      "area": "voice",
+      "severity": "important",
+      "observation": "\"water these 4\" is verb + count — the grammar of \"17 actions due\" in warmer vocabulary. Also, \"This month\" already names a shipped Plants tab (viewer.html:6828) answering a different question.",
+      "voice_principle_invoked": "fernwood.md — Action sentences soften toward 'worth doing', not 'do this'; lexicon-no: stacked imperatives, counts of outstanding work",
+      "recommendation": "Use the charter's own lexicon — 'the X will want Y'. Lead with the place and the want; the month is our organising axis, the job is hers.",
+      "alternative_drafts": [
+        "Fern Garden — 4 want water this month.",
+        "Watering — the Fern Garden has 4."
+      ]
+    },
+    {
+      "id": "F4",
+      "area": "voice",
+      "severity": "important",
+      "observation": "The rule 'the surface ANSWERS; it never SUMMONS' is right in substance but under-specified: it permits verdicts and imperatives (so it blesses 'water these 4'), and read literally its 'no pending count' clause forbids the 12-count the whole v1 rests on. Six predicted violation sites, led by a jump-strip badge and by Garden Guru — the one shipped consumer of the zone record, named nowhere in the plan.",
+      "voice_principle_invoked": "describe-don't-grade + soften-toward-worth-doing are trigger-independent; register follows audience",
+      "recommendation": "Add the carve-out: the system may count its own ignorance; it may never count her outstanding work. Bind the rule to Guru's answer shape, not only to the card. Forbid a zone count on the jump strip by name, now, before someone builds it as a win.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F5",
+      "area": "sense-making",
+      "severity": "critical",
+      "observation": "No day-one wording exists. Mom's instance starts with 0 plants and 0 zones; the drafted line would read '40 plants don't have a place yet' over an empty list. And the count can go UP as she adds plants — a scoreboard moving against her. The 'count saves it, 12 to 0' defence also contradicts plan §6b, which says the gap is the permanent normal state.",
+      "voice_principle_invoked": "Mom starts BLANK [paul-ruled] + make-or-break-user test",
+      "recommendation": "Write the empty state as the primary state. Day one carries no count — a count of zero is not a sentence.",
+      "alternative_drafts": ["Fern Garden — nothing written down here yet."]
+    },
+    {
+      "id": "F6",
+      "area": "sense-making",
+      "severity": "critical",
+      "observation": "Read aloud, the block changes scope three times: a place, an action, then the whole property. The disclaimer's scope does not match the heading's. It exposes an unmade decision — the plan's demo output is property-scoped grouped by place, the headline line is place-scoped, and one sentence is doing both.",
+      "voice_principle_invoked": "Read the whole card aloud — line-by-line honesty is not card-level honesty (2026-08-24)",
+      "recommendation": "Settle place-scoped vs property-scoped first; the wording cannot be fixed before it. Flagged to ux-expert as a surface-shape question surfacing as a copy problem.",
+      "alternative_drafts": [
+        "property-scoped: Watering this month — 4 places, 11 plants. 12 more we haven't written a place for.",
+        "place-scoped: Fern Garden — 4 want water this month. There may be more here we haven't written down."
+      ]
+    },
+    {
+      "id": "F7",
+      "area": "accuracy",
+      "severity": "critical",
+      "observation": "Verified at HEAD: of five hydrangea roster members only hydrangea-panicle is placed; the hub, DreamCloud and Pop Star are unplaced, and 'Annabelle' and the blue mopheads are roster lines with no record at all. A list printing 'Panicle Hydrangea' reads as 'hydrangeas: handled'. This is F16 firing inside the one family Paul named as her identity gap.",
+      "voice_principle_invoked": "PROPOSED — Never let a member stand for its family; corollary: name what is missing, don't count it",
+      "recommendation": "Group the list by family; the family row names what it can account for and NAMES the missing members using the roster's own recognisable prose. A count is a scoreboard; four names she recognises is a memory aid that does the rest of her job. Never state a number of plants the record cannot support — say 'kinds' (identities), never 'five hydrangeas'.",
+      "alternative_drafts": [
+        "Hydrangeas — the panicle, down in Lower 40. / The blue mopheads by the porch, Annabelle, DreamCloud and Pop Star are on the roster with no place written down.",
+        "weaker: Hydrangeas — 1 of 5 kinds has a place."
+      ]
+    },
+    {
+      "id": "F8",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The 'two fern gardens' collision was resolved by editing a name into uniqueness, producing 'Western Fern & Azalea Garden' — a name no household member uses. The precedent (hers wins) is right; the mechanism is the neighbouring failure to 'adopt her words, never improve them'. Second-order: Paul's renamed zone now looks like a household name, and nothing on the surface distinguishes an operator name from hers.",
+      "voice_principle_invoked": "credit-don't-thank / adopt-their-words-never-improve-them; PROPOSED — a duplicate name is a fact to be shown, not a conflict to be resolved",
+      "recommendation": "Keep both names as spoken and disambiguate beside the name with a landmark she already knows — never a cardinal direction and never inside the name. Ask 'are these two, or one?' without triggering a rename. Explicitly forbid form-validator copy.",
+      "alternative_drafts": [
+        "Fern Garden — by the pond   ·   Fern Garden — past the wall",
+        "FORBIDDEN: That name is already in use. / A place called Fern Garden already exists."
+      ]
+    },
+    {
+      "id": "F9",
+      "area": "voice",
+      "severity": "important",
+      "observation": "ZonePanel's four labels (Looks right / Different name / Not quite right / Delete this place) are quoted as settled by both artifacts and reviewed by neither. Three were written for a confirm-the-map job; under completeness the job changed. 'Looks right' solicits a yes the journey admits proves nothing, on a reader whose cited literature says acquiescence rises with age. 'Not quite right' invites a binary and captures no words while the arriving sentence is 'the laurel's not on here'. 'Delete this place' spends the panel's loudest marker on its most destructive act, one tap from a place she named.",
+      "voice_principle_invoked": "Register follows audience — the loudest marker means 'stop, this is wrong'; one affirmative grammar (2026-07-29 rule 1)",
+      "recommendation": "Re-point the flag at the mic and label the sentence, not the status. Replace the delete verb with a statement about her world that also produces information. Keep 'Different name' unchanged — it is the one correction she cannot be wrong about. Missing words-channel behind the flag is a surface problem: ux-expert.",
+      "alternative_drafts": [
+        "Something's missing",
+        "Something's off — tell me",
+        "This isn't a place we call anything"
+      ]
+    },
+    {
+      "id": "F10",
+      "area": "voice",
+      "severity": "important",
+      "observation": "'Everything is changeable' is listed in the plan's binding constraints and placed on no surface in either artifact. A binding constraint with no assigned surface is not in force — and zones is where it matters most, because naming a place is the highest-stakes authoring this app has asked of her.",
+      "voice_principle_invoked": "EVERYTHING IS CHANGEABLE [paul-stated 2026-08-04] — one short varied clause attached to the thing she just gave; never a standing footer; planned decay",
+      "recommendation": "Attach it to the rename result and to a name we can't place yet. Do NOT attach it to 'Looks right' — reassurance at the confirm reads as 'go on, just say yes' and feeds the acquiescence risk.",
+      "alternative_drafts": [
+        "Fern Garden it is. Say the word if it wants changing.",
+        "Written down. We'll find where it goes."
+      ]
+    },
+    {
+      "id": "F11",
+      "area": "clarity",
+      "severity": "important",
+      "observation": "'place' is the plan's engine primitive and is already on her screen ('Delete this place'), yet VOCABULARY.md §4's user-facing test — the one that keeps 'estate' off her surfaces — has never been run on it. The join's verb 'placed' has the same problem.",
+      "voice_principle_invoked": "VOCABULARY.md §4 (schema words never reach a user-facing surface) + adopt her words",
+      "recommendation": "Add one question to the Leg 3 naming conversation: what does she call these things? It may be that there is no generic noun and the surface should just name the places.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F12",
+      "area": "sense-making",
+      "severity": "critical",
+      "observation": "fern-garden — the zone she named for a plant — holds zero plants, and both ferns in canon (cinnamon-fern, sensitive-fern) are filed elsewhere. Any wording that reads as a verdict on her garden is the trust hit; a wording that confesses about our record and makes a contradictable claim is the prompt.",
+      "voice_principle_invoked": "describe-don't-grade + soften framing rather than delete + PROPOSED: state a claim she can contradict, not an absence she can only shrug at",
+      "recommendation": "Confess in the first clause and anchor in the second by naming the actual ferns and where we filed them. She will say 'well there are ferns in the Fern Garden too' — which is exactly the correction the v1 exists to elicit, and it answers the journey's own 'an instrument that can only produce a yes has measured nothing' falsifier.",
+      "alternative_drafts": [
+        "Fern Garden — nothing written down here yet. The two ferns we know of, the cinnamon and the sensitive, are recorded over in the St Francis Garden and the west garden.",
+        "blank instance (no companion clause available): Fern Garden — nothing written down here yet.",
+        "FORBIDDEN: Fern Garden — no plants. / Fern Garden (empty). / Nothing recorded here yet. Add a plant?"
+      ]
+    },
+    {
+      "id": "F13",
+      "area": "sense-making",
+      "severity": "important",
+      "observation": "Plan §6b argues zones-first structurally prevents placelessness. If that holds, the 12-plants line describes a condition the new architecture is designed to prevent — it is the frozen instance's sentence. At Mom's instance the gap inverts: places with nothing written in them, and kinds we cannot point to (roster lines that can never be placed).",
+      "voice_principle_invoked": "anchor check — copy must be true of the instance it renders on",
+      "recommendation": "Treat F12's empty-place line as the primary day-one copy and F7's roster line as the durable one. The 12-plants sentence is migration copy with a short life; do not build the v1's voice on it. Whether §6b's claim holds is the build lane's to settle, not mine.",
+      "alternative_drafts": []
+    },
+    {
+      "id": "F14",
+      "area": "voice",
+      "severity": "nice-to-have",
+      "observation": "'on the property' and 'Western' are operator/surveyor register. And the drafted line's only anchor is the proper noun — strip 'Fern Garden' and it is a generic completeness nudge for any CRM.",
+      "voice_principle_invoked": "could-be-anyone test + anchored naming beats field-journal-fluent naming",
+      "recommendation": "Pull the anchor into the verbs and objects — 'written down', 'the cinnamon and the sensitive', 'the blue mopheads by the porch' — not into the proper noun alone.",
+      "alternative_drafts": []
+    }
+  ],
+  "keep": [
+    "'…so they're not on any list.' — the honesty-marker doctrine applied to a SET. The only defence against F16. Do not soften, do not demote to a footer.",
+    "'The surface answers; it never summons.' — correct in substance; needs F4's carve-out and F4's binding to Guru.",
+    "Hers wins on a name collision — the precedent is right; only the resolution mechanism was wrong.",
+    "The mic label 'What's growing here?' — the journey calls it lucky; under completeness it is correct. Make it deliberate.",
+    "Provenance credit at Leg 6. Z-ACK closes an acknowledgment SURFACE; it does not close CREDIT. 'confirmed on the ground · <month>' + confirmedBy is credit-don't-thank and is the loop-close — protect it from being deleted by inference from Z-ACK.",
+    "The completeness gap as the elicitation device — right instinct, right doctrine; the execution is what fails."
+  ],
+  "settled_looking_but_undecided": [
+    "The headline line's day-one wording (0 plants, 0 zones) — never drafted, and blank-start is a binding ruling.",
+    "What the line says at count 0, and when the count goes UP — §6b and the '12 to 0 is progress' defence contradict each other.",
+    "Place-scoped or property-scoped worklist — the demo is one, the line is the other.",
+    "The household-facing noun for a zone; 'place' has never had VOCABULARY.md §4's test run on it.",
+    "What the surface SAYS at a name collision — resolved in the schema, no words ever written.",
+    "ZonePanel's four labels — quoted as fixtures, written for a different job.",
+    "Which surface carries 'everything is changeable' — named nowhere in either artifact.",
+    "Whether Garden Guru inherits the completeness claim — it is the one shipped consumer of the zone record and is named in neither artifact.",
+    "Whether the 12-plants gap even exists at Mom's instance (§6b) — the elicitation device may be frozen-instance-only.",
+    "That Z-ACK closed implies no attribution anywhere — it does not, and the inference would silently remove the loop-close."
+  ],
+  "open_questions_for_paul": [
+    "Place-scoped or property-scoped worklist? F1/F3/F6 all wait on it.",
+    "Does §6b's claim hold — does zones-first actually prevent placelessness at the new instance?",
+    "May I add one question to the Leg 3 naming session: what does she call these things? (F11)",
+    "Does Garden Guru get the plants x zones join? If yes its answer shape needs this charter applied before it ships.",
+    "Is a destructive act for her in scope on ZonePanel at all, or does delete belong to the operator tool?"
+  ],
+  "flagged_to_ux_expert": [
+    "F6 — place-scoped vs property-scoped is a surface-shape decision surfacing as a copy problem.",
+    "F9 — the flag button captures no words; copy cannot supply a missing channel.",
+    "F9 — 'Delete this place' is styled danger behind only a browser confirm(), reachable by her on a blank instance."
+  ],
+  "principles_to_propose": [
+    {
+      "principle": "Never let a member stand for its family — where a record holds a family (hub-and-roster, species with cultivars), a list row names the FAMILY and says how much of it it can account for; a member's name on a list is read as coverage of the family. Corollary: NAME what is missing, don't COUNT it — a count is a scoreboard, names are a memory aid.",
+      "scope": "fernwood (promote-candidate)",
+      "rationale": "F7. One placed hydrangea out of five hides the gap better than zero would. Generalises to any parent-child or hub-roster record in any project."
+    },
+    {
+      "principle": "The system may count its own ignorance; it may never count her outstanding work.",
+      "scope": "fernwood",
+      "rationale": "F4. The carve-out that makes 'the surface answers, never summons' survivable — without it the rule forbids the line the v1 rests on."
+    },
+    {
+      "principle": "A duplicate name is a fact to be shown, not a conflict to be resolved. Disambiguate beside the name with what the reader already knows; never edit a name into uniqueness.",
+      "scope": "fernwood (promote-candidate)",
+      "rationale": "F8. The 'Western Fern & Azalea Garden' rename produced a canonical name with no speaker — the neighbouring failure to adopt-their-words."
+    },
+    {
+      "principle": "State a claim she can contradict, not an absence she can only shrug at.",
+      "scope": "fernwood",
+      "rationale": "F12. Answers the journey's own falsifier — an instrument that can only produce a yes has measured nothing. An empty state elicits nothing; a specific, checkable, slightly-wrong sentence elicits a correction."
+    },
+    {
+      "principle": "Relocate the gap to the record — not to the reader, and not to the world. Where copy reports incompleteness, the subject of the sentence is the system. Test: could the reader say this sentence out loud and be right?",
+      "scope": "cross-project (candidate — held pending a second project)",
+      "rationale": "F1. 'The plants don't have a place' is false in her world and true in ours. The relocation fixes accuracy and removes the blame reading in one move."
+    }
+  ]
+}
