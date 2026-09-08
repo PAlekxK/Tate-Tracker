@@ -354,6 +354,24 @@ def main():
                 st, body = fetch(ORIGIN[a.env] + "/qa-build.json?cb=%d" % time.time())
                 if st == 200 and json.loads(body).get("sha") == sha:
                     print("  ✅ %s is serving %s" % (ORIGIN[a.env], sha[:7]))
+                    # ⭐⭐ AND THE DEPLOYMENT ITSELF IS CHECKED, not just the sha it reports.
+                    # `[practice-steward, review-gate DESIGN §6, 2026-09-07]` — with Paul's review
+                    # gate moving to QA, the class that survives a perfect mirror is defects created
+                    # by THIS DEPLOYMENT rather than by the build: an origin serving something the
+                    # export never contained, or a Worker that is not the one QA certified. A mirror
+                    # cannot cover those, because a deployment happens once, on one origin, with an
+                    # edge cache and a Worker that outlive it.
+                    # ⛔ WIRED INTO THE ACT, NOT LISTED IN A DOCUMENT — CLAUDE.md's own rule, and the
+                    # reason `check-estate-neutral` is CALLED here rather than merely named.
+                    # ⚠️ It REPORTS and does not refuse: the deploy has already happened by this
+                    # point, so refusing would be theatre. Its findings are for the human reading
+                    # the deploy output.
+                    pd = run([sys.executable, os.path.join(HERE, "post-deploy.py"),
+                              "--env", a.env, "--sha", sha])
+                    print("\n".join("     " + l for l in (pd.stdout or "").splitlines()))
+                    if pd.returncode != 0:
+                        print("     ⚠️  post-deploy reported the above against a deploy that has "
+                              "ALREADY LANDED. Read it before walking or clearing this build.")
                     return 0
             except Exception:
                 pass
