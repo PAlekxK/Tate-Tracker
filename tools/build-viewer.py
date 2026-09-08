@@ -550,24 +550,22 @@ def _selftest():
         # precedence between a declaration and a real file was never asserted in either direction.
         json.dump({"_meta": {"real": True}, "rows": [1, 2, 3]}, open(os.path.join(d, "weeds.json"), "w"))
         cfg["absent"] = ["weeds"]; json.dump(cfg, open(cfg_path, "w"))
-        present_but_absent = build(t, cfg_path)
         check("a DECLARED absence beats a canon file that EXISTS (declaration wins, no inheritance)",
-              '"real": true' not in present_but_absent.lower().replace('"real":true', '"real": true'))
+              lambda: '"real": true' not in build(t, cfg_path).lower().replace('"real":true', '"real": true'))
         os.remove(os.path.join(d, "weeds.json"))
-        b = build(t, cfg_path)
         check("a DECLARED absence builds an empty const of the right shape",
-              'const WEEDS_DATA = {"_meta": {"declaredAbsent": true}, "weeds": []};' in b)
+              lambda: 'const WEEDS_DATA = {"_meta": {"declaredAbsent": true}, "weeds": []};' in build(t, cfg_path))
         cfg["identity"]["name"] = "Somewhere Else"; json.dump(cfg, open(cfg_path, "w"))
-        b = build(t, cfg_path)
         check("the identity block derives from the instance config + property.json",
-              "<title>Somewhere Else</title>" in b and "<h1>Somewhere Else</h1>" in b)
+              lambda: "<title>Somewhere Else</title>" in build(t, cfg_path)
+              and "<h1>Somewhere Else</h1>" in build(t, cfg_path))
         # C5 3b — the module set is built from <canon>/estate.json, never the instance file
         os.remove(os.path.join(d, "estate.json"))
         est = json.load(open(os.path.join(ROOT, "estate.json"))); est["modules"]["garden"] = "off"
         json.dump(est, open(os.path.join(d, "estate.json"), "w"))
-        b = build(t, cfg_path)
         check("a garden-off estate.json builds ESTATE_MODULES with garden off",
-              re.search(r'^const ESTATE_MODULES = \{.*"garden": "off".*\};$', b, re.M) is not None)
+              lambda: re.search(r'^const ESTATE_MODULES = \{.*"garden": "off".*\};$',
+                                build(t, cfg_path), re.M) is not None)
         os.remove(os.path.join(d, "estate.json"))
         try:
             build(t, cfg_path); check("an estate with NO estate.json FAILS LOUD (modules are not optional)", False)
