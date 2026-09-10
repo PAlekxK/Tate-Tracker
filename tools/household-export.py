@@ -44,7 +44,18 @@ def rosters():
         arg = r'[A-Za-z_][A-Za-z0-9_.]*(?:\([^()]*\))?'
         lit = set(re.findall(rf'{fn}\(\s*{arg}\s*,\s*"([^"]+)"', src))
         var = set(re.findall(rf'{fn}\(\s*{arg}\s*,\s*([A-Z_][A-Z0-9_]*)\b', src))
-        out[fn] = {"literal": sorted(lit), "unresolved": sorted(var)}
+        # ⭐⭐ ARITY, DERIVED — the blind spot this tool could not see in itself.
+        # A kind the Worker keys as `<estate>:<kind>` can be rebuilt by construction and proved with a
+        # direct GET. A kind keyed `<estate>:<kind>:<suffix>` CANNOT: the suffix is a username, a hash,
+        # a conversation id. The old loop probed `<estate>:<kind>` for every literal kind and printed
+        # `absent` when the GET missed — so `account`, `conversation`, `library`, `geocode` and
+        # `zones-last-seen` read as "this household holds none" when the truth was "I cannot address
+        # this kind at all". ⛔ Those two must never print the same word; that conflation is the exact
+        # failure this whole file exists to prevent, and it had it.
+        # ⚠️ Measured 2026-09-10: `home` reported `account absent` while est-e6696a:account:marguerite
+        # existed and had been read minutes earlier by a different tool.
+        suffixed = set(re.findall(rf'{fn}\(\s*{arg}\s*,\s*"([^"]+)"\s*,', src))
+        out[fn] = {"literal": sorted(lit), "unresolved": sorted(var), "suffixed": sorted(suffixed)}
     return out
 
 
@@ -63,6 +74,23 @@ def envs():
         if line.strip().startswith("id =") and "preview" not in line:
             out[cur].setdefault("namespace", line.split("=", 1)[1].strip().strip('"'))
     return out
+
+
+def kv_list_prefix(ns, prefix):
+    """DISCOVERY ONLY, and the docstring is the caveat. `kv key list` is eventually consistent — it
+    cannot prove absence and it cannot prove completeness. It is used here for exactly one thing the
+    construction path cannot do: learn the SUFFIXES that exist. Every key it names is then confirmed
+    with a direct GET, so the bytes are still proved; only the ROSTER is a listing."""
+    r = subprocess.run(["npx", "--yes", "wrangler@4", "kv", "key", "list",
+                        "--prefix", prefix, "--namespace-id", ns, "--remote"],
+                       capture_output=True, text=True, timeout=180)
+    if r.returncode != 0:
+        return None                       # None = UNREADABLE. Never [] — that would read as "none".
+    try:
+        rows = json.loads(r.stdout)
+    except json.JSONDecodeError:
+        return None
+    return [x.get("name") for x in rows if isinstance(x, dict) and x.get("name")]
 
 
 def kv_get(ns, key):
@@ -148,14 +176,35 @@ def main():
             d += dt.timedelta(days=1)
         print("  %-16s %3d key(s)" % (kind, hits))
 
+    suffixed_kinds = set(ros["keyFor"].get("suffixed") or [])
+    unenumerable = []
     for kind in ros["keyFor"]["literal"]:
         if kind in ("ratelimit", "cache", "grant"):
             continue                      # ephemeral or credential — named in coverage, never exported
+        # `zones` is keyed `<estate>:zones:all` — a suffix that IS a constant, so construction works.
+        if kind in suffixed_kinds and kind != "zones":
+            unenumerable.append(kind)
+            continue
         k = key_for(estate, kind) if kind != "zones" else key_for(estate, "zones", "all")
         v = kv_get(ns, k)
         print("  %-16s %s" % (kind, "1 key" if v is not None else "absent"))
         if v is not None:
             found.append((k, v))
+
+    # ⭐ THE SUFFIXED TIER — discovered by listing, every hit then PROVED by a direct GET.
+    for kind in sorted(unenumerable):
+        prefix = "%s:%s:" % (estate, kind)
+        names = kv_list_prefix(ns, prefix)
+        if names is None:
+            print("  %-16s ⛔ UNREADABLE — the listing failed; this is NOT 'none'" % kind)
+            continue
+        got = 0
+        for k in names:
+            v = kv_get(ns, k)
+            if v is not None:
+                found.append((k, v)); got += 1
+        print("  %-16s %d key(s) via listing%s" % (kind, got,
+              "" if got == len(names) else " (%d listed, %d confirmed)" % (len(names), got)))
 
     print("\n  singular keys probed: %d found" % len(found))
     if a.out:
@@ -173,6 +222,12 @@ def main():
             print("   · %s kinds built from a VARIABLE, not a literal: %s — this tool cannot name them"
                   % (fn, ", ".join(ros[fn]["unresolved"])))
     print("   · ratelimit / cache (ephemeral) and grant (a credential) are deliberately not exported")
+    if unenumerable:
+        print("   · %s are keyed <estate>:<kind>:<SUFFIX>, so they CANNOT be rebuilt by construction."
+              % ", ".join(sorted(unenumerable)))
+        print("     Their roster came from `kv key list`, which is eventually consistent: every key it")
+        print("     named was proved with a direct GET, but a key it OMITTED would be invisible here.")
+        print("     ⛔ For those kinds this export is a best effort, NOT a proof of completeness.")
     print("   · blob bodies: %d id(s) seen in metadata; bodies are fetched only with --out" % len(set(blobs)))
     print("   · anything a NEW kind added to worker.js writes before this roster is re-derived")
     print("   ⛔ and it cannot see a key whose name it did not construct. That is the whole design:")
@@ -194,6 +249,30 @@ def selftest(ros):
     else:
         print("  ⚠️  no unresolved kinds found — if worker.js has a variable-keyed call, the regex missed it")
         ok = False
+    # ⭐⭐ THE MUTATION THAT WOULD HAVE CAUGHT THE 2026-09-10 BLIND SPOT. Plant a keyFor call whose
+    # kind carries a SUFFIX and prove the roster classifies it as unenumerable rather than pretending
+    # a two-segment probe covers it. Before this, `account`, `conversation`, `library`, `geocode` and
+    # `zones-last-seen` were probed at `<estate>:<kind>` — a key that CANNOT EXIST — and each printed
+    # `absent`, which reads as "this household holds none".
+    fake_src = 'x = keyFor(scopeOf(env), "plantedsuffixed", someId);\ny = keyFor(scopeOf(env), "plantedplain");'
+    import re as _re
+    _arg = r'[A-Za-z_][A-Za-z0-9_.]*(?:\([^()]*\))?'
+    _suf = set(_re.findall(rf'keyFor\(\s*{_arg}\s*,\s*"([^"]+)"\s*,', fake_src))
+    _lit = set(_re.findall(rf'keyFor\(\s*{_arg}\s*,\s*"([^"]+)"', fake_src))
+    m1 = "plantedsuffixed" in _suf
+    m2 = "plantedplain" in _lit and "plantedplain" not in _suf
+    print("  %s a SUFFIXED kind is detected as unenumerable (not probed as <estate>:<kind>)" % ("✅" if m1 else "🔴"))
+    print("  %s a PLAIN kind stays constructible" % ("✅" if m2 else "🔴"))
+    ok = ok and m1 and m2
+
+    # and the live roster must actually name the kinds that bit us
+    _real = set(ros["keyFor"].get("suffixed") or [])
+    _expect = {"account", "conversation", "library", "geocode", "zones-last-seen"}
+    _missing = _expect - _real
+    print("  %s the five kinds that read `absent` on 2026-09-10 are classified suffixed%s"
+          % ("✅" if not _missing else "🔴", "" if not _missing else " — MISSING: %s" % ", ".join(sorted(_missing))))
+    ok = ok and not _missing
+
     # the mutation: a kind the roster does not know about must NOT be silently covered
     planted = "planted-kind-that-does-not-exist"
     covered = planted in ros["dateKey"]["literal"] or planted in ros["keyFor"]["literal"]
