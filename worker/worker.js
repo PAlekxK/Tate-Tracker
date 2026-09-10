@@ -115,18 +115,43 @@ const DIGEST_CORE = (() => {
 // cannot prove whose it is, and "cannot prove" fails closed here rather than degrading.
 function estateOfDigest(digest) { return (((digest || {})._meta || {}).estateId) || null; }
 const DIGEST_ESTATE = estateOfDigest(propertyDigest);
-function canonIsThisEstate(env) {
-  if (DIGEST_ESTATE && env.ESTATE_ID && DIGEST_ESTATE === env.ESTATE_ID) return true;
-  return env.CANON_FOREIGN_OK === "true";
+// ⭐⭐ A2 · CANON IS RESOLVED PER REQUEST, FROM THE CALLER'S ESTATE.
+// `canonIsThisEstate(env)` asked a per-DEPLOYMENT question — does the ONE statically-imported digest
+// belong to this Worker's ESTATE_ID — so a deployment could serve exactly one household's model
+// routes and every other household got a 503. That is why Guru, the daily line and classify have
+// been dark at every real household including Mom's.
+//
+// ⛔ `CANON_FOREIGN_OK` IS DELETED, NOT DEFAULTED. With per-estate canon it has no legitimate use:
+// its only effect would be to feed one household's record into another's prompt, which is the leak
+// the stamp exists to stop. It was set on qa and lab, whose Guru worked only by reading Fernwood's
+// canon — so their digests had to publish before this shipped, and they did.
+//
+// ⚠️ THE BUNDLED DIGEST IS A FALLBACK FOR EXACTLY ONE CASE and no other: the deployment whose own
+// ESTATE_ID the bundle was built for. That keeps legacy/production working unchanged while every
+// other estate reads its own published record.
+async function canonFor(env, scope) {
+  const id = scope && scope.id;
+  if (!id) return null;
+  try {
+    const raw = await env.OBSERVATIONS.get(keyFor(scope, "digest"));
+    if (raw) {
+      const d = JSON.parse(raw);
+      // ⛔ THE STAMP MUST AGREE WITH THE CALLER. A digest published under one estate's key that
+      // claims another is not a mislabel to tolerate — it is the one thing this guard exists for.
+      if (d && estateOfDigest(d) === id) return d;
+      return null;
+    }
+  } catch (e) { /* an unreadable record is NOT another estate's record — fall through, never leak */ }
+  if (DIGEST_ESTATE && DIGEST_ESTATE === id) return propertyDigest;
+  return null;
 }
-function foreignCanon(env) {
+function foreignCanon(env, scope) {
+  const id = scope && scope.id;
   return json({
     error: "canon-not-this-estate",
-    hint: "the bundled record was built for " + (DIGEST_ESTATE || "an unstamped estate") +
-          " and this deployment is " + (env.ESTATE_ID || "unset") +
+    hint: "no record is published for " + (id || "this caller's estate") +
           " — a model route may not answer from another estate's record",
-    digest_estate: DIGEST_ESTATE,
-    estate: env.ESTATE_ID || null,
+    estate: id || null,
   }, 503);
 }
 
@@ -346,15 +371,25 @@ const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — d
 // 503. So the per-request canon and the place literals are ONE change, and the guard keeps refusing
 // until the prompt can be made truthful.
 function factsFor(digest) {
-  const need = (v, what) => {
-    if (v === undefined || v === null || v === "") throw new Error("digest lacks " + what + " — prompts derive their facts, they do not type them");
-    return v;
-  };
+  // ⛔ `need()` IS GONE, not left unused. A dead guard reads as protection and is worse than none:
+  // the next reader would believe the prompts still refuse to build on a missing fact. They do not —
+  // they omit the clause, which is the ruled behaviour for a household whose record is young.
   // The digest's `property` section mirrors property.json: property · location · hardiness · frostDates …
   const D = (digest || {}).property || {};
   const p = D.property || {}, loc = D.location || {}, el = loc.elevation || {};
   const fd = ((D.frostDates || {}).atPropertyElevation) || {}, hz = D.hardiness || {};
-  const zoneBase = String(need(hz.elevationAdjustedZone, "hardiness.elevationAdjustedZone")).match(/^\d[ab]\b/);
+  // ⛔ A YOUNG HOUSEHOLD HAS NOT DERIVED THESE YET, AND THROWING MEANS NO GURU AT ALL.
+  // `need()` was right when every deployment was Fernwood — "a prompt that quietly dropped its
+  // elevation would be worse than a Worker that refuses to start". It is wrong the moment a
+  // household can exist with an address and nothing else, which is Mom's state and every new
+  // household's first day: the guard would pass and the PROMPT BUILDER would refuse, which is the
+  // same darkness one layer down.
+  // ⭐ THE DISTINCTION: a fact the prompt ASSERTS about the place (address, elevation) must never be
+  // silently dropped. A fact it MENTIONS WHEN KNOWN (zone, frost dates, the baseline offset, the
+  // station) is simply absent until derived, and its clause omits itself.
+  // ⚠️ Measured 2026-09-10 on lab: factsFor threw "digest lacks hardiness.elevationAdjustedZone" for
+  // a household that had a place, so /api/today-line answered 500 after canonFor correctly said yes.
+  const zoneBase = hz.elevationAdjustedZone ? String(hz.elevationAdjustedZone).match(/^\d[ab]\b/) : null;
   return Object.freeze({
     // ⭐ W6 — THE PLACE'S OWN NAMES, DERIVED. The four system prompts carried 22 hardcoded place
     // literals (Fernwood ×4 · Blue Ridge ×9 · Lake Sequoyah ×4 · Tate Mountain Estates ×3 ·
@@ -379,18 +414,18 @@ function factsFor(digest) {
     // notes. So it is null until canon declares one, and every clause that used it is conditional.
     // Inventing a field to hold a literal would be typing the fact back in through another door.
     development: p.development || null,
-    address: need(p.address, "property.address"),
-    city: need(p.city, "property.city"),
-    state: need(p.state, "property.state"),
-    zip: need(p.zip, "property.zip"),
-    county: need(p.county, "property.county"),
-    elevFt: Number(need(el.estimated_ft, "location.elevation.estimated_ft")).toLocaleString("en-US"),
-    aboveKjzpFt: Number(need(el.elevationAboveKJZP_ft, "location.elevation.elevationAboveKJZP_ft")).toLocaleString("en-US"),
-    lastFrost50: need(fd.lastSpring_50pct, "frostDates.atPropertyElevation.lastSpring_50pct"),
-    lastFrost90: need(fd.lastSpring_90pctSafe, "frostDates.atPropertyElevation.lastSpring_90pctSafe"),
-    firstFrost50: need(fd.firstFall_50pct, "frostDates.atPropertyElevation.firstFall_50pct"),
-    zoneAdjusted: need(zoneBase && zoneBase[0], "a parseable hardiness.elevationAdjustedZone"),
-    zoneOfficial: need(hz.officialZone, "hardiness.officialZone"),
+    address: p.address || null,
+    city: p.city || null,
+    state: p.state || null,
+    zip: p.zip || null,
+    county: p.county || null,
+    elevFt: el.estimated_ft == null ? null : Number(el.estimated_ft).toLocaleString("en-US"),
+    aboveKjzpFt: el.elevationAboveKJZP_ft == null ? null : Number(el.elevationAboveKJZP_ft).toLocaleString("en-US"),
+    lastFrost50: fd.lastSpring_50pct || null,
+    lastFrost90: fd.lastSpring_90pctSafe || null,
+    firstFrost50: fd.firstFall_50pct || null,
+    zoneAdjusted: (zoneBase && zoneBase[0]) || null,
+    zoneOfficial: hz.officialZone || null,
   });
 }
 const FACTS = factsFor(propertyDigest);
@@ -1663,8 +1698,10 @@ Anchor concretely in whatever real signal the input provides — temperature, we
 One sentence is fine. Two short sentences max. No headlines, no bullets, no markdown.`; }
 const TODAY_LINE_SYSTEM = todayLineSystem(FACTS);
 
-async function handleTodayLine(request, env) {
-  if (!canonIsThisEstate(env)) return foreignCanon(env);   // TIER 2 · 14 — TODAY_LINE_SYSTEM names the estate, its address and its elevation
+async function handleTodayLine(request, env, scope) {
+  const canon = await canonFor(env, scope);
+  if (!canon) return foreignCanon(env, scope);
+  const SYSTEM = todayLineSystem(factsFor(canon));
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
   let body;
   try { body = await request.json(); }
@@ -1690,7 +1727,7 @@ async function handleTodayLine(request, env) {
     body: JSON.stringify({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 200,
-      system: TODAY_LINE_SYSTEM,
+      system: SYSTEM,
       messages: [
         { role: "user", content: `Date: ${date}\nState of the property right now:\n${brief}\n\nWrite the today-line.` },
       ],
@@ -1734,8 +1771,10 @@ Categorization rules:
 Be decisive — return one category, not multiple. If a species is named but unclear which kind (e.g. "the bird at the feeder"), still pick the right category but set species_guess to null.`; }
 const CLASSIFY_SYSTEM = classifySystem(FACTS);
 
-async function handleClassify(request, env) {
-  if (!canonIsThisEstate(env)) return foreignCanon(env);   // TIER 2 · 14 — CLASSIFY_SYSTEM carries the estate's elevation
+async function handleClassify(request, env, scope) {
+  const canon = await canonFor(env, scope);
+  if (!canon) return foreignCanon(env, scope);
+  const SYSTEM = classifySystem(factsFor(canon));
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
   let payload;
   try { payload = await request.json(); }
@@ -1754,7 +1793,7 @@ async function handleClassify(request, env) {
     body: JSON.stringify({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 120,
-      system: CLASSIFY_SYSTEM,
+      system: SYSTEM,
       messages: [
         { role: "user", content: `Date: ${date}\nObservation:\n${body}` },
       ],
@@ -1788,18 +1827,18 @@ async function handleClassify(request, env) {
 // review in PHASE_E_SYNTHESIS.md for the diagnosis. The cached digest provides the
 // property context; the system prompt enforces voice + scope + uncertainty handling.
 
-function gardenGuruSystem(F) { return `You are Garden Guru — a field assistant for ${F.name || "this property"}, a property at ${F.address} in ${F.city}, ${F.state}, at ${F.elevFt} feet${F.region ? " on the " + F.regionShort : ""}${F.development ? " inside " + F.development : ""}. You speak with the voice of a field journal kept by someone who knows this place — observational, slow, place-anchored. The literary register is Aldo Leopold's A Sand County Almanac: careful observation, quiet restraint, names of things over generalities.
+function gardenGuruSystem(F) { return `You are Garden Guru — a field assistant for ${F.name || "this property"}, a property at ${F.address} in ${F.city}, ${F.state}${F.elevFt ? ", at " + F.elevFt + " feet" : ""}${F.region ? (F.elevFt ? " " : "") + "on the " + F.regionShort : ""}${F.development ? " inside " + F.development : ""}. You speak with the voice of a field journal kept by someone who knows this place — observational, slow, place-anchored. The literary register is Aldo Leopold's A Sand County Almanac: careful observation, quiet restraint, names of things over generalities.
 
 HARD FACTS — these override anything you infer from the digest below
 These are the property's fixed numbers. If a figure you are about to state contradicts one of
 these, the figure is wrong — use these instead. Never round, never estimate, never reconstruct
 them from surrounding context.
-- ${F.name || "This property"}, the PROPERTY: ${F.address}, ${F.city}, ${F.state} ${F.zip} — elevation ${F.elevFt} ft.
+- ${F.name || "This property"}, the PROPERTY: ${F.address}, ${F.city}, ${F.state} ${F.zip}${F.elevFt ? " — elevation " + F.elevFt + " ft" : ""}.
 ${F.water && F.waterElevFt ? "- " + F.water + " is a DIFFERENT PLACE at " + F.waterElevFt + " ft. **" + F.waterElevFt + " ft is the LAKE, never the property.**" : ""}
-  The pond, the garden, the house and every plant are at ${F.elevFt} ft. When the subject is water,
+  ${F.elevFt ? `The pond, the garden, the house and every plant are at ${F.elevFt} ft.` : ``} When the subject is water,
   this is exactly where the two get confused — the pond is on the property, not at the lake.
-- USDA zone ${F.zoneAdjusted} (elevation-adjusted); ${F.zoneOfficial} is the official county figure.
-- Last frost 50% ${F.lastFrost50} · last frost 90%-safe ${F.lastFrost90} · first frost 50% ${F.firstFrost50}.
+${F.zoneAdjusted ? `- USDA zone ${F.zoneAdjusted} (elevation-adjusted)${F.zoneOfficial ? `; ${F.zoneOfficial} is the official county figure` : ``}.` : ``}
+${F.lastFrost50 ? `- Last frost 50% ${F.lastFrost50} · last frost 90%-safe ${F.lastFrost90} · first frost 50% ${F.firstFrost50}.` : ``}
 
 WHAT YOU KNOW
 You know what the property digest below tells you: the plants we tend, the weeds we're working against, the birds and mammals and amphibians and snakes and lizards we track, the lake's species and conditions, the soils, the elevation, the frost dates, the microclimate. You also know the property's machines — the vehicles and equipment in the digest (trucks, motorcycles, the golf cart, the yard machines), each with its maintenance specs, service history, what it needs, and who services it. You also know whatever live state (current weather, today's date, plants in peak, recent observations) is included with this turn. You do not know anything else about this property. Do not invent.
@@ -1900,7 +1939,7 @@ When your ID confidence is MEDIUM or HIGHER, append a structured suggestion fenc
   "commonName": "...",
   "scientificName": "...",
   "confidence": "medium" | "high",
-  "elevationFit": "short narrative — 'plausible at ${F.elevFt} ft in damp edges' or 'unusual for this elevation; would be a notable record'",
+  "elevationFit": "short narrative — 'plausible at ${F.elevFt || "this"} ft in damp edges' or 'unusual for this elevation; would be a notable record'",
   "habitatHint": "short hint — 'rich-cove understory' or 'forest edges at dusk' (optional, omit if unsure)",
   "inCanon": true | false
 }
@@ -2073,7 +2112,7 @@ GUIDELINES:
 - Do NOT invent species. If the call doesn't match anything you know, say so plainly with isAnimalSound: false or commonName: null.
 - Do NOT add narrative or voice. The field-journal voice is applied downstream by Garden Guru. Just produce the JSON.`;
 
-async function identifyAudioViaOpenAI(env, audioBase64, mediaType) {
+async function identifyAudioViaOpenAI(env, audioBase64, mediaType, scope) {
   if (!env.OPENAI_API_KEY) {
     throw new Error("openai-not-configured");
   }
@@ -2081,7 +2120,10 @@ async function identifyAudioViaOpenAI(env, audioBase64, mediaType) {
   // SOUND_ID_OPENAI_SYSTEM carries FACTS.elevFt + FACTS.county and names the Blue Ridge and
   // Lake Sequoyah. It throws rather than returning a Response because it is a helper, not a
   // handler; its caller already surfaces the error honestly.
-  if (!canonIsThisEstate(env)) throw new Error("canon-not-this-estate");
+  // ⚠️ THIS ONE THROWS rather than returning a response — its caller already surfaces the error
+  // honestly. It keeps that shape; only the question changes, from "is the bundle ours" to "does the
+  // CALLER's estate have a record".
+  if (!(await canonFor(env, scope))) throw new Error("canon-not-this-estate");
   // Map browser mediaType to OpenAI's `format` field. OpenAI gpt-4o-audio
   // supports wav + mp3 as documented; webm/mp4/aac are best-effort and may be
   // rejected by the API — surface the error to the client honestly.
@@ -2290,20 +2332,20 @@ async function handleZoneAudio(request, env, url) {
 // then commits it to GitHub. This prompt does NOT use Garden Guru's voice —
 // it's a structured-output prompt focused on schema generation.
 
-const SCHEMA_DRAFTER_SYSTEM = `You are a Fernwood Schema Drafter. Your job is to produce a complete JSON entry for a newly identified plant or animal at ${FACTS.address}, ${FACTS.city}, ${FACTS.state} — ${FACTS.elevFt} ft elevation on the Blue Ridge inside Tate Mountain Estates.
+function schemaDrafterSystem(F) { return `You are a Schema Drafter for ${F.name || "this property"}. Your job is to produce a complete JSON entry for a newly identified plant or animal at ${F.address}, ${F.city}, ${F.state} — ${F.elevFt} ft elevation${F.region ? " in the " + F.regionShort : ""}${F.development ? " inside " + F.development : ""}.
 
 PROPERTY CONTEXT
-- Elevation ${FACTS.elevFt} ft (${FACTS.aboveKjzpFt} ft above KJZP baseline)
-- USDA Hardiness Zone ${FACTS.zoneAdjusted} (elevation-adjusted); ${FACTS.zoneOfficial} official
-- Last frost 50%: ${FACTS.lastFrost50}; Last frost 90% safe: ${FACTS.lastFrost90}; First frost: ${FACTS.firstFrost50}
+${F.elevFt ? `- Elevation ${F.elevFt} ft${F.aboveKjzpFt ? ` (${F.aboveKjzpFt} ft above the valley baseline)` : ``}` : ``}
+${F.zoneAdjusted ? `- USDA Hardiness Zone ${F.zoneAdjusted} (elevation-adjusted)${F.zoneOfficial ? `; ${F.zoneOfficial} official` : ``}` : ``}
+${F.lastFrost50 ? `- Last frost 50%: ${F.lastFrost50}; Last frost 90% safe: ${F.lastFrost90}; First frost: ${F.firstFrost50}` : ``}
 - Soils: Hayesville, Cecil, Pacolet series (acidic sandy loam to loam, pH 4.5–5.5, clay Bt argillic subsoil)
-- Region: Blue Ridge Foothills, ${FACTS.county}, GA — Cove Forest + Low-to-Mid Elevation Oak Forest at ${FACTS.elevFt} ft (per GNPS Blue Ridge Communities matrix); potential Seepage Wetlands in the spring drainage
+- Region: ${F.regionShort || "the region"} Foothills, ${F.county}, GA — Cove Forest + Low-to-Mid Elevation Oak Forest at ${F.elevFt} ft (per GNPS ${F.regionShort || "the region"} Communities matrix); potential Seepage Wetlands in the spring drainage
 - The property digest in your context lists the existing curated species (plants + all animal categories); reference it to maintain consistency
 
 VOICE FOR PROSE FIELDS
 - Field-journal voice — Aldo Leopold's *A Sand County Almanac* register. Observational, slow, place-anchored.
-- Anchor in the property: ${FACTS.elevFt} ft, the Blue Ridge, Hayesville/Cecil/Pacolet soils, the specific frost-date offsets, the Cove Forest + Low-to-Mid Elevation Oak Forest community. Use these when they're load-bearing for the field.
-- Honest about elevation effects. When the species' general phenology would shift at ${FACTS.elevFt} ft vs the broader regional pattern, say so. ("At ~${FACTS.elevFt} ft, candles typically emerge 7–10 days later than in valley locations.")
+- Anchor in the property: ${F.elevFt} ft, the ${F.regionShort || "the region"}, Hayesville/Cecil/Pacolet soils, the specific frost-date offsets, the Cove Forest + Low-to-Mid Elevation Oak Forest community. Use these when they're load-bearing for the field.
+- Honest about elevation effects. When the species' general phenology would shift at ${F.elevFt} ft vs the broader regional pattern, say so. ("At ~${F.elevFt} ft, candles typically emerge 7–10 days later than in valley locations.")
 - No marketing adjectives ("exceptional", "stunning", "beautiful"). No "Great", "Wonderful", "Amazing".
 - No chatbot scaffolding. No "Here's the schema for...", no preamble, no markdown headers.
 
@@ -2325,7 +2367,7 @@ For PLANTS (kind="plant") — match plants.json v3 shape:
   "currentSeasonNote": "<one paragraph anchored in current month; if unsure of date, write a calendar-neutral note>",
   "soilNotes": "<one paragraph — how it relates to Hayesville/Cecil/Pacolet>",
   "aspectPreference": "<one paragraph — sun/wind/slope preferences>",
-  "frostSensitivity": "<one paragraph — frost behavior at ${FACTS.elevFt} ft>",
+  "frostSensitivity": "<one paragraph — frost behavior at ${F.elevFt} ft>",
   "care": {
     "prune":     { "months": [0..11], "peakWindow": "<string or null>", "narrow": <bool>, "description": "<paragraph>" },
     "propagate": { ... same shape ... },
@@ -2405,7 +2447,8 @@ For ANIMAL-OTHER (kind="animal-other") — use the mammals schema as a default; 
 OUTPUT FORMAT
 - Output ONE valid JSON object only. No surrounding prose. No markdown code fences. No commentary.
 - The JSON must parse with JSON.parse() directly.
-- If you're given a photo, use it to constrain the schema where it helps (e.g., observed coloration in 'appearance', species-specific habitat clues). If no photo, draft from species knowledge.`;
+- If you're given a photo, use it to constrain the schema where it helps (e.g., observed coloration in 'appearance', species-specific habitat clues). If no photo, draft from species knowledge.`; }
+const SCHEMA_DRAFTER_SYSTEM = schemaDrafterSystem(FACTS);
 
 async function logChatCost(env, conversationId, apiData, extra) {
   const date = new Date().toISOString().slice(0, 10);
@@ -2505,8 +2548,11 @@ async function persistConversation(env, conversationId, turns, origin, deviceId)
   await env.OBSERVATIONS.put(key, JSON.stringify(session));
 }
 
-async function handleChat(request, env, auth) {
-  if (!canonIsThisEstate(env)) return foreignCanon(env);   // TIER 2 · 14 — GARDEN_GURU_SYSTEM + the whole digest
+async function handleChat(request, env, auth, scope) {
+  const canon = await canonFor(env, scope);
+  if (!canon) return foreignCanon(env, scope);
+  const SYSTEM = gardenGuruSystem(factsFor(canon));
+  const CANON_LEGACY = legacyOf(canon);
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
 
   // Phase F: turns may carry image content blocks. A 1568px JPEG@0.85 base64-encodes
@@ -2574,7 +2620,7 @@ async function handleChat(request, env, auth) {
       // Call OpenAI for ID
       let idResult;
       try {
-        idResult = await identifyAudioViaOpenAI(env, blobData.base64, blobData.mediaType);
+        idResult = await identifyAudioViaOpenAI(env, blobData.base64, blobData.mediaType, scope);
       } catch (e) {
         return json({ error: "audio-id-failed", detail: String(e).slice(0, 300) }, 502);
       }
@@ -2603,8 +2649,8 @@ async function handleChat(request, env, auth) {
     { type: "text", text: GARDEN_GURU_SYSTEM + "\n\n" + CORE_SUBSTRATE_NOTE + "\n\nCORE RECORD:\n" + JSON.stringify(DIGEST_CORE), cache_control: { type: "ephemeral" } },
     { type: "text", text: liveStateText },
   ] : [
-    { type: "text", text: GARDEN_GURU_SYSTEM, cache_control: { type: "ephemeral" } },
-    { type: "text", text: "PROPERTY DIGEST:\n" + JSON.stringify(DIGEST_LEGACY), cache_control: { type: "ephemeral" } },
+    { type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } },
+    { type: "text", text: "PROPERTY DIGEST:\n" + JSON.stringify(CANON_LEGACY), cache_control: { type: "ephemeral" } },
     { type: "text", text: liveStateText },
   ];
   const chatMessages = turns.map(t => ({ role: t.role, content: t.content }));
@@ -2672,7 +2718,7 @@ async function handleChat(request, env, auth) {
     if (!useTools || apiData.stop_reason !== "tool_use" || !uses.length || roundTrips >= GG_MAX_ROUND_TRIPS) break;
     const results = [];
     for (const u of uses) {
-      const result = await dispatchTool(u.name, u.input, { digest: propertyDigest, vaultOpen, env });
+      const result = await dispatchTool(u.name, u.input, { digest: canon, vaultOpen, env });
       toolCalls.push({ name: u.name, input: u.input, found: !!result.found, total: result.total, shown: result.shown, reason: result.reason });
       results.push({ type: "tool_result", tool_use_id: u.id, content: JSON.stringify(result) });
     }
@@ -3013,8 +3059,11 @@ async function handleSuggestSpecies(request, env, url) {
 // - Any commit step fails after a partial commit: returns 502 with detail;
 //   manual cleanup possible via the original CLI (Tate-Tracker is git-versioned)
 
-async function handlePromoteSpecies(request, env) {
-  if (!canonIsThisEstate(env)) return foreignCanon(env);   // TIER 2 · 14 — SCHEMA_DRAFTER_SYSTEM + DIGEST_LEGACY
+async function handlePromoteSpecies(request, env, scope) {
+  const canon = await canonFor(env, scope);
+  if (!canon) return foreignCanon(env, scope);
+  const SYSTEM = schemaDrafterSystem(factsFor(canon));
+  const CANON_LEGACY = legacyOf(canon);
   if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
   if (!env.ANTHROPIC_API_KEY) return json({ error: "anthropic-not-configured" }, 503);
   if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) {
@@ -3091,8 +3140,8 @@ This plant was just added by the reader and has NOT been observed here across a 
       model: "claude-haiku-4-5-20251001",
       max_tokens: 2000,
       system: [
-        { type: "text", text: SCHEMA_DRAFTER_SYSTEM, cache_control: { type: "ephemeral" } },
-        { type: "text", text: "PROPERTY DIGEST (for reference, voice, and species-overlap consistency):\n" + JSON.stringify(DIGEST_LEGACY), cache_control: { type: "ephemeral" } },
+        { type: "text", text: SYSTEM, cache_control: { type: "ephemeral" } },
+        { type: "text", text: "PROPERTY DIGEST (for reference, voice, and species-overlap consistency):\n" + JSON.stringify(CANON_LEGACY), cache_control: { type: "ephemeral" } },
       ],
       messages: [{ role: "user", content: drafterUserContent }],
     }),
@@ -4232,9 +4281,11 @@ export default {
     if (url.pathname.startsWith("/api/observations")) return handleObservations(request, env, url);
     if (url.pathname === "/api/airnow")     return handleAirNow(request, env, url);
     if (url.pathname === "/api/drought")    return handleDrought(request, env, url);
-    if (url.pathname === "/api/today-line") return handleTodayLine(request, env);
-    if (url.pathname === "/api/classify")   return handleClassify(request, env);
-    if (url.pathname === "/api/chat")       return handleChat(request, env, auth);
+    // ⭐ the CALLER's scope, not the deployment's — `scopeFor` answers from the resolved grant
+    const canonScope = scopeFor(request, env, grant);
+    if (url.pathname === "/api/today-line") return handleTodayLine(request, env, canonScope);
+    if (url.pathname === "/api/classify")   return handleClassify(request, env, canonScope);
+    if (url.pathname === "/api/chat")       return handleChat(request, env, auth, canonScope);
     if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url, auth);
     if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url);
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
@@ -4243,7 +4294,7 @@ export default {
     // ⛔ BELOW the auth gate, unlike its own POST at :3480 — write open, read closed.
     if (url.pathname === "/api/onboarding-metrics") return handleOnboardingMetrics(request, env, url);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
-    if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env);
+    if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env, canonScope);
     if (url.pathname === "/api/remove-species") return handleRemoveSpecies(request, env);
     if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env);
     if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env);
