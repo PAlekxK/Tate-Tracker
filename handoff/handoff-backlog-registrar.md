@@ -1,3 +1,10 @@
+> ## ⛔ ARCHIVED — ABSORBED `[paul-ruled 2026-09-10: "fold it in"]`
+> The registrar seat is folded into the **backlog-refinement** window — `handoff/handoff-backlog-refinement.md`.
+> That window carries both disciplines, marked by voice: rows forwarded by lanes are transcribed verbatim
+> and attributed, never edited; refinements made with Paul are written in its own voice and stamped as his.
+> **One door.** The ruling was relayed by the coordination window (`paulkirschenbauer-96`) the same evening.
+> This brief is kept in place as the record of the seat's one live session; do not open a window from it.
+
 # Handoff: backlog-registrar
 
 <!-- generated 2026-09-10 ~5:45 PM ET · source: Tate-Tracker@889ae75 (verify vs HEAD before trusting status) · supersedes the 27d4f1a brief; the first window (tate-tracker-4c) closed clean -->
