@@ -22,7 +22,7 @@ which went out this afternoon.
    `{estateId}`. ⛔ The token is not recoverable from the register (it holds the HASH only), so
    the backfill must be built from the KV grant rows themselves — key suffix IS the hash, so
    iterate `<estate>:grant:<hash>` and write `credential:<hash>`. No token needed.
-3. **Rewrite `grantFor()`** (`worker/worker.js:1029`) to route: read `credential:<hash>` → read
+3. **Rewrite `grantFor()`** (`worker/worker.js` — grep `async function grantFor`; the line MOVED this session) to route: read `credential:<hash>` → read
    `<estateId>:grant:<hash>` → verify the row's own `estateId` agrees → return. A router row
    with no grant behind it is a 404, **never** a fall-back to the deployment's estate.
 4. **Write the falsifier test** (plan § The falsifier) against two estates in ONE deployment
@@ -39,6 +39,15 @@ which went out this afternoon.
 - Estates live today: `est-e6696a` production/Mom · `est-9a74df` bob · `est-d93508` paul
   (Grant Park Condo, moved there today) · `est-qa0001` · `est-lab0001` · `est-3c9f1a` legacy
   (frozen) · `est-76012d` nigel and `est-92e588` aida — **Workers + KV only, no Pages origin.**
+- ⭐ **WHICH CODE EACH WORKER IS SERVING — recoverable from nothing but this record.**
+  `/health` returns `build_sha: null` on every environment (CLAUDE.md already records that gap),
+  so no origin can answer this and the successor correctly reported it as unknown.
+  **Deployed in the 2026-09-10 session, all carrying `worker.js` as of `36c82bf`** (open door +
+  the widened capability gate): `home` · `bob` · `paul` · `qa` · `lab` · `nigel` · `aida`.
+  ⛔ **`legacy`/production (`est-3c9f1a`, `fernwood.paul-kirschenbauer.workers.dev`) was
+  deliberately NOT redeployed** — it is the frozen data control. **Verified by use at handoff:**
+  `POST /api/account` there answers `401 unauthorized`, not the open door's `201` and not even
+  `403 invite-required`, so it is running code older than the account carve-out. Leave it frozen.
 - Working tree clean at handoff. **No uncommitted work.**
 - Local backup of the condo move: `…/scratchpad/condo-backup/` (session scratch — treat as gone).
 
@@ -76,6 +85,46 @@ presented for estate A cannot name estate B by any route. Steps 5–7 are the fo
   the battery since. This may close lap 5 cheaply.
 - **Nobody has ever completed a signup on any household estate.** Mom and Bob are both gate 1 on an
   unwalked path. Paul chose to send anyway, knowingly.
+
+### Amended 2026-09-10 after grading the successor's readback
+
+⛔ **THE CONDO BACKUP EXISTS. The readback says it checked "every session scratchpad" and that
+`condo-backup/` is "not on disk" — that is WRONG, and it is the one factual error in an otherwise
+accurate readback.** All four rows are at
+`/private/tmp/claude-501/-Users-paulkirschenbauer/aee5db3e-3857-4788-9ff4-198ad094df4d/scratchpad/condo-backup/`
+(verified by `ls` at handoff). It is session scratch and WILL vanish — but the readback's stronger
+claim, *"there is now no second copy of those four rows,"* is false today. If a second copy is
+wanted durably, copy it somewhere real rather than acting on either statement.
+
+⭐ **Four findings from the readback that are BETTER than the plan and must survive it.** They are
+recorded here rather than silently folded into the plan, because the plan is `[paul-ruled]` and
+these are not yet:
+
+1. **The backfill is per-namespace × 8, not one sweep.** The router row is deployment-scoped and
+   "deployment" today means one of eight distinct KV namespaces; a router row in namespace A cannot
+   find a grant in namespace B. **Therefore migration is not merely retiring envs — it is COPYING
+   GRANT ROWS ACROSS NAMESPACES into production's store before the router can route them.** That is
+   the step that touches live credentials and neither the plan nor the brief said it out loud.
+2. **The backfill iterates the STORE, so a register-only row gets no router row and is silently
+   uncovered** — `p-paul @ est-e6696a` is exactly that shape. Same shape as the `⚡ DIVERGENT`
+   reading CLAUDE.md already records, and the same reason code as Bob's `door_failed`
+   (`unknown-or-other-estate`). Not the same incident; not to be treated as cosmetic while building
+   the thing that reads that store.
+3. **`credential` is about to be double-booked.** `grant-mint.py` already uses `credential` as a
+   FIELD inside the grant row (`{hash, issuedAt, issuedBy, revokedAt}`); the plan proposes it as a
+   KV KEY noun. That is the collision `VOCABULARY.md` exists to catch. **Pick a different key noun
+   before it is written 60 times.**
+4. **`POST /api/estate` collides with `grant-mint.py`'s sole-writer claim and its two consent
+   gates.** That tool calls itself *"the ONE writer of the grant register and the KV grant store"*
+   and enforces G1 (founding-request consent) and G2 (administrator-reads consent) AT THE MINT, per
+   `[paul-ruled 2026-09-03]` *"no watcher; enforce at the mint."* A server-side route either
+   re-implements both in JS or bypasses them, and either way writes a grant the local register does
+   not know about — structurally guaranteeing `⚡ DIVERGENT`. **The plan does not mention consent,
+   `grants.json`, or G1/G2 at all. This is its thinnest part and it is change #2, not a corner.**
+
+⚠️ **The readback also raises three live decisions the brief framed only as context** — whether lap 5
+closes first, whether Paul keeps an administrator row on Mom's estate, and who mints under
+`POST /api/estate`. All three are Paul's, and the third blocks change #2.
 
 ## 8. Trust status (per open item)
 | Item | Status |
