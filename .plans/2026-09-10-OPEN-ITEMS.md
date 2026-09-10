@@ -132,6 +132,10 @@ destroyed.
    while onboarding posts `{sid, events:[{name, screen, detail}]}` — **the event lands and no reader prints its
    name.** By the ruled rule that is not instrumentation; **a reader is owed.** Same class as ①–⑤: a signal with
    no consumer reads as absent.
+8. 🔴 **`post-deploy.py` matches the CONTAINER, not the PAYLOAD** `[coordinator, measured at the condo deploy 2026-09-10 6:34 PM ET → TIER 1 · 32]`:
+   `deploy-worker.sh` stamps `BUILD_SHA` from HEAD at deploy time, `post-deploy.py` compares that string to the
+   candidate — so a register-only commit turns it 🔴 with `worker.js` byte-identical, and a differing `worker.js`
+   under a matching stamp would read green. Fix shape: stamp and compare the `worker.js` blob hash. Next candidate.
 6. **`release-gate.py` coverage is 414×848 ONLY** — hardcoded, no flag. **A pass says nothing about
    laptop width.** Unpapered all day; keep it that way.
 
