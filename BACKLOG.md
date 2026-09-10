@@ -82,6 +82,37 @@ most of Mom's machinery IS engine (the ask → fold → acknowledge path is shar
 
 ---
 
+## ⏭ THE NEXT TWO LAPS — a DERIVED queue; Paul ranks at beat 6 `[paul-asked 2026-09-10]`
+
+**Paul:** *"line up a couple of different things for the next few builds to just take from the backlog… what
+we're close on, what questions we need to answer, what we need to explore."* **This section is a POINTER
+LIST derived from `python3 tools/check-backlog-ready.py --ladder`** (the ④ tool change, a diff for Paul until
+applied) **at `326791c` — regenerate it, never retype it.** The audit's finding is that the register is
+duplicated, not derived; a queue typed here by hand would be a third home for the same facts. The pick is
+**beat 6, Paul's, and no instrument is built for it.** Order within a rung is alphabetical.
+
+**THIS lap (5) is frozen at the build lane's pull:** founding only (TIER 1 · 19) + the build-description chain
+(TIER 1 · 23). Not ranked here.
+
+| rung | items | what moves them |
+|---|---|---|
+| **READY, stamped, nothing owed** | **C7 condo paper model** (`.plans/2026-09-03-c7-condo-paper-model-PLAN.md`) | nothing — pick it up |
+| **in flight behind gate ①** | C4 environments · C6 door for Paul · Guru retrieval (`build`) · onboarding (`qa`) | they exit by being WALKED and cleared, not by being picked |
+| **stamped at `concept`, a design pass owed** | capture write path (TIER 2 · 8, zones' co-requisite) · derived first draft (TIER 2 · 9) · weather card | concept → design; each a session with its declared seats |
+| **`design`, stamped for the stage** | zones (TIER 2 · 7) | its own window (`handoff/handoff-zones-session.md`); the stage gate to build is a sha on QA, and G1 holds features until met |
+| **SCOPING, not a build** | 🤝 INVITE & JOIN — three roles · second estates · member spill-over | a PLAN with declared seats (user-researcher · engineering-partner · security-steward · ux-expert · content-steward) before READY |
+| **Paul's word, not work** | 14 proposals AWAITING (the checker names them) · c3 trace-query · product-name · testing-architecture · setup-journey | a stamp or a no |
+
+*Refinement window's recommendation, marked as such — Paul overrules by ranking:* **lap 6** = C7 condo (the
+only thing that is ready) + whatever of TIER 1 · 23 lap 5 did not close · **lap 7** = the capture-write-path
+design pass (it unblocks zones' v1 and is the smaller of the two zones legs) + the INVITE & JOIN scoping
+session (no build). Zones' design work runs beside both in its own window and is not a lap slot.
+
+**Falsifier:** a beat-6 pick that is not on this list means the ladder is missing a rung or this snapshot is
+stale — regenerate before arguing.
+
+---
+
 ## 🧊 FOCUS FREEZE — the instance rests; the migration is the only active work `[paul-stated 2026-09-03]`
 
 Paul, 2026-09-03: *"let's make a distinction right now that we're freezing kind of the Fernwood-specific data and
