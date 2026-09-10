@@ -512,6 +512,36 @@ Full contract + the assembled ask template: `.plans/2026-09-07-backlog-grooming-
 
 ---
 
+## ⭐⭐ THE FIFTH LENS — PEOPLE FOUND THEIR OWN; FERNWOOD-IN-PRODUCTION IS THE ONE EXCEPTION `[paul-stated 2026-09-10]`
+
+**Paul, verbatim (voice), the same evening C7 was set aside and Z-13 was ruled:**
+
+> *"So it's worth going through the backlog with everything we've said about — not about grants — giving
+> people the right to establish their own estates. We're not gonna develop anything for them or pre-fill it
+> out, for the most part. We've got my working model with the condo to work with. And then what we'll be
+> doing is kind of breaking the mold and working with Mom and helping her pre-fill out the Fernwood that
+> will be in production whenever she stands it up, and that will be kind of our test bed in production for
+> a lot of concepts, 'cause we can always compare what we build there to the legacy Fernwood. So I just
+> wanna call that out kind of as an exception: we have the long-term view and then the short-term reality.
+> If we're gonna be doing some workarounds and shortcuts in Fernwood when that gets stood up in production
+> again, [it's] because we have legacy to compare it to."*
+
+**Read as a lens over every row — refinement window's gloss, marked as such; his words above are the rule:**
+
+| | the long-term view (the rule) | the short-term reality (the one exception) |
+|---|---|---|
+| **who founds** | **the person, through the product** (J0). We build nothing FOR a household and pre-fill nothing, *for the most part* | **Mom's Fernwood in production**, when SHE stands it up: we help pre-fill it (Z-13's cleaned-23 preload is the first instance) |
+| **the working model** | **Paul's Grant Park condo — his, by using it** (the `paul` deployment). Not a paper model of anyone else's place (C7 set aside) | — |
+| **why the exception is safe** | — | **legacy Fernwood exists to compare against**, so workarounds and shortcuts there are measurable, not silent |
+| **what it forbids** | pre-provisioned estates for other people (nigel/aida were destroyed 09-10 for this reason) · synthetic households presented as anyone's · a paper model of a place its owner has not founded | pretending the Fernwood shortcuts are the product's path — every one is an EXCEPTION with legacy as its control, and is named as such on its row |
+
+⚠️ **"For the most part" is his hedge and is kept.** A row that pre-fills for someone other than Mom's
+Fernwood needs his word, not this lens's. ⛔ **The sweep he asked for is a proposal, not an edit:** rows
+that conflict with this lens are listed for him (`.plans/2026-09-10-fifth-lens-SWEEP.md` when it lands);
+nothing is re-tiered or killed by the lens alone.
+
+---
+
 # 🗂 THEMES — groupings over existing rows, not new scope
 
 ## 🔌 BUILD vs INTEGRATE — three calls, and the seat we don't have `[paul-stated 2026-09-10]` ⚙️ engine
