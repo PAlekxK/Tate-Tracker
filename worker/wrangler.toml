@@ -222,3 +222,53 @@ FAMILY_HOSTS = "myhome-paul.pages.dev"
 [[env.paul.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "e752e1c3a34c4c82b0b3074c080cca83"
+
+# ⛔ A HOUSEHOLD, NOT AN ENVIRONMENT — the same distinction `env.bob` carries, and for the same
+# reason: `qa`, `lab` and `home` are OUR environments wearing different stamps; this one belongs to
+# somebody else. Own KV namespace, own estate id, and a Pages origin carrying no household NAME
+# (VOCABULARY: an estate name never reaches a user-facing surface, and a hostname is one).
+# Provisioned 2026-09-10 `[paul-asked: "grant the same owner/member token for Aida and Nigel"]` —
+# an invite is a token, but a person is a DEPLOYMENT, and there was no way to mint one without this.
+# ⛔ THE WORKER IS NAMED, exactly as env.bob is. Without it this deploys as `fernwood-nigel` while
+# the pages derive their endpoint from the Pages HOST, so `myhome-nigel.pages.dev` would look for
+# `myhome-nigel.workers.dev` and find nothing.
+[env.nigel.limits]
+cpu_ms = 5000
+
+[env.nigel]
+name = "myhome-nigel"
+[env.nigel.vars]
+ENV_NAME = "nigel"
+ESTATE_ID = "est-76012d"
+# A brand-new estate has no pre-cutover era, so no key may route to the unprefixed legacy reads.
+LEGACY_BEFORE = "1970-01-01"
+CHAT_DAILY_BUDGET_USD = "5.00"
+FAMILY_HOSTS = "myhome-nigel.pages.dev"
+[[env.nigel.kv_namespaces]]
+binding = "OBSERVATIONS"
+id = "cce4abef516942ad8dd8d6d1dc7072d9"
+
+# ⛔ A HOUSEHOLD, NOT AN ENVIRONMENT — the same distinction `env.bob` carries, and for the same
+# reason: `qa`, `lab` and `home` are OUR environments wearing different stamps; this one belongs to
+# somebody else. Own KV namespace, own estate id, and a Pages origin carrying no household NAME
+# (VOCABULARY: an estate name never reaches a user-facing surface, and a hostname is one).
+# Provisioned 2026-09-10 `[paul-asked: "grant the same owner/member token for Aida and Nigel"]` —
+# an invite is a token, but a person is a DEPLOYMENT, and there was no way to mint one without this.
+# ⛔ THE WORKER IS NAMED, exactly as env.bob is. Without it this deploys as `fernwood-aida` while
+# the pages derive their endpoint from the Pages HOST, so `myhome-aida.pages.dev` would look for
+# `myhome-aida.workers.dev` and find nothing.
+[env.aida.limits]
+cpu_ms = 5000
+
+[env.aida]
+name = "myhome-aida"
+[env.aida.vars]
+ENV_NAME = "aida"
+ESTATE_ID = "est-92e588"
+# A brand-new estate has no pre-cutover era, so no key may route to the unprefixed legacy reads.
+LEGACY_BEFORE = "1970-01-01"
+CHAT_DAILY_BUDGET_USD = "5.00"
+FAMILY_HOSTS = "myhome-aida.pages.dev"
+[[env.aida.kv_namespaces]]
+binding = "OBSERVATIONS"
+id = "5b07ae6d8b934d8ea93bf6b42039561f"
