@@ -313,6 +313,65 @@ a measured defect.
 ⚠️ Its `.plans/2026-09-10-interests-reframe-VERIFY-82.md` is **uncommitted and orphaned** in the
 `onboarding-ask` worktree — it belongs to nobody and needs a disposition.
 
+## ⑥f 🔴 THE INSTRUMENT WAS LYING, AND THE CALM AND THE ALARM WERE SWAPPED — `2026-09-10 ~5:10 PM`
+
+**`publish-digest.py`'s `household_property()` wrapped its `kv_get` in `except Exception: return None`.**
+So a wrangler failure and a missing key were indistinguishable, and `--check` printed
+*"no estate-level place record — **Correct, not a fault**"* **with the network down.** The outer `except`
+in `main()` that prints `⛔ UNREADABLE` was dead code for that path; the inner swallow won.
+
+⭐⭐ **THE INVERSION, and it is the lesson:** the six *"Correct, not a fault"* lines were the readings that
+**could not be trusted**, and the one `home` **UNREADABLE** was the reading that was **TRUE** — it raised.
+Exactly backwards from how it looked to every reader, the coordinator included. **Green-by-absence with
+the calm and the alarm swapped.** A tool that fails loud on one estate and falsely calm on six teaches
+its reader to worry about the wrong one.
+
+✅ **Fixed and proven by mutation** (`tate-tracker-ec`, own file): the discriminator is the message —
+wrangler reports a missing key as **404**; anything else is a failure to *look*, **and a failure to look
+is not a fact about the world.** Four cases proven: 404 → absent · no network → raises · bad credentials
+→ raises · wrangler missing → raises.
+
+⛔ **WHAT THIS DOES AND DOES NOT CHANGE.** A1-depends-on-B3 **STANDS** — it was carried by the **grep**
+(`:place` occurs in one file as a `kv_get` plus two message strings; nothing writes it), which is
+independent of the tool. ⚠️ But **which estates are genuinely placeless versus merely unreadable has
+never been measured** and is being re-run now. ⭐ **Cite the grep, not the `--check`, until that lands.**
+
+⭐ **The generalizable form, and note whose it is:** it was caught in that lane's own file **an hour after
+that lane flagged the identical shape in three other tools.** The honest version of the day's rule, not
+the flattering one — *a control can be entirely correct and still not cover the thing you rely on it for*
+applies hardest to the control you just built.
+
+**⭐ ONE ROUTE, TWO VERBS — one-function-two-callers is WITHDRAWN by its own proposer.** Founding runs in
+`worker.js` (JS, in a request); any migration runs in Python on a laptop. One function cannot span those
+runtimes, and `derive-property.py` already ruled this way for the geocoder — *"one SERVICE, two readers."*
+So `POST /api/estate` carries **`found`** and **`adopt`**; the migration is an HTTP **client** of founding,
+never a second implementation. ⛔ **Share the endpoint, not the function.**
+
+**⛔ AND THE BINDING CONDITION ON THE INLINE COMPOSER, adopted from `tate-tracker-ec`:** composing the
+digest in the Worker re-implements a place-facts derivation that already exists in selftested Python —
+**two writers of one fact, the shape three of today's five defects had.** `measured`: an all-absent
+instance composes to **1,780 bytes / 345 core tokens**, all 13 domains correctly omitted — so it is the
+small end of plausible, **not** ~30 lines. Therefore `publish-digest.py --check` as drift-lint is **not
+bookkeeping — it is the only thing that would catch the two implementations diverging, and it must
+compare the DERIVED output, not merely presence.**
+
+**⛔ TWO RULINGS ARE PAUL'S AND BOTH ARE OPEN — no lane may build past them:**
+1. 🔴 **The `X-Estate` collision.** ⑤ lists it *"deferred, ruled not-now"*; `SCOPE` §2.4's fallback is
+   *absent header + several grants → **400**, never a guess.* **The moment anyone holds two grants,
+   every request they make 400s.** Both rulings cannot stand once B3 ships. Recommendation on the table:
+   B3 **refuses a second estate per person by a named error** until `X-Estate` lands — a visible refusal
+   beats an unpredicted 400.
+2. **B3's scope GROWTH** — Q6 wants Guru at first light, which puts the digest compose inside the Worker.
+   He has not seen that.
+⛔ **And the acceptance test is NOT the condo.** The condo is Paul's **second** estate, so it either trips
+the refusal or forces `X-Estate` off the deferred list; it is an irreversible cross-namespace copy on
+production; and it is `adopt`, so **it cannot exercise the one thing the milestone exists to prove — the
+product creating an estate.** Gate on **J0 walked twice on lab by two synthetic seats** instead.
+
+**B3 STATUS: `found` verb OPEN ON LAB ONLY** under Paul's *"get them through G1"*. ⛔ `adopt`, the
+second-estate refusal, the inline composer, production, `home`, the condo and the nigel/aida deletion all
+remain closed. **The deletion goes to Paul directly, never on a relay.**
+
 ## ⑥e OPEN PROPOSAL — a standing BACKLOG REGISTRAR seat `[paul-raised 2026-09-10]`
 
 > *"a backlog rationalization and maintenance session… a standing expert that's helping keep track of
