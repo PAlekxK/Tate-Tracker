@@ -53,6 +53,11 @@
    "id": "p-5cf094",
    "name": "nigel",
    "notes": "Beta reader, invited 2026-09-10. Estate est-76012d provisioned 2026-09-10 (c1ae9bb) — env, KV namespace and instance/nigel.json all exist. ⛔ NO GRANT MINTED YET, so he has no way in; the invite is Paul's to send. ⚠️ This note previously read 'HAS NO ESTATE YET — there is no `nigel` env in worker/wrangler.toml', which was true when written and went stale the same day the estate was provisioned."
+  },
+  {
+   "id": "p-4d8266",
+   "name": "aida",
+   "notes": "Beta reader. Estate est-92e588 provisioned 2026-09-10 (c1ae9bb) alongside nigel's — env, KV namespace, named Worker, Pages origin and instance/aida.json all exist. ⛔ NO GRANT MINTED YET, so she has no way in; the invite is Paul's to send. ⚠️ ADDED 2026-09-10 TO CLOSE AN ASYMMETRY: c1ae9bb provisioned BOTH households but 329a110 reserved an id for nigel only, so aida had an estate and no person while nigel had a person and no grant — the register was inconsistent in both directions at once. First name only, the same shape as mom and bob: this file holds no surnames and no contact details."
   }
  ]
 }
