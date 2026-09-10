@@ -755,7 +755,20 @@ end-user account. **Recommend: stamp the credential class on every write** (`via
 administrator or the neighbour?"* **Alternative:** accept it at n=5 and revisit at the first
 non-family estate — ⚠️ which is Bob's, and it is imminent.
 
-## Q6 · Does Guru have to work at first light for a new household?
+## ~~Q6 · Does Guru have to work at first light for a new household?~~ ⛔ **ANSWERED 2026-09-10 — and answered the HARD way. The escape hatch below is CLOSED.**
+
+> ⛔⛔ **READ THIS BEFORE THE PARAGRAPH THAT FOLLOWS.** Paul's readiness ruling, same day:
+> *"Let's set as our long-term goal that **Guru is working for all households that launch**. Right now
+> we have Bob's and Mom's invites out. Neither of them has really set up an estate. **We can hold on
+> Aida and Nigel until we catch up to our readiness definition.**"*
+>
+> So a household does **NOT** launch on the deterministic app alone, and Aida and Nigel are **held**
+> rather than invited sooner. **A5 IS the critical path** — the opposite of what the text below says.
+> The paragraph is kept because it states the trade honestly; its recommendation is superseded.
+> ⚠️ This file is a declared `depends-on` of `PLAN-OF-RECORD.md`; the stale reading was live here for
+> ~90 minutes after the ruling. Found by the rationalization window measuring rather than accepting.
+
+
 ⭐ Carried forward from `migration-shape-REASSESS` §7 unchanged, because it is **the single
 highest-leverage question on the board** and it gates §6's long pole. If a household can launch with the
 deterministic app and no model routes, **A5 stops blocking B1** and Nigel and Aida can be invited much
