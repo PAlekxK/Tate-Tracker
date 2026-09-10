@@ -142,6 +142,39 @@ what"* becomes readable per household — the first real engagement instrument t
 alone, and the falsifier pattern from step 3 applies directly: prove two estates on lab, each
 answering from its own canon, before anything else moves.
 
+## 5b. ⛔ THE SEQUENCE ABOVE WAS WRONG, AND BUILDING IT FOUND OUT — (4d) IS A PREREQUISITE, NOT STEP 7
+
+Steps 1–3 are **done and proven** (below). Driving them to a real build showed the ordering was
+backwards: `digest_core` **refuses a record with no place in it** —
+
+    property.json holds neither an address nor an elevation
+    — refusing to derive a core with no place in it
+
+⭐ **So there is no such thing as a digest for an estate with no derived property.** The refusal is
+correct and should stay: a Journal with no place is not a small Journal, it is a Journal about
+nothing. **(4d) moves from step 7 to step 0** — deriving the place from the onboarding address is
+what makes every later step possible, not a nicety that follows them.
+
+⭐⭐ **And `instance/neutral-canon/property.json` already declares exactly this contract**, in its own
+`_meta`: *"the SHAPE a household property record has, with no household in it. Every value is filled
+from what the person tells us at onboarding, never typed here."* The shape was designed for the
+answer Paul ruled today; nothing had filled it.
+
+### Proven end to end, 2026-09-10 — a young household's Journal builds
+
+Against a synthetic derived property (scratch, never committed):
+
+| | |
+|---|---|
+| `_meta.estateId` | `est-76012d` — **from the instance file, not the shared canon dir** |
+| sections | all 13 present and **EMPTY, not absent** (R5) |
+| core | **914 tokens** — under the 4,096 floor, reported not fatal |
+| plants held | **0** |
+| what it knows | *"The property is at 1 Example Road, Dahlonega, GA (Lumpkin County), at 1,420 ft — THE PROPERTY'S elevation, the number every other height is measured against."* |
+
+⭐ **That is a working Journal on day one** — it knows where it is, what zone it is in, when its
+frosts fall, and that it holds no plants *yet*.
+
 ## 6. OPEN — Paul's
 
 1. **Is (4d) right — a small derived canon at onboarding?** It is the difference between a new

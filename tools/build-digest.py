@@ -300,20 +300,33 @@ def load(path):
         return json.load(f)
 
 
-def _compose_all(load):
-    """Every section, unconditionally — the hand-written literal roster #3.
-    compose() removes what the estate's modules do not claim."""
+def _compose_all(load, want=None):
+    """Every section this estate CLAIMS — the hand-written literal roster #3.
+
+    ⛔ IT USED TO LOAD EVERY FILE AND LET compose() DELETE WHAT THE ESTATE DID NOT CLAIM, and that
+    made a brand-new household impossible to build. Measured 2026-09-10: composing
+    `instance/neutral-canon` raised `FileNotFoundError: plants.json` — a household that declares NO
+    plants still had to carry a plants.json for the builder to throw away. Every new estate would
+    have needed a copy of Fernwood's file shape to build anything at all.
+
+    So the sections are THUNKS and only a claimed one is ever called. `want(key)` is compose()'s
+    module test; absent, everything is built (this checkout's behaviour, unchanged).
+    ⭐ A module that is OFF now costs no file, not merely no key.
+    """
+    want = (lambda k: True) if want is None else want
     digest = {
         "_meta": {
-            "purpose": "Curated property digest for Garden Guru system prompt. Built from raw source files by tools/build-digest.py — re-run after editing any source. Strip targets: photo/sound/attribution/license/schema/citizen-science fields the assistant never verbally references.",
+            "purpose": "Curated property digest for the Journal's model context. Built from raw source files by tools/build-digest.py — re-run after editing any source. Strip targets: photo/sound/attribution/license/schema/citizen-science fields the assistant never verbally references.",
             "rebuiltAt": None,  # populated below
         },
-        "plants": digest_plants(load("plants.json")),
-        "birds": digest_wildlife(load("birds.json")),
-        "mammals": digest_wildlife(load("mammals.json")),
-        "amphibians": digest_wildlife(load("amphibians.json")),
-        "snakes": digest_wildlife(load("snakes.json")),
-        "lizards": digest_wildlife(load("lizards.json")),
+    }
+    builders = {
+        "plants": lambda: digest_plants(load("plants.json")),
+        "birds": lambda: digest_wildlife(load("birds.json")),
+        "mammals": lambda: digest_wildlife(load("mammals.json")),
+        "amphibians": lambda: digest_wildlife(load("amphibians.json")),
+        "snakes": lambda: digest_wildlife(load("snakes.json")),
+        "lizards": lambda: digest_wildlife(load("lizards.json")),
         # Added 2026-08-15 with the Insect Sounds tab. "What is that noise?" is a
         # question asked from the porch with a phone in hand, which is exactly Guru's
         # surface — leaving the domain out of the digest would make the one assistant
@@ -321,12 +334,12 @@ def _compose_all(load):
         # digest_wildlife's shape fits unchanged: the song/soundsLike/chorusRole prose
         # rides along in `species`, and `presence` carries the honest-uncertainty flag
         # Guru needs in order to hedge instead of asserting.
-        "insects": digest_wildlife(load("insects.json")),
-        "fishing": digest_fishing(load("fishing.json")),
-        "weeds": digest_weeds(load("weeds.json")),
-        "property": digest_property(load("property.json")),
-        "zones": digest_zones(load("zones.json")),
-        "turf": digest_turf(load("turf.json")),
+        "insects": lambda: digest_wildlife(load("insects.json")),
+        "fishing": lambda: digest_fishing(load("fishing.json")),
+        "weeds": lambda: digest_weeds(load("weeds.json")),
+        "property": lambda: digest_property(load("property.json")),
+        "zones": lambda: digest_zones(load("zones.json")),
+        "turf": lambda: digest_turf(load("turf.json")),
         # ── VEHICLES RE-ENABLED 2026-07-28 (Paul) — the 07-17 exclusion is reversed ──
         # Both of that decision's reasons are now void, and it is worth recording which
         # was which, because only one of them was ever technical:
@@ -349,8 +362,11 @@ def _compose_all(load):
         # Paid for, not just added: stripping the superseded `currentSeasonNote` and the
         # `_phaseF` plumbing (see STRIP_KEYS_PER_ENTRY) frees ~10.6KB, which keeps the
         # digest under the ~100K retrieval-degradation note this file names below.
-        "vehicles": digest_vehicles(load("vehicles.json")),
+        "vehicles": lambda: digest_vehicles(load("vehicles.json")),
     }
+    for key, build in builders.items():
+        if want(key):
+            digest[key] = build()
     return digest
 
 
@@ -557,6 +573,68 @@ def assert_core_floor(digest):
     return n
 
 
+# ── C7 · per-estate canon: WHERE an estate's record is read from, and what a young canon means ──
+# ⭐ `[paul-ruled 2026-09-10]` — "every estate needs to have their own version… referencing their
+# data set only for that estate", and it "should work from virtual first light even if it has a very
+# limited database compared to the legacy Fernwood."
+#
+# ⛔ R5, AND IT IS WHY `materialise_empty` EXISTS: "a domain with nothing in it is EMPTY, not absent
+# — the section exists and says it holds nothing yet." A new household declares `garden: on` and owns
+# no plants yet. Without this it would have to carry a copy of Fernwood's file shape, thirteen empty
+# files per estate, to build at all.
+# ⭐ Every `digest_*` already returns the right empty-but-present shape from `{}` — verified
+# 2026-09-10 across all eight. The builders were written for this; nothing read them that way.
+#
+# ⚠️ IT IS A PROPERTY OF THE CANON, NEVER A FLAG. Fernwood's canon is the repo root (`canon: ".."`)
+# and stays STRICT: a missing plants.json there is a broken checkout, and silently digesting it as an
+# empty garden would be the flattering-decay failure this repo keeps paying for. An instance canon
+# directory is a YOUNG record and materialises emptiness. Same function, opposite default, decided by
+# which canon it is — not by who remembered to pass a flag.
+def canon_loader(canon_dir, materialise_empty):
+    def load_one(name):
+        path = os.path.join(canon_dir, name)
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as fh:
+                return json.load(fh)
+        if materialise_empty:
+            return {}
+        raise FileNotFoundError("%s is not in the canon at %s — this canon is STRICT" % (name, canon_dir))
+    return load_one
+
+
+def estate_canon(name):
+    """(estate.json dict, canon_dir, strict) for `instance/<name>.json`.
+
+    The instance file's `canon` pointer decides both WHERE the record is and HOW a gap in it reads:
+    `".."` is Fernwood's repo-root canon and is strict; anything else is an instance canon directory
+    and is young.
+    """
+    repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    inst_path = os.path.join(repo, "instance", name + ".json")
+    if not os.path.exists(inst_path):
+        raise RuntimeError("no instance file at instance/%s.json — an estate is built from its own declaration" % name)
+    with open(inst_path, encoding="utf-8") as fh:
+        inst = json.load(fh)
+    pointer = inst.get("canon")
+    if not pointer:
+        raise RuntimeError("instance/%s.json declares no `canon` pointer — refusing to guess whose record to build" % name)
+    canon_dir = os.path.normpath(os.path.join(repo, "instance", pointer))
+    strict = (pointer == "..")
+    est_path = os.path.join(canon_dir, "estate.json")
+    if not os.path.exists(est_path):
+        raise RuntimeError("canon %s has no estate.json — an estate that cannot state its modules gets no digest" % pointer)
+    with open(est_path, encoding="utf-8") as fh:
+        est = json.load(fh)
+    # ⛔ THE STAMP COMES FROM THE INSTANCE, NOT THE SHARED CANON DIR. Every young estate points at the
+    # SAME `neutral-canon`, so taking the id from there would stamp every household with one estateId
+    # and `canonIsThisEstate` would hand them each other's record — the exact leak the stamp exists to
+    # stop. The instance file is the only thing that knows whose build this is.
+    if inst.get("estateId"):
+        est = dict(est)
+        est["estateId"] = inst["estateId"]
+    return est, canon_dir, strict
+
+
 def compose(est=None, load=load):
     """Build the digest dict for one estate. `est` is the parsed estate.json
     (None → this checkout's); `load` reads a canon file by name (a fixture may
@@ -599,9 +677,11 @@ def compose(est=None, load=load):
             data["vehicles"] = [v for v in data["vehicles"] if v.get("group") in groups]
         return data
 
-    digest = _compose_all(load_filtered)
-    for key in [k for k in digest if k != "_meta" and not want(k)]:
-        del digest[key]
+    # ⭐ `want` goes IN rather than a delete pass coming after: an unclaimed module must cost no
+    # file read, or a new household cannot build at all (see _compose_all). The old delete loop is
+    # gone rather than kept as a belt — a second filter that can never fire is a place for the two
+    # to disagree later.
+    digest = _compose_all(load_filtered, want)
     if "vehicles" in digest and not groups:
         del digest["vehicles"]
     if absent_lines:
@@ -625,13 +705,50 @@ def main():
     os.chdir(repo_root)
     if "--selftest" in sys.argv:
         sys.exit(selftest())
-    digest = compose()
-    core_n = assert_core_floor(digest)   # NON-ZERO EXIT under the floor or over the budget
+    # ⭐ `--estate <name>` builds THAT household's record from its own instance declaration and its
+    # own canon. Bare `build-digest.py` is unchanged and still builds this checkout to
+    # worker/digest.json — deploy-worker.sh calls it that way and must keep working.
+    estate_name = None
+    if "--estate" in sys.argv:
+        i = sys.argv.index("--estate")
+        if i + 1 >= len(sys.argv):
+            print("build-digest: --estate needs a name (an instance/<name>.json)", file=sys.stderr)
+            sys.exit(2)
+        estate_name = sys.argv[i + 1]
+    out_override = None
+    if "--out" in sys.argv:
+        i = sys.argv.index("--out")
+        if i + 1 >= len(sys.argv):
+            print("build-digest: --out needs a path", file=sys.stderr)
+            sys.exit(2)
+        out_override = sys.argv[i + 1]
+
+    if estate_name:
+        est, canon_dir, strict = estate_canon(estate_name)
+        digest = compose(est=est, load=canon_loader(canon_dir, materialise_empty=not strict))
+    else:
+        digest = compose()
+    # ⚠️ THE FLOOR IS A COST FACT, NOT A CORRECTNESS ONE, AND A YOUNG ESTATE IS SUPPOSED TO BE UNDER
+    # IT. `[paul-ruled 2026-09-10]`: the Journal "should work from virtual first light even if it has
+    # a very limited database compared to the legacy Fernwood." Raising there would mean a new
+    # household could not be built precisely because it is new.
+    # ⛔ It stays FATAL for a strict canon: Fernwood's core collapsing under the floor means files
+    # went missing, and that must not build.
+    try:
+        core_n = assert_core_floor(digest)
+    except RuntimeError as e:
+        if estate_name and not strict and "UNDER" in str(e):
+            core_n = core_tokens(digest)
+            print("⚠️  core is ~%d tokens, under the %d cacheable floor — EXPECTED for a young canon."
+                  % (core_n, CORE_FLOOR_TOKENS))
+            print("    Its prompt prefix is billed uncached until the household's record grows. Building anyway.")
+        else:
+            raise
 
     import datetime
     digest["_meta"]["rebuiltAt"] = datetime.datetime.utcnow().isoformat(timespec="seconds") + "Z"
 
-    out_path = "worker/digest.json"
+    out_path = out_override or "worker/digest.json"
     with open(out_path, "w") as f:
         # Compact form for cheaper token cost. Re-pretty-print with `python3 -m json.tool worker/digest.json` if you want to read it.
         json.dump(digest, f, ensure_ascii=False, separators=(",", ":"))
