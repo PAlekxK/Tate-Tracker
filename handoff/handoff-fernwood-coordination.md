@@ -12,6 +12,9 @@ nowhere else.
   ⭐ **⑥b COORDINATION STATE** (authority boundary, one-writer-per-file, the relayed-claim hazard) · ⑦ open
 - `.plans/2026-09-10-rationalization-PROPOSAL.md` (on `backlog-rat`) — **Paul has not read it.** Its
   §3 MOVE 1 + §4 band are one change; §7.4 stamps its own counts as already-stale
+- ⭐ **`handoff/handoff-testing-architecture.md` — ON THE `testing-arch` BRANCH, not on `main`.** That
+  window wrote its own 94-line handoff (`6f71e46`) plus the day's control lesson into `CLAUDE.md`
+  (`ec28b57`). **You will not find either by reading `main`** — `git show testing-arch:handoff/handoff-testing-architecture.md`
 - `.plans/2026-09-10-account-estate-model-SCOPE.md` §9 · `.plans/2026-09-10-testing-architecture-PLAN.md` §6
 
 ## 3. Next steps (ordered)
