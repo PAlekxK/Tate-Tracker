@@ -238,6 +238,97 @@ that survives in the comments explaining its deletion. **Matching the string rat
 **WHAT A STALL LOOKS LIKE, and the first question to ask:** a closed window and a window blocked on a
 permission prompt are indistinguishable from outside. Ask Paul *"did you close it?"* first, not last.
 
+## ⑥c THE LIVE BOARD — `2026-09-10 ~4:45 PM ET`, coordinator `tate-tracker-af` `[live, keep current]`
+
+⭐ **Six lanes running. This table is the one-writer register; ⑥ and ⑥b are the rules, this is the state.**
+
+| lane | owns | state |
+|---|---|---|
+| **`tate-tracker-ec`** | `worker/worker.js` · `publish-digest.py` · `grant-mint.py` · `grant-route-backfill.py` · `falsifier-tenancy.py` · account/credential path | **parked, clean, holding.** Awaiting the B3 design + Paul's word to open B3 |
+| **`onboarding-ask-b3`** | `onboarding/index.html` | **parked at `4439010`** (1 ahead of `cb5e46a`). Copy staged for Paul; three product rulings owed |
+| **Lane 3 · walk harness** | `journey-*.py` · `release-gate.py` · `walk-*.py` · `elicitation-lens.py` · `check-canon-scope.py` · `seat-portfolio.py` · `household-fixtures.py` · `.decisions/fernwood-15..22` | **running.** Preparing the `testing-arch`→`main` merge, then J0 |
+| **`paulkirschenbauer-b8`** | `.plans/*zones*` · `.engineering/zones-derivability/` — worktree `zones-assess` | **running.** Zones automation ASSESSMENT, design-side only |
+| **`paulkirschenbauer-3b`** | `~/.claude/**` only — no Fernwood writes | **running.** Meta-stack: standing up a security seat |
+| **B3 design consult** | nothing — advisory | **running.** Founding write-set; premise corrected mid-flight |
+
+🔴 **`viewer.html` HAS NO OWNER.** 380 zone mentions, ~17,900 lines, and it is Mom's live app — the most
+collision-prone file in the repo and no lane holds it. **Ask the coordinator before writing it.** This is
+a gap, not permission. `onboarding-ask-b3` correctly recorded a divergence into it rather than crossing.
+
+## ⑥d WHAT LANDED SINCE ⑥b — rulings and measurements, cited
+
+**⭐ THE ESTATE'S PLACE IS WRITTEN ONCE AT FOUNDING** `[paul-ruled 2026-09-10]`: *"let's take the most
+durable approach and invest now so we don't have to change it later."* Ruled against a cheaper interim.
+⛔ **Consequence: A1 (step 1) depends on B3 (step 6)** — see ⑤. And the population splits:
+**TWO by migration** (`home`, `paul` — owner-supplied addresses on file) · **THREE by founding**
+(`bob` has zero addressed accounts; `nigel`/`aida` have empty namespaces).
+⚠️ `qa` holds **174 addressed accounts** — declaring a place there is the election with a human ranking.
+It needs an **invented fixture place, marked as such**, never one of the 174.
+
+**⛔ `nigel` AND `aida` SHOULD NOT HAVE ESTATES** `[paul-restated 2026-09-10]`: *"we should not have an
+estate for Nigel cause he's not even set up his account. He hasn't even gotten an invite right."*
+Correct on the facts — both namespaces empty, both pre-provisioned by hand in `wrangler.toml`
+(`c1ae9bb`), neither invited, aida has no person record. **The delete was ruled and is NOT executed** —
+it goes to Paul directly, never on a relay. Estate ids are **RETIRED, NOT REUSED**.
+⭐ The argument that carries it: those envs are the only way to provision an estate today, so leaving
+them lets the beta launch **without the product ever creating one**. The delete protects the test.
+
+**⚠️ `home` READ UNREADABLE** in `tate-tracker-ec`'s last sweep — a wrangler failure, **not** an empty
+result. ⛔ Nothing is written to Mom's estate until it re-reads clean. Green-by-absence.
+
+**⭐ THE SHARED WRITE UNIT MUST TAKE A PLACE, NOT FIND ONE** — `tate-tracker-ec`'s caveat, adopted:
+roughly `writeEstatePlace(env, estateId, place, declaredBy)`. If the unit *discovers* the place, the
+migration caller re-derives the election **inside** the shared function and the bug becomes durable
+instead of the fix. **Share the write, never the discovery.** And `<estate>:place` carries its own
+provenance — who declared it, when, founding vs migration.
+
+**🔴 `builds` IS A DECLARATION WITH NO READER** — `measured` by `onboarding-ask-b3`: the brief's *"five
+tools read `builds`"* is **false**, zero consumers repo-wide; those tools read the module vocabulary it
+names. The brief's conclusion was right for the wrong reason. **Exactly the class `CLAUDE.md` rules
+against.** Flagged, not fixed — wiring it is a product decision.
+Also falsified: *"Mom has already answered the current question"* — `legacy` (`est-3c9f1a`) holds **zero**
+onboard-interests records.
+
+**⚠️ THE SECURITY SEAT WAS A BLOCKING PREREQUISITE ON THE AUTH BUILD, AND NOTHING NOTICED IT FIRE.**
+Ratified `[paul 2026-09-02]` — *"queue it, stand up before auth work"* — recorded in
+`~/.claude/agents/backlog.md` against step 6 of `fernwood-private/.plans/2026-09-02-data-model-design.md`.
+**Auth has since shipped**; Mom's account was created today; `security` appears **zero** times in this
+file and in `WORK-QUEUE.md`; three 🔴 cross-record incidents landed today. ⛔ **Not a stop and not the
+coordinator's to rule** — but if READY-TO-INVITE means real people other than Mom get credentials, the
+prerequisite Paul set for that build is still open, and `PRIVACY-POSTURE.md`'s four gaps are unowned.
+**Surfaced before the invite rather than after.** *(Raised by `paulkirschenbauer-3b`; the fifth instance
+of a capability the loop cannot reach by running its own procedure.)*
+
+**⚠️ RELAYED CLAIMS THAT FAILED VERIFICATION TODAY: EIGHT.** Three of the coordinator's; **three from
+one brief**. Every one caught by the *receiving* lane measuring rather than accepting.
+⭐ **The mechanical form of the rule, which is the checkable one** (`onboarding-ask-b3`'s own
+sharpening — the abstract version is not testable): **verify a reversibility promise against the actual
+route back before writing it.** *"You can change it any time"* had already shipped and been removed
+because the gate-1 walker was promised it and could find no route back. A checklist would have restored
+a measured defect.
+⭐ **And: GREP, THEN READ THE LINE.** A count locates; it does not establish.
+
+**Credit correction:** the coined-phrase catch (`Household systems` — Mom's own words, which must not be
+"improved") was **`onboarding-ask-82`'s**, verified by `b3`. That window has closed and cannot claim it.
+⚠️ Its `.plans/2026-09-10-interests-reframe-VERIFY-82.md` is **uncommitted and orphaned** in the
+`onboarding-ask` worktree — it belongs to nobody and needs a disposition.
+
+## ⑥e OPEN PROPOSAL — a standing BACKLOG REGISTRAR seat `[paul-raised 2026-09-10]`
+
+> *"a backlog rationalization and maintenance session… a standing expert that's helping keep track of
+> everything and that they can all forward their updates to in questions and so on and help identify how
+> we can package work together."*
+
+**Not yet designed, not yet staffed.** Recorded here so it is not lost. The distinction it must hold:
+**the coordinator holds the BOUNDARY** (who writes what, what is gated, concurrency); a registrar would
+hold the **REGISTER** (what work exists, what is decided, how it packages). Different jobs; both real.
+⚠️ It wants a **persistent addressable lane**, not a subagent — lanes forward to it, so it must outlive a
+task. ⛔ `practice-steward` rules on METHOD and explicitly **does not prioritize**, so *"package work
+together"* is outside it as chartered.
+**The debt it would inherit, measured:** `BACKLOG.md` at **4,327 lines** written by two loops · **29
+orphaned plans** repo-wide · a committed **rationalization PROPOSAL Paul has not read** (on `backlog-rat`;
+its own §7.2 is stale) · `check-backlog-drift.py` exists but **does not fire a lap** by design.
+
 ## ⑦ OPEN — Paul's, not scheduled
 
 - **The Grant Park Condo's return to production.** Precondition named (`POST /api/estate` + call-site
