@@ -25,9 +25,30 @@ OUT = os.path.join(ROOT, ".private", "synthetic-walks")
 # ⭐ THE PER-RUN UNSPENT INVITE lands here, mode 600, one key per `<role>@<env>`. Written by
 # `grant-mint.py --fixture-out` and by nothing else — this file never mints a token itself.
 INVITES = os.path.join(ROOT, ".private", "walk-invites.json")
-WORKERS = {"qa": "https://fernwood-qa.paul-kirschenbauer.workers.dev",
-           "lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
-           "home": "https://fernwood-home.paul-kirschenbauer.workers.dev"}
+# ⛔⛔ THE WORKER HOST IS DERIVED FROM `post-deploy.py`, NEVER RE-TYPED — and it cost an hour of a
+# build run to learn why, on 2026-09-10. `env.paul` and `env.bob` declare `name = "myhome-<env>"`
+# while every other env is `fernwood-<env>`, so probing `fernwood-paul…` returns a Cloudflare 1042
+# that reads exactly like an undeployed Worker. A healthy deployment was diagnosed as a missing one.
+# ⭐ `post-deploy.worker_health()` already carries the map and its own comment says it is "the one
+# value here that is re-typed, so it is the one most able to drift". This file borrows it rather than
+# becoming the THIRD copy of a map that had already produced a wrong diagnosis — one source, N
+# readers, which is the same rule `walk-fixtures.py` follows for the journey derivation.
+# ⚠️ The two Pages maps further down are a DIFFERENT map (origins, not Workers) and are left alone;
+# folding them in would be a change to what the walk walks, not to how it is addressed.
+def worker_base(env):
+    import importlib.util as _i
+    _p = os.path.join(ROOT, "tools", "post-deploy.py")
+    _s = _i.spec_from_file_location("pd", _p); _m = _i.module_from_spec(_s); _s.loader.exec_module(_m)
+    return _m.worker_health(env)[: -len("/health")]
+
+
+class _Workers(dict):
+    """`WORKERS[env]` keeps its old shape at every call site and resolves through the one map."""
+    def __missing__(self, env):
+        return worker_base(env)
+
+
+WORKERS = _Workers()
 
 
 def identity(role, env):
@@ -536,6 +557,55 @@ def journey_resuming(answers, origin=""):
             "click:#openapp", "shot:U09-the-place"]
 
 
+def journey_bare_door(answers, origin=""):
+    """⭐⭐ J5 — ARRIVING WITH NOTHING `[paul-stated 2026-09-08, after walking it himself]`.
+
+    ⛔ THE STATE NO WALK HAD EVER ENTERED, AND THE THIRD OF ITS KIND. `--fresh` arrives WITH an
+    invite; `journey_returning` and `--dead-credential` arrive WITH a credential that works or fails.
+    None of them arrives with NOTHING — which is the state every reader leaving legacy Fernwood is
+    in, because the sunset banner points at a bare `/onboarding/` with no `?g=` at all.
+
+    ⭐ WHAT IT COSTS WHEN NOBODY WALKS IT, measured twice on real people:
+      · Mom followed that banner, was shown the setup form, filled it in, and was refused at the
+        last step with "This link isn't valid any more — ask Paul for a fresh one." She never had a
+        link and nothing had expired: the product invented a failure, blamed it on her, and threw
+        her typing away. A door that shows you a form it will not accept is not a gate, it is a trap.
+      · Paul walked the same door minutes after a push and was told "This link isn't working" by a
+        link that had just worked.
+    ⭐⭐ BOTH FAILURES WERE SENTENCES, WHICH IS WHY THE FIRST ONE IS ITS OWN STOP. A seat would have
+    caught them; no seat could reach the screen. `B01-the-door` exists to put that sentence in the
+    record before anything is clicked, so a lens reads what a person read.
+
+    ⚠️ IT WALKS THE SIGN-IN SUB-CASE, and the choice is deliberate. Someone arriving bare either has
+    an account (everyone leaving legacy Fernwood) or does not (Mom, that day). The second is J1's
+    action list minus the invite — same screens, different credential — while the first crosses a
+    door that was "designed and recommended, never built" until 2026-09-08 and that NOTHING walks.
+    ⛔ CLICKED, NEVER `goto:` — the sign-in screen is reached through "Sign in instead ›", so a build
+    where that control is missing fails this walk instead of being routed around.
+    """
+    a = answers
+    return ["shot:B01-the-door",
+            'click:#s0-signin', "shot:B02-sign-in",
+            "type:#si-user=" + a["username"], "type:#si-word=" + a["password"],
+            "click:#si-go",
+            # ⭐ THE IN-FLIGHT SCREEN IS ITS OWN STOP, and it is not padding. Sign-in POSTs to
+            # `/api/session`, whose PBKDF2 round is deliberately slow, and the button reads
+            # "Signing in…" while it runs — a screen a person genuinely sees and waits at.
+            # ⛔ MEASURED 2026-09-10, first J5 run: without this the landing shot fired mid-request
+            # and recorded the sign-in form as the destination, with ZERO failed actions. A green
+            # walk over a screen the walker never reached is the false-green class this file exists
+            # to close, and the fix had to live HERE — `journey-view.py` is untouched by this work
+            # by design, and adding a `wait:` verb to it would be a phase reaching into a tool it
+            # was told not to.
+            "shot:B03-signing-in",
+            # ⚠️ Sign-in lands on `/viewer.html`, the APP SHELL, which paints its masthead from what
+            # the DEVICE holds before any network call. The handler stores the place facts the
+            # session returned first, precisely so that paint is theirs — and the last time that half
+            # was missing, Paul signed in cold and landed in a place called "My Home" while `whoami`
+            # in the same browser returned his real one. This stop is where that is visible or not.
+            "shot:B04-the-place"]
+
+
 # ⭐⭐ THE JOURNEY LIBRARY — the named unit this codebase did not have `[.decisions/fernwood-18]`.
 # Until now there were two action lists, five strings in a dict, and a directory name doing the work
 # of all three. A journey declares three things and owns nothing else:
@@ -563,6 +633,8 @@ JOURNEYS = {
     # as built 2026-09-08 — this map names its behaviour, it does not alter it.
     "J4": {"name": "dead-credential", "enters": "J4", "arrival": "dead-credential",
            "actions": journey_returning},
+    "J5": {"name": "bare-door", "enters": "J5", "arrival": "no-credential",
+           "actions": journey_bare_door},
 }
 
 
@@ -601,13 +673,6 @@ NAMED_UNBUILT = {
            "needs": "POST /api/estate (BACKLOG B3, bound to the grant-key decision)",
            "why": "the milestone says tested means WALKED, and this is the only route Nigel's and "
                   "Aida's estates can now come into being"},
-    "J5": {"enters": "J5 — no credential at all",
-           "arrival": "no credential; the bare `/onboarding/` a sunset banner points at",
-           "needs": "an action list that starts at the bare door and records the FIRST SENTENCE as "
-                    "its own stop",
-           "why": "Paul walked it himself and was told \"This link isn't working\" by a link that "
-                  "had just worked; a seat would have caught the sentence and no seat could reach "
-                  "the screen"},
 }
 
 
@@ -849,6 +914,34 @@ def selftest():
           "the setup sequences have diverged: J1 %r vs J2 %r"
           % (_setup_seg(fresh), _setup_seg(res)))
 
+    # 2c2 · ⭐ J5, AND THE ONE PROPERTY THAT DEFINES IT: it arrives with NOTHING. An empty `?g=` would
+    #       be a present-but-empty grant — a third state — and a `goto:` past the sign-in control
+    #       would walk a door that might not exist.
+    bare = journey_bare_door(A, origin="https://x/onboarding/")
+    check("J5 records the FIRST SENTENCE before anything is clicked",
+          bare[0] == "shot:B01-the-door",
+          "the door's own words are not the first thing recorded, and both real failures here were "
+          "sentences")
+    check("J5 reaches sign-in by CLICKING the control, never by goto:",
+          "click:#s0-signin" in bare and not any(x.startswith("goto:") for x in bare),
+          "a build with no 'Sign in instead' control would still walk green")
+    check("J5 presents NO credential — its arrival is the absence of one",
+          JOURNEYS["J5"]["arrival"] == "no-credential" and JOURNEYS["J5"]["enters"] == "J5", "")
+    # ⛔ THE URL IS THE JOURNEY. Asserted against the builder in main() rather than trusted: a `?g=`
+    #    smuggled onto a bare-door walk would silently convert it into J1 or J3.
+    src = open(os.path.join(ROOT, "tools", "journey-walk.py"), encoding="utf-8").read()
+    check("a no-credential arrival builds a URL with no ?g= at all",
+          '(base + "?syn=" + run) if arrival == "no-credential"' in src,
+          "the bare door is reached with a grant parameter, so it is not the bare door")
+
+    # ⛔ AND THE HOST MAP IS BORROWED, NOT RE-TYPED — `bob` and `paul` are `myhome-<env>`, every
+    #    other env is `fernwood-<env>`, and probing the wrong one returns a 1042 that reads exactly
+    #    like an undeployed Worker. That misdiagnosis cost an hour of a build run on 2026-09-10.
+    check("the Worker host resolves the myhome- exception, not just fernwood-",
+          WORKERS["paul"].endswith("myhome-paul.paul-kirschenbauer.workers.dev")
+          and WORKERS["qa"].endswith("fernwood-qa.paul-kirschenbauer.workers.dev"),
+          "paul=%r qa=%r" % (WORKERS["paul"], WORKERS["qa"]))
+
     # 2d · the library itself must be well-formed, or a --journey is a promise nothing keeps
     check("every journey declares an entry state the walker can actually derive",
           all(j["enters"] in JOURNEY_IDS for j in JOURNEYS.values()),
@@ -870,7 +963,8 @@ def selftest():
           "a hole with no blocker named is a hole nobody can schedule")
     check("every arrival named in the library is one this file can produce",
           {j["arrival"] for j in JOURNEYS.values()}
-          == {"per-run-invite", "per-run-unfinished", "durable-credential", "dead-credential"},
+          == {"per-run-invite", "per-run-unfinished", "durable-credential",
+              "dead-credential", "no-credential"},
           "a journey names a credential main() cannot mint")
 
     # 5b · ⭐⭐ THE ENTRY GATE, AS ASSERTIONS. `journey_entered` is pure, so every state it must
@@ -1061,6 +1155,9 @@ def main():
         _tok = invite["token"]
         print("  arrival: a per-run UNSPENT invite for %s at %s (credential %s…)"
               % (invite["invitee"], invite["estate"], invite["hash"]))
+    elif arrival == "no-credential":
+        _tok = ""
+        print("  arrival: NOTHING — the bare door a sunset banner points at, no ?g= at all")
     elif arrival == "per-run-unfinished":
         unfinished = mint_unfinished(a.role, a.origin,
                                      v["username"] + "-u" + dt.datetime.now().strftime("%H%M%S"),
@@ -1070,7 +1167,12 @@ def main():
               "for %s" % (unfinished["personId"], unfinished["invitee"]))
     else:
         _tok = v.get("token") or ""
-    url = base + "?g=" + _tok + "&syn=" + run
+    # ⛔ THE BARE DOOR CARRIES NO `?g=` AT ALL, and that is the entire journey. Appending an empty
+    # `?g=` would make the page read a present-but-empty grant, which is a THIRD state and not the
+    # one every reader leaving legacy Fernwood is in. `syn=` stays: it is the synthetic marker the
+    # capture side joins on, and it is not a credential.
+    url = (base + "?syn=" + run) if arrival == "no-credential" \
+        else (base + "?g=" + _tok + "&syn=" + run)
 
     # ⛔⛔ THE ENTRY GATE. A journey is an action list PLUS the state it must be entered in, and the
     # harness never checked the second half — so a walk could arrive in the wrong state and report
@@ -1280,6 +1382,22 @@ def main():
                                 "buttons": cp.get("buttons") or []})
         print("  %-14s  screen=%-4s %s" % (name, cp.get("screen") or "-", cp.get("title") or ""))
 
+    # ⭐⭐ THE FIRST SENTENCE, LIFTED TO THE TOP OF THE RECORD. Both real failures at this door were
+    # SENTENCES — "This link isn't valid any more" to Mom, "This link isn't working" to Paul — and
+    # both were true of a link that had just worked or had never existed. Burying it in stop 1's
+    # screen array would leave the finding one level down from the reader who needs it.
+    if walked == "J5":
+        first = next((c for c in (got.get("checkpoints") or []) if c.get("stop") == "B01-the-door"), None)
+        # ⛔ THE MASTHEAD IS NOT THE SENTENCE. The first text node on the page is the place name,
+        # which is also the document title — so the naive read returned "My Home" and said nothing
+        # about what the door TOLD the person. Skip anything equal to the title, which is exactly
+        # the line that is chrome rather than address.
+        title = (first or {}).get("title")
+        lines = [x.strip() for x in ((first or {}).get("text") or [])
+                 if x and x.strip() and x.strip() != (title or "").strip()]
+        record["firstSentence"] = lines[0] if lines else None
+        print("  first sentence at the bare door: %r" % record.get("firstSentence"))
+
     # The failures belong to the JOURNEY, not to a stop — one session, one action stream.
     record["failedActions"] = failed_all
     if failed_all:
@@ -1340,8 +1458,7 @@ def main():
     if creates_account:
         try:
             req = urllib.request.Request(
-                {"qa": "https://fernwood-qa", "lab": "https://fernwood-lab",
-                 "home": "https://fernwood-home"}[a.origin] + ".paul-kirschenbauer.workers.dev/api/session",
+                WORKERS[a.origin] + "/api/session",
                 data=json.dumps({"username": ans["username"], "word": ans["password"]}).encode(),
                 headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"})
             sess = json.loads(urllib.request.urlopen(req, timeout=30).read())

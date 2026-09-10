@@ -145,10 +145,20 @@ def report(env, out=print):
             ok, how = edges > 0, "a per-run account, record left unfinished (%d edge(s))" % edges
         elif arr == "dead-credential":
             ok, how = True, "shaped like a credential, never minted"
+        elif arr == "no-credential":
+            # ⛔ THE ABSENCE OF A CREDENTIAL IS AN ARRIVAL, and reading it as "no fixture" is the
+            # mistake that dropped J5 to "nobody can walk it" the moment it was built. What it needs
+            # is a seat with an ACCOUNT to sign back in as — which is any seat the door recognises.
+            ok, how = bool(held.get("J3") or held.get("J2")), "nothing at all — the bare door"
         else:
             ok, how = bool(held.get(j["enters"])), "this seat's OWN credential"
-        who = ", ".join(held.get(j["enters"]) or []) if arr == "durable-credential" else (
-            "any seat" if ok else "⛔ nobody")
+        if arr == "durable-credential":
+            who = ", ".join(held.get(j["enters"]) or [])
+        elif arr == "no-credential":
+            who = ("any seat with an account (%s)" % ", ".join(held.get("J3") or held.get("J2") or [])
+                   ) if ok else "⛔ no seat has an account to sign back in as"
+        else:
+            who = "any seat" if ok else "⛔ nobody"
         out("  %-4s %-22s %-34s %s" % (jid, j["name"], ("✅ " if ok else "⛔ ") + how, who))
         if not ok:
             gaps += 1
