@@ -2360,3 +2360,13 @@ reversal of J-f **put to Paul, unruled**; a later act by construction).
 **Windows this lap** (`[paul-stated 2026-09-10]` — commit phase is the only freeze): coordination (this
 chronicle, the freeze, routing) · backlog-refinement (**the one door** to `BACKLOG.md`, `[paul-ruled "fold it in"]`)
 · build-founding-walk (code, deploy, the walk) · zones (design, dev-only).
+
+### Beat 10 · PAUL'S WALK — begun 2026-09-10 evening, at candidate `318416a`, with the gate kit `[paul-stated: "let's make this approach standard for every time I have a gate"]`
+
+- **Existing place:** signed in at the door (`fernwood-qa.pages.dev/onboarding/`) as **`pkirsch`** (`p-jhgwhxxz6zce`, est-qa0001).
+- **Throwaway owner, his word:** username **`PK`** — signed up fresh at the door, no invite, founds a new house.
+  ⛔ **Recorded here so teardown is by record, never by name-guessing.** Whatever estate `PK` founds is
+  Paul's test house at qa, disposable on his say-so, and is NOT a synthetic seat's.
+- Gate ① at this moment: owner seat watched-clean, its read in progress by an unprimed reading seat; the
+  full five-seat watched battery is running `[paul-ruled: "Full battery."]`. His walk records as the
+  clearing walk only after gate ① passes.
