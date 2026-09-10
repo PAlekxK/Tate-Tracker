@@ -17,11 +17,17 @@ in the same run folder and are joined by the run id, never blended.
 Runs land in `.private/synthetic-walks/<role>/<timestamp>/` — private, because a walk carries the
 walker's invented address and the account's credentials are one file away.
 """
-import re, time, urllib.request, argparse, datetime as dt, glob, json, os, subprocess, sys
+import re, time, urllib.request, urllib.error, argparse, datetime as dt, glob, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STORE = os.path.join(ROOT, ".private", "synthetic-identities.json")
 OUT = os.path.join(ROOT, ".private", "synthetic-walks")
+# ⭐ THE PER-RUN UNSPENT INVITE lands here, mode 600, one key per `<role>@<env>`. Written by
+# `grant-mint.py --fixture-out` and by nothing else — this file never mints a token itself.
+INVITES = os.path.join(ROOT, ".private", "walk-invites.json")
+WORKERS = {"qa": "https://fernwood-qa.paul-kirschenbauer.workers.dev",
+           "lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+           "home": "https://fernwood-home.paul-kirschenbauer.workers.dev"}
 
 
 def identity(role, env):
@@ -41,6 +47,170 @@ def refresh(role, env):
     subprocess.run([sys.executable, os.path.join(ROOT, "tools", "synthetic-identity.py"),
                     "--login", role, "--env", env], capture_output=True, text=True, timeout=180)
     return identity(role, env)
+
+
+# ── THE ARRIVAL CREDENTIAL — a property of the ARRIVAL, never of the role ──────────────────────
+# ⛔⛔ WHY THIS EXISTS, AND IT IS THE DEFECT `--fresh` HAS CARRIED SINCE THE INVITE SHIPPED.
+# A `--fresh` walk is supposed to be the INVITED STRANGER: someone who holds a live invite and has
+# no account. It arrived instead on `identity()["token"]` — a token minted by `/api/session` for a
+# durable account that already exists. `handleSession()` stamps `grantRow.username`, and
+# `/api/grant/whoami` answers `hasAccount: !!grant.username` — so every "fresh" walker on record
+# arrived at the door already recognised, and the onboarding page's own comment for that branch
+# reads *"A VALID LINK THAT HAS NEVER BEEN SPENT IS A NEW PERSON"*. No walk had ever been one.
+# ⛔ It is worse than a weak test: `/api/account` SPENDS the presented invite (it deletes the grant
+# row), so a fresh walk destroyed the durable identity's own credential every run. `--login` before
+# each walk hid that by re-minting one.
+# ⭐ THE FIX IS AN ARRIVAL, NOT A ROLE `[the row's own discipline: a `--role fresh-invitee` would be
+# the same mistake in a new coat]`. Every seat keeps its posture and its typed answers; what changes
+# is the credential it arrives holding.
+# ⛔ THIS FILE MINTS NOTHING. `grant-mint.py` is the ONE writer of the grant register and the KV
+# grant store, and it stays that way — this is a subprocess call to it, with the row's OWN standing
+# consent replayed verbatim.
+def invitee(role):
+    """The person an invite is minted FOR. Stable per role, so the register holds ONE edge per seat
+    and each run rotates its credential rather than minting a new person↔estate relationship."""
+    return "p-inv-" + role
+
+
+def mint_invite(role, env):
+    """Rotate this seat's invite and return the fresh, UNSPENT token.
+
+    ⛔ IT MAY ONLY ROTATE, NEVER CREATE. Minting a new (person, estate) edge is an authority act with
+    a consent gate on it (`grant-mint.py` G1/G2), and a harness that could satisfy its own consent
+    gate every run would be a gate that fires where the answer is easy — which grant-mint's own G2
+    comment names as the cheap outcome. So the edge is authored ONCE, by a human, and this replays
+    the consent already on the row. A missing row REFUSES with the exact command to author it.
+    """
+    import importlib.util as _ilu
+    _p = os.path.join(ROOT, "tools", "grant-mint.py")
+    _s = _ilu.spec_from_file_location("grantmint", _p)
+    gm = _ilu.module_from_spec(_s)
+    _s.loader.exec_module(gm)
+    estate = (gm.ENVIRONMENTS.get(env) or {}).get("estate")
+    if not estate:
+        raise SystemExit("journey-walk: worker/wrangler.toml declares no estate for env %r" % env)
+    person = invitee(role)
+    try:
+        reg = gm.load_register(gm.REGISTER)
+    except OSError as e:
+        raise SystemExit("journey-walk: the grant register is unreadable (%s) — an invite cannot be "
+                         "rotated against a register nobody can read" % e)
+    row = gm.find_row(reg, person, estate)
+    if not row:
+        raise SystemExit(
+            "journey-walk: no invite edge for (%s, %s).\n"
+            "  An invited arrival needs a person↔estate edge a HUMAN authored — this tool rotates a\n"
+            "  credential; it does not create a relationship. Author it once:\n\n"
+            "    python3 tools/grant-mint.py mint \\\n"
+            "      --person %s --estate %s --env %s \\\n"
+            "      --entry --relationship contributor --capability member --issued-by <p-admin> \\\n"
+            "      --consent 'scope=administrator-reads,agreedOn=<YYYY-MM-DD>,agreedBy=%s,"
+            "recordedBy=<p-admin>,consentSource=attested,how=synthetic-walk-fixture' \\\n"
+            "      --fixture-out %s --fixture-name '%s@%s'\n"
+            % (person, estate, person, estate, env, person,
+               os.path.relpath(INVITES, ROOT), role, env))
+    cred = row.get("credential") or {}
+    issued_by = cred.get("issuedBy") or next(
+        (h.get("issuedBy") for h in reversed(row.get("credentialHistory") or []) if h.get("issuedBy")), None)
+    if not issued_by:
+        raise SystemExit("journey-walk: the invite edge (%s, %s) records no issuedBy — refusing to "
+                         "guess who issues this seat's credential" % (person, estate))
+    argv = [sys.executable, _p, "mint", "--person", person, "--estate", estate, "--env", env,
+            "--capability", row.get("capability") or "member",
+            "--relationship", ",".join(row.get("relationship") or ["member"]),
+            "--issued-by", issued_by, "--rotate",
+            "--fixture-out", INVITES, "--fixture-name", "%s@%s" % (role, env)]
+    if row.get("entry"):
+        argv.append("--entry")
+    if row.get("vault"):
+        argv.append("--vault")
+    # ⛔ THE ROW'S OWN CONSENT, REPLAYED — never a fresh one this tool composed. `access` is written
+    # by the claim route and grant-mint refuses to hand-write it, so it is dropped rather than passed.
+    for c in row.get("consent") or []:
+        if c.get("scope") == "access":
+            continue
+        if any(not c.get(k) for k in gm.CONSENT_FIELDS):
+            continue
+        argv += ["--consent", ",".join("%s=%s" % (k, c[k]) for k in gm.CONSENT_FIELDS)]
+    r = subprocess.run(argv, capture_output=True, text=True, timeout=600)
+    if r.returncode:
+        raise SystemExit("journey-walk: the invite could not be rotated — REFUSING to fall back to a\n"
+                         "  spent credential, which is the very defect this path exists to close.\n%s"
+                         % (r.stdout or "") + (r.stderr or "")[-400:])
+    try:
+        tok = json.load(open(INVITES, encoding="utf-8"))["%s@%s" % (role, env)]
+    except (OSError, ValueError, KeyError) as e:
+        raise SystemExit("journey-walk: grant-mint reported success but %s carries no token for %s@%s "
+                         "(%s)" % (os.path.relpath(INVITES, ROOT), role, env, e))
+    return {"token": tok, "invitee": person, "estate": estate,
+            "hash": (gm.find_row(gm.load_register(gm.REGISTER), person, estate)
+                     .get("credential") or {}).get("hash", "")[:10]}
+
+
+# ── THE ENTRY STATE — what the SERVER says this credential arrives as ──────────────────────────
+# ⭐ A JOURNEY IS AN ACTION LIST PLUS THE STATE IT MUST BE ENTERED IN, and until now the harness
+# recorded only the first half. `journey_returning()` walks the same seven stops whether the record
+# is finished or not — the product branches, the walk does not — so a returning walk against an
+# unfinished record and one against a finished record produced transcripts a reader cannot tell
+# apart. That is how "the finished-setup redirect is unwalked by any seat at any build" stayed true
+# for a day AFTER a seat had walked it: the evidence existed and nothing in the record said so.
+# ⛔ MEASURED, NEVER DECLARED. This asks the door itself rather than trusting a fixture file, so a
+# fixture that has decayed reads as decayed instead of as a product finding.
+def entry_state(env, token):
+    """`GET /api/grant/whoami` as the walker is about to present it. Never raises."""
+    if not token:
+        return {"reachable": True, "status": None, "hasAccount": False,
+                "why": "no credential presented — the bare door"}
+    try:
+        req = urllib.request.Request(WORKERS[env] + "/api/grant/whoami",
+                                     headers={"X-Grant": token, "User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=45) as f:
+            b = json.loads(f.read())
+        return {"reachable": True, "status": 200, "hasAccount": bool(b.get("hasAccount")),
+                "name": b.get("name"), "address": b.get("address"),
+                "ranked": b.get("ranked"), "personId": b.get("personId"),
+                "estateId": b.get("estateId"), "relationship": b.get("relationship"),
+                "capability": b.get("capability"),
+                "placed": bool((b.get("coordinates") or {}).get("latitude"))}
+    except urllib.error.HTTPError as e:
+        # 404 is the door's ONE refusal shape — unknown, revoked or another estate's, deliberately
+        # byte-identical so nothing here may claim to know which.
+        return {"reachable": True, "status": e.code, "hasAccount": False,
+                "why": "the record does not know this credential"}
+    except Exception as e:
+        # ⛔ UNREACHABLE IS NOT "FRESH". A door that cannot be asked has said nothing, and the gates
+        # below refuse rather than reading silence as the answer they wanted.
+        return {"reachable": False, "status": None, "why": str(e)[:200]}
+
+
+# ⭐ WHICH JOURNEY THIS RUN ACTUALLY ENTERED — DERIVED from the measured entry state, never declared.
+# ⛔ THIS IS NOT THE GATE'S UNIT AND MUST NOT BECOME ONE HERE. `release-gate.py` still keys on the
+# seat; changing that is a change to the release condition and is Paul's (card `fernwood-16`). This
+# key exists so the evidence for that decision is IN THE RECORD when he makes it — and so that a
+# returning-unfinished walk can never again be read as the returning-finished one.
+JOURNEY_IDS = {
+    "J1": "invited-stranger — a live, UNSPENT invite; no account, no server record",
+    "J2": "returning-unfinished — an account whose record carries no name/address",
+    "J3": "returning-finished — an account AND a completed household; expects to be carried to the place",
+    "J4": "dead-credential — a credential the record refuses",
+    "J5": "bare-door — no credential at all",
+}
+
+
+def journey_entered(fresh, dead, st):
+    """(id, why). `None` when the door could not be asked — silence is never a journey."""
+    if not st.get("reachable"):
+        return None, "the door could not be asked: %s" % st.get("why")
+    if dead or st.get("status") not in (200, None):
+        return "J4", "the record refuses this credential (status %s)" % st.get("status")
+    if st.get("status") is None:
+        return "J5", "no credential was presented"
+    if not st.get("hasAccount"):
+        return "J1", "the invite is live and has never been spent on an account"
+    if st.get("name") and st.get("address"):
+        return "J3", "the record carries a name and an address — the finished-setup branch"
+    return "J2", "an account exists; its record carries no %s" % (
+        "name" if not st.get("name") else "address")
 
 
 # ⛔ A WALK MUST NOT WALK A MOVING TARGET. On 2026-09-05 four walkers ran between 17:00 and 17:30
@@ -449,6 +619,50 @@ def selftest():
               "rateLimited" in open(_p, encoding="utf-8").read(),
               "the field this walker writes is read by nobody, so the refusal cannot fire")
 
+    # 5b · ⭐⭐ THE ENTRY GATE, AS ASSERTIONS. `journey_entered` is pure, so every state it must
+    #      distinguish can be forced here — including the three that have actually been walked
+    #      wrong. ⛔ The one that matters most is the FIRST: a credential the door recognises must
+    #      never be readable as a fresh arrival, because that is the state every "fresh" run on
+    #      record was actually in.
+    spent = {"reachable": True, "status": 200, "hasAccount": True, "name": None, "address": None}
+    unspent = {"reachable": True, "status": 200, "hasAccount": False}
+    finished = {"reachable": True, "status": 200, "hasAccount": True,
+                "name": "Hollow Creek Road", "address": "2949 Hwy 52 E, Dahlonega, GA 30533"}
+    refused = {"reachable": True, "status": 404, "hasAccount": False}
+    unreachable = {"reachable": False, "why": "timed out"}
+    check("an ALREADY-SPENT credential is not J1", journey_entered(True, False, spent)[0] == "J2",
+          "a recognised person read as the invited stranger — the defect this gate exists to close")
+    check("an UNSPENT invite is J1", journey_entered(True, False, unspent)[0] == "J1", "")
+    check("a returning-UNFINISHED record is J2", journey_entered(False, False, spent)[0] == "J2", "")
+    check("a returning-FINISHED record is J3", journey_entered(False, False, finished)[0] == "J3",
+          "the finished-setup branch is indistinguishable from the unfinished one in the record")
+    check("a name with NO address is still J2, never J3",
+          journey_entered(False, False, dict(finished, address=None))[0] == "J2",
+          "half a record read as a whole one — the product branches on BOTH fields")
+    check("a refused credential is J4", journey_entered(False, False, refused)[0] == "J4", "")
+    check("an UNREADABLE door is not a journey at all",
+          journey_entered(True, False, unreachable)[0] is None,
+          "silence from the door was read as an answer — the absence-is-not-evidence rule")
+    check("every journey id this file can derive has a meaning on file",
+          all(journey_entered(f, dd, s)[0] in JOURNEY_IDS
+              for f, dd, s in ((True, False, unspent), (False, False, spent),
+                               (False, False, finished), (False, False, refused)))
+          and set(JOURNEY_IDS) >= {"J1", "J2", "J3", "J4", "J5"},
+          "a derived id with no entry in JOURNEY_IDS renders as a bare string to every reader")
+
+    # 5c · ⛔ THE ARRIVAL IS NOT A ROLE. The row's own discipline: "build the per-run invite as a
+    #      property of the arrival, never as a new --role." A seat that appeared in the roles
+    #      register because of this change would be the same mistake in a new coat.
+    import importlib.util as _ilu2
+    _sp = os.path.join(ROOT, "tools", "synthetic-identity.py")
+    _si = _ilu2.module_from_spec(_ilu2.spec_from_file_location("si", _sp))
+    _ilu2.spec_from_file_location("si", _sp).loader.exec_module(_si)
+    check("the credential fix added NO new seat to the roles register",
+          not [r for r in _si.ROLES if "invit" in r or "fresh" in r],
+          "an arrival became a role: %r" % sorted(_si.ROLES))
+    check("an invitee is derived from the seat, never registered as one",
+          invitee("wide-eyed") == "p-inv-wide-eyed" and invitee("wide-eyed") not in _si.ROLES, "")
+
     # 6 · the shared-screenshot contamination
     import subprocess as sp
     out = sp.run([sys.executable, os.path.join(ROOT, "tools", "journey-view.py"), "--help"],
@@ -512,12 +726,17 @@ def main():
     if not a.role:
         raise SystemExit("journey-walk: --role is required (or use --selftest)")
 
-    # ⛔ BOTH PATHS REFRESH. The fresh path used the STORED token, which is a grant row that may
-    # long since have gone — and a dead grant is indistinguishable from no grant, so the walk would
-    # meet `invite-required` and read as a product failure rather than a stale fixture. Logging in
-    # first guarantees the invite the walker arrives on is live at the moment she uses it.
+    # ⛔ THE RETURNING PATH REFRESHES; THE FRESH PATH NO LONGER DOES, AND THAT IS THE FIX.
+    # It used to read: "BOTH PATHS REFRESH… logging in first guarantees the invite the walker
+    # arrives on is live at the moment she uses it." That was true and it was the wrong credential:
+    # a `/api/session` token is an ACCOUNT's credential, and presenting it at the door makes the
+    # walker a recognised person, not an invited stranger. The fresh path now mints its own unspent
+    # invite (see `mint_invite`), and it reads the identity ONLY for the name/word/email it types.
+    # ⭐ A returning walk still refreshes, and for the reason the old comment gave: a stale grant is
+    # indistinguishable from no grant, which would read as a product failure rather than a stale
+    # fixture. That half was always right and is kept verbatim in intent.
     run = dt.datetime.now().strftime("%Y-%m-%dT%H%M%S")
-    v = refresh(a.role, a.origin)
+    v = identity(a.role, a.origin) if a.fresh else refresh(a.role, a.origin)
     base = {"qa":   "https://fernwood-qa.pages.dev/onboarding/",
             "lab":  "https://fernwood-lab.pages.dev/onboarding/",
             "home": "https://fernwood-home.pages.dev/onboarding/"}[a.origin]
@@ -535,8 +754,43 @@ def main():
     # state that answers `unknown-or-other-estate` at the door. It is NOT an empty string: "no
     # credential" and "a credential the record refuses" are different journeys and the whole finding
     # is that the product renders them the same. The suffix makes it unmistakable in a door record.
-    _tok = ("dead-" + run + "-neverminted") if getattr(a, "dead_credential", False) else (v.get("token") or "")
+    # ⭐ THE ARRIVAL, IN ONE PLACE. Three credentials, three journeys, and the seat is not one of the
+    # three axes: `--role` chooses the posture and the typed answers, never what is presented at the
+    # door.
+    invite = None
+    if getattr(a, "dead_credential", False):
+        _tok, arrival = "dead-" + run + "-neverminted", "dead-credential"
+    elif a.fresh:
+        invite = mint_invite(a.role, a.origin)
+        _tok, arrival = invite["token"], "per-run-invite"
+        print("  arrival: a per-run UNSPENT invite for %s at %s (credential %s…)"
+              % (invite["invitee"], invite["estate"], invite["hash"]))
+    else:
+        _tok, arrival = (v.get("token") or ""), "durable-credential"
     url = base + "?g=" + _tok + "&syn=" + run
+
+    # ⛔⛔ THE ENTRY GATE. A journey is an action list PLUS the state it must be entered in, and the
+    # harness has never checked the second half — so a walk could arrive in the wrong state and
+    # report the resulting screens as findings about the product. Measured before a single action.
+    st = entry_state(a.origin, _tok)
+    jid, jwhy = journey_entered(bool(a.fresh), bool(getattr(a, "dead_credential", False)), st)
+    print("  entry state: %s — %s" % (jid or "UNREADABLE", jwhy))
+    if jid is None:
+        raise SystemExit("journey-walk: the door could not be asked what this credential is, so this "
+                         "walk cannot say what it entered. A walk that cannot name its entry state is "
+                         "not evidence. (%s)" % jwhy)
+    if a.fresh and jid != "J1":
+        raise SystemExit(
+            "journey-walk: ⛔ REFUSING a --fresh walk that would arrive as %s, not J1.\n"
+            "  A fresh walker must arrive on a credential that has NEVER been spent; this one is\n"
+            "  already recognised (%s). Walking anyway is how every 'fresh' run on record was\n"
+            "  actually a returning one. Rotate the invite, or fix the fixture — do not walk it."
+            % (jid, jwhy))
+    if not a.fresh and not getattr(a, "dead_credential", False) and jid not in ("J2", "J3"):
+        raise SystemExit(
+            "journey-walk: ⛔ REFUSING a returning walk arriving as %s (%s). A returning walker holds "
+            "an account's own credential; if the record refuses it, that is --dead-credential's "
+            "journey and must be asked for by name." % (jid, jwhy))
 
     # ⛔ THE SEATS MUST NOT TYPE THE SAME THING. Measured 2026-09-06: all four seats — mom, owner,
     # strict, wide-eyed — typed "A place / 1 Example Road / Jasper / GA / 30143", because this
@@ -583,6 +837,38 @@ def main():
     record = {"role": a.role, "runAt": run, "origin": a.origin, "originUrl": base,
               "fresh": bool(a.fresh), "personId": v.get("personId"),
               "answersSource": answers_source, "watched": bool(a.watch),
+              # ⭐ THE ARRIVAL AND THE STATE IT PRODUCED — the half the transcript never carried.
+              # `journeyEntered` is DERIVED from `entryState`, which is the door's own answer read
+              # before any action. ⛔ It is evidence for the gate's unit question, not the unit
+              # itself: `release-gate.py` still keys on the seat and only Paul may change that.
+              "arrival": arrival,
+              "inviteFor": (invite or {}).get("invitee"),
+              "inviteCredential": (invite or {}).get("hash"),
+              "entryState": st, "journeyEntered": jid, "journeyEnteredWhy": jwhy,
+              "journeyMeans": JOURNEY_IDS.get(jid),
+              # ⛔⛔ TWO ADJACENT FIELDS WITH NO NOTE COST TWO SEATS A FINDING EACH (2026-09-08).
+              # `personId` and `signedInAs` differ on every --fresh run BY DESIGN, and a reader given
+              # only this folder could not tell that from the front-door identity mismatch it looks
+              # exactly like: `strict` filed it as "a record-side oddity I noticed and cannot
+              # explain" and `wide-eyed` nearly filed it as the defect that locked Paul out of QA,
+              # resolving it only by reading this file's source. A transcript that needs its own
+              # producer read to be understood is not a record. So it names its own fields, here,
+              # where the reader already is.
+              "_fieldNotes": {
+                  "personId": "the STORED durable identity this run was launched from "
+                              "(.private/synthetic-identities.json). On a --fresh run it is NOT the "
+                              "account the walk created — it is only where the username, word and "
+                              "email were read from.",
+                  "signedInAs": "the account this walk CREATED and then signed into (--fresh only). "
+                                "It differs from personId on every fresh run BY DESIGN. Equal values "
+                                "would mean the walk did not create anything.",
+                  "arrival": "which credential was presented at the door: per-run-invite (unspent, "
+                             "minted for this run) · durable-credential (this seat's own account) · "
+                             "dead-credential (shaped but never minted).",
+                  "entryState": "GET /api/grant/whoami as the walker presented it, read BEFORE the "
+                                "first action. Measured, never declared.",
+                  "journeyEntered": "derived from entryState — see journeyMeans. NOT the gate's unit.",
+              },
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
     acts = journey(a.fresh, ans, origin=base)
@@ -740,6 +1026,23 @@ def main():
         except Exception as e:
             record["sessionObtained"] = False
             print("  ⚠️  could not sign in as the account just created: %s" % e)
+
+    # ⭐ DID THE INVITE ACTUALLY GET SPENT — the falsifier for this whole path, and it costs one
+    # request. `/api/account` deletes the presented invite's grant row on a successful signup, so an
+    # invite that still answers 200 afterwards is proof the walk created NO account, however green
+    # its stops read. ⛔ The reverse is the claim that matters: a J1 walk that did not spend its
+    # invite did not walk J1.
+    if invite:
+        after = entry_state(a.origin, invite["token"])
+        record["inviteSpent"] = (after.get("status") == 404) if after.get("reachable") else None
+        record["inviteAfter"] = after
+        if record["inviteSpent"] is True:
+            print("  ✅ the invite was SPENT — the door consumed it, so an account was created on it")
+        elif record["inviteSpent"] is False:
+            print("  ⛔ the invite is STILL LIVE after the walk — no account was created on it, so "
+                  "this run did not walk the invited-stranger journey whatever its stops say")
+        else:
+            print("  ⚠️  could not re-read the invite, so whether it was spent is UNKNOWN, not false")
 
     with open(os.path.join(d, "transcript.json"), "w", encoding="utf-8") as f:
         json.dump(record, f, indent=2)
