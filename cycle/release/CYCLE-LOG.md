@@ -2199,3 +2199,89 @@ and — for A — proven by a clean returning walk. The four fresh seats cannot 
 the harness presents them a spent credential. **That is a true reading of an instrument that has just
 started telling the truth, and it is not a reason to make the instrument lie again.**
 
+
+## ▶️ RESUMED — 2026-09-10, lap 5 · 🟡 **PRELIMINARY PASS at `8d17e4e`, given by Paul, CAVEATED**
+
+Resumed from the sha-stamped handoff (`handoff/handoff-fernwood-multi-tenancy.md`, amended
+`8d17e4e`) after the 09-08 park at beat 8. Paul ruled the order: **close lap 5, then start
+multi-tenancy** — *"la five sure let's close it and then start the multi tenancy for cleanliness."*
+
+### What actually moved
+
+- **QA advanced from `ec88009` → `8d17e4e`** (`pages-deploy.py --env qa`). It had been **27 commits
+  behind**, so no walk at the old candidate could have gated HEAD. Export neutral (311 needles, zero
+  hits), headless load clean, `post-deploy` clean. ⬜ Its own NOT-covered line stands: `/health`
+  reports no `build_sha`, so the origin cannot say which **Worker** code it runs.
+
+### ⛔ PAUL'S CLAUSE — a PRELIMINARY pass, and what it does and does not cover
+
+`[paul-ruled 2026-09-10]` — *"you can go ahead and mark my walk through as a preliminary pass for
+this build with the caveat that we're just trying to get to the next lap because there are critical
+issues that we're trying to fix… note that it was maybe somewhat incomplete and interrupted, but
+we're trying to get back on track."*
+
+**Recorded as given: incomplete, interrupted, and forward-looking** — the pass exists to stop lap 5
+holding the multi-tenancy and rights work, not because the build was walked to exhaustion.
+
+⛔ **THE SYNTHETIC CLAUSE IS NOT COVERED BY IT AND WAS NOT MADE TO LOOK COVERED.**
+`release-gate.py` at `8d17e4e` reads **🔴 0 of 4 seats — "no run at this build"** for `mom` ·
+`owner` · `strict` · `wide-eyed`. **Zero synthetic walks ran this session.** The battery was set up
+and abandoned before its first walk, so there is no partial evidence anywhere on disk. A human
+clause and a synthetic clause are different claims and this entry keeps them apart.
+
+### `finding` — GATE ① CANNOT PRINT A BARE GREEN AT ALL TODAY, whatever the seats do
+
+Read out of `release-gate.py:279-281` before spending a battery, not after. With **all four seats
+passing every clause** the best reachable output is:
+
+> 🟡 every seat passes — but the UX clause is UNCHECKABLE, so this is NOT a bare pass.
+> Gate ① exits beat 2 only when a human confirms the UX clause too.
+
+The UX-sweep clause has **no artifact convention** (`:277`), and the gate's own doctrine refuses a
+pass over a clause it cannot read. ⭐ **So "gate ① goes green" was never an available outcome for
+lap 5** — the reachable target was always 🟡 plus a human confirmation. Worth knowing before the
+next lap budgets a battery against the wrong finish line.
+→ **trigger:** the UX-sweep artifact convention is the missing piece; until it exists this clause
+prints ⬜ every lap.
+
+### `finding` — CARRIED, UNTESTED: does the open door turn the fresh seats green?
+
+The handoff's §7 judgment — *the open door probably turns gate ① green and was never tested* —
+**is still untested.** It was the reason to run the battery and it did not run. It remains the
+cheapest available close for the synthetic clause whenever a lap next spends the walks.
+
+### `finding` — THE OPEN DOOR COLLECTS NO `administrator-reads` CONSENT, and decision 2 makes it bite
+
+Found while scoping multi-tenancy, recorded here because it is **on the critical path to inviting
+Nigel and Aida** and would otherwise live only in a chat window.
+
+`handleAccountCreate` (`worker.js:544-568`) implements **G1 in the Worker's own shape** — signing
+yourself up IS the founding request, written as `consentSource: "self"`, `how: "open-signup" |
+"account-signup"`. That is sound, and it means **`grant-mint.py`'s "the ONE writer of the grant
+register and the KV grant store" is a STALE docstring**, not a live constraint — the Worker has
+minted grants since 2026-09-05.
+
+⛔ **But the open-signup path writes ONLY `founding-request`.** `[paul-ruled 2026-09-10]` Paul holds
+**administrator on every estate** as administrator of the stack — and he is not a member of Nigel's
+or Aida's household. That is exactly G2's case, and CLAUDE.md's own AI-boundary amendment requires
+*"explicit up-front agreement before the first contributor input."* Bob's row carries
+`administrator-reads`; Mom's does. **A household founded through the open door would carry none.**
+
+⚠️ **And G2's discriminator is currently uninformative — measured, not inferred.** `gated()` returns
+**True at every estate**, including Paul's own condo, because `administrators(reg)` is a *global*
+set (10 personIds, mostly QA and synthetic duplicates) and almost none hold a row at any given
+estate. Fail-safe in direction, so nothing is unprotected — but a gate that can never return False
+carries no information.
+
+### Where this leaves the lap
+
+| clause | state |
+|---|---|
+| Paul's walk-through | 🟡 **preliminary pass, caveated** — given 2026-09-10 |
+| synthetic seats at `8d17e4e` | 🔴 **0 of 4** — no runs exist |
+| UX sweep | ⬜ **UNCHECKABLE** — no artifact convention |
+| candidate | `8d17e4e`, served by QA and verified |
+
+⛔ **Not closed by this entry.** Beat 12 (DEPLOY & CLOSE) requires *zero records undisposed on a real
+estate* and a production deploy that `release-gate.py` refuses at a red gate. What Paul's clause
+does is release the lap's hold on the multi-tenancy work; it does not assert the build was proven.
