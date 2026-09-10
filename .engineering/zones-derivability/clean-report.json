@@ -1,0 +1,438 @@
+{
+ "at": "2026-09-10T22:07:57.719Z",
+ "params": {
+  "gap": 1.0,
+  "simplify": 0.35,
+  "no_house": false
+ },
+ "before": {
+  "overlap_m2": 7.6,
+  "overlap_pairs": [
+   [
+    "eastern-woodlands",
+    "fern-garden",
+    0.22
+   ],
+   [
+    "western-garden",
+    "the-bluff",
+    0.24
+   ],
+   [
+    "western-upper-patio",
+    "western-fern-azalea-garden",
+    1.0
+   ],
+   [
+    "western-lower-patio",
+    "the-bluff",
+    0.08
+   ],
+   [
+    "the-bluff",
+    "the-turf",
+    0.7
+   ],
+   [
+    "the-bluff",
+    "the-green-terrace",
+    0.99
+   ],
+   [
+    "pond-area",
+    "the-turf",
+    0.29
+   ],
+   [
+    "lower-parking",
+    "the-turf",
+    0.49
+   ],
+   [
+    "stable-grounds",
+    "the-turf",
+    0.81
+   ],
+   [
+    "house",
+    "main-parking",
+    1.14
+   ],
+   [
+    "the-green",
+    "the-green-terrace",
+    0.37
+   ],
+   [
+    "the-green-ring",
+    "the-turf",
+    0.14
+   ],
+   [
+    "the-turf",
+    "the-green-terrace",
+    1.12
+   ]
+  ],
+  "sliver_m2": 52.3,
+  "sliver_count": 30
+ },
+ "after": {
+  "overlap_m2": 0.0,
+  "overlap_pairs": [],
+  "sliver_m2": 0,
+  "sliver_count": 0
+ },
+ "zones": [
+  {
+   "id": "the-bank",
+   "verts_before": 25,
+   "verts_after": 10,
+   "area_before": 76.5,
+   "area_after": 74.3,
+   "delta_pct": -2.9,
+   "holes": 0
+  },
+  {
+   "id": "eastern-woodlands",
+   "verts_before": 18,
+   "verts_after": 17,
+   "area_before": 239.8,
+   "area_after": 242.9,
+   "delta_pct": 1.3,
+   "holes": 0
+  },
+  {
+   "id": "western-garden",
+   "verts_before": 16,
+   "verts_after": 7,
+   "area_before": 27.0,
+   "area_after": 26.8,
+   "delta_pct": -0.6,
+   "holes": 0
+  },
+  {
+   "id": "western-upper-patio",
+   "verts_before": 14,
+   "verts_after": 4,
+   "area_before": 27.8,
+   "area_after": 25.7,
+   "delta_pct": -7.3,
+   "holes": 0
+  },
+  {
+   "id": "western-lower-patio",
+   "verts_before": 15,
+   "verts_after": 9,
+   "area_before": 13.9,
+   "area_after": 13.3,
+   "delta_pct": -3.9,
+   "holes": 0
+  },
+  {
+   "id": "the-bluff",
+   "verts_before": 45,
+   "verts_after": 21,
+   "area_before": 94.5,
+   "area_after": 95.2,
+   "delta_pct": 0.7,
+   "holes": 0
+  },
+  {
+   "id": "lawn",
+   "verts_before": 18,
+   "verts_after": 15,
+   "area_before": 60.3,
+   "area_after": 58.6,
+   "delta_pct": -2.8,
+   "holes": 0
+  },
+  {
+   "id": "fern-garden",
+   "verts_before": 17,
+   "verts_after": 9,
+   "area_before": 42.7,
+   "area_after": 42.2,
+   "delta_pct": -1.2,
+   "holes": 0
+  },
+  {
+   "id": "pond-area",
+   "verts_before": 15,
+   "verts_after": 15,
+   "area_before": 107.9,
+   "area_after": 108.5,
+   "delta_pct": 0.5,
+   "holes": 0
+  },
+  {
+   "id": "eastern-patio",
+   "verts_before": 19,
+   "verts_after": 12,
+   "area_before": 46.4,
+   "area_after": 51.8,
+   "delta_pct": 11.7,
+   "holes": 0
+  },
+  {
+   "id": "lower-40",
+   "verts_before": 9,
+   "verts_after": 12,
+   "area_before": 128.1,
+   "area_after": 129.2,
+   "delta_pct": 0.8,
+   "holes": 0
+  },
+  {
+   "id": "st-francis-garden",
+   "verts_before": 12,
+   "verts_after": 5,
+   "area_before": 45.6,
+   "area_after": 42.8,
+   "delta_pct": -6.2,
+   "holes": 0
+  },
+  {
+   "id": "lower-parking",
+   "verts_before": 16,
+   "verts_after": 18,
+   "area_before": 487.7,
+   "area_after": 488.8,
+   "delta_pct": 0.2,
+   "holes": 0
+  },
+  {
+   "id": "stable-grounds",
+   "verts_before": 17,
+   "verts_after": 20,
+   "area_before": 777.4,
+   "area_after": 781.9,
+   "delta_pct": 0.6,
+   "holes": 0
+  },
+  {
+   "id": "house",
+   "verts_before": 11,
+   "verts_after": 13,
+   "area_before": 139.2,
+   "area_after": 143.9,
+   "delta_pct": 3.3,
+   "holes": 0
+  },
+  {
+   "id": "the-green",
+   "verts_before": 20,
+   "verts_after": 18,
+   "area_before": 189.3,
+   "area_after": 187.4,
+   "delta_pct": -1.0,
+   "holes": 0
+  },
+  {
+   "id": "the-green-ring",
+   "verts_before": 30,
+   "verts_after": 20,
+   "area_before": 53.8,
+   "area_after": 56.0,
+   "delta_pct": 4.2,
+   "holes": 0
+  },
+  {
+   "id": "the-turf",
+   "verts_before": 43,
+   "verts_after": 77,
+   "area_before": 3114.9,
+   "area_after": 3125.7,
+   "delta_pct": 0.3,
+   "holes": 0
+  },
+  {
+   "id": "the-meadow",
+   "verts_before": 32,
+   "verts_after": 32,
+   "area_before": 4760.9,
+   "area_after": 4775.2,
+   "delta_pct": 0.3,
+   "holes": 0
+  },
+  {
+   "id": "western-fern-azalea-garden",
+   "verts_before": 6,
+   "verts_after": 5,
+   "area_before": 27.0,
+   "area_after": 27.0,
+   "delta_pct": -0.1,
+   "holes": 0
+  },
+  {
+   "id": "main-parking",
+   "verts_before": 15,
+   "verts_after": 14,
+   "area_before": 168.9,
+   "area_after": 152.8,
+   "delta_pct": -9.5,
+   "holes": 0
+  },
+  {
+   "id": "the-green-terrace",
+   "verts_before": 11,
+   "verts_after": 8,
+   "area_before": 28.3,
+   "area_after": 28.5,
+   "delta_pct": 0.5,
+   "holes": 0
+  },
+  {
+   "id": "hosta-garden",
+   "verts_before": 7,
+   "verts_after": 5,
+   "area_before": 15.8,
+   "area_after": 15.5,
+   "delta_pct": -1.6,
+   "holes": 0
+  }
+ ],
+ "flags": [
+  {
+   "kind": "question",
+   "zone": "house",
+   "text": "house replaced by the Microsoft building footprint (IoU 0.75 vs your trace, 141 m\u00b2 vs 139 m\u00b2). A roof outline \u2014 porch/deck not included. Keep it, or your trace?"
+  },
+  {
+   "kind": "note",
+   "zone": "eastern-woodlands",
+   "text": "eastern-woodlands/fern-garden: 0.6 m\u00b2 of trace slop removed from eastern-woodlands"
+  },
+  {
+   "kind": "note",
+   "zone": "the-bluff",
+   "text": "the-bluff/western-garden: 1.9 m\u00b2 of trace slop removed from the-bluff"
+  },
+  {
+   "kind": "note",
+   "zone": "the-bluff",
+   "text": "the-bluff/lawn: 0.1 m\u00b2 of trace slop removed from the-bluff"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/the-bluff: 0.7 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "note",
+   "zone": "the-bluff",
+   "text": "the-bluff/the-green-terrace: 0.7 m\u00b2 of trace slop removed from the-bluff"
+  },
+  {
+   "kind": "note",
+   "zone": "house",
+   "text": "house/lawn: 0.4 m\u00b2 of trace slop removed from house"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/pond-area: 0.2 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "note",
+   "zone": "lower-40",
+   "text": "lower-40/the-green-ring: 0.1 m\u00b2 of trace slop removed from lower-40"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/lower-parking: 0.5 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/stable-grounds: 0.8 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "question",
+   "zone": "main-parking",
+   "text": "main-parking overlapped house by 17 m\u00b2; the smaller (house) kept its shape and main-parking yielded. Right way round?"
+  },
+  {
+   "kind": "note",
+   "zone": "the-green",
+   "text": "the-green is declared partOf the-turf: the-turf extended to enclose it fully (was 184 m\u00b2 inside)"
+  },
+  {
+   "kind": "note",
+   "zone": "the-green",
+   "text": "the-green/the-green-terrace: 0.3 m\u00b2 of trace slop removed from the-green"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/the-green-ring: 0.2 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/the-green-terrace: 0.8 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "note",
+   "zone": "eastern-woodlands",
+   "text": "eastern-woodlands/fern-garden: 0.1 m\u00b2 of trace slop removed from eastern-woodlands"
+  },
+  {
+   "kind": "note",
+   "zone": "the-bluff",
+   "text": "the-bluff/the-green-terrace: 0.1 m\u00b2 of trace slop removed from the-bluff"
+  },
+  {
+   "kind": "note",
+   "zone": "house",
+   "text": "house/lawn: 0.0 m\u00b2 of trace slop removed from house"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/lawn: 0.1 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "note",
+   "zone": "eastern-patio",
+   "text": "eastern-patio/fern-garden: 0.1 m\u00b2 of trace slop removed from eastern-patio"
+  },
+  {
+   "kind": "note",
+   "zone": "stable-grounds",
+   "text": "stable-grounds/st-francis-garden: 0.1 m\u00b2 of trace slop removed from stable-grounds"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/stable-grounds: 0.4 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "note",
+   "zone": "the-green",
+   "text": "the-green is declared partOf the-turf: the-turf extended to enclose it fully (was 187 m\u00b2 inside)"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/the-green-ring: 0.0 m\u00b2 of trace slop removed from the-turf"
+  },
+  {
+   "kind": "note",
+   "zone": "the-meadow",
+   "text": "the-meadow/the-turf: 0.6 m\u00b2 of trace slop removed from the-meadow"
+  },
+  {
+   "kind": "note",
+   "zone": "the-turf",
+   "text": "the-turf/the-green-terrace: 0.0 m\u00b2 of trace slop removed from the-turf"
+  }
+ ],
+ "totals": {
+  "verts_before": 431,
+  "verts_after": 366,
+  "area_before": 10673.7,
+  "area_after": 10694.0
+ }
+}

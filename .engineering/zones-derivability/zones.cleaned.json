@@ -1,0 +1,2870 @@
+{
+ "_meta": {
+  "lastBuilt": "2026-09-01",
+  "schemaVersion": 3,
+  "purpose": "Named zones on the property. Each zone carries vertices (WGS84 [lon, lat] \u2014 schema v2), a status (draft / confirmed / flagged), and a history log of changes. Observations and plants reference zones via the zoneId field. The browse view is itself a thinking tool \u2014 looking at the whole property from above helps Mom form mental models of where things are.",
+  "coordinateSystem": "wgs84",
+  "vertexOrder": "[lon, lat]  \u2014 GeoJSON order (x, y). NOT [lat, lon].",
+  "schemaNotes": "v3 (2026-09-01): added optional `partOf` \u2014 a zoneId naming the zone this one sits INSIDE. A plain tree; a zone has at most one parent. Recorded because Paul stated the containment, NOT derived from geometry: the-green's vertices test only 60% inside the-turf, which at 16x16 m against a +/-9.1 m trace budget is consistent with slop and cannot confirm or refute containment either way. GEOMETRY PROPOSES, PAUL RULES. \u26a0\ufe0f PROVISIONAL BY HIS OWN WORDS \u2014 'at least that's the logic for now, which we can always refine down the road' [paul-stated 2026-09-01]. the-turf and the-meadow are SIBLINGS that together make the whole field; neither is the other's parent. \u2b50 THE GOLF VOCABULARY WAS INVERTED AND IS NOW RETIRED except for The Green. A golf fairway is mown to 0.5-1.5\"; the unmaintained ground is the ROUGH. A meadow is mown ONCE OR TWICE A YEAR; frequently mown grass is a lawn. Both words had been applied to the opposite half of the field, in opposite directions, and each read perfectly sensibly alone \u2014 the defect existed only in the aggregate. turf.json's prose was CORRECT throughout and was not rewritten; only its zoneIds moved. || v2 (2026-07-16): vertices are REAL WGS84 [lon, lat] coordinates. v1 stored fractions of the base image, which meant the record said where a zone APPEARED IN A PICTURE, not where it IS \u2014 swap the picture and every polygon moved, and the v1 base was an oblique Google Earth screenshot whose pixels can never be reconciled to a nadir map, so the v1 polygons were unsalvageable. Vertices are now independent of the basemap: a new basemap is a re-registration (update _meta.baseImage + bounds), never a redraw. Zone ids/names are preserved from v1 because plants.json and observations reference them via zoneId.",
+  "baseImage": "images/property-map/base-naip-2022-01-leafoff.webp",
+  "baseImageFallbackPng": "images/property-map/base-naip-2022-01-leafoff.png",
+  "baseImageWidth": 1500,
+  "baseImageHeight": 1500,
+  "bounds": {
+   "west": -84.36990044993301,
+   "south": 34.54754054054054,
+   "east": -84.364899550067,
+   "north": 34.55165945945946
+  },
+  "boundsNote": "The georeference. Rendering maps each axis LINEARLY and INDEPENDENTLY against its own bound (lon->x, lat->y); the two axes do not share a degrees-per-pixel scale. Across this image the linear-vs-true-Mercator error is sub-centimetre \u2014 ~1000x below the imagery's own.",
+  "baseImageSource": "USDA NAIP via Microsoft Planetary Computer",
+  "baseImageLicense": "public domain (US federal work) \u2014 redistributable",
+  "baseImageStacItem": "ga_m_3408430_sw_16_060_20220110",
+  "baseImageCaptureDate": "2022-01-10",
+  "baseImageSeason": "leaf-off",
+  "accuracyHonesty": "\u26a0\ufe0f READ THIS BEFORE TREATING ANY BOUNDARY AS A LINE. Paul, on finishing the trace (2026-08-31): 'in this picture it looks like there are a lot of shadows and that made it very hard to be exact with positioning and borders, especially with the low resolution.' That is a REAL and EXPLAINABLE limit, not carelessness \u2014 a 10 January capture at 34.5N puts the sun near 32 degrees at noon, so every tree, wall and structure throws a long shadow, and leaf-off bare branches add shadow texture over open ground. At 0.6 m/px there is no detail underneath a shadow to recover. So: these polygons record WHERE A NAME APPLIES, at the resolution of a name. They are NOT survey lines, NOT parcel boundaries, and NOT a basis for anything that turns on where an edge actually falls. The real budget is the NAIP spec (+/-20 ft) plus relief displacement at 2,959 ft plus the shadow ambiguity above \u2014 call it worse than +/-30 ft on any edge Paul could not positively see.",
+  "lastBuiltAt": "2026-09-01T22:38:10.175206Z",
+  "fold_2026_08_31": "Mom's own map became canon: 16 areas named by her (2026-08-30 naming session, annotated NAIP aerial) and traced by Paul (2026-08-31, tools/area-trace.html) folded in; fairway + house KEPT per paul-stated rulings; fairway-fringe \u2192 fairway-border; parking-bank + upper-uber-wall-area retired (see _deleted). 3 LINEAR features (The Path, Upper-Uber wall, Driveway) are NOT here \u2014 the zone-save round-trip rebuilds {_meta, zones} wholesale and would silently drop any other key, so lines stayed in the plan file pending a schema v3. \u26a0 CORRECTED 2026-09-04: schema v3 SHIPPED (schemaVersion 3) and added `partOf`, NOT lines \u2014 this deferral's own stated trigger has already fired and the deferral is still open. Linear features remain unrecorded here; tools/area-trace.html has had line support since badf097. Do not read the v3 clause as still-pending. FULL provenance, rulings, accuracy budget: .plans/2026-08-31-zones-traced-with-mom.json. CAPTURE TOOLS (do not lose track of these): tools/zone-capture.html (annotation/naming overlay) and tools/area-trace.html (polygon tracing against the registered basemap) \u2014 the standalone pages this map was made with; they are NOT the in-app zone editor.",
+  "sharedBorders": "Adjacent zones were traced independently, by eye. Neighbouring boundaries WILL disagree by a few feet and leave slivers and overlaps between them. Do not read a gap between two zones as unclaimed ground \u2014 Paul 2026-09-04: \"some do have a wall or a trail or a strip of nothing, and some don't\", so a global tolerance pass would silently weld real features shut. \u26a0 CORRECTED 2026-09-04: this note previously said \"with no vertex snapping\". That described the original trace and is no longer true of the record \u2014 58 coordinates are now EXACTLY shared across 20 zone pairs (tracer snapping, badf097). Measure with tools/zone-topology-report.py; do not trust this sentence over the data. \u26d4 Which pairs genuinely abut is NOT derivable from geometry; 23 of 49 sub-3m pairs are vertex-to-EDGE, which vertex snapping cannot close.",
+  "cleaned": {
+   "at": "2026-09-10T22:07:57.719Z",
+   "by": "clean-zones.py",
+   "ruling": "Z-13",
+   "from": "zones.json @ working tree",
+   "note": "CANDIDATE \u2014 not canon until Paul's go. holes[] is new and optional: rings cut out of a parent for a declared partOf child."
+  }
+ },
+ "zones": [
+  {
+   "id": "the-bank",
+   "name": "The bank",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3673185,
+     34.5496508
+    ],
+    [
+     -84.3673185,
+     34.5496807
+    ],
+    [
+     -84.3673513,
+     34.5496864
+    ],
+    [
+     -84.3676968,
+     34.5497319
+    ],
+    [
+     -84.3678505,
+     34.5497469
+    ],
+    [
+     -84.3678747,
+     34.5497419
+    ],
+    [
+     -84.3678738,
+     34.5497227
+    ],
+    [
+     -84.3676959,
+     34.5497213
+    ],
+    [
+     -84.3674169,
+     34.5496864
+    ],
+    [
+     -84.3673323,
+     34.5496665
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T12:02:56.415Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T12:02:56.415Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 25,
+      "labelPosition": "top-center, above the house"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 10,
+      "areaBefore_m2": 76.5,
+      "areaAfter_m2": 74.3,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "eastern-woodlands",
+   "name": "Eastern Woodlands",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3672532,
+     34.5496637
+    ],
+    [
+     -84.3672317,
+     34.5496771
+    ],
+    [
+     -84.3671861,
+     34.5496913
+    ],
+    [
+     -84.3671258,
+     34.5496913
+    ],
+    [
+     -84.3670656,
+     34.5496814
+    ],
+    [
+     -84.3670234,
+     34.5496644
+    ],
+    [
+     -84.3669968,
+     34.5496459
+    ],
+    [
+     -84.3670183,
+     34.5495942
+    ],
+    [
+     -84.3671032,
+     34.5495792
+    ],
+    [
+     -84.3671021,
+     34.5495736
+    ],
+    [
+     -84.3671144,
+     34.549579
+    ],
+    [
+     -84.3671752,
+     34.5495839
+    ],
+    [
+     -84.3672319,
+     34.5495815
+    ],
+    [
+     -84.3672326,
+     34.549581
+    ],
+    [
+     -84.3672334,
+     34.5495956
+    ],
+    [
+     -84.3672661,
+     34.5496389
+    ],
+    [
+     -84.3672661,
+     34.5496481
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T12:01:28.467Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T12:01:28.467Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 18,
+      "labelPosition": "top-right, the treed slope"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 17,
+      "areaBefore_m2": 239.8,
+      "areaAfter_m2": 242.9,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "western-garden",
+   "name": "Western Garden",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3677467,
+     34.5496349
+    ],
+    [
+     -84.36775,
+     34.5496251
+    ],
+    [
+     -84.3677668,
+     34.5496169
+    ],
+    [
+     -84.367856,
+     34.5496262
+    ],
+    [
+     -84.3678928,
+     34.5496015
+    ],
+    [
+     -84.3678731,
+     34.5496365
+    ],
+    [
+     -84.3678556,
+     34.5496463
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-07-17T20:52:26.360Z",
+   "createdBy": "device",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-07-17T20:52:26.360Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Western Garden",
+      "vertexCount": 9
+     }
+    },
+    {
+     "at": "2026-07-17T20:53:29.352Z",
+     "by": "reconciliation",
+     "action": "id-reconciled",
+     "details": {
+      "from": "western-garden-2",
+      "to": "western-garden"
+     }
+    },
+    {
+     "at": "2026-08-31T11:38:48.001Z",
+     "by": "paul",
+     "action": "retraced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 24,
+      "supersedes": "western-garden",
+      "labelPosition": "left of the house"
+     }
+    },
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul-area-trace",
+     "action": "retraced",
+     "details": {
+      "vertexCount": 17,
+      "supersedes": "24-vertex trace",
+      "session": "2026-09-01 area-trace"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 7,
+      "areaBefore_m2": 27.0,
+      "areaAfter_m2": 26.8,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "western-upper-patio",
+   "name": "Western Upper Patio",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3676878,
+     34.5496605
+    ],
+    [
+     -84.3676052,
+     34.5496613
+    ],
+    [
+     -84.3676031,
+     34.5496339
+    ],
+    [
+     -84.367707,
+     34.5496336
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T11:39:16.053Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T11:39:16.053Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 21,
+      "labelPosition": "house, upper west side"
+     }
+    },
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul-area-trace",
+     "action": "retraced",
+     "details": {
+      "vertexCount": 14,
+      "supersedes": "21-vertex trace",
+      "session": "2026-09-01 area-trace"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 4,
+      "areaBefore_m2": 27.8,
+      "areaAfter_m2": 25.7,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "western-lower-patio",
+   "name": "Western Lower Patio",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3677635,
+     34.5496159
+    ],
+    [
+     -84.36775,
+     34.5496251
+    ],
+    [
+     -84.3677467,
+     34.5496349
+    ],
+    [
+     -84.36773,
+     34.5496376
+    ],
+    [
+     -84.3677238,
+     34.5496188
+    ],
+    [
+     -84.3677116,
+     34.5496097
+    ],
+    [
+     -84.3677238,
+     34.5496074
+    ],
+    [
+     -84.3677295,
+     34.5495936
+    ],
+    [
+     -84.367751,
+     34.5495932
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T12:02:04.786Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T12:02:04.786Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 12,
+      "labelPosition": "house, lower west side"
+     }
+    },
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul-area-trace",
+     "action": "retraced",
+     "details": {
+      "vertexCount": 16,
+      "supersedes": "12-vertex trace",
+      "session": "2026-09-01 area-trace"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 9,
+      "areaBefore_m2": 13.9,
+      "areaAfter_m2": 13.3,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "the-bluff",
+   "name": "The Bluff",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.367856,
+     34.5496262
+    ],
+    [
+     -84.3677668,
+     34.5496169
+    ],
+    [
+     -84.36775,
+     34.5496251
+    ],
+    [
+     -84.3677635,
+     34.5496159
+    ],
+    [
+     -84.367751,
+     34.5495932
+    ],
+    [
+     -84.3677295,
+     34.5495936
+    ],
+    [
+     -84.3677238,
+     34.5496074
+    ],
+    [
+     -84.3677116,
+     34.5496097
+    ],
+    [
+     -84.3676059,
+     34.5496087
+    ],
+    [
+     -84.3676067,
+     34.5495891
+    ],
+    [
+     -84.3676029,
+     34.5495876
+    ],
+    [
+     -84.3676087,
+     34.5495833
+    ],
+    [
+     -84.3676081,
+     34.5495624
+    ],
+    [
+     -84.36775,
+     34.5495786
+    ],
+    [
+     -84.3677645,
+     34.5495872
+    ],
+    [
+     -84.3678632,
+     34.549593
+    ],
+    [
+     -84.3678877,
+     34.5495845
+    ],
+    [
+     -84.3678863,
+     34.5495843
+    ],
+    [
+     -84.3678868,
+     34.5495841
+    ],
+    [
+     -84.3679009,
+     34.549589
+    ],
+    [
+     -84.3678928,
+     34.5496015
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T12:01:00.078Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T12:01:00.078Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 13,
+      "labelPosition": "center, below the patios"
+     }
+    },
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul-area-trace",
+     "action": "retraced",
+     "details": {
+      "vertexCount": 46,
+      "supersedes": "13-vertex trace",
+      "session": "2026-09-01 area-trace"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 21,
+      "areaBefore_m2": 94.5,
+      "areaAfter_m2": 95.2,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "lawn",
+   "name": "Lawn",
+   "type": "turf",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3676087,
+     34.5495833
+    ],
+    [
+     -84.3676081,
+     34.5495624
+    ],
+    [
+     -84.3676069,
+     34.5495622
+    ],
+    [
+     -84.3676061,
+     34.5495534
+    ],
+    [
+     -84.3675301,
+     34.5495463
+    ],
+    [
+     -84.3675517,
+     34.5495406
+    ],
+    [
+     -84.3674878,
+     34.5495313
+    ],
+    [
+     -84.3673776,
+     34.5495005
+    ],
+    [
+     -84.3673617,
+     34.5494972
+    ],
+    [
+     -84.3673556,
+     34.5495093
+    ],
+    [
+     -84.3674549,
+     34.5495327
+    ],
+    [
+     -84.3674567,
+     34.5495555
+    ],
+    [
+     -84.3675059,
+     34.5495669
+    ],
+    [
+     -84.3675689,
+     34.5495733
+    ],
+    [
+     -84.3676029,
+     34.5495876
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T12:04:22.563Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T12:04:22.563Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 18,
+      "labelPosition": "center-right, beside the house"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 15,
+      "areaBefore_m2": 60.3,
+      "areaAfter_m2": 58.6,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "fern-garden",
+   "name": "Fern Garden",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3672419,
+     34.5495602
+    ],
+    [
+     -84.3672389,
+     34.5495766
+    ],
+    [
+     -84.3672319,
+     34.5495815
+    ],
+    [
+     -84.3671752,
+     34.5495839
+    ],
+    [
+     -84.3671144,
+     34.549579
+    ],
+    [
+     -84.3671021,
+     34.5495736
+    ],
+    [
+     -84.3670985,
+     34.5495544
+    ],
+    [
+     -84.3671114,
+     34.5495495
+    ],
+    [
+     -84.3671961,
+     34.5495503
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T12:00:32.117Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T12:00:32.117Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 17,
+      "labelPosition": "right of the house"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 9,
+      "areaBefore_m2": 42.7,
+      "areaAfter_m2": 42.2,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pond-area",
+   "name": "Pond Area",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3676004,
+     34.5494592
+    ],
+    [
+     -84.3675987,
+     34.549516
+    ],
+    [
+     -84.3675852,
+     34.549534
+    ],
+    [
+     -84.3675109,
+     34.5495268
+    ],
+    [
+     -84.3675095,
+     34.5495345
+    ],
+    [
+     -84.3674994,
+     34.549533
+    ],
+    [
+     -84.3674994,
+     34.549533
+    ],
+    [
+     -84.3674923,
+     34.549532
+    ],
+    [
+     -84.3674954,
+     34.5495247
+    ],
+    [
+     -84.3674674,
+     34.549516
+    ],
+    [
+     -84.3674456,
+     34.549473
+    ],
+    [
+     -84.3674826,
+     34.5494619
+    ],
+    [
+     -84.3675112,
+     34.5494592
+    ],
+    [
+     -84.3675314,
+     34.5494425
+    ],
+    [
+     -84.3675835,
+     34.5494439
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-07-17T20:46:51.544Z",
+   "createdBy": "device",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-07-17T20:46:51.544Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Pond Area",
+      "vertexCount": 5
+     }
+    },
+    {
+     "at": "2026-08-31T11:59:58.474Z",
+     "by": "paul",
+     "action": "retraced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 15,
+      "supersedes": "pond-area",
+      "labelPosition": "center"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 15,
+      "areaBefore_m2": 107.9,
+      "areaAfter_m2": 108.5,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "eastern-patio",
+   "name": "Eastern Patio",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3672422,
+     34.5495605
+    ],
+    [
+     -84.3672419,
+     34.5495605
+    ],
+    [
+     -84.3672419,
+     34.5495602
+    ],
+    [
+     -84.3671961,
+     34.5495503
+    ],
+    [
+     -84.3671671,
+     34.54955
+    ],
+    [
+     -84.3671533,
+     34.5495208
+    ],
+    [
+     -84.3671533,
+     34.549502
+    ],
+    [
+     -84.3671972,
+     34.5495002
+    ],
+    [
+     -84.3671973,
+     34.5494935
+    ],
+    [
+     -84.3672534,
+     34.5494962
+    ],
+    [
+     -84.3672439,
+     34.5495577
+    ],
+    [
+     -84.3672429,
+     34.5495567
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-07-17T20:52:00.725Z",
+   "createdBy": "device",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-07-17T20:52:00.725Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Eastern Patio",
+      "vertexCount": 8
+     }
+    },
+    {
+     "at": "2026-08-31T12:00:20.865Z",
+     "by": "paul",
+     "action": "retraced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 19,
+      "supersedes": "eastern-patio",
+      "labelPosition": "right of the house"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 12,
+      "areaBefore_m2": 46.4,
+      "areaAfter_m2": 51.8,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "lower-40",
+   "name": "Lower 40",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3680108,
+     34.5494859
+    ],
+    [
+     -84.3680102,
+     34.5494855
+    ],
+    [
+     -84.3680098,
+     34.5494849
+    ],
+    [
+     -84.3679935,
+     34.5494746
+    ],
+    [
+     -84.3679184,
+     34.5494416
+    ],
+    [
+     -84.3679126,
+     34.5494414
+    ],
+    [
+     -84.367925,
+     34.5494408
+    ],
+    [
+     -84.3678861,
+     34.5494109
+    ],
+    [
+     -84.3678861,
+     34.5493878
+    ],
+    [
+     -84.367993,
+     34.5493071
+    ],
+    [
+     -84.3680167,
+     34.5494851
+    ],
+    [
+     -84.3680077,
+     34.5494811
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-07-17T20:53:01.990Z",
+   "createdBy": "device",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-07-17T20:53:01.990Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Lower 40",
+      "vertexCount": 8
+     }
+    },
+    {
+     "at": "2026-07-17T20:53:29.352Z",
+     "by": "reconciliation",
+     "action": "id-reconciled",
+     "details": {
+      "from": "lower-40-2",
+      "to": "lower-40"
+     }
+    },
+    {
+     "at": "2026-08-31T12:04:50.475Z",
+     "by": "paul",
+     "action": "retraced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 9,
+      "supersedes": "lower-40",
+      "labelPosition": "left-center, below Fairway Border"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 12,
+      "areaBefore_m2": 128.1,
+      "areaAfter_m2": 129.2,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "st-francis-garden",
+   "name": "St Francis Garden",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.367258,
+     34.5494964
+    ],
+    [
+     -84.3671582,
+     34.5494917
+    ],
+    [
+     -84.3671707,
+     34.5494721
+    ],
+    [
+     -84.3671771,
+     34.5494424
+    ],
+    [
+     -84.367266,
+     34.5494567
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T11:59:07.342Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T11:59:07.342Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 13,
+      "labelPosition": "right, below Eastern Patio"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 5,
+      "areaBefore_m2": 45.6,
+      "areaAfter_m2": 42.8,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "lower-parking",
+   "name": "Lower Parking",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3679112,
+     34.5493648
+    ],
+    [
+     -84.367914,
+     34.5493667
+    ],
+    [
+     -84.3679121,
+     34.5493682
+    ],
+    [
+     -84.3678659,
+     34.5493822
+    ],
+    [
+     -84.3678434,
+     34.5493766
+    ],
+    [
+     -84.367813,
+     34.5493516
+    ],
+    [
+     -84.3678175,
+     34.5492561
+    ],
+    [
+     -84.3678884,
+     34.5491551
+    ],
+    [
+     -84.3680032,
+     34.5491365
+    ],
+    [
+     -84.3680493,
+     34.5491625
+    ],
+    [
+     -84.3681067,
+     34.5492274
+    ],
+    [
+     -84.368109,
+     34.5492997
+    ],
+    [
+     -84.3680572,
+     34.5493136
+    ],
+    [
+     -84.3679933,
+     34.549309
+    ],
+    [
+     -84.367993,
+     34.5493071
+    ],
+    [
+     -84.3679801,
+     34.5493168
+    ],
+    [
+     -84.3679769,
+     34.5493132
+    ],
+    [
+     -84.3679345,
+     34.549334
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T12:05:09.097Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T12:05:09.097Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 16,
+      "labelPosition": "lower-left"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 18,
+      "areaBefore_m2": 487.7,
+      "areaAfter_m2": 488.8,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "stable-grounds",
+   "name": "Stable Grounds",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3671004,
+     34.549175
+    ],
+    [
+     -84.3671559,
+     34.5491927
+    ],
+    [
+     -84.3672331,
+     34.5492488
+    ],
+    [
+     -84.3672535,
+     34.5492908
+    ],
+    [
+     -84.3672558,
+     34.5493805
+    ],
+    [
+     -84.3672739,
+     34.5493955
+    ],
+    [
+     -84.3672682,
+     34.5494534
+    ],
+    [
+     -84.367267,
+     34.5494532
+    ],
+    [
+     -84.3672663,
+     34.549457
+    ],
+    [
+     -84.3672659,
+     34.5494569
+    ],
+    [
+     -84.367266,
+     34.5494567
+    ],
+    [
+     -84.3671771,
+     34.5494424
+    ],
+    [
+     -84.3671775,
+     34.5494405
+    ],
+    [
+     -84.3671366,
+     34.5494347
+    ],
+    [
+     -84.3670096,
+     34.5494048
+    ],
+    [
+     -84.3669676,
+     34.5494029
+    ],
+    [
+     -84.3669359,
+     34.5493291
+    ],
+    [
+     -84.3669404,
+     34.5492525
+    ],
+    [
+     -84.3669775,
+     34.5491152
+    ],
+    [
+     -84.3670323,
+     34.5491367
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-07-17T20:51:38.784Z",
+   "createdBy": "device",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-07-17T20:51:38.784Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Stable Grounds",
+      "vertexCount": 7
+     }
+    },
+    {
+     "at": "2026-07-17T20:53:29.352Z",
+     "by": "reconciliation",
+     "action": "id-reconciled",
+     "details": {
+      "from": "stable-grounds-2",
+      "to": "stable-grounds"
+     }
+    },
+    {
+     "at": "2026-08-31T11:58:46.525Z",
+     "by": "paul",
+     "action": "retraced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 17,
+      "supersedes": "stable-grounds",
+      "labelPosition": "bottom-right"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 20,
+      "areaBefore_m2": 777.4,
+      "areaAfter_m2": 781.9,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "house",
+   "name": "House",
+   "type": "structure",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3674889,
+     34.5496363
+    ],
+    [
+     -84.3674458,
+     34.5496254
+    ],
+    [
+     -84.367441,
+     34.5496385
+    ],
+    [
+     -84.3673244,
+     34.5496089
+    ],
+    [
+     -84.3673607,
+     34.5495105
+    ],
+    [
+     -84.3673807,
+     34.5495152
+    ],
+    [
+     -84.3674008,
+     34.5495199
+    ],
+    [
+     -84.3673978,
+     34.5495282
+    ],
+    [
+     -84.3674557,
+     34.5495427
+    ],
+    [
+     -84.3674567,
+     34.5495555
+    ],
+    [
+     -84.3674571,
+     34.5495556
+    ],
+    [
+     -84.3674527,
+     34.5495675
+    ],
+    [
+     -84.3675091,
+     34.5495817
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-07-22T21:42:55.164665Z",
+   "createdBy": "agent-claude",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-07-22T21:42:55.164665Z",
+     "by": "agent-claude",
+     "action": "created",
+     "details": {
+      "vertexCount": 6,
+      "why": "NEW zone traced off NAIP basemap for photo-organizer zone tagging; house was previously unzoned",
+      "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
+     }
+    },
+    {
+     "at": "2026-08-31",
+     "by": "paul",
+     "action": "kept-at-fold",
+     "details": {
+      "why": "kept per paul-stated 2026-08-31 ruling: a structure, not a named garden area \u2014 its absence from her list is not a deletion"
+     }
+    },
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul-area-trace",
+     "action": "retraced",
+     "details": {
+      "vertexCount": 11,
+      "supersedes": "agent-claude hypothesis traced off NAIP, 2026-07-22",
+      "why": "the last agent-drawn polygon on the map; Paul traced it himself 2026-09-01"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 13,
+      "areaBefore_m2": 139.2,
+      "areaAfter_m2": 143.9,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "the-green",
+   "name": "The Green",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3679566,
+     34.5494905
+    ],
+    [
+     -84.3679848,
+     34.5495117
+    ],
+    [
+     -84.3679973,
+     34.5495344
+    ],
+    [
+     -84.3680073,
+     34.5495571
+    ],
+    [
+     -84.368011,
+     34.5495952
+    ],
+    [
+     -84.367986,
+     34.5496097
+    ],
+    [
+     -84.3679434,
+     34.5496107
+    ],
+    [
+     -84.3679046,
+     34.5496189
+    ],
+    [
+     -84.3679009,
+     34.5496014
+    ],
+    [
+     -84.3679009,
+     34.549589
+    ],
+    [
+     -84.3678746,
+     34.5495798
+    ],
+    [
+     -84.3678474,
+     34.5495782
+    ],
+    [
+     -84.3678373,
+     34.549571
+    ],
+    [
+     -84.3678396,
+     34.5494818
+    ],
+    [
+     -84.3678871,
+     34.5494746
+    ],
+    [
+     -84.3679209,
+     34.5494839
+    ],
+    [
+     -84.3679172,
+     34.5494808
+    ],
+    [
+     -84.3679548,
+     34.5494875
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-08-31T12:06:09.824Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-08-31T12:06:09.824Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 20,
+      "labelPosition": "LEFT-CENTER, near the house"
+     }
+    },
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul-area-trace",
+     "action": "renamed",
+     "details": {
+      "from": "the-green-house",
+      "fromName": "The Green",
+      "why": "the id read as \"greenhouse\", which it is not [paul-stated 2026-09-01]. THE ONE NAME KEPT FROM THE GOLF VOCABULARY: the property was a golf course and this flat area was its green \u2014 Paul, 2026-09-01: \"it was the green when this is a golf course, and we can kinda build around that.\" Every other golf term is retired; this one is a proper noun with provenance."
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 18,
+      "areaBefore_m2": 189.3,
+      "areaAfter_m2": 187.4,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ],
+   "partOf": "the-turf",
+   "provenance": "Named for the putting green of the golf course this property once was. The only surviving golf term on the map [paul-stated 2026-09-01]."
+  },
+  {
+   "id": "the-green-ring",
+   "name": "The Green Ring",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.36793,
+     34.5496139
+    ],
+    [
+     -84.367975,
+     34.549613
+    ],
+    [
+     -84.3680032,
+     34.5496047
+    ],
+    [
+     -84.3680167,
+     34.5495935
+    ],
+    [
+     -84.3680223,
+     34.5495843
+    ],
+    [
+     -84.3680189,
+     34.5495333
+    ],
+    [
+     -84.3679863,
+     34.5494981
+    ],
+    [
+     -84.3679566,
+     34.5494905
+    ],
+    [
+     -84.3679548,
+     34.5494875
+    ],
+    [
+     -84.3679255,
+     34.5494777
+    ],
+    [
+     -84.3679064,
+     34.5494601
+    ],
+    [
+     -84.3678884,
+     34.5494519
+    ],
+    [
+     -84.3679037,
+     34.5494411
+    ],
+    [
+     -84.3679184,
+     34.5494416
+    ],
+    [
+     -84.3679935,
+     34.5494746
+    ],
+    [
+     -84.3680098,
+     34.5494849
+    ],
+    [
+     -84.3680373,
+     34.5495262
+    ],
+    [
+     -84.3680336,
+     34.549587
+    ],
+    [
+     -84.3679935,
+     34.5496189
+    ],
+    [
+     -84.367961,
+     34.549621
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-07-17T20:52:43.149Z",
+   "createdBy": "device",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-07-17T20:52:43.149Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Fairway Fringe",
+      "vertexCount": 8
+     }
+    },
+    {
+     "at": "2026-07-17T20:53:29.352Z",
+     "by": "reconciliation",
+     "action": "id-reconciled",
+     "details": {
+      "from": "fairway-fringe-2",
+      "to": "fairway-fringe"
+     }
+    },
+    {
+     "at": "2026-08-31T12:05:54.881Z",
+     "by": "paul",
+     "action": "retraced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 30,
+      "supersedes": "fairway-fringe",
+      "labelPosition": "far left edge"
+     }
+    },
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul-area-trace",
+     "action": "renamed",
+     "details": {
+      "from": "fairway-border",
+      "fromName": "Fairway Border",
+      "why": "RENAMED, not re-traced \u2014 same ground. \"Fairway Border\" was Mom's name (2026-08-30 naming session) and is preserved here. Retired because the golf vocabulary was measurably INVERTED on this property: a golf fairway is the CLOSELY MOWN corridor (0.5-1.5\") and the unmaintained ground is the ROUGH, so \"fairway\" was being applied to the opposite of what it means. The ring around a green is the fringe/collar; \"The Green Ring\" is that concept in plain words, built around the one name kept. [paul-stated 2026-09-01] \u26a0\ufe0f TELL MOM \u2014 her word was changed, not lost."
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 20,
+      "areaBefore_m2": 53.8,
+      "areaAfter_m2": 56.0,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "the-turf",
+   "name": "The Turf",
+   "type": "turf",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3672331,
+     34.5492488
+    ],
+    [
+     -84.3671559,
+     34.5491927
+    ],
+    [
+     -84.3671004,
+     34.549175
+    ],
+    [
+     -84.3670323,
+     34.5491367
+    ],
+    [
+     -84.3669776,
+     34.5491152
+    ],
+    [
+     -84.3670216,
+     34.5489815
+    ],
+    [
+     -84.3670589,
+     34.5488318
+    ],
+    [
+     -84.3670842,
+     34.5488267
+    ],
+    [
+     -84.3671488,
+     34.5488589
+    ],
+    [
+     -84.3672251,
+     34.5489234
+    ],
+    [
+     -84.3674463,
+     34.5490556
+    ],
+    [
+     -84.3675226,
+     34.5491249
+    ],
+    [
+     -84.3675754,
+     34.549162
+    ],
+    [
+     -84.3677163,
+     34.5492378
+    ],
+    [
+     -84.3677809,
+     34.5492587
+    ],
+    [
+     -84.3677927,
+     34.5493296
+    ],
+    [
+     -84.3678131,
+     34.5493486
+    ],
+    [
+     -84.367813,
+     34.5493516
+    ],
+    [
+     -84.3678434,
+     34.5493766
+    ],
+    [
+     -84.3678871,
+     34.5494746
+    ],
+    [
+     -84.3679032,
+     34.5494782
+    ],
+    [
+     -84.3679032,
+     34.549478
+    ],
+    [
+     -84.3679168,
+     34.5494804
+    ],
+    [
+     -84.3679164,
+     34.5494801
+    ],
+    [
+     -84.3679304,
+     34.5494826
+    ],
+    [
+     -84.3679243,
+     34.549477
+    ],
+    [
+     -84.367925,
+     34.5494773
+    ],
+    [
+     -84.3679255,
+     34.5494777
+    ],
+    [
+     -84.3679548,
+     34.5494875
+    ],
+    [
+     -84.3679566,
+     34.5494905
+    ],
+    [
+     -84.3679848,
+     34.5495117
+    ],
+    [
+     -84.3679973,
+     34.5495344
+    ],
+    [
+     -84.3680073,
+     34.5495571
+    ],
+    [
+     -84.3680202,
+     34.54958
+    ],
+    [
+     -84.368022,
+     34.5495797
+    ],
+    [
+     -84.3680223,
+     34.5495843
+    ],
+    [
+     -84.3680167,
+     34.5495935
+    ],
+    [
+     -84.3680032,
+     34.5496047
+    ],
+    [
+     -84.367975,
+     34.549613
+    ],
+    [
+     -84.36793,
+     34.5496139
+    ],
+    [
+     -84.3679362,
+     34.5496153
+    ],
+    [
+     -84.3679046,
+     34.5496189
+    ],
+    [
+     -84.3679009,
+     34.5496014
+    ],
+    [
+     -84.3678964,
+     34.5495959
+    ],
+    [
+     -84.3679009,
+     34.549589
+    ],
+    [
+     -84.3678872,
+     34.5495842
+    ],
+    [
+     -84.3678868,
+     34.5495841
+    ],
+    [
+     -84.3678863,
+     34.5495843
+    ],
+    [
+     -84.3678496,
+     34.5495798
+    ],
+    [
+     -84.3678491,
+     34.5495795
+    ],
+    [
+     -84.3678491,
+     34.5495795
+    ],
+    [
+     -84.3678373,
+     34.549571
+    ],
+    [
+     -84.367822,
+     34.5495601
+    ],
+    [
+     -84.3677885,
+     34.5495639
+    ],
+    [
+     -84.3677516,
+     34.5495569
+    ],
+    [
+     -84.3677516,
+     34.549557
+    ],
+    [
+     -84.3677085,
+     34.5495489
+    ],
+    [
+     -84.367642,
+     34.5495231
+    ],
+    [
+     -84.3675987,
+     34.549516
+    ],
+    [
+     -84.3676004,
+     34.5494592
+    ],
+    [
+     -84.3675835,
+     34.5494439
+    ],
+    [
+     -84.3675314,
+     34.5494425
+    ],
+    [
+     -84.3675112,
+     34.5494592
+    ],
+    [
+     -84.3674826,
+     34.5494619
+    ],
+    [
+     -84.3674456,
+     34.549473
+    ],
+    [
+     -84.3674464,
+     34.5494746
+    ],
+    [
+     -84.3673781,
+     34.5495007
+    ],
+    [
+     -84.3673776,
+     34.5495005
+    ],
+    [
+     -84.3673617,
+     34.5494972
+    ],
+    [
+     -84.3673616,
+     34.5494974
+    ],
+    [
+     -84.3673613,
+     34.5494974
+    ],
+    [
+     -84.3673621,
+     34.5494958
+    ],
+    [
+     -84.3673367,
+     34.5494876
+    ],
+    [
+     -84.3673014,
+     34.5494602
+    ],
+    [
+     -84.3672739,
+     34.5493955
+    ],
+    [
+     -84.3672819,
+     34.5493248
+    ],
+    [
+     -84.3672701,
+     34.5492571
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-09-01T21:44:13.109999Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "paul, 2026-09-01",
+      "regime": "mown regularly \u2014 the cared-for half of the field",
+      "tracedAs": "Meadow (renamed at fold: the word meant the opposite half)",
+      "vertexCount": 43
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 77,
+      "areaBefore_m2": 3114.9,
+      "areaAfter_m2": 3125.7,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "the-meadow",
+   "name": "The Meadow",
+   "type": "turf",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3667671,
+     34.5490927
+    ],
+    [
+     -84.3666204,
+     34.5490298
+    ],
+    [
+     -84.3664129,
+     34.5489718
+    ],
+    [
+     -84.3663405,
+     34.5489283
+    ],
+    [
+     -84.3662837,
+     34.5489573
+    ],
+    [
+     -84.3661252,
+     34.5489557
+    ],
+    [
+     -84.3660665,
+     34.5489879
+    ],
+    [
+     -84.3660117,
+     34.5490072
+    ],
+    [
+     -84.365906,
+     34.5489363
+    ],
+    [
+     -84.3657299,
+     34.5489186
+    ],
+    [
+     -84.3656946,
+     34.5489299
+    ],
+    [
+     -84.3656242,
+     34.5489121
+    ],
+    [
+     -84.365585,
+     34.5488493
+    ],
+    [
+     -84.365585,
+     34.5488203
+    ],
+    [
+     -84.3656261,
+     34.5487929
+    ],
+    [
+     -84.3657338,
+     34.548759
+    ],
+    [
+     -84.3658277,
+     34.5487171
+    ],
+    [
+     -84.3659119,
+     34.54873
+    ],
+    [
+     -84.3660548,
+     34.5487348
+    ],
+    [
+     -84.366319,
+     34.5485994
+    ],
+    [
+     -84.3664931,
+     34.5485591
+    ],
+    [
+     -84.3666615,
+     34.5485027
+    ],
+    [
+     -84.36673,
+     34.5486301
+    ],
+    [
+     -84.3669394,
+     34.5487203
+    ],
+    [
+     -84.3670585,
+     34.548833
+    ],
+    [
+     -84.3670587,
+     34.5488328
+    ],
+    [
+     -84.3670216,
+     34.5489815
+    ],
+    [
+     -84.3669776,
+     34.5491152
+    ],
+    [
+     -84.3669778,
+     34.5491153
+    ],
+    [
+     -84.3669774,
+     34.5491165
+    ],
+    [
+     -84.3669775,
+     34.5491152
+    ],
+    [
+     -84.3668963,
+     34.5491136
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-09-01T21:44:13.109999Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "paul, 2026-09-01",
+      "regime": "let go, cut back hard once a year \u2014 the half not maintained",
+      "tracedAs": "Fairway (renamed at fold: a fairway is mown; this ground is not)",
+      "vertexCount": 33
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 32,
+      "areaBefore_m2": 4760.9,
+      "areaAfter_m2": 4775.2,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "western-fern-azalea-garden",
+   "name": "Western Fern and Azalea Garden",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.367717,
+     34.549614
+    ],
+    [
+     -84.367707,
+     34.5496336
+    ],
+    [
+     -84.3676031,
+     34.5496339
+    ],
+    [
+     -84.3676059,
+     34.5496087
+    ],
+    [
+     -84.3677116,
+     34.5496097
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-09-01T21:44:13.109999Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "paul, 2026-09-01",
+      "tracedAs": "WEstern Fern Garden",
+      "why": "renamed for clarity \u2014 there are now two fern gardens; azaleas grow here too",
+      "resolutionWarning": "10.4 x 2.8 m; centroid 3.6 m from western-upper-patio, 5.6 m from western-lower-patio, 6.6 m from the-bluff \u2014 ALL inside the +/-9.1 m trace budget. Attributable by eye, NEVER by point-in-polygon.",
+      "vertexCount": 6
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 5,
+      "areaBefore_m2": 27.0,
+      "areaAfter_m2": 27.0,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "main-parking",
+   "name": "Main Parking",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3675219,
+     34.5496795
+    ],
+    [
+     -84.3673259,
+     34.5496409
+    ],
+    [
+     -84.3673136,
+     34.5496155
+    ],
+    [
+     -84.3673215,
+     34.5496165
+    ],
+    [
+     -84.3673244,
+     34.5496089
+    ],
+    [
+     -84.367441,
+     34.5496385
+    ],
+    [
+     -84.3674458,
+     34.5496254
+    ],
+    [
+     -84.3674889,
+     34.5496363
+    ],
+    [
+     -84.3675091,
+     34.5495817
+    ],
+    [
+     -84.36749,
+     34.5495769
+    ],
+    [
+     -84.3674904,
+     34.5495744
+    ],
+    [
+     -84.3675874,
+     34.5495901
+    ],
+    [
+     -84.3675848,
+     34.5496548
+    ],
+    [
+     -84.3676321,
+     34.5496946
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-09-01T21:44:13.109999Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-09-01T21:44:13.109999Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "paul, 2026-09-01",
+      "why": "the main parking area; zero overlap with lower-parking, so a distinct place",
+      "vertexCount": 16
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 14,
+      "areaBefore_m2": 168.9,
+      "areaAfter_m2": 152.8,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "the-green-terrace",
+   "name": "The Green Terrace",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3678877,
+     34.5495845
+    ],
+    [
+     -84.3678496,
+     34.5495798
+    ],
+    [
+     -84.367822,
+     34.5495601
+    ],
+    [
+     -84.3677885,
+     34.5495639
+    ],
+    [
+     -84.3677516,
+     34.5495569
+    ],
+    [
+     -84.36775,
+     34.5495786
+    ],
+    [
+     -84.3677645,
+     34.5495872
+    ],
+    [
+     -84.3678632,
+     34.549593
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-09-01T22:30:23.053208Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-09-01T22:30:23.053208Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "paul, 2026-09-01",
+      "vertexCount": 11,
+      "tracedAs": "The green Terrace",
+      "resolutionWarning": "12.5 x 4.0 m. THREE neighbours inside the \u00b19.1 m trace budget \u2014 western-garden 5.4 m, the-bluff 6.6 m, western-lower-patio 7.6 m. Attributable by eye, NEVER by point-in-polygon.",
+      "partOfNotSet": "The NAME points at The Green, but the geometry does not: 0% of this polygon falls inside the-green, whose centroid is 9.9 m away, and its largest overlap is 45% with the-bluff. Paul has not stated a containment, so none is recorded. GEOMETRY PROPOSES, PAUL RULES \u2014 ask before setting partOf."
+     }
+    },
+    {
+     "at": "2026-09-01T22:43:03.453568Z",
+     "by": "paul",
+     "action": "relation-ruled",
+     "details": {
+      "partOf": null,
+      "why": "Paul, 2026-09-01, asked directly whether the terrace is part of The Green: \"Green Terrace is not part of the Green. It overlooks it a little bit.\" \u2b50 IT OVERLOOKS THE GREEN \u2014 adjacency and a sightline, NOT containment. `partOf` stays unset. The geometry agreed in advance (0% of the terrace falls inside the-green, centroid 9.9 m away), so this is a case where the measurement and his word matched and neither was needed to correct the other.",
+      "relation": "overlooks the-green"
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 8,
+      "areaBefore_m2": 28.3,
+      "areaAfter_m2": 28.5,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  },
+  {
+   "id": "hosta-garden",
+   "name": "Hosta Garden",
+   "type": "planted",
+   "color": [
+    122,
+    149,
+    104
+   ],
+   "vertices": [
+    [
+     -84.3673283,
+     34.5495148
+    ],
+    [
+     -84.3673218,
+     34.5495479
+    ],
+    [
+     -84.3672881,
+     34.5495431
+    ],
+    [
+     -84.3672751,
+     34.5495105
+    ],
+    [
+     -84.3673017,
+     34.5495084
+    ]
+   ],
+   "status": "draft",
+   "createdAt": "2026-09-01T22:38:10.175206Z",
+   "createdBy": "paul",
+   "updatedAt": "2026-09-10T22:07:57.719Z",
+   "lastEditedBy": "clean-zones.py",
+   "history": [
+    {
+     "at": "2026-09-01T22:38:10.175206Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "paul, 2026-09-01",
+      "vertexCount": 7,
+      "resolutionWarning": "4.9 x 4.4 m. Neighbours inside the \u00b19.1 m trace budget: none. Attributable by eye; treat point-in-polygon as a shortlist.",
+      "actionable": "plants.json holds `hosta` with NO zone. This zone is its obvious home \u2014 but Paul has not SAID so, and every zone in plants.json is his word, never an inference from a name. Ask."
+     }
+    },
+    {
+     "at": "2026-09-10T22:07:57.719Z",
+     "by": "clean-zones.py",
+     "action": "cleaned",
+     "details": {
+      "ruling": "Z-13 [paul-stated 2026-09-10]",
+      "vertexCount": 5,
+      "areaBefore_m2": 15.8,
+      "areaAfter_m2": 15.5,
+      "method": "simplify 0.35 m \u00b7 overlaps\u21920 \u00b7 gaps<1.0 m closed \u00b7 house\u2190footprint"
+     }
+    }
+   ]
+  }
+ ],
+ "_deleted": [
+  {
+   "id": "fairway-fringe",
+   "lastName": "Fairway Fringe",
+   "history": [
+    {
+     "at": "2026-07-17T20:52:43.149Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Fairway Fringe",
+      "vertexCount": 8
+     }
+    },
+    {
+     "at": "2026-07-17T20:53:29.352Z",
+     "by": "reconciliation",
+     "action": "id-reconciled",
+     "details": {
+      "from": "fairway-fringe-2",
+      "to": "fairway-fringe"
+     }
+    },
+    {
+     "at": "2026-08-31",
+     "by": "paul-fold",
+     "action": "retired",
+     "details": {
+      "why": "superseded by fairway-border (plan draftZoneId mapping) \u2014 same ground, her name"
+     }
+    }
+   ]
+  },
+  {
+   "id": "upper-uber-wall-area",
+   "lastName": "Upper-Uber Wall Area",
+   "history": [
+    {
+     "at": "2026-07-17T20:53:26.667Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Upper-Uber Wall Area",
+      "vertexCount": 10
+     }
+    },
+    {
+     "at": "2026-08-31",
+     "by": "paul-fold",
+     "action": "retired",
+     "details": {
+      "why": "paul-stated 2026-08-31: 'It's a wall. More of a dividing line than a zone.' A LINEAR feature \u2014 polygon retired; the traced line lives in the plan file pending a linear-feature schema. \u26a0 CORRECTED 2026-09-04: v3 SHIPPED and added `partOf`, NOT lines \u2014 this deferral's stated trigger has already fired and the deferral is still open. The same clause in _meta.fold_2026_08_31 was corrected earlier today and THIS copy was missed: one deferral, two places, fixed in one"
+     }
+    }
+   ]
+  },
+  {
+   "id": "parking-bank",
+   "lastName": "Parking Bank",
+   "history": [
+    {
+     "at": "2026-05-28T03:00:09.765Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Parking Bank",
+      "vertexCount": 22
+     }
+    },
+    {
+     "at": "2026-07-17T02:01:59.236984Z",
+     "by": "paul",
+     "action": "vertices-cleared",
+     "details": {
+      "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
+      "clearedVertexCount": 22,
+      "recoverableFrom": "git history (zones.json before this commit)"
+     }
+    },
+    {
+     "at": "2026-07-22T21:42:55.164665Z",
+     "by": "agent-claude",
+     "action": "vertices-drafted",
+     "details": {
+      "vertexCount": 6,
+      "why": "v2 re-trace of driveway/parking loop NW of house off NAIP basemap",
+      "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
+     }
+    },
+    {
+     "at": "2026-08-31",
+     "by": "paul",
+     "action": "retired",
+     "details": {
+      "why": "paul-stated 2026-08-31: 'You can just get rid of parking bank. That was an old name.' Superseded by her two names covering its ground: the-bank + lower-parking."
+     }
+    }
+   ]
+  },
+  {
+   "id": "the-green-house",
+   "lastName": "The Green",
+   "history": [
+    {
+     "at": "2026-08-31T12:06:09.824Z",
+     "by": "paul",
+     "action": "traced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 20,
+      "labelPosition": "LEFT-CENTER, near the house"
+     }
+    },
+    {
+     "at": "2026-09-01",
+     "by": "paul-fold",
+     "action": "retired",
+     "details": {
+      "why": "the id read as \"greenhouse\", which it is not [paul-stated 2026-09-01]. THE ONE NAME KEPT FROM THE GOLF VOCABULARY: the property was a golf course and this flat area was its green \u2014 Paul, 2026-09-01: \"it was the green when this is a golf course, and we can kinda build around that.\" Every other golf term is retired; this one is a proper noun with provenance.",
+      "supersededBy": "the-green"
+     }
+    }
+   ]
+  },
+  {
+   "id": "fairway-border",
+   "lastName": "Fairway Border",
+   "history": [
+    {
+     "at": "2026-07-17T20:52:43.149Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Fairway Fringe",
+      "vertexCount": 8
+     }
+    },
+    {
+     "at": "2026-07-17T20:53:29.352Z",
+     "by": "reconciliation",
+     "action": "id-reconciled",
+     "details": {
+      "from": "fairway-fringe-2",
+      "to": "fairway-fringe"
+     }
+    },
+    {
+     "at": "2026-08-31T12:05:54.881Z",
+     "by": "paul",
+     "action": "retraced",
+     "details": {
+      "namedBy": "mom, 2026-08-30 (naming session)",
+      "vertexCount": 30,
+      "supersedes": "fairway-fringe",
+      "labelPosition": "far left edge"
+     }
+    },
+    {
+     "at": "2026-09-01",
+     "by": "paul-fold",
+     "action": "retired",
+     "details": {
+      "why": "RENAMED, not re-traced \u2014 same ground. \"Fairway Border\" was Mom's name (2026-08-30 naming session) and is preserved here. Retired because the golf vocabulary was measurably INVERTED on this property: a golf fairway is the CLOSELY MOWN corridor (0.5-1.5\") and the unmaintained ground is the ROUGH, so \"fairway\" was being applied to the opposite of what it means. The ring around a green is the fringe/collar; \"The Green Ring\" is that concept in plain words, built around the one name kept. [paul-stated 2026-09-01] \u26a0\ufe0f TELL MOM \u2014 her word was changed, not lost.",
+      "supersededBy": "the-green-ring"
+     }
+    }
+   ]
+  },
+  {
+   "id": "fairway",
+   "lastName": "Fairway",
+   "history": [
+    {
+     "at": "2026-05-28T02:55:10.014Z",
+     "by": "device",
+     "action": "created",
+     "details": {
+      "name": "Fairway",
+      "vertexCount": 33
+     }
+    },
+    {
+     "at": "2026-05-28T03:12:54.245Z",
+     "by": "device",
+     "action": "confirmed",
+     "details": null
+    },
+    {
+     "at": "2026-07-17T02:01:59.236984Z",
+     "by": "paul",
+     "action": "vertices-cleared",
+     "details": {
+      "why": "schema v1->v2: v1 vertices were fractions of an oblique 2015 Google Earth screenshot and cannot be re-registered to a nadir basemap. Name and id kept (zoneId refs); geometry to be redrawn once on the ",
+      "clearedVertexCount": 33,
+      "recoverableFrom": "git history (zones.json before this commit)"
+     }
+    },
+    {
+     "at": "2026-07-22T21:42:55.164665Z",
+     "by": "agent-claude",
+     "action": "vertices-drafted",
+     "details": {
+      "vertexCount": 11,
+      "why": "v2 re-trace of main SE corridor off NAIP basemap (v1 vertices were cleared in the v1->v2 migration)",
+      "provenance": "agent-proposed hypothesis traced off base-naip-2022-01-leafoff; Paul corrects"
+     }
+    },
+    {
+     "at": "2026-08-31",
+     "by": "paul",
+     "action": "kept-at-fold",
+     "details": {
+      "why": "kept per paul-stated 2026-08-31 ruling: 'it simply was not re-labelled during the annotation' \u2014 the big open area is still hers and still called Fairway"
+     }
+    },
+    {
+     "at": "2026-09-01",
+     "by": "paul-fold",
+     "action": "retired",
+     "details": {
+      "why": "RETIRED WITH THE WORD ITSELF. This polygon was a 2026-05-28 draft (by: device), never corrected, and it was measurably wrong: The Green fell 0% inside it. The ground it covered is now split into the-turf (mown) and the-meadow (unmown), both traced by Paul 2026-09-01. Golf's 'fairway' means the CLOSELY MOWN corridor, which is the opposite of how it was being used here. [paul-stated 2026-09-01]",
+      "supersededBy": [
+       "the-turf",
+       "the-meadow"
+      ],
+      "warning": "Any stored tag keyed on zone-fairway predates the split and CANNOT be mechanically renamed \u2014 the old polygon spans both new zones. Re-derive, do not remap."
+     }
+    }
+   ]
+  }
+ ]
+}
