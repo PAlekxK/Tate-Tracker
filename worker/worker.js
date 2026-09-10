@@ -3531,6 +3531,38 @@ async function handleOnboardingMetrics(request, env, url) {
   return json({ range: { start, end }, days });
 }
 
+// ⭐⭐ Q3 · WHERE A RECORD LANDS — the PLACE's record, or the PERSON's `[paul-ruled 2026-09-10]`.
+// "Every user that adds feedback in the account creation menu or the account overview menu — that
+// should belong to the account, not the estate."
+//
+//   account:<personId>:feedback:<date>   travels with the PERSON
+//   <estateId>:feedback:<date>           stays with the PLACE   (unchanged)
+//
+// ⛔ THE TEST IS WHAT THE RECORD IS ABOUT, NOT WHO TYPED IT. From the 09-02 calibration cut: a
+// coinage is bound to the thing it names, not to the coiner. A zone name Mom invents at Fernwood is
+// about a PLACE and must not follow her to the condo. "Account-scoped" is not "everything she said".
+//
+// ⛔⛔ AND THE CLIENT MUST NOT CHOOSE THE NAMESPACE. `context` is free-form client JSON capped at
+// 2048 bytes and defaulting to `{type:"general"}` — it is SUPPLIED, not BOUNDED, and there is no
+// surface roster anywhere in this Worker. Measured 2026-09-10, against a claim that it was bounded.
+// So the surface only ever picks between two destinations the server has already decided are legal,
+// and an unrecognised value is not an error — it simply is not an account surface.
+const ACCOUNT_SURFACES = new Set(["onboarding", "homes", "account"]);
+
+// ⭐ RULE 1 IS THE LOAD-BEARING ONE, and it needs no client input at all: a person with no household
+// in scope has nowhere else for a record to go. That makes the zero-estate case correct BY
+// CONSTRUCTION rather than by anyone remembering a rule — which is the whole reason Mom's first
+// account-scoped write is safe.
+function feedbackDestination(grant, context) {
+  const personId = grant && grant.personId;
+  if (!personId) return { kind: "estate" };            // no credential → the place, exactly as before
+  if (!(grant && grant.estateId)) return { kind: "account", personId };
+  const raw = context && typeof context.surface === "string" ? context.surface.slice(0, 40) : null;
+  if (raw && ACCOUNT_SURFACES.has(raw)) return { kind: "account", personId };
+  return { kind: "estate" };
+}
+function accountFeedbackKey(personId, date) { return ACCOUNT_PREFIX + personId + ":feedback:" + date; }
+
 async function handleFeedback(request, env, url, grant) {
   if (request.method === "POST") {
     let body;
@@ -3572,7 +3604,11 @@ async function handleFeedback(request, env, url, grant) {
                      : (grant && grant.personId) ? attributeToPerson(record, grant)
                      : record;
     const today = new Date().toISOString().slice(0, 10);
-    const key = dateKey(scopeOf(env), "feedback", today);
+    // ⭐ The destination is decided from the RESOLVED GRANT first and the surface second — never from
+    // the body alone. A record about a place stays with the place; a record about the person travels.
+    const _dest = feedbackDestination(grant, record.context);
+    const key = _dest.kind === "account" ? accountFeedbackKey(_dest.personId, today)
+                                         : dateKey(scopeOf(env), "feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
