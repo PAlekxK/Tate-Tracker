@@ -719,13 +719,29 @@ def lens_posture(role):
 # BACKLOG B3 and bound to the grant-key decision — so writing an action list today would produce a
 # journey that fails for a reason that is not a defect. Declaring its entry state and its arrival now
 # gives B3 a target to be built against instead of an afterthought.
+# ⭐⭐ J0's ENTRY STATE IS NO LONGER UNDECIDED, corrected 2026-09-10 against the design that settled
+# it. This row used to read "⛔ UNDECIDED — a grant carries an estateId, so an invite cannot exist
+# before the estate does. That chicken-and-egg IS the open question." That was TRUE when written and
+# `.plans/2026-09-10-account-estate-model-SCOPE.md` §5.1 has since answered it: the person signs up
+# from an invite, lands on AN ACCOUNT WITH NO ESTATE — *"the empty shelf … ⛔ NORMAL, not an error
+# state"* — and founds from there. The grant is written LAST, so the person exists before the estate
+# and THERE IS NO EGG.
+# ⛔ THE CORRECTION MATTERS BECAUSE OF WHAT THE OLD TEXT SAID ABOUT WORK: an UNDECIDED entry state
+# reads as *nothing can be built until someone rules*, and a settled one reads as *the arrival can be
+# provisioned today and only the ROUTE is missing*. `tools/walk-founding.py` measures exactly that
+# half — 8 accounts across qa and lab can already stand in J0's entry state — and it existed only
+# once this row stopped saying the question was open. A stale blocker does not merely misinform; it
+# suppresses the work that was already possible.
 NAMED_UNBUILT = {
-    "J0": {"enters": "⛔ UNDECIDED — a grant carries an estateId, so an invite cannot exist before "
-                     "the estate does. That chicken-and-egg IS the open question, not an oversight.",
-           "arrival": "undecided — see the blocker",
-           "needs": "POST /api/estate (BACKLOG B3, bound to the grant-key decision)",
+    "J0": {"enters": "J0 — an account with NO estate ('the empty shelf', §5.1). ⛔ NORMAL, not an "
+                     "error state, and provisionable TODAY: sign up, do not found. The old "
+                     "chicken-and-egg is resolved by the write order — the grant is written LAST.",
+           "arrival": "an account holding zero grants — see tools/walk-founding.py reading ①",
+           "needs": "POST /api/estate (BACKLOG B1, bound to the grant-key change — they ship together)",
            "why": "the milestone says tested means WALKED, and this is the only route Nigel's and "
-                  "Aida's estates can now come into being"},
+                  "Aida's estates can now come into being. ⭐ The record-side half is measured by "
+                  "tools/walk-founding.py; what is missing is the ROUTE and the surface, not the "
+                  "entry state."},
 }
 
 

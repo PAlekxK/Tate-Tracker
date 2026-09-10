@@ -43,13 +43,49 @@ def _mod(name):
     return m
 
 
+def bundled():
+    """(digest, estateId) for the digest STATICALLY IMPORTED into the Worker — `worker/digest.json`,
+    which `worker.js:68` imports and `worker.js:117` stamps as `DIGEST_ESTATE`.
+
+    ⛔ READ, NEVER RE-TYPED. The estate id comes from the file the Worker actually bundles, so a
+    rebuild for a different estate moves this check with it. A fourth hand-typed copy of an estate id
+    is exactly the drift this repo pays for repeatedly."""
+    try:
+        with open(os.path.join(ROOT, "worker", "digest.json"), encoding="utf-8") as fh:
+            d = json.load(fh)
+    except (OSError, ValueError):
+        return None, None
+    return d, ((d.get("_meta") or {}).get("estateId") or None)
+
+
 def digest_of(gm, env, estate):
-    """(digest, why) — None when the estate publishes none, which means its model routes are DARK."""
+    """(digest, why) — None only when NEITHER the estate's own record NOR the bundled fallback
+    answers, which is the only state in which its model routes are actually DARK.
+
+    ⛔⛔ THIS MODELS THREE BRANCHES BECAUSE `canonFor()` HAS THREE, and the version that modelled two
+    was WRONG IN THE UNSAFE DIRECTION — measured 2026-09-10, the day A2 shipped. It reported
+    `legacy est-3c9f1a ⛔ model routes DARK`, and legacy is the estate Mom actually uses. Legacy
+    publishes no KV record, so a two-branch reader concludes DARK; `worker.js:145` falls through to
+    `propertyDigest` and legacy's five model routes are LIVE, serving Fernwood's canon.
+
+    ⛔ THE COST WAS NOT A WRONG LABEL. `report()` SKIPS the needle scan and the collision scan on any
+    env it calls DARK — so a leak at the one estate with a real user was a leak this reader would
+    never have looked for. A false ALL-CLEAR, not a false alarm.
+
+    ⭐ It is this file's own new CLAUDE.md rule turned on itself: the two-branch reader was entirely
+    correct about *does this estate publish a record that resolves*, and was being relied on for
+    *does this estate serve a model prompt* — a different question, which diverged silently the
+    moment A2 added a fallback."""
     try:
         raw = gm.kv_get(env, "%s:digest" % estate)
     except Exception as e:
         return None, "UNREADABLE: %s" % str(e)[:120]
     if not raw or not raw.strip():
+        bd, bid = bundled()
+        # ⛔ `worker.js:145` EXACTLY: the bundle answers for ONE estate — the one it was built for —
+        # and for no other. Any looser match here would invent a leak the Worker does not have.
+        if bd is not None and bid and bid == estate:
+            return bd, "BUNDLED"
         return None, "no record published for this estate"
     try:
         return json.loads(raw.strip()), None
@@ -92,15 +128,24 @@ def report(envs_wanted, deep, out=print):
         if not resolves(d, estate):
             out("  %-8s %-12s 🔴 the record is stamped %r, not this estate — canonFor returns NULL"
                 % (env, estate, ((d.get("_meta") or {}).get("estateId")))); bad += 1; continue
-        seen[env] = (estate, d)
+        seen[env] = (estate, d, why == "BUNDLED")
     # ── reading 1 · Fernwood's needles, in the PROMPT rather than on a page
-    for env, (estate, d) in sorted(seen.items()):
+    for env, (estate, d, from_bundle) in sorted(seen.items()):
         body = json.dumps(d, ensure_ascii=False)
         hits = cen.hits_in(body, needles)
         nm, ad = place_of(d)
-        out("  %-8s %-12s ✅ resolves · names %-24s · Fernwood needles: %s"
-            % (env, estate, repr(nm or "(no place)")[:24],
+        # ⭐ THE SOURCE IS PART OF THE READING, not decoration. An estate served from the BUNDLE has
+        # published nothing of its own — its prompt is whatever the last Worker build carried. That
+        # is correct for the estate the bundle was built for and is a finding for nobody else, but a
+        # reader who cannot see WHICH will misread a clean scan as "this household published a clean
+        # record." It did not publish one at all.
+        out("  %-8s %-12s ✅ resolves%s · names %-24s · Fernwood needles: %s"
+            % (env, estate, " (BUNDLED)" if from_bundle else "         ",
+               repr(nm or "(no place)")[:24],
                "0" if not hits else "🔴 %d (%s)" % (len(hits), ", ".join(h[0] for h in hits[:4]))))
+        if from_bundle:
+            out("     ⚠️  serves the digest BUNDLED INTO THE WORKER (`worker.js:145`), not a record "
+                "of its own — its model routes are LIVE, and a two-branch reader called this DARK.")
         if hits:
             bad += 1
     # ── reading 2 · ⭐ EVERY OTHER HOUSEHOLD'S OWN PLACE. The reading the needle list cannot make.
@@ -111,7 +156,7 @@ def report(envs_wanted, deep, out=print):
     # est-qa0001 and est-d93508 both named one real condo, and only the second had any claim to it.
     # What the check can say with certainty is that AT MOST ONE of them can be right.
     claims = {}
-    for env, (estate, d) in sorted(seen.items()):
+    for env, (estate, d, _fb) in sorted(seen.items()):
         nm, ad = place_of(d)
         if nm or ad:
             claims.setdefault((nm.lower(), ad.lower()), []).append("%s (%s)" % (env, estate))
@@ -123,10 +168,10 @@ def report(envs_wanted, deep, out=print):
             bad += 1
     # …and the asymmetric case: one household's place appearing inside another's record without the
     # two claiming it outright.
-    for env, (estate, d) in sorted(seen.items()):
+    for env, (estate, d, _fb) in sorted(seen.items()):
         body = json.dumps(d, ensure_ascii=False).lower()
         mine = place_of(d)
-        for other, (oestate, od) in sorted(seen.items()):
+        for other, (oestate, od, _ofb) in sorted(seen.items()):
             if other == env:
                 continue
             onm, oad = place_of(od)
@@ -139,7 +184,7 @@ def report(envs_wanted, deep, out=print):
                     bad += 1
     # ── reading 3 · ⭐⭐ IS THIS THE HOUSEHOLD'S PLACE, OR ONE MEMBER'S?
     if deep:
-        for env, (estate, d) in sorted(seen.items()):
+        for env, (estate, d, _fb) in sorted(seen.items()):
             try:
                 keys = gm.kv_list_keys(env, "%s:account:" % estate)
             except Exception as e:
@@ -210,7 +255,50 @@ def selftest():
     check("a household's own place is INVISIBLE to the Fernwood needle list",
           not cen.hits_in(body, cen.FIXED + cen.species_needles()),
           "the needle list caught it, so this file's second reading would be redundant")
-    print("\n%s selftest: %d/7" % ("✅" if not fails else "🔴", 7 - len(fails)))
+
+    # ── ⛔⛔ THE FALSE ALL-CLEAR CLAUSES, added 2026-09-10 after this tool called `legacy` DARK while
+    #    its five model routes were live. Each is proven by MUTATION: a fake `grant-mint` whose KV is
+    #    empty, so the ONLY thing that can answer is the bundled fallback.
+    class _EmptyKV:
+        def kv_get(self, env, key):
+            return ""
+
+    _bd, _bid = bundled()
+    check("the bundled estate id is READ from worker/digest.json, never re-typed",
+          _bid is not None and isinstance(_bid, str) and _bid.startswith("est-"),
+          "worker/digest.json carries no _meta.estateId — the fallback cannot be modelled")
+
+    # MUTATION 1 — the estate the bundle was built for. A two-branch reader returns (None, "no
+    # record"); the three-branch reader must return the bundle and say so.
+    _d, _why = digest_of(_EmptyKV(), "legacy", _bid)
+    check("an estate with NO record but MATCHING the bundle resolves, and is marked BUNDLED",
+          _d is not None and _why == "BUNDLED",
+          "the fallback at worker.js:145 is not modelled — this is the false ALL-CLEAR itself")
+    check("…and the bundled record satisfies resolves() for that estate",
+          _d is not None and resolves(_d, _bid),
+          "the bundle would be dropped by the stamp guard, so the reading would still be skipped")
+
+    # MUTATION 2 — the opposite direction, which is the one a looser fix would break. The bundle must
+    # answer for its OWN estate and NO other, exactly as `DIGEST_ESTATE === id` does.
+    _d2, _why2 = digest_of(_EmptyKV(), "qa", "est-not-the-bundle")
+    check("an estate with no record and NOT matching the bundle is still DARK",
+          _d2 is None and _why2 == "no record published for this estate",
+          "the fallback leaked to a foreign estate — this would INVENT a leak the Worker does not have")
+
+    # MUTATION 3 — an unreadable namespace must stay UNCHECKABLE and must NOT be rescued by the
+    # bundle. "cannot read" is not "serves the bundle", and conflating them is the same class of
+    # false all-clear this whole block exists to remove.
+    class _BrokenKV:
+        def kv_get(self, env, key):
+            raise RuntimeError("namespace unreadable")
+
+    _d3, _why3 = digest_of(_BrokenKV(), "legacy", _bid)
+    check("an UNREADABLE namespace stays UNCHECKABLE — the bundle does not rescue it",
+          _d3 is None and (_why3 or "").startswith("UNREADABLE"),
+          "an unreadable estate was reported as serving the bundle — cannot-read is not a reading")
+
+    _n = 12
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", _n - len(fails), _n))
     return 1 if fails else 0
 
 
