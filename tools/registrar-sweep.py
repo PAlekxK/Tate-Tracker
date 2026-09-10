@@ -97,6 +97,38 @@ def trailers(message, key):
     return found
 
 
+def _plain(text):
+    """Strip decoration so a heading's glyphs cannot hide a match.
+
+    ⚠️ SECOND DEFECT FOUND LIVE, 2026-09-10, an hour after the first: the registrar placed a
+    forward under `### ③ ⭐ A SECURITY SEAT` and trailered it `③ A SECURITY SEAT`. The
+    heading's ⭐ sat between the two tokens and this read 🔴 UNPLACED on a row that existed.
+    Same class as the `none` defect — the instrument measuring its users' punctuation.
+    So both sides are reduced to letters, digits and spaces before comparing.
+    """
+    t = re.sub(r"[^0-9A-Za-z\u00C0-\u024F\u2460-\u24FF·§ ]+", " ", text)
+    return re.sub(r"\s+", " ", t).strip().lower()
+
+
+def _tier_row_present(backlog_text, tier, row):
+    """Is `| **<row>** |` (or a struck `| ~~**<row>**~~`) present under the `TIER <tier>` heading?
+
+    ⛔ FALSE-GREEN FOUND BY READING THE CODE, 2026-09-10: the old last-resort matched
+    `TIER 2 · 99` on the strength of "TIER 2" alone, because the row number is ≤3 chars
+    and was dropped as a fragment. A forward naming a row that does not exist read PLACED.
+    That is the exact opposite of this tool's one rule.
+    """
+    lines = backlog_text.split("\n")
+    in_tier = False
+    for ln in lines:
+        if ln.startswith("## "):
+            in_tier = bool(re.search(r"TIER\s*%s\b" % re.escape(tier), ln))
+            continue
+        if in_tier and re.match(r"\|\s*(~~)?\*\*%s\*\*(~~)?\s*\|" % re.escape(row), ln):
+            return True
+    return False
+
+
 def row_is_findable(backlog_text, claim):
     """Is the row this forward names actually IN the register?
 
@@ -117,18 +149,41 @@ def row_is_findable(backlog_text, claim):
     # The spec still asks for `none` to lead; the tool no longer punishes a lane that
     # buries it. ⭐ An instrument that only works when its users are precise is an
     # instrument that measures its users, not the world.
+    # A TIER n · m claim is checked STRUCTURALLY — the row must exist under that tier.
+    m = re.search(r"TIER\s*(\d+)\s*·\s*(\d+[a-z]?)", head)
+    if m:
+        return _tier_row_present(backlog_text, m.group(1), m.group(2))
+    plain_bl = _plain(backlog_text)
     # try the whole head, then progressively shorter distinctive fragments
     cands = [head]
     if "·" in head:
         cands += [c.strip() for c in head.split("·") if len(c.strip()) > 3]
     for c in cands:
-        if c and c in backlog_text:
+        pc = _plain(c)
+        if len(pc) > 3 and pc in plain_bl:
             return True
-    # last resort: a TIER/section number pattern, e.g. "TIER 2 · 16"
-    m = re.search(r"(TIER\s*\d+\s*·\s*\d+)", head)
-    if m and m.group(1) in backlog_text:
-        return True
     return False
+
+
+def _via_for(via, i, n_claims):
+    """Which `Backlog-Forwarded-By:` belongs to claim i?
+
+    ⚠️ THIRD DEFECT FOUND LIVE, 2026-09-10: a commit carrying TWO forwards from TWO lanes
+    printed both as forwarded by the first lane, because every claim took `via[0]`. An
+    attribution that names the wrong lane is worse than none — the whole point of the
+    trailer is that a status is attributable to the lane that measured it.
+    One via → it covers every claim. Same count → pair by position. Anything else → the
+    pairing is not knowable from the trailers alone, and it prints as such.
+    """
+    if not via:
+        return None
+    if len(via) == 1:
+        return via[0]
+    if n_claims == 1:
+        return " · ".join(via)      # one claim, several shas behind it — all of them stand
+    if len(via) == n_claims:
+        return via[i]
+    return "⚠️ %d forwarded-by lines for %d claims — pairing not knowable: %s" % (len(via), n_claims, " · ".join(via))
 
 
 def registerable(root, sha):
@@ -215,7 +270,7 @@ def sweep(root, since=None, everything=False):
             continue
         for claim in claims:
             verdict = row_is_findable(backlog_text, claim)
-            item = (sha, claim, via[0] if via else None)
+            item = (sha, claim, _via_for(via, claims.index(claim), len(claims)))
             if verdict is None:
                 awaiting.append(item)
             elif verdict:
@@ -290,13 +345,24 @@ def selftest():
     chk("MUTATION 2 · a mention in prose does NOT count as a trailer",
         trailers(ment, TRAILER) == [])
 
-    bl = "## TIER 2 · 16 — the ask surface\nsome text\n## C9 · THE INVITE FLOW\n"
+    bl = ("## ✅ TIER 2 · CONFIRMED\n| **16** | the ask surface |\n| ~~**3**~~ | struck |\n"
+          "### ③ ⭐ A SECURITY SEAT — the team doesn't have one\nsome text\n## C9 · THE INVITE FLOW\n")
     chk("a findable row reads placed", row_is_findable(bl, "TIER 2 · 16 — whatever") is True)
     chk("`none` reads AWAITING, not failure", row_is_findable(bl, "none — needs a row") is None)
 
     # MUTATION 3 — an unfindable row must NOT pass. This is the whole point.
     chk("MUTATION 3 · an invented row does NOT read placed",
         row_is_findable(bl, "TIER 9 · 99 — invented") is False)
+    # MUTATION 6 — the false-green: a real tier, an invented row number. Must NOT pass.
+    chk("MUTATION 6 · a real TIER with an invented row number does NOT read placed",
+        row_is_findable(bl, "TIER 2 · 99 — invented") is False)
+    chk("a struck row still reads placed (it exists; it is struck)",
+        row_is_findable(bl, "TIER 2 · 3 — struck") is True)
+    # MUTATION 7 — the live defect: a heading glyph between two tokens of the claim.
+    chk("MUTATION 7 · a ⭐ inside the heading does NOT hide the row",
+        row_is_findable(bl, "③ A SECURITY SEAT — a ruling") is True)
+    chk("a section named by its words alone reads placed",
+        row_is_findable(bl, "C9 · THE INVITE FLOW — whatever") is True)
 
     # MUTATION 4 — a generated-only commit owes no forward, but an authored one does.
     chk("MUTATION 4 · GENERATED list is non-empty and names the hook's file",
@@ -306,6 +372,14 @@ def selftest():
     chk("MUTATION 5 · `none` NOT leading still reads AWAITING",
         row_is_findable(bl, "BACKLOG.md § NEXT — none yet; proposes the row") is None)
 
+    # MUTATION 8 — the live defect: two claims, two lanes, both printed as the first lane.
+    chk("MUTATION 8 · two claims + two vias pair by position, not both to the first",
+        _via_for(["a @ 1", "b @ 2"], 1, 2) == "b @ 2")
+    chk("one via covers every claim", _via_for(["a @ 1"], 3, 4) == "a @ 1")
+    chk("a mismatched count prints as not knowable, never guesses",
+        "not knowable" in _via_for(["a @ 1", "b @ 2"], 0, 3))
+    chk("no via reads None", _via_for([], 0, 1) is None)
+    chk("one claim with two shas names both", _via_for(["a @ 1", "a @ 2"], 0, 1) == "a @ 1 · a @ 2")
     print("selftest — %d/%d" % (len(checks) - len(failed), len(checks)))
     for f in failed:
         print("  🔴 %s" % f)
