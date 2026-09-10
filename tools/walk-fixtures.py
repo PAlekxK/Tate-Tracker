@@ -150,6 +150,12 @@ def report(env, out=print):
             # mistake that dropped J5 to "nobody can walk it" the moment it was built. What it needs
             # is a seat with an ACCOUNT to sign back in as — which is any seat the door recognises.
             ok, how = bool(held.get("J3") or held.get("J2")), "nothing at all — the bare door"
+        elif arr == "open-signup":
+            # ⭐ J0: nothing at the door either, and the walk SIGNS UP — so it needs no fixture
+            # beyond the seat's identity for what it types; its account and its estate are minted
+            # per run by the product itself. Before this branch (2026-09-10) the `else` below read
+            # J0 as "⛔ nobody", which is the exact green-by-absence inverse this file warns about.
+            ok, how = True, "nothing at all — signs up at the open door, founds per run"
         else:
             ok, how = bool(held.get(j["enters"])), "this seat's OWN credential"
         if arr == "durable-credential":

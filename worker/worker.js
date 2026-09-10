@@ -1445,9 +1445,62 @@ async function handleEstateFound(request, env) {
                 agreedBy: person.personId, recordedBy: person.personId,
                 consentSource: "self", how: "estate-found" }],
   };
+  // ⭐⭐ THE PLACE FACTS RIDE ONTO THE GRANT AT FOUNDING, exactly as `/api/session` copies them at
+  // sign-in — because `/api/grant/whoami` reads the GRANT row (`name: grant.placeName`,
+  // `coordinates: grant.coordinates`) and this handler wrote the place to the PLACE row and nothing
+  // to the grant. Measured 2026-09-10 by reading the two side by side before the page was wired: a
+  // house founded here came up `name:null, address:null, coordinates:null` at the estate page in the
+  // very session that founded it, while its place row held the coordinates one key away. One
+  // geocode, copied — never a second lookup.
+  // ⛔⛔ AND THE COPY IS STAMPED WITH WHERE IT CAME FROM (coordination window, 2026-09-10, from
+  // handoff §5 trap 2): "a member has an address" and "this estate is at this place" are DIFFERENT
+  // facts, and conflating them is how a real home address reached a live Guru prompt. A copy of
+  // the estate's place onto a person's grant is that conflation in the other direction — it
+  // coincides for a founder and stops coinciding the day a second person exists. The principled
+  // shape is whoami READING the place row; that is deferred because nothing writes the place row
+  // after founding yet (an address edit goes through /api/profile to the account and grant), so a
+  // read-side switch would freeze a founded house's address on every later edit. Until the place
+  // row has a writer (B3 / adopt), the copy carries its provenance so a reader can tell "copied
+  // from the estate at founding" from "the member told us".
+  for (const f of ["placeName", "address", "addressParts", "coordinates"]) {
+    if (place[f] !== undefined && place[f] !== null) grantRow[f] = place[f];
+  }
+  const placeProvenance = { copiedFrom: "estate-place", estateId, how: "estate-found",
+                            at: grantRow.issuedAt };
+  grantRow.placeProvenance = placeProvenance;
+  // ⛔ `hasAccount` IS `!!grant.username` AT THE DOOR, and a founding grant carried no username —
+  // so the person who had just founded read as "no account" on the next onboarding load and met
+  // the signup form again. The page NAMES its username (as `saveProfile` already does) and the
+  // server VERIFIES it against the username index before writing it: a client naming itself is a
+  // hint, never a fact, and an unreadable index withholds the field rather than inventing it.
+  if (typeof body.username === "string" && body.username.trim()) {
+    try {
+      const idx = await env.OBSERVATIONS.get(usernameIndexKey(body.username));
+      const named = idx ? JSON.parse(idx) : null;
+      if (named && named.personId === person.personId) grantRow.username = body.username.trim();
+    } catch (e) { /* withheld, never invented */ }
+  }
   await env.OBSERVATIONS.put(keyFor(scopeOfRoute(estateId, env), "grant", tokenHash), JSON.stringify(grantRow));
   await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash,
                              JSON.stringify({ estateId, personId: person.personId }));
+  // ⭐ AND THE ACCOUNT — the row that outlives any credential and the one `/api/session` hydrates
+  // FROM. Without this a sign-in on a second device rebuilds the grant from an account that never
+  // learned where the place is (the condo defect in whoami's own comment), and the founded house
+  // comes up unplaced there. Reached by personId; `putAccount` writes the index and the legacy
+  // shape only when the username is known. Written AFTER the route: the founding is durable by
+  // the time this runs, so a failure here loses a copy, never the house.
+  try {
+    const ak = personAccountKey(person.personId);
+    const araw = await env.OBSERVATIONS.get(ak);
+    if (araw) {
+      const acct = JSON.parse(araw);
+      for (const f of ["placeName", "address", "addressParts", "coordinates"]) {
+        if (place[f] !== undefined && place[f] !== null) acct[f] = place[f];
+      }
+      acct.placeProvenance = placeProvenance;      // same stamp, same reason — see above
+      await putAccount(env, scopeOf(env), grantRow.username || "", person.personId, acct);
+    }
+  } catch (e) { /* the estate, grant and route are durable; the account copy catches up at the next profile write */ }
 
   // ⛔ THE DIGEST IS NOT COMPOSED HERE. That is B3's scope GROWING and it is not ruled — a founded
   // household is placeless-to-Guru until a digest is published, and that is a stated seam rather
@@ -4226,12 +4279,17 @@ export default {
         // at it.
         try {
           const gtok = request.headers.get(GRANT_HEADER);
-          const gkey2 = keyFor(sc, "grant", await sha256Hex(gtok));
+          // ⛔ THE GRANT'S OWN ESTATE, NOT THE DEPLOYMENT'S — the same correction `/api/session` and
+          // the grant branch above already carry. This read `keyFor(sc, …)`, which is the founded
+          // estate's grant only while the two are the same estate. For a FOUNDER they are not: their
+          // grant lives at the estate they founded, so this refresh silently missed and their
+          // ranking never reached the row whoami reads. Measured 2026-09-10 while wiring founding.
+          const gkey2 = keyFor(g.estateId ? scopeOfRoute(g.estateId, env) : sc, "grant", await sha256Hex(gtok));
           const graw2 = await env.OBSERVATIONS.get(gkey2);
           if (graw2) {
             const grow2 = JSON.parse(graw2);
             for (const f of ["placeName", "accent", "address", "addressParts", "ranked",
-                             "contactPref", "profileAccent"]) {
+                             "contactPref", "profileAccent", "coordinates"]) {
               if (acct[f] !== undefined && acct[f] !== null) grow2[f] = acct[f];
             }
             await env.OBSERVATIONS.put(gkey2, JSON.stringify(grow2));

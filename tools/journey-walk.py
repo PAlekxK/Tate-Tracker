@@ -702,6 +702,66 @@ def journey_bare_door(answers, origin=""):
             "shot:B04-the-place"]
 
 
+def journey_founding(answers, origin=""):
+    """⭐⭐ J0 — THE FOUNDING OWNER, walked from the BARE DOOR `[ruled 2026-09-10, coordination window,
+    shape (b): bare door → open signup → the empty shelf → "Set up my first home" → naming → address
+    → founded; Paul informed, may veto]`.
+
+    ⛔ WHY IT STARTS AT THE DOOR AND NOT ON A PRE-MINTED ESTATE-LESS ACCOUNT. Paul's mission sentence
+    names SIGNUP ("a QA deploy with synthetics walking in and then walking"), and a walk that began
+    signed-in on the shelf would report J0 covered while the door-to-shelf seam was never walked —
+    the exact shape `walk-fixtures.py` records for J2 (a seat that could enter, no procedure that
+    walked the whole thing). So the walker holds NOTHING at the door: the door says J5, and J0 is what
+    the walk DOES from there. It is DECLARED-ONLY (`--journey J0`); see the library entry.
+
+    ⭐ THE STEP NOTHING HAD EVER WALKED IS F08: the ONE address step FOUNDS. `[paul-ruled 2026-09-10]`
+    "there is exactly one place in the product that asks for an address… a second, founding-specific
+    screen would MANUFACTURE one." onboarding's `go2` posts `verb: "found"` to `/api/estate` for an
+    account the server said holds nothing, and the profile write for one that has a home.
+
+    ⚠️ F04 IS REACHED BY `goto:`, AND THAT IS A FINDING, NOT A ROUTE-AROUND. Signup lands on the naming
+    screen (`step(1)`), and NO onboarding screen links to `/homes/` — `measured` 2026-09-10,
+    `grep 'href="/homes/"' onboarding/index.html` returns nothing. A person who signed up and wanted
+    to see their shelf first has no control to reach it. The walk goes there by URL so the empty
+    shelf and its "Set up my first home" control are in the record; the CONTROL is clicked, never
+    routed around — if the shelf shows a home instead of the founding button, that click fails and
+    the failure is the finding.
+
+    ⛔ THE FOUNDING RESPONSE CARRIES `digest: "not-composed"`. A founded house has no Guru yet, by
+    design (B3). If a later stop claims Guru works, that is a finding for the report, not a fix.
+    """
+    a = answers
+    base = re.sub(r"/onboarding/?$", "", origin.rstrip("/"))
+    acts = [
+        # ⭐ F01 — the bare door, no ?g= at all: the sentence a stranger reads before anything is typed.
+        "shot:F01-the-door",
+        "type:#uname=" + a["username"], "type:#uword=" + a["password"],
+        "type:#uword2=" + a["password"], "type:#uemail=" + a["email"],
+        "shot:F02-account", "click:#go0",
+        # what an OPEN signup lands on — today the naming screen, with `estates: []` in the response
+        "shot:F03-signed-up",
+        # the empty shelf: "Your account is set up. Your first home is next…" and the founding control
+        "goto:" + base + "/homes/", "shot:F04-the-empty-shelf",
+        'click:a[href="/onboarding/"]', "shot:F05-set-up-my-first-home",
+        "type:#pname=" + a["place"], "click:#go1", "shot:F06-named",
+        "type:#a1=" + a["line1"], "type:#city=" + a["city"],
+        "type:#state=" + a["state"], "type:#zip=" + a["zip"], "shot:F07-address",
+        # ⭐ THE FOUNDING TAP. F08 is the in-flight screen — `found` geocodes server-side, so the
+        # button reads "Saving…" for longer than the 700 ms action gap, and a shot fired then is the
+        # honest record of what a person waits at (the J5 B03 lesson). `#go3` lives on s3, so the
+        # click WAITS for founding to land before F09 records the confirm screen.
+        "click:#go2", "shot:F08-founding",
+        "click:#go3", "shot:F09-founded-confirm",
+    ]
+    acts += ["click:button.interest[data-id=\"%s\"]" % r for r in (a.get("interests") or [])]
+    acts += ["shot:F10-ranked", "click:#go5", "click:#gohome", "shot:F11-the-place",
+             # through the door, the way a person goes: the estate page's own control
+             "click:#openapp", "shot:F12-the-app",
+             # ⭐ and the shelf again, which must now hold ONE home — the same shelf that was empty at F04
+             "goto:" + base + "/estate/", 'click:a[href="/homes/"]', "shot:F13-the-shelf-holds-one"]
+    return acts
+
+
 # ⭐⭐ THE JOURNEY LIBRARY — the named unit this codebase did not have `[.decisions/fernwood-18]`.
 # Until now there were two action lists, five strings in a dict, and a directory name doing the work
 # of all three. A journey declares three things and owns nothing else:
@@ -714,6 +774,16 @@ def journey_bare_door(answers, origin=""):
 # below rather than stubbed — a stub in this map would read to `walk-fixtures.py` as a procedure that
 # exists, which is the one thing a coverage report may never say.
 JOURNEYS = {
+    # ⭐⭐ J0 — THE FOUNDING OWNER, walked from the BARE DOOR `[ruled 2026-09-10, shape (b)]`.
+    # `enters` is J5 ON PURPOSE: the walker holds nothing at the door, so the door can only say J5,
+    # and J0 is what the walk DOES from there — sign up, meet the empty shelf, found. It is therefore
+    # DECLARED-ONLY (`--journey J0`): a bare door with no declaration walks J5, and no derivation can
+    # yield J0 at the door (`journey_entered`'s docstring records why that clause is dead by design).
+    # ⛔ THE ENTRY GATE IS NOT WEAKENED: a declared J0 is still refused if the door says anything but
+    # J5 — arriving WITH a credential and calling it founding is exactly how every "fresh" run on
+    # record was actually a returning one.
+    "J0": {"name": "founding-owner", "enters": "J5", "arrival": "open-signup",
+           "actions": journey_founding},
     "J1": {"name": "invited-stranger", "enters": "J1", "arrival": "per-run-invite",
            "actions": lambda a, o: journey(True, a, origin=o)},
     # ⚠️ J2's ARRIVAL IS PROVISIONED PER RUN, like J1's invite and for the same reason: the walk
@@ -776,15 +846,13 @@ def lens_posture(role):
 # once this row stopped saying the question was open. A stale blocker does not merely misinform; it
 # suppresses the work that was already possible.
 NAMED_UNBUILT = {
-    "J0": {"enters": "J0 — an account with NO estate ('the empty shelf', §5.1). ⛔ NORMAL, not an "
-                     "error state, and provisionable TODAY: sign up, do not found. The old "
-                     "chicken-and-egg is resolved by the write order — the grant is written LAST.",
-           "arrival": "an account holding zero grants — see tools/walk-founding.py reading ①",
-           "needs": "POST /api/estate (BACKLOG B1, bound to the grant-key change — they ship together)",
-           "why": "the milestone says tested means WALKED, and this is the only route Nigel's and "
-                  "Aida's estates can now come into being. ⭐ The record-side half is measured by "
-                  "tools/walk-founding.py; what is missing is the ROUTE and the surface, not the "
-                  "entry state."},
+    # ✅ J0 LEFT THIS DICT ON 2026-09-10 — built as `journey_founding`, entered from the bare
+    # door (shape (b)). Its row here used to read: enters "an account with NO estate (the empty
+    # shelf)", arrival "an account holding zero grants", needs "POST /api/estate (B1)". The
+    # endpoint landed (7 households founded at lab by tool), the page was wired the same day,
+    # and the ruling moved the START of the walk to the door so the signup→shelf seam is in the
+    # record. The selftest clause "nothing is both built and declared unbuilt" is why this is a
+    # comment and not a stale row.
     # ⭐⭐ J6 — ARRIVING AS THE WRONG PERSON, the fifth credential value made walkable.
     # ⛔ THE FINDING THAT PUT IT HERE, and it is not this lane's: NOTHING IN THIS PROJECT CAN SEE
     # WITHIN-ESTATE, CROSS-PERSON. `falsifier-tenancy.py`'s C1/C2/C3/C5 are all estate-A-vs-estate-B,
@@ -1118,7 +1186,9 @@ def selftest():
     # ⛔ NAMED AND NOT YET MINTABLE — declared in NAMED_UNBUILT, never stubbed into JOURNEYS, because
     # a stub would read to walk-fixtures.py as a procedure that exists.
     CREDENTIAL_AXIS = {"per-run-invite", "per-run-unfinished", "durable-credential",
-                       "dead-credential", "no-credential", "another-estates-valid-token"}
+                       "dead-credential", "no-credential", "another-estates-valid-token",
+                       # ⭐ J0: nothing at the door, and the walk signs up and founds (2026-09-10)
+                       "open-signup"}
     check("every arrival named in the library is one this file can produce",
           {j["arrival"] for j in JOURNEYS.values()} <= CREDENTIAL_AXIS,
           "a journey names a credential main() cannot mint")
@@ -1127,6 +1197,33 @@ def selftest():
           and NAMED_UNBUILT.get("J6", {}).get("arrival") == "another-estates-valid-token",
           "the fifth value is missing — a valid credential belonging to somebody else, which is the "
           "one arrival no control in this project can currently see")
+
+    # ── ⭐⭐ J0 IS BUILT, AND BUILT FROM THE DOOR `[2026-09-10, shape (b)]`. These pin the ruling:
+    #    the founding walk starts holding nothing, is declared rather than derived, creates one
+    #    account, founds from the ONE address step, and reaches every control by clicking it.
+    f0 = journey_founding(A, "https://x/onboarding/")
+    check("J0 is in the library and no longer declared unbuilt",
+          "J0" in JOURNEYS and "J0" not in NAMED_UNBUILT, "J0 is stubbed, or still a hole")
+    check("J0 is DECLARED-ONLY — it enters from J5's door, so no derivation can yield it",
+          JOURNEYS["J0"]["enters"] == "J5" and JOURNEYS["J0"]["arrival"] == "open-signup",
+          "a J0 derivable at the door would classify every bare arrival as a founding")
+    check("a founding walk creates exactly ONE account",
+          len([x for x in f0 if x.startswith("type:#uname=")]) == 1,
+          "every extra signup is a real account and a real write")
+    check("a founding walk has its OWN stops (F…), never onboarding's",
+          all(x[5:].startswith("F") for x in f0 if x.startswith("shot:"))
+          and not (set(roster_of(f0)) & set(STOP_NAMES)),
+          "a founding stop is named like a fresh stop, so the two would pool in one report")
+    check("a founding walk FOUNDS from the one address step — types the address, taps That's it",
+          any(x.startswith("type:#a1=") for x in f0) and "click:#go2" in f0,
+          "the walk never reaches the step that founds")
+    check("a founding walk reaches the shelf's founding control by CLICK",
+          'click:a[href="/onboarding/"]' in f0, "the empty shelf's control is routed around")
+    check("a founding walk reaches the app THROUGH the door", "click:#openapp" in f0,
+          "it never opens the app, so it certifies onboarding again")
+    check("a founding walk records the shelf EMPTY before and holding ONE after",
+          [s for s in roster_of(f0) if "shelf" in s] == ["F04-the-empty-shelf", "F13-the-shelf-holds-one"],
+          "the before/after pair the founding claim rests on is not both in the record")
 
     # 5b · ⭐⭐ THE ENTRY GATE, AS ASSERTIONS. `journey_entered` is pure, so every state it must
     #      distinguish can be forced here — including the three that have actually been walked
@@ -1353,6 +1450,11 @@ def main():
     elif arrival == "no-credential":
         _tok = ""
         print("  arrival: NOTHING — the bare door a sunset banner points at, no ?g= at all")
+    elif arrival == "open-signup":
+        # ⭐ J0: nothing at the door either — the difference from J5 is what the walk DOES next
+        # (signs up, founds), not what it holds. Declared-only; the gate below still reads J5.
+        _tok = ""
+        print("  arrival: NOTHING — the open door; this walk signs up and founds (J0, declared)")
     elif arrival == "per-run-unfinished":
         unfinished = mint_unfinished(a.role, a.origin,
                                      v["username"] + "-u" + dt.datetime.now().strftime("%H%M%S"),
@@ -1366,7 +1468,7 @@ def main():
     # `?g=` would make the page read a present-but-empty grant, which is a THIRD state and not the
     # one every reader leaving legacy Fernwood is in. `syn=` stays: it is the synthetic marker the
     # capture side joins on, and it is not a credential.
-    url = (base + "?syn=" + run) if arrival == "no-credential" \
+    url = (base + "?syn=" + run) if arrival in ("no-credential", "open-signup") \
         else (base + "?g=" + _tok + "&syn=" + run)
 
     # ⛔⛔ THE ENTRY GATE. A journey is an action list PLUS the state it must be entered in, and the
@@ -1418,7 +1520,7 @@ def main():
     # in this function used to ask it what the run was doing. A `--journey J1` run with no `--fresh`
     # would have kept the seat's real username, hit "that username is taken", and never left s0 —
     # the 2026-09-05 defect, re-entered through a new door.
-    creates_account = walked == "J1"
+    creates_account = walked in ("J1", "J0")
     run_tag = dt.datetime.now().strftime("%H%M%S")
     ans = {"username": (v["username"] + "-" + run_tag) if creates_account else v["username"],
            "password": v["word"], "email": v["email"],
@@ -1488,7 +1590,8 @@ def main():
                                 "would mean the walk did not create anything.",
                   "arrival": "which credential was presented at the door: per-run-invite (unspent, "
                              "minted for this run) · durable-credential (this seat's own account) · "
-                             "dead-credential (shaped but never minted).",
+                             "dead-credential (shaped but never minted) · no-credential (J5) · "
+                             "open-signup (nothing at the door; the walk signs up and FOUNDS — J0).",
                   "entryState": "GET /api/grant/whoami as the walker presented it, read BEFORE the "
                                 "first action. Measured, never declared.",
                   "journeyEntered": "derived from entryState — see journeyMeans. NOT the gate's unit.",
@@ -1499,7 +1602,7 @@ def main():
                           "with the answers the seat types and with the run folder's name; that is "
                           "the weld .decisions/fernwood-16 exists to settle, and recording the axis "
                           "separately is what makes the evidence for it readable.",
-                  "fresh": "DERIVED — true when this run created an account (journey J1). It was "
+                  "fresh": "DERIVED — true when this run created an account (journey J1 or J0). It was "
                            "`--fresh` until 2026-09-10 and is kept under its old name because "
                            "walk-integrity and release-gate read it.",
               },
@@ -1686,7 +1789,7 @@ def main():
     # gains are per-journey, and the lens says so instead of attributing a gain to a guess.
     # ⚠️ A field the walk TYPED is not a derived fact. Recording what was typed here is what lets the
     # lens compute derived-facts-per-asked-field rather than counting the answers back.
-    who_can_sign_in = walked in ("J1", "J2", "J3", "J5")
+    who_can_sign_in = walked in ("J0", "J1", "J2", "J3", "J5")
     if who_can_sign_in:
         after, new_tok = record_after(a.origin, ans["username"], ans["password"])
         record["recordAfter"] = after
@@ -1723,6 +1826,48 @@ def main():
                     os.chmod(STORE, 0o600)
             except (OSError, ValueError) as e:
                 print("  ⚠️  could not write the seat's refreshed token back: %s" % e)
+
+    # ⭐⭐ DID THE HOUSE COME UP FOUNDED — J0's record-side clause, read AS THE PERSON after the walk.
+    # ⛔ WHAT IT CAN SEE: the door's answer to the account the walk created — which estate its
+    # credential now resolves to, whether that estate is DISTINCT from the deployment's (est-qa0001 is
+    # where every non-founded qa account lands; a founder resolving there is the sign-in defect the
+    # session handler's own comment records), whether it is placed, and whether the name is the one the
+    # walk typed. ⛔ WHAT IT CANNOT SEE: the place row, the digest, and reading ② of
+    # `tools/walk-founding.py` (every grant points at an estate that exists) — run that after, per env.
+    if walked == "J0":
+        dep = None
+        try:
+            import importlib.util as _ilu3
+            _gp = os.path.join(ROOT, "tools", "grant-mint.py")
+            _gs = _ilu3.spec_from_file_location("grantmint3", _gp)
+            _gm = _ilu3.module_from_spec(_gs); _gs.loader.exec_module(_gm)
+            dep = (_gm.ENVIRONMENTS.get(a.origin) or {}).get("estate")
+        except Exception:
+            dep = None
+        aft = record.get("recordAfter") or {}
+        readable = aft.get("reachable") and aft.get("status") == 200
+        founded = aft.get("estateId") if readable else None
+        record["founding"] = {
+            "estateId": founded,
+            "deploymentEstate": dep,
+            "distinctFromDeployment": (founded != dep) if (founded and dep) else None,
+            "estatesHeld": len(aft["estates"]) if (readable and isinstance(aft.get("estates"), list)) else None,
+            "placed": bool(aft.get("placed")) if readable else None,
+            "nameMatchesTyped": (aft.get("name") == ans["place"]) if readable else None,
+            "_note": "read at the door AS THE PERSON after the walk (record_after). None = UNREADABLE, "
+                     "never false. It cannot see the place row or the digest: run "
+                     "tools/walk-founding.py --env <env> for reading ② and tools/read-geocodes.py for "
+                     "the geocode outcome.",
+        }
+        fo = record["founding"]
+        if not readable:
+            print("  ⚠️  founding UNREADABLE — the door could not be asked as the person (%s)"
+                  % (aft.get("why") or "no answer"))
+        elif not founded:
+            print("  ⛔ NOT FOUNDED — the account resolves to no estate after the walk")
+        else:
+            print("  founded: %s · distinct from the deployment's %s: %s · placed: %s · name as typed: %s"
+                  % (founded, dep, fo["distinctFromDeployment"], fo["placed"], fo["nameMatchesTyped"]))
 
     # ⭐ DID THE INVITE ACTUALLY GET SPENT — the falsifier for this whole path, and it costs one
     # request. `/api/account` deletes the presented invite's grant row on a successful signup, so an

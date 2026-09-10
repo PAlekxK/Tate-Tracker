@@ -1365,6 +1365,13 @@
   // fixed was a device-local key standing in for a fact only the server holds, and curing that by
   // writing a different device-local key would just move it.
   var SERVER_KNOWS_ME = false;
+  // ⭐ WHAT THE SERVER SAID THIS ACCOUNT HOLDS — `estates` from whoami or from signup, cached for
+  // this page load only, by the same rule as SERVER_KNOWS_ME. `null` means the door never said
+  // (an older Worker, or no answer yet); `[]` means it said "you have founded nothing"; a
+  // non-empty array names a home. ⛔ READ `estates`, NEVER `hasEstate` — homes/index.html
+  // records why: the grant-resolved whoami does not carry `hasEstate`, so `!hasEstate` is true
+  // for a person who HAS a home.
+  var SERVER_ESTATES = null;
 
   function paintHandoff() {
     if (!el.handoff) return;
@@ -1766,6 +1773,10 @@
         store(K_GRANT, res.b.token);
         store(K_OWNER, res.b.token);
         store(K_USER, u);
+        // ⭐ THE SIGNUP RESPONSE IS THE SERVER'S OWN ANSWER TO "WHAT DO I HOLD" — `estates: []` since
+        // the open door (signup no longer grants). The routing at the bottom ran BEFORE this account
+        // existed, so this is the only place the answer can come from within the same page-life.
+        SERVER_ESTATES = Array.isArray(res.b.estates) ? res.b.estates : null;
         paintName();                                    // the bar switches to them the moment they exist
         clearAnswers();                                 // a brand-new account starts clean, always
         // ⛔ AFTER the clear, and that ordering is the whole bug. K_PREF was stored one line ABOVE
@@ -2073,32 +2084,79 @@
     el.go2.disabled = true;
     el.go2.innerHTML = "Saving…";
 
-    // The COMPONENTS ride along, because USPS Addresses v3 takes structured parts and parsing a
-    // blob back apart is where a unit number gets silently dropped.
-    // ⭐ THE ADDRESS BECOMES A FACT, not only a log line. It went ONLY to the feedback log, so the
-    // arrival screen could render it from localStorage alone — blank on a second device, against
-    // s0's own promise that this is hers on any phone. The log keeps the provenance; the record
-    // keeps the value.
-    try {
-      var _parts = JSON.parse(read(K_PARTS) || "null");
-      saveProfile({ address: text, addressParts: _parts || undefined });
-    } catch (e) {}
-    postAnswer("onboard-address", text,
-               { type: "onboarding", field: "address", step: 2, parts: p, verified: false })
-      .then(function (res) {
-        store(K_ADDR, text);
-        store(K_PARTS, JSON.stringify(p));
-        step(3);
+    // ⭐⭐ THE ONE ADDRESS STEP FOUNDS `[paul-ruled 2026-09-10]` — "there is exactly one place in the
+    // product that asks for an address… a second, founding-specific screen would MANUFACTURE one."
+    // So an account the server said holds NOTHING (`estates: []`) founds its estate HERE, from this
+    // same field, and an account that already has a home keeps saving its profile exactly as before.
+    // ⛔ ONLY WHEN THE SERVER SAID SO. `SERVER_ESTATES === null` means the door never answered the
+    // question (an older Worker sends no `estates` at all), and that degrades to today's path rather
+    // than reading an absent field as an empty shelf — absence is a fact about the Worker.
+    // ⛔ THE FOUNDING RESPONSE SAYS `digest: "not-composed"`: a founded house has no Guru yet, by
+    // design (B3). Nothing here pretends otherwise, and the arrival screen already promises only
+    // what is true for every reader.
+    // ⚠️ THE COMPONENTS ARE SENT AS TYPED (`p`), not read back from K_PARTS — which is stored only
+    // AFTER the answer lands, so the profile write used to send `addressParts: undefined` on the
+    // first pass and the unit number a blob parse drops was never on the record. Same fix, both paths.
+    var founding = Array.isArray(SERVER_ESTATES) && SERVER_ESTATES.length === 0;
+    function refuse() {
+      el.trouble.hidden = false;
+      // ⛔ NEVER "That didn't save." — the request can fail AFTER the write lands, and on 2026-09-05
+      // a walker was told her address was lost while it sat on file. The client observes a failed
+      // REQUEST, never a failed WRITE. Say only what is true from here.
+      el.trouble.innerHTML = "<strong>That didn't go through.</strong> Your answers are still here — tap <em>That's it</em> once more. Nothing is lost either way, and if it keeps refusing, tell Paul.";
+      el.go2.disabled = false;
+      el.go2.innerHTML = '<span class="tick">✓</span>That\'s it';
+    }
+    function landed() {
+      // ⭐ THE ADDRESS BECOMES A FACT, not only a log line. The log keeps the provenance; the record
+      // keeps the value — and `founded` on the context says which record it landed on.
+      postAnswer("onboard-address", text,
+                 { type: "onboarding", field: "address", step: 2, parts: p, verified: false, founded: founding })
+        .then(function () {
+          store(K_ADDR, text);
+          store(K_PARTS, JSON.stringify(p));
+          step(3);
+        })
+        .catch(refuse);
+    }
+    if (!founding) {
+      saveProfile({ address: text, addressParts: p });
+      landed();
+      return;
+    }
+    var u0 = read(K_USER);
+    fetch(WORKER + "/api/estate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Grant": read(K_GRANT) || "" },
+      // the name she already gave rides along: the profile write at the naming step could not land
+      // on an account with no estate, so founding is where it becomes durable
+      body: JSON.stringify(Object.assign(u0 ? { username: u0 } : {},
+        { verb: "found", address: text, placeName: read(K_NAME) || undefined, addressParts: p }))
+    })
+      .then(function (r) {
+        return r.json().then(function (b) { return { ok: r.ok, status: r.status, b: b }; },
+                             function () { return { ok: r.ok, status: r.status, b: {} }; });
       })
-      .catch(function () {
-        el.trouble.hidden = false;
-        // ⛔ NEVER "That didn't save." — the request can fail AFTER the write lands, and on 2026-09-05
-        // a walker was told her address was lost while it sat on file. The client observes a failed
-        // REQUEST, never a failed WRITE. Say only what is true from here.
-        el.trouble.innerHTML = "<strong>That didn't go through.</strong> Your answers are still here — tap <em>That's it</em> once more. Nothing is lost either way, and if it keeps refusing, tell Paul.";
-        el.go2.disabled = false;
-        el.go2.innerHTML = '<span class="tick">✓</span>That\'s it';
-      });
+      .then(function (res) {
+        if (res.ok) {
+          SERVER_ESTATES = (Array.isArray(res.b.estates) && res.b.estates.length) ? res.b.estates
+                         : [{ estateId: res.b.estateId }];
+          ev("found", "ok");
+          landed(); return;
+        }
+        if (res.status === 409 && res.b && res.b.error === "already-has-an-estate") {
+          // The record already holds a home for this person — our reading was stale, not the server.
+          // Take the path an account with a home takes.
+          SERVER_ESTATES = [{ estateId: res.b.estateId }];
+          ev("found", "already");
+          saveProfile({ address: text, addressParts: p });
+          landed(); return;
+        }
+        // a REFUSAL wrote nothing, so "nothing is lost" is exactly true here
+        ev("found", "refused:" + ((res.b && res.b.error) || res.status));
+        refuse();
+      })
+      ["catch"](function () { ev("found", "unreachable"); refuse(); });
   });
 
   // ---- ROUTING RUNS LAST, AND THAT ORDER IS LOAD-BEARING ----
@@ -2209,6 +2267,7 @@
       if (!who.hasAccount) { showFrontDoor(); return; }
       // ⭐ The server said yes, so this page load may now offer the way onward — see paintHandoff.
       SERVER_KNOWS_ME = true;
+      SERVER_ESTATES = Array.isArray(who.estates) ? who.estates : null;
       try { paintHandoff(); } catch (e) {}
       // ⛔⛔ THE RECORD DECIDES WHETHER SETUP IS DONE — NOT A LOCAL STEP COUNTER (fixed 2026-09-08).
       // The line below routed purely on `fw-onboard-step`, and anything that was not "2"/"3"/"4"
