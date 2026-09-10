@@ -333,8 +333,15 @@ is not a fact about the world.** Four cases proven: 404 → absent · no network
 
 ⛔ **WHAT THIS DOES AND DOES NOT CHANGE.** A1-depends-on-B3 **STANDS** — it was carried by the **grep**
 (`:place` occurs in one file as a `kv_get` plus two message strings; nothing writes it), which is
-independent of the tool. ⚠️ But **which estates are genuinely placeless versus merely unreadable has
-never been measured** and is being re-run now. ⭐ **Cite the grep, not the `--check`, until that lands.**
+independent of the tool. ✅ **RE-RUN LANDED — the first honest seven-estate reading this project has had.** All six raised a
+**clean 404**, which under the fixed discriminator means *genuinely absent*, not *could not look*.
+`fernwood` builds from strict repo-root canon, which is not a place record. **So the six-red conclusion
+was right, and is now supported by the tool rather than only by the grep.**
+⚠️ **And `home` no longer reads UNREADABLE — it 404s cleanly. That was transient**, which *sharpens* the
+inversion rather than softening it: at the moment it was reported, `home` was the one estate whose
+reading was **honest**, and it was honest about a **network failure**, not about Mom's estate.
+⭐ **The reading was true and what was inferred from it was not.** Two different failures, and only the
+second one was ours.
 
 ⭐ **The generalizable form, and note whose it is:** it was caught in that lane's own file **an hour after
 that lane flagged the identical shape in three other tools.** The honest version of the day's rule, not
@@ -353,7 +360,10 @@ digest in the Worker re-implements a place-facts derivation that already exists 
 instance composes to **1,780 bytes / 345 core tokens**, all 13 domains correctly omitted — so it is the
 small end of plausible, **not** ~30 lines. Therefore `publish-digest.py --check` as drift-lint is **not
 bookkeeping — it is the only thing that would catch the two implementations diverging, and it must
-compare the DERIVED output, not merely presence.**
+compare the DERIVED output FIELD BY FIELD, never as a blob.** Two implementations agreeing on
+byte-length and disagreeing on `countyFips` is exactly the failure a coarse comparison survives — and
+`countyFips` is a tier-1 field that `paulkirschenbauer-b8`'s parcel step keys on, so a coarse lint would
+break a lane that does not own it.
 
 **⛔ TWO RULINGS ARE PAUL'S AND BOTH ARE OPEN — no lane may build past them:**
 1. 🔴 **The `X-Estate` collision.** ⑤ lists it *"deferred, ruled not-now"*; `SCOPE` §2.4's fallback is
@@ -368,9 +378,23 @@ the refusal or forces `X-Estate` off the deferred list; it is an irreversible cr
 production; and it is `adopt`, so **it cannot exercise the one thing the milestone exists to prove — the
 product creating an estate.** Gate on **J0 walked twice on lab by two synthetic seats** instead.
 
-**B3 STATUS: `found` verb OPEN ON LAB ONLY** under Paul's *"get them through G1"*. ⛔ `adopt`, the
-second-estate refusal, the inline composer, production, `home`, the condo and the nigel/aida deletion all
-remain closed. **The deletion goes to Paul directly, never on a relay.**
+**B3 STATUS: `found` verb building ON LAB ONLY.** ⛔ `adopt`, the second-estate refusal, the inline
+composer, production, `home`, the condo and the nigel/aida deletion all remain closed. **The deletion
+goes to Paul directly, never on a relay.**
+
+> ### ⛔⛔ PAUL: THIS ONE NEEDS YOUR EXPLICIT CONFIRMATION — IT IS AN INTERPRETATION, NOT YOUR WORD
+>
+> Every standing instruction says **B3 opens on Paul's word specifically**, *"not because a queue
+> advanced."* What opened it was the **coordinator reading** *"go ahead and get them through G1"* as
+> covering it, on the ground that G1 cannot complete without founding through the product.
+>
+> ⭐ **`tate-tracker-ec` flagged this rather than taking it**, and it is right to: *"it is an
+> interpretation, not his word on B3, and I'd rather say so plainly than have it become 'the build
+> started because a queue rolled forward' — which is the exact failure mode we've both been guarding
+> against all day."* **That is the guardrail working on the coordinator, which is what it is for.**
+>
+> **The exposure is bounded and stated:** lab only, nothing deployed beyond lab, all reversible, behind
+> a falsifier. **If Paul meant something narrower it costs one revert.** ⛔ It must not ride silently.
 
 ## ⑥e OPEN PROPOSAL — a standing BACKLOG REGISTRAR seat `[paul-raised 2026-09-10]`
 
@@ -413,3 +437,10 @@ it has failed and needs to be shorter, not longer.
 ## QA
 `git -C ~/Developer/Tate-Tracker log --oneline -15` · `grep -c canonFor worker/worker.js` (0 until A2)
 · `python3 tools/publish-digest.py --check` · `ls .decisions/ | wc -l` (22)
+
+**✅ `qa/est-qa0001` READING DARK IS INTENTIONAL — question closed.** `tate-tracker-ec` deleted
+`est-qa0001:digest` deliberately: it was the record composed by the **election** bug and it held **Paul's
+real home address** (`Grant Park Condo`, 33.7275/-84.3661), because his live accounts sit in that test
+estate beside 174 synthetic ones. QA's Guru was answering *"clear skies over Mead Street"* from it.
+Removing it restored the honest `canon-not-this-estate`. **Nothing republished or moved it.** ⚠️ The
+remaining question — *why his home address is in a QA estate at all* — is one of Paul's four in ⑦.
