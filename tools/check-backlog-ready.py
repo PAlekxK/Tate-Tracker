@@ -93,7 +93,10 @@ DOC_SUFFIXES = ("-AUDIT", "-PROCESS", "-DESIGN", "-STATE", "-CENSUS", "-CHARTER"
 # belongs to whoever owns this tool.
 # ⚠️ DELIBERATE ABSENCES, each with its reason, so they stay quiet without hiding:
 UNGRADED_BY_DESIGN = {
-    "-PROPOSAL": "whether a proposal is a DOCUMENT or an ITEM is a real unruled call (see above)",
+    "-PROPOSAL": "⭐ RULED 2026-09-10, NOT YET BUILT: neither document nor item — the FILE declares its intent in "
+                 "`row:` (none · proposed · <pointer>); the orphan flag is reserved for a file claiming a row that "
+                 "is not there. Until the parser reads that field (~45 lines + a scripted header pass over 21 "
+                 "proposals), this suffix stays ungraded. .plans/2026-09-10-link-syntax-and-proposal-intent-RECOMMENDATIONS.md §2",
 }
 REPEATABLE = {"stage-note"}   # a dated LOG line, appended per event — many is the design, not a disagreement
 IN_FLIGHT = {"concept", "design", "journey", "build", "qa"}
@@ -111,7 +114,13 @@ WIP_BANDS = [
     ("build",  {"build", "qa"},       1),   # unchanged — the pre-existing one-at-a-time default
 ]
 REQUIRED_SECTIONS = ["## Files touched", "## Sequence", "## Falsifier", "## QA"]
-POINTER_PAT = re.compile(r"→\s*READY\s*·\s*(\.plans/[^\s`|)]+)")
+# ⭐ TWO LINK KEYWORDS `[paul-ruled 2026-09-10]` — `→ READY ·` means the plan is STAMPED; `→ PLAN ·`
+# is the STATUS-FREE link (a plan exists, not yet stamped). Ruled with the BIDIRECTIONAL check below:
+# every pointer is compared to its plan's own `ready:` line both ways. Without that, the new word
+# decays exactly as the old one did — measured the day it was ruled: 12 READY pointers, 2 false, 5
+# true under stale prose. Full digging: .plans/2026-09-10-link-syntax-and-proposal-intent-RECOMMENDATIONS.md
+POINTER_PAT = re.compile(r"→\s*(?:READY|PLAN)\s*·\s*(\.plans/[^\s`|)]+)")
+POINTER_KW_PAT = re.compile(r"→\s*(READY|PLAN)\s*·\s*(\.plans/[^\s`|)]+)")
 OBJ_PAT = re.compile(r"^\|\s*\**(O\d+)\**\s*\|", re.M)
 SEAT_PAT = re.compile(r"^\s*([a-z\-]+)\s*→\s*(.+?)\s*$")
 # What a CITATION looks like: a path, optionally `~`- or `.`-anchored, ending in a real extension.
@@ -279,6 +288,14 @@ def check(root):
                     + glob.glob(os.path.join(root, ".plans", "*-PROPOSAL.md")))
     # a `<date>-<slug>` placeholder in the taxonomy's own example is documentation, not a claim
     pointers = [p for p in POINTER_PAT.findall(backlog) if "<" not in p and not p.endswith("/")]
+    # which keyword each pointer used, and the row line it sits on (for the stale-prose read)
+    link_kw, link_line = {}, {}
+    for line in backlog.split("\n"):
+        for kw, path in POINTER_KW_PAT.findall(line):
+            if "<" in path or path.endswith("/"):
+                continue
+            link_kw.setdefault(path, set()).add(kw)
+            link_line[path] = line
 
     for p in pointers:
         if not os.path.exists(os.path.join(root, p)):
@@ -419,6 +436,20 @@ def check(root):
         # because it changes what the gate MEANS; Paul ruled it rather than a session guessing.
         if stage and stage not in ("draft", "ready") and not ready:
             findings.append((rel, f"stage `{stage}` with no `ready: [paul-approved …]` stamp — built without the gate"))
+        # ── the BIDIRECTIONAL link check `[paul-ruled 2026-09-10]` ──────────────────────────────
+        # A link is a READER of the plan header, never a second writer of its status.
+        kws = link_kw.get(rel, set())
+        if "READY" in kws and not ready:
+            findings.append((rel, "BACKLOG.md links this plan `→ READY ·` but its header carries no "
+                                  "`ready: [paul-approved …]` — a false readiness claim; flip the link to "
+                                  "`→ PLAN ·` or stamp the plan"))
+        if "PLAN" in kws and ready:
+            findings.append((rel, "BACKLOG.md links this plan `→ PLAN ·` but its header IS stamped — "
+                                  "promote the link to `→ READY ·`"))
+        if "READY" in kws and ready and re.search(r"\bnot stamped\b", link_line.get(rel, ""), re.I):
+            # the pre-stamp sentence left standing beside a true stamp — measured on two rows (A6, C7)
+            findings.append((rel, "the BACKLOG.md row says 'not stamped' beside a stamped plan — a stale "
+                                  "sentence in the row's prose, not the instrument's; the row's owner deletes it"))
         has_retro = any(t == "## Retro" or t.startswith("## Retro ") or t.startswith("## Retro —") for t in sections)   # a DATED retro heading is the good pattern, not a miss
         if stage in ("shipped", "retro") and not has_retro:
             findings.append((rel, "at `shipped` with no `## Retro` — the pre-registered question has not been answered"))
@@ -647,6 +678,27 @@ def selftest():
     with tempfile.TemporaryDirectory() as td:
         f, _ = check(make(td, plan=GOOD_PLAN.replace("stage: ready", "stage: shipped")))
         ok("shipped with no ## Retro is flagged", any("Retro" in m for _, m in f))
+    # ── ③ the bidirectional link check `[paul-ruled 2026-09-10]` ─────────────────────────────
+    with tempfile.TemporaryDirectory() as td:
+        make(td, plan=GOOD_PLAN.replace("- ready: [paul-approved 2026-09-03]\n", "").replace("stage: ready", "stage: draft"))
+        f, _ = check(td)
+        ok("③ a `→ READY ·` link on an UNSTAMPED plan is flagged as a false claim", any("false readiness claim" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td, plan=GOOD_PLAN.replace("- ready: [paul-approved 2026-09-03]\n", "").replace("stage: ready", "stage: draft"))
+        open(os.path.join(td, "BACKLOG.md"), "w").write("| row | → PLAN · .plans/2026-09-03-demo-PLAN.md |\n")
+        f, _ = check(td)
+        ok("③ a `→ PLAN ·` link on an unstamped plan is clean, and is NOT an orphan",
+           not any("false readiness" in m or "orphan" in m or "promote" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td)
+        open(os.path.join(td, "BACKLOG.md"), "w").write("| row | → PLAN · .plans/2026-09-03-demo-PLAN.md |\n")
+        f, _ = check(td)
+        ok("③ a `→ PLAN ·` link on a STAMPED plan says promote the link", any("promote the link" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td)
+        open(os.path.join(td, "BACKLOG.md"), "w").write("| row | → READY · .plans/2026-09-03-demo-PLAN.md — STAMPED. Not stamped. |\n")
+        f, _ = check(td)
+        ok("③ 'not stamped' beside a stamped plan is flagged as stale prose", any("stale" in m and "not stamped" in m for _, m in f))
     with tempfile.TemporaryDirectory() as td:
         f, _ = check(make(td, pointer=False))
         ok("a plan no row points at is flagged (orphan)", any("orphan" in m for _, m in f))
