@@ -636,6 +636,38 @@ does not add one. Any design here that increases total asking has failed the len
 
 **Falsifier for the eventual build:** a synthetic owner at qa invites a second synthetic by username; the second signs in, sees the notification naming the house and the inviter, accepts, and `whoami` lists that estate with the conferred role — with **no new `est-` id minted**.
 
+**⭐ ADDENDUM — Paul, same day, later, in the backlog-refinement window** `[paul-stated 2026-09-10 ~6:15 PM ET]`
+(voice-dictated; transcribed verbatim, three homophones read as marked):
+
+> *"Beyond that I see another bucket as allowing people to establish second [e]states and invite other
+> existing accounts into roles on their estates between a [read]-only, a[n e]state member who has [read
+> and write], and then an owner who controls the overall structure and modules."*
+
+> *"You know, and just thinking through [read and write] access and all these members, then there's a lot
+> of spill-over effect in terms — you know, we gotta be sure we're capturing instrumentation, we're
+> displaying who — if there's a multi-member household — we display who had each conversation with the
+> Garden Guru, so to speak. There's probably like a lot of spill-over. We need to scope out really well
+> with our experts to understand the full impact of kind of adding members. I hope and think we've been
+> doing a lot of the data structures to allow this, but there's certainly even more steps and questions to
+> go through."*
+
+*Refinement window, in its own voice — flags, not status:*
+- **The three roles he named** — *read-only* · *member, read and write* · *owner, controls structure and
+  modules* — are his answer to this row's open question *"what 'role type' means against the two ratified
+  axes."* It reads as a **capability ladder of three**, not a relationship. Whether it maps onto
+  `relationship SET · capability SINGLE` or replaces it is scoping, not transcription.
+- ⚠️ **"Establish second estates" collides with a ruling already in force.** `walk-founding.py`'s
+  acceptance clause **B** and `handleEstateFound` (`worker.js`, `measured` at `8eadcb6`: 409
+  `already-has-an-estate`) make a second estate a **NAMED REFUSAL** today. His bucket reverses that for a
+  later lap; the refusal stays correct for **this** lap (founding only). Both readings are now in one row.
+- **"Who had each conversation with the Guru"** is the first named instance of the within-estate
+  cross-person class board ⑤·1 says no instrument can see. It also touches the AI boundary's
+  administrator clause (an administrator reads a household's Guru turns) — attribution of a turn to a
+  member is a display question AND a privacy question. `security-steward` roster mode before any field.
+- **He asked for a full expert scoping**, not a build: *"scope out really well with our experts."* That is
+  a `→ PLAN ·` file with declared seats (user-researcher · engineering-partner · security-steward ·
+  ux-expert · content-steward), owed before this row can carry READY. Still **not this round**.
+
 ---
 
 ## 🧭 SEGMENT HYPOTHESES — who else, and what their model breaks `[paul-stated 2026-09-10]` ⚙️ engine
