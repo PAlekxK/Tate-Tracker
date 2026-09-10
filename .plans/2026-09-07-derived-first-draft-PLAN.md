@@ -308,7 +308,11 @@ not solve it and must not pretend to; `unavailable` is how it stays honest at sc
 ## Sequence
 
 1. **Write the register for Fernwood's anchor only** — NAIP, terrain/slope, roads, water, flood,
-   soil. Six entries, each with a positive control. *(Parcel is `unavailable` at Pickens; declare it.)*
+   soil, **+ buildings (Microsoft footprints: positive control = a footprint within 60 m of the geocode,
+   30–1,000 m² plausibility) + driveways (OSM service ways: positive control = at least one in a 2 km
+   bbox; stored as a HINT, ODbL)** — added 2026-09-10 from the automation assessment §8 step 2. Eight
+   entries, each with a positive control. *(Parcel is `unavailable` at Pickens; declare it — the
+   statewide layer is G1/403, see `LAND-SOURCES.md`.)*
 2. **`fetch-frame.py` walks the register**, writes artifacts + sidecars + `coverage.json`, exits 3 on
    any `unverified`.
 3. ⭐ **Run it at Fernwood and diff against what this repo already knows** — the NAIP bounds, the
@@ -380,10 +384,12 @@ Each would kill or materially reshape the v1. Written to be run, not argued.
 
 ## What I could not verify
 
-1. **A correct, keyless building-footprint source.** Probe 4 was the wrong service. Overture's
+1. ~~**A correct, keyless building-footprint source.** Probe 4 was the wrong service. Overture's
    documented paths are DuckDB/GeoParquet or a browser Explorer download — **neither is stdlib**, and
    the Esri-hosted alternative I found does not cover Georgia. **This is falsifier 1 and it is
-   unresolved.**
+   unresolved.**~~ ✅ **ANSWERED 2026-09-10** — Microsoft Global ML Building Footprints, pulled DIRECT
+   (never via Overture, which re-licenses the same geometry as ODbL): one quadkey tile, stdlib + PIL,
+   IoU 0.76 on the house. `.engineering/zones-derivability/anchors.py`; assessment §1a. Falsifier 1 discharged.
 2. **Whether NHD's empty result (probe: 200 · 42 B · n=0) is a wrong layer id or genuinely no mapped
    hydrography.** Fernwood has a pond. I did not introspect that service the way I did TIGERweb.
    ⚠️ **On the evidence of probes 1–2, assume wrong layer until proven otherwise.**

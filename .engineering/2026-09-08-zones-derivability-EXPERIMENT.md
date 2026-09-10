@@ -254,9 +254,11 @@ as such so the two are never quoted at the same weight.
 ```
    ┌─ 0 · FRAME ─────── downloads, not inferences (§5 step 1, unchanged)
    │
-   ├─ 1 · ANCHOR ────── propose the 2-3 highest-confidence objects ONLY.
-   │                    Today that is: house · main-parking · the driveway.
-   │                    Operator clicks ACCEPT / NUDGE / REJECT.
+   ├─ 1 · ANCHOR ────── FETCH the anchors; PROPOSE only what no download covers.
+   │                    (amended 2026-09-10, assessment §0: the house and the driveway are
+   │                    DOWNLOADS — Microsoft footprint IoU 0.76, OSM way 9 m from the house.
+   │                    Only main-parking is still a proposal: OSM gives a line, not the apron.)
+   │                    Operator clicks ACCEPT / NUDGE / REJECT — the first card is "is this your house?"
    │        ⛔ REFUSE to propose anything below a confidence floor at this step.
    │
    ├─ 2 · RE-SCOPE ──── each accepted anchor CONSTRAINS the rest:

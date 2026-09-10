@@ -98,6 +98,22 @@ South Atlantic-Gulf Region  →  Alabama  →  Coosa-Tallapoosa
 **Zone X — "area of minimal flood hazard."** One intersecting feature.
 `hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28/query`
 
+### Microsoft Global ML Building Footprints (CDLA-Permissive-2.0) — VERIFIED 2026-09-10
+One level-9 quadkey tile (~11 MB), filtered to the property bbox, stdlib + PIL, no key. **Three
+footprints in the frame**; the one at the anchor scores **IoU 0.75–0.76 against the hand-traced
+`house`**, centroid 1.5 m off, 140 m² vs 139 m² traced, height 4.96 m — reproduced independently by
+two sessions the same day. Roof outlines from 2014–2024 imagery; published recall 71–86 %, so an
+outbuilding may simply be absent. `confidence = −1.0` is a placeholder, not a score. ⭐ Z-13 uses
+this footprint AS the house in the cleaned zone set. Fetch + measure: `.engineering/zones-derivability/anchors.py`.
+
+### OpenStreetMap — `highway=service · service=driveway` via Overpass (⛔ ODbL, share-alike) — VERIFIED 2026-09-10
+Six service ways in the bbox, **three connected to the house**; the way named *Church Mountain Road*
+(1507899125) ends **9 m** from the house and runs 519 m to the public road; **every one of the 23
+zones has a vertex within 21 m of that network**. ⛔ **Licence decides what may be STORED**: a stored
+polyline is a derived database under ODbL — keep it as a HINT with source + timestamp, never as canon;
+the record is the human's retrace over it. Overpass is rate-limited: snapshot at founding, never
+fetch on a request path. Coverage in rural counties is a fact about the mappers (n = 1 here).
+
 ### Already in this repo from earlier work
 NOAA 1991–2020 climate normals (KJZP) · USDA Web Soil Survey series candidates (**inferred,
 never tested — waits on the W9 soil test**) · Almanac frost dates · the on-site Ambient Weather
@@ -120,9 +136,15 @@ Full write-up, the URL recipe, and the untested capabilities: **`GOOGLE-EARTH-NO
   photography, 1930s–1990s, public domain. This is the real path to *seeing* the land before the
   house, as a photograph rather than a map. Needs an EarthExplorer M2M login, and frames are raw
   (not orthorectified), so each would need control-point registration.
-- **Pickens County GIS / qPublic.** Parcel boundary, deed reference, sales history, building
-  footprint and year built, assessed value. **The property boundary is still missing from every
-  source in this repo** — this is where it lives.
+- **Pickens County GIS / qPublic — ⛔ 403-WALLED to a script (measured 2026-09-10).** Parcel boundary,
+  deed reference, sales history, building footprint and year built, assessed value. **The property
+  boundary is still missing from every source in this repo** — this is where it lives, and it reads
+  only in a browser (Claude-in-Chrome per Z-8, or Paul in one minute — assessment R-A2).
+- **Georgia statewide parcel layer (UGA ITOS via GDOT) — G1, answered 403 (an account, not stated to
+  be free).** The clearinghouse home page answers 200; its search path 404s; whether Pickens is in its
+  parcel list is unverified. Alternatives noted 2026-09-10: a $300 one-time county shapefile
+  (MappingSolutionsGIS, 2025 vintage — an engine-N cost); the GSCCCA plat index (free search; the
+  recorded plat is the *authoritative* boundary, a one-time human read).
 - **1832 Cherokee Land Lottery (Georgia Archives).** This land was Cherokee territory until 1832
   and was distributed by lottery, not federal patent — so BLM GLO records will *not* cover it.
   Original land-lot number and grantee would be here.
