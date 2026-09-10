@@ -314,6 +314,7 @@ JOURNEY_IDS = {
     # Aida's estates must now come into being through the product itself, so the founding path is the
     # only route they have and no walk has ever taken it.
     "J0": "founding-owner — no estate exists yet; the person creates one and becomes its owner",
+    "J6": "wrong-person — a VALID credential belonging to another estate. Not expired, not forged",
     "J1": "invited-stranger — a live, UNSPENT invite; no account, no server record",
     "J2": "returning-unfinished — an account whose record carries no name/address",
     "J3": "returning-finished — an account AND a completed household; expects to be carried to the place",
@@ -784,6 +785,24 @@ NAMED_UNBUILT = {
                   "Aida's estates can now come into being. ⭐ The record-side half is measured by "
                   "tools/walk-founding.py; what is missing is the ROUTE and the surface, not the "
                   "entry state."},
+    # ⭐⭐ J6 — ARRIVING AS THE WRONG PERSON, the fifth credential value made walkable.
+    # ⛔ THE FINDING THAT PUT IT HERE, and it is not this lane's: NOTHING IN THIS PROJECT CAN SEE
+    # WITHIN-ESTATE, CROSS-PERSON. `falsifier-tenancy.py`'s C1/C2/C3/C5 are all estate-A-vs-estate-B,
+    # and `check-household-isolation.py` says on its own face that "the subject is always TWO ESTATE
+    # PREFIXES INSIDE ONE NAMESPACE". All three of 2026-09-10's red findings (ea84315 · b09a80e ·
+    # 455c01e) were within-estate cross-person — the exact class no control can see.
+    # ⭐ It is §2a arriving from the security side: server-side record state is invisible in every
+    # fixture file that exists, and that same invisibility is why nothing tests two people inside one
+    # household. Structurally guaranteed the moment `J7 second-member` exists.
+    "J6": {"enters": "⛔ UNDECIDED — whether the door refuses a foreign-but-valid token, or serves "
+                     "it another household's record, IS the question. A journey may not assume the "
+                     "answer it exists to measure.",
+           "arrival": "another-estates-valid-token",
+           "needs": "a second estate holding a real credential at the SAME env, plus a ruling on "
+                    "whether a hostile fixture may be minted at all (privacy/security seat)",
+           "why": "arriving as the wrong person is the core cross-tenant attack, and the harness is "
+                  "one lens and one fixture away from being able to walk it. ⛔ Not to be built as a "
+                  "parallel rig — a red team is ONE MORE LENS over these journeys"},
 }
 
 
@@ -1089,11 +1108,25 @@ def selftest():
     check("every unbuilt journey names what it is BLOCKED ON",
           all(u.get("needs") and u.get("why") for u in NAMED_UNBUILT.values()),
           "a hole with no blocker named is a hole nobody can schedule")
+    # ⭐⭐ THE CREDENTIAL AXIS, AND ITS FIFTH VALUE. `[2026-09-10, routed from the privacy/security
+    # seat]` §3a enumerated four — live invite · spent grant · refused token · nothing — and every
+    # one of them is a credential of THIS person: valid, or invalid, or absent. The fifth is the one
+    # that is perfectly valid and BELONGS TO SOMEBODY ELSE.
+    # ⭐ It is one word here and a migration later, which is why it goes in while the enumeration is
+    # being designed rather than after. Arriving as the wrong person IS the core attack, so naming
+    # the value turns this harness into the cross-tenant rig instead of justifying a second one.
+    # ⛔ NAMED AND NOT YET MINTABLE — declared in NAMED_UNBUILT, never stubbed into JOURNEYS, because
+    # a stub would read to walk-fixtures.py as a procedure that exists.
+    CREDENTIAL_AXIS = {"per-run-invite", "per-run-unfinished", "durable-credential",
+                       "dead-credential", "no-credential", "another-estates-valid-token"}
     check("every arrival named in the library is one this file can produce",
-          {j["arrival"] for j in JOURNEYS.values()}
-          == {"per-run-invite", "per-run-unfinished", "durable-credential",
-              "dead-credential", "no-credential"},
+          {j["arrival"] for j in JOURNEYS.values()} <= CREDENTIAL_AXIS,
           "a journey names a credential main() cannot mint")
+    check("the CREDENTIAL axis carries the foreign-token value",
+          "another-estates-valid-token" in CREDENTIAL_AXIS
+          and NAMED_UNBUILT.get("J6", {}).get("arrival") == "another-estates-valid-token",
+          "the fifth value is missing — a valid credential belonging to somebody else, which is the "
+          "one arrival no control in this project can currently see")
 
     # 5b · ⭐⭐ THE ENTRY GATE, AS ASSERTIONS. `journey_entered` is pure, so every state it must
     #      distinguish can be forced here — including the three that have actually been walked
