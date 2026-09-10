@@ -64,6 +64,17 @@ VIEWER = os.path.join(ROOT, "viewer.html")
 # tools/wire-photos.py. If you add a new species category, update all three.
 SOURCES = [
     ("plants.json",     "PLANTS_DATA",     "plants",   "plants"),
+    # ⛔ LIFTED OUT OF THE ENGINE 2026-09-10. This was a 33,860-byte LITERAL inside
+    # engine/viewer.template.html — Fernwood's house coordinates (34.549665 / -84.36748), its DEM
+    # elevation, its skyline angles and a full year of its sunrise/sunset times — while every other
+    # data const was a placeholder. So it shipped, verbatim, inside the PUBLIC build of every other
+    # household. `[paul-ruled 2026-09-10]`: "we don't want all the populated Fernwood data in all the
+    # other households either."
+    # ⚠️ The CORRECTNESS half was already fixed on 09-07 (terrainSunTimes compares the table's own
+    # coordinates against the household being rendered, after a Bangor household read "last light
+    # SIXTEEN MINUTES BEFORE SUNSET"), so elsewhere it was inert — but inert is not absent, and it
+    # was invisible to every control: no build tool named it and ENGINE-MANIFEST.md did not class it.
+    ("sun-horizon.json", "SUN_HORIZON_DATA", "horizon",  "horizon"),
     ("mammals.json",    "MAMMALS_DATA",    "species",  "mammals"),
     ("birds.json",      "BIRDS_DATA",      "species",  "birds"),
     ("amphibians.json", "AMPHIBIANS_DATA", "species",  "amphibians"),

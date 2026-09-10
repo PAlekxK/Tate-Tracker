@@ -1,44 +1,45 @@
 {
-  "_meta": {
-    "purpose": "The neutral instance for the `bob` deployment — an ARTIFICIAL rig [paul-ruled 2026-09-06]. Same neutral app as production; a different estate id so its store is its own.",
-    "declared": "2026-09-06",
-    "rule": "This file may name NOTHING specific to a place. If a value here would differ between two households, it does not belong here — it belongs in what the person tells us at onboarding.",
-    "ruling": "paul-ruled 2026-09-06 R4: production ships the full app, built from its own instance, as the same artifact QA certified. R5: a domain with nothing in it is EMPTY, not absent — the section exists and says it holds nothing yet."
-  },
-  "estate": "bob",
-  "estateId": "est-9a74df",
-  "canon": "neutral-canon",
-  "identity": {
-    "name": "My Home",
-    "taglinePrefix": "An almanac for",
-    "addressLineSuffix": "",
-    "propertyTileSub": "",
-    "stationName": "",
-    "station": "declared-absent",
-    "theme": {
-      "_note": "NO `main` ON PURPOSE [2026-09-08]. An estate that has not chosen a colour declares none, and build-viewer answers from engine/palette.json `unchosen`. Four instances repeating one hex is the drift this repo pays for repeatedly — and it had already happened: all five declared Fernwood's #2f5d3a. The person's own colour is chosen at onboarding and stored on their account; this path is only the unconfigured build."
-    }
-  },
-  "absent": [
-    "plants",
-    "mammals",
-    "birds",
-    "amphibians",
-    "snakes",
-    "lizards",
-    "fishing",
-    "vehicles",
-    "zones",
-    "weeds",
-    "turf",
-    "events",
-    "candidates",
-    "insects",
-    "references",
-    "sources"
-  ],
-  "display": {
-    "defaultTextSize": "lg",
-    "_rule": "what an UNCONFIGURED device is served; a device with a stored choice keeps it."
+ "_meta": {
+  "purpose": "The neutral instance for the `bob` deployment — an ARTIFICIAL rig [paul-ruled 2026-09-06]. Same neutral app as production; a different estate id so its store is its own.",
+  "declared": "2026-09-06",
+  "rule": "This file may name NOTHING specific to a place. If a value here would differ between two households, it does not belong here — it belongs in what the person tells us at onboarding.",
+  "ruling": "paul-ruled 2026-09-06 R4: production ships the full app, built from its own instance, as the same artifact QA certified. R5: a domain with nothing in it is EMPTY, not absent — the section exists and says it holds nothing yet."
+ },
+ "estate": "bob",
+ "estateId": "est-9a74df",
+ "canon": "neutral-canon",
+ "identity": {
+  "name": "My Home",
+  "taglinePrefix": "An almanac for",
+  "addressLineSuffix": "",
+  "propertyTileSub": "",
+  "stationName": "",
+  "station": "declared-absent",
+  "theme": {
+   "_note": "NO `main` ON PURPOSE [2026-09-08]. An estate that has not chosen a colour declares none, and build-viewer answers from engine/palette.json `unchosen`. Four instances repeating one hex is the drift this repo pays for repeatedly — and it had already happened: all five declared Fernwood's #2f5d3a. The person's own colour is chosen at onboarding and stored on their account; this path is only the unconfigured build."
   }
+ },
+ "absent": [
+  "plants",
+  "mammals",
+  "birds",
+  "amphibians",
+  "snakes",
+  "lizards",
+  "fishing",
+  "vehicles",
+  "zones",
+  "weeds",
+  "turf",
+  "events",
+  "candidates",
+  "insects",
+  "references",
+  "sources",
+  "horizon"
+ ],
+ "display": {
+  "defaultTextSize": "lg",
+  "_rule": "what an UNCONFIGURED device is served; a device with a stored choice keeps it."
+ }
 }

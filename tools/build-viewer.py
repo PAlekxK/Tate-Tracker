@@ -209,6 +209,10 @@ EMPTY_SHAPE = {  # what an ABSENT domain's const looks like — the list key per
     # `catalog` is two lists, not one — a household with no sourcing catalogue still renders the
     # Candidates card, it just has nowhere to send you yet. R5: empty, not absent.
     "catalog": {"_meta": {"declaredAbsent": True}, "programs": [], "nurseries": []},
+    # ⭐ `horizon` is NOT a list — it is {house, lake} keyed tables. A household with no DEM horizon
+    # declares one and gets none; `terrainSunTimes` already returns null on a missing table, so the
+    # app falls back to the flat Open-Meteo horizon rather than borrowing another ridge's skyline.
+    "horizon": {"_meta": {"declaredAbsent": True}},
 }
 
 
