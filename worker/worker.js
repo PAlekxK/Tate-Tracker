@@ -435,6 +435,27 @@ function declarePerson(record) {
 // else: never a request field, never a device id (that resolver is momlib.person_for, read-side only). No caller
 // yet — C6 4a/4b (the vault's first room) is the first record that earns one — but the door exists so the next
 // handler has one way to do this and it is not the literal.
+// ⭐⭐ THE SIBLING FOR A PERSON WITH NO HOUSEHOLD `[C7, 2026-09-10]`. `attributeTo` refuses a grant
+// without an estateId, and the call site guards the same way — correct while every person had exactly
+// one household, and WRONG the moment an account can exist before an estate does.
+// ⛔ THE DEFECT IT REPAIRS, and it lands on the FIRST account-scoped write there will ever be: a
+// person who has signed up and created no household yet writes her words with `personId: null`. That
+// is silent quiet-loss of authored input — the exact class this repo has paid for repeatedly.
+// ⛔ AND IT IS NOT FIXED BY RELAXING `attributeTo`'s GUARD. That guard buys a real property: both
+// facts come from the SAME resolved row, so they cannot disagree. Loosening it would let a caller
+// attribute a person from one place and an estate from another.
+// ⭐ THE NULL ALREADY MEANS SOMETHING ELSE. `PERSON_UNKNOWN` is "written after the field existed and
+// nobody could say." Here we CAN say, and the answer is "none" — a different observation, and it
+// gets its own state rather than borrowing the one that means ignorance.
+function attributeToPerson(record, grant) {
+  if (!grant || !grant.personId) {
+    throw new Error("attributeToPerson: needs a resolved grant with a personId — refusing to attribute from anything else");
+  }
+  return Object.assign({}, record, {
+    personId: grant.personId, personSource: "grant",
+    estateId: null, estateSource: "none", scope: "account",
+  });
+}
 function attributeTo(record, grant) {
   if (!grant || !grant.personId || !grant.estateId) {
     throw new Error("attributeTo: needs a resolved grant with personId and estateId — refusing to attribute from anything else");
@@ -3543,7 +3564,13 @@ async function handleFeedback(request, env, url, grant) {
     });
     // declarePerson() above stamps personId:null and is the guard; attributeTo() is the ONE legal
     // writer of a non-null person and takes it from a RESOLVED grant row, never from the body.
-    const attributed = (grant && grant.personId && grant.estateId) ? attributeTo(record, grant) : record;
+    // ⛔ THREE OUTCOMES, NEVER TWO. A grant with a household attributes to person AND place; a grant
+    // with a person and no household attributes to the person and DECLARES "none" for the place; no
+    // grant at all leaves the declared null, which means "nobody could say". Collapsing the middle
+    // case into the last one is what made an account-with-no-household lose its author.
+    const attributed = (grant && grant.personId && grant.estateId) ? attributeTo(record, grant)
+                     : (grant && grant.personId) ? attributeToPerson(record, grant)
+                     : record;
     const today = new Date().toISOString().slice(0, 10);
     const key = dateKey(scopeOf(env), "feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
