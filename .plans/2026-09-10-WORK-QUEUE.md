@@ -64,12 +64,36 @@ Each is reversible, none touches a live request path, and none reaches a person.
 | **Deploy `grantFor()` beyond lab** | **Bob's grant is unspent.** The credential path is the one whose failure locks a person out rather than degrading. Your call when, not mine |
 | **The consent checkbox WORDING** | it reaches a person. This repo's rule is that authored content is human-confirmed before it ships. I can build the mechanism and draft the line; I may not ship the words |
 | **Correct `p-paul @ est-e6696a`** | the register says `relationship: ["owner"]` at an estate **Mom** owns. Today's ruling says your access comes from her invite. Fixing it is a claim about rights |
-| **Delete `nigel` and `aida`** | irreversible, and free — but still a deletion |
+| ~~**Delete `nigel` and `aida`**~~ | ⛔ **KILLED 2026-09-10 — DO NOT RE-PROPOSE.** The justification (*"namespaces empty, never used"*) was **wrong**. Paul named his four beta testers: **Mom · Bob · Aida · Nigel** — *"Mom has already set up her house in production, and then I want to share with Aida and Nigel next."* Their namespaces are empty because **they have not been invited yet**, not because they are dead. Recorded visibly rather than dropped, so the same stale reading cannot mint this row again |
 | **The C-phase migration** | copying estate rows across namespaces, retiring `bob`/`paul`, `ENV_NAME`, `legacy`'s data. Every step is irreversible and the plan already says step 5 is yours |
 | **Close lap 5** | beat 11 is the release event. Nothing is released before it |
 | **Ratify the `route:` key noun** | I chose it over the plan's `credential:` to avoid a double-booking, and you have not ruled. **Cheap to change now, expensive after A1** |
 
 ---
+
+## 2b. ⭐ THE FOUR HOUSEHOLDS — and the register is inconsistent in BOTH directions
+
+`[paul-stated 2026-09-10]` the beta is **Mom · Bob · Aida · Nigel**. Paul is not one of them
+(`p-7f3a2c` carries `excludeFromEngagement: true` — he is the builder).
+
+| household | estate | person record | state |
+|---|---|---|---|
+| **mom** | `est-e6696a` | ✅ | ✅ **signed up today**, empty by design, rebuilding |
+| **bob** | `est-9a74df` | ✅ `p-2f4735` | invite out, **UNSPENT** — the credential path must work when he spends it |
+| **aida** | `est-92e588` ✅ | ⛔ **NONE** — zero mentions in `tools/people.json` | estate without a person |
+| **nigel** | `est-76012d` ✅ | ✅ `p-5cf094` | person without a grant |
+
+⚠️ **And one note was stale in the alarming direction.** `people.json` said of nigel *"HAS NO ESTATE
+YET — there is no `nigel` env in worker/wrangler.toml"*. There is one, since `c1ae9bb` the same day.
+Corrected 2026-09-10. **A register that misreports in either direction is the instrument problem this
+repo keeps paying for** — the stale note would have had someone provision an estate that already
+existed.
+
+⭐ **NIGEL IS THE MOST VALUABLE THING TO BUILD TOWARD.** He is the only household that would go
+end-to-end through the new path — a link, onboarding, an estate created from nothing — which is
+exactly the goal state. That makes **B3 (`POST /api/estate`) critical path, not a late item.**
+
+⛔ **Do not provision or invite anyone.** Inviting is outbound and Paul's. Build the path.
 
 ## 3. WHAT I WOULD DO NEXT, if you want one answer
 
