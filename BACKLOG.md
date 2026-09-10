@@ -822,7 +822,7 @@ installation, plot of land with things on it — like a larger scale of Fernwood
 model of having a **field user**, **committee members**, and an **administrator**. A different
 interaction and ownership model, and those different roles probably need different access points and
 permissions and **reports**."* ⚠️ **Tate Commons is a real, separate project** (`~/Developer/tate-commons`)
-— see memory `project_tate_commons_initiative`, and ⛔ **never collapse Bob Rolader's two tracks**
+— see memory `project_tate_commons_initiative`, and ⛔ **never collapse Bob's two tracks**
 (TMC Facilities vs. his own two houses).
 
 ### ⭐ WHY THIS IS NOT ONLY FUTURE MARKET WORK — both segments stress-test the model being built TODAY
