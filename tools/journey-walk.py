@@ -17,11 +17,38 @@ in the same run folder and are joined by the run id, never blended.
 Runs land in `.private/synthetic-walks/<role>/<timestamp>/` — private, because a walk carries the
 walker's invented address and the account's credentials are one file away.
 """
-import re, time, urllib.request, argparse, datetime as dt, glob, json, os, subprocess, sys
+import re, time, urllib.request, urllib.error, argparse, datetime as dt, glob, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STORE = os.path.join(ROOT, ".private", "synthetic-identities.json")
 OUT = os.path.join(ROOT, ".private", "synthetic-walks")
+# ⭐ THE PER-RUN UNSPENT INVITE lands here, mode 600, one key per `<role>@<env>`. Written by
+# `grant-mint.py --fixture-out` and by nothing else — this file never mints a token itself.
+INVITES = os.path.join(ROOT, ".private", "walk-invites.json")
+# ⛔⛔ THE WORKER HOST IS DERIVED FROM `post-deploy.py`, NEVER RE-TYPED — and it cost an hour of a
+# build run to learn why, on 2026-09-10. `env.paul` and `env.bob` declare `name = "myhome-<env>"`
+# while every other env is `fernwood-<env>`, so probing `fernwood-paul…` returns a Cloudflare 1042
+# that reads exactly like an undeployed Worker. A healthy deployment was diagnosed as a missing one.
+# ⭐ `post-deploy.worker_health()` already carries the map and its own comment says it is "the one
+# value here that is re-typed, so it is the one most able to drift". This file borrows it rather than
+# becoming the THIRD copy of a map that had already produced a wrong diagnosis — one source, N
+# readers, which is the same rule `walk-fixtures.py` follows for the journey derivation.
+# ⚠️ The two Pages maps further down are a DIFFERENT map (origins, not Workers) and are left alone;
+# folding them in would be a change to what the walk walks, not to how it is addressed.
+def worker_base(env):
+    import importlib.util as _i
+    _p = os.path.join(ROOT, "tools", "post-deploy.py")
+    _s = _i.spec_from_file_location("pd", _p); _m = _i.module_from_spec(_s); _s.loader.exec_module(_m)
+    return _m.worker_health(env)[: -len("/health")]
+
+
+class _Workers(dict):
+    """`WORKERS[env]` keeps its old shape at every call site and resolves through the one map."""
+    def __missing__(self, env):
+        return worker_base(env)
+
+
+WORKERS = _Workers()
 
 
 def identity(role, env):
@@ -41,6 +68,268 @@ def refresh(role, env):
     subprocess.run([sys.executable, os.path.join(ROOT, "tools", "synthetic-identity.py"),
                     "--login", role, "--env", env], capture_output=True, text=True, timeout=180)
     return identity(role, env)
+
+
+# ── THE ARRIVAL CREDENTIAL — a property of the ARRIVAL, never of the role ──────────────────────
+# ⛔⛔ WHY THIS EXISTS, AND IT IS THE DEFECT `--fresh` HAS CARRIED SINCE THE INVITE SHIPPED.
+# A `--fresh` walk is supposed to be the INVITED STRANGER: someone who holds a live invite and has
+# no account. It arrived instead on `identity()["token"]` — a token minted by `/api/session` for a
+# durable account that already exists. `handleSession()` stamps `grantRow.username`, and
+# `/api/grant/whoami` answers `hasAccount: !!grant.username` — so every "fresh" walker on record
+# arrived at the door already recognised, and the onboarding page's own comment for that branch
+# reads *"A VALID LINK THAT HAS NEVER BEEN SPENT IS A NEW PERSON"*. No walk had ever been one.
+# ⛔ It is worse than a weak test: `/api/account` SPENDS the presented invite (it deletes the grant
+# row), so a fresh walk destroyed the durable identity's own credential every run. `--login` before
+# each walk hid that by re-minting one.
+# ⭐ THE FIX IS AN ARRIVAL, NOT A ROLE `[the row's own discipline: a `--role fresh-invitee` would be
+# the same mistake in a new coat]`. Every seat keeps its posture and its typed answers; what changes
+# is the credential it arrives holding.
+# ⛔ THIS FILE MINTS NOTHING. `grant-mint.py` is the ONE writer of the grant register and the KV
+# grant store, and it stays that way — this is a subprocess call to it, with the row's OWN standing
+# consent replayed verbatim.
+def invitee(role):
+    """The person an invite is minted FOR. Stable per role, so the register holds ONE edge per seat
+    and each run rotates its credential rather than minting a new person↔estate relationship."""
+    return "p-inv-" + role
+
+
+def mint_invite(role, env):
+    """Rotate this seat's invite and return the fresh, UNSPENT token.
+
+    ⛔ IT MAY ONLY ROTATE, NEVER CREATE. Minting a new (person, estate) edge is an authority act with
+    a consent gate on it (`grant-mint.py` G1/G2), and a harness that could satisfy its own consent
+    gate every run would be a gate that fires where the answer is easy — which grant-mint's own G2
+    comment names as the cheap outcome. So the edge is authored ONCE, by a human, and this replays
+    the consent already on the row. A missing row REFUSES with the exact command to author it.
+    """
+    import importlib.util as _ilu
+    _p = os.path.join(ROOT, "tools", "grant-mint.py")
+    _s = _ilu.spec_from_file_location("grantmint", _p)
+    gm = _ilu.module_from_spec(_s)
+    _s.loader.exec_module(gm)
+    estate = (gm.ENVIRONMENTS.get(env) or {}).get("estate")
+    if not estate:
+        raise SystemExit("journey-walk: worker/wrangler.toml declares no estate for env %r" % env)
+    person = invitee(role)
+    try:
+        reg = gm.load_register(gm.REGISTER)
+    except OSError as e:
+        raise SystemExit("journey-walk: the grant register is unreadable (%s) — an invite cannot be "
+                         "rotated against a register nobody can read" % e)
+    row = gm.find_row(reg, person, estate)
+    if not row:
+        raise SystemExit(
+            "journey-walk: no invite edge for (%s, %s).\n"
+            "  An invited arrival needs a person↔estate edge a HUMAN authored — this tool rotates a\n"
+            "  credential; it does not create a relationship. Author it once:\n\n"
+            "    python3 tools/grant-mint.py mint \\\n"
+            "      --person %s --estate %s --env %s \\\n"
+            "      --entry --relationship contributor --capability member --issued-by <p-admin> \\\n"
+            "      --consent 'scope=administrator-reads,agreedOn=<YYYY-MM-DD>,agreedBy=%s,"
+            "recordedBy=<p-admin>,consentSource=attested,how=synthetic-walk-fixture' \\\n"
+            "      --fixture-out %s --fixture-name '%s@%s'\n"
+            % (person, estate, person, estate, env, person,
+               os.path.relpath(INVITES, ROOT), role, env))
+    cred = row.get("credential") or {}
+    issued_by = cred.get("issuedBy") or next(
+        (h.get("issuedBy") for h in reversed(row.get("credentialHistory") or []) if h.get("issuedBy")), None)
+    if not issued_by:
+        raise SystemExit("journey-walk: the invite edge (%s, %s) records no issuedBy — refusing to "
+                         "guess who issues this seat's credential" % (person, estate))
+    argv = [sys.executable, _p, "mint", "--person", person, "--estate", estate, "--env", env,
+            "--capability", row.get("capability") or "member",
+            "--relationship", ",".join(row.get("relationship") or ["member"]),
+            "--issued-by", issued_by, "--rotate",
+            "--fixture-out", INVITES, "--fixture-name", "%s@%s" % (role, env)]
+    if row.get("entry"):
+        argv.append("--entry")
+    if row.get("vault"):
+        argv.append("--vault")
+    # ⛔ THE ROW'S OWN CONSENT, REPLAYED — never a fresh one this tool composed. `access` is written
+    # by the claim route and grant-mint refuses to hand-write it, so it is dropped rather than passed.
+    for c in row.get("consent") or []:
+        if c.get("scope") == "access":
+            continue
+        if any(not c.get(k) for k in gm.CONSENT_FIELDS):
+            continue
+        argv += ["--consent", ",".join("%s=%s" % (k, c[k]) for k in gm.CONSENT_FIELDS)]
+    r = subprocess.run(argv, capture_output=True, text=True, timeout=600)
+    if r.returncode:
+        raise SystemExit("journey-walk: the invite could not be rotated — REFUSING to fall back to a\n"
+                         "  spent credential, which is the very defect this path exists to close.\n%s"
+                         % (r.stdout or "") + (r.stderr or "")[-400:])
+    try:
+        tok = json.load(open(INVITES, encoding="utf-8"))["%s@%s" % (role, env)]
+    except (OSError, ValueError, KeyError) as e:
+        raise SystemExit("journey-walk: grant-mint reported success but %s carries no token for %s@%s "
+                         "(%s)" % (os.path.relpath(INVITES, ROOT), role, env, e))
+    return {"token": tok, "invitee": person, "estate": estate,
+            "hash": (gm.find_row(gm.load_register(gm.REGISTER), person, estate)
+                     .get("credential") or {}).get("hash", "")[:10]}
+
+
+def mint_unfinished(role, env, username, word, email):
+    """J2's fixture: a per-run account whose record is deliberately NOT completed.
+
+    ⛔⛔ WHY IT IS PER-RUN, MEASURED THE HARD WAY. J2's first fixture was a durable identity left
+    unfinished (`handover@qa`, 2026-09-10). The first J2 walk finished it — which is the journey's
+    whole point — and J2 was left with no fixture again, twenty minutes after gaining one.
+    ⭐ A JOURNEY THAT CHANGES THE WORLD CONSUMES ITS OWN ENTRY STATE, and there are now two of them
+    in this file: J1 spends its invite, J2 finishes its record. Both are provisioned per run for the
+    same reason, and neither may borrow a durable identity — borrowing one is exactly what made every
+    "fresh" walk a returning one.
+    ⛔ BUILT THROUGH THE PRODUCT'S OWN SIGNUP ROUTE, never straight into KV — `--complete-setup`'s
+    rule, and for its reason: a fixture built by a private door tests a state the product cannot
+    actually produce, which is how a green walk stops being evidence about the product.
+    ⚠️ It stops at the account. Not completing the setup IS the fixture; the walk does that part,
+    which is what makes the walk a test of the resume path rather than a re-run of J1.
+    """
+    inv = mint_invite(role, env)
+    body = json.dumps({"username": username, "word": word, "email": email,
+                       "phone": None, "accent": None}).encode()
+    req = urllib.request.Request(WORKERS[env] + "/api/account", data=body,
+                                 headers={"Content-Type": "application/json",
+                                          "User-Agent": "Mozilla/5.0",
+                                          "X-Grant": inv["token"]})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as f:
+            out = json.loads(f.read())
+    except urllib.error.HTTPError as e:
+        raise SystemExit("journey-walk: could not provision J2's fixture — /api/account answered %s "
+                         "%s. ⛔ REFUSING to fall back to a durable identity: that is how every "
+                         "'fresh' walk became a returning one." % (e.code, e.read()[:200]))
+    if not out.get("token"):
+        raise SystemExit("journey-walk: /api/account returned no token, so there is no credential to "
+                         "arrive on and J2 cannot be walked.")
+    return {"token": out["token"], "personId": out.get("personId"), "username": username,
+            "invitee": inv["invitee"], "estate": inv["estate"], "hash": inv["hash"]}
+
+
+# ── THE ENTRY STATE — what the SERVER says this credential arrives as ──────────────────────────
+# ⭐ A JOURNEY IS AN ACTION LIST PLUS THE STATE IT MUST BE ENTERED IN, and until now the harness
+# recorded only the first half. `journey_returning()` walks the same seven stops whether the record
+# is finished or not — the product branches, the walk does not — so a returning walk against an
+# unfinished record and one against a finished record produced transcripts a reader cannot tell
+# apart. That is how "the finished-setup redirect is unwalked by any seat at any build" stayed true
+# for a day AFTER a seat had walked it: the evidence existed and nothing in the record said so.
+# ⛔ MEASURED, NEVER DECLARED. This asks the door itself rather than trusting a fixture file, so a
+# fixture that has decayed reads as decayed instead of as a product finding.
+def entry_state(env, token):
+    """`GET /api/grant/whoami` as the walker is about to present it. Never raises."""
+    if not token:
+        return {"reachable": True, "status": None, "hasAccount": False,
+                "why": "no credential presented — the bare door"}
+    try:
+        req = urllib.request.Request(WORKERS[env] + "/api/grant/whoami",
+                                     headers={"X-Grant": token, "User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=45) as f:
+            b = json.loads(f.read())
+        return {"reachable": True, "status": 200, "hasAccount": bool(b.get("hasAccount")),
+                "name": b.get("name"), "address": b.get("address"),
+                "ranked": b.get("ranked"), "personId": b.get("personId"),
+                "estateId": b.get("estateId"), "relationship": b.get("relationship"),
+                "capability": b.get("capability"),
+                "placed": bool((b.get("coordinates") or {}).get("latitude"))}
+    except urllib.error.HTTPError as e:
+        # 404 is the door's ONE refusal shape — unknown, revoked or another estate's, deliberately
+        # byte-identical so nothing here may claim to know which.
+        return {"reachable": True, "status": e.code, "hasAccount": False,
+                "why": "the record does not know this credential"}
+    except Exception as e:
+        # ⛔ UNREACHABLE IS NOT "FRESH". A door that cannot be asked has said nothing, and the gates
+        # below refuse rather than reading silence as the answer they wanted.
+        return {"reachable": False, "status": None, "why": str(e)[:200]}
+
+
+# ⭐⭐ THE FACTS A HOUSEHOLD CAN HOLD ABOUT ITSELF — the axis the ELICITATION LENS reads
+# `[paul-stated 2026-09-10]`: "at each step, are we requesting all the information that makes sense
+# to give us enough data to populate and TRIANGULATE what we need for that estate… and every time we
+# ask for information, ideally we're confirming that information and making it clear what's linked to
+# it and what's being added."
+# ⛔ IT IS NOT "ASK MORE QUESTIONS", and the distinction is the whole lens. Paul's own 09-05 ruling is
+# that autofill research INVERTED the assumption that more fields are safer — fewer fields is the
+# standard. His address example is the reconciliation: ONE field, many derived facts. So the reading
+# is DERIVED-FACTS-PER-ASKED-FIELD, and a step that asks for something it could have derived is a
+# finding, not merely a step that asks too little.
+# ⚠️ TYPED vs DERIVED is recorded, never guessed: `typed` is what the walk's own action list put into
+# a field, so anything else the record gained came from the system.
+RECORD_FACTS = ("name", "address", "addressParts", "ranked", "coordinates", "contactPref",
+                "accent", "profileAccent")
+
+
+def record_facts(st):
+    """Which facts the household actually holds, from a measured entry state. Absent ≠ false."""
+    if not st.get("reachable") or st.get("status") != 200:
+        return None
+    out = {}
+    for f in RECORD_FACTS:
+        v = st.get(f)
+        out[f] = bool(v) if f != "coordinates" else bool(st.get("placed"))
+    return out
+
+
+def record_after(env, username, word):
+    """The household's own record READ AS THE PERSON, after the walk.
+
+    ⛔ WHY IT SIGNS IN RATHER THAN REUSING THE ARRIVAL TOKEN. J1 spends its invite and J5 rotates the
+    credential in the browser, so for two of five journeys the token the walk arrived on is dead by
+    the end. Signing in is the act a person performs, it works for every journey that acted as
+    somebody, and it is the same call `synthetic-identity.py --login` already makes.
+    ⚠️ IT ROTATES THE GRANT — which is why the caller writes the new token back to the store for a
+    durable seat. A fixture the measurement quietly invalidates is a fixture that rots.
+    ⛔ A FAILURE READS UNREADABLE, NEVER "GAINED NOTHING". A door that cannot be asked has said
+    nothing, and a zero here would be the strongest possible claim from the weakest possible evidence.
+    """
+    try:
+        req = urllib.request.Request(
+            WORKERS[env] + "/api/session",
+            data=json.dumps({"username": username, "word": word}).encode(),
+            headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=60) as f:
+            sess = json.loads(f.read())
+    except Exception as e:
+        return {"reachable": False, "why": "could not sign in after the walk: %s" % str(e)[:160]}, None
+    if not sess.get("token"):
+        return {"reachable": False, "why": "sign-in returned no token"}, None
+    return entry_state(env, sess["token"]), sess["token"]
+
+
+# ⭐ WHICH JOURNEY THIS RUN ACTUALLY ENTERED — DERIVED from the measured entry state, never declared.
+# ⛔ THIS IS NOT THE GATE'S UNIT AND MUST NOT BECOME ONE HERE. `release-gate.py` still keys on the
+# seat; changing that is a change to the release condition and is Paul's (card `fernwood-16`). This
+# key exists so the evidence for that decision is IN THE RECORD when he makes it — and so that a
+# returning-unfinished walk can never again be read as the returning-finished one.
+JOURNEY_IDS = {
+    # ⭐⭐ J0 — THE FOUNDING OWNER, and it sits directly on the "ready to invite" milestone
+    # `[paul-stated 2026-09-10: "fully set up and tested"; tested means WALKED]`.
+    # ⛔ NOTHING IN THIS HARNESS WALKS IT, and J1 is not it. `measured` 2026-09-10: a J1 walker
+    # spends an invite into an estate that ALREADY EXISTS and comes out `relationship: contributor`
+    # — a second member. That is Bob's shape, joining a household somebody else founded. Nigel's and
+    # Aida's estates must now come into being through the product itself, so the founding path is the
+    # only route they have and no walk has ever taken it.
+    "J0": "founding-owner — no estate exists yet; the person creates one and becomes its owner",
+    "J1": "invited-stranger — a live, UNSPENT invite; no account, no server record",
+    "J2": "returning-unfinished — an account whose record carries no name/address",
+    "J3": "returning-finished — an account AND a completed household; expects to be carried to the place",
+    "J4": "dead-credential — a credential the record refuses",
+    "J5": "bare-door — no credential at all",
+}
+
+
+def journey_entered(fresh, dead, st):
+    """(id, why). `None` when the door could not be asked — silence is never a journey."""
+    if not st.get("reachable"):
+        return None, "the door could not be asked: %s" % st.get("why")
+    if dead or st.get("status") not in (200, None):
+        return "J4", "the record refuses this credential (status %s)" % st.get("status")
+    if st.get("status") is None:
+        return "J5", "no credential was presented"
+    if not st.get("hasAccount"):
+        return "J1", "the invite is live and has never been spent on an account"
+    if st.get("name") and st.get("address"):
+        return "J3", "the record carries a name and an address — the finished-setup branch"
+    return "J2", "an account exists; its record carries no %s" % (
+        "name" if not st.get("name") else "address")
 
 
 # ⛔ A WALK MUST NOT WALK A MOVING TARGET. On 2026-09-05 four walkers ran between 17:00 and 17:30
@@ -184,6 +473,25 @@ STOP_NAMES = ["01-arrive", "02-account", "02b-naming", "03-named", "04-address",
               "13-told", "14-shelf-to-place"]
 
 
+# ⛔⛔ THIS LIST IS WRITTEN FOR A **FINISHED** RECORD, AND NOTHING SAID SO UNTIL NOW.
+# `journey_returning()` shipped on 2026-09-07 for the person who exists but has NOT finished setting
+# up — the only returning state any fixture could then produce. On 2026-09-08 at `7496196` its third
+# stop was rewritten from `click:#gohome` to `shot:R03-already-there`, because a recognised person is
+# now redirected past the handoff straight to `/estate/`; the commit message reads *"the returning
+# journey now describes the product that exists — and walks clean."* It did. It also SILENTLY MOVED
+# THE JOURNEY: from that commit the list begins by clicking `a[href="/homes/"]`, a link that exists on
+# the estate page and on no onboarding screen. So the procedure migrated from J2 to J3 and J2 was left
+# with a fixture and no walker, and nothing in the repo could report it.
+# ⭐ MEASURED, 2026-09-10, on a fixture built for the purpose: the `handover` seat (an account whose
+# record carries no name) walked this list and 5 of 5 clicks timed out against screen `s1` — the
+# naming screen. Zero of those failures is a product defect. A lens reading that run without the
+# entry state would have filed five.
+# ⛔ SO THE LIST DECLARES THE STATE IT IS WRITTEN FOR, and `main()` refuses to walk it from any other.
+# Improvising J2's action list is real work (it is the resume path, and it ends in a completed
+# household) and belongs to the journey library — `.decisions/fernwood-18`, first cut J1 · J2 · J3 · J5.
+JOURNEY_RETURNING_ENTERS = "J3"
+
+
 def journey_returning(answers, origin=""):
     """⭐ THE WALK OF SOMEONE WHO ALREADY EXISTS `[paul-ruled 2026-09-07, lap 3 item 4]`.
 
@@ -252,6 +560,173 @@ def journey_returning(answers, origin=""):
         'click:a[href="/homes/"]',
         'click:a[href="/settings/account/"]', "shot:R07-account-settings",
     ]
+
+
+def journey_resuming(answers, origin=""):
+    """⭐⭐ J2 — THE PERSON WHOSE RECORD EXISTS AND IS NOT FINISHED, walked at last.
+
+    ⛔ WHY IT HAD TO BE WRITTEN. `journey_returning()` was J2's walker until `7496196`
+    (2026-09-08), when the recognition fix made a finished person skip the handoff and its list was
+    rewritten to start on the estate page. That was correct for J3 and it left J2 with a fixture and
+    nobody to walk it — measured 2026-09-10 on `handover@qa`: 5 of 5 clicks time out against screen
+    `s1`, and not one of those failures is a defect.
+
+    ⭐ WHAT IT IS FOR, and it is the half neither other journey can reach. J1 tests a record being
+    CREATED; J3 tests a finished one being RECOGNISED. Only this tests a record being RESUMED — and
+    resuming is the state anyone lands in who was interrupted, ran out of signal at the property
+    (the site's own physical premise), or opened the link on a second device before finishing. The
+    product's own resume hint is DEVICE-LOCAL (`fw-onboard-step`), so a walker arriving on a browser
+    that has never seen them is exactly the case where the record must outrank the cache.
+
+    ⛔ IT TYPES, AND THAT IS THE DIFFERENCE FROM J3, NOT A VIOLATION OF IT. `journey_returning()`'s
+    clause — "if a returning walk ever needs to type a place name, the product asked an existing
+    household to introduce itself again" — is TRUE OF A FINISHED RECORD and false of this one: the
+    record genuinely holds no name, and being asked for one is the correct product behaviour. The
+    selftest clause has been re-scoped to J3 by name rather than quietly loosened.
+
+    ⚠️ IT ENDS AT THE PLACE, not at the shelf. The five acts past the handoff are walked by J1 and
+    the settings routes by J3; repeating them here would spend limiter budget on surfaces two other
+    journeys already cover, and the whole point of a journey library is that each one earns its run.
+    """
+    a = answers
+    return ["shot:U01-arrive",
+            # ⭐ U02 — WHICH SCREEN IT RESUMED TO, recorded as its own stop and named for the claim.
+            # The defect Paul hit in his own browser on 2026-09-08 was here: a complete record and
+            # `fw-onboard-step: 1`, so the product asked him to name a place he had already named.
+            # The inverse is what this stop watches for — an unfinished record shown the ACCOUNT
+            # screen, i.e. asked to sign up again for an account the server has just confirmed.
+            "shot:U02-resume",
+            "type:#pname=" + a["place"], "click:#go1", "shot:U03-named",
+            "type:#a1=" + a["line1"], "type:#city=" + a["city"],
+            "type:#state=" + a["state"], "type:#zip=" + a["zip"], "shot:U04-address",
+            "click:#go2", "shot:U05-submitted",
+            "click:#go3", "shot:U06-confirm"] + \
+           ["click:button.interest[data-id=\"%s\"]" % r for r in (a.get("interests") or [])] + \
+           ["shot:U07-ranked", "click:#go5",
+            # ⛔ THROUGH THE DOOR, NEVER `goto:` — the rule this file already runs on. `#gohome`
+            # lands on the estate page (measured: J1's `07-handoff` is titled with the place's own
+            # name), so `#openapp` is reachable from there without routing around anything.
+            "click:#gohome", "shot:U08-handoff",
+            "click:#openapp", "shot:U09-the-place"]
+
+
+def journey_bare_door(answers, origin=""):
+    """⭐⭐ J5 — ARRIVING WITH NOTHING `[paul-stated 2026-09-08, after walking it himself]`.
+
+    ⛔ THE STATE NO WALK HAD EVER ENTERED, AND THE THIRD OF ITS KIND. `--fresh` arrives WITH an
+    invite; `journey_returning` and `--dead-credential` arrive WITH a credential that works or fails.
+    None of them arrives with NOTHING — which is the state every reader leaving legacy Fernwood is
+    in, because the sunset banner points at a bare `/onboarding/` with no `?g=` at all.
+
+    ⭐ WHAT IT COSTS WHEN NOBODY WALKS IT, measured twice on real people:
+      · Mom followed that banner, was shown the setup form, filled it in, and was refused at the
+        last step with "This link isn't valid any more — ask Paul for a fresh one." She never had a
+        link and nothing had expired: the product invented a failure, blamed it on her, and threw
+        her typing away. A door that shows you a form it will not accept is not a gate, it is a trap.
+      · Paul walked the same door minutes after a push and was told "This link isn't working" by a
+        link that had just worked.
+    ⭐⭐ BOTH FAILURES WERE SENTENCES, WHICH IS WHY THE FIRST ONE IS ITS OWN STOP. A seat would have
+    caught them; no seat could reach the screen. `B01-the-door` exists to put that sentence in the
+    record before anything is clicked, so a lens reads what a person read.
+
+    ⚠️ IT WALKS THE SIGN-IN SUB-CASE, and the choice is deliberate. Someone arriving bare either has
+    an account (everyone leaving legacy Fernwood) or does not (Mom, that day). The second is J1's
+    action list minus the invite — same screens, different credential — while the first crosses a
+    door that was "designed and recommended, never built" until 2026-09-08 and that NOTHING walks.
+    ⛔ CLICKED, NEVER `goto:` — the sign-in screen is reached through "Sign in instead ›", so a build
+    where that control is missing fails this walk instead of being routed around.
+    """
+    a = answers
+    return ["shot:B01-the-door",
+            'click:#s0-signin', "shot:B02-sign-in",
+            "type:#si-user=" + a["username"], "type:#si-word=" + a["password"],
+            "click:#si-go",
+            # ⭐ THE IN-FLIGHT SCREEN IS ITS OWN STOP, and it is not padding. Sign-in POSTs to
+            # `/api/session`, whose PBKDF2 round is deliberately slow, and the button reads
+            # "Signing in…" while it runs — a screen a person genuinely sees and waits at.
+            # ⛔ MEASURED 2026-09-10, first J5 run: without this the landing shot fired mid-request
+            # and recorded the sign-in form as the destination, with ZERO failed actions. A green
+            # walk over a screen the walker never reached is the false-green class this file exists
+            # to close, and the fix had to live HERE — `journey-view.py` is untouched by this work
+            # by design, and adding a `wait:` verb to it would be a phase reaching into a tool it
+            # was told not to.
+            "shot:B03-signing-in",
+            # ⚠️ Sign-in lands on `/viewer.html`, the APP SHELL, which paints its masthead from what
+            # the DEVICE holds before any network call. The handler stores the place facts the
+            # session returned first, precisely so that paint is theirs — and the last time that half
+            # was missing, Paul signed in cold and landed in a place called "My Home" while `whoami`
+            # in the same browser returned his real one. This stop is where that is visible or not.
+            "shot:B04-the-place"]
+
+
+# ⭐⭐ THE JOURNEY LIBRARY — the named unit this codebase did not have `[.decisions/fernwood-18]`.
+# Until now there were two action lists, five strings in a dict, and a directory name doing the work
+# of all three. A journey declares three things and owns nothing else:
+#   · `enters`  — the state the walker must ARRIVE IN, measured at the door before the first action
+#   · `arrival` — which credential produces that state
+#   · `actions` — the ordered list, whose `shot:` names ARE its stops (see `roster_of`)
+# ⛔ IT IS NOT THE GATE'S UNIT. `release-gate.py` still keys on the seat; that change is
+# `.decisions/fernwood-16` and Paul's. This map exists so a run can SAY what it walked.
+# ⚠️ A journey NAMED in JOURNEY_IDS and absent from JOURNEYS is a COVERAGE HOLE, and it is declared
+# below rather than stubbed — a stub in this map would read to `walk-fixtures.py` as a procedure that
+# exists, which is the one thing a coverage report may never say.
+JOURNEYS = {
+    "J1": {"name": "invited-stranger", "enters": "J1", "arrival": "per-run-invite",
+           "actions": lambda a, o: journey(True, a, origin=o)},
+    # ⚠️ J2's ARRIVAL IS PROVISIONED PER RUN, like J1's invite and for the same reason: the walk
+    # FINISHES the record, so the entry state cannot survive its own journey. See `mint_unfinished`.
+    "J2": {"name": "returning-unfinished", "enters": "J2", "arrival": "per-run-unfinished",
+           "actions": journey_resuming},
+    "J3": {"name": "returning-finished", "enters": "J3", "arrival": "durable-credential",
+           "actions": journey_returning},
+    # ⚠️ J4 REUSES J3's LIST ON PURPOSE, and it is the one place a mismatch with
+    # JOURNEY_RETURNING_ENTERS is correct. A refused credential reaches nothing, so the FAILURES are
+    # the record: the question is what a person holding a dead link can get to, and the answer is
+    # measured by trying the route a recognised person would take. Unchanged from `--dead-credential`
+    # as built 2026-09-08 — this map names its behaviour, it does not alter it.
+    "J4": {"name": "dead-credential", "enters": "J4", "arrival": "dead-credential",
+           "actions": journey_returning},
+    "J5": {"name": "bare-door", "enters": "J5", "arrival": "no-credential",
+           "actions": journey_bare_door},
+}
+
+
+def lens_posture(role):
+    """The seat's reading posture, VERBATIM from `synthetic-identity.ROLES`.
+
+    ⛔ BORROWED, NEVER RESTATED. The posture is one string in one dict and that is where the lens
+    axis lives today; a second copy here would be a second definition of what a seat reads for.
+    ⚠️ `handover`'s entry in that dict — "setting the place up so someone else can take it over" —
+    is a JOURNEY wearing a lens's clothes, filed in the roles dict because the roles dict is the
+    only list there is. It is the cleanest three-axis evidence in the repo and it is left alone
+    here: naming the axes is this change; re-filing that seat is the library's, and Paul's.
+    """
+    try:
+        import importlib.util as _i
+        _p = os.path.join(ROOT, "tools", "synthetic-identity.py")
+        _s = _i.spec_from_file_location("si", _p); _m = _i.module_from_spec(_s); _s.loader.exec_module(_m)
+        return (_m.ROLES.get(role) or {}).get("note")
+    except Exception:
+        return None
+
+
+# ⛔⛔ NAMED, AND KNOWN TO BE UNBUILT — with its BLOCKER named beside it.
+# ⭐ A gap nothing prints is a gap nobody schedules: this repo's most-recorded shape is a capability
+# the loop cannot reach by running its own procedure, and its mirror is a hole the loop cannot SEE by
+# running its own procedure. `walk-fixtures.py` prints every row here as a standing red line, so the
+# thing that is missing is on the same board as the things that work.
+# ⚠️ J0 IS DECLARED BEFORE IT CAN BE BUILT, deliberately. `POST /api/estate` does not exist — it is
+# BACKLOG B3 and bound to the grant-key decision — so writing an action list today would produce a
+# journey that fails for a reason that is not a defect. Declaring its entry state and its arrival now
+# gives B3 a target to be built against instead of an afterthought.
+NAMED_UNBUILT = {
+    "J0": {"enters": "⛔ UNDECIDED — a grant carries an estateId, so an invite cannot exist before "
+                     "the estate does. That chicken-and-egg IS the open question, not an oversight.",
+           "arrival": "undecided — see the blocker",
+           "needs": "POST /api/estate (BACKLOG B3, bound to the grant-key decision)",
+           "why": "the milestone says tested means WALKED, and this is the only route Nigel's and "
+                  "Aida's estates can now come into being"},
+}
 
 
 def roster_of(acts):
@@ -380,11 +855,19 @@ def selftest():
     #      an assertion is a note to the next RUN" — and it was written after eight comments
     #      explaining defects this file had produced and zero executable checks.
     typed = [x for x in tok if x.startswith("type:")]
-    check("a returning walk TYPES NOTHING", not typed,
-          "it types %r — an existing household was asked to introduce itself again" % typed[:3])
-    check("a returning walk does NOT run the onboarding script",
+    # ⛔⛔ TWO CLAUSES RE-SCOPED BY NAME, NOT LOOSENED `[house style, paul-ratified 2026-09-10]`.
+    #    RETIRED: "a returning walk TYPES NOTHING" and "a returning walk does NOT run the onboarding
+    #    script". Both were written when `journey_returning()` was the ONLY returning list, and both
+    #    are true of a FINISHED record and false of an unfinished one — where the record genuinely
+    #    holds no name and being asked for it is correct product behaviour. Left unscoped they would
+    #    have forbidden J2 from ever being written, which is how J2 lost its walker in the first
+    #    place. The replacements below say J3 out loud, so a diff shows a control re-aimed rather
+    #    than a control quietly dropped.
+    check("a returning-FINISHED walk (J3) TYPES NOTHING", not typed,
+          "it types %r — a finished household was asked to introduce itself again" % typed[:3])
+    check("a returning-FINISHED walk (J3) does NOT run the onboarding script",
           not any(x.startswith("click:#go") and x != "click:#gohome" for x in tok),
-          "an onboarding step-button leaked into the returning path")
+          "an onboarding step-button leaked into the finished-record path")
     check("a returning walk has its OWN stops, not onboarding's",
           all(x[5:].startswith("R") for x in tok if x.startswith("shot:")),
           "a returning stop is named like an onboarding stop, so the two would pool in one report")
@@ -449,6 +932,166 @@ def selftest():
               "rateLimited" in open(_p, encoding="utf-8").read(),
               "the field this walker writes is read by nobody, so the refusal cannot fire")
 
+    # 2c · ⭐⭐ J2, THE JOURNEY THAT HAD A FIXTURE AND NO WALKER. Its contract is the INVERSE of the
+    #      two clauses just re-scoped, and asserting both directions is what keeps them from
+    #      collapsing back into one "returning" idea.
+    res = journey_resuming(A, origin="https://x/onboarding/")
+    check("a returning-UNFINISHED walk (J2) DOES type — that is the difference from J3",
+          any(x.startswith("type:#pname=") for x in res),
+          "it types nothing, so it cannot finish a record that has no name")
+    check("J2 creates NO account — it is a resume, not a signup",
+          not [x for x in res if x.startswith("type:#uname=") or x == "click:#go0"],
+          "the account screen leaked into the resume path; that seat already HAS an account")
+    check("J2 reaches the place THROUGH the door, never by goto:",
+          "click:#openapp" in res and not any(x.startswith("goto:") for x in res),
+          "a goto: reaches the place, so an unreachable place would still walk green")
+    check("every journey's stops are its OWN — no two rosters overlap",
+          len(set(roster_of(fresh)) | set(roster_of(tok)) | set(roster_of(res)))
+          == len(roster_of(fresh)) + len(roster_of(tok)) + len(roster_of(res)),
+          "two journeys share a stop name, so their runs would pool in one report")
+
+    # ⛔⛔ THE DRIFT GUARD, and it is the reason J2 was written as its own list rather than as a
+    #    shared helper. J1 and J2 both walk the SETUP SEQUENCE — name, address, confirm, rank,
+    #    handoff — and they are written out twice. Two copies drift; this asserts they have not.
+    #    If a setup step is added to one and not the other, this goes red instead of a battery
+    #    quietly testing two different products.
+    def _setup_seg(acts):
+        try:
+            i = next(k for k, x in enumerate(acts) if x.startswith("type:#pname="))
+            j = acts.index("click:#gohome")
+        except (StopIteration, ValueError):
+            return None
+        return [x for x in acts[i:j + 1] if not x.startswith("shot:")]
+    check("J1 and J2 walk the IDENTICAL setup sequence — two copies, no drift",
+          _setup_seg(fresh) is not None and _setup_seg(fresh) == _setup_seg(res),
+          "the setup sequences have diverged: J1 %r vs J2 %r"
+          % (_setup_seg(fresh), _setup_seg(res)))
+
+    # 2c2 · ⭐ J5, AND THE ONE PROPERTY THAT DEFINES IT: it arrives with NOTHING. An empty `?g=` would
+    #       be a present-but-empty grant — a third state — and a `goto:` past the sign-in control
+    #       would walk a door that might not exist.
+    bare = journey_bare_door(A, origin="https://x/onboarding/")
+    check("J5 records the FIRST SENTENCE before anything is clicked",
+          bare[0] == "shot:B01-the-door",
+          "the door's own words are not the first thing recorded, and both real failures here were "
+          "sentences")
+    check("J5 reaches sign-in by CLICKING the control, never by goto:",
+          "click:#s0-signin" in bare and not any(x.startswith("goto:") for x in bare),
+          "a build with no 'Sign in instead' control would still walk green")
+    check("J5 presents NO credential — its arrival is the absence of one",
+          JOURNEYS["J5"]["arrival"] == "no-credential" and JOURNEYS["J5"]["enters"] == "J5", "")
+    # ⛔ THE URL IS THE JOURNEY. Asserted against the builder in main() rather than trusted: a `?g=`
+    #    smuggled onto a bare-door walk would silently convert it into J1 or J3.
+    src = open(os.path.join(ROOT, "tools", "journey-walk.py"), encoding="utf-8").read()
+    check("a no-credential arrival builds a URL with no ?g= at all",
+          '(base + "?syn=" + run) if arrival == "no-credential"' in src,
+          "the bare door is reached with a grant parameter, so it is not the bare door")
+
+    # ⛔ AND THE HOST MAP IS BORROWED, NOT RE-TYPED — `bob` and `paul` are `myhome-<env>`, every
+    #    other env is `fernwood-<env>`, and probing the wrong one returns a 1042 that reads exactly
+    #    like an undeployed Worker. That misdiagnosis cost an hour of a build run on 2026-09-10.
+    check("the Worker host resolves the myhome- exception, not just fernwood-",
+          WORKERS["paul"].endswith("myhome-paul.paul-kirschenbauer.workers.dev")
+          and WORKERS["qa"].endswith("fernwood-qa.paul-kirschenbauer.workers.dev"),
+          "paul=%r qa=%r" % (WORKERS["paul"], WORKERS["qa"]))
+
+    # 2c3 · ⭐ THE RECORD-GAIN AXIS — the elicitation lens's substrate. Its one dangerous failure is
+    #       reading silence as "the household gained nothing", which is the strongest possible claim
+    #       from the weakest possible evidence.
+    check("an UNREADABLE record reads as unreadable, never as an empty household",
+          record_facts({"reachable": False, "why": "timed out"}) is None
+          and record_facts({"reachable": True, "status": 404}) is None,
+          "a door that could not be asked was reported as a household with nothing in it")
+    check("a fact the record HOLDS is reported held, and coordinates come from `placed`",
+          (record_facts({"reachable": True, "status": 200, "name": "P", "address": "A",
+                         "placed": True}) or {}).get("coordinates") is True,
+          "coordinates were read from a field whoami does not return in that shape")
+    check("every RECORD_FACT is one entry_state actually returns",
+          set(RECORD_FACTS) <= set(("name", "address", "addressParts", "ranked", "coordinates",
+                                    "contactPref", "accent", "profileAccent", "capability",
+                                    "relationship")),
+          "a fact is named that the door never reports, so it can only ever read as absent")
+
+    # 2d · the library itself must be well-formed, or a --journey is a promise nothing keeps
+    check("every journey declares an entry state the walker can actually derive",
+          all(j["enters"] in JOURNEY_IDS for j in JOURNEYS.values()),
+          "a journey requires a state journey_entered() never returns, so it can never be walked")
+    check("every journey's actions produce at least one stop",
+          all(roster_of(j["actions"](A, "https://x/onboarding/")) for j in JOURNEYS.values()),
+          "a journey with no checkpoint records nothing")
+    # ⛔⛔ THE CLAUSE THAT MAKES SILENCE IMPOSSIBLE. Every journey this repo has a NAME for is either
+    #    built or explicitly declared unbuilt WITH its blocker. Naming one and doing neither is how a
+    #    gap becomes invisible, and an invisible gap is the failure shape this whole row exists for.
+    check("every NAMED journey is either built or declared unbuilt — nothing is merely named",
+          set(JOURNEY_IDS) == set(JOURNEYS) | set(NAMED_UNBUILT),
+          "named-only: %s" % sorted(set(JOURNEY_IDS) - set(JOURNEYS) - set(NAMED_UNBUILT)))
+    check("nothing is both built and declared unbuilt", not (set(JOURNEYS) & set(NAMED_UNBUILT)),
+          "a journey claims to be built and missing at once: %s"
+          % sorted(set(JOURNEYS) & set(NAMED_UNBUILT)))
+    check("every unbuilt journey names what it is BLOCKED ON",
+          all(u.get("needs") and u.get("why") for u in NAMED_UNBUILT.values()),
+          "a hole with no blocker named is a hole nobody can schedule")
+    check("every arrival named in the library is one this file can produce",
+          {j["arrival"] for j in JOURNEYS.values()}
+          == {"per-run-invite", "per-run-unfinished", "durable-credential",
+              "dead-credential", "no-credential"},
+          "a journey names a credential main() cannot mint")
+
+    # 5b · ⭐⭐ THE ENTRY GATE, AS ASSERTIONS. `journey_entered` is pure, so every state it must
+    #      distinguish can be forced here — including the three that have actually been walked
+    #      wrong. ⛔ The one that matters most is the FIRST: a credential the door recognises must
+    #      never be readable as a fresh arrival, because that is the state every "fresh" run on
+    #      record was actually in.
+    spent = {"reachable": True, "status": 200, "hasAccount": True, "name": None, "address": None}
+    unspent = {"reachable": True, "status": 200, "hasAccount": False}
+    finished = {"reachable": True, "status": 200, "hasAccount": True,
+                "name": "Hollow Creek Road", "address": "2949 Hwy 52 E, Dahlonega, GA 30533"}
+    refused = {"reachable": True, "status": 404, "hasAccount": False}
+    unreachable = {"reachable": False, "why": "timed out"}
+    check("an ALREADY-SPENT credential is not J1", journey_entered(True, False, spent)[0] == "J2",
+          "a recognised person read as the invited stranger — the defect this gate exists to close")
+    check("an UNSPENT invite is J1", journey_entered(True, False, unspent)[0] == "J1", "")
+    check("a returning-UNFINISHED record is J2", journey_entered(False, False, spent)[0] == "J2", "")
+    check("a returning-FINISHED record is J3", journey_entered(False, False, finished)[0] == "J3",
+          "the finished-setup branch is indistinguishable from the unfinished one in the record")
+    check("a name with NO address is still J2, never J3",
+          journey_entered(False, False, dict(finished, address=None))[0] == "J2",
+          "half a record read as a whole one — the product branches on BOTH fields")
+    check("a refused credential is J4", journey_entered(False, False, refused)[0] == "J4", "")
+    check("an UNREADABLE door is not a journey at all",
+          journey_entered(True, False, unreachable)[0] is None,
+          "silence from the door was read as an answer — the absence-is-not-evidence rule")
+    check("every journey id this file can derive has a meaning on file",
+          all(journey_entered(f, dd, s)[0] in JOURNEY_IDS
+              for f, dd, s in ((True, False, unspent), (False, False, spent),
+                               (False, False, finished), (False, False, refused)))
+          and set(JOURNEY_IDS) >= {"J1", "J2", "J3", "J4", "J5"},
+          "a derived id with no entry in JOURNEY_IDS renders as a bare string to every reader")
+
+    # 5b2 · ⛔ THE RETURNING LIST DECLARES THE STATE IT IS WRITTEN FOR, and the declaration is checked
+    #       against the list rather than believed. Its first click is `/homes/` — a link the estate
+    #       page carries and no onboarding screen does — so it can only be entered after the
+    #       finished-setup redirect. If someone rewrites the list to start on an onboarding screen
+    #       without moving the declaration, this goes red instead of five timeouts doing it later.
+    check("the returning list declares which entry state it is written for",
+          JOURNEY_RETURNING_ENTERS in JOURNEY_IDS, "%r is not a journey" % JOURNEY_RETURNING_ENTERS)
+    check("…and the declaration matches what the list actually does",
+          (JOURNEY_RETURNING_ENTERS == "J3") == any(x == 'click:a[href="/homes/"]' for x in tok),
+          "the list starts somewhere the declared entry state does not put a reader")
+
+    # 5c · ⛔ THE ARRIVAL IS NOT A ROLE. The row's own discipline: "build the per-run invite as a
+    #      property of the arrival, never as a new --role." A seat that appeared in the roles
+    #      register because of this change would be the same mistake in a new coat.
+    import importlib.util as _ilu2
+    _sp = os.path.join(ROOT, "tools", "synthetic-identity.py")
+    _si = _ilu2.module_from_spec(_ilu2.spec_from_file_location("si", _sp))
+    _ilu2.spec_from_file_location("si", _sp).loader.exec_module(_si)
+    check("the credential fix added NO new seat to the roles register",
+          not [r for r in _si.ROLES if "invit" in r or "fresh" in r],
+          "an arrival became a role: %r" % sorted(_si.ROLES))
+    check("an invitee is derived from the seat, never registered as one",
+          invitee("wide-eyed") == "p-inv-wide-eyed" and invitee("wide-eyed") not in _si.ROLES, "")
+
     # 6 · the shared-screenshot contamination
     import subprocess as sp
     out = sp.run([sys.executable, os.path.join(ROOT, "tools", "journey-view.py"), "--help"],
@@ -473,7 +1116,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--selftest", action="store_true", help="prove the four false-green guards still bite")
     ap.add_argument("--role")
-    ap.add_argument("--fresh", action="store_true", help="sign up in-flow rather than arriving with a token")
+    ap.add_argument("--fresh", action="store_true",
+                    help="ALIAS for --journey J1. Kept so nothing in a script breaks; the journey "
+                         "library is the interface now.")
+    # ⭐ THE JOURNEY IS NAMED, NOT INFERRED FROM BOOLEANS `[.decisions/fernwood-18]`. Two flags could
+    # express three journeys and could not express the fourth at all: J2 and J3 were both "not
+    # --fresh", which is precisely how J2 lost its walker without anyone noticing.
+    ap.add_argument("--journey", choices=sorted(JOURNEYS),
+                    help="which journey to walk: " + " · ".join(
+                        "%s %s" % (k, JOURNEYS[k]["name"]) for k in sorted(JOURNEYS)) +
+                         ". Omit it on a returning arrival to walk whichever state the fixture is "
+                         "actually in. A declared journey is REFUSED if the door disagrees.")
     # ⭐ `paul-stated 2026-09-06`: "I like being able to watch the walk through in chrome." Same
     # viewport, same screenshots, same records — only visibility and pacing change, so a watched
     # walk is admissible evidence rather than a demo of one.
@@ -507,17 +1160,27 @@ def main():
     if getattr(a, "dead_credential", False) and a.fresh:
         raise SystemExit("journey-walk: --dead-credential and --fresh are opposites — one arrives "
                          "with a credential that fails, the other creates an account.")
+    # ⛔ THE ALIASES MAY NOT CONTRADICT THE NAME. Silently letting one win would make a declared
+    # journey unreliable, which is the whole reason the flag exists.
+    for flag, jid_ in (("--fresh", "J1"), ("--dead-credential", "J4")):
+        if getattr(a, flag[2:].replace("-", "_"), False) and a.journey and a.journey != jid_:
+            raise SystemExit("journey-walk: %s is an alias for --journey %s and you asked for %s. "
+                             "Pass one." % (flag, jid_, a.journey))
     if a.selftest:
         return selftest()
     if not a.role:
         raise SystemExit("journey-walk: --role is required (or use --selftest)")
 
-    # ⛔ BOTH PATHS REFRESH. The fresh path used the STORED token, which is a grant row that may
-    # long since have gone — and a dead grant is indistinguishable from no grant, so the walk would
-    # meet `invite-required` and read as a product failure rather than a stale fixture. Logging in
-    # first guarantees the invite the walker arrives on is live at the moment she uses it.
+    # ⛔ THE RETURNING PATH REFRESHES; THE FRESH PATH NO LONGER DOES, AND THAT IS THE FIX.
+    # It used to read: "BOTH PATHS REFRESH… logging in first guarantees the invite the walker
+    # arrives on is live at the moment she uses it." That was true and it was the wrong credential:
+    # a `/api/session` token is an ACCOUNT's credential, and presenting it at the door makes the
+    # walker a recognised person, not an invited stranger. The fresh path now mints its own unspent
+    # invite (see `mint_invite`), and it reads the identity ONLY for the name/word/email it types.
+    # ⭐ A returning walk still refreshes, and for the reason the old comment gave: a stale grant is
+    # indistinguishable from no grant, which would read as a product failure rather than a stale
+    # fixture. That half was always right and is kept verbatim in intent.
     run = dt.datetime.now().strftime("%Y-%m-%dT%H%M%S")
-    v = refresh(a.role, a.origin)
     base = {"qa":   "https://fernwood-qa.pages.dev/onboarding/",
             "lab":  "https://fernwood-lab.pages.dev/onboarding/",
             "home": "https://fernwood-home.pages.dev/onboarding/"}[a.origin]
@@ -535,8 +1198,80 @@ def main():
     # state that answers `unknown-or-other-estate` at the door. It is NOT an empty string: "no
     # credential" and "a credential the record refuses" are different journeys and the whole finding
     # is that the product renders them the same. The suffix makes it unmistakable in a door record.
-    _tok = ("dead-" + run + "-neverminted") if getattr(a, "dead_credential", False) else (v.get("token") or "")
-    url = base + "?g=" + _tok + "&syn=" + run
+    # ⭐ THE ARRIVAL, IN ONE PLACE. Three credentials, four journeys, and the seat is not one of the
+    # three axes: `--role` chooses the posture and the typed answers, never what is presented at the
+    # door.
+    # ⚠️ THE DECLARED JOURNEY MAY BE ABSENT, AND THAT IS DELIBERATE. `--journey` asserts what this
+    # run is testing and is refused if the world disagrees. Omitting it on a returning arrival means
+    # "walk whichever returning state this seat is actually in" — which is honest, because that state
+    # is a property of the FIXTURE and the fixture is the thing that decays. Either way the run
+    # records what it entered; only the declaration is optional.
+    declared = a.journey
+    if getattr(a, "dead_credential", False):
+        declared = declared or "J4"
+    elif a.fresh:
+        declared = declared or "J1"
+    arrival = JOURNEYS[declared]["arrival"] if declared else "durable-credential"
+    # ⛔ THE REFRESH FOLLOWS THE ARRIVAL, NOT THE FLAG. Only a walker presenting the seat's OWN
+    # credential needs it live at the moment she uses it; an invited stranger presents a credential
+    # this seat's account has nothing to do with, and signing in first would rotate — and hydrate — a
+    # grant the walk is not going to present.
+    v = refresh(a.role, a.origin) if arrival == "durable-credential" else identity(a.role, a.origin)
+    invite = unfinished = None
+    if arrival == "dead-credential":
+        _tok = "dead-" + run + "-neverminted"
+    elif arrival == "per-run-invite":
+        invite = mint_invite(a.role, a.origin)
+        _tok = invite["token"]
+        print("  arrival: a per-run UNSPENT invite for %s at %s (credential %s…)"
+              % (invite["invitee"], invite["estate"], invite["hash"]))
+    elif arrival == "no-credential":
+        _tok = ""
+        print("  arrival: NOTHING — the bare door a sunset banner points at, no ?g= at all")
+    elif arrival == "per-run-unfinished":
+        unfinished = mint_unfinished(a.role, a.origin,
+                                     v["username"] + "-u" + dt.datetime.now().strftime("%H%M%S"),
+                                     v["word"], v["email"])
+        _tok = unfinished["token"]
+        print("  arrival: a per-run account with an UNFINISHED record (%s), spent from an invite "
+              "for %s" % (unfinished["personId"], unfinished["invitee"]))
+    else:
+        _tok = v.get("token") or ""
+    # ⛔ THE BARE DOOR CARRIES NO `?g=` AT ALL, and that is the entire journey. Appending an empty
+    # `?g=` would make the page read a present-but-empty grant, which is a THIRD state and not the
+    # one every reader leaving legacy Fernwood is in. `syn=` stays: it is the synthetic marker the
+    # capture side joins on, and it is not a credential.
+    url = (base + "?syn=" + run) if arrival == "no-credential" \
+        else (base + "?g=" + _tok + "&syn=" + run)
+
+    # ⛔⛔ THE ENTRY GATE. A journey is an action list PLUS the state it must be entered in, and the
+    # harness never checked the second half — so a walk could arrive in the wrong state and report
+    # the resulting screens as findings about the product. Measured before a single action.
+    st = entry_state(a.origin, _tok)
+    jid, jwhy = journey_entered(arrival == "per-run-invite",
+                                arrival == "dead-credential", st)
+    print("  entry state: %s — %s" % (jid or "UNREADABLE", jwhy))
+    if jid is None:
+        raise SystemExit("journey-walk: the door could not be asked what this credential is, so this "
+                         "walk cannot say what it entered. A walk that cannot name its entry state is "
+                         "not evidence. (%s)" % jwhy)
+    if declared and JOURNEYS[declared]["enters"] != jid:
+        raise SystemExit(
+            "journey-walk: ⛔ REFUSING — this run declares %s (%s) and the door says the walker "
+            "arrives as %s.\n  %s\n"
+            "  ⛔ Walking a journey from the wrong entry state is how every 'fresh' run on record was\n"
+            "  actually a returning one, and how 5 of 5 clicks against `handover@qa` read as product\n"
+            "  defects when every one was an instrument artifact. Fix the fixture, not the walk:\n"
+            "  `python3 tools/walk-fixtures.py --env %s` says which seat holds which state."
+            % (declared, JOURNEYS[declared]["name"], jid, jwhy, a.origin))
+    if jid not in JOURNEYS:
+        raise SystemExit("journey-walk: the walker arrives as %s and no journey in the library is "
+                         "written for that state (%s). A state with no procedure is a coverage gap, "
+                         "not a walk — see .decisions/fernwood-18." % (jid, jwhy))
+    walked = declared or jid
+    if not declared:
+        print("  no --journey declared, so this run walks %s (%s) — derived from the entry state"
+              % (walked, JOURNEYS[walked]["name"]))
 
     # ⛔ THE SEATS MUST NOT TYPE THE SAME THING. Measured 2026-09-06: all four seats — mom, owner,
     # strict, wide-eyed — typed "A place / 1 Example Road / Jasper / GA / 30143", because this
@@ -554,8 +1289,13 @@ def main():
     # never leave s0 — the 2026-09-05 defect, which the old design solved per STOP and this one
     # still needs per RUN. Only the fresh path uniquifies: a token arrival signs in as the
     # identity that already exists and must keep its real username.
+    # ⛔ DERIVED FROM THE JOURNEY, NEVER FROM THE FLAG. `--fresh` is an alias now, and four places
+    # in this function used to ask it what the run was doing. A `--journey J1` run with no `--fresh`
+    # would have kept the seat's real username, hit "that username is taken", and never left s0 —
+    # the 2026-09-05 defect, re-entered through a new door.
+    creates_account = walked == "J1"
     run_tag = dt.datetime.now().strftime("%H%M%S")
-    ans = {"username": (v["username"] + "-" + run_tag) if a.fresh else v["username"],
+    ans = {"username": (v["username"] + "-" + run_tag) if creates_account else v["username"],
            "password": v["word"], "email": v["email"],
            "place": "A place", "line1": "1 Example Road", "city": "Jasper", "state": "GA", "zip": "30143"}
     answers_source = "shared-default"
@@ -581,11 +1321,66 @@ def main():
     # The transcript records the ORIGIN it walked. A walk that cannot say where it ran cannot be
     # checked against the cascade, which is exactly how gate 1 ran in gate 2's environment unnoticed.
     record = {"role": a.role, "runAt": run, "origin": a.origin, "originUrl": base,
-              "fresh": bool(a.fresh), "personId": v.get("personId"),
+              "fresh": bool(creates_account), "personId": v.get("personId"),
               "answersSource": answers_source, "watched": bool(a.watch),
+              # ⭐ THE ARRIVAL AND THE STATE IT PRODUCED — the half the transcript never carried.
+              # `journeyEntered` is DERIVED from `entryState`, which is the door's own answer read
+              # before any action. ⛔ It is evidence for the gate's unit question, not the unit
+              # itself: `release-gate.py` still keys on the seat and only Paul may change that.
+              "arrival": arrival,
+              # ⭐⭐ THE TWO AXES, NAMED AT LAST. `journey` is what this run walked; `lens` is the
+              # reading posture it was walked in. They have shared one string — the role — since the
+              # harness was built, which is why `release-gate.py` derives its unit from a directory
+              # name. ⛔ Recording them does NOT change that unit (.decisions/fernwood-16); it makes
+              # the evidence for changing it readable.
+              # ⚠️ `lens` is the seat's posture VERBATIM from synthetic-identity.ROLES, not a
+              # judgement about it, and a lens has no inputs of its own [.decisions/fernwood-17].
+              "journey": walked,
+              "journeyDeclared": declared,
+              "journeyName": JOURNEYS[walked]["name"],
+              "lens": a.role,
+              "lensPosture": lens_posture(a.role),
+              "inviteFor": (invite or unfinished or {}).get("invitee"),
+              "inviteCredential": (invite or unfinished or {}).get("hash"),
+              "provisionedPersonId": (unfinished or {}).get("personId"),
+              "entryState": st, "journeyEntered": jid, "journeyEnteredWhy": jwhy,
+              "journeyMeans": JOURNEY_IDS.get(jid),
+              # ⛔⛔ TWO ADJACENT FIELDS WITH NO NOTE COST TWO SEATS A FINDING EACH (2026-09-08).
+              # `personId` and `signedInAs` differ on every --fresh run BY DESIGN, and a reader given
+              # only this folder could not tell that from the front-door identity mismatch it looks
+              # exactly like: `strict` filed it as "a record-side oddity I noticed and cannot
+              # explain" and `wide-eyed` nearly filed it as the defect that locked Paul out of QA,
+              # resolving it only by reading this file's source. A transcript that needs its own
+              # producer read to be understood is not a record. So it names its own fields, here,
+              # where the reader already is.
+              "_fieldNotes": {
+                  "personId": "the STORED durable identity this run was launched from "
+                              "(.private/synthetic-identities.json). On a --fresh run it is NOT the "
+                              "account the walk created — it is only where the username, word and "
+                              "email were read from.",
+                  "signedInAs": "the account this walk CREATED and then signed into (--fresh only). "
+                                "It differs from personId on every fresh run BY DESIGN. Equal values "
+                                "would mean the walk did not create anything.",
+                  "arrival": "which credential was presented at the door: per-run-invite (unspent, "
+                             "minted for this run) · durable-credential (this seat's own account) · "
+                             "dead-credential (shaped but never minted).",
+                  "entryState": "GET /api/grant/whoami as the walker presented it, read BEFORE the "
+                                "first action. Measured, never declared.",
+                  "journeyEntered": "derived from entryState — see journeyMeans. NOT the gate's unit.",
+                  "journey": "which journey this run WALKED. Equals journeyEntered unless a "
+                             "declared --journey was accepted; the two can never disagree, because "
+                             "a mismatch is refused before the first action.",
+                  "lens": "the reading posture the walk was made in — the seat. It shares a string "
+                          "with the answers the seat types and with the run folder's name; that is "
+                          "the weld .decisions/fernwood-16 exists to settle, and recording the axis "
+                          "separately is what makes the evidence for it readable.",
+                  "fresh": "DERIVED — true when this run created an account (journey J1). It was "
+                           "`--fresh` until 2026-09-10 and is kept under its old name because "
+                           "walk-integrity and release-gate read it.",
+              },
               "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
-    acts = journey(a.fresh, ans, origin=base)
+    acts = JOURNEYS[walked]["actions"](ans, base)
     # ⛔⛔ THE ROSTER IS DERIVED FROM THE JOURNEY ACTUALLY RUN, NEVER FROM `STOP_NAMES`.
     # `STOP_NAMES` is the FRESH journey's roster. Scoring every run against it meant a RETURNING walk
     # — which shoots R01…R07 — recorded all 15 fresh stops as `not-reached`, dropped every stop it
@@ -600,7 +1395,7 @@ def main():
     stop_roster = roster_of(acts)
     print("  one continuous journey — %d actions, %d checkpoints, %s"
           % (len([x for x in acts if not x.startswith("shot:")]), len(stop_roster),
-             "ONE account created" if a.fresh else "arriving on a token (no account created)"))
+             "ONE account created" if creates_account else "arriving on a token (no account created)"))
     got = view(url, acts, os.path.join(d, "final.png"), watch=a.watch, shot_dir=d)
     failed_all = got.get("failedActions") or []
     # ⛔ A PAGE THAT THREW IS NOT A PAGE THAT WAS WALKED. journey-view has recorded every PAGEERROR into
@@ -624,7 +1419,7 @@ def main():
     seen = {c["stop"]: c for c in got.get("checkpoints") or []}
 
     for name in stop_roster:
-        if name == "02-account" and not a.fresh:
+        if name == "02-account" and not creates_account:
             record["stops"].append({"stop": name, "status": "not-reachable",
                                     "why": "arrived with a token; this stop exists only on the --fresh signup path"})
             print("  %-14s   ---   NOT REACHABLE on this path — re-run with --fresh to walk it" % name)
@@ -656,6 +1451,22 @@ def main():
                                 "screen": cp.get("text") or [], "fields": cp.get("fields") or [],
                                 "buttons": cp.get("buttons") or []})
         print("  %-14s  screen=%-4s %s" % (name, cp.get("screen") or "-", cp.get("title") or ""))
+
+    # ⭐⭐ THE FIRST SENTENCE, LIFTED TO THE TOP OF THE RECORD. Both real failures at this door were
+    # SENTENCES — "This link isn't valid any more" to Mom, "This link isn't working" to Paul — and
+    # both were true of a link that had just worked or had never existed. Burying it in stop 1's
+    # screen array would leave the finding one level down from the reader who needs it.
+    if walked == "J5":
+        first = next((c for c in (got.get("checkpoints") or []) if c.get("stop") == "B01-the-door"), None)
+        # ⛔ THE MASTHEAD IS NOT THE SENTENCE. The first text node on the page is the place name,
+        # which is also the document title — so the naive read returned "My Home" and said nothing
+        # about what the door TOLD the person. Skip anything equal to the title, which is exactly
+        # the line that is chrome rather than address.
+        title = (first or {}).get("title")
+        lines = [x.strip() for x in ((first or {}).get("text") or [])
+                 if x and x.strip() and x.strip() != (title or "").strip()]
+        record["firstSentence"] = lines[0] if lines else None
+        print("  first sentence at the bare door: %r" % record.get("firstSentence"))
 
     # The failures belong to the JOURNEY, not to a stop — one session, one action stream.
     record["failedActions"] = failed_all
@@ -714,11 +1525,10 @@ def main():
     # ⛔ Credentials, so .private only — the same place synthetic-identities.json already keeps them,
     # and the directory is gitignored. The transcript records that a session was obtained and its
     # personId, never the token itself.
-    if a.fresh:
+    if creates_account:
         try:
             req = urllib.request.Request(
-                {"qa": "https://fernwood-qa", "lab": "https://fernwood-lab",
-                 "home": "https://fernwood-home"}[a.origin] + ".paul-kirschenbauer.workers.dev/api/session",
+                WORKERS[a.origin] + "/api/session",
                 data=json.dumps({"username": ans["username"], "word": ans["password"]}).encode(),
                 headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"})
             sess = json.loads(urllib.request.urlopen(req, timeout=30).read())
@@ -740,6 +1550,71 @@ def main():
         except Exception as e:
             record["sessionObtained"] = False
             print("  ⚠️  could not sign in as the account just created: %s" % e)
+
+    # ⭐⭐ WHAT THE HOUSEHOLD GAINED, MEASURED — the elicitation lens's substrate.
+    # ⛔ PER JOURNEY, NOT PER STOP, AND THE LIMIT IS STATED RATHER THAN FAKED. The walk runs as ONE
+    # continuous `journey-view` subprocess — the design that stopped each stop minting its own
+    # account — so no Python runs between stops and the record cannot be re-read at each one.
+    # ⭐ THE DECOMPOSITION IS HONEST BECAUSE THE TWO HALVES LIVE IN DIFFERENT PLACES: what a step
+    # ASKED is on the screen and is already captured per stop (`fields`), while what the household
+    # GAINED is only observable at the record, between subprocess calls. So asks stay per-stop and
+    # gains are per-journey, and the lens says so instead of attributing a gain to a guess.
+    # ⚠️ A field the walk TYPED is not a derived fact. Recording what was typed here is what lets the
+    # lens compute derived-facts-per-asked-field rather than counting the answers back.
+    who_can_sign_in = walked in ("J1", "J2", "J3", "J5")
+    if who_can_sign_in:
+        after, new_tok = record_after(a.origin, ans["username"], ans["password"])
+        record["recordAfter"] = after
+        before_f, after_f = record_facts(st), record_facts(after)
+        if after_f is None:
+            record["recordGained"] = None
+            record["recordGainedWhy"] = "UNREADABLE — %s" % (after.get("why") or "the door said nothing")
+            print("  ⚠️  what the household gained is UNREADABLE, which is not 'nothing'")
+        else:
+            # J1 and J5 have no comparable BEFORE: J1's invite belonged to nobody, and J5 arrived with
+            # no credential at all. An absent baseline is declared, never treated as all-zero.
+            base = before_f if (before_f and walked in ("J2", "J3")) else None
+            record["recordGained"] = sorted(f for f, v in after_f.items()
+                                            if v and not (base or {}).get(f)) if base is not None \
+                else sorted(f for f, v in after_f.items() if v)
+            record["recordGainedBaseline"] = "measured-at-arrival" if base is not None else \
+                "NONE — this journey has no comparable before-state; the list is what the record HOLDS"
+            record["typedFields"] = sorted({x[len("type:#"):].split("=")[0]
+                                            for x in acts if x.startswith("type:#")})
+            print("  the record now holds: %s  (typed this run: %s)"
+                  % (", ".join(record["recordGained"]) or "nothing",
+                     ", ".join(record["typedFields"]) or "nothing"))
+        # ⛔ THE MEASUREMENT MUST NOT ROT THE FIXTURE. Signing in rotated the grant, so a durable
+        # seat's stored token is now dead — the next returning walk would meet J4 and read as a
+        # product failure. Write the new one back where the seat's identity lives.
+        if new_tok and not creates_account:
+            try:
+                _d = json.load(open(STORE, encoding="utf-8"))
+                _k = "%s@%s" % (a.role, a.origin)
+                if _d.get("identities", {}).get(_k, {}).get("username") == ans["username"]:
+                    _d["identities"][_k]["token"] = new_tok
+                    with open(STORE, "w", encoding="utf-8") as f:
+                        json.dump(_d, f, indent=2)
+                    os.chmod(STORE, 0o600)
+            except (OSError, ValueError) as e:
+                print("  ⚠️  could not write the seat's refreshed token back: %s" % e)
+
+    # ⭐ DID THE INVITE ACTUALLY GET SPENT — the falsifier for this whole path, and it costs one
+    # request. `/api/account` deletes the presented invite's grant row on a successful signup, so an
+    # invite that still answers 200 afterwards is proof the walk created NO account, however green
+    # its stops read. ⛔ The reverse is the claim that matters: a J1 walk that did not spend its
+    # invite did not walk J1.
+    if invite:
+        after = entry_state(a.origin, invite["token"])
+        record["inviteSpent"] = (after.get("status") == 404) if after.get("reachable") else None
+        record["inviteAfter"] = after
+        if record["inviteSpent"] is True:
+            print("  ✅ the invite was SPENT — the door consumed it, so an account was created on it")
+        elif record["inviteSpent"] is False:
+            print("  ⛔ the invite is STILL LIVE after the walk — no account was created on it, so "
+                  "this run did not walk the invited-stranger journey whatever its stops say")
+        else:
+            print("  ⚠️  could not re-read the invite, so whether it was spent is UNKNOWN, not false")
 
     with open(os.path.join(d, "transcript.json"), "w", encoding="utf-8") as f:
         json.dump(record, f, indent=2)
