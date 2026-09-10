@@ -354,6 +354,25 @@ STOP_NAMES = ["01-arrive", "02-account", "02b-naming", "03-named", "04-address",
               "13-told", "14-shelf-to-place"]
 
 
+# ⛔⛔ THIS LIST IS WRITTEN FOR A **FINISHED** RECORD, AND NOTHING SAID SO UNTIL NOW.
+# `journey_returning()` shipped on 2026-09-07 for the person who exists but has NOT finished setting
+# up — the only returning state any fixture could then produce. On 2026-09-08 at `7496196` its third
+# stop was rewritten from `click:#gohome` to `shot:R03-already-there`, because a recognised person is
+# now redirected past the handoff straight to `/estate/`; the commit message reads *"the returning
+# journey now describes the product that exists — and walks clean."* It did. It also SILENTLY MOVED
+# THE JOURNEY: from that commit the list begins by clicking `a[href="/homes/"]`, a link that exists on
+# the estate page and on no onboarding screen. So the procedure migrated from J2 to J3 and J2 was left
+# with a fixture and no walker, and nothing in the repo could report it.
+# ⭐ MEASURED, 2026-09-10, on a fixture built for the purpose: the `handover` seat (an account whose
+# record carries no name) walked this list and 5 of 5 clicks timed out against screen `s1` — the
+# naming screen. Zero of those failures is a product defect. A lens reading that run without the
+# entry state would have filed five.
+# ⛔ SO THE LIST DECLARES THE STATE IT IS WRITTEN FOR, and `main()` refuses to walk it from any other.
+# Improvising J2's action list is real work (it is the resume path, and it ends in a completed
+# household) and belongs to the journey library — `.decisions/fernwood-18`, first cut J1 · J2 · J3 · J5.
+JOURNEY_RETURNING_ENTERS = "J3"
+
+
 def journey_returning(answers, origin=""):
     """⭐ THE WALK OF SOMEONE WHO ALREADY EXISTS `[paul-ruled 2026-09-07, lap 3 item 4]`.
 
@@ -650,6 +669,17 @@ def selftest():
           and set(JOURNEY_IDS) >= {"J1", "J2", "J3", "J4", "J5"},
           "a derived id with no entry in JOURNEY_IDS renders as a bare string to every reader")
 
+    # 5b2 · ⛔ THE RETURNING LIST DECLARES THE STATE IT IS WRITTEN FOR, and the declaration is checked
+    #       against the list rather than believed. Its first click is `/homes/` — a link the estate
+    #       page carries and no onboarding screen does — so it can only be entered after the
+    #       finished-setup redirect. If someone rewrites the list to start on an onboarding screen
+    #       without moving the declaration, this goes red instead of five timeouts doing it later.
+    check("the returning list declares which entry state it is written for",
+          JOURNEY_RETURNING_ENTERS in JOURNEY_IDS, "%r is not a journey" % JOURNEY_RETURNING_ENTERS)
+    check("…and the declaration matches what the list actually does",
+          (JOURNEY_RETURNING_ENTERS == "J3") == any(x == 'click:a[href="/homes/"]' for x in tok),
+          "the list starts somewhere the declared entry state does not put a reader")
+
     # 5c · ⛔ THE ARRIVAL IS NOT A ROLE. The row's own discipline: "build the per-run invite as a
     #      property of the arrival, never as a new --role." A seat that appeared in the roles
     #      register because of this change would be the same mistake in a new coat.
@@ -791,6 +821,20 @@ def main():
             "journey-walk: ⛔ REFUSING a returning walk arriving as %s (%s). A returning walker holds "
             "an account's own credential; if the record refuses it, that is --dead-credential's "
             "journey and must be asked for by name." % (jid, jwhy))
+    # ⛔⛔ AND THE ONE THAT COSTS FIVE FALSE FINDINGS IF IT IS MISSING. The returning action list is
+    # written for ONE entry state (see JOURNEY_RETURNING_ENTERS); walked from the other it clicks at
+    # links that screen does not carry, and every timeout reads as a product defect to a lens.
+    if not a.fresh and not getattr(a, "dead_credential", False) and jid != JOURNEY_RETURNING_ENTERS:
+        raise SystemExit(
+            "journey-walk: ⛔ REFUSING — this seat arrives as %s and the returning action list is\n"
+            "  written for %s (%s).\n"
+            "  Measured 2026-09-10: walked from %s it fails 5 of 5 clicks against the naming screen,\n"
+            "  and not one of those failures is a defect. %s HAS A FIXTURE AND NO PROCEDURE — the\n"
+            "  journey moved to %s at 7496196 (2026-09-08) and nothing carried the other one.\n"
+            "  Writing it is the journey library's work: .decisions/fernwood-18.\n"
+            "  `python3 tools/walk-fixtures.py --env %s` says which seat holds which state."
+            % (jid, JOURNEY_RETURNING_ENTERS, JOURNEY_IDS[JOURNEY_RETURNING_ENTERS],
+               jid, jid, JOURNEY_RETURNING_ENTERS, a.origin))
 
     # ⛔ THE SEATS MUST NOT TYPE THE SAME THING. Measured 2026-09-06: all four seats — mom, owner,
     # strict, wide-eyed — typed "A place / 1 Example Road / Jasper / GA / 30143", because this
