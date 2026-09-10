@@ -61,6 +61,33 @@ working on user-facing features."* It is also the gate that OPENS feature work.
 - **Three fixes today were the same shape** — `via:`, `attributeToPerson`, the fixture stamp: *record
   provenance at write time rather than infer it at read time*. Expect the fourth.
 
+## 7b. WHAT WAS TRIED AND DID NOT WORK — from the build window, verbatim-in-substance
+⭐ **Read this before proposing anything in the credential/account path — every item below is a dead
+option that looks alive.**
+- **The first placement fix would have skipped exactly the rows needing it** — it looked up only
+  `account:<personId>`, so an account written before Q1 (the condo's, precisely) reads absent and is
+  silently left alone. ⭐ *A migration's repair path has to reach the un-migrated.*
+- **Relaxing `attributeTo`'s guard** was the obvious fix and was wrong — its both-facts-from-one-row
+  rule is what makes *"everything Mom said"* and *"everything about the condo"* separately answerable.
+  Absence needed a **third state**, not a loosened second.
+- **`check-estate-neutral.py` cannot certify neutrality.** It passed the canon-election bug clean on
+  311 needles because **every needle is Fernwood's.**
+- **Electing an estate's place from member rows** — removed, not improved. **No tie-break turns *"a
+  member has an address"* into *"this estate is at this place."***
+- **`need()` throwing on a missing fact** — right when every deployment was Fernwood, wrong the moment
+  a household has an address and nothing else.
+- ⚠️ **The stale edge fooled this session three times** — filtered deploy output hiding a stale upload,
+  a wrong hostname read as a dead Worker, 500s from pre-fix code still being served. **Re-probe what is
+  live; debugging the source is the trap.**
+
+⚠️ **AND A CORRECTION TO §4: `via:` IS PARTIAL — 3 of 6 authored write paths.** `conversation` and
+`observations` need a signature change through `handleChat`; `door` is `personId: null` by construction
+and **correctly excluded**. It blocks nothing, but do not read "landed" as "complete."
+
+⚠️ **`worker/digest.json` ≠ the per-estate digests.** `build-digest.py` builds Fernwood's bundled canon
+from repo-root strict canon; `publish-digest.py` composes per-estate digests into KV. Different paths —
+the election fix could not have touched the first. I confused these; don't repeat it.
+
 ## 8. Trust status
 **Human-cleared (Paul, today):** the G1/READY-TO-INVITE wording · personalization inside · five owners
 incl. himself · person-scoped credentials · `X-Estate` as disambiguator (ratified **knowing it retires
