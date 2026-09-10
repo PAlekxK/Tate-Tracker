@@ -226,6 +226,14 @@ def entry_state(env, token):
 # key exists so the evidence for that decision is IN THE RECORD when he makes it — and so that a
 # returning-unfinished walk can never again be read as the returning-finished one.
 JOURNEY_IDS = {
+    # ⭐⭐ J0 — THE FOUNDING OWNER, and it sits directly on the "ready to invite" milestone
+    # `[paul-stated 2026-09-10: "fully set up and tested"; tested means WALKED]`.
+    # ⛔ NOTHING IN THIS HARNESS WALKS IT, and J1 is not it. `measured` 2026-09-10: a J1 walker
+    # spends an invite into an estate that ALREADY EXISTS and comes out `relationship: contributor`
+    # — a second member. That is Bob's shape, joining a household somebody else founded. Nigel's and
+    # Aida's estates must now come into being through the product itself, so the founding path is the
+    # only route they have and no walk has ever taken it.
+    "J0": "founding-owner — no estate exists yet; the person creates one and becomes its owner",
     "J1": "invited-stranger — a live, UNSPENT invite; no account, no server record",
     "J2": "returning-unfinished — an account whose record carries no name/address",
     "J3": "returning-finished — an account AND a completed household; expects to be carried to the place",
@@ -536,8 +544,9 @@ def journey_resuming(answers, origin=""):
 #   · `actions` — the ordered list, whose `shot:` names ARE its stops (see `roster_of`)
 # ⛔ IT IS NOT THE GATE'S UNIT. `release-gate.py` still keys on the seat; that change is
 # `.decisions/fernwood-16` and Paul's. This map exists so a run can SAY what it walked.
-# ⚠️ J5 bare-door is deliberately absent rather than stubbed — it is P3, and a stub in this map
-# would read to `walk-fixtures.py` as a procedure that exists.
+# ⚠️ A journey NAMED in JOURNEY_IDS and absent from JOURNEYS is a COVERAGE HOLE, and it is declared
+# below rather than stubbed — a stub in this map would read to `walk-fixtures.py` as a procedure that
+# exists, which is the one thing a coverage report may never say.
 JOURNEYS = {
     "J1": {"name": "invited-stranger", "enters": "J1", "arrival": "per-run-invite",
            "actions": lambda a, o: journey(True, a, origin=o)},
@@ -574,6 +583,32 @@ def lens_posture(role):
         return (_m.ROLES.get(role) or {}).get("note")
     except Exception:
         return None
+
+
+# ⛔⛔ NAMED, AND KNOWN TO BE UNBUILT — with its BLOCKER named beside it.
+# ⭐ A gap nothing prints is a gap nobody schedules: this repo's most-recorded shape is a capability
+# the loop cannot reach by running its own procedure, and its mirror is a hole the loop cannot SEE by
+# running its own procedure. `walk-fixtures.py` prints every row here as a standing red line, so the
+# thing that is missing is on the same board as the things that work.
+# ⚠️ J0 IS DECLARED BEFORE IT CAN BE BUILT, deliberately. `POST /api/estate` does not exist — it is
+# BACKLOG B3 and bound to the grant-key decision — so writing an action list today would produce a
+# journey that fails for a reason that is not a defect. Declaring its entry state and its arrival now
+# gives B3 a target to be built against instead of an afterthought.
+NAMED_UNBUILT = {
+    "J0": {"enters": "⛔ UNDECIDED — a grant carries an estateId, so an invite cannot exist before "
+                     "the estate does. That chicken-and-egg IS the open question, not an oversight.",
+           "arrival": "undecided — see the blocker",
+           "needs": "POST /api/estate (BACKLOG B3, bound to the grant-key decision)",
+           "why": "the milestone says tested means WALKED, and this is the only route Nigel's and "
+                  "Aida's estates can now come into being"},
+    "J5": {"enters": "J5 — no credential at all",
+           "arrival": "no credential; the bare `/onboarding/` a sunset banner points at",
+           "needs": "an action list that starts at the bare door and records the FIRST SENTENCE as "
+                    "its own stop",
+           "why": "Paul walked it himself and was told \"This link isn't working\" by a link that "
+                  "had just worked; a seat would have caught the sentence and no seat could reach "
+                  "the screen"},
+}
 
 
 def roster_of(acts):
@@ -821,6 +856,18 @@ def selftest():
     check("every journey's actions produce at least one stop",
           all(roster_of(j["actions"](A, "https://x/onboarding/")) for j in JOURNEYS.values()),
           "a journey with no checkpoint records nothing")
+    # ⛔⛔ THE CLAUSE THAT MAKES SILENCE IMPOSSIBLE. Every journey this repo has a NAME for is either
+    #    built or explicitly declared unbuilt WITH its blocker. Naming one and doing neither is how a
+    #    gap becomes invisible, and an invisible gap is the failure shape this whole row exists for.
+    check("every NAMED journey is either built or declared unbuilt — nothing is merely named",
+          set(JOURNEY_IDS) == set(JOURNEYS) | set(NAMED_UNBUILT),
+          "named-only: %s" % sorted(set(JOURNEY_IDS) - set(JOURNEYS) - set(NAMED_UNBUILT)))
+    check("nothing is both built and declared unbuilt", not (set(JOURNEYS) & set(NAMED_UNBUILT)),
+          "a journey claims to be built and missing at once: %s"
+          % sorted(set(JOURNEYS) & set(NAMED_UNBUILT)))
+    check("every unbuilt journey names what it is BLOCKED ON",
+          all(u.get("needs") and u.get("why") for u in NAMED_UNBUILT.values()),
+          "a hole with no blocker named is a hole nobody can schedule")
     check("every arrival named in the library is one this file can produce",
           {j["arrival"] for j in JOURNEYS.values()}
           == {"per-run-invite", "per-run-unfinished", "durable-credential", "dead-credential"},

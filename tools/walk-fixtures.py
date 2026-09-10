@@ -66,7 +66,7 @@ def report(env, out=print):
     estate = (gm.ENVIRONMENTS.get(env) or {}).get("estate")
     out("walk fixtures — env %s · estate %s\n" % (env, estate or "⛔ UNDECLARED"))
     out("  %-11s %-9s %-9s %-26s %s" % ("seat", "J1 invite", "returning", "the record says", "gap"))
-    unreadable, gaps = 0, 0
+    unreadable, gaps, holes = 0, 0, 0
     reach, held = {}, {}
     for role, v, edge in seats(env, jw, si, gm):
         # ── J1: can this seat be handed an unspent invite? An EDGE, not a live token — the walker
@@ -122,7 +122,19 @@ def report(env, out=print):
     # have a seat that could enter it and no action list that could walk it (7496196, 2026-09-08).
     out("  %-4s %-22s %-34s %s" % ("", "journey", "arrival", "who can walk it"))
     edges = sum(1 for _r, _v, e in seats(env, jw, si, gm) if e)
-    for jid in sorted(jw.JOURNEYS):
+    for jid in sorted(jw.JOURNEY_IDS):
+        if jid not in jw.JOURNEYS:
+            u = jw.NAMED_UNBUILT.get(jid) or {}
+            out("  %-4s %-22s %s" % (jid, jw.JOURNEY_IDS[jid].split(" — ")[0],
+                                     "⛔ NO PROCEDURE — blocked on: " + (u.get("needs") or "UNDECLARED")))
+            out("       %s" % (u.get("why") or "⛔ named with no blocker declared"))
+            # ⚠️ LOUD, BUT NOT THE EXIT CODE — the same rule this file already applies to a missing
+            # procedure. The exit code answers "is anything here repairable right now", and a
+            # journey blocked on a route that does not exist is not. A checker red from its first
+            # day for something it cannot name a command for is a checker nobody reads, and these
+            # two would make it red until B3 and P3 land.
+            holes += 1
+            continue
         j = jw.JOURNEYS[jid]
         arr = j["arrival"]
         if arr == "per-run-invite":
@@ -143,17 +155,17 @@ def report(env, out=print):
     # ⚠️ NAMED AND ABSENT IS NOT THE SAME AS UNKNOWN. J5 bare-door is P3 and `.decisions/fernwood-18`
     # ruled it into the first cut; printing it here is how the coverage claim stays readable — a
     # matrix whose empty cells are invisible is decoration, which is this row's own warning.
-    for jid in sorted(set(jw.JOURNEY_IDS) - set(jw.JOURNEYS)):
-        out("  %-4s %-22s %s" % (jid, jw.JOURNEY_IDS[jid].split(" — ")[0],
-                                 "⛔ NOT IN THE LIBRARY — named, unbuilt (.decisions/fernwood-18)"))
     if unreadable:
         out("\n🟡 %d seat(s) UNREADABLE — the door could not be asked. That is not 'no fixture'." % unreadable)
         return 3
+    if holes:
+        out("\n⛔ %d NAMED journey(s) have no procedure — a standing coverage hole with its blocker "
+            "named above, not something today can repair." % holes)
     if gaps:
         out("\n🔴 %d journey or seat cannot be provisioned — see the gaps above." % gaps)
         return 1
-    out("\n✅ every journey in the library can be provisioned at this env, and every seat can be "
-        "handed an unspent invite.")
+    out("\n✅ every journey the library HAS can be provisioned at this env, and every seat can be "
+        "handed an unspent invite. %s" % ("The holes above are what it does not have." if holes else ""))
     return 0
 
 
