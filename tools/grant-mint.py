@@ -292,11 +292,32 @@ def hydrate(reg_path, person, estate, env, dry):
         return 0
     if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(new, separators=(",", ":")), dry=dry):
         raise Refuse("KV put failed — the grant is unchanged")
+    write_route(env, estate, h, dry=dry)
     # ⛔ FIELD NAMES ONLY, NEVER VALUES. An address is the household's, not this log's.
     print("  hydrated (%s, %s) from %s · carried: %s · absent on the account: %s"
           % (person, estate, akey, ", ".join(carried) or "nothing", ", ".join(absent) or "none"))
     return 0
 
+
+
+# ⭐ C7 · THE ROUTER ROW, WRITTEN AT THE MINT `[paul-ratified 2026-09-10]`.
+# `grantFor()` (worker.js) became a ROUTER on 2026-09-10: it reads `route:<sha256(token)>` to learn
+# which estate a credential belongs to, because with many estates in one deployment you cannot find a
+# grant without already knowing its household.
+# ⛔ A GRANT MINTED WITHOUT ITS ROUTE IS A CREDENTIAL THAT DIES THE MOMENT ROUTING SHIPS. The
+# 2026-09-10 backfill covered every grant that existed THEN; anything minted after it — Bob's, Aida's
+# and Nigel's invites among them — is invisible to a routed lookup unless it is written here.
+# ⚠️ The noun is `route:` and not `credential:`: this file already uses `credential` as a FIELD inside
+# the grant row, and one word meaning two things in one corpus is the collision VOCABULARY §4 exists
+# to catch. Ratified by Paul 2026-09-10.
+# ⚠️ WRITTEN AFTER THE GRANT, NEVER BEFORE. A route pointing at a grant that does not exist is the one
+# answer `grantFor()` must never give — the plan calls it out by name ("a 404, never a fall-back to
+# the deployment's estate"). Grant-then-route can only ever leave an unrouted grant, which still
+# resolves through the legacy path; route-then-grant leaves a dangling router row.
+def write_route(env, estate, h, dry=False):
+    if not run_kv(env, "put", "route:%s" % h, json.dumps({"estateId": estate}, separators=(",", ":")), dry=dry):
+        raise Refuse("the grant was written but its ROUTER ROW was not — that credential will not "
+                     "resolve once routing ships. Re-run `tools/grant-route-backfill.py --env %s --apply`" % env)
 
 def env_agrees(env, dry=False):
     """G3b — ASK THE DESTINATION WHO IT IS, before writing to it.
@@ -391,6 +412,16 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
             old = row["credential"]; old["revokedAt"] = ts
             if not dry:
                 run_kv(env, "delete", "%s:grant:%s" % (estate, old["hash"]), dry=dry)
+                # ⛔ AND THE OLD ROUTE. A rotation retires a credential; leaving its router row
+                # behind means `route:<old hash>` still names this estate for a token that no longer
+                # opens anything. `grantFor()` answers that 404 (a route with no grant is never a
+                # fall-back), so it is safe — but it is a live row pointing at a household for a dead
+                # credential, and the register would say the credential was retired while the store
+                # still carried half of it.
+                # ⚠️ FOUND BY THE TOOL'S OWN ORDER PROBE, not by reading: the probe looked for a
+                # route-delete after the FIRST grant-delete in the file and landed here, on a second
+                # delete site I had not noticed while fixing revoke.
+                run_kv(env, "delete", "route:%s" % old["hash"], dry=dry)
             row.setdefault("credentialHistory", []).append(old)
         row["relationship"] = list(relationship) if relationship else row.get("relationship", [])
         row["capability"] = capability
@@ -413,6 +444,7 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
         return h
     if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(kv_row, separators=(",", ":")), dry=dry):
         raise Refuse("KV put failed — register NOT written (a row with no store entry would be a credential nobody can present)")
+    write_route(env, estate, h, dry=dry)
     save_register(reg_path, reg)
     # the token leaves exactly once, into a mode-600 file
     if fixture_out:
@@ -460,6 +492,12 @@ def revoke(reg_path, person, estate, env, dry):
         print("  dry-run: would revoke (%s, %s) · hash %s… · NOTHING WRITTEN" % (person, estate, h[:10])); return
     if not run_kv(env, "delete", "%s:grant:%s" % (estate, h), dry=dry):
         raise Refuse("KV delete failed — revokedAt NOT written (the store is the truth the door reads)")
+    # ⛔ THE ROUTE GOES WITH IT. A revoked grant whose router row survives is a credential that still
+    # RESOLVES to an estate and then finds nothing — which `grantFor()` answers as a 404, so it is
+    # safe, but it leaves a row pointing at a household for a credential nobody holds. Deleted after
+    # the grant, for the same reason it is written after the grant at the mint: the dangerous order is
+    # the one that can leave a route with no grant behind it, and this order never can.
+    run_kv(env, "delete", "route:%s" % h, dry=dry)
     row["credential"]["revokedAt"] = now_iso()
     save_register(reg_path, reg)
     print("  revoked (%s, %s) · hash %s… · an act with an author, dated" % (person, estate, h[:10]))

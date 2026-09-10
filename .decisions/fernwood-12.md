@@ -1,40 +1,56 @@
-## fernwood-12 · does a non-plant `suggest-add` fence get built, or does the Guru refuse gracefully?
+## fernwood-12 · Does a credential resolve to an ESTATE, or to a PERSON who has estates?
 
-- project: Tate-Tracker
-- loop: tate-tracker
-- source: G1, found 2026-09-01 in the conversation that opened mom lap 8; interim shipped the same day (Worker `3cc3d422`)
-- options: extend-the-fence-to-all-domains | leave-it-at-a-graceful-refusal
+- project: fernwood
+- options: estate-scoped credential (one token, one household) | person-scoped credential (one token, all your households)
 
 ### Why it's here
-Mom asked for the refrigerator under household systems, gave the model number, the ice maker and the
-absence of a dispenser — and the Guru's closing turn told her **"It's in the record now."** Nothing had
-been written. It has no path to canon. Had lap 8 not run within the half hour, her request would have
-sat behind a completion message telling her it was handled.
 
-⭐ **The diagnosis sharpened during the fix, and it is the reason this card exists.** The prohibition
-*already existed twice* in `GARDEN_GURU_SYSTEM` — *"you NEVER say 'I've logged it'"* — but both copies
-were scoped to the **journal/log** path. Her request went down the **add-a-new-thing** path, whose rule
-is *"help them add it, honestly"* backed by a `<!--suggest-add` fence whose `kind` is **`plant`**. There
-is no fence for machines, household systems, wildlife or zones. **So the real defect was a missing
-MECHANISM, not a missing rule: a path with no honest exit produces a dishonest one.**
+`[paul-raised 2026-09-10]` — *"in the future, we want each account to have multiple estates with
+different access levels, right? In theory."*
 
-✅ Interim shipped: a domain-general ban on completion claims in any domain, plus an explicit note that
-the fence is plants-only and what to do instead (reflect the facts back, say it is noted, stop).
+The router built today resolves **a token to one estate**: `route:<sha256(token)> → {estateId}`. That
+is enough for one household per credential and no more.
+
+⭐ **Three places in the code already assume the other answer.** `worker.js:630` and `:768` both
+return **`estates: [ … ]` — an array**. `grant-mint.py` declares the register *"one per (personId,
+estateId)"*, so one person holding several households, each with its own `relationship` and
+`capability`, is **already the row model**. And a **`/homes/` picker** is step 4 of the multi-tenancy
+plan and already sits in `pages-deploy.py`'s allowlist.
+
+So the *record* anticipates many households per person; only the *credential* does not.
 
 ### What it means
-- **extend-the-fence-to-all-domains** — her request gets a real mechanism instead of a graceful
-  refusal, and the thing she is demonstrably willing to do (talk to the Guru) starts producing
-  structured proposals. ⚠️ It is **not** forbidden by the AI boundary — forbidden mode 2 is *AI
-  auto-folding to canon*, and a fence is a **proposal for a human** — but it is a new surface on her
-  ask path, and every domain needs its own grounding questions and schema.
-- **leave-it-at-a-graceful-refusal** — the interim stands: the Guru gathers facts, reflects them back,
-  says it is noted, and a human builds the card on the next lap. Honest, already shipped, and costs her
-  a wait she cannot see.
+
+**a · estate-scoped credential** — what exists. A person who owns two households carries two tokens
+and signs in separately. Simple, already built, already proven by the falsifier. ⛔ But the `/homes/`
+picker has nothing to pick from, and "different access levels per estate" cannot be expressed by a
+credential that only ever names one.
+
+**b · person-scoped credential** — `route:<hash> → {personId}`, then the person's grants are looked
+up and the estates they hold are returned. One sign-in, many households, each with its own
+capability. It is what the `estates: []` array was shaped for.
+
+⚠️ **It is a bigger change than it sounds, and it lands on the one path that must not break.** Every
+grant row is keyed `<estateId>:grant:<hash>`, so a person-scoped lookup needs either a person→estates
+index or a scan. It also re-opens *which* estate a request means when the caller holds several —
+`scopeFor()` currently answers from the grant, and a person-scoped grant would not answer at all
+without the request naming a household.
 
 ### Recommendation
-**extend-the-fence-to-all-domains**, but scope it to `household-system` and `vehicle`/`equipment`
-first rather than all at once — those are the domains she has actually asked about, and the
-refrigerator gives a worked example of exactly which grounding questions matter. ⚠️ Note the coupling:
-this is the one option on the board that would make the Guru a *producer* of canon proposals, so it
-should be decided **after** fernwood-11, not before — if the answer there is "latch onto what she
-starts," this is how that gets built, and if it is not, this is a surface with no demand behind it.
+
+**Ship (a), design so (b) is reachable — and decide (b) before `POST /api/estate` ships, not after.**
+
+The falsifier passes today on (a) and Bob's, Aida's and Nigel's invites depend on that path working.
+But `POST /api/estate` is the moment a person can hold a *second* household, and it is the only
+completely unexercised step in the founding path. Building it estate-scoped and converting later
+means changing the credential model after real people hold real credentials — the one migration this
+project has said repeatedly it does not want to run twice.
+
+⭐ **The cheap move that keeps both open:** have `POST /api/estate` return the founder's **full
+estates array** rather than the single estate it just made, and have the router row carry
+`{estateId, personId}` rather than `{estateId}` alone. Neither costs anything today; together they
+mean (b) becomes a read change and not a re-key.
+
+⛔ **What I am NOT doing pending this ruling:** wiring `/homes/`, or changing `route:`'s value shape.
+230 rows are written as `{estateId}` and rewriting them is one backfill re-run — cheap now, and the
+same "expensive after" this key's own noun was ruled on today.
