@@ -82,6 +82,17 @@
   textarea { width:100%; font:inherit; padding:10px; border:1.5px solid #c6d6bb; border-radius:12px; margin-top:8px; resize:vertical; }
   button.send { font:inherit; cursor:pointer; border-radius:12px; padding:11px 16px; border:1.5px solid var(--accent); background:var(--accent); color:#fff; font-weight:600; }
   .tick { margin-right:7px; }
+  /* ⛔ A ROUTE, NOT AN AFFIRMATIVE — and the distinction is the ratified one, not a style
+     preference. CLAUDE.md rule #1 reserves filled + ✓ (`button.send` here) for the affirmative
+     grammar: "we hear you, and we've recorded your information". Founding a home records nothing
+     on this screen; it takes someone somewhere. So this copies onboarding's OWN route control
+     (`.bigbtn`, the "Open my home" door) byte for byte — filled, weighted, and carrying no tick.
+     Using the affirmative on a link is how one learnable signal quietly becomes two. */
+  .bigbtn {
+    display:block; text-align:center; text-decoration:none;
+    padding:15px 18px; border-radius:13px; font-size:1.05rem; font-weight:600;
+    background:var(--accent); color:#fff; margin-top:14px;
+  }
   .footlink { display:inline-block; margin-top:10px; color:var(--ink-soft); text-decoration:underline; font-size:.95rem; }
   [hidden] { display:none !important; }
   /* `[paul-ruled 2026-09-06]` the general-feedback bubble: on every signed-in screen, pinned to the
@@ -187,11 +198,40 @@
       // new browser is in.
       // ⭐ `estate/index.html:457` already distinguished three states; the fix never generalised
       // here or to settings/account. That is why this is one resolver and not three empty strings.
+      // ⛔⛔ THE FOURTH BRANCH TOLD SOMEONE TO REOPEN A LINK THEY HAD ALREADY USED. It read
+      // "Open your invitation link to set up your first home." — said to a person whose credential
+      // RESOLVED, which is how they have an account at all. B1 taught this resolver to tell "I could
+      // not check" from "you have nothing"; it never asked what the reached-and-empty case should
+      // actually say, because that case was rare. `[paul-ruled 2026-09-10]` signup stops granting an
+      // estate, and it becomes what EVERY new signup sees.
+      // ⭐ THIRD INSTANCE OF A SHAPE THIS FILE'S SIBLINGS RECORD TWICE BY NAME — onboarding:980
+      // ("A LINK MUST NOT REPLACE A CREDENTIAL THAT WORKS") and onboarding:1002 ("A PERSON WHO
+      // BROUGHT NO LINK CANNOT BE TOLD THEIR LINK IS BROKEN"). Both were Paul walking it and quoting
+      // the sentence back. This is the same defect from a third side: telling someone to re-present
+      // a credential that already worked, at the one moment they are least able to tell whose fault
+      // it is. ⛔ The no-grant branch still names the link, because there it is TRUE.
+      // ⭐ IT OPENS WITH A THING ACHIEVED. An empty surface that leads by describing an absence
+      // reads as a fault however the next clause softens it — and this is the first screen after
+      // signup, so it is a beginning or it is nothing.
+      var founding = !!grant && reach === "ok";
       p.textContent = !grant  ? "Open your invitation link and your homes will be here."
                     : reach === "unknown" ? "We couldn’t reach your homes just now — nothing is lost. Try again in a moment."
                     : reach === "fetching" ? "Looking for your homes…"
-                    : "Open your invitation link to set up your first home.";
+                    : "Your account is set up. Your first home is next — it takes a name and an address, and I build the rest from there.";
       host.appendChild(p);
+      // ⭐ A ROUTE INTO THE FLOW THAT EXISTS, NOT A NEW ONE. onboarding s1 asks what you call it and
+      // s2 asks where it is — a name and a place, which is what founding a home IS — and
+      // onboarding:2168-2171 already resumes an account with no name and no address at step 1. So
+      // this is a destination, not a screen to build.
+      // ⛔ AND THAT IS WHAT KEEPS "never ask twice" TRUE STRUCTURALLY `[paul-ruled 2026-09-10]`:
+      // there is exactly one place in the product that asks for an address, so there is no
+      // opportunity to ask for it again. A second, founding-specific screen would MANUFACTURE one.
+      if (founding) {
+        var f = document.createElement("a");
+        f.className = "bigbtn"; f.href = "/onboarding/";
+        f.textContent = "Set up my first home";
+        host.appendChild(f);
+      }
       // A credential that cannot be resolved is the one case where the door is the answer, so offer
       // it here rather than leaving a dead end. It is the same door B2 will route to properly.
       if (grant && reach === "unknown") {
@@ -267,7 +307,21 @@
         }
         // the server's answer may lack what the device already holds; never let a network reply erase
         // the town from her card (wide-eyed, round 8: "Bangor, ME" vanished after an unrelated tap)
-        renderHomes([{ name: d.name || read(K_NAME), accent: d.accent || read(K_COLOR), addressParts: d.addressParts || read(K_PARTS) }]);
+        // ⛔⛔ THIS RENDERED AN ARRAY OF ONE UNCONDITIONALLY, so a record describing NO home still
+        // painted a row — and `:220`'s `h.name || "My Home"` gave it a name. A person with an
+        // account and no household would meet a PHANTOM home on their shelf, and tapping it opens
+        // nothing. Found 2026-09-10 while verifying the empty-state fix below could even fire: it
+        // could not, because this line guarantees the shelf is never empty on a successful read.
+        // ⭐ SAME CLASS AS THE DEFECT THE LINE ITSELF FIXES, INVERTED. It exists so a network reply
+        // cannot erase what the device already holds ("Bangor, ME" vanishing after an unrelated
+        // tap) — a fix for data LOSS that quietly became an assertion of data PRESENCE. That merge
+        // is KEPT below; only the "is there a home here at all" question is new.
+        // ⚠️ SAFE UNDER BOTH REGIMES, deliberately, because the ruling may not be built yet: while
+        // every account still carries an estate the record has a name and an address, so this
+        // renders exactly what it renders today. It changes behaviour only for the estate-less
+        // account that `[paul-ruled 2026-09-10]` creates.
+        var merged = { name: d.name || read(K_NAME), accent: d.accent || read(K_COLOR), addressParts: d.addressParts || read(K_PARTS) };
+        renderHomes((merged.name || merged.addressParts) ? [merged] : []);
       })["catch"](function () {
         // ⛔ A REJECTION IS THE SAME CLAIM AS A REFUSAL: we did not learn anything. Caught here as
         // well as at the `!d` branch above, because a dropped connection rejects rather than
