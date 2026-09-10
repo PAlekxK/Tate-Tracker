@@ -738,8 +738,13 @@ def journey_founding(answers, origin=""):
         "type:#uname=" + a["username"], "type:#uword=" + a["password"],
         "type:#uword2=" + a["password"], "type:#uemail=" + a["email"],
         "shot:F02-account", "click:#go0",
-        # what an OPEN signup lands on — today the naming screen, with `estates: []` in the response
-        "shot:F03-signed-up",
+        # ⚠️ THE IN-FLIGHT SCREEN, named for what it is. `measured` on the first J0 run
+        # (owner/2026-09-10T175555): this stop captured the account form still submitting —
+        # `/api/account` runs a deliberately slow PBKDF2 round, longer than the 700 ms action gap —
+        # under the name "signed-up", which would have read as "signup lands on the signup form".
+        # It is the screen a person actually waits at (the J5 B03 lesson); the landing itself is
+        # proven one stop later, where the shelf reads "Signed in as …".
+        "shot:F03-signing-up",
         # the empty shelf: "Your account is set up. Your first home is next…" and the founding control
         "goto:" + base + "/homes/", "shot:F04-the-empty-shelf",
         'click:a[href="/onboarding/"]', "shot:F05-set-up-my-first-home",
