@@ -1023,15 +1023,29 @@
       // they live.
       desc: "What you own, where it lives, what it needs next.",
       builds: ["equipment"] },
-    { id: "garden", label: "Growing things",
-      desc: "Anything planted — when to prune, what's coming into season.",
+    // ⛔ "Gardening" STAYS `[paul-ruled 2026-09-10]`. It was briefly "Growing things", to reach a
+    // windowsill — and BOTH arguments for that widening failed verification:
+    //   · the evidence was "Houseplants!", cited as a stranger telling us the label had shut them
+    //     out. It is PAUL'S OWN ACCOUNT (p-yjnw9lt41nww = pkirsch, Grant Park Condo);
+    //     `.user-research/2026-09-08-localized-feed-and-property-type.md:401` already said so —
+    //     "Paul's twelfth interest" — and the 09-10 plan docs re-narrated it anonymously.
+    //   · the set argument did not reach it. Four of the ten rows were ALREADY activity phrases,
+    //     and `Gardening` was one of them — so "the list names activities now" never applied here.
+    //     It was a scope decision wearing a set's clothes.
+    // ⭐ The reframe stands for the six rows that genuinely were NOUNS. This one was never on the
+    // noun side, so it keeps the word it had. content-steward's seat, ratified by Paul.
+    { id: "garden", label: "Gardening",
+      desc: "What's planted, when to prune, what's coming into season.",
       builds: ["plant", "weed", "zone", "care-calendar"] },
     { id: "motor-pool", label: "Looking after a vehicle",
       // SINGULAR on purpose. "Vehicles" reads as a fleet; one car in a garage under a building is
       // still "a vehicle", and that reader should not have to translate.
       desc: "A car, a mower, anything with an engine.",
       builds: ["motor-pool", "service-history"] },
-    { id: "wildlife", label: "Watching what comes around",
+    // ⚠️ "Watching what COMES around" named only the half that ARRIVES, and `VOCABULARY.md` §4
+    // rejects `resident` for exactly that reason: the chickadees that never leave are the ones the
+    // phrase excludes. content-steward caught it; the description had the right word all along.
+    { id: "wildlife", label: "Watching what's around",
       desc: "Birds, frogs — what shows up, and when.",
       builds: ["bird", "amphibian", "mammal", "fish"] },
     { id: "map-points", label: "Marking where things are",
