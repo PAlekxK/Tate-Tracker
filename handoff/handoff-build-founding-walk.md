@@ -66,10 +66,22 @@ edit `BACKLOG.md` status prose (route a finding to the coordination window or th
    handler and the `/api/profile` handler in `worker/worker.js`. ⛔ The founding response returns
    `digest: "not-composed"` — a founded house has no digest yet, so Guru is dark there by design.
    Do not fake one; say so on the surface if the surface would otherwise claim it.
-2. **Make J0 walkable in `journey-walk.py`**: add `"J0"` to `JOURNEYS` with arrival
-   `--fresh` open signup (no invite — open signup is live: no invite → member), the shelf, "Set up my
-   first home", the address step, the placed result. Capture wide (that is the harness's rule).
+2. **Make J0 walkable in `journey-walk.py`**: add `"J0"` to `JOURNEYS` (and remove it from
+   `NAMED_UNBUILT` in the same commit — the selftest requires one or the other). *(Corrected after the
+   readback: `--fresh` is J1 and mints an INVITE; there is no open-signup arrival kind today.)* J0's
+   arrival is **shape (b) from the readback**: bare door → open signup (no invite; open signup is
+   live and yields a member) → shelf → "Set up my first home" → naming → address step → founded.
+   That means teaching the entry gate that J0 is entered from J5's door with a declared intent —
+   coordinator's call `[2026-09-10 ~6:30 PM ET]`, because Paul's mission sentence names signup and
+   shape (a) would report J0 covered with the door-to-shelf seam never walked. Paul can veto.
+   Capture wide: every screen's text and every network reply per stop, not only pass/fail.
    Reuse `walk-founding.py`'s readings 1–2 as its record-side clauses.
+   ⭐ **Answer to the readback's §4-1, measured by the coordinator in `grantFor()` at 58b4d98:** a
+   route row with no `estateId` leaves `routed` null, the legacy read looks under the deployment's
+   estate, finds no grant row, returns **null**. So `/api/profile` **404s for every estate-less
+   account today** and the client swallows it — a fresh signup's address (and its name, which lives
+   only in localStorage) lands nowhere at qa right now. This is why the wire must send `found` with
+   `placeName` in the body, and why "keeps posting profile" is only right for an account with a home.
 3. **Deploy qa from the commit** (`pages-deploy.py --env qa`; Worker via `deploy-worker.sh --env qa`
    only if `worker.js` changed). Tell the coordination window the sha. **Then declare the freeze.**
 4. **Walk J0 at qa in a real browser** as a fresh synthetic owner. Read the run honestly. Paul walks
