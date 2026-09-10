@@ -783,6 +783,12 @@ function scopeFor(request, env, grant) {
   }
   return scopeOf(env);
 }
+// The scope for an estate named by the ROUTER — the credential's own household, resolved without
+// reading the deployment binding at all. Same shape and same legacy window as scopeOf(); `source`
+// says "route" so a key's provenance stays legible in a stack trace.
+function scopeOfRoute(estate, env) {
+  return { id: estate, type: "estate", source: "route", legacyBefore: legacyBefore(env) };
+}
 function keyFor(scope, ...parts) {
   return assertScope(scope).id + ":" + parts.join(":");
 }
@@ -1055,10 +1061,54 @@ async function geocodeAddress(env, scope, address, parts) {
 }
 
 const GRANT_HEADER = "X-Grant";
+// ⭐ THE ROUTER ROW — deployment-scoped, because it is not estate data. `route:<sha256(token)>`
+// holds `{estateId}` and nothing else. Written by `tools/grant-route-backfill.py` for every grant
+// that already existed, and by `grant-mint.py` for every grant minted from now on.
+// ⚠️ The noun is `route:` and NOT `credential:` as the plan first drafted it: `grant-mint.py`
+// already uses `credential` as a FIELD INSIDE the grant row, and one word meaning two things in one
+// corpus is the collision VOCABULARY.md exists to catch.
+const ROUTE_PREFIX = "route:";
+// ⭐ A CREDENTIAL MUST FIND ITS ESTATE WITHOUT ALREADY KNOWING IT — plan change 1. This used to read
+// `keyFor(scopeOf(env), "grant", hash)`, so finding a grant required knowing its household first;
+// with many estates in one deployment you do not. A foreign grant failed TWICE — wrong namespace,
+// and then rejected by `row.estateId !== env.ESTATE_ID`.
+//
+// ⛔ THE TWO WRONG ANSWERS THIS FUNCTION MUST NEVER GIVE, in order of danger:
+//   1. A router row with NO GRANT BEHIND IT falling back to the deployment's estate. That hands a
+//      stranger this household. It is a 404, always. (`falsifier-tenancy.py` clause C1 pins it.)
+//   2. Returning a row whose own `estateId` disagrees with the router that found it.
 async function grantFor(request, env) {
   const presented = request.headers.get(GRANT_HEADER);
   if (!presented || presented.length > 256) return null;
-  const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "grant", await sha256Hex(presented)));
+  const hash = await sha256Hex(presented);
+
+  let routed = null;
+  try {
+    const r = await env.OBSERVATIONS.get(ROUTE_PREFIX + hash);
+    if (r) {
+      const parsed = JSON.parse(r);
+      if (parsed && typeof parsed.estateId === "string" && parsed.estateId) routed = parsed.estateId;
+    }
+  } catch (e) { /* a malformed router row is a miss, never an outage — fall through to the legacy read */ }
+
+  if (routed) {
+    const raw = await env.OBSERVATIONS.get(keyFor(scopeOfRoute(routed, env), "grant", hash));
+    if (!raw) return null;                                    // ⛔ 404. NEVER the deployment's estate.
+    let row;
+    try { row = JSON.parse(raw); } catch (e) { return null; }
+    if (!row || row.revokedAt) return null;
+    if (row.estateId !== routed) return null;                 // the row must agree with its own router
+    return row;
+  }
+
+  // ---- NO ROUTER ROW: exactly the behaviour that shipped before this change ----
+  // ⭐ THIS IS WHY THE REWRITE IS NON-BREAKING. A credential the backfill missed — or one minted in
+  // the gap between the backfill and this deploy — keeps working unchanged instead of dying.
+  // ⭐⭐ AND IT IS SAFE EVEN ONCE ONE DEPLOYMENT SERVES MANY ESTATES, by key construction: the key
+  // it reads is `<this deployment's estate>:grant:<hash>`, so it can only ever find a grant that
+  // genuinely belongs to this household. It cannot return the wrong estate's row; it can only fail
+  // to find a foreign one, which is the correct answer here anyway.
+  const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "grant", hash));
   if (!raw) return null;
   let row;
   try { row = JSON.parse(raw); } catch (e) { return null; }
