@@ -751,6 +751,16 @@ async function handleAccountCreate(request, env, scope) {
                 how: invite ? "account-signup" : "open-signup" }],
   };
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
+  // ⛔ AND ITS ROUTER ROW. Measured 2026-09-10: lab held 37 grants and 29 routes, because
+  // `grant-mint.py` was taught to write routes and this path — the one the PRODUCT uses — was not.
+  // Every account created through signup was therefore invisible to `personFor()`, which is what
+  // `POST /api/estate` authenticates with: founding 404'd for everyone who had just signed up.
+  // ⭐ Two writers of one fact, in my own work, for the third time today. The route is written HERE
+  // rather than left to a tool, because a credential minted by the product must be reachable by the
+  // product.
+  // ⚠️ AFTER the grant, never before: a route pointing at a grant that does not exist is the one
+  // answer grantFor must never give, and falsifier C1 pins it.
+  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash, JSON.stringify({ estateId: scope.id, personId }));
   await putAccount(env, scope, username, personId, ({
     personId, salt: b64(salt), hash, iterations: PBKDF2_ITERATIONS, algo: "PBKDF2-SHA256",
     createdAt: new Date().toISOString(), tokenHash, email: email || null, phone: phone || null,
@@ -903,6 +913,10 @@ async function handleSession(request, env, scope) {
   // written separately below rather than added to that list.
   grantRow.username = username;
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
+  // ⛔ THE ROTATED CREDENTIAL KEEPS ITS ROUTE. A sign-in mints a NEW token, so the old hash's
+  // route is stale and the new one has none — leaving `personFor()` blind to anyone who has
+  // simply signed in again. Written AFTER the grant, same ordering rule as everywhere else.
+  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash, JSON.stringify({ estateId: scope.id, personId: acct.personId }));
   if (acct.tokenHash && acct.tokenHash !== tokenHash) {
     await env.OBSERVATIONS.delete(keyFor(scope, "grant", acct.tokenHash));
   }
@@ -1276,6 +1290,115 @@ function stampVia(record, request, env, grant) {
   if (grant && grant.personId) return attributeToPerson(record, grant);
   if (authOk(request, env)) return Object.assign({}, record, { via: "master", capability: "administrator" });
   return record;
+}
+// ⭐⭐ B3 · WRITE AN ESTATE'S PLACE — the unit both callers share, and it TAKES a place.
+// `[paul-ruled 2026-09-10]` the durable approach, invested in now: `<estateId>:place` is written
+// ONCE AT FOUNDING. No election, no hand-declaration, no backfill by a different path.
+//
+// ⛔ IT MUST NEVER GO LOOKING FOR A PLACE. The caller supplies one. If this function were allowed to
+// read account rows and pick an address, the migration caller would re-derive the ELECTION inside
+// the shared unit — making today's bug durable instead of the fix. Measured this afternoon:
+// electing from member rows put Paul's real home address into a test estate's Guru prompt, and it
+// looked entirely reasonable because every estate had exactly one placed member.
+// ⭐ The account row may PROPOSE a place. Only a human act may WRITE one.
+//
+// ⚠️ PROVENANCE RIDES WITH IT, same shape `grant-mint.py` already runs on `consentSource`: a later
+// reader must be able to tell a place the owner declared from one a tool derived. Every fix that
+// stuck today was "record it at write time rather than infer it at read time".
+async function writeEstatePlace(env, estateId, place, declaredBy, placeSource) {
+  if (!estateId || !place || !(place.address || (place.coordinates || {}).latitude)) {
+    throw new Error("writeEstatePlace: needs an estateId and a place carrying an address or coordinates");
+  }
+  const row = Object.assign({}, place, {
+    estateId,
+    placeSource: placeSource || "self",     // self · attested · fixture
+    declaredBy: declaredBy || null,
+    declaredAt: new Date().toISOString(),
+  });
+  await env.OBSERVATIONS.put(keyFor(scopeOfRoute(estateId, env), "place"), JSON.stringify(row));
+  return row;
+}
+
+// ⭐⭐ POST /api/estate — `found`: the step nothing has ever walked.
+// Every journey in the harness arrives at an estate that ALREADY EXISTS. Nothing in this project has
+// ever created one through the product; every estate alive today was minted by hand in
+// wrangler.toml. This is that step.
+//
+// ⛔ SCOPE, DELIBERATELY NARROW AND SAID SO: `found` only, and only for a person who holds NO estate.
+// The second-estate case is REFUSED BY NAME rather than half-supported, because it depends on the
+// `X-Estate` ruling that is not made — and an unpredicted 400 later is worse than a named refusal
+// now. `adopt` (placing the five estates that predate this endpoint) is not here for the same reason.
+async function handleEstateFound(request, env) {
+  const person = await personFor(request, env);
+  if (!person) return json({ error: "not-found", path: "/api/estate" }, 404);
+
+  let body;
+  try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
+  const verb = (body && typeof body.verb === "string") ? body.verb : "found";
+  if (verb !== "found") {
+    // ⛔ NAMED, NOT SILENTLY IGNORED. `adopt` is a real verb in the design and it is not built.
+    return json({ error: "verb-not-available", verb, available: ["found"],
+                  hint: "adopt is designed and not built — it waits on the X-Estate ruling" }, 501);
+  }
+
+  // ⛔ ONE ESTATE PER PERSON, FOR NOW, AND THE REFUSAL IS THE POINT. A person with a grant already
+  // has an estate their credential resolves to; a second one cannot be reached until a request can
+  // say WHICH — and that is the unruled question. Refusing here is visible; letting them found a
+  // second and 400 on every later request is not.
+  const existing = await grantFor(request, env);
+  if (existing && existing.estateId) {
+    return json({ error: "already-has-an-estate", estateId: existing.estateId,
+                  hint: "a second estate needs a way for a request to name which one — not yet ruled" }, 409);
+  }
+
+  const address = typeof body.address === "string" ? body.address.trim().slice(0, 300) : "";
+  const placeName = typeof body.placeName === "string" ? body.placeName.trim().slice(0, 60) : "";
+  if (!address) return json({ error: "need-an-address" }, 400);
+
+  // ⭐ TIER 0 IS WHAT THE PERSON TYPED, VERBATIM. Tier 1 is what a public dataset says about it.
+  // Neither is ground truth and the record says so — the confirm loop is what makes any of it
+  // verified, exactly as `derive-property.py` records for a derived property.
+  const estateId = "est-" + b64(crypto.getRandomValues(new Uint8Array(6)))
+                    .replace(/[^a-z0-9]/gi, "").toLowerCase().slice(0, 6);
+  const place = { placeName: placeName || null, address, addressParts: (body.addressParts && typeof body.addressParts === "object") ? body.addressParts : null };
+  const geo = await geocodeAddress(env, scopeOfRoute(estateId, env), address, place.addressParts);
+  if (geo && geo.coordinates) {
+    place.coordinates = geo.coordinates;                       // carries countyFips, matchedAddress, source
+    place.confidence = "inferred";
+  } else {
+    // ⚠️ A MISS IS RECORDED, NOT HIDDEN, and it does not block founding. A household with an address
+    // and no coordinates is placed enough to exist; `geocodeWhy` is why it is not placed further.
+    place.geocodeWhy = (geo && (geo.refused ? "refused:" + geo.refused : "failed:" + (geo.failed || "unknown"))) || "failed:unknown";
+  }
+
+  // ⛔ THE ORDER IS THE CONTROL. Place first, GRANT LAST, and the router row only AFTER the grant —
+  // a route pointing at a grant that does not exist is the one answer grantFor must never give, and
+  // falsifier C1 pins it. Every earlier step is harmless on its own if the next one fails.
+  await writeEstatePlace(env, estateId, place, person.personId, "self");
+
+  const presented = request.headers.get(GRANT_HEADER);
+  const tokenHash = await sha256Hex(presented);
+  const grantRow = {
+    personId: person.personId, estateId,
+    relationship: ["owner"], capability: "member",
+    entry: true, vault: false,
+    issuedAt: new Date().toISOString(), issuedBy: person.personId,
+    // ⭐ G1 IN THE WORKER'S OWN SHAPE, as `handleAccountCreate` already does it: founding your own
+    // estate IS the warrant for the founding-owner grant, recorded as consentSource "self".
+    consent: [{ scope: "founding-request", agreedOn: new Date().toISOString().slice(0, 10),
+                agreedBy: person.personId, recordedBy: person.personId,
+                consentSource: "self", how: "estate-found" }],
+  };
+  await env.OBSERVATIONS.put(keyFor(scopeOfRoute(estateId, env), "grant", tokenHash), JSON.stringify(grantRow));
+  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash,
+                             JSON.stringify({ estateId, personId: person.personId }));
+
+  // ⛔ THE DIGEST IS NOT COMPOSED HERE. That is B3's scope GROWING and it is not ruled — a founded
+  // household is placeless-to-Guru until a digest is published, and that is a stated seam rather
+  // than an oversight. `publish-digest.py` composes it today.
+  return json({ ok: true, estateId, placeSource: "self",
+                estates: [{ estateId, relationship: grantRow.relationship, capability: grantRow.capability }],
+                digest: "not-composed" }, 201);
 }
 const GRANT_HEADER = "X-Grant";
 // ⭐ THE ROUTER ROW — deployment-scoped, because it is not estate data. `route:<sha256(token)>`
@@ -4121,6 +4244,17 @@ export default {
                  events: clean });
       await env.OBSERVATIONS.put(key, JSON.stringify(arr));
       return json({ stored: clean.length, dropped: evs.length - clean.length, total: arr.length });
+    }
+
+    // ⭐ FOUNDING SITS WITH THE ACCOUNT ROUTES, ABOVE THE ESTATE GATE, AND IT HAS TO. The gate below
+    // resolves a GRANT and refuses a caller without one — and a person founding their first estate
+    // has an account and NO grant by definition. Putting this after the gate would make the endpoint
+    // unreachable by exactly the people it exists for.
+    // ⛔ It is NOT unauthenticated: `personFor` requires a real credential and 404s without one, the
+    // same 404 an unknown route gives. It authenticates a PERSON rather than authorising an estate.
+    if (url.pathname === "/api/estate" && request.method === "POST") {
+      try { return await handleEstateFound(request, env); }
+      catch (e) { return json({ error: "estate-found-failed", detail: String(e && e.message || e).slice(0, 200) }, 500); }
     }
 
     if (url.pathname === "/api/account/available" && request.method === "GET" && !authOk(request, env)) {
