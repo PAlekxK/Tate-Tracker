@@ -22,8 +22,8 @@ egg. ⭐ J0's arrival is therefore a state that **exists today and can be provis
 why this file can measure anything at all.
 
 ⭐ THE WRITE ORDER IS THE DESIGN'S LOAD-BEARING CHOICE, and reading 2 is what makes it checkable.
-`POST /api/estate` writes `estate:<id>` · `<id>:place` · `<id>:digest` · `grant:<personId>:<estateId>`
-— **the grant LAST, on purpose**: the grant is what makes an estate reachable, so a failure before it
+`POST /api/estate` writes `<id>:place` · `<id>:digest` · `grant:<personId>:<estateId>` and the legacy
+dual-write — **the grant LAST, on purpose**: the grant is what makes an estate reachable, so a failure before it
 leaves an *unreachable but intact* estate rather than a person holding a grant to nothing. That buys
 one invariant, and the invariant is testable WITHOUT the endpoint, against data that already exists:
 
@@ -47,11 +47,23 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ⭐ THE FIVE WRITES, IN ORDER, as the design states them. Kept as data so the seam below and the
 # selftest read ONE list, and so a change to the sequence is a one-line change here.
+# ⛔⛔ THERE IS NO `estate:<estateId>` REGISTRY ROW, AND THIS LIST USED TO OPEN WITH ONE.
+# `[corrected 2026-09-10]` It was relayed to this lane as write 1 of five and encoded here in good
+# faith. It is in NO RULED DESIGN: the ruled key table names no estate registry row, and the grep
+# that settled it was run by the build lane. It originated in an engineering-partner design consult
+# and reached this file through a relay that nobody checked against the table.
+# ⭐ THE MEASUREMENT WAS RIGHT AND THE EXPECTATION BEHIND IT WAS WRONG. This file reported
+# `estate:` = ZERO KEYS AT EVERY ENV and read that as "nothing has been founded". The zero was real;
+# it was zero because the key was never specified, while seven estates stood founded at lab.
+# ⛔ AND IT SHOULD STAY UNBUILT: a registry row would be a SECOND WRITER of what the grant edge
+# already holds, which is the exact drift the edge was chosen to avoid. If anyone wants one it needs
+# its own ruling — do not add it back because this list looks short without it.
 FOUNDING_WRITES = [
-    ("estate:<estateId>",              "the estate row — the record itself"),
     ("<estateId>:place",               "where it is"),
     ("<estateId>:digest",              "what its model routes will read"),
-    ("grant:<personId>:<estateId>",    "⭐ LAST ON PURPOSE — the edge that makes it REACHABLE"),
+    ("grant:<personId>:<estateId>",    "⭐ LAST ON PURPOSE — the edge that makes it REACHABLE. "
+                                       "RULED (\"ships with POST /api/estate\") and NOT YET WRITTEN "
+                                       "— measured empty at lab and qa; the build lane owns it"),
     ("legacy <estateId>:grant:<hash>", "the dual-write, so grantFor() keeps resolving"),
 ]
 
@@ -310,11 +322,13 @@ def selftest():
 
     # ⭐ THE ORDER IS THE DESIGN'S LOAD-BEARING CHOICE, so a selftest holds it in place. If someone
     # reorders FOUNDING_WRITES the reason the order exists should break something.
-    check("the grant is the LAST of the five writes",
-          FOUNDING_WRITES[-2][0].startswith("grant:") or "grant" in FOUNDING_WRITES[3][0],
-          "the grant moved off position 4 — the whole unreachable-but-intact property depends on it")
-    check("the five writes are all named",
-          len(FOUNDING_WRITES) == 5 and all(k and w for k, w in FOUNDING_WRITES), "")
+    check("the grant edge is the LAST ruled write before the legacy dual-write",
+          FOUNDING_WRITES[-2][0].startswith("grant:"),
+          "the grant moved off the end — the whole unreachable-but-intact property depends on it")
+    check("every write is named, and no `estate:` registry row has crept back in",
+          all(k and w for k, w in FOUNDING_WRITES)
+          and not any(k.startswith("estate:") for k, _ in FOUNDING_WRITES),
+          "a registry row is a SECOND writer of what the grant edge holds — it needs its own ruling")
 
     # MUTATION 1 — a grant pointing at an estate that does not exist is the failure the ORDER
     # prevents, and it must be caught.
