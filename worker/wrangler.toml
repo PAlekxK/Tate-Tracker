@@ -223,52 +223,23 @@ FAMILY_HOSTS = "myhome-paul.pages.dev"
 binding = "OBSERVATIONS"
 id = "e752e1c3a34c4c82b0b3074c080cca83"
 
-# ⛔ A HOUSEHOLD, NOT AN ENVIRONMENT — the same distinction `env.bob` carries, and for the same
-# reason: `qa`, `lab` and `home` are OUR environments wearing different stamps; this one belongs to
-# somebody else. Own KV namespace, own estate id, and a Pages origin carrying no household NAME
-# (VOCABULARY: an estate name never reaches a user-facing surface, and a hostname is one).
-# Provisioned 2026-09-10 `[paul-asked: "grant the same owner/member token for Aida and Nigel"]` —
-# an invite is a token, but a person is a DEPLOYMENT, and there was no way to mint one without this.
-# ⛔ THE WORKER IS NAMED, exactly as env.bob is. Without it this deploys as `fernwood-nigel` while
-# the pages derive their endpoint from the Pages HOST, so `myhome-nigel.pages.dev` would look for
-# `myhome-nigel.workers.dev` and find nothing.
-[env.nigel.limits]
-cpu_ms = 5000
 
-[env.nigel]
-name = "myhome-nigel"
-[env.nigel.vars]
-ENV_NAME = "nigel"
-ESTATE_ID = "est-76012d"
-# A brand-new estate has no pre-cutover era, so no key may route to the unprefixed legacy reads.
-LEGACY_BEFORE = "1970-01-01"
-CHAT_DAILY_BUDGET_USD = "5.00"
-FAMILY_HOSTS = "myhome-nigel.pages.dev"
-[[env.nigel.kv_namespaces]]
-binding = "OBSERVATIONS"
-id = "cce4abef516942ad8dd8d6d1dc7072d9"
-
-# ⛔ A HOUSEHOLD, NOT AN ENVIRONMENT — the same distinction `env.bob` carries, and for the same
-# reason: `qa`, `lab` and `home` are OUR environments wearing different stamps; this one belongs to
-# somebody else. Own KV namespace, own estate id, and a Pages origin carrying no household NAME
-# (VOCABULARY: an estate name never reaches a user-facing surface, and a hostname is one).
-# Provisioned 2026-09-10 `[paul-asked: "grant the same owner/member token for Aida and Nigel"]` —
-# an invite is a token, but a person is a DEPLOYMENT, and there was no way to mint one without this.
-# ⛔ THE WORKER IS NAMED, exactly as env.bob is. Without it this deploys as `fernwood-aida` while
-# the pages derive their endpoint from the Pages HOST, so `myhome-aida.pages.dev` would look for
-# `myhome-aida.workers.dev` and find nothing.
-[env.aida.limits]
-cpu_ms = 5000
-
-[env.aida]
-name = "myhome-aida"
-[env.aida.vars]
-ENV_NAME = "aida"
-ESTATE_ID = "est-92e588"
-# A brand-new estate has no pre-cutover era, so no key may route to the unprefixed legacy reads.
-LEGACY_BEFORE = "1970-01-01"
-CHAT_DAILY_BUDGET_USD = "5.00"
-FAMILY_HOSTS = "myhome-aida.pages.dev"
-[[env.aida.kv_namespaces]]
-binding = "OBSERVATIONS"
-id = "5b07ae6d8b934d8ea93bf6b42039561f"
+# ⚰️ `env.nigel` and `env.aida` WERE HERE, and were DESTROYED 2026-09-10 `[paul-ruled: "I'm fine
+# with deleting Nigel and Aida for the time being. We can always re-mint their invite since we have
+# a cleaner base if deleting helps."]`. Both were provisioned the same day under the
+# deployment-per-household model that multi-tenancy supersedes: an estate is a ROW an owner creates,
+# not a deployment somebody provisions for them. Their existence would have let the beta launch
+# without the product ever creating an estate — the one path that has never been walked.
+#
+# What was destroyed, each verified at Cloudflare rather than inferred:
+#   Worker myhome-nigel · KV namespace cce4abef516942ad8dd8d6d1dc7072d9 (est-76012d)
+#   Worker myhome-aida  · KV namespace 5b07ae6d8b934d8ea93bf6b42039561f (est-92e588)
+# Both namespaces enumerated EMPTY (0 keys) with `wrangler exit=0` and a literal `[]` BEFORE the
+# delete — the discriminator matters, because an earlier "0 keys" reading came from a wrapper that
+# swallowed the exception and could not tell EMPTY from UNREADABLE. Neither estate held a grant in
+# the register (0 rows), so no credential died with them. No Pages project existed for either.
+#
+# ⛔ est-76012d AND est-92e588 ARE RETIRED, NEVER REUSED. An id is minted per estate; re-using one
+# makes two different households indistinguishable in every record that already names them.
+# ⭐ The PEOPLE are held, not dropped — `tools/people.json` keeps both rows. Their estates come into
+# being through the product, via POST /api/estate, by their own hands.

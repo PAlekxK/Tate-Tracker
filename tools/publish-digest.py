@@ -2,7 +2,7 @@
 """publish-digest.py — put each estate's Journal record where its own Worker can read it.
 
     python3 tools/publish-digest.py --check              # what is published vs what would build
-    python3 tools/publish-digest.py --estate nigel --apply
+    python3 tools/publish-digest.py --estate bob --apply
     python3 tools/publish-digest.py --selftest
 
 ⭐ **A1.** The digest is the last piece of an estate's canon still bundled into the binary.

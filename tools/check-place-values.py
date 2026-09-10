@@ -2,7 +2,7 @@
 """check-place-values.py — does one household's build carry ANOTHER household's VALUES?
 
     python3 tools/check-place-values.py                 # build every neutral instance and scan it
-    python3 tools/check-place-values.py --instance instance/nigel.json
+    python3 tools/check-place-values.py --instance instance/bob.json
     python3 tools/check-place-values.py --page /tmp/some-build.html
     python3 tools/check-place-values.py --selftest
 

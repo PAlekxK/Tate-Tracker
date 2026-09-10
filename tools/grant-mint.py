@@ -305,8 +305,10 @@ def hydrate(reg_path, person, estate, env, dry):
 # which estate a credential belongs to, because with many estates in one deployment you cannot find a
 # grant without already knowing its household.
 # ⛔ A GRANT MINTED WITHOUT ITS ROUTE IS A CREDENTIAL THAT DIES THE MOMENT ROUTING SHIPS. The
-# 2026-09-10 backfill covered every grant that existed THEN; anything minted after it — Bob's, Aida's
-# and Nigel's invites among them — is invisible to a routed lookup unless it is written here.
+# 2026-09-10 backfill covered every grant that existed THEN; anything minted after it is invisible
+# to a routed lookup unless it is written here. (This line used to name Aida's and Nigel's invites
+# as examples. Neither was ever minted, and their estates were destroyed 2026-09-10 — see the
+# tombstone in worker/wrangler.toml. Bob's grant is the live example.)
 # ⚠️ The noun is `route:` and not `credential:`: this file already uses `credential` as a FIELD inside
 # the grant row, and one word meaning two things in one corpus is the collision VOCABULARY §4 exists
 # to catch. Ratified by Paul 2026-09-10.

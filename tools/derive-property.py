@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """derive-property.py — turn an onboarding ADDRESS into a household's starting property record.
 
-    python3 tools/derive-property.py --address "1 Example Road, Dahlonega, GA 30533" --estate nigel
+    python3 tools/derive-property.py --address "1 Example Road, Dahlonega, GA 30533" --estate bob
     python3 tools/derive-property.py --address "…" --json          # print, write nothing
     python3 tools/derive-property.py --selftest
 
@@ -276,7 +276,7 @@ def selftest():
 
     # the tracked-path guard must REFUSE
     try:
-        refuse_if_tracked(os.path.join(ROOT, "instance", "nigel.json")); bad.append("a tracked path was not refused")
+        refuse_if_tracked(os.path.join(ROOT, "instance", "fernwood.json")); bad.append("a tracked path was not refused")
     except SystemExit:
         ok += 1
     try:

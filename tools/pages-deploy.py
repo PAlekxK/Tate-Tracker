@@ -27,14 +27,13 @@ import argparse, json, os, shutil, subprocess, sys, tempfile, time, urllib.reque
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 PROJECT = {"lab": "fernwood-lab", "qa": "fernwood-qa", "home": "fernwood-home",
-           "bob": "myhome-bob", "paul": "myhome-paul",
-           "nigel": "myhome-nigel", "aida": "myhome-aida"}
-BRANCH  = {"lab": "lab", "qa": "staging", "home": "home", "bob": "bob", "paul": "paul",
-           "nigel": "nigel", "aida": "aida"}
+           "bob": "myhome-bob", "paul": "myhome-paul"}
+BRANCH  = {"lab": "lab", "qa": "staging", "home": "home", "bob": "bob", "paul": "paul"}
 ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
            "home": "https://fernwood-home.pages.dev", "bob": "https://myhome-bob.pages.dev",
-           "paul": "https://myhome-paul.pages.dev",
-           "nigel": "https://myhome-nigel.pages.dev", "aida": "https://myhome-aida.pages.dev"}
+           "paul": "https://myhome-paul.pages.dev"}
+# ⚰️ `nigel` and `aida` were here and were destroyed 2026-09-10 (see worker/wrangler.toml's
+# tombstone). A household is no longer an env, so this map does not grow a row per person.
 
 # ⛔⛔ A HOUSEHOLD IS NOT AN ENVIRONMENT, AND SHIPPING IT LIKE ONE MOVES THE LEAK RATHER THAN FIXING
 # IT. `lab` and `qa` are OUR environments and may carry Fernwood's canon, because they ARE Fernwood.
