@@ -23,7 +23,8 @@
     "zip": "30143",
     "county": "Pickens County",
     "region": "Blue Ridge, North Georgia",
-    "owner": "Paul"
+    "owner": "Paul",
+    "development": "Tate Mountain Estates"
   },
   "location": {
     "coordinates": {
@@ -352,5 +353,12 @@
         "bodyHtml": "For restorative plantings, wild-collected stock drives some natives toward extinction; ethically-propagated nurseries are the only acceptable path for rare species. The State Botanical Garden of Georgia and the Georgia Native Plant Initiative publish a <a href=\"https://botgarden.uga.edu/wp-content/uploads/2023/04/Recommended-Native-Plant-Nurseries-List-GNPI-SBG-June-2025-1.pdf\" target=\"_blank\" rel=\"noopener\">recommended-nurseries list</a> (June 2025). Nearby: <a href=\"http://www.nearlynativenursery.com/\" target=\"_blank\" rel=\"noopener\">Nearly Native</a> (Fayetteville), <a href=\"https://www.northgeorgianatives.com/\" target=\"_blank\" rel=\"noopener\">North Georgia Native Plant Nursery</a>, and <a href=\"https://gardensoftheblueridge.com/\" target=\"_blank\" rel=\"noopener\">Gardens of the <span data-site=\"regionShort\"></span></a> (NC) for hard-to-find Appalachian wildflowers."
       }
     ]
+  },
+  "promptContext": {
+    "_meta": {
+      "purpose": "Prose the model prompts render for THIS estate and omit for any other. Moved out of worker.js 2026-09-10: the engine held Fernwood's habitat model and its anchoring examples as literals, so another household inherited them or lost them. Canon holds them; the engine renders them when they exist."
+    },
+    "anchorExamples": "The laurels by the porch, the white pines on the slope, the Etowah headwaters, Lake Sequoyah a quarter-mile down the hill.",
+    "habitatModel": "Cove Forest + Low-to-Mid Elevation Oak Forest (per GNPS Blue Ridge Communities matrix; Montane Oak Forest typically sits above 3,500 ft, so it's not the right model here), with potential Seepage Wetlands in the spring drainage, acidic mountain soil, USDA zone 6b (elevation-adjusted). Some species fit comfortably here (Cardinal Flower in damp edges, Trillium in rich coves); some would be unusual (anything obligate-coastal, anything desert-adapted). Mention fit when you have confidence on the ID."
   }
 }
