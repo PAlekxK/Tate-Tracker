@@ -1,8 +1,8 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-10T15:38:07-04:00",
+ "generated_at": "2026-09-10T18:00:31-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "196e146",
+ "candidate_sha": "318416a",
  "beat": {
   "n": 8,
   "of": 12,
@@ -20,20 +20,13 @@
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "handover": {
-    "run": "2026-09-10T150521",
-    "at-sha": true,
-    "watched": false,
-    "countable": false,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "mom": {
     "run": null
    },
    "owner": {
-    "run": "2026-09-10T152452",
+    "run": "2026-09-10T175555",
     "at-sha": true,
     "watched": false,
     "countable": false,
@@ -43,31 +36,17 @@
     "instrumented": true
    },
    "strict": {
-    "run": "2026-09-10T151636",
-    "at-sha": true,
-    "watched": false,
-    "countable": false,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "wide-eyed": {
-    "run": "2026-09-10T145547",
-    "at-sha": true,
-    "watched": false,
-    "countable": false,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    }
   }
  },
- "lap_count": 4,
+ "lap_count": 5,
  "last_lap": {
-  "lap": 5,
-  "opened": "2026-09-08",
+  "lap": 6,
+  "opened": "2026-09-10",
   "outcome": "open",
   "closed_at": null
  },
@@ -146,8 +125,8 @@
    "settles": "`grep -o \"ready: *agent-proposed\" .plans/*.md` at lap 4's close, against 63.",
    "at_open": "measured 2026-09-08 at lap 4 beat 0: 63 (vs `ready: paul-*` = 3).",
    "_note": "⛔ A FALL IS NOT AUTOMATICALLY A PASS. Rationalization may KILL rows, which shrinks the count without anything being ruled. Report the split — combined · killed · ruled — or the number lies in the flattering direction.",
-   "disposition": "carried",
-   "evidence": "carried into lap 5 — its dependency (L4-P2, the rationalization) has not run, so the count would move for reasons unrelated to the question."
+   "disposition": "answered",
+   "evidence": "FAILS: grep -o \"ready: *agent-proposed\" .plans/*.md = 69 at 326791c against 63 — the pile grew. Measured at lap 5 close 2026-09-10 ~6:05 PM ET by the coordination window."
   },
   {
    "id": "L4-P2-rationalization-ran",
@@ -155,8 +134,8 @@
    "settles": "`check-backlog-drift.py` silent at lap 4's close AND BACKLOG.md carries a newer `(rationalized <date>)` head marker.",
    "at_open": "measured 2026-09-08: OWED — last run 2026-09-03, ranked list 443 lines below its own head (limit 400), BACKLOG.md 3,960 lines, 75 commits since.",
    "_note": "⭐ READ THIS ONE BEFORE L4-P1. If the rationalization never runs, P1's number means nothing whichever way it moves.",
-   "disposition": "carried",
-   "evidence": "carried into lap 5 — NOT run. ⚠️ The gap WIDENED during lap 4: the ranked list went 443 -> 510 lines below its own head, partly because lap 4 filed the synthetic-testing row into it. ⭐ GROOM & BUCKET (beat 5) now OWNS this, which is the whole point of giving `groom` a beat."
+   "disposition": "answered",
+   "evidence": "NO: check-backlog-drift.py reads OWED (last applied 2026-09-08); a rationalization was drafted 2026-09-10 (.plans/2026-09-10-rationalization-PROPOSAL.md, 57 KB) and NOT APPLIED, unread by Paul. Measured at lap 5 close 2026-09-10."
   },
   {
    "id": "L4-P3-ci-red-cleared",
@@ -175,7 +154,32 @@
    "at_open": "measured 2026-09-08: clearAnswers() omitted K_COORDS. Fixed at beat 1 the same day (ANSWER_KEYS, one declared home). ⛔ NOT YET SETTLED — the fix is not the exit.",
    "_note": "⭐ Tests the MECHANISM, not the bug. ⛔ Clearing a key and clearing the LEAK are different claims, so only the two-person walk closes this.",
    "disposition": "carried",
-   "evidence": "carried into lap 5 — the K_COORDS fix landed (ANSWER_KEYS) but is UNDEPLOYED, and the two-person falsifier has never been run. ⛔ This row's own note says the fix is not the exit; clearing a key and clearing the leak are different claims."
+   "evidence": "carried into lap 6 as L6-P1-two-person-falsifier: the falsifier has never been run; the K_COORDS fix is in the deployed candidate (K_COORDS x4 in onboarding/index.html@318416a), so lap 6 J0 walk is the first build where it can be exercised."
+  },
+  {
+   "id": "L6-P1-two-person-falsifier",
+   "carried_from": "L4-P4-critical-fail-is-a-mechanism",
+   "question": "does the two-person falsifier finally RUN on a walked build?",
+   "settles": "a transcript at the candidate where B never sees A's rows",
+   "at_open": "never run as of 2026-09-10 lap 6 open; candidate 318416a",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L6-P2-note-derived-not-typed",
+   "question": "does the release note change after Paul's walk?",
+   "settles": "a non-empty diff between content-steward's pre-walk draft (.content/2026-09-10-release-notes-from-commitment-PROPOSAL.md) and the shipped RELEASE_NOTES.md entry, or a walk that found nothing",
+   "at_open": "pre-walk draft exists 2026-09-10; no walk yet",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L6-P3-ux-sweep-ran",
+   "question": "did the owed two-pass UX sweep run this lap, as ruled 09-08?",
+   "settles": "check-ux-sweep.py reads not-owed at close, with a .ux-reviews/ trail at the candidate",
+   "at_open": "OWED: last two-pass 2026-08-31, 124 commits to viewer.html vs limit 20",
+   "disposition": "open",
+   "evidence": null
   }
  ]
 }

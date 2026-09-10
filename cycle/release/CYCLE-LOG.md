@@ -1900,7 +1900,7 @@ production accounts** (`read-mom-engagement.py` has no `--env`).
 ---
 
 ## Lap 5 — 2026-09-08 · 🔓 **OPEN at OPEN (1/12)** — the first lap run in the corrected order
-<!-- outcome:open -->
+<!-- outcome:closed at:2026-09-10T22:05:00Z -->
 
 Opened at `20cda10`, `main`, clean tree. ⭐ **The first lap whose BUILD will be gated by a COMMIT that
 happened first.** Lap 4 closed short precisely because it could not say that.
@@ -2285,3 +2285,78 @@ carries no information.
 ⛔ **Not closed by this entry.** Beat 12 (DEPLOY & CLOSE) requires *zero records undisposed on a real
 estate* and a production deploy that `release-gate.py` refuses at a red gate. What Paul's clause
 does is release the lap's hold on the multi-tenancy work; it does not assert the build was proven.
+
+### ✅ CLOSED — 2026-09-10 ~6:05 PM ET, on what it did `[paul-ruled 2026-09-10: "close lap 5, then start multi-tenancy"]`
+<!-- outcome:closed at:2026-09-10T22:05Z by:coordination-window candidate:8d17e4e -->
+
+**Closed as it stood, not as it was hoped.** Paul's clause is a **preliminary pass, caveated** (above);
+the synthetic clause is **🔴 0 of 4 seats at `8d17e4e`** (no runs exist); the UX clause is **⬜
+UNCHECKABLE** (no artifact convention). Beat 12's own condition — a production deploy through a green
+gate — was **not met**, and this close does not assert it was. The lap's hold on the multi-tenancy work
+was released by Paul's clause on 09-10; the rest of the day ran under that release: signup stopped
+granting an estate, `POST /api/estate` (`found`) shipped and founded 7 households at lab, nigel/aida were
+destroyed, and the multi-tenancy plan became the credential-path handover. **None of that was lap 5's
+committed scope (`A · B · C`)** — A (returning recognition) and B (the station indicator) carry to the
+backlog under their rows; C (the activity sweep) is answered by `watch-accounts.py` now reading six
+environments (measured at this close: 251 arrived, 264 predating, **0 unreadable**).
+
+**Pre-registrations carried from lap 4, disposed with evidence (`cycle-state.json` updated in the same commit):**
+| id | disposition | evidence |
+|---|---|---|
+| `L4-P1-agent-proposed-pile` | **answered — FAILS** | `grep -o "ready: *agent-proposed" .plans/*.md` = **69** at `326791c`, against 63. The pile **grew** |
+| `L4-P2-rationalization-ran` | **answered — NO** | `check-backlog-drift.py` reads **OWED** (last applied 2026-09-08); a rationalization was **drafted 2026-09-10 and NOT APPLIED** (`.plans/2026-09-10-rationalization-PROPOSAL.md`, 57 KB, unread by Paul) |
+| `L4-P4-critical-fail-is-a-mechanism` | **carried → lap 6** | the two-person falsifier has **never been run**. The K_COORDS fix is now in the deployed candidate (`K_COORDS` ×4 in `onboarding/index.html@318416a`); lap 6's J0 walk is the first build where it can be exercised |
+
+⚠️ **Chronicle correction, measured:** this section's earlier line *"candidate `8d17e4e`, served by QA"* was
+true at 09-10 morning. By this close QA served `a01e66f` (16:57) and then `318416a` (the founding
+candidate); `qa-build.json` and `cycle-state.json` agreed at each step. **Read `qa-behind.py`, never a
+chronicle line, for what QA serves.**
+
+---
+
+## Lap 6 — 2026-09-10 · 🔓 **OPEN at OPEN (1/12)** — the founding lap: an owner sets up a house at QA, and the build-description chain runs for the first time
+<!-- outcome:open -->
+
+⭐ **Opened by the coordination window at HEAD `326791c` · candidate `318416a`** (qa Pages; qa Worker
+deployed at `d0cec6f`, `worker.js` identical to `318416a`). ⚠️ The build lane's commit is `318416a`;
+the two commits above it are register-only (no app surface).
+
+### Beat 1 · OPEN — the sweeps, output recorded (UNREADABLE is never zero by assumption; it measured 0)
+
+| sweep | result |
+|---|---|
+| health (`health-probe.py --only fernwood`) | 🟡 AMBER 1 — weather-history freshness (newest 09-06, recorder every 6 h); 7 green. **Agenda item, not a block** |
+| accounts (`watch-accounts.py`) | 6 environments · **251 arrived · 264 predate · 0 unreadable.** Real estates: `home` **1 account (marguerite — Mom's, created 12:24 ET today)**, 2 new; `paul` **1 account (pkirsch)**, 1 new; `bob` 0 accounts, invite `p-2f4735` **still unspent**; `legacy` 0. At `qa`: 🔴 2 synthetics arrived with an address and **no coordinates** (`syn-strict-593c-002129`, `-102951`), 400+ server-minted personIds the local register does not know (walk exhaust), 2 register-only grants absent from the store (`p-inv-handover`, `p-inv-wide-eyed`), 1 grant gone since last run |
+| feedback (`watch-feedback.py`) | **4 awaiting Paul on a REAL ESTATE** — all at `home`, all Mom's own onboarding answers today: `onboard-name-1hzjso6` · `onboard-address-i6cq9s` · `onboard-addr-confirm-ithot3` · `onboard-interests-1sysjol` (each ⚠️ unlabelled: surface). 650 on our own environments = backlog material (walk exhaust), per the 09-08 scoping. 0 unreadable. `legacy` 1 record, 0 awaiting; `paul` 0; `bob` 0 |
+| UX sweep (`check-ux-sweep.py`) | 🔍 **OWED** — last two-pass 08-31 (10 d); **124 commits to `viewer.html`** against a limit of 20. Per `[paul-ruled 2026-09-08]` it runs **this lap**, on the candidate, after the J0 walk; its findings enter at CARRY (4) / GROOM (5). ⚠️ The gate's UX clause stays UNCHECKABLE until the artifact convention exists |
+
+**Beat 2 · DISPOSE is Paul's:** the four `home` records above. They are Mom's setup answers, a person's
+input; the AI boundary binds. Nothing here reads them.
+
+### Beat 6 · COMMIT — the scope, in Paul's words `[paul-stated 2026-09-10]`, written BEFORE any walk (chain L1)
+
+> *"QA deploy with synthetics walking in and then walking. It is a big test, and that's where I want to
+> go before we start onboarding folks more and sending them out links."* … *"We're not gonna have any
+> invitation or joining of houses in this round, just owners setting up houses."*
+
+| | committed | done means |
+|---|---|---|
+| **A** | **J0 · the founding owner** — signs up at qa with **no invite**, lands on the empty shelf, taps *Set up my first home*, answers the one address step, and the house is **founded and placed** (`POST /api/estate` from the page; place row with coordinates and provenance) | a synthetic owner walks it **in Chrome at the candidate sha** and the record agrees with the screen; then **Paul walks it**. `digest: not-composed` is the truth on the surface, not a failure |
+| **B** | **the build-description chain, run once** — L1 (this table) → L2 (the four ruled fields on row A, backlog-refinement) → L3 (`journey-walk.py` J0 + `release-gate.py` at the sha) → L4 (a release-notes entry **derived after Paul's walk**, content-steward's shape) | each link exists as an artifact at close, and the note contains **no line the walk did not reach** |
+
+⛔ **EXPLICITLY NOT COMMITTED, and each exclusion is a ruling:** invitations · joining an existing house
+(the `conferred*` promise stays unread; `BACKLOG.md` § INVITE & JOIN) · `＋ Add a home` (no person→estates
+enumeration exists) · `adopt` for `home` / `paul` / `bob` · the founding digest composer (B3, ruled YES, next)
+· any deploy to `home` / `paul` / `bob` / legacy · the zones preload into Mom's estate (raised 09-10 evening,
+reversal of J-f **put to Paul, unruled**; a later act by construction).
+
+**Pre-registrations for this lap** (disposed at close, with evidence — the spine's rule):
+| id | question | settles |
+|---|---|---|
+| `L6-P1-two-person-falsifier` (carried `L4-P4`) | does the two-person falsifier finally RUN on a walked build? | a transcript at the candidate where B never sees A's rows |
+| `L6-P2-note-derived-not-typed` | does the release note change after Paul's walk? | a diff between content-steward's pre-walk draft and the shipped entry that is **non-empty**, or a walk that found nothing |
+| `L6-P3-ux-sweep-ran` | did the owed two-pass UX sweep run this lap, as ruled 09-08? | `check-ux-sweep.py` reads not-owed at close, with a `.ux-reviews/` trail at the candidate |
+
+**Windows this lap** (`[paul-stated 2026-09-10]` — commit phase is the only freeze): coordination (this
+chronicle, the freeze, routing) · backlog-refinement (**the one door** to `BACKLOG.md`, `[paul-ruled "fold it in"]`)
+· build-founding-walk (code, deploy, the walk) · zones (design, dev-only).
