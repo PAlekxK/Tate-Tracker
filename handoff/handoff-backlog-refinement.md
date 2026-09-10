@@ -34,11 +34,16 @@ edits to the rows it names until it releases. Everything else keeps moving.
    writers plus six shadow lap-scoped registers; `→ PLAN ·` and the three `row:` states were ruled
    today and not yet applied (2 false pointers, 5 stale-prose rows owed to owners).
 2. `BACKLOG.md` lines 1–75 — the vocabulary (`READY`, `→ PLAN ·`, `row:` three states, `wip-exception:`).
-3. `handoff/handoff-backlog-registrar.md` and `.plans/2026-09-10-backlog-management-AUDIT.md` — the
-   registrar lane's handover and the audit. **Its ④ implementation (`row:` three states, ~45 lines + a
-   scripted header pass) is ruled, parked, and is the first mechanical task in your lane.**
-4. `.plans/2026-09-02-rationalization-PROPOSAL.md` — **still unread by Paul**, its own §7.2 stale. Do
-   not summarise it to him as if it were current; offer to walk it with him.
+3. `handoff/handoff-backlog-registrar.md` — the registrar lane's handover — and
+   **`.plans/2026-09-10-link-syntax-and-proposal-intent-RECOMMENDATIONS.md` §2**, which holds the ④
+   spec (`row:` three states, ~45 lines + a scripted header pass, falsifiers). *(Corrected after the
+   readback: the brief first pointed at the practice-steward AUDIT, which does not contain ④.)*
+   `.plans/2026-09-10-backlog-management-AUDIT.md` is the structural read beside it.
+4. **`.plans/2026-09-10-rationalization-PROPOSAL.md`** (57 KB, `stage: draft`, agent-proposed) — **still
+   unread by Paul.** Do not summarise it to him as if it were current; offer to walk it with him.
+   *(Corrected after the readback: the brief first named the 09-02 proposal, which its own header says
+   was APPLIED 09-03 `[paul-approved]`. The "§7.2 stale" reference resolves in neither file; treat it as
+   the coordinator's unverified relay.)*
 
 ## 4. State — measured at close
 
@@ -72,8 +77,14 @@ edits to the rows it names until it releases. Everything else keeps moving.
 ## 6. First tasks (ordered)
 
 1. Verify the sha and read §3. Write your readback (the launcher tells you where).
-2. Apply the ruled-and-parked ④: `row:` three states + `→ PLAN ·` flips (2 false pointers), and
-   route the 5 stale-prose rows to their owners — do not rewrite them.
+2. Apply the half of ④ that is still open: `row:` three states in `check-backlog-ready.py` plus the
+   scripted header pass over the 21 proposals, **as a diff for Paul**. *(Corrected after the readback:
+   the two `→ PLAN ·` flips already landed at `e5626b7`, and the instrument sees 2 "Not stamped."
+   stale-prose rows, not 5 — route those two by name; the other three need a human read of the
+   sentence before anyone can say what is stale.)* Do not rewrite anyone's row.
+   ⚠️ **Ownership seam, Paul's to rule (raised by the readback):** the registrar brief names a SOLE
+   scribe writer of `BACKLOG.md`; this brief names you a refiner with Paul. Until he rules, write
+   nothing to `BACKLOG.md` except forwarded rows transcribed verbatim and attributed.
 3. Draft **the queue for the next two build laps** as a short section at the top of `BACKLOG.md`
    (or a file it points to), each entry naming its row, its plan pointer state, and what would make
    it READY. Put it to Paul; he ranks.
