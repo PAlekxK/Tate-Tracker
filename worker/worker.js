@@ -473,7 +473,14 @@ function authOk(request, env) {
 // ⛔ It is NOT filled from `env.ESTATE_ID`. That would bake the one-deploy-one-estate binding into
 // every row we write — the exact assumption being removed now that one account holds several
 // households. The estate is a fact about the GRANT, so it comes from the grant or it stays null.
-const PERSON_UNKNOWN = Object.freeze({ personId: null, estateId: null });
+// ⭐ `via` IS DECLARED HERE, NOT ADDED WHERE IT HAPPENS TO BE KNOWN `[paul-ruled 2026-09-10]`.
+// Every record declares which CREDENTIAL CLASS carried it — `master` (the shared administrator
+// token) or `grant` (a person's own credential). Without it an audit cannot answer "was that the
+// administrator or the neighbour?" about anything already written, and it CANNOT BE APPLIED
+// RETROACTIVELY: the moment a second person writes to an estate, every earlier row is ambiguous
+// forever. That is why it lands before an invite goes out and not after.
+// ⚠️ NULL IS THE DECLARATION, exactly as it is for personId — "nobody could say", not "absent".
+const PERSON_UNKNOWN = Object.freeze({ personId: null, estateId: null, via: null });
 // Privacy seat F9 (applied 2026-09-03, routed from the setup-journey seat as I1): declarePerson is a GUARD, not a
 // merge. Before this the `record` argument won, so any handler could smuggle a non-null person past the declaration
 // by putting one in its literal. Now a record that arrives already carrying a non-null personId THROWS — the only
@@ -512,6 +519,7 @@ function attributeToPerson(record, grant) {
   return Object.assign({}, record, {
     personId: grant.personId, personSource: "grant",
     estateId: null, estateSource: "none", scope: "account",
+    via: "grant", capability: grant.capability || null,
   });
 }
 function attributeTo(record, grant) {
@@ -524,6 +532,9 @@ function attributeTo(record, grant) {
   return Object.assign({}, record, {
     personId: grant.personId, personSource: "grant",
     estateId: grant.estateId, estateSource: "grant",
+    // ⭐ the credential class rides with the attribution, because they are the same fact: this row
+    // was carried by THIS person's own grant, not by the shared administrator token.
+    via: "grant", capability: grant.capability || null,
   });
 }
 
@@ -3713,9 +3724,14 @@ async function handleFeedback(request, env, url, grant) {
     // with a person and no household attributes to the person and DECLARES "none" for the place; no
     // grant at all leaves the declared null, which means "nobody could say". Collapsing the middle
     // case into the last one is what made an account-with-no-household lose its author.
+    // ⛔ FOUR OUTCOMES. A grant with a household → person AND place. A grant with a person and no
+    // household → the person, place DECLARED none. A MASTER-token write → no person (it is a shared
+    // credential and cannot name one) but `via: "master"` is knowable and is the whole point of the
+    // stamp. No credential at all → the declared nulls, meaning "nobody could say".
     const attributed = (grant && grant.personId && grant.estateId) ? attributeTo(record, grant)
                      : (grant && grant.personId) ? attributeToPerson(record, grant)
-                     : record;
+                     : (authOk(request, env) ? Object.assign({}, record, { via: "master", capability: "administrator" })
+                     : record);
     const today = new Date().toISOString().slice(0, 10);
     // ⭐ The destination is decided from the RESOLVED GRANT first and the surface second — never from
     // the body alone. A record about a place stays with the place; a record about the person travels.

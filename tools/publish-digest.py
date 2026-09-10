@@ -55,61 +55,55 @@ def _mod(path, name):
 
 
 def household_property(w, env, estate):
-    """The estate's OWN place, read from its record in KV — shaped like `property.json`.
+    """The ESTATE's own place, read from its estate-level place record — never elected from a member.
 
-    ⛔ WHY THIS EXISTS. `publish-digest` composed an estate's canon from `instance/<name>.json`, which
-    is build-time config for estates that exist at build time. A household created from a LINK can
-    never have a file there — you cannot commit a file per household. Measured 2026-09-10:
-    `instance/home.json` has no `property` block at all, while Mom's `account` and `grant` rows both
-    carry address, coordinates and placeName, geocoded days earlier. The place existed the whole time
-    and this tool was reading the empty half.
+    ⛔⛔ THIS USED TO ELECT ONE. It scanned `<estate>:*` for any account or grant carrying an address
+    and took the highest-ranked (account over grant, +2 for coordinates, ties by iteration order) —
+    so ONE ARBITRARY MEMBER'S ADDRESS BECAME THE WHOLE ESTATE'S CANON.
 
-    ⚠️ THE RECORD CARRIES NO ELEVATION, HARDINESS OR FROST DATES, and that is honest rather than
-    broken: `digest_core` needs an address OR an elevation and the address is there. Turning
-    coordinates into elevation and zone is `derive-property.py`'s job, per estate, against USGS.
+    ⛔ MEASURED 2026-09-10, and it reached a model prompt: `est-qa0001`'s published record was
+    `Grant Park Condo`, 33.7275/-84.3661 — Paul's real home — because his live accounts sit in that
+    estate beside the synthetic seats. QA's Guru then answered "clear skies over Mead Street". It was
+    stamped correctly and carried zero of Fernwood's 311 needles, so `check-estate-neutral.py` passed
+    it clean: every needle in that list is FERNWOOD'S, and Paul's condo was never in it.
 
-    ⛔ PREFER THE ACCOUNT ROW, FALL BACK TO A GRANT. The account is the durable half — a grant can be
-    rotated. But on Paul's condo the place was on the grants and NOT the account (fixed in worker.js
-    at d7f150f), so reading only the account would call a placed household placeless.
+    ⭐ NOT A CROSS-ESTATE LEAK — A WITHIN-ESTATE CROSS-PERSON ONE, and structurally guaranteed at any
+    household with more than one placed member. It looked fine only because every real estate holds
+    exactly one person today. `J7 second-member` and the ruled "people can invite each other" future
+    both break it.
 
-    Returns None when the estate has no place yet — which is not an error. It is most households.
+    ⭐ SO THE ELECTION IS GONE RATHER THAN IMPROVED. "A member happens to have an address" and "this
+    estate is at this place" are different facts, and no ranking rule can turn the first into the
+    second — a better tie-break would just pick a plausible wrong answer more consistently. An estate
+    with no declared place composes as PLACELESS, which is a true statement; an estate wearing a
+    member's address is a false one.
+
+    ⚠️ INTERIM. Nothing writes `<estate>:place` yet, so every estate is placeless until one does. The
+    durable answer — an estate's place written once at founding, by `POST /api/estate` — grows B3's
+    scope and is Paul's to rule.
     """
-    best = None
-    for key in w.kv_list(env, "%s:" % estate):
-        kind = key.split(":")[1] if key.count(":") >= 2 else None
-        if kind not in ("account", "grant"):
-            continue
-        try:
-            row = w.kv_get(env, key)
-        except Exception:
-            continue
-        if not isinstance(row, dict) or not row.get("address"):
-            continue
-        rank = 2 if kind == "account" else 1
-        if (row.get("coordinates") or {}).get("latitude"):
-            rank += 2
-        if best is None or rank > best[0]:
-            best = (rank, row)
-    if not best:
+    try:
+        row = w.kv_get(env, "%s:place" % estate)
+    except Exception:
         return None
-    row = best[1]
+    if not isinstance(row, dict) or not (row.get("address") or (row.get("coordinates") or {}).get("latitude")):
+        return None
     c = row.get("coordinates") or {}
     prop = {
-        "_meta": {"derivedFrom": "the household's own record in KV",
-                  "rule": "every value here came from what the person entered at onboarding plus a "
-                          "public geocode — none of it is ground truth, and the confirm loop is what "
-                          "turns it into verified"},
+        "_meta": {"derivedFrom": "the estate's own place record",
+                  "rule": "declared once for the ESTATE, never inherited from whichever member "
+                          "happened to have an address"},
         "property": {"name": row.get("placeName") or "", "address": row.get("address") or "",
-                     "city": "", "state": "", "zip": "", "county": "", "region": "", "owner": ""},
+                     "city": row.get("city") or "", "state": row.get("state") or "",
+                     "zip": row.get("zip") or "", "county": row.get("county") or "",
+                     "region": row.get("region") or "", "owner": ""},
         "location": {}, "hardiness": {}, "frostDates": {}, "climate": {}, "soils": {},
         "microclimate": {}, "propertyZones": {}, "resources": {}, "utilities": {}, "story": {},
         "sky": {}, "intros": {}, "plantContext": {},
     }
     if c.get("latitude") is not None:
         prop["location"] = {"coordinates": {"latitude": c["latitude"], "longitude": c.get("longitude"),
-                                            "confidence": "inferred", "source": c.get("source") or "geocode"}}
-        if c.get("countyFips"):
-            prop["location"]["countyFips"] = c["countyFips"]
+                                            "confidence": "inferred", "source": c.get("source") or "declared"}}
     return prop
 
 
@@ -201,7 +195,11 @@ def main():
                     continue
             digest, est = build_for(bd, name, kvprop)
         except Exception as e:
-            print("   ⬜ %-9s cannot build — %s" % (name, str(e)[:90]))
+            why = str(e)[:90]
+            if "neither an address nor an elevation" in why:
+                why = ("no estate-level place record (`%s:place`) — this estate has no place OF ITS OWN "
+                       "yet. Correct, not a fault." % ((locals().get("_eid") or "<estate>")))
+            print("   ⬜ %-9s cannot build — %s" % (name, why))
             continue
         eid = (digest.get("_meta") or {}).get("estateId")
         if not eid:
