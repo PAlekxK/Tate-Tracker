@@ -49,13 +49,21 @@ import argparse, json, os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# ⭐ THE CONTRACT THIS TOOL NEEDS AND DOES NOT YET HAVE. The account row a synthetic walk creates
-# should carry this field, written at signup by the same code that records `signupVia`. It is the
-# same shape as `via:` — PROVENANCE RECORDED AT WRITE TIME rather than inferred at read time — and it
-# is what turns "provably a fixture" from a guess into a record.
-# ⛔ Its VALUE is the run id, not `true`: a boolean says "something made this", a run id says WHICH
-# walk made it, which is what lets a teardown be scoped to one battery instead of all of history.
-FIXTURE_STAMP = "syntheticFixtureRun"
+# ⭐ THE CONTRACT, AND IT SHIPPED THE SAME DAY THIS TOOL ASKED FOR IT (`31c7dec`): "a fixture
+# declares itself at the mint, and the account inherits it — provenance, not a naming convention."
+# `grant-mint` stamps `fixture: true` on a row minted with `--fixture-out` — the flag that already
+# MEANS "this token is for a synthetic run" — and `/api/account` inherits it onto the account exactly
+# as it inherits capability, from the INVITE and never from the applicant.
+# ⛔ THE FIELD NAME IS THEIRS, NOT THE ONE THIS FILE PROPOSED. It asked for `syntheticFixtureRun`;
+# what ships is `fixture`. Adopting the written one is the point — two names for one fact is the
+# divergence this repo pays for, and the tool that reads is never the tool that gets to name it.
+# ⚠️ THE ARGUMENT FOR A RUN ID SURVIVES AS AN OPEN REFINEMENT, not as a second field: a boolean says
+# "something made this", a run id would say WHICH walk made it, which is what would let a teardown be
+# scoped to one battery instead of all of history. Worth raising when a battery-scoped teardown is
+# actually wanted; not worth a competing marker before then.
+# ⚠️ Accounts created BEFORE the stamp carry no marker and stay unclassifiable, deliberately — a
+# teardown that refuses them is correct; one that guesses from a name is the failure it prevents.
+FIXTURE_STAMP = "fixture"
 TEARDOWN_OK = ("qa", "lab")
 
 
@@ -73,8 +81,8 @@ def classify(row, admins):
     the only available evidence is a naming convention."""
     if not isinstance(row, dict):
         return "unmarked", "the row does not parse"
-    if row.get(FIXTURE_STAMP):
-        return "fixture", "stamped %s=%r at creation" % (FIXTURE_STAMP, row[FIXTURE_STAMP])
+    if row.get(FIXTURE_STAMP) is True:
+        return "fixture", "stamped %s at creation, inherited from the invite" % FIXTURE_STAMP
     if row.get("personId") in admins:
         return "person", "personId is an administrator in the grant register — a real person's account"
     return "unmarked", ("no %s stamp. ⛔ The username shape is NOT evidence: matching it would be "
@@ -207,16 +215,22 @@ def show(env, out=print):
 
 
 def selftest():
-    fails = []
+    fails, ran = [], [0]
 
     def check(name, ok, why=""):
+        ran[0] += 1
         print("  %s %-58s %s" % ("✅" if ok else "🔴", name, "" if ok else why))
         if not ok:
             fails.append(name)
 
     admins = {"p-paul-qa"}
     check("a stamped row is provably a fixture",
-          classify({FIXTURE_STAMP: "2026-09-10T1200"}, admins)[0] == "fixture", "")
+          classify({FIXTURE_STAMP: True}, admins)[0] == "fixture", "")
+    # ⛔ THE STAMP IS THE SERVER'S WORD, AND ONLY `True` IS IT. A truthy string from some other
+    #    writer is not this field, and accepting one would re-open the door the stamp closed.
+    check("a NON-boolean value in the stamp field is not proof",
+          classify({FIXTURE_STAMP: "yes"}, admins)[0] == "unmarked",
+          "a truthy value that the Worker never writes was accepted as the server's word")
     check("an administrator's account is a PERSON's, never a fixture",
           classify({"personId": "p-paul-qa"}, admins)[0] == "person", "")
     # ⛔⛔ THE CLAUSE THIS TOOL EXISTS FOR. A synthetic-looking username must NOT be enough.
@@ -238,9 +252,24 @@ def selftest():
     check("one unmarked row stops the whole run, however many are provable",
           counts.get("unmarked") == 1 and counts.get("fixture") == 1,
           "the survey shape changed and this clause no longer describes it")
-    check("the stamp is a RUN ID, not a boolean — a teardown can be scoped to one battery",
-          FIXTURE_STAMP.endswith("Run"), "")
-    print("\n%s selftest: %d/8" % ("✅" if not fails else "🔴", 8 - len(fails)))
+    # ⭐ THE FIELD IS READ FROM THE WRITER, not chosen here — one fact, one name, and the tool that
+    #    reads never gets to name it. ⛔ THREE STATES, NOT TWO: a writer that is ABSENT from this tree
+    #    is not a writer that DISAGREES, and collapsing the two would either fail a branch that
+    #    simply predates the stamp or pass one where the names have genuinely diverged. This is the
+    #    repo's exit-3 doctrine — never green by absence — applied inside a selftest.
+    gm_src = open(os.path.join(ROOT, "tools", "grant-mint.py"), encoding="utf-8").read()
+    if "fixture_out" in gm_src and "kv_row[" in gm_src and "fixture" in gm_src.split("def mint")[-1]:
+        check("the stamp field this tool reads is the one grant-mint actually writes",
+              ('kv_row["%s"] = True' % FIXTURE_STAMP) in gm_src,
+              "grant-mint writes a different field — the reader and the writer have DIVERGED")
+    else:
+        print("  🟡 %-58s %s" % ("reader/writer agreement on the stamp is UNCHECKABLE",
+                                 "this tree's grant-mint does not stamp at all (the writer landed in "
+                                 "31c7dec, which this branch predates) — absent is not divergent"))
+    # ⛔ DERIVED, NEVER TYPED. `journey-walk.py` records this exact defect in its own selftest — a
+    # hardcoded total printed "10/10" on the run that added three checks — and one clause here is
+    # conditionally skipped, so a literal would be wrong on precisely the runs that matter.
+    print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", ran[0] - len(fails), ran[0]))
     return 1 if fails else 0
 
 

@@ -641,6 +641,33 @@ Fernwood is a **personal property reference dashboard** for 282 Church Mountain 
 
 **Tone is everything here.** This is a fun, evocative reference tool — a field journal, not a task manager. Language like "17 actions due" or "3 alerts" is wrong for this project. Prefer "What's happening in May" or "Worth checking this month." The dashboard should feel like looking out at the land, not a to-do list with deadlines.
 
+## ⭐⭐ A CONTROL CAN BE ENTIRELY CORRECT AND STILL NOT COVER THE THING YOU RELY ON IT FOR `[2026-09-10]`
+
+**This file already records the sibling rule — *"when a control MISREPORTS, ask what ELSE reads that
+state."* This is the harder one, because there is no misreport to notice.** A check that is working
+perfectly, passing honestly, and answering a question nobody realised was the wrong one produces a
+**green that is evidence about something other than what you are trusting it for**. Nothing in the
+output is false. The output is simply not about your question.
+
+**Three instances in one day, in three different shapes:**
+
+| the control | it was right about | what was relied on it |
+|---|---|---|
+| `check-estate-neutral.py` — ✅ **0 hits on 311 needles** against a household's model prompt | no **Fernwood** name appears | *"this household's Guru is not leaking another household."* It was serving **a real person's home address in full** — his address was never in the needle list and never could be |
+| `walk-fixtures.py` — ✅ **a seat can enter J2** | the **fixture** exists | *"J2 is covered."* Its action list had migrated to J3 at `7496196` and **no procedure could walk it** — 5 of 5 clicks failed, and not one failure was a defect |
+| `build-viewer.py --check` — ✅ **byte-identical** | the build is **reproducible** | *"the page works."* It compares bytes and does not parse JavaScript; four seats walked a corpse |
+
+⭐ **The test, and it costs one sentence: name the question the control actually answers, then name
+the question you are about to rely on it for, and read them side by side.** They diverge silently and
+they never diverge loudly — a control that could tell you it was out of scope would already be in it.
+
+⛔ **The remedy is a SECOND READER, never a wider needle list.** Widening the list is how you keep
+one control's blind spot and add maintenance to it; `check-canon-scope.py` exists because the leak
+was never on a page, and `seat-portfolio.py` exists because *"did each seat pass"* cannot answer
+*"are these the right seats."* ⚠️ **And the same trap catches the new reader**: every check written
+today is one somebody will later rely on for a question it does not answer, so a control's docstring
+states what it does **not** cover, on its own face, where the reader already is.
+
 ## Governing design principle — the glance and the repository (2026-07-06)
 
 The single most important structural principle for Fernwood. It came out of the 2026-07-06 fishing-section rework, corroborated independently by a ux-expert audit and a user-researcher journey. Every rich domain (plants, fishing, wildlife, weather, vehicles) must be layered this way, not flattened.
