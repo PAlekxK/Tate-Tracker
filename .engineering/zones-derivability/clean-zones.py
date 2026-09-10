@@ -24,6 +24,7 @@ shipped 09-04 and measured as "not meaningfully better"; the viewer already roun
      holes; the viewer draws the child on top). Undeclared overlaps: the SMALLER zone keeps its shape, the
      LARGER yields — a small bed traced over a big field is the bed's claim, not the field's. Under 3 m² it is
      trace slop and is removed silently (noted in the report); 3 m² and over is a QUESTION on the exhibit.
+  4b. NAMED PAIRS in CLOSE_PAIRS (and --close-pair A:B) are closed whatever the width — by ruling, cited beside the list.
   4. GAPS: a morphological CLOSING of the whole set (buffer out, buffer in, --gap/2 each way) finds every
      sliver narrower than --gap between zones, and every notch that narrow in an outline. Each sliver goes to
      the LARGEST zone it touches (the field absorbs; the bed keeps its trace); after the union the neighbours
@@ -51,6 +52,11 @@ MS = os.path.join(HERE, "anchors-ms-footprints.json")
 OUT_JSON = os.path.join(HERE, "zones.cleaned.json")
 OUT_REPORT = os.path.join(HERE, "clean-report.json")
 OUT_PNG = os.path.join(HERE, "clean-exhibit.jpg")
+
+# Pairs closed BY RULING regardless of width. The bank ↔ eastern woodlands gap (4.8 m) was the one gap the
+# 1 m rule left; ux-expert: on an otherwise gapless map the only readable meaning of a hole is "something is
+# missing here" — close it or name it. Paul, 2026-09-10: "Yes." The ground between them goes to the larger.
+CLOSE_PAIRS = [("the-bank", "eastern-woodlands")]
 
 # ---------- projection ----------
 def make_proj(lon0, lat0):
@@ -133,6 +139,7 @@ def main():
     ap.add_argument("--gap", type=float, default=1.0, help="close gaps narrower than this (m)")
     ap.add_argument("--simplify", type=float, default=0.35, help="Douglas-Peucker tolerance on the raw trace (m)")
     ap.add_argument("--no-house", action="store_true", help="keep the traced house instead of the footprint")
+    ap.add_argument("--close-pair", action="append", default=[], metavar="A:B", help="also close the gap between these two zones, whatever its width (repeatable)")
     args = ap.parse_args()
 
     data = json.load(open(ZONES))
@@ -215,6 +222,34 @@ def main():
                 q2 = q.buffer(0.03, join_style="mitre").difference(others)   # a hair of overlap so the union FUSES
                 P[large] = keep_largest(tidy(P[large].union(q2)), large, flags)
     close_gaps()
+
+    # 4b · named pairs closed by ruling, whatever the width: the lens within reach of BOTH, touching both, minus everyone else
+    def close_pair(a, b):
+        A, B = P[a], P[b]
+        d = A.distance(B)
+        if d == 0:
+            return
+        # the ground between the two FACING stretches of boundary: hull of every vertex of each within reach of the other
+        from shapely.geometry import MultiPoint
+        from shapely.ops import nearest_points
+        reach = d + 2.0
+        pts = [c for c in A.exterior.coords if B.distance(Polygon([c, c, c]).centroid) <= reach] + \
+              [c for c in B.exterior.coords if A.distance(Polygon([c, c, c]).centroid) <= reach]
+        pts += [(q.x, q.y) for q in nearest_points(A, B)]
+        g = MultiPoint(pts).convex_hull.difference(A).difference(B)
+        parts = [g] if g.geom_type == "Polygon" else [q for q in getattr(g, "geoms", []) if q.geom_type == "Polygon"]
+        parts = [q for q in parts if q.distance(A) < 0.02 and q.distance(B) < 0.02]
+        if not parts:
+            flags.append({"kind": "question", "zone": a, "text": f"{a} ↔ {b}: asked to close a {d:.1f} m gap but no ground lies between them that touches both"}); return
+        large = a if A.area >= B.area else b
+        others = unary_union([P[k] for k in order if k not in (a, b) and not P[k].is_empty])
+        sliver = unary_union(parts).buffer(0.03, join_style="mitre").difference(others)
+        P[large] = keep_largest(tidy(P[large].union(sliver)), large, flags)
+        flags.append({"kind": "note", "zone": large, "text": f"{a} ↔ {b}: {d:.1f} m gap closed by ruling; {sliver.area:.0f} m² went to {large}"})
+    for a, b in CLOSE_PAIRS + [tuple(x.split(":")) for x in args.close_pair]:
+        close_pair(a, b)
+    resolve_overlaps()
+
     # 5 · tidy + final snap so shared edges are shared
     for k in order:
         P[k] = tidy(P[k])
