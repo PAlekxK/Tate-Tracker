@@ -4,7 +4,7 @@
 - composed by: the **backlog-refinement** window, on Paul's instruction `[paul-stated 2026-09-10]`:
   *"I think one big thing is zones, and I'd still say let's just have a session that you launched to focus
   on zone work because that's so meaty."*
-- **supersedes** the 09-08 brief at this path (`9a762b0`, in git). Eight zones commits and a changed window
+- **supersedes** the 09-08 brief at this path (its last commit `1092809`; composed at `9a762b0` — corrected from the readback). Eight zones commits and a changed window
   map have landed since; that brief's *"you are the FOURTH live window"* table no longer describes the tree.
 - ⛔ **RECEIVER: verify the sha against HEAD, then write a readback to
   `handoff/handoff-zones-session.readback.md`** — what you understand the lane to be, its state, the open
@@ -18,7 +18,7 @@
 | **coordination** (`paulkirschenbauer-96`) | routes, sequences, the commit-phase freeze, merges, the window map | writes a feature |
 | **backlog-refinement** (opened you) | `BACKLOG.md` with Paul in the loop; the next-two-laps queue | commits code |
 | **build** (`tate-tracker-c4`, the founding walk) | `onboarding/index.html` · `homes/index.html` · `tools/journey-walk.py` · `worker/worker.js` if needed | edits `BACKLOG.md` prose |
-| **YOU — zones** | `.plans/2026-09-07-zones-PLAN.md` · `.plans/2026-09-10-zones-automation-ASSESSMENT.md` · `.engineering/zones-derivability/` · `.engineering/2026-09-08-zones-derivability-EXPERIMENT.md` · `LAND-SOURCES.md` · the zone conversation with Paul | `BACKLOG.md` (message refinement) · the build lane's files · `zones.json` · anything that reaches an origin |
+| **YOU — zones** | `.plans/2026-09-07-zones-PLAN.md` · `.plans/2026-09-10-zones-automation-ASSESSMENT.md` · `.engineering/zones-derivability/` · `.engineering/2026-09-08-zones-derivability-EXPERIMENT.md` · `LAND-SOURCES.md` (**yours, including its promotion edits** — §7 below was wrong to list them as refinement's) · **`tools/fetch-frame.py`** (new path, yours; the coordinator adds it to the map) · the zone conversation with Paul | `BACKLOG.md` (message refinement) · the build lane's files · `zones.json` · anything that reaches an origin |
 
 ⛔ **The tree is shared and HEAD moves under you** (a dozen commits in twenty minutes today). `git status
 <file>` before every write; `git add -- <explicit path>` only; commit small. ⚠️ `tools/guard-concurrent.py`
@@ -64,14 +64,13 @@ automation assessment and its web-research amendment.
 
 What they established, each cited above: the primitive is a NAMED PLACE, geometry optional · v1 = zones ×
 plants, zones defined first · the operator pipeline is four staged steps and two of the three "highest-
-confidence objects" are fetched, not derived · **production serves 18 zones while canon holds 23** (§9a) —
-say which, every time · R-Z1 resolved without a purchase, R-Z2 ruled *use what is free*, R-Z5 parked.
+confidence objects" are fetched, not derived · **THREE copies of the zone set exist and disagree: the file holds 23, the inlined `ZONES_DATA` holds 23, production KV serves 18** (§9a; the readback counted the third) — say which, every time · R-Z1 resolved without a purchase, R-Z2 ruled *use what is free*, R-Z5 parked.
 
 ## 5 · Open, and Paul's — bring these to him in this window
 
 - **R-A1…R-A6** (assessment §7): adopt the frame rule as Process B's v1 frame step · the parcel at Fernwood
   (read acreage and lot shape off qPublic, one minute) · **is the 175 m² building at the east end of the
-  driveway branch yours?** · write the anchors at founding as `inferred` facts · run `anchors.py` at Bob's
+  driveway branch yours?** · write the anchors at founding as `inferred` facts — ⚠️ **read the AMENDMENT's field list as authoritative over this line: footprint · drivewayHint · frame · tier · coverage, and the tier-X threshold** (this brief's first draft carried the pre-amendment list; corrected from the readback) · run `anchors.py` at Bob's
   address (dev, `.private/`, nothing sent — the board lists it as GATED) · whether R-A4 counts as feature
   work under G1.
 - **The answer key is ambiguous** (plan §9a·1): R-Z4 says *compare to the twenty-three*; the frozen instance
@@ -90,7 +89,7 @@ say which, every time · R-Z1 resolved without a purchase, R-Z2 ruled *use what 
 5. The frame confirm card — **content-steward owes the wording** (declared OWED in the plan header).
 6. Only then: derived edges as snap targets inside whatever tracer survives Z-9.
 
-## 7 · Register edits owed — refinement window's, not yours; message it, do not edit
+## 7 · Register edits owed — split: `BACKLOG.md` rows are refinement's; `LAND-SOURCES.md`, the EXPERIMENT and the derived-first-draft PLAN edits are YOURS (corrected from the readback)
 
 Still unapplied at `dd377ba`, two days after the 09-08 window named them: TIER 2 · 7 says *"awaiting
 Paul's `ready:` stamp"* (the plan is stamped) and *"Ten rulings Z-1…Z-10"* (there are twelve). Plus the
