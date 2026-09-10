@@ -542,7 +542,22 @@ async function handleAccountCreate(request, env, scope) {
   // ⚠️ A PRESENTED-BUT-DEAD LINK NOW LANDS HERE TOO, deliberately. It yields a member account rather
   // than a refusal — the person still gets in, at the floor capability, which is the kind outcome and
   // the safe one. A dead credential grants nothing it did not already grant.
-  const invite = await grantFor(request, env);
+  const presentedInvite = await grantFor(request, env);
+  // ⛔⛔ AN INVITE ONLY COUNTS AT THE ESTATE THAT ISSUED IT. `grantFor()` became a ROUTER on
+  // 2026-09-10, so it now resolves a grant belonging to ANY estate — and the two lines below inherit
+  // `relationship` and `capability` from it onto a grant written under THIS deployment's estate.
+  // Before routing that was impossible (a foreign grant failed twice over); after routing it is a
+  // CROSS-ESTATE PRIVILEGE ESCALATION: an administrator invite minted at estate B, presented here,
+  // would mint an administrator at estate A with no agreement from anyone at A.
+  // ⭐ This is the same class the route itself was hardened against on 2026-09-05 — "signup may
+  // establish WHO YOU ARE to this place, it may not establish WHAT YOU MAY DO to other people's
+  // records." The capability may not come from the applicant, and it may not come from another
+  // household either.
+  // ⚠️ A MISMATCH IS NOT A REFUSAL. The person still gets in, at the member floor, exactly like the
+  // dead-link case below — the kind outcome and the safe one. And the invite is NOT spent: it still
+  // belongs to its own estate and nothing here has the standing to burn it.
+  const inviteIsOurs = !!(presentedInvite && presentedInvite.estateId === scope.id);
+  const invite = inviteIsOurs ? presentedInvite : null;
 
   const akey = accountKey(scope, username);
   if (await env.OBSERVATIONS.get(akey)) return json({ error: "username-taken" }, 409);
@@ -605,7 +620,11 @@ async function handleAccountCreate(request, env, scope) {
   // for most signups, and hashing a null would compute a real sha256 of the string "null" and issue
   // a delete against whatever key that happens to name. Nothing to spend is not a spend.
   if (invite) {
-    try { await env.OBSERVATIONS.delete(keyFor(scope, "grant", await sha256Hex(request.headers.get(GRANT_HEADER)))); }
+    // ⛔ SPEND IT UNDER ITS OWN ESTATE. This deleted under `scope` — the deployment's estate — which
+    // was correct only while a grant could not come from anywhere else. `invite` is now guaranteed to
+    // be ours by the check above, so the two agree today; keying it off the invite's OWN estateId is
+    // what keeps that true if the guard above is ever loosened.
+    try { await env.OBSERVATIONS.delete(keyFor(scopeOfRoute(invite.estateId, env), "grant", await sha256Hex(request.headers.get(GRANT_HEADER)))); }
     catch (e) { /* the new account already exists; a stale invite is the lesser failure */ }
   }
   return json({ personId, token, estates: [{ estateId: scope.id,

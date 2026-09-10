@@ -105,6 +105,18 @@ def setup():
     # ⭐ A ROUTE WITH NO GRANT BEHIND IT. The plan is explicit that this is a 404 and "never a
     # fall-back to the deployment's estate" — the single most dangerous wrong answer, because it
     # would silently hand a stranger the deployment's own household.
+    # ⭐ C4's instrument: an ADMINISTRATOR invite belonging to estate B. Presented to estate A's
+    # signup it must buy NOTHING — not administrator, not membership of B, and it must survive
+    # unspent, because nothing at A has the standing to burn B's credential.
+    atok = secrets.token_urlsafe(32)[:43]
+    ah = sha256(atok)
+    kv_put(w, "%s:grant:%s" % (ESTATE_B, ah),
+           {"personId": "p-fx-admin-%s" % secrets.token_hex(3), "estateId": ESTATE_B,
+            "relationship": ["owner"], "capability": "administrator", "entry": True, "vault": False,
+            "issuedAt": now, "issuedBy": "falsifier-tenancy", MARK: True})
+    kv_put(w, "route:%s" % ah, {"estateId": ESTATE_B, MARK: True, "createdAt": now})
+    fx["foreignAdminInvite"] = {"token": atok, "hash": ah, "estate": ESTATE_B}
+
     dtok = secrets.token_urlsafe(32)[:43]
     dh = sha256(dtok)
     kv_put(w, "route:%s" % dh, {"estateId": ESTATE_B, MARK: True, "createdAt": now, "note": "no grant behind this"})
@@ -129,6 +141,11 @@ def teardown():
         for key in ("%s:grant:%s" % (e["estate"], e["hash"]), "route:%s" % e["hash"]):
             try: w.kv(ENV, "delete", key); n += 1
             except Exception as ex: print("   ⚠️ could not delete %s — %s" % (key[:28], str(ex)[:60]))
+    if fx.get("foreignAdminInvite"):
+        fa = fx["foreignAdminInvite"]
+        for key in ("%s:grant:%s" % (fa["estate"], fa["hash"]), "route:%s" % fa["hash"]):
+            try: w.kv(ENV, "delete", key); n += 1
+            except Exception: pass
     if fx.get("dangling"):
         try: w.kv(ENV, "delete", "route:%s" % fx["dangling"]["hash"]); n += 1
         except Exception: pass
@@ -194,6 +211,47 @@ def run():
         if not c3: fails.append("C3")
     else:
         results.append(("C3", None, "cannot be judged until P2 holds"))
+
+    # ---- C4 / C5 — the CROSS-ESTATE INVITE ESCALATION that routing armed ------------------------
+    # ⛔ `handleAccountCreate` inherits relationship/capability from whatever grant `grantFor()`
+    # resolves. Before routing a foreign grant could not resolve at all; after routing it can, so an
+    # administrator invite minted at B could mint an administrator at A. Signup is unauthenticated by
+    # design, which is exactly why the invite's ESTATE has to be checked.
+    fa = fx.get("foreignAdminInvite")
+    if fa:
+        import urllib.request as _u, urllib.error as _e, uuid as _uuid
+        uname = "fx%s" % _uuid.uuid4().hex[:10]
+        body = json.dumps({"username": uname, "word": "correct-horse-battery", "email": "fx@example.invalid",
+                           "contactPref": "email", "capability": "administrator"}).encode()
+        req = _u.Request(WORKER + "/api/account", data=body,
+                         headers={"Content-Type": "application/json", "X-Grant": fa["token"],
+                                  "User-Agent": "falsifier-tenancy"})
+        try:
+            with _u.urlopen(req, timeout=30) as r:
+                st, created = r.status, json.loads(r.read().decode() or "null")
+        except _e.HTTPError as ex:
+            st, created = ex.code, None
+        except Exception as ex:
+            print("⛔ UNREADABLE during C4 — %s" % ex); return 3
+
+        est = ((created or {}).get("estates") or [{}])[0]
+        c4 = st == 201 and est.get("capability") == "member" and est.get("estateId") == ESTATE_A
+        results.append(("C4", c4, "a FOREIGN administrator invite buys only member at this estate — "
+                                 "got %s %s/%s" % (st, est.get("estateId"), est.get("capability"))))
+        if not c4: fails.append("C4")
+
+        # C5 — and it must NOT have been spent: it is still B's credential.
+        try:
+            sB2, bB2 = get("/api/grant/whoami", fa["token"])
+        except RuntimeError as ex:
+            print("⛔ UNREADABLE during C5 — %s" % ex); return 3
+        c5 = sB2 == 200 and isinstance(bB2, dict) and bB2.get("estateId") == ESTATE_B
+        results.append(("C5", c5, "the foreign invite SURVIVES unspent at its own estate — got %s %s"
+                        % (sB2, (bB2 or {}).get("estateId"))))
+        if not c5: fails.append("C5")
+    else:
+        results.append(("C4", None, "no foreign-admin fixture — re-run --setup"))
+        results.append(("C5", None, "no foreign-admin fixture — re-run --setup"))
 
     for k, ok, why in results:
         print("  %s %-3s %s" % ("✅" if ok is True else ("🔴" if ok is False else "⬜"), k, why))
