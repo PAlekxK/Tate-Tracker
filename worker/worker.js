@@ -3898,9 +3898,45 @@ export default {
     if (!viaMaster && !viaGrant) return unauthorized();
     const auth = viaMaster ? { via: "master", capability: "administrator", personId: null }
                            : { via: "grant", capability: grant.capability === "administrator" ? "administrator" : "member", personId: grant.personId || null, vault: !!grant.vault };
+    // ⭐⭐ WHAT A MEMBER MAY DO, CLASSIFIED ROUTE BY ROUTE `[paul-ruled 2026-09-10]`.
+    // The rule in his words: a member has FULL USE OF THEIR OWN ESTATE and writes no canon.
+    //
+    // ⛔ WHAT THIS REPLACES, and why it was wrong. The line here read
+    //   memberOk = (POST /api/metrics) || /api/vault
+    // — so `administrator` meant "may use the app at all" and `member` meant "may post telemetry".
+    // That is a permission LADDER, and the ladder is precisely what the two-axis model in
+    // VOCABULARY §2 exists to prevent: `relationship` (owner · contributor · resident) says what you
+    // are to a place, `capability` (administrator · member) says what you may do to other people's
+    // records. Collapsing them made OWNING a place cost the power to READ EVERYTHING WRITTEN IN IT.
+    // ⛔ MEASURED 2026-09-10, on Mom's own live grant at est-e6696a — she is owner/member, and:
+    //   /api/today-line 403 · /api/observations 403 · /api/zones 403 · /api/conversations 403 ·
+    //   /api/drought 403 — and /api/chat by the same gate.
+    // `estate/index.html` links to `/viewer`, so the first tap out of her own front door reached an
+    // almanac whose every live feature answered not-permitted. Nobody had walked it as a member.
+    //
+    // ⚠️ ADMIN_ONLY IS THE SHORT LIST AND IT IS ABOUT WRITING CANON OR ADMINISTERING THE ESTATE —
+    // never about whether someone may look at their own place.
+    const ADMIN_ONLY = ["/api/cost-log", "/api/pending-species", "/api/promote-species",
+                        "/api/remove-species", "/api/admin/clean-observations", "/api/zone-save"];
+    // ⚠️ `/api/feedback` and `/api/conversations` READS are member-reachable `[paul-ruled 2026-09-10]`,
+    // chosen over the narrower option with the consequence stated to him first: est-e6696a holds
+    // Paul's own condo place ALONGSIDE Mom's, so on that estate a member can read the other's notes.
+    // That is a known and accepted consequence of one shared estate, not an oversight — and it is an
+    // argument for the per-heir scoping the wrangler comment already says scopeFor() has not done yet.
+    const MEMBER_OK = ["/api/observations", "/api/airnow", "/api/drought", "/api/today-line",
+                       "/api/classify", "/api/chat", "/api/metrics", "/api/conversations",
+                       "/api/feedback", "/api/door", "/api/onboarding-metrics", "/api/audio-upload",
+                       "/api/zone-feedback", "/api/zone-audio", "/api/zones", "/api/zones-sync-status",
+                       "/api/vault"];
     if (auth.capability !== "administrator") {
-      const memberOk = (url.pathname === "/api/metrics" && request.method === "POST") || url.pathname.startsWith("/api/vault");
-      if (!memberOk) return json({ error: "not-permitted", capability: auth.capability, door: "entry" }, 403);
+      const hits = (list) => list.some(r => url.pathname === r || url.pathname.startsWith(r + "/"));
+      // ⛔ FAIL CLOSED ON AN UNCLASSIFIED ROUTE, and say so distinctly. A route in NEITHER list is a
+      // route nobody has decided about — an allow-by-default would silently hand every future
+      // endpoint to members the day it is written, which is how the 2026-09-05 self-mint incident
+      // happened in a different shape. `unclassified-route` is its own error precisely so it reads
+      // as "classify me", never as "you may not".
+      if (hits(ADMIN_ONLY)) return json({ error: "not-permitted", capability: auth.capability, door: "entry" }, 403);
+      if (!hits(MEMBER_OK)) return json({ error: "unclassified-route", path: url.pathname, capability: auth.capability }, 403);
     }
 
     if (url.pathname.startsWith("/api/observations")) return handleObservations(request, env, url);
