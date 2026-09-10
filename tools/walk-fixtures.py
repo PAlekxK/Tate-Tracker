@@ -115,37 +115,45 @@ def report(env, out=print):
     out("")
     # ⛔ THE COVERAGE LINE IS THE POINT, and the EMPTY cells are the claim. A fixture set that can
     # only enter one returning state certifies one returning state, and the walks will not say so.
-    # ⛔ A FIXTURE AND A PROCEDURE ARE TWO THINGS, and reporting only the first is how J2 came to
-    # have a seat that can enter it and no action list that can walk it. `journey_returning()`
-    # declares which state it is written for; everything else has none until the journey library
-    # lands (.decisions/fernwood-18).
-    procedure = {"J2": jw.JOURNEY_RETURNING_ENTERS == "J2",
-                 "J3": jw.JOURNEY_RETURNING_ENTERS == "J3"}
-    for jid in ("J2", "J3"):
-        who = held.get(jid) or []
-        out("  %-4s fixture: %-34s procedure: %s"
-            % (jid, ", ".join(who) if who else "⛔ NO SEAT CAN ENTER IT",
-               "✅ journey_returning()" if procedure[jid] else "⛔ NONE — a fixture nothing walks"))
-        out("       %s" % jw.JOURNEY_IDS[jid])
-    noproc = [j for j in ("J2", "J3") if held.get(j) and not procedure[j]]
-    if noproc:
-        # ⚠️ LOUD, BUT NOT THE EXIT CODE. This tool's exit code answers ONE question — are the
-        # fixtures there — because that is what it can tell you how to repair in one command.
-        # Writing a journey's action list is not a fixture repair, and a checker that is red from
-        # its first day for something it cannot name a command for is a checker nobody reads.
-        out("\n  ⛔ %s: a seat can ENTER it and no action list can WALK it. journey-walk refuses"
-            " rather than\n     emitting the false failures that produces. → .decisions/fernwood-18"
-            % ", ".join(noproc))
+    # ⛔ THE LIBRARY IS THE ROSTER, READ FROM `journey-walk.JOURNEYS` — never a list typed here.
+    # A journey this file did not know about would be a journey it silently reported no coverage
+    # for, which is the same absence-is-not-evidence failure the exit codes exist to prevent.
+    # ⭐ ARRIVAL AND PROCEDURE ARE REPORTED SEPARATELY, because reporting only one is how J2 came to
+    # have a seat that could enter it and no action list that could walk it (7496196, 2026-09-08).
+    out("  %-4s %-22s %-34s %s" % ("", "journey", "arrival", "who can walk it"))
+    edges = sum(1 for _r, _v, e in seats(env, jw, si, gm) if e)
+    for jid in sorted(jw.JOURNEYS):
+        j = jw.JOURNEYS[jid]
+        arr = j["arrival"]
+        if arr == "per-run-invite":
+            ok, how = edges > 0, "a per-run UNSPENT invite (%d edge(s) authored)" % edges
+        elif arr == "per-run-unfinished":
+            # It SPENDS an invite to create the account, so it needs the same authored edge — and
+            # it is per-run for the reason J1 is: the walk finishes the record it arrived on.
+            ok, how = edges > 0, "a per-run account, record left unfinished (%d edge(s))" % edges
+        elif arr == "dead-credential":
+            ok, how = True, "shaped like a credential, never minted"
+        else:
+            ok, how = bool(held.get(j["enters"])), "this seat's OWN credential"
+        who = ", ".join(held.get(j["enters"]) or []) if arr == "durable-credential" else (
+            "any seat" if ok else "⛔ nobody")
+        out("  %-4s %-22s %-34s %s" % (jid, j["name"], ("✅ " if ok else "⛔ ") + how, who))
+        if not ok:
+            gaps += 1
+    # ⚠️ NAMED AND ABSENT IS NOT THE SAME AS UNKNOWN. J5 bare-door is P3 and `.decisions/fernwood-18`
+    # ruled it into the first cut; printing it here is how the coverage claim stays readable — a
+    # matrix whose empty cells are invisible is decoration, which is this row's own warning.
+    for jid in sorted(set(jw.JOURNEY_IDS) - set(jw.JOURNEYS)):
+        out("  %-4s %-22s %s" % (jid, jw.JOURNEY_IDS[jid].split(" — ")[0],
+                                 "⛔ NOT IN THE LIBRARY — named, unbuilt (.decisions/fernwood-18)"))
     if unreadable:
         out("\n🟡 %d seat(s) UNREADABLE — the door could not be asked. That is not 'no fixture'." % unreadable)
         return 3
-    missing = [j for j in ("J2", "J3") if not reach.get(j)]
-    if missing or gaps:
-        out("\n🔴 %s%s"
-            % ("no fixture can enter %s. " % ", ".join(missing) if missing else "",
-               "%d seat(s) carry a gap." % gaps if gaps else ""))
+    if gaps:
+        out("\n🔴 %d journey or seat cannot be provisioned — see the gaps above." % gaps)
         return 1
-    out("\n✅ every seat can be handed an unspent invite, and both returning states have a fixture.")
+    out("\n✅ every journey in the library can be provisioned at this env, and every seat can be "
+        "handed an unspent invite.")
     return 0
 
 
