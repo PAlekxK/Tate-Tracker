@@ -1253,6 +1253,21 @@ async function geocodeAddress(env, scope, address, parts) {
   return { failed: "no-match" };
 }
 
+// ⭐⭐ THE CREDENTIAL CLASS ON EVERY WRITE `[paul-ruled 2026-09-10]`. `/api/metrics` has stamped
+// `via` since C6 6a and NOTHING ELSE DID — so an audit could answer "was that the administrator or
+// the neighbour?" for telemetry batches and for no authored record.
+// ⛔ IT CANNOT BE APPLIED RETROACTIVELY. The moment a household is live, every row already written
+// is ambiguous forever — which is why this lands before an invite goes out, not after.
+// ⚠️ FOUR OUTCOMES, and `null` is a DECLARATION like `personId`'s: a grant carries a person and a
+// class; a MASTER token carries a class and cannot name a person (it is shared, by construction);
+// an UNAUTHENTICATED write — /api/door and /api/feedback POST are deliberately open, so the person
+// who cannot get in can still report it — honestly says "nobody could say" rather than guessing.
+function stampVia(record, request, env, grant) {
+  if (grant && grant.personId && grant.estateId) return attributeTo(record, grant);
+  if (grant && grant.personId) return attributeToPerson(record, grant);
+  if (authOk(request, env)) return Object.assign({}, record, { via: "master", capability: "administrator" });
+  return record;
+}
 const GRANT_HEADER = "X-Grant";
 // ⭐ THE ROUTER ROW — deployment-scoped, because it is not estate data. `route:<sha256(token)>`
 // holds `{estateId}` and nothing else. Written by `tools/grant-route-backfill.py` for every grant
@@ -2248,6 +2263,7 @@ async function handleAudioUpload(request, env) {
 const ZONE_AUDIO_MAX_B64 = 2_000_000;  // ~2 MB of base64; a 30s note @24kbps is ~90 KB
 
 async function handleZoneAudio(request, env, url) {
+  const _g = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;
   if (request.method === "POST") {
     let body;
     try { body = await request.json(); }
@@ -2309,10 +2325,11 @@ async function handleZoneAudio(request, env, url) {
       reviewed: false,
       env: env.ENV_NAME || "unset",   // C4 3a (R2)
     });
+    const metaStamped = stampVia(meta, request, env, _g);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) { try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
-    arr.push(meta);
+    arr.push(metaStamped);   // the STAMPED row lands, never the bare one
     await env.OBSERVATIONS.put(key, JSON.stringify(arr));
     return json({ stored: 1, id, zoneId, total_today: arr.length });
   }
@@ -3728,10 +3745,7 @@ async function handleFeedback(request, env, url, grant) {
     // household → the person, place DECLARED none. A MASTER-token write → no person (it is a shared
     // credential and cannot name one) but `via: "master"` is knowable and is the whole point of the
     // stamp. No credential at all → the declared nulls, meaning "nobody could say".
-    const attributed = (grant && grant.personId && grant.estateId) ? attributeTo(record, grant)
-                     : (grant && grant.personId) ? attributeToPerson(record, grant)
-                     : (authOk(request, env) ? Object.assign({}, record, { via: "master", capability: "administrator" })
-                     : record);
+    const attributed = stampVia(record, request, env, grant);
     const today = new Date().toISOString().slice(0, 10);
     // ⭐ The destination is decided from the RESOLVED GRANT first and the surface second — never from
     // the body alone. A record about a place stays with the place; a record about the person travels.
@@ -4655,6 +4669,7 @@ async function handleZoneSave(request, env) {
 }
 
 async function handleZoneFeedback(request, env, url) {
+  const _g = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;
   if (request.method === "POST") {
     let body;
     try { body = await request.json(); }
@@ -4681,7 +4696,7 @@ async function handleZoneFeedback(request, env, url) {
       try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; }
       catch (e) { arr = []; }
     }
-    arr.push(record);
+    arr.push(stampVia(record, request, env, _g));   // the STAMPED row lands, never the bare one
     await env.OBSERVATIONS.put(key, JSON.stringify(arr));
     return json({ stored: 1, id: record.id, total_today: arr.length });
   }
