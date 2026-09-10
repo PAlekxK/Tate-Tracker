@@ -2370,3 +2370,32 @@ chronicle, the freeze, routing) · backlog-refinement (**the one door** to `BACK
 - Gate ① at this moment: owner seat watched-clean, its read in progress by an unprimed reading seat; the
   full five-seat watched battery is running `[paul-ruled: "Full battery."]`. His walk records as the
   clearing walk only after gate ① passes.
+
+### Beat 8 · THE SYNTHETIC LOOP — ✅ **5 of 5 seats at `318416a`** `[paul-ruled: "Full battery."]` · 🟡 UX clause UNCHECKABLE, so not a bare pass
+
+`release-gate.py --sha 318416a`, verbatim: *"seats passing every clause: 5 of 5 — 🟡 every seat passes, but
+the UX clause is UNCHECKABLE, so this is NOT a bare pass. Gate ① exits beat 2 only when a human confirms the
+UX clause too."* `walk-integrity`: every seat's newest run countable, 5 seats, 8 distinct inputs.
+
+| seat | run | founded | walk | read by |
+|---|---|---|---|---|
+| owner | `180218` | `est-rihhdp` | 13/13 · 0 failed · 0 page errors · visible Chrome | its own unprimed reading seat — *"Ship it"* |
+| mom | `180634` | `est-d7teqw` | same | *"No stop"* |
+| wide-eyed | `180759` | `est-bzr4gb` | same | *"Ship it"* |
+| strict | `180920` | `est-pr9pwl` · **placed:false** (PO box, refused by design — the product said so on every reachable frame) | same | *"No stop"* |
+| handover | `181052` | — | same | *"Ship it"* |
+
+⛔ **Teardown by record:** the five estates above plus `est-ofd6vk` (the headless owner run) are the seats'
+houses at qa; **`PK`'s house is Paul's** (Beat 10). ⭐ **The builder wrote none of the reads** — it refused to
+grade its own build and spawned one unprimed reading seat per run.
+
+**Converged across five seats, each independently** (the register carries every finding verbatim, TIER 1 · 19):
+(A) *"Does that look right?"* founds before it is answered — **gate or courtesy is Paul's ruling**, pending ·
+(B) the *Got it* screen is never photographed — harness fix, after the candidate settles · (C) the empty shelf is
+**not on a cold founder's path** and carries two founding controls · (D) the Almanac composer is the primary
+control on an empty / unplaced / not-composed place · (E) a profile write 404s on the naming step, invisible to
+the person · (F) 09-08 repeats unchanged. **Ruled during the battery** `[paul-ruled 2026-09-10]`: the PO-box
+refusal is said **at submit** on the address step — next candidate, not this one.
+
+**UX clause:** the owed two-pass sweep runs as the **design window's first act** `[paul-ruled: "Go on the
+design lane/window"]`, on this candidate, with no surface edit until Paul's walk is recorded here.
