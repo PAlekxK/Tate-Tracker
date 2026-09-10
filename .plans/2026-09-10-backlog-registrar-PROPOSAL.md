@@ -55,22 +55,39 @@ I reported *"the 4 back-pointers are ONE write, ~4 lines, zero judgement — the
 
 ⛔ **Do not build a second inbound door.** `cycle/requests.jsonl` already exists (52 lines, `~/.claude/tools/ask-cycle.py`, readers in `fleet_probe.py` and `check-public-build.py`), and `BACKLOG.md`'s own head names its two defects: **Track-B-scoped**, and ***"nothing sweeps that door on a cadence."*** Both are what a registrar fixes. Last write: 2026-09-05.
 
-**But the door a lane must remember is a door a lane does not use.** So the forward is a **commit trailer** — zero extra commands, zero extra files, and `git` is the transport:
+**But the door a lane must remember is a door a lane does not use.** So the forward is a **git trailer** — zero extra commands, zero extra files, `git` is the transport:
 
 ```
-Register: <BACKLOG section or row> — <what changed in one clause>
-Forwarded-By: <lane> @ <sha>          # only when transcribing another lane's status
+Backlog-Register: <BACKLOG section or row> — <what changed in one clause>
+Backlog-Forwarded-By: <lane> @ <sha>       # only when transcribing another lane's status
 ```
 
-**`Register: none — <what it needs>`** is legal and is the **highest-value line in the system**: *"I built X and it has no row"* is exactly what `onboarding-ask-b3` reported and what nothing captured.
+⛔ **BOTH LINES GO IN THE SAME FINAL PARAGRAPH AS `Co-Authored-By:`, WITH NO BLANK LINE BETWEEN.** This is
+not style — see the two defects below.
+
+**`Backlog-Register: none — <what it needs>`** is legal and is the **highest-value line in the system**:
+*"I built X and it has no row"* is exactly what `onboarding-ask-b3` reported and what nothing captured.
+
+**The sweep, and it needs no tool:**
+
+```bash
+git log --format='%h %(trailers:key=Backlog-Register,valueonly)' | grep -v '^[0-9a-f]* *$'
+```
 
 **Four properties, each earned:**
 1. ⭐ **The trigger is the commit, not a clock.** A cadence in hours is a thing to remember; a cadence in commits fires when there is something to say. `MOM-CYCLE-MAP.md`: *the loop rests, input fires it.*
-2. ⭐ **The sweeper already exists:** `git log --grep '^Register:'`. **Nothing to build, nothing to install, nothing to keep in sync.** A registrar that needs a tool written before it can start is a registrar that starts late.
-3. ⛔ **A lane never edits `BACKLOG.md` and never has to decide where a row goes.** Placement is the registrar's; that is the whole trade.
-4. ⚠️ **Counts are derived from `git log`, never typed.** A hand-kept number beside a tool that computes it is this corpus's own recorded failure mode.
+2. ⭐ **The sweeper already exists** — `git` parses trailers natively. **Nothing to build, install or keep in sync.** A registrar that needs a tool written before it can start is a registrar that starts late.
+3. ⛔ **A lane never edits `BACKLOG.md` and never decides where a row goes.** Placement is the registrar's; that is the whole trade.
+4. ⚠️ **Counts derive from `git log`, never typed.**
 
-⭐ **PROVED, NOT PROPOSED.** `06874b7` carries both trailers and was produced by the flow it specifies. `git log --grep '^Register:'` returns it.
+### 🔴 TWO DEFECTS IN THE FIRST VERSION OF THIS SPEC — found by running it, and both are why it is stated so exactly
+
+⭐ **I shipped this spec as `Register:` in its own paragraph and claimed *"proved, not proposed"* on `06874b7`. Both halves of that claim were wrong, and one command found it.**
+
+1. ⛔ **IT WAS NOT A TRAILER AT ALL.** `git` parses trailers only from the **last paragraph**. My `Register:` block sat above a blank line and the `Co-Authored-By:` block, so `git log --format='%(trailers:key=Register)'` returned **nothing** on my own commits — while `Co-Authored-By` parsed fine from the paragraph below it. **The spec was passing only under `--grep`, which is string matching, not parsing.** ⭐ *Matching the string rather than the thing* — the coordinator's own recorded failure from this morning, arriving on my instrument by the same route.
+2. ⛔ **`Register:` IS ALREADY DOUBLE-BOOKED IN THIS REPO'S HISTORY.** `eac5648` carries `Register: radar basemap → Esri light-gray…` — a different meaning entirely, and it is a **false positive on the `--grep` sweep today.** `VOCABULARY.md` §4's whole discipline is that a double-booked key costs more than the name saves (`group` is the standing example, still unfixed). **So `Register:` is REJECTED, and this line is the record of why** — otherwise the next reader re-proposes it.
+
+⭐ **The general lesson, which is the same one three times today: a control that has never been run against its own output is a claim, not a check.** I wrote a falsifier saying the sweeper works, then ran it, and it did not.
 
 ### ⛔ The half a trailer cannot carry, stated so it is not discovered later
 A trailer rides on a **commit**. Two of today's most valuable register facts had none: `paulkirschenbauer-b8`'s assessment existed for two hours with **zero commits**, and `.plans/2026-09-10-interests-reframe-VERIFY-82.md` is **still uncommitted** in a closed window's worktree. **A trailer registers what was committed; it cannot register what was not.** The complement is the registrar's own sweep at each lane's close — and it must print **what it could not place**, never drop silently.
@@ -152,7 +169,7 @@ The coordinator has confirmed the shape and the reasoning: **transcribe verbatim
 > ⭐ **A lane that commits with a `Register:` trailer and never opens `BACKLOG.md` still has its work registered within one sweep — and the registrar's sweep names everything it could not place.**
 
 **Three narrower ones, each one command:**
-- `git log --grep '^Register:' --oneline` grows by at least one line per lane per working session. **If it stays at one entry — mine — the trailer is a discipline nobody follows and should be replaced by the `ask-cycle` door, not re-exhorted.**
+- `git log --format='%h %(trailers:key=Backlog-Register,valueonly)' | grep -v '^[0-9a-f]* *$'` grows by at least one line per lane per working session. **If it stays at the registrar's own entries, the trailer is a discipline nobody follows and should be replaced by the `ask-cycle` door, not re-exhorted.** ⛔ Use the trailer parse, never `--grep`: `--grep` matched a 2026-08 commit using the word for something else.
 - `python3 tools/check-backlog-ready.py` reports **fewer** orphans after §2·A is ruled, **without any new `→ READY ·` appearing in `BACKLOG.md`.** If orphans fall because pointers were added, the ruling was implemented as the lie §0 refuses.
 - No `.plans/` header ever again contains the string *"the orphan flag is expected"*. **A file arguing with its own checker is the measure of this failing.**
 
