@@ -111,3 +111,51 @@ beside the synthetics (its digest was deleted because Guru answered from it) · 
 That founding via the page will succeed at qa (never tried). What onboarding's later steps assume
 about `/api/profile` having run. The 174 "addressed accounts" count. Whether `journey-view.py` can
 drive the address step's autofill fields. Every `file:line` older than an hour.
+
+## 8. State at close — written by the build lane, 2026-09-10 ~6:40 PM ET, at Tate-Tracker@2a9c6df
+
+<!-- clearing-state: LIVE — lap 7 picks up §8's owed items on its own candidate; clear when the s3 fix and the found-event reader land -->
+
+**Done this lane (commits 318416a · 836c02e):** the one address step founds (`onboarding/index.html`
+`go2`); J0 walkable from the bare door (`journey-walk.py` `journey_founding`, declared-only,
+`enters: J5`, arrival `open-signup`); `walk-fixtures.py` reads the new arrival; two Worker fixes
+below. qa Pages deployed from **318416a** (the candidate); qa Worker via `deploy-worker.sh --env qa`,
+`/health` stamped **d0cec6f** (HEAD had moved; `worker.js` byte-identical to 318416a's).
+
+**Gate ① at 318416a: 5 of 5 seats pass every clause; the UX clause is UNCHECKABLE, so not a bare
+pass.** Every seat walked J0 in visible Chrome, 13/13, zero failed actions, zero page errors, build
+stable, read by its own unprimed reading seat. Chronicle 0c18cb5; register c38f04b.
+
+**Estates founded at qa by the battery, by id** — fixtures, never real homes:
+owner **est-ofd6vk** (run 175555, headless, the first) · owner **est-rihhdp** (180218, watched) ·
+mom **est-d7teqw** (180634) · wide-eyed **est-bzr4gb** (180759) · strict **est-pr9pwl** (180920,
+**unplaced by design** — its fixture is a PO box the geocoder refuses; the product said so honestly) ·
+handover **est-otzfk2** (181052). Reports: `.private/synthetic-walks/<seat>/<run>/REPORT.md`.
+
+**Worker defects FIXED (in 318416a):** (1) `handleEstateFound` wrote the place to the place row and
+nothing to the grant, while whoami reads `name/address/coordinates` from the GRANT row — a founded
+house came up unplaced in its own session and `hasAccount` read false on reload; now copied with
+`placeProvenance` (the copy-vs-read-side choice is argued in the commit body) and a server-verified
+`username`. (2) `/api/profile`'s grant refresh used the DEPLOYMENT's estate scope, so a founder's
+ranking never reached the row whoami reads; now the grant's own scope.
+**Worker defect REPORTED, not fixed:** `/api/session`'s response literal returns
+`estates:[{estateId: scope.id}]` — the deployment's estate — for a founder (TIER 1 · 24).
+
+**Owed, lap 7, on its candidate — ⛔ do not touch before it opens:**
+- **s3 harness stop** — the "Got it" screen between F08 and F09 is never photographed (all five
+  seats); `journey-walk.py`, this lane's.
+- **found-event reader** — `ev("found", ok|already|refused:<code>|unreachable)` fires on
+  `/api/onboarding-metrics` and NO reader prints its name: `watch-door.py` counts by `event`,
+  onboarding posts `{sid, events:[{name,…}]}` (read from code, not run). An event with no reader
+  is not instrumentation.
+- **L6-P1** (two people, one browser context) — not runnable: every walk opens a fresh context; needs
+  a two-journey-one-context action list. Page-side mechanism exists (ANSWER_KEYS cleared on a
+  credential change; estate page re-stamps the owner key). Carried, not this lap's build.
+- **PO-box-at-submit** surface edit — queued for the next candidate; ownership decided when it opens.
+
+**Converged across five seats, for Paul (chronicle carries the table):** (A) "Does that look right?"
+founds before it is answered — gate or courtesy · (B) s3 unphotographed · (C) the empty shelf is not
+on a cold founder's path and carries two founding controls · (D) the Almanac composer as the primary
+control on an empty / unplaced / not-composed place · (E) the naming step's profile write 404s
+silently · (F) 09-08 repeats: "what grows there" tense, shelf drops the house number, email never
+shown back, coordinates on no screen.
