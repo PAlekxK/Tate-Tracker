@@ -1,6 +1,6 @@
 # THE USER FEEDBACK CYCLE — one engine, N instances; the mom-cycle becomes its first · PROPOSAL
 
-- row: process (no BACKLOG row yet — same posture as the 09-05 cascade, registry and state-of-the-work proposals)
+- row: proposed — process (no BACKLOG row yet — same posture as the 09-05 cascade, registry and state-of-the-work proposals)
 - objective: O5
 - class: engine · must-not-diverge (a second definition of "we heard a user" is the defect this exists to prevent)
 - seats: practice-steward (this file)

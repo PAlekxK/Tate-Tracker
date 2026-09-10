@@ -2,7 +2,7 @@
 
 - artifact: **seat trail**, not a plan. `tools/check-backlog-ready.py:110` globs `.plans/*-PLAN.md`
   only, so this file is inert to the check and exists to be cited in a plan's `seats:` field.
-- row: `BACKLOG.md` § 📜 **C3 · THE TRACE IS A QUERY, NOT A FILE — and the founding leak is located**
+- row: proposed — `BACKLOG.md` § 📜 **C3 · THE TRACE IS A QUERY, NOT A FILE — and the founding leak is located**
 - objective: **O5**
 - class: engine · **declared** *(proposed; the per-element split is §2.6 of the source trail and is
   restated in §2.5 below — the plan's single-value field is the plan author's, Q7)*

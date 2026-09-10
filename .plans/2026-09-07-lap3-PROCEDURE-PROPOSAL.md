@@ -1,6 +1,6 @@
 # LAP 3 — A PROPOSED PROCEDURE, written to be followed
 
-- row: process — no BACKLOG row, same posture as the lap-boundary PROCESS and the flex-point AUDIT. **The orphan flag is expected and is not a defect to repair.**
+- row: proposed — process — no BACKLOG row, same posture as the lap-boundary PROCESS and the flex-point AUDIT. **The orphan flag is expected and is not a defect to repair.**
 - objective: O5
 - class: engine · declared
 - kind: process

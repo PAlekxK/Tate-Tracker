@@ -1,5 +1,5 @@
 # PROCESS REGISTRY — every recurring step, who performs it, and how automation candidates SURFACE · PROPOSAL
-- row: process (portfolio-level; see §6 — **this file is written in Tate-Tracker because that is where the seat was standing. The thing it proposes does not belong here.**)
+- row: proposed — process (portfolio-level; see §6 — **this file is written in Tate-Tracker because that is where the seat was standing. The thing it proposes does not belong here.**)
 - objective: O5
 - class: engine · must-not-diverge (a second registry of "who does what" is the defect this exists to prevent)
 - seats: practice-steward (this file)

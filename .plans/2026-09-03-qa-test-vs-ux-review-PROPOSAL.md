@@ -1,5 +1,5 @@
 # QA test vs UX review — where each sits, what runs them, and what is missing
-- row: process (no BACKLOG row yet — this proposes one)
+- row: proposed — process (no BACKLOG row yet — this proposes one)
 - objective: O3 (engine/process), applies to O1 surfaces
 - class: engine · must-not-diverge (a second definition of "QA passed" is the defect this exists to prevent)
 - seats: practice-steward (this file) · engineering-partner owns any tool built from §2 · ux-expert not convened (nothing to review)

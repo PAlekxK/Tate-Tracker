@@ -1,5 +1,8 @@
 # Fernwood — the second rationalization, PROPOSED 2026-09-02 · **APPLIED 2026-09-03**
 
+- row: none
+- kind: proposal
+
 > ## ✅ STATUS: **APPLIED 2026-09-03 in `9f17419`** `[paul-approved 2026-09-03]`
 > `BACKLOG.md`'s head marker now reads `(rationalized 2026-09-03)` — the application date, since the
 > clock measures time since a rationalization was *applied*, not drafted. `check-backlog-drift.py`

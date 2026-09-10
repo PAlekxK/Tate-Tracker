@@ -1,5 +1,8 @@
 # THE VOCABULARY — proposed 2026-09-02
 
+- row: none
+- kind: proposal
+
 > ## ✅ **PROMOTED 2026-09-02 to `VOCABULARY.md` at the repo root** `[paul-ratified: "let's promote
 > it to VOCABULARY.md"]`. **Read the canonical file, not this one.**
 >

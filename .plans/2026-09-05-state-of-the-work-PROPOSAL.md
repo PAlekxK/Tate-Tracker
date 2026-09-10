@@ -1,6 +1,6 @@
 # STATE OF THE WORK — what is ruled, what awaits Paul, what disagrees with itself · PROPOSAL
 
-- row: process (no BACKLOG row yet — same posture as the 09-03 readiness, 09-05 cascade, 09-05 registry proposals)
+- row: proposed — process (no BACKLOG row yet — same posture as the 09-03 readiness, 09-05 cascade, 09-05 registry proposals)
 - objective: O5
 - class: engine · must-not-diverge (a second place that says "what is ruled" is the defect this exists to prevent)
 - seats: practice-steward (this file)

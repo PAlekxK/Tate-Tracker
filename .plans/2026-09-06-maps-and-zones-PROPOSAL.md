@@ -1,5 +1,7 @@
 # Maps & zones — the proposal
 
+- row: none
+- kind: proposal
 - **status:** ⏸ **PROPOSAL — CLOSED FOR PICKUP, 2026-09-06.** Nothing built, nothing deployed.
   Paul rules; §7 is eight tiered rulings and only three block. **Read §0 first.**
 - **raised:** `[paul-stated 2026-09-06]`, voice, across five messages — *"everything having to do

@@ -1,5 +1,5 @@
 # THE JOURNEY TEST CYCLE — iterative proving of the onboarding journey, bare-logic and functional · PROPOSAL
-- row: process (no BACKLOG row yet — same posture as the 09-03 readiness and 09-05 cascade proposals)
+- row: proposed — process (no BACKLOG row yet — same posture as the 09-03 readiness and 09-05 cascade proposals)
 - objective: O5
 - class: engine · must-not-diverge (a second definition of "this journey was proven" is the defect this exists to prevent)
 - seats: practice-steward (this file)

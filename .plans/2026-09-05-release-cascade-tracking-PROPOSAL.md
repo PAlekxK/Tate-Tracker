@@ -1,5 +1,5 @@
 # RELEASE-CASCADE TRACKING — how cascade state is DERIVED, per feature, over time · PROPOSAL
-- row: process (no BACKLOG row yet — this proposes one, same as the 09-03 QA/UX proposal)
+- row: proposed — process (no BACKLOG row yet — this proposes one, same as the 09-03 QA/UX proposal)
 - objective: O5
 - class: engine · must-not-diverge (a second definition of "this gate passed" is the defect this exists to prevent)
 - seats: practice-steward (this file)

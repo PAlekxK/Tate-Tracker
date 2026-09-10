@@ -1,5 +1,5 @@
 # THE JOURNEY AS AN ARTIFACT — what it is, how a feature declares its fit, and how it scopes a launch · PROPOSAL
-- row: process (no BACKLOG row yet — same posture as the 09-03 readiness, 09-05 cascade and 09-05 registry proposals)
+- row: proposed — process (no BACKLOG row yet — same posture as the 09-03 readiness, 09-05 cascade and 09-05 registry proposals)
 - objective: O5
 - class: engine · must-not-diverge (a second declaration of "what the stages are" is the defect this exists to prevent)
 - seats: practice-steward (this file)

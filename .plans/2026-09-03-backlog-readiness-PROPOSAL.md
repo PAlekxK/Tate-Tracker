@@ -1,5 +1,8 @@
 # BACKLOG READINESS — one mechanism for "is this row ready to build?" · PROPOSAL (2026-09-03)
 
+- row: none
+- kind: proposal
+
 > ## ✅ STATUS: **APPLIED 2026-09-03** `[paul-approved 2026-09-03 — all six §6 questions answered]`
 > Paul's answers: objectives **accepted as drafted** → `OBJECTIVES.md` · the word is **READY** ·
 > WIP default **one in flight, declared exceptions** · default-seats table **accepted** · seat base

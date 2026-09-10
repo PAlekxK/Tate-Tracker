@@ -1,5 +1,8 @@
 # C4 · THE RELEASE PROCESS — what a release is, where QA sits, what an agent may test · PROPOSAL (2026-09-03)
 
+- row: none
+- kind: proposal
+
 > ## 🟡 STATUS: **FOUR OF SIX RULED 2026-09-03 `[paul-approved]`; two wait on the topology half.**
 > §9 Q1 `live` → **`shipped`** — applied: `tools/check-backlog-ready.py` (STAGES + the Retro guard,
 > selftest 13/13) and `VOCABULARY.md` § 3d. Q2 **keep `qa`, declare the collision** — declared in

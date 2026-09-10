@@ -1,5 +1,5 @@
 # privacy-scrub · THE PRIVACY SEAT, ITS GATE, AND THE DECISION HISTORY · PROPOSAL (2026-09-03)
-- row: process (no BACKLOG row yet — this proposes one)
+- row: proposed — process (no BACKLOG row yet — this proposes one)
 - objective: O5
 - class: engine
 - seats: practice-steward (this file — the role, the gate, decision history) · privacy-security → `.engineering/2026-09-03-privacy-substitution-scheme.md` (**forward-pointing; running in parallel; NOT waivable**) · ai-advisor → **owed, not waived** (§7) · engineering-partner → owed at the PLAN stage · ux-expert / content-steward / user-researcher → waived with release conditions (§7)

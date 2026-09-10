@@ -1,5 +1,8 @@
 # C5 · THE ENGINE MANIFEST'S CHECKER — designing the control, not the roster
 
+- row: none
+- kind: design
+
 **Mode:** design (audit-grounded) · **Seat:** `practice-steward` · **Date:** 2026-09-03 · **Item:** `BACKLOG.md` § "C5 · RECORD PREP", scoped to `.engineering/2026-09-03-c5-record-prep.md` §4 + §5a
 **Nothing here is decided. No canon changed. Ends at Paul's gate.** My seat is the CHECK; the roster's contents are not mine, and nothing below ranks any artifact. Citations are file + section + role, never a line number — C4 § the rename moves this tree; every measurement names its command so it can be re-run.
 

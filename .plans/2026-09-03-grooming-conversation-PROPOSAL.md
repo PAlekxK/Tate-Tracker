@@ -1,5 +1,5 @@
 # grooming-conversation · THE STAMP GATE — what the conversation that drains a groomed item's questions IS · PROPOSAL (2026-09-03)
-- row: process (no BACKLOG row yet — this proposes one line under § C4 rulings)
+- row: proposed — process (no BACKLOG row yet — this proposes one line under § C4 rulings)
 - objective: O5
 - class: engine · must-not-diverge (a second question format is the defect this exists to prevent)
 - seats: practice-steward (this file) · engineering-partner owns any tool built from §6 · ux-expert waived (no surface) · content-steward waived (nothing reaches a reader) · ai-advisor waived (no model on the path)

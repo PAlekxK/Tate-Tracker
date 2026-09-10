@@ -1,5 +1,8 @@
 # Fernwood — the rationalization, proposed (2026-07-29)
 
+- row: none
+- kind: proposal
+
 > ## ✅ STATUS: **APPLIED 2026-07-29** — commit `a6c89a8`, *"The rationalization: one NEXT list,
 > sorted by what unblocks each row."* Verify with `git show a6c89a8 -- BACKLOG.md`; the applied result
 > is `BACKLOG.md`'s head, *"▶️ NEXT — the one true list (rationalized 2026-07-29)."*

@@ -1,6 +1,6 @@
 # The backlog registrar — the door lanes forward to, and the three rulings it cannot make
 
-- row: `BACKLOG.md` § ▶️ NEXT (process; **no row yet — this proposes one**, and §2·A is the ruling that decides whether it may have one)
+- row: proposed — `BACKLOG.md` § ▶️ NEXT (process; **no row yet — this proposes one**, and §2·A is the ruling that decides whether it may have one)
 - objective: O5
 - class: engine · declared
 - class-note: how work is registered is shared machinery every estate's work is planned through; nothing renders from it, so a divergence is a legibility cost, not a defect

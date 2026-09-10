@@ -1,5 +1,5 @@
 # sign-in-door · The door a person who ALREADY has an account comes back through — sign in · create · recover
-- row: BACKLOG.md § C6 · THE DOOR (ROW TO ADD — this scopes the *returning* half of C6; the orphan flag is expected until the row lands)
+- row: proposed — BACKLOG.md § C6 · THE DOOR (ROW TO ADD — this scopes the *returning* half of C6; the orphan flag is expected until the row lands)
 - objective: O3
 - class: engine · declared
 - seats: engineering-partner → .engineering/2026-09-05-account-credential.md

@@ -1,6 +1,6 @@
 # input-to-value matrix · What setup asks, what each answer unlocks, and what every card needs before it stops being empty
 
-- row: BACKLOG.md § 🔓 2026-09-06 — FOUR RULINGS · rule 5's general shape ("what we know informs the design, it does not pre-fill her work") + PRODUCT-ENGINE.md § ② THE POPULATION ORDER ("each card carries its own population journey") — no row exists yet; the text is in the callout below (orphan expected)
+- row: proposed — BACKLOG.md § 🔓 2026-09-06 — FOUR RULINGS · rule 5's general shape ("what we know informs the design, it does not pre-fill her work") + PRODUCT-ENGINE.md § ② THE POPULATION ORDER ("each card carries its own population journey") — no row exists yet; the text is in the callout below (orphan expected)
 - objective: O3
 - class: engine · declared
 - seats: user-researcher → waived: OWED, not judged — this file is the evidence skeleton the seat designs the asks FROM (which input to ask for, in what order, in whose words); commission when Paul rules §3 Q1–Q3
