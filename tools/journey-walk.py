@@ -225,6 +225,12 @@ def entry_state(env, token):
         with urllib.request.urlopen(req, timeout=45) as f:
             b = json.loads(f.read())
         return {"reachable": True, "status": 200, "hasAccount": bool(b.get("hasAccount")),
+                # ⭐ J0's POSITIVE SIGNAL, added 2026-09-10 the day the door grew it. `hasEstate` is
+                # carried RAW — never coerced with bool() — because a door that does not send the
+                # field at all must stay distinguishable from one that sends False. Absent is
+                # "this worker predates the field"; False is "this person has founded nothing".
+                # Coercing them together is the absence-is-not-evidence defect in one keystroke.
+                "hasEstate": b.get("hasEstate"), "estates": b.get("estates"),
                 "name": b.get("name"), "address": b.get("address"),
                 "ranked": b.get("ranked"), "personId": b.get("personId"),
                 "estateId": b.get("estateId"), "relationship": b.get("relationship"),
@@ -355,6 +361,11 @@ def journey_entered(fresh, dead, st, account_no_estate=False):
         return "J4", "the record refuses this credential (status %s)" % st.get("status")
     if st.get("status") is None:
         return "J5", "no credential was presented"
+    # ⭐⭐ THE DOOR CAN NOW ASSERT J0, and this branch replaces an inference with an assertion.
+    # ⛔ `is False`, NEVER falsy: a worker that predates the field sends nothing, and `not None` is
+    # True — so a truthiness test would classify every pre-change deployment's walkers as J0.
+    if st.get("hasEstate") is False:
+        return "J0", "the door reports hasEstate=false — an account that has founded nothing"
     if not st.get("hasAccount"):
         return "J1", "the invite is live and has never been spent on an account"
     if st.get("name") and st.get("address"):
@@ -1120,16 +1131,26 @@ def selftest():
     check("…and WITHOUT that provenance the identical door reading is J4, not J0",
           journey_entered(False, False, no_estate)[0] == "J4",
           "the door was credited with knowledge it cannot have — see this function's docstring")
-    # ⛔⛔ THE ANTI-REGRESSION: `hasAccount && !estateId` was proposed, approved, and is UNREACHABLE.
-    # A future reader WILL re-propose it, because it is the obvious clause. This makes it fail.
-    check("the door alone can NEVER yield J0 — the proposed `hasAccount && !estateId` is dead code",
-          all(journey_entered(f, dd, s)[0] != "J0"
-              for f in (True, False) for dd in (True, False)
-              for s in (spent, unspent, finished, refused, unreachable,
-                        {"reachable": True, "status": 200, "hasAccount": True, "estateId": None,
-                         "name": None, "address": None})),
-          "a door-derived J0 branch exists; it cannot fire, and a branch that cannot fire reads as "
-          "coverage. J0 is the WALKER's knowledge, never the door's")
+    # ⛔⛔ THIS CLAUSE USED TO ASSERT THE OPPOSITE, AND IT WAS RIGHT WHEN WRITTEN AND WRONG SIX HOURS
+    # LATER. It read "the door alone can NEVER yield J0 — `hasAccount && !estateId` is dead code",
+    # because `whoami` 404'd for a person who had founded nothing and there was no `hasAccount:true`
+    # to test. `tate-tracker-ec` then CHANGED THE DOOR — "a 404 is a fine API answer and a terrible
+    # thing to build an empty state on" — and it now answers 200 with `hasEstate:false, estates:[]`.
+    # ⭐ So an anti-regression clause became the thing blocking the correct fix. Verified by this
+    # session against lab before rewriting: hasEstate=False · estates=[] · hasAccount=True.
+    # ⚠️ THE LESSON, and it is the day's own rule aimed at a TEST rather than a tool: a clause that
+    # forbids a shape forbids it against the world as it was on the day it was written. Pin such a
+    # clause to WHY the shape was wrong, not merely THAT it was.
+    seen_j0 = {"reachable": True, "status": 200, "hasAccount": True,
+               "hasEstate": False, "estates": [], "name": None, "address": None}
+    check("the door ASSERTING hasEstate=false is J0, with no walker provenance needed",
+          journey_entered(False, False, seen_j0)[0] == "J0",
+          "the live J0 state — measured at lab — still classifies as something else")
+    # ⛔ ABSENCE IS NOT FALSE. A worker predating the field sends nothing, and `not None` is True.
+    check("a door that does NOT send hasEstate is not J0 — absent is not false",
+          journey_entered(False, False, spent)[0] == "J2"
+          and journey_entered(False, False, finished)[0] == "J3",
+          "a truthiness test on hasEstate classified every pre-change deployment's walkers as J0")
     check("J0 is a journey this file has a meaning for",
           "J0" in JOURNEY_IDS, "J0 is derivable but nameless — it renders as a bare string")
     check("every journey id this file can derive has a meaning on file",
