@@ -69,7 +69,8 @@ import propertyDigest from "./digest.json" with { type: "json" };
 // Guru 4a (2026-09-03): the digest now carries a `core` key (derived facts with markers, per-module voice,
 // a names index) for the `substrate:"core"` path (4b). The LEGACY prompt path below must stay byte-identical for
 // prod's cached prefix, so it inlines the digest WITHOUT that key. One artifact, two substrates.
-const DIGEST_LEGACY = (() => { const { core, lookup, ...rest } = propertyDigest; return rest; })();   // 5a: `lookup` is reached by tools only
+function legacyOf(digest) { const { core, lookup, ...rest } = (digest || {}); return rest; }
+const DIGEST_LEGACY = legacyOf(propertyDigest);   // 5a: `lookup` is reached by tools only
 // Guru 4b: the CORE substrate = core + the sections the artifact itself declares (`core._meta.includes`, never
 // retyped here). Selected by `substrate:"core"` in the chat body — the real client never sends it — so prod's
 // app path stays byte-identical. null on a digest built before 4a → the request is refused, not degraded.
@@ -112,7 +113,8 @@ const DIGEST_CORE = (() => {
 // "may carry Fernwood's canon, because they ARE Fernwood". A household never declares it.
 // ⚠️ An UNSTAMPED digest is foreign to everyone, deliberately: a digest built before the stamp existed
 // cannot prove whose it is, and "cannot prove" fails closed here rather than degrading.
-const DIGEST_ESTATE = ((propertyDigest._meta || {}).estateId) || null;
+function estateOfDigest(digest) { return (((digest || {})._meta || {}).estateId) || null; }
+const DIGEST_ESTATE = estateOfDigest(propertyDigest);
 function canonIsThisEstate(env) {
   if (DIGEST_ESTATE && env.ESTATE_ID && DIGEST_ESTATE === env.ESTATE_ID) return true;
   return env.CANON_FOREIGN_OK === "true";
@@ -154,13 +156,14 @@ const LOOKUP_STRINGS_TEMPLATE = Object.freeze({
 // {journal} = the instance's SHORT word for its record with its own article: the reader is already standing inside
 // Fernwood, so "the Almanac", not "the Fernwood Almanac". Declared as identity.journalShort when an estate needs to
 // (a name that takes no article); else derived: the journal name minus a leading estate name, with "the".
-const JOURNAL_WORD = (() => {
-  const id = (propertyDigest.core && propertyDigest.core.identity) || {};
+function journalWordOf(digest) {
+  const id = ((digest || {}).core && digest.core.identity) || {};
   if (id.journalShort) return id.journalShort;
   if (!id.journalName) return "the journal";
   const short = id.name && id.journalName.startsWith(id.name + " ") ? id.journalName.slice(id.name.length + 1) : id.journalName;
   return "the " + short;
-})();
+}
+const JOURNAL_WORD = journalWordOf(propertyDigest);
 const LOOKUP_STRINGS = Object.freeze(Object.fromEntries(Object.entries(LOOKUP_STRINGS_TEMPLATE).map(([k, v]) => [k, v.replace(/\{journal\}/g, JOURNAL_WORD)])));
 const CORE_TOOLS = [
   { name: "get_plant", description: "One plant we tend, by name or id — the full record entry.", input_schema: { type: "object", properties: { name: { type: "string" } }, required: ["name"] } },
@@ -333,13 +336,22 @@ const CORE_SUBSTRATE_NOTE = `SUBSTRATE: CORE. The record below is the CORE — d
 // What is still typed below, deliberately and listed: the estate's display name
 // ("Fernwood" — identity, not a canon fact; C6 makes it per-grant) and Lake
 // Sequoyah's 2,800 ft (a neighbouring place, not this estate's record).
-const FACTS = (() => {
+// ⭐ A2 (2026-09-10) — PARAMETERISED, NOT YET REWIRED. Every derivation below took the ONE
+// statically-imported digest, so a deployment could serve exactly one household's facts. Each is now
+// a function OF a digest; the module-level const calls it with the bundled one, so this batch changes
+// NO behaviour and is a pure refactor. Threading the caller's canon through is the next batch.
+// ⛔⛔ AND IT MUST NOT SHIP HALF-DONE. The prompt TEXT still says "a field assistant for Fernwood…
+// within Tate Mountain Estates". Feeding another household's canon into that sentence would have
+// Bob's Guru answer from Bob's record while calling itself Fernwood — WORSE than today's honest
+// 503. So the per-request canon and the place literals are ONE change, and the guard keeps refusing
+// until the prompt can be made truthful.
+function factsFor(digest) {
   const need = (v, what) => {
     if (v === undefined || v === null || v === "") throw new Error("digest lacks " + what + " — prompts derive their facts, they do not type them");
     return v;
   };
   // The digest's `property` section mirrors property.json: property · location · hardiness · frostDates …
-  const D = propertyDigest.property || {};
+  const D = (digest || {}).property || {};
   const p = D.property || {}, loc = D.location || {}, el = loc.elevation || {};
   const fd = ((D.frostDates || {}).atPropertyElevation) || {}, hz = D.hardiness || {};
   const zoneBase = String(need(hz.elevationAdjustedZone, "hardiness.elevationAdjustedZone")).match(/^\d[ab]\b/);
@@ -357,7 +369,8 @@ const FACTS = (() => {
     zoneAdjusted: need(zoneBase && zoneBase[0], "a parseable hardiness.elevationAdjustedZone"),
     zoneOfficial: need(hz.officialZone, "hardiness.officialZone"),
   });
-})();
+}
+const FACTS = factsFor(propertyDigest);
 
 const OBS_KEY = "observations";
 
