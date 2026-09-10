@@ -126,6 +126,12 @@ destroyed.
 5. **`check-release-docs.py` never reads `CLAUDE.md`** — which is why `:587` is stale on **3 of 3**
    claims (`groom` has had a beat since 09-08; twelve beats not eleven; wrong section pointer). ⭐ **Add
    that one file and the class closes.**
+7. 🔴 **No reader names the `found` event** `[build lane, measured at 318416a, forwarded to TIER 1 · 19]`: the
+   address step fires `ev("found", ok|already|refused:<code>|unreachable)` on `/api/onboarding-metrics` and the
+   `onboard-address` feedback carries `founded:true/false`, but `watch-door.py` counts rows by an `event` field
+   while onboarding posts `{sid, events:[{name, screen, detail}]}` — **the event lands and no reader prints its
+   name.** By the ruled rule that is not instrumentation; **a reader is owed.** Same class as ①–⑤: a signal with
+   no consumer reads as absent.
 6. **`release-gate.py` coverage is 414×848 ONLY** — hardcoded, no flag. **A pass says nothing about
    laptop width.** Unpapered all day; keep it that way.
 
@@ -142,8 +148,10 @@ destroyed.
   backlog never got it.
 - ⚠️ **`BACKLOG.md` is written by at least four writers plus six shadow lap-scoped registers (1,539
   lines), and no cycle map names any of the six.** ⛔ **"Two loops" is a stale count.**
-- ⛔ **One door or it isn't a door** — a registrar is a third writer unless the other loops forward too.
-  **Paul's, unresolved.**
+- ✅ **One door — RULED** `[paul-ruled 2026-09-10 evening: "fold it in"]`: the registrar seat is absorbed into the
+  standing backlog-refinement window, ONE writer of `BACKLOG.md` with two voices (verbatim scribe for forwarded
+  rows · own voice for refinements with Paul). Registrar brief archived in place (`354424e`); the paragraph sits
+  beside `BACKLOG.md`'s source-of-truth sentence (`d0cec6f`). Memory: `project_fernwood_backlog_one_door_ruling`.
 - **The session-start block is 105 lines / 49 commands**, and its operating-model section is stale on
   3 of 3 claims.
 - **10 plans carry *"the orphan flag is expected"*** — six on 09-07, four on 09-10. **A phrasing
