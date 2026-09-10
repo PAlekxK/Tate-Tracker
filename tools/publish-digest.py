@@ -82,10 +82,23 @@ def household_property(w, env, estate):
     durable answer — an estate's place written once at founding, by `POST /api/estate` — grows B3's
     scope and is Paul's to rule.
     """
+    # ⛔⛔ ABSENT AND UNREADABLE MUST NOT RETURN THE SAME THING. This was `except Exception: return
+    # None`, so a wrangler failure — no network, bad credentials, a wrong namespace — read as "this
+    # estate has no place record" and `--check` printed "Correct, not a fault." Measured 2026-09-10
+    # by a session running offline: the six-red reading was corroborated by a grep, NOT by this tool,
+    # because the tool would print identically with the network down.
+    # ⛔ That is green-by-absence in a repo whose own rule is "exit 3 = UNCHECKABLE, never green by
+    # absence" — written by me an hour after I flagged the same shape in three other tools.
+    # ⚠️ `kv_get` raises for BOTH cases, so the discriminator is the message: wrangler reports a
+    # missing key as a 404. Anything else is a failure to LOOK, and a failure to look is not a fact
+    # about the world.
     try:
         row = w.kv_get(env, "%s:place" % estate)
-    except Exception:
-        return None
+    except Exception as e:
+        msg = str(e)
+        if "404" in msg or "not found" in msg.lower():
+            return None                    # the key genuinely is not there
+        raise                              # anything else: main() reports it as UNREADABLE
     if not isinstance(row, dict) or not (row.get("address") or (row.get("coordinates") or {}).get("latitude")):
         return None
     c = row.get("coordinates") or {}
