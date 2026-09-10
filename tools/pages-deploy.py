@@ -355,7 +355,18 @@ def main():
         n = sum(len(fs) for _, _, fs in os.walk(export))
         print("  export %s (%s) — %d files, stamped %s" % (sha[:7], subject[:48], n, BRANCH[a.env]))
 
-        r = run(["npx", "wrangler", "pages", "deploy", export,
+        # ⚠️ `--force` PINS THIS TO CLASSIC CLOUDFLARE PAGES, and it is not optional here (2026-09-10).
+        # wrangler now routes `pages deploy` onto the Pages-inside-Workers platform by default and
+        # nudges hard against opting out. This project cannot take that default yet, for a reason that
+        # is load-bearing rather than aesthetic: `onboarding/index.html` DERIVES its Worker endpoint
+        # from `location.hostname` when the host ends in `.pages.dev` —
+        #     label = hostname.split(".")[0]  →  https://<label>.paul-kirschenbauer.workers.dev
+        # — which is the estate-neutrality fix that keeps household NAMES out of the shipped bytes.
+        # Move a household off `myhome-<name>.pages.dev` and that derivation resolves to nothing, so
+        # the page falls back to Fernwood's Worker and a household would write into ANOTHER estate.
+        # Migrating the platform is a real decision with a blast radius; taking it by accident, inside
+        # a deploy flag default, is not. Revisit deliberately, all five households at once.
+        r = run(["npx", "wrangler", "pages", "deploy", export, "--force",
                  "--project-name=" + PROJECT[a.env], "--branch=" + BRANCH[a.env], "--commit-dirty=true"])
         if r.returncode:
             raise SystemExit("pages-deploy: wrangler failed\n" + (r.stderr or r.stdout)[-1500:])
