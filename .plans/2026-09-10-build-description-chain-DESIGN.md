@@ -225,3 +225,131 @@ last, because a clause over a discipline nobody has practised measures nothing).
 - **Which committed item is engine and which is instance** (§5·1) — a content call with a class
   register behind it.
 - **What any release note should SAY.** Authored words reaching a person. Never this seat's.
+
+---
+
+## 2 · WHERE EACH LINK IS CAPTURED, STORED, AND HANDED ON — per beat, for THIS lap
+
+> **AMENDED 2026-09-10 ~18:00 ET**, at Paul's ask, after he ruled the chain **into this build**:
+> *"I think it's a good thing to be sure we're testing everything the right way, and I like a good
+> release log."* §1 is unchanged. This section adds only *where in the lap each link is written, what
+> holds it, how it reaches the next consumer, and what would notice it went missing.*
+> ⚠️ **HEADING COLLISION, declared not fixed:** this file already has a `## 2 · THE FOUR LINKS, READ
+> AS A CHAIN` above. The commission specified this heading verbatim, so it stands — **cite these
+> subsections as `§2a…§2f`, never as "§2"**, and renumbering is Paul's call, not a session's.
+>
+> **Measured at HEAD `7e934b8`** — ⚠️ the commission named `8eadcb6`; the tree moved two commits
+> (`dd377ba`, `7e934b8`) while this was being written. Nothing in §1 depends on the difference.
+
+### 2a · The four links against the twelve beats
+
+| link | captured at BEAT | stored in (existing artifact) | transfers to the next consumer by | check that notices stale/skipped |
+|---|---|---|---|---|
+| **L1 · commitment** | **6 · COMMIT** — Paul picks, no instrument (`CYCLE-MAP.md:85`) | `cycle/release/CYCLE-LOG.md:1993-1997` — lap 5's `A · B · C` table with a *done means* cell each | ⛔ **HUMAN RELAY — the weak form.** A session reads the chronicle and retypes the scope into a brief. `grep -c committed tools/release-state.py` → **0**, so `cycle-state.json` publishes no scope key at HEAD | ⛔ **none.** `check-release-docs.py` checks beat count, named beats and `GATING_ENVS` (`:63-105`) — nothing about scope |
+| **L2 · build description** | **7 · BUILD** | ⛔ **none exists.** The four-field contract is ruled (`BACKLOG.md:431`, `CLAUDE.md` § EVERY ITEM SHIPS WITH AN ASK…) and has no field anywhere — §1 census: `ask` · `telemetry` · `check` · `note` = **0** across all `.plans/*.md` | ⛔ **HUMAN RELAY.** The commit message carries it or nothing does | 🟡 **partial, and joined to the wrong document:** `tools/qa-divergence.py:14` requires every SURFACE commit in `origin/main..origin/staging` to appear in some plan's `stage-note`. It is the repo's only working commit↔document join; it does not know the commitment exists |
+| **L3 · journeys + grading** | **8 · SYNTHETIC LOOP** | walk transcripts under `.private/synthetic-walks/` (`release-gate.py:34`) → judged into `cycle-state.json` `gate_1.seats.*` | ✅ **a file the next tool reads** — the only mechanical hop in the chain's front half: `release-state.derive()` (`:33-52`) writes `gate_1`, and `release-gate.py` prints it for beat 9 | ✅ `walk-integrity.py` (refuses an unread run) + `release-gate.py:205-218` (six clauses). ⛔ **All six are properties of the RUN. None reads L1** — `grep -ci "commit\|scope\|backlog" tools/walk-brief.py` → **0** |
+| **L4 · release notes** | **11 · CLEAR / 12 · DEPLOY & CLOSE** | `RELEASE_NOTES.md` — newest entry `## 2026-09-07` at `:17` | ✅ **derived, end to end:** `build-release-notes.py:23` parses the file → `RELEASE_NOTES_DATA` in `viewer.html` → the *Recent updates* card. **The only fully mechanical transfer in the chain** | ⛔ **none.** `grep -c RELEASE_NOTES tools/check-release-docs.py` → **0**; `CYCLE-MAP.md` never names a release note (§1) |
+
+⭐ **The pattern, and it is the whole finding:** the chain is mechanical at both **ends** and a
+**human relay in the middle**, exactly where the commitment has to survive. A relay is the weak form
+because it fails silently and looks identical to a hop that worked.
+
+### 2b · Three relays, named so they are not mistaken for transfers
+
+**L1 → the build brief** (nothing carries `A·B·C` out of the chronicle) · **L1 → the seat brief**
+(`walk-brief.py` renders screens, not claims) · **L1/L2 → the release note** (authored from memory).
+⚠️ Lap 5 shows the cost: `cycle-state.json` at `17:00:37-04:00` names candidate `a01e66f` while QA
+serves `8d17e4e` (`CYCLE-LOG.md:2203`) and HEAD is `7e934b8` — **three shas, no reconciler.**
+
+### 2c · ⛔ THIS LAP — the acts that close 5 and open 6, in order
+
+**Constraint from Paul's two rulings:** L1 must exist **before** the synthetic walk, and L4 must be
+derived **after** gate ① and his walk. Lap 5 cannot supply either — its L1 was written for `A·B·C`
+and its walk is a **caveated preliminary pass** (`CYCLE-LOG.md:2203`) with **0 of 4 synthetic seats**.
+⛔ **So lap 5 closes on what it did, and lap 6 is the first lap the chain runs in.** Backfilling an
+L1 onto lap 5 would be typing a commitment after the build — the exact inversion the 09-08 renumber
+fixed.
+
+| # | act | window | produces |
+|---|---|---|---|
+| **1** | append lap 5's CLOSE entry under the RESUMED section, with `<!-- outcome:closed -->` — recording the preliminary pass, the 0-of-4 synthetic clause and the ⬜ UX clause **as they are** | coordination | the chronicle heading `release-state.lap_heading_anomalies()` parses |
+| **2** | discharge lap 5's carried pre-registrations — `L4-P1`, `L4-P2`, `L4-P4` are `carried` in `cycle-state.json` today; each needs `answered`/`carried` **with evidence** | coordination | `pre_registered[]` disposed |
+| **3** | run `release-state.py` and confirm `last_lap.outcome` is no longer `open` | coordination | S4 satisfied |
+| **4** | open lap 6 with a dated heading + the three sweeps + the gate sweep, output recorded (UNREADABLE never zero) | coordination | beat 1 exit condition met |
+| **5** | ⭐ **Paul commits the scope — J0, founding only, no invites** — into a beat-6 table in the same shape as `:1993`, one row per item with a stable `id` | **Paul**, in the coordination window | **L1, written before any walk** |
+| **6** | the four ruled fields (P2) filled on each committed row, or `none — <reason>` | backlog-refinement | **L2**, on the row that already exists |
+| **7** | build and `pages-deploy.py --env qa`; record the deployed sha in the lap's own entry | build lane | the candidate |
+| **8** | seat briefs cite the beat-6 table **by hand this lap** (P3 edit 1 is not built) | build lane | L1 reaches the walk |
+| **9** | run the battery; `release-gate.py` at the deployed sha | build lane | **L3** |
+| **10** | Paul walks it; clears or reports a failure (→ beat 10, back to 8) | **Paul** | gate ① + the clear |
+| **11** | ⭐ **only now** — content-steward drafts `.content/2026-09-10-release-notes-from-commitment-PROPOSAL.md` **from the committed rows plus what the walks and Paul's clear actually showed**, never from the commit log | content-steward | **L4 draft** |
+| **12** | Paul confirms the wording (it reaches a person); `RELEASE_NOTES.md` entry → `build-release-notes.py` → deploy | coordination + build lane | L4 shipped |
+
+⛔ **Act 11 is the one with a real ordering hazard**, because a draft is cheap and drafting it early
+feels harmless. A note written before act 10 describes the build that was *intended*. ⭐ The
+falsifier is free: if the drafted note needs no edit after Paul's walk, either the walk found nothing
+or the note was not derived from it — and the second is invisible without asking.
+
+### 2d · Who does what, and the one boundary that must not blur
+
+| window | owns | ⛔ does not own |
+|---|---|---|
+| **coordination** | routes, the chronicle, the freeze (`BACKLOG.md:74` § FOCUS FREEZE), running `release-state.py` | picking the scope; authoring the note's words |
+| **backlog-refinement** | the register — placing rows, filling the four fields, the ruling register (`BACKLOG.md:39`) | ranking; committing |
+| **build lane** | code, deploy, the walk, gate ① | writing L1; writing L4 |
+| **content-steward** | the L4 draft, after act 10 | shipping it unconfirmed |
+| **Paul** | acts 5, 10, 12 | — |
+
+⚠️ **The relay at act 8 is this lap's known weak point and it is deliberate:** P3 edit 1 (the brief's
+header block) is not built, so a human carries L1 into the walk once. **If it is carried by hand for
+two laps running, build edit 1** — a relay that becomes routine has become the design.
+
+### 2e · ⭐ THREE STREAMS, NOT ONE — what WE pushed vs what the PERSON did `[paul-stated 2026-09-10]`
+
+> *"we can differentiate between features that we push, which are modular, and actions by users, like
+> Mom setting up her account. We want to keep track of user activity and differentiate it from our own
+> as we build tools; they provide specific input, and then that comes together for personalization."*
+
+⭐ **This splits L4.** §2a treated the release note as one link. It is two records with different
+grains, different authors and different capture moments — and a third thing that is neither.
+
+| stream | what it is | captured at | stored in | identical everywhere? |
+|---|---|---|---|---|
+| **① what WE pushed** | modular product change | **beat 11/12**, per lap | `RELEASE_NOTES.md:17` → `build-release-notes.py:23` → the card | ✅ **yes, by design** — one authored text, every household |
+| **② what the PERSON did** | founding, signup, answers, feedback, namings, service entries | ⛔ **at the ACT, not at a beat** — continuous, asynchronous, AI-free capture | 🟡 **partial** — `build-place-log.py` derives from `questions.json` · `zones.json` · `vehicles.json` (`:84-111`) | ⛔ **no — different at every household** |
+| **③ where they meet** | personalization | ⛔ **no beat owns it** | ⛔ **none exists** | — |
+
+**What the 09-07 ruling carries.** `cycle/LAP-2-WORK-QUEUE.md:98-145` `[paul-ruled]` split the logs
+**by surface**, and `build-place-log.py` is stream ② built: **derived, never authored**, ~89 entries at
+Fernwood and **0 at a fresh household**, which it declares is the correct output.
+
+⛔ **But it derives from CANON, so it sees only acts that deposited a dated record in a canon file.**
+A zone naming and a confirm answer land in `zones.json` / `questions.json` and appear. **A founding, a
+signup, a door arrival and a setup answer land in the KV store and appear nowhere in it** — they are
+**acts, not dated place records**, and no artifact holds them as a per-household activity record.
+Today they are reachable only through readers, one per channel: `watch-accounts.py` · `watch-door.py`
+· `watch-activity.py` · `read-onboarding.py` · `read-geocodes.py`. **Five readers, no record.**
+
+⭐ **THE ONE CRITICALITY STATEMENT THIS AMENDMENT ADDS, in lane.** Stream ② **cannot be joined to a
+person by any existing reader.** `CLAUDE.md`'s own measurement, borrowed not re-run: a metrics batch
+carries **no `personId`** (*"30 batches at `home`, personId present in zero"*), because `watch-door`'s
+ruled boundary is *it reports what happened at a door, never who was standing at it*. ⛔ **Structural,
+not a ranking** — it stays true with personalization's business value set to zero. It says only that
+**stream ③ has no substrate**, and the block is a ruled privacy boundary, not a missing field, so it is
+Paul's to move if it moves. ⛔ Not scoped here.
+
+**Where each stream enters the loop.** ① is a lap product (beat 11/12). ② arrives between laps and
+enters at **beat 1** (sweeps), **beat 2 · DISPOSE** and **beat 3 · READ**. ③ enters nowhere. ⚠️ **So
+§2a's chain is stream ① only** — act 11 drafts an ①-note; the household-facing note is derived.
+
+**Falsifier:** if a household's derived place log and the product note say the same things for two
+laps, the split is bookkeeping and one log is enough.
+
+### 2f · What would falsify this section
+
+| claim | what shows it wrong |
+|---|---|
+| lap 5 cannot carry the chain | Paul rules its `A·B·C` still describes what is being built now — then act 5 is an amendment, not a new commitment |
+| the middle of the chain is the relay | a lap runs where the seat briefs cite the beat-6 table with no human retyping it and nothing was built |
+| act 11 must follow act 10 | two laps where the pre-walk draft and the shipped note are identical **and** the walks found real defects |
+| this ordering is worth its cost | lap 6 closes with L1–L4 all present and Paul is no clearer about what shipped than he was at lap 5 |
