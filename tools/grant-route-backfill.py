@@ -105,13 +105,26 @@ def plan_for(w, env, meta):
         rkey = ROUTE_PREFIX + h
         if rkey in existing:
             cur = w.kv_get(env, rkey)
-            if isinstance(cur, dict) and cur.get("estateId") == estate:
+            # ⭐ `personId` is REQUIRED now, not optional. `route:` answers "whose credential is
+            # this" for the account path (`personFor`, worker.js) — a row carrying only an estateId
+            # cannot answer it, so a pre-personId row is WORK TO DO rather than already-routed.
+            cur_est = (cur or {}).get("estateId") if isinstance(cur, dict) else None
+            cur_person = (cur or {}).get("personId") if isinstance(cur, dict) else None
+            want_person = row.get("personId")
+            if cur_est and cur_est != estate:
+                # a route naming a DIFFERENT estate is a real conflict — never overwritten
+                conflict.append((h, "route exists and points at %r, not %s" % (cur_est, estate)))
+            elif cur_person == want_person:
                 already.append(h)
             else:
-                conflict.append((h, "route exists and points at %r, not %s"
-                                 % ((cur or {}).get("estateId"), estate)))
+                # ⛔ AN UN-UPGRADED ROW IS WORK, NOT A CONFLICT. Routes written before `personId` rode
+                # on them carry the right estate and no person. My first version filed those as
+                # conflicts and printed "points at 'est-X', not est-X" — the same string twice —
+                # because it compared the PAIR and reported only the half that matched. A control
+                # whose message contradicts its own verdict is worse than no message.
+                todo.append((h, estate, want_person))
             continue
-        todo.append((h, estate))
+        todo.append((h, estate, row.get("personId")))
     return {"estate": estate, "grants": len(grants), "todo": todo,
             "already": already, "conflict": conflict, "orphan": orphan}
 
@@ -120,10 +133,10 @@ def write_routes(w, env, todo):
     import tempfile, datetime
     stamp = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
     done = 0
-    for h, estate in todo:
+    for h, estate, person in todo:
         # ⛔ WRITTEN VIA --path, NEVER AS AN ARGV VALUE. The value is small, but a shell-visible
         # write beside credentials is a habit worth not having.
-        body = json.dumps({"estateId": estate, "backfilledAt": stamp})
+        body = json.dumps({"estateId": estate, "personId": person, "backfilledAt": stamp})
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
             fh.write(body); path = fh.name
         try:
@@ -176,7 +189,7 @@ def main():
             wrote += n
             print("        ✅ wrote %d route(s)" % n)
         elif p["todo"]:
-            for h, _ in p["todo"]:
+            for h, _e, _p in p["todo"]:
                 print("        ▫ would route %s… → %s" % (h[:8], p["estate"]))
 
     print()

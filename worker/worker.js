@@ -1193,6 +1193,36 @@ const ROUTE_PREFIX = "route:";
 //   1. A router row with NO GRANT BEHIND IT falling back to the deployment's estate. That hands a
 //      stranger this household. It is a 404, always. (`falsifier-tenancy.py` clause C1 pins it.)
 //   2. Returning a row whose own `estateId` disagrees with the router that found it.
+// ⭐⭐ IDENTITY AND AUTHORITY ARE TWO LOOKUPS, NOT ONE `[account-estate-model SCOPE, R21]`.
+// `route:<sha256(token)>` names a PERSON. Grants are then looked up FROM that personId and answer a
+// different question — what may you do, and where.
+//
+// ⛔ THE GAP THIS CLOSES, and it was measured before it was written: with `grantFor()` as the only
+// resolver, a person who holds an account and NO household resolves to null, is unauthenticated on
+// every gated route, and her words land unattributed. That is Mom's exact state today — and it made
+// `attributeToPerson()` and the account-scoped feedback rule DORMANT, since neither can fire without
+// a caller who has a personId and no estate.
+//
+// ⛔⛔ IT IS DELIBERATELY NOT A MODE OF `grantFor`. Teaching that function to sometimes return a
+// person would destroy the property its guard exists for: a grant's personId and estateId come from
+// the SAME resolved row, so they cannot disagree. Two questions, two functions.
+// ⚠️ A person is NOT an authorisation. This says who is calling; it says nothing about what they may
+// reach. Every estate-scoped route still resolves a grant.
+async function personFor(request, env) {
+  const presented = request.headers.get(GRANT_HEADER);
+  if (!presented || presented.length > 256) return null;
+  try {
+    const raw = await env.OBSERVATIONS.get(ROUTE_PREFIX + await sha256Hex(presented));
+    if (!raw) return null;
+    const r = JSON.parse(raw);
+    // ⚠️ A route row written before personId rode on it answers NOTHING here — and that is correct.
+    // It is not an error and not a fallback: an unbackfilled row simply cannot name its person, and
+    // guessing one from the estate would be attribution from something other than the credential.
+    return (r && typeof r.personId === "string" && r.personId) ? { personId: r.personId } : null;
+  } catch (e) {
+    return null;                       // a malformed router row is a miss, never an outage
+  }
+}
 async function grantFor(request, env) {
   const presented = request.headers.get(GRANT_HEADER);
   if (!presented || presented.length > 256) return null;

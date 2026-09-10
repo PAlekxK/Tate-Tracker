@@ -292,7 +292,7 @@ def hydrate(reg_path, person, estate, env, dry):
         return 0
     if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(new, separators=(",", ":")), dry=dry):
         raise Refuse("KV put failed — the grant is unchanged")
-    write_route(env, estate, h, dry=dry)
+    write_route(env, estate, h, person=person, dry=dry)
     # ⛔ FIELD NAMES ONLY, NEVER VALUES. An address is the household's, not this log's.
     print("  hydrated (%s, %s) from %s · carried: %s · absent on the account: %s"
           % (person, estate, akey, ", ".join(carried) or "nothing", ", ".join(absent) or "none"))
@@ -314,8 +314,10 @@ def hydrate(reg_path, person, estate, env, dry):
 # answer `grantFor()` must never give — the plan calls it out by name ("a 404, never a fall-back to
 # the deployment's estate"). Grant-then-route can only ever leave an unrouted grant, which still
 # resolves through the legacy path; route-then-grant leaves a dangling router row.
-def write_route(env, estate, h, dry=False):
-    if not run_kv(env, "put", "route:%s" % h, json.dumps({"estateId": estate}, separators=(",", ":")), dry=dry):
+def write_route(env, estate, h, person=None, dry=False):
+    # ⭐ personId rides on the route row: it is what `personFor()` reads to authenticate a caller who
+    # holds an account and no household yet. An estateId alone cannot answer "who is this".
+    if not run_kv(env, "put", "route:%s" % h, json.dumps({"estateId": estate, "personId": person}, separators=(",", ":")), dry=dry):
         raise Refuse("the grant was written but its ROUTER ROW was not — that credential will not "
                      "resolve once routing ships. Re-run `tools/grant-route-backfill.py --env %s --apply`" % env)
 
@@ -444,7 +446,7 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
         return h
     if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(kv_row, separators=(",", ":")), dry=dry):
         raise Refuse("KV put failed — register NOT written (a row with no store entry would be a credential nobody can present)")
-    write_route(env, estate, h, dry=dry)
+    write_route(env, estate, h, person=person, dry=dry)
     save_register(reg_path, reg)
     # the token leaves exactly once, into a mode-600 file
     if fixture_out:
