@@ -468,6 +468,176 @@ Full contract + the assembled ask template: `.plans/2026-09-07-backlog-grooming-
 
 # 🗂 THEMES — groupings over existing rows, not new scope
 
+## 🔌 BUILD vs INTEGRATE — three calls, and the seat we don't have `[paul-stated 2026-09-10]` ⚙️ engine
+
+⛔ **CAPTURED, NOT SCHEDULED.** Filed with the other post-G1 threads. Nothing here competes with the
+**READY TO INVITE** milestone.
+
+### ① iNaturalist — are we redundant, and should we integrate?
+
+Paul: *"For our animals and wildlife module, when we get to building that out for production — a
+pretty deep analysis of iNaturalist and whether we're just redundant with that. It would take forever
+to catch up with that. Can we offer any additional value-add? Can we integrate it?"*
+
+⚠️ **This is not a greenfield question — six wildlife domains already exist** (`birds`, `amphibians`,
+`mammals`, `snakes`, `lizards`, `insects`) with 64 records, and `check-domains.py` already reports
+that all six have **no marker path at all**, so none can produce a Mama's-Perspective card. So the
+build-vs-integrate call arrives *while* the module is half-built and its honesty layer is missing.
+⭐ **The value-add hypothesis to test first:** iNaturalist knows species; it does not know *this
+place's* accumulated ground truth. Fernwood's moat is the record only a resident can produce (the
+governing design principle, "the glance and the repository"). Integration that imports identification
+while keeping local observation as canon is a different proposition from competing on taxonomy.
+
+### ② THE VAULT — and Paul does not want to build one
+
+Paul: *"For this idea of a vault of password protection in an estate — Anthropic and 1Password have
+announced some kind of partnership, so that's something we'll want to dig into. Something we can offer,
+or we can also use. What else do we tie into, what actually makes sense to build ourselves, and what
+doesn't? **I don't really wanna build a vault functionality that we end up chasing our tails for years
+security-wise.**"*
+
+⚠️ **The vault is already scoped as part of C6** (`.plans/2026-09-03-c6-door-for-paul-PLAN.md` — username
++ password, grant-mint, the vault). ⛔ **This ruling narrows that scope**: the presumption is now
+*integrate*, and building custody of anyone's credentials needs an affirmative case, not a default.
+⚠️ **Verify the partnership before designing on it** — it is a model-read claim from a voice note, not
+a checked fact. `[unverified 2026-09-10]`
+
+### ③ ⭐ A SECURITY SEAT — the team doesn't have one
+
+Paul: *"Maybe what we need as well is a cybersecurity or security agent — one of our experts in team
+audits, especially as we scale to an estate manager, and we talk about people trusting us with their
+data. How do we do that? Are there official certifications we can get, or tests we can pass, to get
+little icons that prove we're secure? I don't even know what's all there — hence even more of a need
+for a security expert."*
+
+⭐ **Today's evidence that the gap is real, not anticipated.** Every security-shaped finding on
+2026-09-10 was caught by an *engineering* or *testing* seat as a side effect of other work:
+- the cross-estate **privilege escalation** that routing armed (`d661815`) — found by an engineering review
+- **33,860 bytes** of one household's data inside every other household's public build (`a1f2b12`)
+- open signup writing into the deployment's estate
+- a household's setup landing on a **credential that rotates and dies on revoke**, found by a *journey* walk
+- two administrator credentials on Mom's estate with **no consent record**
+
+**Five findings, no security seat, all incidental.** That is the argument.
+
+**Scope when it is stood up** — the roster question goes through `/team-audit roster`:
+threat-modelling the estate/grant/consent model · reviewing the credential lifecycle (mint · rotate ·
+revoke · expire) · ruling build-vs-integrate on anything custodial · and the certification question
+Paul raises, which is **trust signalling**, not only compliance — his own ruling is that *security is a
+selling point* (`feedback_embed_is_a_silent_disclosure_link_is_a_disclosed_one`).
+⛔ **Monetization is DEFERRED** — "what we can offer" here is capability thinking, never an offering.
+
+---
+
+## 🧩 MODULE ONBOARDING — the doors in, and how a record grows `[paul-stated 2026-09-10]` ⚙️ engine
+
+⛔ **CAPTURED, NOT SCHEDULED — Paul: *"at some point, maybe after we get to our G1 milestone."*** It
+is the shape of feature work, which G1 gates. Do not start it; do not let it compete.
+
+**The question.** *"What are all the modules?"* — and beneath it, *"discover a natural path of
+accumulating data and unlocking functions and validating."* So: not a module list, a **progression**.
+
+### The four parts
+
+**① ORDER-INDEPENDENCE.** *"Can we make it flexible where people add plants and then assign them to a
+zone, versus defining zones and then adding plants? We need to make that all flexible and editable
+retroactively as well — kinda like everything else."* ⭐ **"Kinda like everything else" is a citation,
+not an aside** — `[paul-stated 2026-08-04]` **EVERYTHING IS CHANGEABLE** already rules this, with its
+caveat that changeable is the message to the user and not a licence for churn. This row inherits both.
+
+**② MANY DOORS IN, one per module.** *"Record yourself talking through zones · take pictures of plants ·
+supply the VIN for a vehicle · take a picture of a tool."* Several ways to start an entry, chosen by
+what is easiest to hand. ⭐ Zone audio and photo-promotion already exist — this generalises them rather
+than inventing them.
+
+**③ ENRICHMENT PROMPTS.** *"You've entered the VIN for this truck — what other information do you have?"*
+→ then service-record photos. *"How we kick off data collection for each module and how we prompt them
+to enrich it, which is also part of feature discovery."*
+
+**④ THE SURFACE.** *"One general acknowledgment and prompt/question script at the top that we think is
+most relevant. But then within each expanded card, a running list of open questions."* And the open
+organisational question: vehicles hold sub-modules (spare parts), so *"do we have at the top under each
+vehicle the open project items to source?"* Paul: *"that's a pretty complex task to think through."*
+
+### ⭐ WHAT THIS ALREADY CONNECTS TO — read before re-deriving any of it
+
+| this thread's part | the rule it is already governed by |
+|---|---|
+| document ingestion → *"this is what we pulled from it, let us know of any major corrections"* | ⭐⭐ **This IS the elicitation lens's CONFIRM & SHOW clause** (`PLAN-OF-RECORD` ①c) arriving from the other direction. Same rule, two origins — strong corroboration |
+| any value read from a photographed document | ⛔ **A model-read value is a HYPOTHESIS until a deterministic source or a human clears it.** The playback loop is not a courtesy — it **is** the verification gate that rule requires. `/verify-claim`; the Hillyer eyeball verifier is the built precedent |
+| AI reading a document on the way in | ⛔ **Capture stays deterministic and AI-free.** Resolution, already used by `promote-species`: the model **proposes on the ask path**, the human confirms, and the **confirmed** value is what is captured. The ingestion never writes canon |
+| retroactive editing | `[paul-stated 2026-08-04]` everything is changeable, + its journey-aware caveat |
+| a running list of open questions per card | **Mama's Perspective generalised per module.** `MAX_VISIBLE`, the information-value ordering and the bench/approval gate are all already ruled — inherit them rather than minting a second queue |
+| *"several different ways to access data"* | the elicitation lens's metric: **derived-facts-per-asked-field.** A VIN is the vehicle equivalent of an address — one field, many facts |
+
+⚠️ **Paul's own document ingestion and analysis tool exists** *("we've built this big document ingestion
+and analysis tool on my end")* — inventory it before scoping anything that reads a document.
+
+⛔ **And the hard one, stated so it is not discovered late:** ② and ③ are **more asking**, and the
+standing lens says the metric is fewer, richer questions. These reconcile only if each door is chosen
+because it is *easiest for the person*, not because it collects more — a VIN photo replaces a form, it
+does not add one. Any design here that increases total asking has failed the lens.
+
+---
+
+## 🧭 SEGMENT HYPOTHESES — who else, and what their model breaks `[paul-stated 2026-09-10]` ⚙️ engine
+
+⛔ **CAPTURED, NOT SCHEDULED.** Paul's own framing: *"this is not all necessarily stuff to work through
+now — we can just put this in the backlog. That's part of why I'm telling you, so we don't interrupt
+the build windows."* Nothing here competes with **READY TO INVITE**.
+
+**The ask.** The user-researcher produces segment **hypotheses**; the business-analyst thread on
+demographics for a solution like this is background. Trigger: *"once we've got confidence working with
+[the five] and they've built their own estates, there's a question of who else can we reach out to to
+test different capabilities."* So the gate is the beta being real, not a date.
+
+⭐ **THE PRIOR WORK EXISTS — do not redo it.** `~/Developer/fernwood-private`, all 2026-09-05:
+`.user-research/2026-09-05-us-segment-slices.md` · `.user-research/2026-09-05-asset-load-segment.md` ·
+`.business/2026-09-05-segment-commercial-read.md` · `.business/2026-09-05-segment-brainstorm-BRIEF.md` ·
+`.business/2026-09-05-segment-JOINT-BRIEF.md`. Commits `afa0d54` (four seats on application shapes),
+`c0bc194` (identity/UX/segment/commercial returns), `1bcc250` (brief amended with the 09-04 memo its
+seats were never shown). **Read these first; the answer to "has this been asked" is usually yes.**
+
+### The two segments Paul named
+
+**① THE SHARED VACATION HOME — and it has NO CLEAR OWNER.** His example: *"a cabin in North Georgia
+built by a father, and then he's passed and passed it on to his children. How do you help people
+coordinate between themselves and ultimately manage, with a sense of shared responsibility and
+ownership and pride, that shared house and its grounds and its maintenance… That's a pretty tricky
+question where you don't necessarily have a clear owner."* Rights, responsibilities, integrations.
+
+**② THE GROUNDSKEEPER — a larger-scale Fernwood with three roles.** *"Taking care of a large
+installation, plot of land with things on it — like a larger scale of Fernwood, and more with that
+model of having a **field user**, **committee members**, and an **administrator**. A different
+interaction and ownership model, and those different roles probably need different access points and
+permissions and **reports**."* ⚠️ **Tate Commons is a real, separate project** (`~/Developer/tate-commons`)
+— see memory `project_tate_commons_initiative`, and ⛔ **never collapse Bob Rolader's two tracks**
+(TMC Facilities vs. his own two houses).
+
+### ⭐ WHY THIS IS NOT ONLY FUTURE MARKET WORK — both segments stress-test the model being built TODAY
+
+Neither is a market-sizing exercise. Each breaks a specific thing in the access model that landed
+2026-09-10, which makes them **falsifiers for design decisions already made**:
+
+| segment | what it stresses | today's state |
+|---|---|---|
+| shared vacation home | **co-owners of equal standing.** `relationship: ["owner"]` + one `capability` assumes a principal | untested; every estate has one owner |
+| shared vacation home | **changing someone's access** — heirs join, leave, fall out | ⛔ **no path exists at all** `[paul-backlogged 2026-09-10]` — the first thing this segment hits |
+| groundskeeper | **three roles, three access points, three REPORTS** | `reader` ruled 09-10; *reports per role* is unscoped |
+| groundskeeper | **a field user who is not an owner** | the administrator-reads consent gate was written for a family arrangement |
+| both | **consent when the administrator is not a member** | `.plans/2026-09-02-data-model-design.md` §7 requires explicit up-front agreement — never exercised |
+
+⛔ **Monetization is DEFERRED to ~end-2026** (`project_monetization_deferred`). This is segment
+*thinking*, never a launch plan, pricing artifact, or anything advertising an offering.
+
+**What good output looks like:** hypotheses tagged `assumption | inferred | validated`, each with a
+**falsifier**, per `user-researcher`'s own contract — not personas presented as fact. Precedent to
+copy: `.user-research/persona-mom.md` carries `evidence_level: contested` plus a retraction banner.
+
+---
+
+
+
 *Filed here from the start: a new THEME belongs in this region, never the pointer head.*
 
 ---

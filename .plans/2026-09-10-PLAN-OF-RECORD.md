@@ -68,6 +68,37 @@ created through `POST /api/estate` or the milestone has not been met.
 
 ---
 
+## ①c THE STANDING LENS — elicitation & derivation `[paul-stated 2026-09-10]`
+
+> *"At each step, are we requesting all the information that makes sense to give us enough data to
+> populate and triangulate what we need for that estate? And every time we ask for information,
+> ideally we're confirming that information and making it clear what's linked to it and what's being
+> added… Are we asking the right questions to really drive personalization for each account and
+> estate at each step? That's something we want built into the review cycle and the testing cycle
+> overall — especially as we get a growing user base with more and more divergent profiles."*
+
+**A permanent reading posture on every walk, not a one-off review.** Three questions per stop:
+**ASK** (does this step request what it should?) · **CONFIRM & SHOW** (is the value confirmed, and is
+it visible what was *derived* from it and what was *added*?) · **PERSONALIZE** (are these the right
+questions for this estate?).
+
+⭐ **It is NOT "ask more questions."** `feedback_check_standards_before_building` ruled that fewer
+fields is the standard. The reconciliation is Paul's own address example — **one field, many derived
+facts**: coordinates, elevation, USDA zone, frost dates, watershed, area history. **The metric is
+derived-facts-per-asked-field**, and a step asking for something it could derive is a finding.
+
+⭐ **It is the exact inverse of the neutrality probe.** Neutrality asks *"are we showing them anything
+that isn't theirs?"* This asks *"are we capturing enough of what IS theirs?"* A household can pass one
+and fail the other: a young estate can be perfectly neutral and completely hollow.
+
+**Composes with, does not replace:** `[paul-ruled]` every ASK states USE · NOT-use · WHO SEES IT ·
+reversibility. And capture stays deterministic — deriving elevation and zone is deterministic;
+anything generative (*"the history of the area"*) lands on the ask path, marked `inferred`, never
+written to canon as fact.
+
+⛔ **It applies hardest to J0**, the founding journey — where an estate is populated from nothing, and
+which is currently declared-but-unbuilt pending `POST /api/estate`.
+
 ## ② THE READINESS BAR, AND THE HOLDS `[paul-stated 2026-09-10]`
 
 > *"Let's set as our long-term goal that Guru is working for all households that launch. Right now we
@@ -171,6 +202,41 @@ which no walk in this project's history has ever entered.
 receiving window checking rather than accepting. **A relayed claim is a hypothesis.**
 
 ---
+
+## ⑥b COORDINATION STATE — what a successor session needs `[live, keep current]`
+
+⭐ **Read this before touching any window.** The coordinating session holds no authority the windows
+don't; it holds the *boundary*, and the boundary is the only thing here that lives nowhere else.
+
+**AUTHORITY — a window may do these without asking:** build · commit on its own branch · deploy to
+**lab** and **qa** · read-only probes of lab/qa/`paul` · plan and register writes in its own lane.
+
+⛔ **THESE WAIT FOR PAUL, no exceptions:**
+| gate | why |
+|---|---|
+| `git push origin main` | Mom's frozen production, 681/22 divergent. Never, for any reason |
+| **sending any invite** | outbound, and it IS the milestone |
+| deploy to **`home`** | Mom's estate, her record. `paul` is authorized; `home` is not |
+| **`POST /api/estate` (B3)** | bound to the grant-key ruling; opens on his word, not because a queue advanced |
+| any new irreversible act or live-data migration | the condo placement fix was authorized; a *new* one is not |
+
+**ONE WRITER PER FILE.** `tate-tracker-ec` → `worker/worker.js` **sole writer**, credential/account
+path, `publish-digest.py`, `falsifier-tenancy.py`. `testing-arch-e2` → the walk harness
+(`journey-*.py`, `release-gate.py`, `synthetic-identity.py`, `walk-*.py`, `.decisions/fernwood-15..22`).
+`onboarding-ask-b3` → `onboarding/index.html`. `backlog-rat-3a` → its proposal only, applies nothing.
+**Cross-lane requests route through the coordinator; no window reaches into another's files.**
+
+⚠️ **THE STANDING HAZARD, measured today: SIX relayed claims failed verification, three of them the
+coordinator's.** Every one was caught by the *receiving* window measuring rather than accepting. The
+worst — *"no walk has ever entered J3"* — was relayed three times and verified zero. ⭐ **A relayed
+claim is a hypothesis. Label it or measure it; never pass it on as fact.**
+
+⚠️ **And two instruments the coordinator built were themselves wrong** — a watchdog that watched two
+branches of four (so the one quiet window was invisible), and a milestone clause grepping a flag name
+that survives in the comments explaining its deletion. **Matching the string rather than the thing.**
+
+**WHAT A STALL LOOKS LIKE, and the first question to ask:** a closed window and a window blocked on a
+permission prompt are indistinguishable from outside. Ask Paul *"did you close it?"* first, not last.
 
 ## ⑦ OPEN — Paul's, not scheduled
 

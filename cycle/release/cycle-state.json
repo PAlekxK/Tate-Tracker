@@ -1,6 +1,6 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-10T14:56:45-04:00",
+ "generated_at": "2026-09-10T15:38:07-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "196e146",
  "beat": {
@@ -20,19 +20,47 @@
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "handover": {
-    "run": null
+    "run": "2026-09-10T150521",
+    "at-sha": true,
+    "watched": false,
+    "countable": false,
+    "no-failed-actions": true,
+    "not-rate-limited": true,
+    "walked-in-qa": true,
+    "instrumented": true
    },
    "mom": {
     "run": null
    },
    "owner": {
-    "run": null
+    "run": "2026-09-10T152452",
+    "at-sha": true,
+    "watched": false,
+    "countable": false,
+    "no-failed-actions": true,
+    "not-rate-limited": true,
+    "walked-in-qa": true,
+    "instrumented": true
    },
    "strict": {
-    "run": null
+    "run": "2026-09-10T151636",
+    "at-sha": true,
+    "watched": false,
+    "countable": false,
+    "no-failed-actions": true,
+    "not-rate-limited": true,
+    "walked-in-qa": true,
+    "instrumented": true
    },
    "wide-eyed": {
-    "run": null
+    "run": "2026-09-10T145547",
+    "at-sha": true,
+    "watched": false,
+    "countable": false,
+    "no-failed-actions": true,
+    "not-rate-limited": true,
+    "walked-in-qa": true,
+    "instrumented": true
    }
   }
  },
