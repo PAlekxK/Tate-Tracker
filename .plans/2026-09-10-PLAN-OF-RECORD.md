@@ -557,3 +557,61 @@ ruling lines, T3 sees 2 of 10 plans. **Those are floors reported as counts.**
 0 uncommitted** — that lane's whole output lives only in its session context. And
 `.plans/2026-09-10-interests-reframe-VERIFY-82.md` is still uncommitted and orphaned in the
 `onboarding-ask` worktree, belonging to a window that has closed.
+
+## ⑥i 🔴🔴 SIGNUP ALREADY FOUNDS AN ESTATE — SO `found` CAN NEVER FIRE `[2026-09-10 ~6:00 PM]`
+
+**⛔ THIS IS NOW THE TOP RULING BLOCKING G1, and it is Paul's alone.**
+
+Found by `tate-tracker-ec` while building `found`; **verified independently at HEAD by the coordinator**
+(`worker.js:643` `handleAccountCreate`, grant row at ~`:737`): every new account is written a grant with
+`personId, estateId: scope.id`. **So a person is born holding an estate — the deployment's — and `found`
+correctly refuses them `409 already-has-an-estate`. Founding can never fire, because nobody is ever
+estate-less.**
+
+⭐⭐ **AND IT IS NOT A BUG — IT IS A SUPERSEDED DESIGN, WHICH IS WHY NOBODY SAW IT.** The code says so in
+its own comment: *"⭐ **G1 IN THE WORKER'S OWN SHAPE**: a founding owner grant needs the prospective
+owner's OWN request as its warrant. **Signing yourself up IS that request**, recorded as consentSource
+'self'."* **Signup WAS founding, deliberately, back when `POST /api/estate` did not exist.** There are now
+**two founding mechanisms** and they collide. A grep for a defect would never have found this; only
+building the second mechanism did.
+
+⭐ **It is also the pre-seeding Paul ruled against, RELOCATED.** His words: *"we shouldn't be pre-seeding
+estates earlier in the process."* We stopped doing it in `wrangler.toml` — and it kept happening **at
+signup, one layer down and invisible.** ⚠️ **Mom's `est-e6696a` is exactly this: she holds an estate she
+never created, because signing up gave her one.**
+
+**⛔ THE RULING PAUL OWES:** does **signup stop granting an estate** — an account is an account, and the
+estate comes from `found`? It is a behavioural change to **the path every existing household came
+through**, and it changes what a signup *means*.
+
+**⚠️ AND THE TWO VERBS ARE NOT INDEPENDENT — the signup ruling decides which one is the MAIN PATH:**
+| if signup… | then |
+|---|---|
+| **stops granting** | the five pre-existing estates are *exactly* the population `adopt` exists for. Mom keeps her grant at `est-e6696a` while that estate gains a place |
+| **keeps granting** | **`found` is unreachable** and `adopt` is the only verb that ever runs |
+
+✅ **WHAT IS BUILT AND WORKING ON LAB** — the refusals, which are the half most worth getting right, and
+they are **named rather than incidental**: no credential → **404, byte-identical to an unknown route** ·
+unknown verb → **501** `verb-not-available · available:["found"] · "adopt waits on the X-Estate ruling"` ·
+second estate → **409** `already-has-an-estate · "needs a way for a request to name which one"`.
+
+**⚠️ TWO DEFECTS THAT LANE FOUND AND FIXED IN ITS OWN WORK, both reported unprompted:**
+1. **`personFor` returned null for every account created through the product** — so founding 404'd for
+   exactly the people it exists for. `measured`: lab held **37 grants and 29 routes**. `grant-mint.py` was
+   taught to write router rows and **the Worker never was — two writers of one fact, third instance
+   today, in its own work.** Both Worker grant paths now write the route after the grant.
+2. **A patch whose replacement string contained the string it was replacing**, so the second substitution
+   matched inside the first — leaving a duplicate write referencing `acct.personId` out of scope, a
+   runtime `ReferenceError`. ⭐ **Caught by reading the file rather than trusting that the patch reported
+   success** — the same failure this seat made at `43860f1` and the same cure.
+
+## ⑥j ⚠️ THE REGISTRAR IS NOT ADDRESSABLE BY LANES — the one-door design has a hole
+
+`paulkirschenbauer-b8` tried to forward its four register edits directly, as designed, and **could not
+find the registrar in `ListAgents`.** ⛔ **It is a SUBAGENT of the coordinating session, not a peer
+session** — lanes cannot message it, so every forward must route through the coordinator after all.
+
+⭐ **That defeats the point of the door.** Paul's own description was *"a standing expert… that they can
+all forward their updates to"* — **forward-to** requires the registrar be a **peer session (a Terminal
+window)**, not a subagent. **Recommend Paul open it as a window**; until he does, the coordinator is a
+relay in the middle of a design whose entire value is not having one.
