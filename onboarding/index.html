@@ -582,7 +582,26 @@
          ~200px below the fold and behind the keyboard. That is the one line Paul most wants read
          (`paul-stated 2026-09-05`), rendering where she would almost certainly never meet it.
          A disclosure that arrives after the commit is not a disclosure. -->
-    <p class="quiet" style="margin-top:4px">We work out your weather and what grows there from this address. Paul — who built this — is the only other person who sees it. You can fix it before saving.</p>
+    <!-- ⛔ THE ONE GENUINE GAP HERE WAS **NOT-USE**, and only that. The elicitation lens reported
+         (2026-09-10) that this screen "says nothing about what the address is used for, what it is
+         NOT used for, or that it can be changed" — verified against the rendered screen, two of those
+         three were already answered in the sentence below: the USE ("we work out your weather and what
+         grows there") and WHO SEES IT ("Paul … is the only other person"). Reported as measured rather
+         than accepted, per the lens's own rule that 13 of its first 16 findings were noise.
+         ⛔⛔ AND THE "IT CAN BE CHANGED" HALF IS A TRAP THIS SCREEN HAS ALREADY SPRUNG ONCE. It used to
+         say "you can change it any time"; the gate-1 walker was promised exactly that and "could find
+         no route back afterwards" (s4 confirm block). "before saving" is the hard-won correction, NOT
+         an oversight — do not re-add the stronger promise until a self-serve edit exists. What IS true
+         after saving is the s4 check, so the sentence now points at it by name instead of going quiet.
+         ⭐ AMENDED IN PLACE, NOT EXTENDED. The line's position above the button was MEASURED (2026-09-05:
+         at 414 × A+ it had been rendering ~200px below the fold and behind the keyboard), so words were
+         traded rather than added — the not-use clause is paid for by folding "who sees it" into the
+         same breath. ⭐ MEASURED, not asserted (414 x 848, A+, s2 alone on screen): 32 words -> 38, and
+         the paragraph's rendered box is UNCHANGED at y=561-653 with the button at 671. The added words
+         wrap into lines that already existed, so the disclosure costs no vertical space and stays
+         entirely above the commit control. An earlier draft of this comment guessed "30 words before,
+         31 after" from reading rather than measuring, and was wrong on both numbers. -->
+    <p class="quiet" style="margin-top:4px">We work out your weather and what grows there from this address — nothing else, and it goes no further than Paul, who built this. You can fix it before saving, and check it on the next screen.</p>
     <!-- ⭐ ABOVE THE BUTTON, not below it (2026-09-05). It rendered under the commit control, so a
          reader who tapped and saw nothing move had to scroll PAST the button to find out why. Both
          walkers who met it thought the button was broken; one would have abandoned. The answer to
@@ -732,10 +751,47 @@
            ⛔ ALSO SPLIT, NOT CUT. content-steward flagged this lede as carrying four jobs in ~40 words
            on the screen that should carry the least weight, and tonight's un-rank hint had been added
            INTO it, making the overload worse while fixing something real. Three short paragraphs: the
-           question, how to answer it, and what it is for. -->
-      <p class="soft" style="margin-bottom:2px">What matters most at your place?</p>
+           question, how to answer it, and what it is for.
+           ⭐ NOW ASKED AS WHAT YOU DO, NOT WHAT YOU RANK `[paul-stated 2026-09-10]`: "we bring it one
+           step closer to the customer by just asking what they'd like to do — what are some of the
+           things you'd like to do on this property? Gardening, working in the garage or shop."
+           "What matters most at your place?" asked about SUBJECTS and got a verdict on a taxonomy;
+           this asks about an afternoon. The machinery underneath is untouched — same ids, same order,
+           same `builds`, same position instrumentation — so it is a reframe of the ASK, never a
+           replacement of the answer.
+           ⚠️ THE HAZARD IS BIGGER HERE THAN FOR A DOMAIN LIST, and the 09-06 ruling applies with MORE
+           force, not less: an activity presumes a place HARDER than a subject does. "Working in the
+           shop" assumes a shop the way "Gardening" assumed a yard. The rule that keeps it honest is
+           that the presumption lives in the NOUN, never the VERB — so every label below names a verb
+           and the reader's own belongings, and NOT ONE names a building, an acreage or a facility.
+           ⛔ AND THE FOUR-FIELD CONTRACT IS NOW ON THE SCREEN `[paul-ruled]`: every ask states USE ·
+           NOT-use · WHO SEES IT · reversibility. This screen stated only USE. The not-use line answers
+           the fear a ranking actually creates — "will the things I left out be taken away from me?" —
+           and it is TRUE TODAY BY MEASUREMENT: nothing reads the ranking to switch a module. If that
+           ever changes, this sentence changes with it or it becomes a lie. -->
+      <!-- ⚠️ "…on here?" was the first draft and it re-opened the exact ambiguity the ⭐ rule above
+           closes — ABOUT HER PLACE, NOT ABOUT THE SCREEN. "here" can be read as this page; "at your
+           place" cannot, and that is the phrase already carrying the job. -->
+      <p class="soft" style="margin-bottom:2px">What would you like to spend time on at your place?</p>
       <p class="quiet" style="margin-top:0">Tap them in the order they matter — tap again to remove.</p>
-      <p class="quiet" style="margin-top:7px">Your order decides what I build next.</p>
+      <p class="quiet" style="margin-top:7px">Your order tells me what to build next — nothing is switched off or hidden because you left it out.</p>
+      <!-- ⛔⛔ REVERSIBILITY IS STATED ONLY AS FAR AS IT IS TRUE, and the first draft of this very
+           line got it wrong. It said "you can change it any time" — which is the EXACT sentence the
+           address screen was already burned by: the gate-1 walker "was promised 'you can change it
+           any time' on the screen where she typed, and could find no route back afterwards" (see the
+           s4 confirm block). Measured here before shipping it a second time: a returning reader whose
+           record holds a name and an address is redirected to `/estate/` at `:2168` and CANNOT reach
+           this screen again. So "any time" would have been false for everyone except the person still
+           standing on it.
+           ⭐ WHAT IS TRUE is the thing the button below already does: `go5` deliberately does NOT hide
+           on success — it re-labels to "Update these" and re-tapping re-sends, and its own comment says
+           that is because "everything is changeable" may only be SAID where it is TRUE. This sentence
+           now promises precisely that and not one word more. -->
+      <!-- ⚠️ "Only I see it" was the first draft. Every OTHER disclosure on this page names Paul —
+           ":584 Paul — who built this — is the only other person who sees it", "comes straight to
+           Paul" — and a privacy claim is the last place to answer WHO with an unnamed pronoun. The
+           builder voice stays first-person ("tells me what to build"); the person stays named. -->
+      <p class="quiet" style="margin-top:4px">Only Paul sees it. Reorder and save again as often as you like.</p>
       <div id="interests" class="swatches"></div>
       <!-- ⛔ "SAY WHAT" HAD NOWHERE TO SAY IT. "Something else" described itself as *"Rank this if
            something's missing — say what, and it gets looked at"* and shipped with no field behind
@@ -905,40 +961,92 @@
   // event records the POSITION the item was sitting in, which is the only way to tell a genuine
   // preference from an artifact of being near the top. If position predicts ranking better than
   // subject does, this list is teaching us about itself and not about anybody's place.
+  //
+  // ⭐⭐ THE LABELS NAME AN ACTIVITY, NOT A DOMAIN `[paul-stated 2026-09-10]` — "we bring it one step
+  // closer to the customer by just asking what they'd like to do." Every label below is a VERB the
+  // reader could do this afternoon; the old nouns ("Household systems", "Wildlife") named our
+  // taxonomy and asked her to rank our filing cabinet.
+  // ⛔ THE ONE RULE THAT KEEPS AN ACTIVITY FROM PRESUMING A PLACE: the presumption lives in the NOUN,
+  // never the verb. "Working in the shop" presumes a shop; "Working with tools" presumes a drawer of
+  // them. So no label or description below names a building, a facility, an acreage or a tenure —
+  // only the verb and the reader's own belongings. This is the 09-06 ruling applied with MORE force,
+  // because an activity presumes harder than a subject does.
+  // ⭐ IDS, ORDER, `builds` AND `soon` ARE UNCHANGED, DELIBERATELY, and each for its own reason:
+  //   · the ID is the join — it is what `postAnswer` and `saveProfile` actually transmit (the label
+  //     travels only as a display copy), and five of the eleven ARE module names in momlib.MODULES.
+  //     Re-authoring words while freezing ids is what makes this a reframe rather than a migration:
+  //     every ranking already recorded stays readable and comparable.
+  //   · the ORDER encodes universality `[paul-ruled 2026-09-06]` and is re-tested below under the new
+  //     wording, not merely inherited. It survives — and it must NOT be reshuffled anyway, because
+  //     every rank event records the POSITION an item sat in, so a reorder would break the one series
+  //     that can tell a real preference from an artifact of being near the top.
+  //   · `soon` still marks the seeds. Several of these have nothing behind them.
+  // ⚠️ "Growing things" (was "Gardening") is the one label whose UNIVERSALITY genuinely rose — it now
+  // reaches a windowsill, and the only free-text anyone has ever typed into "Something else" was
+  // "Houseplants!", i.e. a person telling us the old label had shut them out. It is deliberately NOT
+  // promoted up the list for that: moving it would re-lead with gardening, which is exactly what the
+  // `mom` seat objected to. The wording earns the reach; the position stays honest.
+  // ⚠️⚠️ KNOWN DIVERGENCE, DELIBERATELY NOT FIXED HERE — `viewer.html`'s `EMPTY_CARD_COPY` still
+  // carries the OLD noun for all five built modules (Gardening · Wildlife · Vehicles · Equipment and
+  // tools · Household systems). So a reader can rank "Growing things" and then meet a card titled
+  // "Gardening", and `viewer.html:18532`'s ask-next chip writes EMPTY_CARD_COPY's label into the SAME
+  // `fw-onboard-interests` store that `estate/index.html` replays as "What I'll build first" — which
+  // can put two vocabularies in one reader's own list, on the surface whose whole job is showing we
+  // heard them. `viewer.html` is owned by another window in this lap, so it is NOT edited from here:
+  // this is recorded as a divergence for Paul's gate, not repaired silently.
+  // ⛔ AND "Something else" MUST KEEP ITS EXACT WORDS: `viewer.html:18476` suppresses that idea card
+  // by lower-cased string equality, so renaming it would make "Something else" render in the app as
+  // an idea card of its own. It is the one label in this list that is a JOIN KEY, not just copy.
   var INTERESTS = [
-    { id: "house-systems", label: "Household systems",
+    { id: "house-systems", label: "Keeping the household systems running",
+      // ⛔⛔ "HOUSEHOLD SYSTEMS" IS MOM'S OWN COINED PHRASE AND IS PROTECTED. The first draft of this
+      // reframe said "Keeping things running" and quietly retired her word — exactly what
+      // viewer.html's EMPTY_CARD_COPY forbids in as many words ("Mom's own coined phrase and is
+      // protected — do not normalise it") and what CLAUDE.md's ribbon rule forbids in general:
+      // "adopt her words, never improve them… if she names a thing, that is its name." She coined it,
+      // hedged that it might be the wrong term, and was right. The reframe is a VERB in front of her
+      // noun — it does not get to replace the noun.
       // ⛔ WAS "The well, the septic, the heating" — which presumes a kind of place. A condo has
       // none of those three. Paul ruled 2026-09-06 that this list must never assume what kind of
       // place someone has, and the list was REORDERED for that reason — but the DESCRIPTIONS were
       // never re-read under the new rule. Found by content-steward drafting the in-app copy, which
       // is the second time a ruling has been applied to a list's order and not to its words.
-      desc: "Water, heat, power — and when each was last seen to.",
+      desc: "Water, heat, power — and knowing when each was last seen to.",
       builds: ["house-systems", "service-history"] },
-    { id: "papers", label: "Papers and documents",
-      desc: "Warranties, manuals, deeds.",
+    { id: "papers", label: "Keeping the paperwork straight",
+      // "deeds" presumed an OWNER. A renter has a lease, an heir has a folder nobody has opened.
+      desc: "Warranties, manuals, whatever came with the place.",
       builds: ["papers", "succession"], soon: true },
-    { id: "equipment", label: "Equipment and tools",
-      desc: "What you own, where it lives, what it needs.",
+    { id: "equipment", label: "Working with tools",
+      // Paul's own example was "working in the garage or shop" — and the shop is exactly the noun
+      // that cannot survive here. The verb does the work; the tools are the reader's, wherever
+      // they live.
+      desc: "What you own, where it lives, what it needs next.",
       builds: ["equipment"] },
-    { id: "garden", label: "Gardening",
-      desc: "What's planted, when to prune, what's coming into season.",
+    { id: "garden", label: "Growing things",
+      desc: "Anything planted — when to prune, what's coming into season.",
       builds: ["plant", "weed", "zone", "care-calendar"] },
-    { id: "motor-pool", label: "Vehicles",
-      desc: "Cars, mowers, anything with an engine.",
+    { id: "motor-pool", label: "Looking after a vehicle",
+      // SINGULAR on purpose. "Vehicles" reads as a fleet; one car in a garage under a building is
+      // still "a vehicle", and that reader should not have to translate.
+      desc: "A car, a mower, anything with an engine.",
       builds: ["motor-pool", "service-history"] },
-    { id: "wildlife", label: "Wildlife",
-      desc: "Birds, frogs — what's around, and when.",
+    { id: "wildlife", label: "Watching what comes around",
+      desc: "Birds, frogs — what shows up, and when.",
       builds: ["bird", "amphibian", "mammal", "fish"] },
-    { id: "map-points", label: "Marking spots on the map",
+    { id: "map-points", label: "Marking where things are",
       desc: "The shut-off valve. That repair. Things you'd forget.",
       builds: ["zone", "point-annotation"], soon: true },
-    { id: "map-zones", label: "A map you draw yourself",
-      desc: "Trace your own areas onto a photo of your place.",
+    { id: "map-zones", label: "Drawing your own map",
+      // ⚠️ The one description that still leans on a picture of the place, because that is honestly
+      // what the feature IS — and a seed must not be described as something friendlier than it is.
+      desc: "Trace your own areas onto a picture of your place.",
       builds: ["zone", "basemap"], soon: true },
     { id: "ask", label: "Asking questions about your place",
-      desc: "Ask it about your own place.",
+      // WAS "Ask it about your own place." — the description restated the label and taught nothing.
+      desc: "Anything you'd otherwise go look up, or go look at.",
       builds: ["guru", "library"], soon: true },
-    { id: "handover", label: "Handing it all over",
+    { id: "handover", label: "Getting it ready to hand over",
       desc: "Organised well enough that someone else could pick it up.",
       builds: ["papers", "succession", "export"], soon: true },
     { id: "other", label: "Something else",
