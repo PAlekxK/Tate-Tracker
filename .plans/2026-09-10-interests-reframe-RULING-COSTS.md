@@ -112,6 +112,21 @@ comment beside it, or the next tidy-up removes it.
 
 ## 4 · Branch B — "keep Gardening": what still ships
 
+> ### 🔴 CORRECTION, 2026-09-10 — the "Houseplants!" evidence is PAUL'S OWN, and this file said otherwise
+>
+> This file described that answer as **"a person telling us the old label had shut them out."** That is
+> **false**. `onboard-interests-other-atz6kh` carries personId `p-yjnw9lt41nww` = `pkirsch`, place *Grant Park
+> Condo* — **Paul's own production account**, and `.user-research/2026-09-08-localized-feed-and-property-type.md:401`
+> already said so in plain words: *"**Paul's** twelfth interest."*
+>
+> ⛔ **The 09-08 artifact was careful about attribution and this file re-narrated it anonymously** — while the
+> personId was in a dump this window had run itself and did not resolve. That is the exact failure this thread
+> recorded nine times today, committed here. Caught by `content-steward`'s seat.
+>
+> **What survives:** it is still a real answer, given at the real ask, by someone at a condo who reached for
+> "Something else" rather than "Gardening". **What does not:** it is not a stranger at the door, and *that was
+> the whole rhetorical force* of the argument for widening the label. n=1, and the 1 is the author.
+
 **Zero changes to `viewer.html`.** The divergence in §2 exists *only* because the labels moved; leave them and
 there is nothing to reconcile.
 
@@ -150,3 +165,68 @@ the most reading, and that is a content-steward call.
 2. **Then, separately: "Growing things" or "Gardening"?** (§4 names what each costs.)
 3. **If branch A: the alias table in §3 is not optional** — without it, older records lose their picks and
    render built modules as unbuilt ideas, across every device the person signs in on.
+
+---
+
+## 6 · `content-steward`'s seat, verified in this lane — two claims stand, one needs a refinement
+
+The seat's findings are about files this window owns, made by a seat that does not. Verified here rather than
+accepted, per the rule that has caught nine relayed claims today — **including one of this file's own (§4).**
+
+### ② "the nouns→activities frame is false for four of ten rows" — ✅ CONFIRMED, and it voids this file's argument
+
+Read at `onboarding/index.html:908-946` as it stood before the change. Of the ten real rows (excluding
+*Something else*), **six were nouns and four were already activity phrases**: `Gardening` · `Marking spots on
+the map` · `Asking questions about your place` · `Handing it all over`.
+
+⛔ **`garden` was never on the noun side.** So "the list names activities now" is true of six rows and does not
+reach the seventh. **"Growing things" is a standalone scope decision wearing a set's clothes**, exactly as the
+seat puts it — and with §4's correction removing the Houseplants argument, **there is now no evidence-backed
+case for it in this file.** The seat's recommendation to keep `Gardening` is the better-supported position.
+
+### ③ "a seventh downstream site, and it fires immediately" — ✅ CONFIRMED, ⚠️ with a refinement that changes the remedy
+
+`viewer.html:18481` lowercases a label's first letter **only** when it matches `/^(A|An|The) /`. Measured
+against all five `soon` rows, old labels and new:
+
+| row | today | after the reframe |
+|---|---|---|
+| `papers` | ⛔ "You put **P**apers and documents first." | ⛔ still broken |
+| `map-points` | ⛔ "You put **M**arking spots on the map first." | ⛔ still broken |
+| `ask` | ⛔ "You put **A**sking questions about your place first." | ⛔ unchanged label, still broken |
+| `handover` | ⛔ "You put **H**anding it all over first." | ⛔ still broken |
+| `map-zones` | ✅ "You put a map you draw yourself first." | ⛔ **breaks** |
+
+⭐ **The defect is already live on four of five seed rows in production.** The regex only ever matched **one**
+label. So the reframe does not create this — it removes the single case that worked, taking it from 4/5 broken
+to 5/5.
+
+⛔ **Which means reverting the labels does not fix it, and never would have.** `wide-eyed`'s round-9 fix was an
+instance fix that never generalised — the same pattern `homes/index.html:212` records against itself in as many
+words (*"the fix did not generalise, because I fixed the instance"*). **The real remedy is to sentence-case
+properly at the slot**, and it is owed whichever way Paul rules. `:18447` is the same shape for built modules.
+
+### ④ the `ask` / `name` split — ✅ BACKED, and it voids §3
+
+Two fields per row: `ask` (the verb phrase the question offers) and `name` (the noun the app calls the thing).
+
+⭐ **It removes this file's largest cost.** `byLabel` is built from `EMPTY_CARD_COPY` **names**; if names never
+move, the resolver never stops recognising an older record — **so §3's "not optional" permanent
+`LEGACY_LABELS` table is not needed at all.** The seat's citation against it is fair and specific:
+`momlib.py:367` — `MODULE_ALIASES = {}  # kept as a hook; empty by ruling`, over *"No aliases: one
+vocabulary."* **That shape has been ruled against in this repo once already**, and §3 proposed it without
+noticing.
+
+⚠️ **One caveat the split does not remove, only relocates.** `estate/index.html:427` replays the **stored**
+label under *"What I'll build first"*, so a reader would meet the *ask* phrase there and the *name* on the card
+title. That is **softer than today's bug** — which puts both vocabularies inside the *same* list, via the
+ask-next chip — but it is not zero, and it should be a decision rather than a surprise.
+
+**Net: §3 above is superseded. Branch A under the split is ~5 rows gaining a field, one line at `:18532`, and
+no alias table.**
+
+### ⑤ "Watching what comes around" — ✅ conceded
+
+It names only the half that arrives, and `VOCABULARY.md` §4 rejects `resident` for precisely that reason: the
+chickadees that never leave are the ones the phrase excludes. **"Watching what's around"** — which is what the
+description already said — is correct.

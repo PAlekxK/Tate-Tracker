@@ -152,6 +152,21 @@ right shape is a content-steward call**, and this is the number that seat needs.
 
 ## 7 · ⚠️ ONE PRODUCT QUESTION FOR PAUL, not a copy question
 
+> ### 🔴 CORRECTION, 2026-09-10 — the "Houseplants!" evidence is PAUL'S OWN, and this file said otherwise
+>
+> This file described that answer as **"a person telling us the old label had shut them out."** That is
+> **false**. `onboard-interests-other-atz6kh` carries personId `p-yjnw9lt41nww` = `pkirsch`, place *Grant Park
+> Condo* — **Paul's own production account**, and `.user-research/2026-09-08-localized-feed-and-property-type.md:401`
+> already said so in plain words: *"**Paul's** twelfth interest."*
+>
+> ⛔ **The 09-08 artifact was careful about attribution and this file re-narrated it anonymously** — while the
+> personId was in a dump this window had run itself and did not resolve. That is the exact failure this thread
+> recorded nine times today, committed here. Caught by `content-steward`'s seat.
+>
+> **What survives:** it is still a real answer, given at the real ask, by someone at a condo who reached for
+> "Something else" rather than "Gardening". **What does not:** it is not a stranger at the door, and *that was
+> the whole rhetorical force* of the argument for widening the label. n=1, and the 1 is the author.
+
 **"Growing things" (was "Gardening") is the one label whose universality genuinely rose** — it now reaches a
 windowsill. That is directly responsive to the only free text anyone has ever typed into "Something else":
 **"Houseplants!"** — a person telling us the old label had shut them out.
