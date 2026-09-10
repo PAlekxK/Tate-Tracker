@@ -85,6 +85,46 @@ estates or breaks a per-deployment control. Reviewable batches, not one sweep.
 Both assume one household per origin. With one origin for everyone the host check stops
 carrying tenancy and becomes an ordinary CSRF-shaped control.
 
+## ⭐ HOW PAUL GETS IN, IN PRODUCTION `[paul-ruled 2026-09-10]`
+
+> *"in production, I would expect Mom to have to go through the process of setting up an account,
+> setting up an estate, and then inviting me to the estate to see it. We can decide later whether
+> there's an administrative portal, but for now, that should be the way I access in production —
+> other than, obviously, the back end, which we're working through together."*
+
+⛔ **This CANCELS the obvious repair to the `p-paul @ est-e6696a` divergence.** `watch-accounts.py`
+reports that row live in the register and absent from the store, so `grantFor()` 404s Paul at Mom's
+estate today. **Minting it is the wrong fix** — a self-minted administrator grant at someone else's
+household is precisely the back door this ruling closes. The register row is the thing that is
+wrong, not the store.
+
+⭐ **The grant model already has the shape for this, on the two ratified axes:**
+
+| axis | Paul, in production |
+|---|---|
+| `capability` | `administrator` — a SYSTEM role: canon, admin, the backend |
+| `relationship` | **NONE at an estate that has not invited him** — this is the half that grants access |
+
+**He holds administrator of the application; he does not hold a relationship to Mom's household
+until Mom grants him one.** The earlier reading — *"I'm an administrator on everyone's"* — is
+consistent with this and is about capability, not about standing access to every household.
+
+⚠️ **Consequences, and one of them moves scope:**
+
+1. **`p-paul @ est-e6696a` is declared `relationship: ["owner"]` in the register. That is wrong** —
+   Mom owns Fernwood. Correcting it is register work, not store work, and it is part of *"rights in
+   good enough order"* before Nigel and Aida are invited.
+2. ⭐ **"Invite someone to your estate" stops being purely down-the-road.** This plan defers it
+   (§ *Down the road*) and that still holds for THIS build — but it is now **Paul's own production
+   access path**, not just a future nicety. Step 3 must not foreclose it, which the plan already
+   requires for a different reason.
+3. **G2 firing at Mom's estate is CORRECT, not noise.** The administrator holds no relationship
+   there — that is exactly G2's case, and the consent Mom gives is what covers it.
+4. **Backend access is acknowledged and unchanged.** It is what the signup checkbox discloses
+   (`[paul-ruled 2026-09-10]`: one line and a checkbox before account creation, that the
+   administrator for the system can see your input). Product access and backend access are
+   different claims and the model should keep them apart.
+
 ## Down the road, and NOT in this build
 People invite each other to view and edit a household. The grant row already has the shape for
 it — `relationship` is a SET and `capability` is separate — so this becomes "mint a second
