@@ -241,6 +241,59 @@ def entry_state(env, token):
         return {"reachable": False, "status": None, "why": str(e)[:200]}
 
 
+# ⭐⭐ THE FACTS A HOUSEHOLD CAN HOLD ABOUT ITSELF — the axis the ELICITATION LENS reads
+# `[paul-stated 2026-09-10]`: "at each step, are we requesting all the information that makes sense
+# to give us enough data to populate and TRIANGULATE what we need for that estate… and every time we
+# ask for information, ideally we're confirming that information and making it clear what's linked to
+# it and what's being added."
+# ⛔ IT IS NOT "ASK MORE QUESTIONS", and the distinction is the whole lens. Paul's own 09-05 ruling is
+# that autofill research INVERTED the assumption that more fields are safer — fewer fields is the
+# standard. His address example is the reconciliation: ONE field, many derived facts. So the reading
+# is DERIVED-FACTS-PER-ASKED-FIELD, and a step that asks for something it could have derived is a
+# finding, not merely a step that asks too little.
+# ⚠️ TYPED vs DERIVED is recorded, never guessed: `typed` is what the walk's own action list put into
+# a field, so anything else the record gained came from the system.
+RECORD_FACTS = ("name", "address", "addressParts", "ranked", "coordinates", "contactPref",
+                "accent", "profileAccent")
+
+
+def record_facts(st):
+    """Which facts the household actually holds, from a measured entry state. Absent ≠ false."""
+    if not st.get("reachable") or st.get("status") != 200:
+        return None
+    out = {}
+    for f in RECORD_FACTS:
+        v = st.get(f)
+        out[f] = bool(v) if f != "coordinates" else bool(st.get("placed"))
+    return out
+
+
+def record_after(env, username, word):
+    """The household's own record READ AS THE PERSON, after the walk.
+
+    ⛔ WHY IT SIGNS IN RATHER THAN REUSING THE ARRIVAL TOKEN. J1 spends its invite and J5 rotates the
+    credential in the browser, so for two of five journeys the token the walk arrived on is dead by
+    the end. Signing in is the act a person performs, it works for every journey that acted as
+    somebody, and it is the same call `synthetic-identity.py --login` already makes.
+    ⚠️ IT ROTATES THE GRANT — which is why the caller writes the new token back to the store for a
+    durable seat. A fixture the measurement quietly invalidates is a fixture that rots.
+    ⛔ A FAILURE READS UNREADABLE, NEVER "GAINED NOTHING". A door that cannot be asked has said
+    nothing, and a zero here would be the strongest possible claim from the weakest possible evidence.
+    """
+    try:
+        req = urllib.request.Request(
+            WORKERS[env] + "/api/session",
+            data=json.dumps({"username": username, "word": word}).encode(),
+            headers={"Content-Type": "application/json", "User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=60) as f:
+            sess = json.loads(f.read())
+    except Exception as e:
+        return {"reachable": False, "why": "could not sign in after the walk: %s" % str(e)[:160]}, None
+    if not sess.get("token"):
+        return {"reachable": False, "why": "sign-in returned no token"}, None
+    return entry_state(env, sess["token"]), sess["token"]
+
+
 # ⭐ WHICH JOURNEY THIS RUN ACTUALLY ENTERED — DERIVED from the measured entry state, never declared.
 # ⛔ THIS IS NOT THE GATE'S UNIT AND MUST NOT BECOME ONE HERE. `release-gate.py` still keys on the
 # seat; changing that is a change to the release condition and is Paul's (card `fernwood-16`). This
@@ -942,6 +995,23 @@ def selftest():
           and WORKERS["qa"].endswith("fernwood-qa.paul-kirschenbauer.workers.dev"),
           "paul=%r qa=%r" % (WORKERS["paul"], WORKERS["qa"]))
 
+    # 2c3 · ⭐ THE RECORD-GAIN AXIS — the elicitation lens's substrate. Its one dangerous failure is
+    #       reading silence as "the household gained nothing", which is the strongest possible claim
+    #       from the weakest possible evidence.
+    check("an UNREADABLE record reads as unreadable, never as an empty household",
+          record_facts({"reachable": False, "why": "timed out"}) is None
+          and record_facts({"reachable": True, "status": 404}) is None,
+          "a door that could not be asked was reported as a household with nothing in it")
+    check("a fact the record HOLDS is reported held, and coordinates come from `placed`",
+          (record_facts({"reachable": True, "status": 200, "name": "P", "address": "A",
+                         "placed": True}) or {}).get("coordinates") is True,
+          "coordinates were read from a field whoami does not return in that shape")
+    check("every RECORD_FACT is one entry_state actually returns",
+          set(RECORD_FACTS) <= set(("name", "address", "addressParts", "ranked", "coordinates",
+                                    "contactPref", "accent", "profileAccent", "capability",
+                                    "relationship")),
+          "a fact is named that the door never reports, so it can only ever read as absent")
+
     # 2d · the library itself must be well-formed, or a --journey is a promise nothing keeps
     check("every journey declares an entry state the walker can actually derive",
           all(j["enters"] in JOURNEY_IDS for j in JOURNEYS.values()),
@@ -1480,6 +1550,54 @@ def main():
         except Exception as e:
             record["sessionObtained"] = False
             print("  ⚠️  could not sign in as the account just created: %s" % e)
+
+    # ⭐⭐ WHAT THE HOUSEHOLD GAINED, MEASURED — the elicitation lens's substrate.
+    # ⛔ PER JOURNEY, NOT PER STOP, AND THE LIMIT IS STATED RATHER THAN FAKED. The walk runs as ONE
+    # continuous `journey-view` subprocess — the design that stopped each stop minting its own
+    # account — so no Python runs between stops and the record cannot be re-read at each one.
+    # ⭐ THE DECOMPOSITION IS HONEST BECAUSE THE TWO HALVES LIVE IN DIFFERENT PLACES: what a step
+    # ASKED is on the screen and is already captured per stop (`fields`), while what the household
+    # GAINED is only observable at the record, between subprocess calls. So asks stay per-stop and
+    # gains are per-journey, and the lens says so instead of attributing a gain to a guess.
+    # ⚠️ A field the walk TYPED is not a derived fact. Recording what was typed here is what lets the
+    # lens compute derived-facts-per-asked-field rather than counting the answers back.
+    who_can_sign_in = walked in ("J1", "J2", "J3", "J5")
+    if who_can_sign_in:
+        after, new_tok = record_after(a.origin, ans["username"], ans["password"])
+        record["recordAfter"] = after
+        before_f, after_f = record_facts(st), record_facts(after)
+        if after_f is None:
+            record["recordGained"] = None
+            record["recordGainedWhy"] = "UNREADABLE — %s" % (after.get("why") or "the door said nothing")
+            print("  ⚠️  what the household gained is UNREADABLE, which is not 'nothing'")
+        else:
+            # J1 and J5 have no comparable BEFORE: J1's invite belonged to nobody, and J5 arrived with
+            # no credential at all. An absent baseline is declared, never treated as all-zero.
+            base = before_f if (before_f and walked in ("J2", "J3")) else None
+            record["recordGained"] = sorted(f for f, v in after_f.items()
+                                            if v and not (base or {}).get(f)) if base is not None \
+                else sorted(f for f, v in after_f.items() if v)
+            record["recordGainedBaseline"] = "measured-at-arrival" if base is not None else \
+                "NONE — this journey has no comparable before-state; the list is what the record HOLDS"
+            record["typedFields"] = sorted({x[len("type:#"):].split("=")[0]
+                                            for x in acts if x.startswith("type:#")})
+            print("  the record now holds: %s  (typed this run: %s)"
+                  % (", ".join(record["recordGained"]) or "nothing",
+                     ", ".join(record["typedFields"]) or "nothing"))
+        # ⛔ THE MEASUREMENT MUST NOT ROT THE FIXTURE. Signing in rotated the grant, so a durable
+        # seat's stored token is now dead — the next returning walk would meet J4 and read as a
+        # product failure. Write the new one back where the seat's identity lives.
+        if new_tok and not creates_account:
+            try:
+                _d = json.load(open(STORE, encoding="utf-8"))
+                _k = "%s@%s" % (a.role, a.origin)
+                if _d.get("identities", {}).get(_k, {}).get("username") == ans["username"]:
+                    _d["identities"][_k]["token"] = new_tok
+                    with open(STORE, "w", encoding="utf-8") as f:
+                        json.dump(_d, f, indent=2)
+                    os.chmod(STORE, 0o600)
+            except (OSError, ValueError) as e:
+                print("  ⚠️  could not write the seat's refreshed token back: %s" % e)
 
     # ⭐ DID THE INVITE ACTUALLY GET SPENT — the falsifier for this whole path, and it costs one
     # request. `/api/account` deletes the presented invite's grant row on a successful signup, so an
