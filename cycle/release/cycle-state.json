@@ -1,8 +1,8 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-08T18:27:50-04:00",
+ "generated_at": "2026-09-10T12:24:25-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "ec88009",
+ "candidate_sha": "8d17e4e",
  "beat": {
   "n": 8,
   "of": 12,
@@ -20,44 +20,16 @@
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "mom": {
-    "run": "2026-09-08T181724",
-    "at-sha": true,
-    "watched": true,
-    "countable": false,
-    "no-failed-actions": false,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "owner": {
-    "run": "2026-09-08T181620",
-    "at-sha": true,
-    "watched": true,
-    "countable": false,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "strict": {
-    "run": "2026-09-08T182229",
-    "at-sha": true,
-    "watched": true,
-    "countable": false,
-    "no-failed-actions": false,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "wide-eyed": {
-    "run": "2026-09-08T182412",
-    "at-sha": true,
-    "watched": true,
-    "countable": false,
-    "no-failed-actions": false,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    }
   }
  },
