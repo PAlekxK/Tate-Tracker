@@ -1,8 +1,8 @@
 {
  "state": "FIRED",
- "generated_at": "2026-09-10T12:24:25-04:00",
+ "generated_at": "2026-09-10T14:56:45-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "8d17e4e",
+ "candidate_sha": "196e146",
  "beat": {
   "n": 8,
   "of": 12,
@@ -19,6 +19,9 @@
   "seats_pass": false,
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
+   "handover": {
+    "run": null
+   },
    "mom": {
     "run": null
    },

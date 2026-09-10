@@ -175,6 +175,48 @@ Against a synthetic derived property (scratch, never committed):
 ⭐ **That is a working Journal on day one** — it knows where it is, what zone it is in, when its
 frosts fall, and that it holds no plants *yet*.
 
+## 5c. ⛔ A1 READS THE WRONG SOURCE — the seam, measured 2026-09-10
+
+`publish-digest.py` composes an estate's canon from **`instance/<name>.json`**. That is build-time
+config for estates that exist **at build time**, and a household created from a link can never have
+a file there. **You cannot commit a file per household when households are created from a link.**
+
+**Measured, not inferred:**
+
+| | |
+|---|---|
+| `instance/home.json` | has **no `property` block at all** — keys are `_meta · estate · estateId · canon · identity · absent · display` |
+| Mom's place | **lives in KV** — her `account` AND `grant` rows both carry `address`, `coordinates` `{latitude, longitude, countyFips, matchedAddress, source, geocodedAt}` and `placeName: "Fernwood"` |
+| `read-geocodes.py` | `home` placed **5 times, median 125 ms** — it was geocoded days ago |
+
+⭐ **So the derived place has existed the whole time and A1 was reading the empty half.**
+
+⚠️ **AND AN INSTRUMENT LESSON, because it cost a wrong claim today.** `read-geocodes.py` reports
+whether the geocoder was **asked**, not whether the place is **known**. `paul` reads *"none recorded
+— the geocoder was not asked"* while two of `est-d93508`'s three grants carry address **and**
+coordinates. **Absence in an outcome record is not absence in the world** — this corpus's most
+repeated shape.
+
+### What A1 actually is
+
+Compose from the household's **record**, over the neutral shape, over emptiness:
+
+1. `<estateId>:account:*` / `<estateId>:grant:*` → `address` · `coordinates` · `placeName`
+2. `instance/neutral-canon/` → the SHAPE
+3. materialised empty → R5
+
+⛔ **`instance/*.json` stays what it is** — declared config for build-time estates — and is no longer
+asked for a place it cannot hold.
+
+⚠️ **What the record does NOT carry: elevation, hardiness, frost dates.** So a KV-composed digest has
+a place and no terrain. That is **honest, not broken** — `digest_core` requires address *or*
+elevation and the address is there. Enriching it is A0's job (`derive-property.py`), which turns
+coordinates into elevation and zone, and runs per estate against USGS.
+
+⛔ **And a precondition, fixed at `d7f150f`:** the place must be on the ACCOUNT row, not only the
+grant. On the condo it was on the grants and not the account, so a record-composed digest would have
+read the household as placeless while its place sat one row away.
+
 ## 6. OPEN — Paul's
 
 1. **Is (4d) right — a small derived canon at onboarding?** It is the difference between a new

@@ -54,14 +54,77 @@ def _mod(path, name):
     return m
 
 
-def chained_loader(bd, estate_name, canon_dir, strict):
-    """A young estate reads its DERIVED record first, the neutral shape second, emptiness third."""
+def household_property(w, env, estate):
+    """The estate's OWN place, read from its record in KV — shaped like `property.json`.
+
+    ⛔ WHY THIS EXISTS. `publish-digest` composed an estate's canon from `instance/<name>.json`, which
+    is build-time config for estates that exist at build time. A household created from a LINK can
+    never have a file there — you cannot commit a file per household. Measured 2026-09-10:
+    `instance/home.json` has no `property` block at all, while Mom's `account` and `grant` rows both
+    carry address, coordinates and placeName, geocoded days earlier. The place existed the whole time
+    and this tool was reading the empty half.
+
+    ⚠️ THE RECORD CARRIES NO ELEVATION, HARDINESS OR FROST DATES, and that is honest rather than
+    broken: `digest_core` needs an address OR an elevation and the address is there. Turning
+    coordinates into elevation and zone is `derive-property.py`'s job, per estate, against USGS.
+
+    ⛔ PREFER THE ACCOUNT ROW, FALL BACK TO A GRANT. The account is the durable half — a grant can be
+    rotated. But on Paul's condo the place was on the grants and NOT the account (fixed in worker.js
+    at d7f150f), so reading only the account would call a placed household placeless.
+
+    Returns None when the estate has no place yet — which is not an error. It is most households.
+    """
+    best = None
+    for key in w.kv_list(env, "%s:" % estate):
+        kind = key.split(":")[1] if key.count(":") >= 2 else None
+        if kind not in ("account", "grant"):
+            continue
+        try:
+            row = w.kv_get(env, key)
+        except Exception:
+            continue
+        if not isinstance(row, dict) or not row.get("address"):
+            continue
+        rank = 2 if kind == "account" else 1
+        if (row.get("coordinates") or {}).get("latitude"):
+            rank += 2
+        if best is None or rank > best[0]:
+            best = (rank, row)
+    if not best:
+        return None
+    row = best[1]
+    c = row.get("coordinates") or {}
+    prop = {
+        "_meta": {"derivedFrom": "the household's own record in KV",
+                  "rule": "every value here came from what the person entered at onboarding plus a "
+                          "public geocode — none of it is ground truth, and the confirm loop is what "
+                          "turns it into verified"},
+        "property": {"name": row.get("placeName") or "", "address": row.get("address") or "",
+                     "city": "", "state": "", "zip": "", "county": "", "region": "", "owner": ""},
+        "location": {}, "hardiness": {}, "frostDates": {}, "climate": {}, "soils": {},
+        "microclimate": {}, "propertyZones": {}, "resources": {}, "utilities": {}, "story": {},
+        "sky": {}, "intros": {}, "plantContext": {},
+    }
+    if c.get("latitude") is not None:
+        prop["location"] = {"coordinates": {"latitude": c["latitude"], "longitude": c.get("longitude"),
+                                            "confidence": "inferred", "source": c.get("source") or "geocode"}}
+        if c.get("countyFips"):
+            prop["location"]["countyFips"] = c["countyFips"]
+    return prop
+
+
+def chained_loader(bd, estate_name, canon_dir, strict, kv_property=None):
+    """A young estate reads its OWN RECORD first, the neutral shape second, emptiness third."""
     if strict:
         return bd.canon_loader(canon_dir, materialise_empty=False)
     derived = os.path.join(ROOT, ".private", "derived", estate_name)
     legacy_single = os.path.join(ROOT, ".private", "derived", "%s-property.json" % estate_name)
 
     def load_one(name):
+        # ⭐ the household's own record outranks every file — it is the only source that knows a
+        # place created from a link
+        if name == "property.json" and kv_property is not None:
+            return kv_property
         for cand in (os.path.join(derived, name),
                      legacy_single if name == "property.json" else None,
                      os.path.join(canon_dir, name)):
@@ -72,9 +135,9 @@ def chained_loader(bd, estate_name, canon_dir, strict):
     return load_one
 
 
-def build_for(bd, estate_name):
+def build_for(bd, estate_name, kv_property=None):
     est, canon_dir, strict = bd.estate_canon(estate_name)
-    digest = bd.compose(est=est, load=chained_loader(bd, estate_name, canon_dir, strict))
+    digest = bd.compose(est=est, load=chained_loader(bd, estate_name, canon_dir, strict, kv_property))
     import datetime as dt
     digest["_meta"]["rebuiltAt"] = dt.datetime.now(dt.timezone.utc).replace(microsecond=0)\
         .isoformat().replace("+00:00", "Z")
@@ -122,7 +185,21 @@ def main():
     drift, unreadable, published = 0, 0, 0
     for name in names:
         try:
-            digest, est = build_for(bd, name)
+            # ⭐ resolve the estate FIRST so its record can be read before the digest is composed.
+            # The instance file still says WHICH estate this is; it just no longer says where it is.
+            _est, _dir, _strict = bd.estate_canon(name)
+            _eid = (_est or {}).get("estateId")
+            _eid = _eid.get("id") if isinstance(_eid, dict) else _eid
+            _env = env_for(envs, _eid) if _eid else None
+            kvprop = None
+            if _env and not _strict:
+                try:
+                    kvprop = household_property(w, _env, _eid)
+                except Exception as e:
+                    print("   ⛔ %-9s UNREADABLE record — %s" % (name, str(e)[:70]))
+                    unreadable += 1
+                    continue
+            digest, est = build_for(bd, name, kvprop)
         except Exception as e:
             print("   ⬜ %-9s cannot build — %s" % (name, str(e)[:90]))
             continue

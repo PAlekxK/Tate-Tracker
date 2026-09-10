@@ -115,8 +115,27 @@ let a foreign estate read Fernwood's library.** A5 gates them.
 
 ### Phase C — the move *(IRREVERSIBLE · Paul's)*
 
-- **C1 delete `nigel` and `aida`** — zero keys, never used. **Free, and do it first**: it removes two
-  environments from every sweep at no cost and proves the direction.
+- ~~**C1 delete `nigel` and `aida`**~~ — ⛔ **KILLED 2026-09-10.** They are beta owners 3 and 4, HELD
+  pending readiness. See the banner below.
+
+> ⛔⛔ **KILLED 2026-09-10 — DO NOT DO THIS. `nigel` and `aida` are BETA OWNERS 3 and 4.**
+> 🔄 **REVERSED 2026-09-10, later the same day, by Paul.** *"I'm fine with deleting Nigel and Aida for the time being. We can always re-mint their invite since we have a cleaner base if deleting helps."*
+>
+> ⛔ **THE REASON IS NOT "zero keys, never used"** — that inference was wrong when first made and is still wrong. It is: **retiring two environments built under a superseded model** (R32, an estate is a row; R33, one production environment), at Paul's direction, **with the people HELD and their estates to be created through `POST /api/estate`.**
+>
+> ⭐ **AND THE DELETE PROTECTS THE TEST.** Those envs are currently the ONLY way to provision an estate, so leaving them would let the beta launch **without the product ever creating one.** Deleting them forces their estates through `POST /api/estate` — the one completely unexercised step in the founding path.
+>
+> ⭐ **BOTH EVENTS STAY ON THE PAGE.** Killed, then reversed, with the reason each way — a decision that flipped twice in one day is the history that must not be smoothed over, or the next reader re-litigates it from whichever half survived.
+>
+> ⚠️ **CONSEQUENCE:** afterwards there is **no path to create their estates until B3 ships**.
+
+> Paul named his roster the same day: *"Mom has already set up her house in production, and then
+> I want to share with **Aida and Nigel** next."* Their namespaces are empty because **they have
+> not been invited yet**, not because they are dead — the "zero keys, never used" evidence is an
+> inference from activity shape, which is the error class `tools/people.json:9` forbids by name.
+> They are **HELD** pending the readiness bar (`PLAN-OF-RECORD` ②), not queued for deletion.
+> Kill recorded at `.plans/2026-09-10-WORK-QUEUE.md:67`.
+
 - **C2 copy Bob's and the condo's estate rows INTO production's namespace.** ⚠️ **This is the step
   the plan never named:** the router row is per-namespace, so a route cannot reach a grant in
   another namespace. Migration is a **cross-namespace copy**, not an env retirement.
@@ -143,8 +162,11 @@ The stated goal, answered concretely: **A4 · A5 · B1 · B3.**
 
 1. **Does Guru have to work at first light for a new household?** If a household can launch with the
    deterministic app and no model routes, **A5 stops blocking B1** and Nigel and Aida can be invited
-   much sooner. If it does, A5 is the critical path. ⭐ **This is the single highest-leverage
-   question on the board.**
-2. **Delete `nigel` and `aida` now?** Recommend yes — zero keys, zero risk.
+   much sooner. ⛔ **ANSWERED 2026-09-10 — and answered the HARD way, so this escape hatch is CLOSED.**
+   Paul's readiness bar: *"Guru is working for all households that launch."* A household does **not**
+   launch on the deterministic app alone, and Aida and Nigel are **held** rather than invited sooner.
+   A5 **is** the critical path. ~~the single highest-leverage question on the board~~
+2. **Delete `nigel` and `aida` now?** 🔄 **KILLED then REVERSED 2026-09-10 (Paul) — the answer is YES**, as the retirement of two environments built under a superseded model, not as "unused infrastructure".
+   They are beta owners 3 and 4. Do not re-propose on the "zero keys" reading.
 3. **Rename at all?** Recommend deferring indefinitely (§4).
 4. **`legacy`'s data.** Separate, unscheduled.

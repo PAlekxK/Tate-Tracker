@@ -621,6 +621,25 @@ pkirsch @ est-d93508) · `mom` (p-b91e4d / marguerite @ est-e6696a) · `bob` (p-
 used (`migration-shape-REASSESS` §2). **They are not a migration; they are a deletion**, and doing it
 first is free and proves the direction (C1).
 
+> ⛔⛔ **KILLED 2026-09-10 — DO NOT DO THIS. `nigel` and `aida` are BETA OWNERS 3 and 4.**
+> 🔄 **REVERSED 2026-09-10, later the same day, by Paul.** *"I'm fine with deleting Nigel and Aida for the time being. We can always re-mint their invite since we have a cleaner base if deleting helps."*
+>
+> ⛔ **THE REASON IS NOT "zero keys, never used"** — that inference was wrong when first made and is still wrong. It is: **retiring two environments built under a superseded model** (R32, an estate is a row; R33, one production environment), at Paul's direction, **with the people HELD and their estates to be created through `POST /api/estate`.**
+>
+> ⭐ **AND THE DELETE PROTECTS THE TEST.** Those envs are currently the ONLY way to provision an estate, so leaving them would let the beta launch **without the product ever creating one.** Deleting them forces their estates through `POST /api/estate` — the one completely unexercised step in the founding path.
+>
+> ⭐ **BOTH EVENTS STAY ON THE PAGE.** Killed, then reversed, with the reason each way — a decision that flipped twice in one day is the history that must not be smoothed over, or the next reader re-litigates it from whichever half survived.
+>
+> ⚠️ **CONSEQUENCE:** afterwards there is **no path to create their estates until B3 ships**.
+
+> Paul named his roster the same day: *"Mom has already set up her house in production, and then
+> I want to share with **Aida and Nigel** next."* Their namespaces are empty because **they have
+> not been invited yet**, not because they are dead — the "zero keys, never used" evidence is an
+> inference from activity shape, which is the error class `tools/people.json:9` forbids by name.
+> They are **HELD** pending the readiness bar (`PLAN-OF-RECORD` ②), not queued for deletion.
+> Kill recorded at `.plans/2026-09-10-WORK-QUEUE.md:67`.
+
+
 ## 6.1 · The re-key, and why it is cheaper than it looks
 
 The known-possible move — *same token hash, same password hash, new prefix, repoint `route:`* — holds,
@@ -630,7 +649,7 @@ call sites. Nobody signs in again; no token rotates.
 
 | # | step | reversible |
 |---|---|---|
-| M1 | delete `nigel` + `aida` — zero keys | ⛔ irreversible, and free |
+| **M1** | 🔄 **KILLED then REVERSED 2026-09-10 (Paul).** Delete `nigel` + `aida` — retiring two environments built under a superseded model, and forcing their estates through `POST /api/estate`. ⛔ Verify emptiness by ENUMERATION, never by inference. | irreversible |
 | M2 | write `account:<personId>` + `username:<u>` alongside the existing rows; **read new, fall back to old** | ✅ additive |
 | M3 | repoint `route:<hash>` → `{personId}`, keeping `{estateId}` in the value during the window | ✅ one backfill re-run over 230 rows |
 | M4 | write `grant:<personId>:<estateId>` alongside `<estateId>:grant:<hash>`; `grantFor()` reads new, falls back to old | ✅ additive — **the same non-breaking shape step 3 already proved** |
