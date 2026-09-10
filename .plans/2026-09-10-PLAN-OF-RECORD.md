@@ -246,10 +246,11 @@ permission prompt are indistinguishable from outside. Ask Paul *"did you close i
 |---|---|---|
 | **`tate-tracker-ec`** | `worker/worker.js` · `publish-digest.py` · `grant-mint.py` · `grant-route-backfill.py` · `falsifier-tenancy.py` · account/credential path | **parked, clean, holding.** Awaiting the B3 design + Paul's word to open B3 |
 | **`onboarding-ask-b3`** | `onboarding/index.html` | **parked at `4439010`** (1 ahead of `cb5e46a`). Copy staged for Paul; three product rulings owed |
-| **Lane 3 · walk harness** | `journey-*.py` · `release-gate.py` · `walk-*.py` · `elicitation-lens.py` · `check-canon-scope.py` · `seat-portfolio.py` · `household-fixtures.py` · `.decisions/fernwood-15..22` | **running.** Preparing the `testing-arch`→`main` merge, then J0 |
+| **Lane 3 · walk harness** | `journey-*.py` · `release-gate.py` · `walk-*.py` · `elicitation-lens.py` · `check-canon-scope.py` · `seat-portfolio.py` · `household-fixtures.py` · `.decisions/fernwood-15..22` | ✅ **merge LANDED** (`6b0785a`, 9/9 selftests). Now: QA deployed, gate ① diagnosis, J0 |
 | **`paulkirschenbauer-b8`** | `.plans/*zones*` · `.engineering/zones-derivability/` — worktree `zones-assess` | **running.** Zones automation ASSESSMENT, design-side only |
 | **`paulkirschenbauer-3b`** | `~/.claude/**` only — no Fernwood writes | **running.** Meta-stack: standing up a security seat |
-| **B3 design consult** | nothing — advisory | **running.** Founding write-set; premise corrected mid-flight |
+| **B3 design consult** | nothing — advisory | ✅ **delivered.** Founding write-set; premise corrected mid-flight |
+| **Backlog registrar** | ⭐ proposed **SOLE WRITER of `BACKLOG.md`, as SCRIBE not author** | ✅ first report delivered; **authorised to write** |
 
 🔴 **`viewer.html` HAS NO OWNER.** 380 zone mentions, ~17,900 lines, and it is Mom's live app — the most
 collision-prone file in the repo and no lane holds it. **Ask the coordinator before writing it.** This is
@@ -488,3 +489,71 @@ reversibility line is **understated**, not wrong — `estate/index.html:431` off
 so a post-hoc route does exist and *"or tell me later from your place"* would be TRUE today (unlike
 *"change it any time"*, which was not). Offered as an option, **not applied** — more words on the screen
 already carrying the most reading is a content-steward call.
+
+## ⑥h THE BOARD WAS STALE AND THE REGISTRAR CAUGHT IT — `2026-09-10 ~5:45 PM`
+
+⭐ **⑥c is a live document and it went stale in FOUR HOURS, in the over-reporting direction** — exactly
+the direction `CLAUDE.md` says these documents fail in. The registrar measured it on its first pass.
+**The coordinator's own board is not exempt from the rule the coordinator enforces.**
+
+⭐⭐ **AND ITS MEASUREMENT WAS RIGHT WHILE ITS INFERENCE WAS WRONG — the third instance today.**
+It measured `main..testing-arch` = 0 and `testing-arch..main` = 0 at 16:25 and concluded *"no merge
+commit; Lane 3 has been landing on `main` directly."* ⛔ **The merge commit `6b0785a` exists and is in
+`main`'s history.** What actually happened: the merge landed, then the `testing-arch` **branch pointer
+was advanced** to follow `main`, so at that instant the two were the same commit. **The reading was true
+and what was inferred from it was not** — the identical shape as `home`-UNREADABLE and as
+*"A2 is partial."* ⭐ **Three different lanes, one failure mode, one day. Grep, then read the line;
+measure, then check what else explains it.**
+
+✅ **`publish-digest.py`'s 16:25 commit is NOT a one-writer violation** — it is `tate-tracker-ec`
+committing the swallow fix in its own file, at the coordinator's request. The registrar was right to
+**route rather than arbitrate**.
+
+**RULINGS ON THE REGISTRAR'S THREE QUESTIONS:**
+1. ✅ **SCRIBE, not author — CONFIRMED.** It transcribes a lane's forwarded row **verbatim, attributed to
+   that lane and its sha**; it flags and proposes separately in its own marked voice. ⭐ **Every status is
+   then attributable to the lane that measured it** — strictly stronger than today, where a status is
+   attributable to whichever session last had the file open.
+   ⚠️ **Unresolved and real:** `BACKLOG.md` is written by two loops (mom + fleet). A registrar is a
+   **third** writer unless those loops forward too. **One door, or it is not a door.**
+2. ✅ **ONE packet to Paul**, not several — its §2, §3 and §4 share one root cause.
+3. ✅ **Authorised to write.**
+
+**⭐ ITS THREE HIGHEST-LEVERAGE FINDINGS, all of which outrank the count they came from:**
+- 🔴 **The register has learned to explain away its own alarm.** Three plans say *in their own headers*
+  that *"the orphan flag is expected and is not a defect to repair."* `check-backlog-ready.py:398-402` is
+  this repo's own ruling that **a control red on every signal from day one is one nobody reads** — and 10
+  permanently-red rows are training exactly that. **Proposal: `row: process` becomes a third state
+  (`awaiting-ruling`), not an orphan.**
+- ⭐ **"29 orphaned plans" is the wrong problem statement.** The tool says **28**, and **18 declare a
+  `row:` in their own header** — `POINTER_PAT` is **one-directional**, so a plan that correctly names its
+  row is still "orphaned" because the BACKLOG side never got the back-pointer. Real populations: **4**
+  need one back-pointer line each (**one write, not four items — the cheapest closable thing on the
+  board**) · **4** need a row minted · **10** need a Paul ruling.
+- ⭐⭐ **THE HIGHEST-LEVERAGE SINGLE RULING ON THE REGISTER, and it is Paul's:** *is a `-PROPOSAL` a
+  **DOCUMENT** or an **ITEM**?* Ruling it once discharges **10 orphans, most of the 22-suffix ambiguity,
+  and the expected-orphan habit** together.
+
+**⛔ CADENCE — DO NOT BUILD A SECOND DOOR.** `cycle/requests.jsonl` **already exists** (52 lines, readers
+in `fleet_probe.py` and `check-public-build.py`). Its two known defects — Track-B-scoped, and *"nothing
+sweeps that door on a cadence"* — are **exactly what a registrar fixes**.
+⭐ **The trigger is the COMMIT, not a clock** — a cadence in hours is a thing to remember; a cadence in
+commits fires when there is something to say. ⭐ **`row: none` is legal and is the highest-value line in
+the system**: *"I built X and it has no row"* is precisely what `onboarding-ask-b3` reported and nothing
+captured. ⭐ **Pilot the cheapest form first — a `Register:` commit trailer**, swept with `git log --grep`.
+**A discipline that needs a second tool open is the one nobody follows.**
+
+**⚠️ PRODUCT-STEWARD TRIAL — the verdict is that it cannot settle itself.** First falsifier not tripped
+(redundancy 49% vs 80%); **second IS tripped** (20 questions opened vs 19 carried — *"a bottleneck
+wearing a helper's name"*). Both rounds **confounded**. Its settling condition needs a **clean** round,
+which requires the unread rationalization applied **and** walk reports written — **neither is the
+steward's to produce.** ⛔ **Renewing for a round that cannot settle it is how a trial becomes
+permanent.** Recommend: renew **conditional on one clean round being scheduled**; if the reports are
+unwritten again, **kill it** rather than record a third confounded row.
+⚠️ And two of its three triggers are **majority-UNCHECKABLE by their own predicate** — T1 sees 20 of 29
+ruling lines, T3 sees 2 of 10 plans. **Those are floors reported as counts.**
+
+**⚠️ TWO LANES HAVE PRODUCED NOTHING DURABLE, and the shape is the same:** `zones-assess` is **0 ahead,
+0 uncommitted** — that lane's whole output lives only in its session context. And
+`.plans/2026-09-10-interests-reframe-VERIFY-82.md` is still uncommitted and orphaned in the
+`onboarding-ask` worktree, belonging to a window that has closed.
