@@ -750,17 +750,26 @@ async function handleAccountCreate(request, env, scope) {
                 agreedBy: personId, recordedBy: personId, consentSource: "self",
                 how: invite ? "account-signup" : "open-signup" }],
   };
-  await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
-  // ⛔ AND ITS ROUTER ROW. Measured 2026-09-10: lab held 37 grants and 29 routes, because
-  // `grant-mint.py` was taught to write routes and this path — the one the PRODUCT uses — was not.
-  // Every account created through signup was therefore invisible to `personFor()`, which is what
-  // `POST /api/estate` authenticates with: founding 404'd for everyone who had just signed up.
-  // ⭐ Two writers of one fact, in my own work, for the third time today. The route is written HERE
-  // rather than left to a tool, because a credential minted by the product must be reachable by the
-  // product.
-  // ⚠️ AFTER the grant, never before: a route pointing at a grant that does not exist is the one
-  // answer grantFor must never give, and falsifier C1 pins it.
-  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash, JSON.stringify({ estateId: scope.id, personId }));
+  // ⛔⛔ SIGNUP NO LONGER GRANTS AN ESTATE `[paul-ruled 2026-09-10]`: "when you sign up, it creates
+  // an account but then you have to go and create an estate for it to grant and create a token for
+  // that estate."
+  //
+  // ⭐ WHAT THIS RETIRES, AND IT WAS A DESIGN RATHER THAN AN ACCIDENT. The comment above this row
+  // used to read "G1 IN THE WORKER'S OWN SHAPE: a founding owner grant needs the prospective owner's
+  // OWN request as its warrant — signing yourself up IS that request." That was TRUE and CORRECT
+  // while `POST /api/estate` did not exist: signup WAS founding. Building the second door made two
+  // founding mechanisms, and this retires the first. It is superseded doctrine, recorded rather than
+  // deleted so the next reader knows it was reasoned.
+  //
+  // ⛔ AND IT IS THE PRE-SEEDING RULED AGAINST, FOUND ONE LAYER DOWN. We stopped minting estates in
+  // wrangler.toml and kept minting them at signup, invisibly. Mom's est-e6696a is the worked
+  // example: she holds an estate she never created.
+  //
+  // ⭐ THE ROUTER ROW STAYS, AND CARRIES NO ESTATE. `route:<hash> → {personId}` is the credential
+  // naming a PERSON (fernwood-14, ruled), which is exactly what `personFor()` reads and what lets a
+  // person with zero grants authenticate in order to found their first estate. An account with no
+  // estate is the natural zero case, not a special one — `estates: []`, the empty shelf.
+  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash, JSON.stringify({ personId }));
   await putAccount(env, scope, username, personId, ({
     personId, salt: b64(salt), hash, iterations: PBKDF2_ITERATIONS, algo: "PBKDF2-SHA256",
     createdAt: new Date().toISOString(), tokenHash, email: email || null, phone: phone || null,
@@ -773,7 +782,12 @@ async function handleAccountCreate(request, env, scope) {
     // ⛔ THE ACCOUNT REMEMBERS ITS OWN WARRANT. Without this the login path had nothing to inherit
     // from and fell back to a hardcoded "administrator" — so a member whose grant row went missing
     // would be re-minted as an administrator by the act of signing in.
-    relationship: grantRow.relationship, capability: grantRow.capability,
+    // ⛔ WHAT AN INVITE CONFERRED, NOT WHAT THIS PERSON HOLDS. Before the signup ruling these WERE
+    // the account's live relationship and capability, because signup granted an estate. It no longer
+    // does, so these are a promise waiting for `found` to honour — and naming them `conferred*` stops
+    // the login path reading them as a grant the person already has.
+    conferredRelationship: invite ? grantRow.relationship : null,
+    conferredCapability: invite ? grantRow.capability : null,
     // ⭐ WHICH DOOR, on the row a sweep actually reads. `watch-accounts.py` reports arrivals off the
     // account row and never opens `consent`, so without this the open door would be invisible to the
     // one tool whose job is to say who arrived.
@@ -804,8 +818,13 @@ async function handleAccountCreate(request, env, scope) {
     try { await env.OBSERVATIONS.delete(keyFor(scopeOfRoute(invite.estateId, env), "grant", await sha256Hex(request.headers.get(GRANT_HEADER)))); }
     catch (e) { /* the new account already exists; a stale invite is the lesser failure */ }
   }
-  return json({ personId, token, estates: [{ estateId: scope.id,
-                relationship: grantRow.relationship, capability: grantRow.capability }] }, 201);
+  // ⭐ `estates: []` — THE EMPTY SHELF, AND IT IS THE TRUTH. Signup no longer grants, so a fresh
+  // account owns nothing until it founds something. Returning an estate here would be the response
+  // asserting a grant that does not exist, which is the shape every defect fixed today shares.
+  // ⚠️ `conferred` carries what an INVITE offered, so founding can honour it — it is a PROMISE the
+  // account holds, never a grant it has. An open signup confers nothing.
+  return json({ personId, token, estates: [],
+                conferred: invite ? { relationship: grantRow.relationship, capability: grantRow.capability } : null }, 201);
 }
 
 // ⭐ A USERNAME IS CHANGEABLE `[paul-ruled 2026-09-05]`. It was not, and until it was, the copy could
@@ -883,8 +902,12 @@ async function handleSession(request, env, scope) {
     // a LOST GRANT into a privilege escalation, reachable by simply signing in. Accounts created
     // before the account row carried a capability default to `member`, which fails toward less.
     personId: acct.personId, estateId: scope.id,
-    relationship: Array.isArray(acct.relationship) && acct.relationship.length ? acct.relationship : ["member"],
-    capability: acct.capability === "administrator" ? "administrator" : "member",
+    // ⛔ INHERIT ONLY WHAT WAS CONFERRED, AND ONLY AS A FLOOR. An account that has founded nothing
+    // holds no relationship anywhere; reading a live one off it would re-create the estate the
+    // signup ruling removed. `member` stays the floor, exactly as before.
+    relationship: Array.isArray(acct.conferredRelationship) && acct.conferredRelationship.length ? acct.conferredRelationship
+                : (Array.isArray(acct.relationship) && acct.relationship.length ? acct.relationship : ["member"]),
+    capability: (acct.conferredCapability === "administrator" || acct.capability === "administrator") ? "administrator" : "member",
     entry: true, vault: false, issuedAt: new Date().toISOString(), issuedBy: acct.personId, consent: [],
   };
   // ⭐ THE PLACE'S FACTS RIDE ONTO THE GRANT AT SIGN-IN, and this is the cross-device path itself.
