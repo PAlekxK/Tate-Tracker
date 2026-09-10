@@ -73,11 +73,25 @@ Each is reversible, none touches a live request path, and none reaches a person.
 
 ## 2b. ⭐ THE FOUR HOUSEHOLDS — and the register is inconsistent in BOTH directions
 
-`[paul-stated 2026-09-10]` the beta is **Mom · Bob · Aida · Nigel**. Paul is not one of them
-(`p-7f3a2c` carries `excludeFromEngagement: true` — he is the builder).
+⚠️ **CORRECTED 2026-09-10 — IT IS FIVE, AND PAUL IS ONE OF THEM.** `[paul-stated]` *"we can count
+my user account and that's the level we should be looking at it — my user account, like Mom, Bob,
+Aida, Nigel, are all users and owners."*
 
-| household | estate | person record | state |
+⛔ **What this row said before, and why it was wrong:** *"the beta is Mom · Bob · Aida · Nigel. Paul
+is not one of them (`p-7f3a2c` carries `excludeFromEngagement: true` — he is the builder)."* That
+flag is **telemetry scoping, not roster membership** — it keeps his own taps out of engagement
+counts, and I read it as excluding him from the beta. Recorded rather than rewritten because the
+scoping session found the same conflict independently and filed it as a card, so the wrong version
+has already been read by someone as authoritative.
+
+⭐ **AND THE UNIT IS THE USER, NOT THE ESTATE.** Every artifact in this repo counts estates, envs and
+namespaces; Paul counts **people**, and says each of the five is *a user AND an owner*. The question
+is therefore not *"do five estates exist"* but *"does each of these five people own a household that
+works."*
+
+| owner | estate | person record | state |
 |---|---|---|---|
+| **paul** | `est-d93508` (condo) | ✅ `p-7f3a2c` · account `pkirsch` = `p-yjnw9lt41nww` | ✅ owns an account and a household |
 | **mom** | `est-e6696a` | ✅ | ✅ **signed up today**, empty by design, rebuilding |
 | **bob** | `est-9a74df` | ✅ `p-2f4735` | invite out, **UNSPENT** — the credential path must work when he spends it |
 | **aida** | `est-92e588` ✅ | ⛔ **NONE** — zero mentions in `tools/people.json` | estate without a person |
