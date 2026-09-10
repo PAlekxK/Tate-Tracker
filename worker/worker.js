@@ -4092,9 +4092,32 @@ export default {
               // failing), and the whole thing sits inside the caller's try/catch, which the comment
               // above already rules — "a provider outage must never be the reason someone cannot
               // read who they are." A failure here loses a copy, never the door.
-              if (grant.username) {
-                const _ak = accountKey(scopeOf(env), grant.username);
-                const _raw = await env.OBSERVATIONS.get(_ak);
+              // ⭐ THE ACCOUNT IS REACHED BY personId NOW, SO THE USERNAME GUARD IS GONE.
+              // ⛔ THE DEFECT IT LEAVES BEHIND, MEASURED 2026-09-10 ON PAUL'S OWN CONDO: two of
+              // est-d93508's three grants carry address AND coordinates while the ACCOUNT row carries
+              // an address and NO coordinates. The retry placed the household on its grant and
+              // stopped, because the grant predates `username` riding on it — so the account row, the
+              // thing `hydrate` copies FROM, never learned where the place is. Rotate the credential
+              // and the placement was gone.
+              // ⚠️ IT IS ABOUT TO MATTER MORE: A1 composes an estate's digest from its RECORD, so an
+              // account with no coordinates is a household with no derived place even though the
+              // place is known one row away.
+              // ⭐ Q1's `account:<personId>` is what removes the guard — a personId is on every grant,
+              // a username is not. The legacy path stays as the fallback for a row not yet migrated.
+              // ⛔ BOTH SHAPES, OR THE REPAIR SKIPS THE ROWS THAT NEED IT MOST. An account written
+              // before Q1 lives at the LEGACY key, so looking only under `account:<personId>` finds
+              // nothing and silently does nothing — which is exactly the condo, the household that
+              // demonstrated the defect. A migration's repair path must reach the un-migrated.
+              let _ak = null, _raw = null;
+              if (grant.personId) {
+                _ak = personAccountKey(grant.personId);
+                _raw = await env.OBSERVATIONS.get(_ak);
+              }
+              if (!_raw && grant.username) {
+                _ak = accountKey(scopeOf(env), grant.username);
+                _raw = await env.OBSERVATIONS.get(_ak);
+              }
+              if (_ak) {
                 if (_raw) {
                   const _acct = JSON.parse(_raw);
                   _acct.coordinates = grant.coordinates;
