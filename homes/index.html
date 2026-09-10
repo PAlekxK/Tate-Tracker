@@ -321,7 +321,25 @@
         // renders exactly what it renders today. It changes behaviour only for the estate-less
         // account that `[paul-ruled 2026-09-10]` creates.
         var merged = { name: d.name || read(K_NAME), accent: d.accent || read(K_COLOR), addressParts: d.addressParts || read(K_PARTS) };
-        renderHomes((merged.name || merged.addressParts) ? [merged] : []);
+        // ⭐ READ THE RECORD'S OWN ANSWER WHEN IT GIVES ONE. `6414435` made the door able to say
+        // "you are known and you have founded nothing" — a resolvable person now answers 200 with
+        // `estates: []` instead of the 404 that used to be indistinguishable from an unknown
+        // credential. Inferring emptiness from an absent name and address was the best available
+        // test before that existed; it is the inferior one now.
+        // ⛔⛔ BUT THE FIELD TO READ IS `estates`, NOT `hasEstate` — checked, not assumed, and the
+        // difference is a regression. `hasEstate` is set on the two ZERO-estate branches only
+        // (worker.js:4400 and :4523); the grant-resolved whoami at :1008 does not carry it. So
+        // `!d.hasEstate` is `true` for a person who HAS a home, and reading it would have offered
+        // "Set up my first home" to everyone. `estates` is on BOTH branches — `[]` or `[{…}]` —
+        // which is what makes it the answer rather than the flag with the friendlier name.
+        // ⚠️ THE INFERENCE SURVIVES AS THE FALLBACK, deliberately: an older Worker returns neither
+        // field, and this repo has a live QA/production build-path split. `Array.isArray` is the
+        // test, so a Worker that omits `estates` degrades to the old behaviour instead of reading
+        // a missing array as an empty one — absence of the field is a fact about the Worker, never
+        // about whether someone has a home.
+        var told = Array.isArray(d.estates);
+        var empty = told ? d.estates.length === 0 : !(merged.name || merged.addressParts);
+        renderHomes(empty ? [] : [merged]);
       })["catch"](function () {
         // ⛔ A REJECTION IS THE SAME CLAIM AS A REFUSAL: we did not learn anything. Caught here as
         // well as at the `!d` branch above, because a dropped connection rejects rather than
