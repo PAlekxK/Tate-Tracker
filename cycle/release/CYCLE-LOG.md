@@ -2387,9 +2387,9 @@ UX clause too."* `walk-integrity`: every seat's newest run countable, 5 seats, 8
 | mom | `180634` | `est-d7teqw` | same | *"No stop"* |
 | wide-eyed | `180759` | `est-bzr4gb` | same | *"Ship it"* |
 | strict | `180920` | `est-pr9pwl` · **placed:false** (PO box, refused by design — the product said so on every reachable frame) | same | *"No stop"* |
-| handover | `181052` | — | same | *"Ship it"* |
+| handover | `181052` | `est-otzfk2` *(corrected — first written "—"; the design window read the report and caught it)* | same | *"Ship it"* |
 
-⛔ **Teardown by record:** the five estates above plus `est-ofd6vk` (the headless owner run) are the seats'
+⛔ **Teardown by record:** the **six** estates above (`rihhdp · d7teqw · bzr4gb · pr9pwl · otzfk2`) plus `est-ofd6vk` (the headless owner run) are the seats'
 houses at qa; **`PK`'s house is Paul's** (Beat 10). ⭐ **The builder wrote none of the reads** — it refused to
 grade its own build and spawned one unprimed reading seat per run.
 
