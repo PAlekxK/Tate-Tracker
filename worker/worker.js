@@ -615,10 +615,18 @@ async function accountFor(env, scope, username) {
 // that resolves to nothing; a row with no index is simply found by the legacy path. Only one of those
 // two failures locks somebody out.
 async function putAccount(env, scope, username, personId, row) {
+  if (!personId) throw new Error("putAccount: an account row is keyed by personId — refusing to write without one");
   const body = JSON.stringify(row);
   await env.OBSERVATIONS.put(personAccountKey(personId), body);
-  await env.OBSERVATIONS.put(usernameIndexKey(username), JSON.stringify({ personId }));
-  await env.OBSERVATIONS.put(accountKey(scope, username), body);
+  // ⛔ THE USERNAME-KEYED WRITES ARE CONDITIONAL. A caller that cannot name the username — the
+  // profile path, where the CLIENT may not have sent one and the grant may not carry one — would
+  // otherwise write `username:` and `<estate>:account:` with an EMPTY suffix: two junk keys that
+  // look like real rows and would be found by a prefix listing. The authoritative row is keyed by
+  // personId and needs no username at all; the other two are an index and a legacy shape.
+  const u = (username || "").trim();
+  if (!u) return;
+  await env.OBSERVATIONS.put(usernameIndexKey(u), JSON.stringify({ personId }));
+  await env.OBSERVATIONS.put(accountKey(scope, u), body);
 }
 
 async function handleAccountCreate(request, env, scope) {
@@ -3860,8 +3868,47 @@ export default {
         // control. Copy that a clear-your-browser falsifies is a broken promise, not a small bug.
         // The GRANT row is her durable home until she has an account, and it is already keyed by
         // something we hold.
-        if (!uname) {
-          const gkey = keyFor(sc, "grant", await sha256Hex(request.headers.get(GRANT_HEADER)));
+        // ⭐⭐ THE SERVER STOPS ASKING THE CLIENT WHO IT IS.
+        // This branched on `uname` — a field the CLIENT sends, sourced from `fw-username` in
+        // localStorage, which is set ONLY at account creation. So the same person, with the same
+        // credential, wrote to a different record depending on whether this device happened to
+        // remember signing up.
+        //
+        // ⛔ THE TRUE PREDICATE WAS NEITHER OF THE TWO THINGS REPORTED. It is not "the bare door
+        // loses the setup" and not "signup loses the setup" — it is **the client did not tell the
+        // server who it is**. Measured 2026-09-10: Mom signed up and finished setup in one session,
+        // sent `username`, and her ACCOUNT carries everything; a J1 walker did not send it and its
+        // account is empty at both key shapes while its grant holds the answers. Both readings were
+        // correct and neither was the rule.
+        //
+        // ⭐ `personId` IS ON EVERY GRANT; `username` IS ON SOME. So the durable record is resolved
+        // from the row the Worker is ALREADY HOLDING, and the predicate stops mattering — signup,
+        // bare door, cleared storage, a second device, all land on the account.
+        //
+        // ⛔ AND IT MUST NOT OVER-REACH. "No account yet" and "an account this device doesn't know"
+        // are DIFFERENT STATES and the old code could not tell them apart. An invite never spent on
+        // a signup has no account behind it, and writing its grant is genuinely correct. The reply
+        // says which it decided (`on: "account"` vs `on: "grant"`) rather than leaving the caller to
+        // infer it.
+        let acctKey = null, acctRaw = null;
+        if (g.personId) {
+          acctKey = personAccountKey(g.personId);
+          acctRaw = await env.OBSERVATIONS.get(acctKey);
+        }
+        if (!acctRaw && (uname || g.username)) {
+          // the legacy shape, for an account written before Q1
+          acctKey = accountKey(sc, uname || g.username);
+          acctRaw = await env.OBSERVATIONS.get(acctKey);
+        }
+        if (!acctRaw) {
+          // ⛔ THE GRANT'S OWN ESTATE, NOT THE DEPLOYMENT'S. This built the key from `scopeOf(env)`,
+          // which was the same thing while one deployment served one household — and is wrong the
+          // moment `grantFor()` routes. Measured on lab: an invite belonging to est-lab0002,
+          // presented to a deployment bound to est-lab0001, resolved fine and then 404'd here,
+          // because the handler went looking for its row under the WRONG estate. An invited reader
+          // saving their setup would have been told their own link was invalid.
+          const gscope = g.estateId ? scopeOfRoute(g.estateId, env) : sc;
+          const gkey = keyFor(gscope, "grant", await sha256Hex(request.headers.get(GRANT_HEADER)));
           const graw = await env.OBSERVATIONS.get(gkey);
           if (!graw) return json({ error: "not-found" }, 404);
           const grow = JSON.parse(graw);
@@ -3890,12 +3937,12 @@ export default {
           // Same ordering rule as the account branch above: durable first, enrichment after.
           await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
           try {
-            if (await applyGeocode(env, sc, grow)) await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
+            if (await applyGeocode(env, gscope, grow)) await env.OBSERVATIONS.put(gkey, JSON.stringify(grow));
           } catch (e) {}
           return json({ ok: true, on: "grant", name: grow.placeName || null, accent: grow.accent || null,
                         coordinates: grow.coordinates || null });
         }
-        const raw = await env.OBSERVATIONS.get(accountKey(sc, uname));
+        const raw = acctRaw;
         if (!raw) return json({ error: "not-found" }, 404);
         const acct = JSON.parse(raw);
         if (acct.personId !== g.personId) return json({ error: "not-found" }, 404);
@@ -3936,13 +3983,18 @@ export default {
         //   That is capture lying, caused by making capture slow.
         // ⭐ THE RULE: never put a network call between a person's input and the write that keeps it.
         //   Geocoding is an ENRICHMENT of a stored fact, never a precondition for storing it.
-        await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
+        // ⛔ WRITE EVERY SHAPE THE ACCOUNT HAS, NOT THE ONE IT WAS READ FROM. This wrote only the
+        // LEGACY key, so a setup saved after Q1 landed on the old shape alone and `account:<personId>`
+        // — the shape `personFor` and this handler now READ FIRST — stayed stale. That is the same
+        // split this whole fix exists to close, one layer along, and it would have re-opened silently.
+        // ⚠️ `uname || g.username` because the client may not have sent one; the grant knows.
+        await putAccount(env, sc, uname || g.username || acct.username || "", g.personId, acct);
 
         // Now the slow part, on an already-durable row. If this is cancelled, killed or throws, the
         // address survives and /api/grant/whoami's retry places the household on the next load.
         try {
           if (await applyGeocode(env, sc, acct)) {
-            await env.OBSERVATIONS.put(accountKey(sc, uname), JSON.stringify(acct));
+            await putAccount(env, sc, uname || g.username || acct.username || "", g.personId, acct);
           }
         } catch (e) {}
         // ⭐ AND THE CALLER'S OWN GRANT IS REFRESHED IN THE SAME BREATH. The grant row is the
@@ -3967,7 +4019,7 @@ export default {
             await env.OBSERVATIONS.put(gkey2, JSON.stringify(grow2));
           }
         } catch (e) { /* the account write is what matters; the view catches up at sign-in */ }
-        return json({ ok: true, name: acct.placeName || null, accent: acct.accent || null,
+        return json({ ok: true, on: "account", name: acct.placeName || null, accent: acct.accent || null,
                       email: acct.email || null, phone: acct.phone || null,
                       contactPref: acct.contactPref || "email" });
       } catch (e) { return json({ error: "bad-json" }, 400); }
