@@ -18,6 +18,9 @@
 
 ## 2 · Mission
 
+> ⭐ **SCOPE GROWN 2026-09-10 ~6:35 PM ET, after the readback was graded** `[paul-stated: "that could be even a separate session devoted to that UX review and really refining what changes we want to make, and we give it time to do that"]`. **This window IS that session.** Its mission is no longer the two surfaces alone but **the lap-7 UX bundle — `BACKLOG.md` TIER 1 · 27**, read there, never restated here: the two-pass sweep as spine (§3·2, unchanged), TIER 2 · 10 the glance consolidation as anchor (with its G6-first precondition), the founding flow (rows 26 · 28 · 29 · 30, (A)–(F) on row 19), the small copy/layout rows (TIER 2 · 21 · 25 · 19 · 20), the 08-31 leftovers, and decision cards `fernwood-11` and `fernwood-8`. Row 27 also lists three questions Paul has not answered (account lifecycle in or out · colour's four axes in or out · one candidate or slices) — put them to him from inside the window as the exhibits make them concrete. **Take the time**; the coordinator sequences the apply. Everything in §3 still binds.
+
+
 Turn what five reading seats converged on at the founding flow into **one design decision set for Paul**, on the candidate `318416a` served at qa. Two surfaces: **the confirm card** (*"Does that look right?"*, which founds before it is answered) and **the empty shelf** (off a cold founder's path, two founding controls). Everything else the seats raised is a finding to carry, not a second mission.
 
 ## 3 · The two conditions (the coordinator's, as freeze holder — binding)
