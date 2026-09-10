@@ -56,3 +56,6 @@ Whether Paul's walk at `318416a` has been recorded yet (check the chronicle befo
 ## 8 · Guardrails
 
 ⛔ Never `git push origin main` · never deploy · nothing outbound · no paid API · nothing reaches Mom or Bob · no canon write · no `.plans/*-PLAN.md` another lane owns. A ruling that is not in the register is not in force — send Paul's words to refinement. `[paul-stated]` means his words, never a paraphrase into a stronger claim.
+
+## 9 · STATE AT PAUSE — 2026-09-10 ~10:55 PM ET · committed at `4fb7f64` (coordinator's urgent commit-now, usage 97%; Paul had said "pause")
+- **Unfinished, by name:** pass 2 of the sweep (doctrine adjudication — agent in flight, trail placeholder stands) · the content-steward review, TIER 1 · 31 (agent in flight; target `.content/2026-09-10-founding-flow-copy-REVIEW.md`) · the two `/design-options` exhibits (confirm-as-GATE with the PO-box refusal; the shelf) and the account-lifecycle designs — NOT STARTED · `.plans/2026-09-10-founding-flow-design-PLAN.md` — NOT CREATED · messages owed: trail path + `est-gndlvf` to the coordinator, top findings to refinement. Distillations (seats · plans · bundle rows · rulings) live in this session's scratchpad only.
