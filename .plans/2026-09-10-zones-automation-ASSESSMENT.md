@@ -299,3 +299,50 @@ Paul: *"do we have a very clear sense of how zone data helps reinforce and expan
 2. **`.plans/2026-09-07-derived-first-draft-PLAN.md`** § What I could not verify, item 1 — answered; § Sequence step 1 gains two register entries (buildings, driveways).
 3. **`.engineering/2026-09-08-zones-derivability-EXPERIMENT.md` §8 step 1** — *"propose the 2–3 highest-confidence objects"* → *"FETCH the anchors; propose only what no download covers."*
 4. **`LAND-SOURCES.md`** — promote Microsoft footprints and OSM driveways from LEAD to VERIFIED at these coordinates (2026-09-10); add the Georgia statewide parcel layer as a G1 lead with the 403.
+
+---
+
+## AMENDMENT · 2026-09-10 later — the ai-advisor web-research seat returned; what it changes above
+
+The seat ran its own probes at Fernwood (not a re-read of mine) and **independently reproduced §1a**: Microsoft footprint IoU **0.754**, centroid **1.53 m**, area 141 m²; OSM way 1507899125 at **3 m** from `main-parking` and `lower-parking`, **7 m** from `house`. Two measurements, two sessions, one answer. Its full report is in the session transcript; the rows it changes are corrected here rather than edited above.
+
+### ① ⛔ A LICENSING SPLIT the assessment did not carry, and it decides what may be STORED `[reported by the seat; licences read from the sources' own pages]`
+
+| source | licence | consequence |
+|---|---|---|
+| NAIP · 3DEP | public domain | ship, store, redistribute |
+| **Microsoft footprints, pulled DIRECT** | **CDLA-Permissive-2.0** | store as household geometry |
+| **OSM driveway (Overpass)** | **ODbL — share-alike on a derived database** | ⛔ a stored polyline is a derived database. **Store it as a HINT with its source; the record is the human's retrace over it** |
+| Overture buildings | ODbL — *the same Microsoft geometry, re-licensed worse* | never — pull Microsoft direct |
+
+⭐ **This does not weaken §0; it sharpens §4 step 1.** The driveway is still a download, and the *frame* derived from it is a produced work, not a database. What changes is the **record**: the house footprint may be written to the household as geometry; the driveway is rendered as a distinct-style hint that a person retraces with two clicks — which is Z-5's *"points and walls first, then subdivide"* with the wall already drawn for them. **R-A4's field list is amended:** `footprint` (stored) · `drivewayHint` (source + timestamp, not canon) · `frame` · `tier` · `coverage`.
+
+### ② ⭐ NAIP IS BROWSER-CALLABLE, 4-BAND, WITH NO ZOOM CEILING `[verified by the seat: HTTP 200, 800×800 GeoTIFF, `bandCount=4`, `pixelSize=0.3`, `access-control-allow-origin: *`]`
+
+`imagery.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/ImageServer/exportImage` renders any bbox server-side and answers CORS `*`. **The "later" column of §4's table just got cheaper:** the household's phone can fetch its own basemap at the frame bbox directly, no Worker relay, no Python. ⚠️ The free XYZ tile cache is **not** this — it 404s above z16 at Fernwood (2.4 m/px), confirming `images/property-map/README.md`'s note. Use `exportImage`, never the tile cache, for tracing resolution.
+
+### ③ ROW 9 (woods/open) MOVES: the data is G0 and range-readable; only the tool is missing `[verified by the seat]`
+
+The 2018 LAZ tiles are on the public bucket with `accept-ranges: bytes` — three tiles ≈ **65 MB one-time** — carrying ASPRS classification (**class 6 = building**, class 2 = ground). That is (a) a shadow-free, canopy-blind building mask to cross-check Microsoft with a sensor that shares none of its failure modes, and (b) the DSM − DTM canopy height model. **PDAL is still the gate** (a conda afternoon, as the plan priced it). Row 9's *"no free G0 instrument"* becomes *"G0 data on disk in minutes; the instrument is one install away."* Also confirmed: the 2025 Georgia 9-county 0.5 m leaf-off lidar **does not reach Pickens** (TNM returns nothing here) — watch it, do not wait for it.
+
+### ④ THE GEOCODER IS 55 m OFF AT FERNWOOD `[verified by the seat: Census → 34.549318, −84.367964]`
+
+§3's first refusal (*never centre on the geocode alone*) now has its number. The nearest Microsoft footprint within 100 m of the seed is the anchor; at Fernwood that snap corrects 55 m to 1.5 m. **A 100 m search radius and a 30–1,000 m² plausibility band** are the seat's proposed acceptance floor for the anchor step, and they are adopted into the frame rule as tier X's threshold: no footprint inside 100 m → refuse and ask.
+
+### ⑤ ⚠️ A DISAGREEMENT ON THE FALLBACK FRAME, resolved by the answer key
+
+The seat recommends **a fixed 250 m square centred on the footprint** and states the 23 zones *"span 138 × 231 m."* The span is right; the conclusion is not: **the zones are not centred on the house.** Measured (§1a): W −65 · E +166 · S −121 · N +16 m from the anchor, and `the-meadow`'s farthest vertex is **187 m** out. A ±125 m square centred on the footprint **clips `the-meadow`**; ±120 m holds 22/23, ±200 m holds 23/23. **Tier R stays at 200 m** — and this is the argument for tier S over any fixed number: the drive is what tells you *which way* the grounds run.
+
+### ⑥ Smaller corrections carried
+
+- **Microsoft's `confidence = −1.0` is a placeholder**, not a score — the footprint carries no usable confidence signal. Published: precision 92–97 %, **recall 71–86 %**, IoU 63–68 %, imagery 2014–2024. So row 3 (other buildings) is **1-of-N recall**: an outbuilding may simply be absent, and absence is not evidence.
+- **Published rural-NAIP building detection tops out at IoU 0.43** (Remote Sensing 14(15):3622, 2022, failures attributed to *"roofs covered by trees, areas in shade"*). Microsoft's shipped 0.754 nearly doubles it. ⭐ **Do not build a NAIP building detector** — the seat's conclusion, and it is the `[[feedback_check_standards_before_building]]` shape in a new domain. The seat proposed a playbook line (*"check the shipped product before building the detector"*); **not written — Paul's call whether it is a second example under that memory or a Fernwood pattern.**
+- **Parcel, three more paths for R-A2:** a $300 one-time county shapefile (MappingSolutionsGIS, 22,091 parcels, 2025 vintage — an engine-N cost, not a today cost); the **GSCCCA plat index** (free search; the recorded plat is the *authoritative* boundary, a one-time human read); the Georgia GIS Clearinghouse parcel list (**unverified** — the page would not render for the seat either). And `LAND-SOURCES.md`'s *"Pickens County GIS / qPublic"* LEAD should be **downgraded to 403-walled** (register edit 4 gains a line).
+- **Overpass is rate-limited and not a production dependency** — snapshot the hint at founding, never fetch it on a request path. Same rule as the Microsoft tile.
+
+### ⑦ One test added to §8, between steps 2 and 3
+
+**Buffer the OSM driveway at 2.5 / 4 / 6 m half-width and score it against `main-parking` and `lower-parking`.** If a width explains the linear part of both and leaves a residual apron, *"derive the drive, the person draws the apron"* is a real division of labour; if not, it is wishful. One script, cached data, no network.
+
+### What the seat could not verify, carried honestly
+Whether Pickens appears in the Clearinghouse parcel list · whether qPublic has a browser-reachable service behind its 403 (a Claude-in-Chrome session answers it in two minutes — Z-8) · Regrid free-tier geometry terms · Clay/DOFA at sub-metre.
