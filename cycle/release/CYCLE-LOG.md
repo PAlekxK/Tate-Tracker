@@ -2364,7 +2364,11 @@ chronicle, the freeze, routing) · backlog-refinement (**the one door** to `BACK
 ### Beat 10 · PAUL'S WALK — begun 2026-09-10 evening, at candidate `318416a`, with the gate kit `[paul-stated: "let's make this approach standard for every time I have a gate"]`
 
 - **Existing place:** signed in at the door (`fernwood-qa.pages.dev/onboarding/`) as **`pkirsch`** (`p-jhgwhxxz6zce`, est-qa0001).
-- **Throwaway owner, his word:** username **`PK`** — signed up fresh at the door, no invite, founds a new house.
+- **Throwaway owner, his word:** username **`PAK`** — signed up fresh at the door, no invite, founds a new house.
+  (First choice `PK` was **refused by the page as too short** — the rule is 3–40 characters, `onboarding/index.html`
+  username check — so `PK` never existed. ⭐ Gate-kit lesson: state the username rule when handing over the tabs.)
+- **Existing-place check:** ✅ Paul, 2026-09-10 evening — *"I signed into my existing account. Everything looks good.
+  There was a smooth journey on the onboarding page."*
   ⛔ **Recorded here so teardown is by record, never by name-guessing.** Whatever estate `PK` founds is
   Paul's test house at qa, disposable on his say-so, and is NOT a synthetic seat's.
 - Gate ① at this moment: owner seat watched-clean, its read in progress by an unprimed reading seat; the
