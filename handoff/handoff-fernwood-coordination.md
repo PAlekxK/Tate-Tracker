@@ -18,7 +18,9 @@ nowhere else.
 - `.plans/2026-09-10-account-estate-model-SCOPE.md` §9 · `.plans/2026-09-10-testing-architecture-PLAN.md` §6
 
 ## 3. Next steps (ordered)
-1. **Two keypresses are owed by Paul, not you:** close `onboarding-ask-b3` (duplicate of
+1. ⚠️ **STALE AS WRITTEN — re-measure before acting. `ListAgents` is the instrument.** When this was
+   written both onboarding sessions read `waiting`; the first successor measured them **`busy`**.
+   **Two keypresses were owed by Paul, not you:** close `onboarding-ask-b3` (duplicate of
    `onboarding-ask-82`, both in one worktree — my error), then clear the prompt the survivor is
    showing. Both read `waiting`; nothing has been written in either. **Ask before diagnosing.**
 2. **Take the windows' parked reports** — `tate-tracker-ec` and `testing-arch-e2` were each asked for
@@ -90,6 +92,54 @@ and **correctly excluded**. It blocks nothing, but do not read "landed" as "comp
 ⚠️ **`worker/digest.json` ≠ the per-estate digests.** `build-digest.py` builds Fernwood's bundled canon
 from repo-root strict canon; `publish-digest.py` composes per-estate digests into KV. Different paths —
 the election fix could not have touched the first. I confused these; don't repeat it.
+
+## 7c. AMENDMENTS FROM THE FIRST READBACK GRADE — `2026-09-10 ~4:10 PM ET`
+
+**⛔ CORRECTION — A2 IS COMPLETE, NOT PARTIAL.** The first successor read `canonIsThisEstate` = 1 and
+`CANON_FOREIGN_OK` = 2 and concluded the retirements had not landed. **All three hits are inside the
+COMMENT BLOCK explaining the deletion** (`worker.js:111,119,124`). Both are genuinely gone; the guard
+is `canonFor`'s stamp comparison, which is stronger. ⭐ **This is the day's own lesson biting the
+reader who quoted it** — *a count is not a mechanism*. **Grep, then read the line.**
+
+**⭐ WHERE YOU RUN, AND WHO YOU ARE — this was missing and it blocks you.**
+You **replace** `paulkirschenbauer-5d` as coordinator. Run in the **main worktree**
+(`~/Developer/Tate-Tracker`). The outgoing coordinator **stops committing at this amendment** — it
+wrote this file and nothing further. Once Paul clears that window you are the only writer in the
+tree. **Until he does, do not commit.** The first successor was right to refuse and right to name it.
+
+**⭐ THE STALL INSTRUMENT IS `ListAgents`** — busy / idle / waiting, per session. ⑥b says a closed
+window and a blocked one look identical from outside and does not say what to use instead. **This is
+what to use.** The commit-watchdog is a *stall* detector, not a *cause* detector, and it was itself
+wrong twice today. **Run `ListAgents` before concluding anything about a window, and ask Paul before
+diagnosing — he can see the window; you cannot.**
+
+**⭐ THE COORDINATOR'S OWN FALSIFIER** — asked for and missing, and the question is fair:
+> **Coordination has stopped being useful when the windows stop needing routing** — when no
+> cross-lane request has come through in a working session, when no window has been corrected by
+> another, and when Paul is answering gates faster than they are being composed. **At that point the
+> windows should talk to Paul directly and this role should stand down.** ⚠️ Today it was *not* met:
+> six relayed claims failed verification, three cross-lane routings were needed, and two windows
+> corrected each other through this seat.
+
+**⚠️ `backlog-rat`'s worktree has a MODIFIED TRACKED file too** — `cycle/release/cycle-state.json`
+(`candidate_sha` 8d17e4e → 196e146). §4 warns only about the untracked plan copy. It reads as
+generated output from `release-state.py`, not authored work. **Leave it; don't commit it.**
+
+**⚠️ The rationalization proposal's §7.2 is itself out of date** — it says `SCOPE`'s Q6 is
+byte-unchanged and calls it *"the more consequential half, still open."* It was fixed at `0e0926c`.
+**The document about things reading as current when they aren't now has that property.** Say so when
+you put it to Paul.
+
+**⚠️ Step 2 of §3 is substantially DONE** — §7b folds in `tate-tracker-ec`'s parked report and
+`e802b7d` points at `testing-arch`'s. Don't go asking for reports already on the page.
+
+**🔴 AND THE FINDING THE FIRST SUCCESSOR SURFACED THAT THIS BRIEF DID NOT CONTAIN — verify it, then
+raise it:** `publish-digest.py --check` now reports six of seven estates **cannot build — no
+estate-level place record**. If that holds, **A1 is blocked on the unruled estate-place-record
+architecture call**, which makes the readiness bar gated on a decision sitting in §5 as a guardrail
+rather than on the sequence. It is a consequence of the election fix landing (electing a place from
+member rows was *removed*, not replaced). ⚠️ **Labelled by its author as inference, not measurement** —
+confirm against `household_property()` before putting it to Paul as fact.
 
 ## 8. Trust status
 **Human-cleared (Paul, today):** the G1/READY-TO-INVITE wording · personalization inside · five owners
