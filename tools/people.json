@@ -43,6 +43,16 @@
       "name": "mom",
       "notes": "Established from authored CONTENT, the only evidence that survives scrutiny: confirm answers 2026-07-13 (crocosmia 'Lucifer'), 2026-07-13 (white mophead 'Annabelle'), 2026-07-19 (panicle hydrangea), and the 2026-07-26 free-text rainfall report — every one on this device, none on any other.",
       "deviceIds": "→ private register (fernwood-private/people-devices.json), merged by momlib._people()"
+    },
+    {
+      "id": "p-2f4735",
+      "name": "bob",
+      "notes": "Owner of his own estate est-9a74df (myhome-bob.pages.dev) — a HOUSEHOLD, not an environment. Added 2026-09-10 when his founding owner grant was minted. The first person outside the family given a place of his own, and so the first real test of one-estate-per-deployment with a person in it. First name only, the same shape as mom: this file holds no surnames and no contact details."
+    },
+    {
+      "id": "p-5cf094",
+      "name": "nigel",
+      "notes": "Beta reader, invited 2026-09-10. ⛔ HAS NO ESTATE YET — there is no `nigel` env in worker/wrangler.toml, no KV namespace and no Pages project, so no grant can be minted for him until one is provisioned. This row exists so the id is stable and reserved before that happens; a person in people.json with no grant is not an error. First name only, same as mom and bob."
     }
   ]
 }
