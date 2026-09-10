@@ -163,8 +163,21 @@ def selftest():
             fails.append(name)
 
     ints = interests()
+    # ⛔⛔ THIS CLAUSE PINNED A COPY STRING AND WENT RED WHEN ANOTHER LANE DID CORRECT WORK.
+    # `[corrected 2026-09-10 at close-out]` It asserted `("handover", "Handing it all over") in ints`
+    # — the id AND its label. `onboarding-ask-b3` then rewrote the interests ask so each option names
+    # an ACTIVITY (`4439010`), and the label became "Getting it ready to hand over". The module never
+    # moved: 11 modules still read, `handover` still among them. The only thing that broke was my
+    # copy of somebody else's words.
+    # ⭐ A TEST THAT FAILS WHEN ANOTHER LANE DOES ITS JOB IS A TEST THAT GETS MUTED, and the next
+    # reader cannot tell a muted clause from a satisfied one. The ID is the identity and is this
+    # file's business; the LABEL is authored content that is SUPPOSED to change, and pinning it made
+    # this file a silent veto over a surface it does not own.
+    # ⚠️ Same family as the anti-regression clause that went false six hours after it was written:
+    # pin a clause to the thing it cares about, never to a detail that merely happened to be true.
+    ids = {k for k, _ in ints}
     check("the module space is READ from the page that shows it",
-          len(ints) >= 8 and ("handover", "Handing it all over") in ints,
+          len(ints) >= 8 and "handover" in ids and all(k and v for k, v in ints),
           "read %d module(s): %r" % (len(ints), ints[:3]))
     check("every seat in the roles register is assessed",
           {r for r, _, _, _ in seats()} and len(seats()) >= 4, "")
