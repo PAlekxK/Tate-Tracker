@@ -511,8 +511,25 @@ async function handleAccountCreate(request, env, scope) {
   //
   // Signup may establish WHO YOU ARE to this place. It may not establish WHAT YOU MAY DO to other
   // people's records — so the capability now comes from the invite and never from the applicant.
+  //
+  // ⭐ THE DOOR IS OPEN AGAIN — BUT NOT THE WAY IT WAS `[paul-ruled 2026-09-10]`. The invite is no
+  // longer REQUIRED to create an account; it is required to create anything more than a member.
+  // ⛔ THE INCIDENT ABOVE IS NOT BEING REOPENED, and the distinction is the whole point: what was
+  // dangerous was never that the route accepted a stranger — it was that the route let a stranger
+  // NAME THEIR OWN CAPABILITY and self-minted `administrator`. That is closed here permanently.
+  //   • no invite      → member, always, whatever the body says. `capability` is never read from `body`.
+  //   • member invite  → member.
+  //   • admin invite   → administrator, and ONLY here does administrator become reachable.
+  // ⛔ MEASURED, 2026-09-10 — this is the defect it repairs, not a preference. The sunset banner on
+  // legacy Fernwood points at a BARE `/onboarding/` with no `?g=`. Mom followed it, was shown the
+  // setup form, filled it in, and was refused at the last step with "This link isn't valid any more
+  // — ask Paul for a fresh one." She never had a link and nothing had expired: the product invented
+  // a failure, blamed it on her, and threw the typing away. A door that shows you a form it will not
+  // accept is not a gate, it is a trap.
+  // ⚠️ A PRESENTED-BUT-DEAD LINK NOW LANDS HERE TOO, deliberately. It yields a member account rather
+  // than a refusal — the person still gets in, at the floor capability, which is the kind outcome and
+  // the safe one. A dead credential grants nothing it did not already grant.
   const invite = await grantFor(request, env);
-  if (!invite) return json({ error: "invite-required" }, 403);
 
   const akey = accountKey(scope, username);
   if (await env.OBSERVATIONS.get(akey)) return json({ error: "username-taken" }, 409);
@@ -532,8 +549,8 @@ async function handleAccountCreate(request, env, scope) {
     // member; a founding invite that says administrator produces an administrator, and the claim
     // finally has a source.
     personId, estateId: scope.id,
-    relationship: Array.isArray(invite.relationship) && invite.relationship.length ? invite.relationship : ["member"],
-    capability: invite.capability === "administrator" ? "administrator" : "member",
+    relationship: invite && Array.isArray(invite.relationship) && invite.relationship.length ? invite.relationship : ["member"],
+    capability: invite && invite.capability === "administrator" ? "administrator" : "member",
     entry: true, vault: false, issuedAt: new Date().toISOString(), issuedBy: personId,
     // ⭐ THE LINK BACK TO THE ACCOUNT (2026-09-08). The account row has always held `tokenHash` —
     // it knows its grant — and the grant knew nothing about the account, so nothing on the door
@@ -541,8 +558,11 @@ async function handleAccountCreate(request, env, scope) {
     // the account it belongs to. `measured`: production held `est-e6696a:geocode:2026-09-08` while
     // `hydrate` reported `coordinates` ABSENT on the account.
     username,
+    // ⭐ `how` NAMES THE DOOR. An invited signup and an open one are different provenance for the
+    // same row, and a consent record that cannot say which one happened cannot be audited later.
     consent: [{ scope: "founding-request", agreedOn: new Date().toISOString().slice(0, 10),
-                agreedBy: personId, recordedBy: personId, consentSource: "self", how: "account-signup" }],
+                agreedBy: personId, recordedBy: personId, consentSource: "self",
+                how: invite ? "account-signup" : "open-signup" }],
   };
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
   await env.OBSERVATIONS.put(akey, JSON.stringify({
@@ -558,14 +578,23 @@ async function handleAccountCreate(request, env, scope) {
     // from and fell back to a hardcoded "administrator" — so a member whose grant row went missing
     // would be re-minted as an administrator by the act of signing in.
     relationship: grantRow.relationship, capability: grantRow.capability,
+    // ⭐ WHICH DOOR, on the row a sweep actually reads. `watch-accounts.py` reports arrivals off the
+    // account row and never opens `consent`, so without this the open door would be invisible to the
+    // one tool whose job is to say who arrived.
+    signupVia: invite ? "invite" : "open",
     accent: typeof body.accent === "string" ? body.accent.slice(0, 9) : null,
     placeName: null,
   }));
   // ⛔ SPEND THE INVITE. It was never revoked: account creation overwrote the browser's copy while
   // the KV row stayed valid forever — no expiry, no TTL — so every invite ever issued remained a
   // live administrator credential for anyone who still had the link.
-  try { await env.OBSERVATIONS.delete(keyFor(scope, "grant", await sha256Hex(request.headers.get(GRANT_HEADER)))); }
-  catch (e) { /* the new account already exists; a stale invite is the lesser failure */ }
+  // ⚠️ ONLY WHEN ONE WAS PRESENTED. With the door open, `request.headers.get(GRANT_HEADER)` is null
+  // for most signups, and hashing a null would compute a real sha256 of the string "null" and issue
+  // a delete against whatever key that happens to name. Nothing to spend is not a spend.
+  if (invite) {
+    try { await env.OBSERVATIONS.delete(keyFor(scope, "grant", await sha256Hex(request.headers.get(GRANT_HEADER)))); }
+    catch (e) { /* the new account already exists; a stale invite is the lesser failure */ }
+  }
   return json({ personId, token, estates: [{ estateId: scope.id,
                 relationship: grantRow.relationship, capability: grantRow.capability }] }, 201);
 }

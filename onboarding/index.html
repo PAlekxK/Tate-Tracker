@@ -1017,7 +1017,12 @@
       // Both readers are covered in one sentence, and neither is left without a next move: someone
       // who has an account signs in; someone who does not is told the one thing that gets them one,
       // in the banner's own words — "Paul will send you your link."
-      if (_S) _S.textContent = "If you set your place up before, sign back in here. If you haven\u2019t yet, Paul will send you your link.";
+      // ⭐ AND IT NO LONGER PROMISES A LINK `[paul-ruled 2026-09-10]`. "Paul will send you your link"
+      // was true while `/api/account` required an invite; the door is open now, so it had become an
+      // instruction to WAIT for something nobody is going to send — the same failure as the sentence
+      // it replaced, one step further on. Someone who has an account signs in; someone who does not
+      // makes one, here, now.
+      if (_S) _S.textContent = "If you set your place up before, sign back in here. If you haven\u2019t yet, you can create your account in a minute \u2014 no link needed.";
     } catch (e) {}
   }
 
@@ -1624,7 +1629,12 @@
             : code === "word-too-short" ? "The password needs eight characters or more."
             : code === "bad-email" ? "That email address doesn't look right — have another look."
             : code === "bad-phone" ? "That phone number doesn't look right — it needs at least seven digits."
-            : code === "invite-required" ? "This link isn't valid any more — ask Paul for a fresh one."
+            // ⚠️ UNREACHABLE FROM A CURRENT WORKER and kept anyway. `/api/account` stopped answering
+            // `invite-required` on 2026-09-10 when the door opened, but this page and the Worker
+            // deploy separately, so a page served against an older Worker would fall through to
+            // "That didn't go through" — the copy for a failed delivery, on a refusal. The message
+            // no longer names a link, because the person who sees it now most likely never had one.
+            : code === "invite-required" ? "This estate isn't taking new accounts from here yet — let Paul know and he'll sort it."
             : "That didn't go through. Your answers are still here — tap once more.";
           ev("account-refused", code || "unknown");
           el.trouble0.hidden = false; el.trouble0.innerHTML = msg;
