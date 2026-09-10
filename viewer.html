@@ -6429,10 +6429,20 @@
     var atDay  = new Date(SUNSET_AT).toLocaleString("en-US", { timeZone: ET, weekday: "long" });
     function etDate(ms) { return new Date(ms).toLocaleDateString("en-US", { timeZone: ET }); }
 
-    /* ⭐ "Paul will send you your link" is job 3, and it is the warmest TRUE thing on this
-       banner: she does not have to do anything. It is not instructions and it must not grow
-       into any. It also never says the link is IN this page — it is not, and it never will be. */
-    var PRIMER = "Paul will send you your link — nothing for you to do.";
+    /* ⭐ Job 3 is the warmest TRUE thing on this banner, and on 2026-09-10 it stopped being
+       true. "Paul will send you your link — nothing for you to do" was accurate only while
+       `/api/account` refused everyone without a grant; `[paul-ruled 2026-09-10]` opened that
+       door — anyone may sign up as a MEMBER, and an invite is now what mints an OWNER or an
+       ADMINISTRATOR. So the sentence had become an instruction to WAIT for something nobody
+       is going to send.
+       ⛔ THIS IS THE WALL THE COMMENT ON SUNSET_TO CALLED "known, not a regression". It became
+       a regression at 1:00 PM on 2026-09-09, the moment this banner began redirecting on its
+       own: Mom was carried to a bare /onboarding/, shown the setup form, filled it in, and was
+       told "This link isn't valid any more — ask Paul for a fresh one." She had no link and
+       nothing had expired. The door is fixed; this sentence is the half of it that lives here.
+       ⚠️ STILL NOT INSTRUCTIONS, and it must not grow into any. It still never says the link
+       is IN this page — there is no longer a link for it to be in. */
+    var PRIMER = "You'll set up your own account when you get there — it takes a minute, and Paul is on hand if it snags.";
 
     var arrived = false;
     /* ⛔ WHAT IS CURRENTLY RENDERED, so a repaint that changes nothing writes nothing. The
