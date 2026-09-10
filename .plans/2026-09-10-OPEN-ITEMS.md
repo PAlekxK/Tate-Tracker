@@ -164,6 +164,29 @@ destroyed.
 
 ---
 
+## ⑦b ⚠️ LOOSE IN `~/.claude` — NOT this repo, and nobody claims it
+
+`measured` at close by `paulkirschenbauer-3b`, **by name rather than from memory**: **19 uncommitted
+files** in `~/.claude`, **up from 18** during the session. ⛔ **None belongs to the lane that found
+them.**
+
+**8 modified** — `gmail-draft-ledger.jsonl` · `handoff/finding-ledger/2026-09-08.jsonl` · **`MEMORY.md`**
+· `rituals/meta-stack/cycle-state.json` · `tools/.verify-offsite-ledger.jsonl` ·
+`tools/autonomous-loop/.seam-log.jsonl` · `tools/show-reminder.log` · `user-research/fernwood.md`
+**11 untracked** — `daemon-auth-cooldown` · `daemon-auth-status.json` · five `handoff/brief-*.md` ·
+`handoff/fernwood-nanny-checklist.md` · `handoff/finding-ledger/2026-09-10.jsonl` · three `memory/*.md`
+
+🔴 **`MEMORY.md` HAS TWO WRITERS AND NOTHING SERIALISES IT.** Another window edited it **after** that
+lane's commit. **No clobber this time** — the row survived and the other session appended cleanly — but
+that is luck, not a mechanism. ⚠️ **This directory configures every session Paul runs**, which makes it
+worse than the same state in a project repo.
+
+⭐ **Why nobody claims them, and why they persist:** most look like **runtime state and session
+artifacts rather than authored work**. ⛔ **The lane deliberately touched none of them** — *"reconciling
+another session's working tree is how you lose someone's uncommitted thinking, and I could not tell
+authored from generated without opening files that are not mine."* **That was the right call.**
+✅ `refs/autosave/latest` holds a recoverable snapshot. **Paul's to triage, nobody else's.**
+
 ## ⑧ ⭐ THE LESSON THE NEXT LAP SHOULD READ FIRST
 
 **Sixteen relayed claims failed verification today.** Six were the coordinator's. Three came from one
@@ -178,6 +201,23 @@ brief. Every single one was caught by the **receiving** lane measuring rather th
 
 ⭐ **Two other forms worth carrying:** **grep, then read the line** — a count locates, it does not
 establish. And **verify a reversibility promise against the actual route back before writing it.**
+
+⭐⭐ **AND THE ONE THAT ONLY SHOWS UP AT THIS LANE COUNT — `paulkirschenbauer-3b`'s correction to its own
+credit, which is better than the credit was:**
+
+> *"You credit me with reading the plan before designing — true, and the right lesson. But two of my own
+> citations were wrong today and both were caught by someone else first, and the repo moved ~270 lines
+> under me while we talked, so every `worker.js` line I filed was stale within the hour. **The durable
+> lesson is not 'read first' — it is CITE THE SYMBOL AND STAMP THE SHA, because in a repo with this lane
+> count a line number has a half-life of about an hour.**"*
+
+⛔ **Every `file:line` in this document and its siblings is subject to that.** `main` took **107 commits
+today.** Cite the symbol; stamp the sha; re-derive before acting.
+
+⚠️ **And the failure mode a security-shaped seat will keep generating, named by the seat itself:** it
+drafted a finding that a privacy claim had *"propagated by copy during the session convened to catch
+it."* **Tidy, alarming, and false** — the second match was a comment **defending** the promise. One
+`sed` settled it. ⭐ **A story that good deserves a check before it deserves a reader.**
 
 ## Falsifier
 If the next lap can state the board without reading this file, delete it. If two lanes give different
