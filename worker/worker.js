@@ -485,6 +485,63 @@ function sameHash(a, b) {
 
 function accountKey(scope, username) { return keyFor(scope, "account", username.trim().toLowerCase()); }
 
+// ⭐⭐ C7 · AN ACCOUNT BELONGS TO A PERSON, NOT TO A HOUSEHOLD `[paul-ruled 2026-09-10]` — "we
+// shouldn't be pre-seeding estates earlier in the process"; a person gets an account and a token,
+// and creates households afterwards. An account key carrying an estate prefix cannot express that.
+//
+// ⭐ AND THE PREFIX WAS NEVER DOING ISOLATION WORK. Measured 2026-09-10 by tracing every one: all
+// NINE `accountKey()` call sites resolve their scope from `scopeOf(env)` — :3612/:3815/:3819 pass it
+// into the handlers, :3623/:3792 assign it, :3808/:3911 call it inline. ZERO resolve from a grant.
+// So the estate segment never varies within a deployment and carries no information. "Accounts are
+// estate-scoped" is true of the key STRING and false of the behaviour.
+// ⛔ This is NOT the same as dropping the prefix from GRANT keys, which stays prohibited
+// (`.plans/2026-09-10-multi-tenancy-PLAN.md` §1): there the prefix IS the isolation.
+//
+// TWO KEYS, and which is authoritative matters:
+//   account:<personId>              → the row itself. AUTHORITATIVE.
+//   username:<lowercased-username>  → { personId }. AN INDEX, rebuildable from the rows.
+// ⭐ KEYED ON personId, NOT username, and `handleUsernameChange` is the argument. That function is a
+// full re-key with a documented dangerous ordering — "NEW KEY FIRST, OLD KEY SECOND, NEVER THE
+// REVERSE… one order fails by LOCKING HER OUT". Key on personId and that hazard leaves the credential
+// row entirely: a rename becomes a field write plus an index swap, and a half-failed rename leaves a
+// stale `username:` row — recoverable — instead of a person locked out of her own house.
+// ⚠️ Bare/deployment-scoped, like `route:`. No collision risk: every estate key begins `est-…:`.
+const ACCOUNT_PREFIX = "account:";
+const USERNAME_PREFIX = "username:";
+function personAccountKey(personId) { return ACCOUNT_PREFIX + personId; }
+function usernameIndexKey(username) { return USERNAME_PREFIX + username.trim().toLowerCase(); }
+
+// Resolve an account by username: the INDEX first, the legacy estate-scoped key second.
+// ⭐ THE FALLBACK IS WHY THIS IS NON-BREAKING — exactly the shape `grantFor()`'s router took. An
+// account written before this shipped resolves through the old key unchanged; one written after
+// resolves through the index. Nobody is locked out at the cutover, which is the whole risk here.
+async function accountFor(env, scope, username) {
+  try {
+    const idx = await env.OBSERVATIONS.get(usernameIndexKey(username));
+    if (idx) {
+      const { personId } = JSON.parse(idx) || {};
+      if (personId) {
+        const raw = await env.OBSERVATIONS.get(personAccountKey(personId));
+        if (raw) return { raw, personId, via: "index" };
+      }
+    }
+  } catch (e) { /* a malformed index is a miss, never an outage — fall through to legacy */ }
+  const raw = await env.OBSERVATIONS.get(accountKey(scope, username));
+  return raw ? { raw, personId: null, via: "legacy" } : null;
+}
+
+// Write an account row in BOTH shapes plus the index. Dual-write is the transition: reads prefer the
+// new shape, so the legacy copy is a safety net that a later batch removes once a backfill has run.
+// ⚠️ ORDER: the row BEFORE the index. An index pointing at a row that does not exist is a username
+// that resolves to nothing; a row with no index is simply found by the legacy path. Only one of those
+// two failures locks somebody out.
+async function putAccount(env, scope, username, personId, row) {
+  const body = JSON.stringify(row);
+  await env.OBSERVATIONS.put(personAccountKey(personId), body);
+  await env.OBSERVATIONS.put(usernameIndexKey(username), JSON.stringify({ personId }));
+  await env.OBSERVATIONS.put(accountKey(scope, username), body);
+}
+
 async function handleAccountCreate(request, env, scope) {
   let body;
   try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
@@ -560,7 +617,10 @@ async function handleAccountCreate(request, env, scope) {
   const invite = inviteIsOurs ? presentedInvite : null;
 
   const akey = accountKey(scope, username);
-  if (await env.OBSERVATIONS.get(akey)) return json({ error: "username-taken" }, 409);
+  // ⛔ THE UNIQUENESS CHECK MUST SEE BOTH SHAPES. During the dual-write transition a name claimed
+  // under `username:`/`account:<personId>` would read FREE to a legacy-only probe, and the second
+  // signup would overwrite the index and silently steal the first person's name.
+  if (await accountFor(env, scope, username)) return json({ error: "username-taken" }, 409);
 
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const hash = await derive(word, salt, PBKDF2_ITERATIONS);
@@ -593,7 +653,7 @@ async function handleAccountCreate(request, env, scope) {
                 how: invite ? "account-signup" : "open-signup" }],
   };
   await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
-  await env.OBSERVATIONS.put(akey, JSON.stringify({
+  await putAccount(env, scope, username, personId, ({
     personId, salt: b64(salt), hash, iterations: PBKDF2_ITERATIONS, algo: "PBKDF2-SHA256",
     createdAt: new Date().toISOString(), tokenHash, email: email || null, phone: phone || null,
     // ⛔ A PREFERENCE COLLECTED AND DISCARDED IS WORSE THAN ONE NEVER ASKED FOR. This field was
@@ -680,7 +740,10 @@ async function handleSession(request, env, scope) {
   // username oracle, the same reason the grant 404 is byte-identical to a missing route.
   const deny = () => json({ error: "not-found" }, 404);
   if (!username || !word) return deny();
-  const raw = await env.OBSERVATIONS.get(accountKey(scope, username));
+  // ⭐ Index first, legacy second. A person who signed up before this shipped is found by the old
+  // key and never notices; one who signed up after is found by the index.
+  const _acc = await accountFor(env, scope, username);
+  const raw = _acc && _acc.raw;
   if (!raw) { await derive(word, crypto.getRandomValues(new Uint8Array(16)), PBKDF2_ITERATIONS); return deny(); }
   let acct;
   try { acct = JSON.parse(raw); } catch (e) { return deny(); }
@@ -3805,7 +3868,10 @@ export default {
       const u = (url.searchParams.get("u") || "").trim();
       if (!/^[a-zA-Z0-9._-]{3,40}$/.test(u)) return json({ error: "bad-username" }, 400);
       if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
-      const taken = await env.OBSERVATIONS.get(accountKey(scopeOf(env), u));
+      // ⭐ This route has enforced per-deployment uniqueness ALL ALONG — it resolves through
+      // `scopeOf(env)`, never a grant. `[paul-ruled 2026-09-10]` confirms the rule; the `username:`
+      // index makes the key shape honest about it rather than introducing it.
+      const taken = await accountFor(env, scopeOf(env), u);
       // ⚠️ KV is eventually consistent, so this NARROWS the race and never closes it. Creation's own
       // 409 stays the authority; this is a courtesy, and it says so by never being trusted alone.
       return json({ available: !taken, username: u });
