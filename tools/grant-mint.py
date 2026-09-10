@@ -444,6 +444,17 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
         print("  dry-run: (%s, %s) env=%s entry=%s vault=%s · consent scopes %s · NOTHING WRITTEN — "
               "no KV row, no register row, no token" % (person, estate, env, bool(entry), bool(vault), sorted(scopes) or "none"))
         return h
+    # ⭐ A FIXTURE DECLARES ITSELF, AT THE MINT. `--fixture-out` already MEANS "this token is for a
+    # synthetic run" — it is the flag that sends the token to a QA fixture file rather than to a
+    # person. Recording it on the ROW turns "is this a fixture?" from an inference into a fact.
+    # ⛔ WHY IT MATTERS: a teardown tool has to know what is provably disposable. Today the only
+    # signals are a username CONVENTION and a personId PREFIX — inference about identity from a
+    # naming shape, which is the class `tools/people.json:9` forbids by name and the same class as
+    # the "zero keys, never used" claim that was wrong this morning.
+    # ⚠️ IT CANNOT BE APPLIED RETROACTIVELY, which is the same argument as `via:`. Rows minted before
+    # this carry no marker and must stay unclassifiable rather than be guessed at.
+    if fixture_out:
+        kv_row["fixture"] = True
     if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(kv_row, separators=(",", ":")), dry=dry):
         raise Refuse("KV put failed — register NOT written (a row with no store entry would be a credential nobody can present)")
     write_route(env, estate, h, person=person, dry=dry)

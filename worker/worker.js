@@ -768,6 +768,15 @@ async function handleAccountCreate(request, env, scope) {
     // account row and never opens `consent`, so without this the open door would be invisible to the
     // one tool whose job is to say who arrived.
     signupVia: invite ? "invite" : "open",
+    // ⭐ FIXTURE-NESS IS INHERITED FROM THE INVITE, EXACTLY AS CAPABILITY IS — never asserted by the
+    // applicant. A client claiming "I am a fixture" is the same untrusted-input shape as a client
+    // choosing its own capability (closed 09-05) or naming its own feedback namespace (refused
+    // today): the marker is only worth anything if the SERVER decides it.
+    // ⛔ A teardown tool needs to know what is PROVABLY disposable. Without this the only signals are
+    // a username convention and a personId prefix — inference about identity from a naming shape.
+    // ⚠️ Accounts created before this carry no marker and must stay UNCLASSIFIABLE. A teardown that
+    // refuses them is correct; one that guesses from a name is the failure this exists to prevent.
+    fixture: !!(invite && invite.fixture),
     accent: typeof body.accent === "string" ? body.accent.slice(0, 9) : null,
     placeName: null,
   }));
