@@ -542,6 +542,40 @@ nothing is re-tiered or killed by the lens alone.
 
 ---
 
+## ⭐⭐ THE STANDING PRINCIPLE — capture what personalizes; DESCRIBE or INFER is the open question `[paul-stated 2026-09-10]`
+
+**Paul, verbatim (voice), minutes after the fifth lens:**
+
+> *"I mean, I think there is a question of whether we give people the opportunity to describe their
+> property, or we can infer it — whether it's a condo, a townhouse, a house with a big garden; it has a
+> garage, workshop. You know, I think that's just a question as we think through all these journeys and
+> all: what's the right way to capture data that's useful to us, that allows us to help build a
+> personalized experience. That's gonna be something I kinda keep harping on and will always be a standing
+> kind of principle of the product."*
+
+**Two things in one statement — refinement window's reading, marked as such:**
+
+1. **The PRINCIPLE, standing:** every capture exists to personalize. The test of an ask is what it lets the
+   product do for *this* person, not what it collects. Already carried by three instruments, cited not
+   restated: `tools/elicitation-lens.py` (*derived-facts-per-asked-field* — his own 09-05 ruling that more
+   fields are not safer; *one field, many derived facts*) · `.plans/2026-09-07-input-to-value-matrix-PROPOSAL.md`
+   (*what we know informs the design, it does not pre-fill her work*) · the ASK contract above (every item
+   ships with an ask, a check and an attribution). ⭐ **This line is the principle those three serve; they
+   are its readers.**
+2. **The OPEN QUESTION, not ruled:** *describe or infer* — does the person tell us the shape of their place
+   (condo · townhouse · house with a big garden · garage · workshop), or does the product derive it (from the
+   address, the footprint, the parcel, what they say they want to do)? It cuts through every journey:
+   `.plans/2026-09-08-setup-journey-PLAN.md` (concept) · `.plans/2026-09-10-interests-as-activities-PROPOSAL.md`
+   (*what you'd like to DO, not a domain to rank* — one answer already leaning *infer the shape from the
+   activity*) · Process B (TIER 2 · 9: footprint and driveway are DOWNLOADS at Fernwood, so *infer* is
+   already measured for two objects) · the elicitation lens's *DERIVED SILENTLY* finding (a fact the record
+   gained that appeared on no screen — the failure mode of *infer* done without telling them).
+   ⛔ **Not a new row and not a build.** It is the question the journeys work carries from here; the
+   answer is Paul's, per journey, and probably *both* — infer where a download or a stated activity
+   already answers it, ask where only the person can say, and **always show back what was inferred.**
+
+---
+
 # 🗂 THEMES — groupings over existing rows, not new scope
 
 ## 🔌 BUILD vs INTEGRATE — three calls, and the seat we don't have `[paul-stated 2026-09-10]` ⚙️ engine
