@@ -1,109 +1,86 @@
-# HANDOFF — the backlog refinement thread (Fernwood, lap 5)
+# Handoff: fernwood — the STANDING BACKLOG SESSION
 
-- composed: 2026-09-08 · at HEAD `65b38b2` · repo `/Users/paulkirschenbauer/Developer/Tate-Tracker`
-- for: a **fresh window running in parallel with the BUILD window**, on Paul's instruction —
-  *"commit something that is well defined for the build to start, and launch in a separate window a
-  focused backlog refinement session that keeps going during the build."*
+<!-- generated 2026-09-10 ~5:45 PM ET · source: Tate-Tracker@cf2a078 + one uncommitted row on LOCAL main
+     RECEIVER: verify the sha against HEAD before trusting any status below.
+     ⛔ Every file:line has a half-life of about an hour when several lanes are live. Cite the symbol, stamp the sha. -->
 
-## ⛔ READ THIS FIRST — the ownership split, because two windows share one working tree
+## 1. Mission — what this window IS
 
-| | owns |
-|---|---|
-| **YOU (this window)** | `BACKLOG.md` · `.plans/*` refinement artifacts · `OBJECTIVES.md` |
-| **the BUILD window** | `onboarding/index.html` · `viewer.html` · `tools/*` · `cycle/*` |
+`[paul-stated 2026-09-10]`: *"I almost think it's worth having just a standing session that's going
+through the backlog and helping me refine it, and also queuing up items for the next couple laps of
+build. Our commit phase is the one time we pull from the backlog, so that's the only time it really
+needs to be frozen. We can keep having that conversation going in real time in another session."*
 
-⛔ **Do NOT edit code, and do NOT edit `cycle/release/*`.** If refinement needs a code fact, read it;
-if it needs a cycle-log line, ask. ⚠️ Fernwood's own `CLAUDE.md` carries a **concurrent-session guard**:
-if HEAD moves under you or you see edits you did not make, that is expected here — it is the build
-window — but **stage explicit paths only** (`git add -- <path>`), never `git add -A`, which a hook
-blocks anyway. Commit often and small.
+**You are that session.** A live, continuing conversation with Paul over `BACKLOG.md`: refine rows,
+surface what is stale, and keep a short **queue for the next two build laps** that a build session can
+pull from at its commit phase. You are not a build lane and not the coordinator.
 
-## Where the lap stands
+## 2. The three windows — and which you are
 
-The release loop was **renumbered today** to run in execution order (`cycle/release/CYCLE-MAP.md`
-§ The beats): OPEN(1) → DISPOSE(2) → READ(3) → CARRY(4) → **GROOM & BUCKET(5)** → COMMIT(6) →
-BUILD(7) → SYNTHETIC(8) → WALK(9) → ↺(10) → CLEAR(11) → DEPLOY & CLOSE(12). **COMMIT now gates BUILD**;
-it used to sit at the end arming the next lap, which is what Paul caught today.
+| window | job | never |
+|---|---|---|
+| **coordination** (`tate-tracker` main, the one that opened you) | routes, sequences, holds the commit-phase freeze, merges | writes a feature |
+| **this one — backlog** | refines the backlog with Paul in real time; queues the next two laps | commits code; pulls rows into a build |
+| **build** (opened separately, per item) | pulls from the queue at its commit phase and builds | edits `BACKLOG.md` status prose |
 
-**Beats 1–4 are closed. COMMIT has been made** — Paul committed three items (see below) and the build
-window is executing them. **You are the continuation of beat 5, GROOM & BUCKET**, which is the beat
-that newly owns `groom`.
+⛔ **The freeze is on the PULL, not the document.** When a build lane declares a commit-phase pull, hold
+edits to the rows it names until it releases. Everything else keeps moving.
 
-## What Paul committed — DO NOT re-litigate or re-rank these
+## 3. Read first (in this order)
 
-- **A · returning recognition** (the lap's STOP) — `onboarding/index.html`, `if (!read(K_USER))`
-  returns before the `/api/grant/whoami` fetch; the correct fix exists ~40 lines below
-  (*"the record wins over the cache"*) applied to `fw-onboard-step` and not `fw-username`.
-  ⚠️ Done = the **two-person falsifier**, not the patch: fixing it alone still lands a `name:null`
-  record on the naming screen.
-- **B · the station indicator** — the honest string ships inside a `live-dot stale`; a **declaration
-  is not a status**. Two sites: the weather panel, and `viewer.html:16736` which gates on runtime
-  liveness and ignores the declaration entirely.
-- **C · production activity sweep** — `tools/read-mom-engagement.py` has no `--env` and is hardcoded
-  to Mom's device on legacy, so nothing can see what real production accounts DO.
+1. `.plans/2026-09-10-OPEN-ITEMS.md` — the consolidated board. Section ⓪ is the environment map:
+   **"production" and "main" each name two things.** Section ⑥ is the register-and-process findings
+   that are *your* material: the register is DUPLICATED not DERIVED; `BACKLOG.md` has at least four
+   writers plus six shadow lap-scoped registers; `→ PLAN ·` and the three `row:` states were ruled
+   today and not yet applied (2 false pointers, 5 stale-prose rows owed to owners).
+2. `BACKLOG.md` lines 1–75 — the vocabulary (`READY`, `→ PLAN ·`, `row:` three states, `wip-exception:`).
+3. `handoff/handoff-backlog-registrar.md` and `.plans/2026-09-10-backlog-management-AUDIT.md` — the
+   registrar lane's handover and the audit. **Its ④ implementation (`row:` three states, ~45 lines + a
+   scripted header pass) is ruled, parked, and is the first mechanical task in your lane.**
+4. `.plans/2026-09-02-rationalization-PROPOSAL.md` — **still unread by Paul**, its own §7.2 stale. Do
+   not summarise it to him as if it were current; offer to walk it with him.
 
-## Your job
+## 4. State — measured at close
 
-**① The rationalization that is OWED.** `python3 tools/check-backlog-drift.py` reads OWED: the ranked
-list sits **554 lines below its own head** (limit 400), `BACKLOG.md` is **4,100+ lines**, 75 commits
-since the 2026-09-03 run. ⛔ **PROPOSE AS A DIFF; DO NOT APPLY UNTIL PAUL SAYS.** CLAUDE.md: *"It FLAGS;
-it never reorders."*
+- **Paul ruled today: the QA synthetic lap is FOUNDING ONLY** — owners setting up their own house.
+  No invitations, no joining this round. Bob's invite stays unspent and what it does when spent is
+  **UNRULED**.
+- **New row, uncommitted at the moment of writing, committed right after:** `## 🤝 INVITE & JOIN`
+  (before `## 🧭 SEGMENT HYPOTHESES`) — Paul's described shape for a later lap, with the scope
+  questions and a falsifier. It exists because the coordinator measured that founding never reads the
+  invite's `conferred*` promise, so there is no join path in code.
+- **Open rulings on the board (①):** X-Estate sequencing · interests-label scope (blocking a lane) ·
+  product-steward absorption (the deciding edit is `CYCLE-MAP.md`) · the condo's return via `adopt` ·
+  Paul's address in `est-qa0001` · `anchors.py` at Bob's address (gated) · security seat after G1.
+- **Live defects (②)** and **instrument gaps (⑤)** are on the board; you do not fix them, you keep
+  their rows honest.
 
-⛔ **A concrete collision that already cost something today:** there are **TWO rows numbered 11** —
-TIER 1 · 11 (sound pipeline) and TIER 2 · 11 (weather card). A tracked evidence file cited the wrong
-one this afternoon. Check for other colliding ordinals.
+## 5. ⛔ Guardrails
 
-**② Paul's readiness triage** `[paul-stated 2026-09-08]`: *"we should be able to do some triage on the
-backlog and just say, what's ready to build now? And what's very far off from that — the different
-iterations or versions of readiness?"*
-⭐ **A ladder already exists and grades the WRONG OBJECT.** `tools/check-backlog-ready.py` has
-`STAGES = [draft, ready, concept, design, journey, build, qa, shipped, retro]` with WIP bands — and it
-grades **typed documents in `.plans/`**, not **rows in `BACKLOG.md`**. The applied proposal says so:
-*"Zero rows marked READY — a row earns its file when picked up."* So Paul's question cannot be answered
-from the board. **Reuse that vocabulary; do not mint a rival.**
+- **One writer per file.** `BACKLOG.md` is yours to edit **with Paul in the loop**; never edit
+  `worker.js`, the HTML surfaces, the walk harness, or any `.plans/*-PLAN.md` a build lane owns.
+- **Transcribe, don't author, a lane's status.** A row's status prose belongs to the lane that
+  measured it; you may flag it stale and route it, not rewrite it.
+- **An unchecked box is not open work.** Before calling a row open, probe reality (grep the symbol,
+  run the check). Rows over-report open work, never under.
+- **Never `git push origin main`** (Mom's frozen production). Commits to local main are fine.
+- **Two hook-generated files are dirty in the tree — `cycle/release/cycle-state.json`,
+  `worker/digest.json`. Never commit them.**
+- **Rulings are Paul's.** When two readings of a row exist, put both to him with a recommendation.
+  `[paul-stated]` in a row means his words; do not paraphrase them into a stronger claim.
 
-**③ Paul's process-first steer** `[paul-ruled 2026-09-08]`: *"if there were backlog and process related
-items in the backlog, let's consolidate those and implement them first, so we don't wind up back in a
-situation where we don't enact the fix… because the project can't see the inbox."*
-⛔ You may **not** rank them first — ranking is Paul's at COMMIT. You **must** make them legible as a
-bucket so he can.
+## 6. First tasks (ordered)
 
-## Two seats were running when this was composed — collect their artifacts before starting
+1. Verify the sha and read §3. Write your readback (the launcher tells you where).
+2. Apply the ruled-and-parked ④: `row:` three states + `→ PLAN ·` flips (2 false pointers), and
+   route the 5 stale-prose rows to their owners — do not rewrite them.
+3. Draft **the queue for the next two build laps** as a short section at the top of `BACKLOG.md`
+   (or a file it points to), each entry naming its row, its plan pointer state, and what would make
+   it READY. Put it to Paul; he ranks.
+4. Then: stay open. Take Paul's refinements as they come.
 
-- **product-steward · GROOM & BUCKET** → `.plans/2026-09-08-lap5-BOARD.md` (the proposed diff + the
-  two-axis board). **This is your direct predecessor — start from it.**
-- **practice-steward · readiness method** → `.plans/2026-09-08-backlog-readiness-METHOD.md`
-  (outside best practice, cited, with an honest read on what survives translation to a solo operator).
+## 7. What is NOT verified — say so if asked
 
-⚠️ If either file is absent, the seat did not finish; say so rather than proceeding as if it had.
-
-## Context you should not re-derive
-
-- `.plans/2026-09-08-lap5-CARRY.md` — beat 4: 12 citations, **zero rows created**, 6 open questions.
-- `.plans/2026-09-07-product-steward-queue.md` — those 6 questions.
-- `.plans/2026-09-07-backlog-grooming-SCAN.md` — the 09-07 grooming scan and its slates. **Build on
-  it; say what has moved.**
-- `.user-research/2026-09-08-lap5-READ.md` — beat 3, including the provenance ruling now in the
-  research library: *a fact-of-household report survives the builder-user bias; a preference report
-  does not.*
-- `BACKLOG.md` § **THE USER'S OWN RECORD** and § **SPLIT THE JOURNEY FROM THE READER** — two themes
-  filed today, deliberately unscoped.
-- ⭐ **A bucket Paul named that does not exist yet:** a **UX/design theme**. A disposed record was
-  routed to it. Minting it is beat 5's. The library it serves already exists —
-  `~/.claude/design-principles/` (983 lines) — and `/ux-sweep` pass 2 adjudicates against it
-  automatically. That sweep is **OWED** (8 days, 120 viewer commits vs a limit of 20) and now runs
-  when due at OPEN, per today's ruling.
-
-## Coordination
-
-The build window can message you and you can message it — use `ListAgents` to find it, then
-`SendMessage`. **Tell it before you touch anything it owns, and ask before it touches `BACKLOG.md`.**
-
-## Standing rules that bind you
-
-- **Never rank.** That is Paul's, and the map says no instrument is ever built for it.
-- **Prefer citing an existing row to minting one** — this corpus's most-repeated failure is two
-  registers each reading current.
-- Grade every claim `measured` · `inferred` · `proposed`.
-- **An unchecked box is not open work** — verify a row against the world before acting on it. Three
-  BACKLOG rows were found wrong this way once; a wrong SSOT row is this repo's most repeated failure.
+The 174 qa accounts and 7 lab households (no KV read by the coordinator today). Whether deploying the
+new Pages build to qa affects existing accounts under the changed route-row shape (a dry-run was
+running at handoff time). Every `file:line` older than an hour.

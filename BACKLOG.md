@@ -617,6 +617,27 @@ does not add one. Any design here that increases total asking has failed the len
 
 ---
 
+## 🤝 INVITE & JOIN — a second person in an existing house `[paul-stated 2026-09-10]` ⚙️ engine
+
+- row: none · objective: O3 · class: engine · stage: concept · **a fresh request by construction — no plan pointer of either kind**
+- ⛔ **NOT THIS ROUND.** Paul, same conversation: *"we're not gonna have any invitation or joining of houses in this round, just owners setting up houses."* The QA synthetic lap proves **founding only** (J0). This row is **to scope**, for a later lap.
+
+**Why it exists.** `measured` at `cf2a078` (symbol: the `POST /api/estate` founding handler): an invited signup spends the invite and writes `conferredRelationship` / `conferredCapability` on the account as *"a promise for `found` to honour"* — and **founding never reads them**; it mints a fresh `est-` id and grants `owner` to the founder. The morning's fix (*signup no longer grants an estate*) removed the only path by which a person **joined** an existing household, and the `grant:<personId>:<estateId>` edge that would carry a second member (M1+M2, ④) is unbuilt. So today nobody can arrive as Mom's or Bob's shape. Corroborated by the outgoing coordinator's context; neither reader traced every `conferred*` consumer to zero.
+
+**The shape Paul described, verbatim intent, to be scoped:**
+1. **Two accounts exist.** The owner, in **estate settings**, has an option to **add or invite someone**.
+2. The owner **sets their rights / role type**, enters the invitee's **username**, and hits **send**. The product **checks that username exists**.
+3. The **other user logs in** and sees a **notification on the menu screen**: *you've been invited to join **<house name as the owner set it>** by **<owner's username>** — would you like to?*
+4. They **accept** (or not), and come out a member of that estate with the role the owner set.
+
+**What the scope must settle before a plan exists** (questions, not answers): what the pending invitation is as a record and where it lives (the invitee's account? the estate?) · what "role type" means against the two ratified axes (relationship SET · capability SINGLE) and whether an owner may confer `administrator` · what a username-exists check discloses (⚠️ it is an enumeration oracle — `security-steward` roster mode, before the field is built) · what the invitee sees on the shelf **before** accepting (they may already own a house) · decline / revoke / expiry · and whether **Bob's unspent invite at `est-9a74df`** joins or founds when spent — **UNRULED**, and this row is where that ruling lands.
+
+**Already ruled and inherited, do not re-derive:** capability comes from the invite and never from the applicant · `route:` names a PERSON · the grant edge (M1+M2) is *conforming to a ruling already made* · every ASK says use, not-use, who sees it, reversibility · isolation instruments cannot see within-estate cross-person (board ⑤·1) — **this feature is what makes that class real, so the instrument is a precondition of shipping it, not a follow-up.**
+
+**Falsifier for the eventual build:** a synthetic owner at qa invites a second synthetic by username; the second signs in, sees the notification naming the house and the inviter, accepts, and `whoami` lists that estate with the conferred role — with **no new `est-` id minted**.
+
+---
+
 ## 🧭 SEGMENT HYPOTHESES — who else, and what their model breaks `[paul-stated 2026-09-10]` ⚙️ engine
 
 ⛔ **CAPTURED, NOT SCHEDULED.** Paul's own framing: *"this is not all necessarily stuff to work through
