@@ -136,12 +136,31 @@ def estates_declared(gm, env):
 
 
 def founded_through_product(gm, env, estate):
-    """Was there ever an `estate:<id>` row — the first of the five writes?
+    """Did this estate come into being THROUGH THE PRODUCT rather than by hand?
 
-    ⭐ THE POINT OF THE READING: every estate in the product today was minted BY HAND. The design
-    says so and this measures it rather than repeating it."""
+    ⛔⛔ THIS KEYED ON `estate:<id>` AND READ A FALSE ZERO — corrected 2026-09-10, hours after it
+    shipped. `estate:<estateId>` is write 1 of the five this file lists, so testing for it LOOKED
+    like testing for a founding. `measured` at lab minutes after the first real foundings landed:
+    **seven estates founded through the product** — est-1nq5gr · est-2dpewr · est-auirns ·
+    est-k2wowm · est-l71bed · est-vbvhsj · est-zyn5py — while `kv_list_keys(env, "estate:")` returned
+    **ZERO KEYS AT EVERY ENV**. So this function reported "0 founded through the product" with seven
+    of them sitting in the namespace it was reading.
+
+    ⭐ THE SAME SHAPE THIS FILE EXISTS TO CATCH, one rung up and pointed at its own author: a reader
+    entirely correct about *does an `estate:<id>` row exist*, relied on for *has anything been
+    founded*. It answered its own question perfectly and none of mine.
+
+    ⭐ SO THE TEST IS NOW THE THING A KEY NAME CANNOT FAKE: an estate holding keys that
+    `wrangler.toml` has never heard of was not minted by hand, because hand-minting goes through an
+    env block. A founded estate is one the deployment config does not know about."""
     try:
-        return bool((gm.kv_get(env, "estate:%s" % estate) or "").strip())
+        declared = {v.get("estate") for v in gm.ENVIRONMENTS.values() if v.get("estate")}
+    except Exception:
+        return None
+    if estate in declared:
+        return False
+    try:
+        return bool(gm.kv_list_keys(env, "%s:" % estate))
     except Exception:
         return None
 
@@ -330,9 +349,16 @@ def selftest():
           "a founded estate would be INVISIBLE — the whole point of B1 is estates wrangler never names")
     check("…and it reads as founded-through-the-product",
           founded_through_product(g4, "t", "est-new") is True, "")
-    check("a hand-minted estate does NOT read as founded through the product",
+    check("a hand-minted estate (wrangler declares it) does NOT read as founded",
           not founded_through_product(gm_with({"est-aaa:place": {}}), "t", "est-aaa"),
-          "every hand-minted estate would be miscounted as founded, hiding the real zero")
+          "every hand-minted estate would be miscounted as founded, hiding the real count")
+    # ⛔⛔ THE REGRESSION CLAUSE. The first version keyed on `estate:<id>` — write 1 of five — and
+    # read ZERO while seven estates stood founded at lab. An estate with NO `estate:` row but keys
+    # wrangler never declared IS founded, and this is the exact shape that was missed.
+    check("an estate with NO `estate:<id>` row is still founded if wrangler never declared it",
+          founded_through_product(gm_with({"est-2dpewr:place": {},
+                                           "est-2dpewr:grant:h": {}}), "t", "est-2dpewr") is True,
+          "keying on write 1 reads a FALSE ZERO — measured against seven real foundings at lab")
 
     # ⛔ THE CLAUSE THAT KEEPS THIS FILE HONEST: `report()` may never return 0. An unwalked journey
     # reported as a pass is green-by-absence, and this file exists because that is the milestone's
@@ -344,7 +370,7 @@ def selftest():
           "return 0" not in _returns,
           "a green exit exists in a reader whose subject has never been walked")
 
-    _n = 9
+    _n = 10
     print("\n%s selftest: %d/%d" % ("✅" if not fails else "🔴", _n - len(fails), _n))
     return 1 if fails else 0
 

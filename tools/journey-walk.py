@@ -316,8 +316,39 @@ JOURNEY_IDS = {
 }
 
 
-def journey_entered(fresh, dead, st):
-    """(id, why). `None` when the door could not be asked — silence is never a journey."""
+def journey_entered(fresh, dead, st, account_no_estate=False):
+    """(id, why). `None` when the door could not be asked — silence is never a journey.
+
+    ⛔⛔ `account_no_estate` IS NOT DERIVABLE FROM THE DOOR, AND THAT IS THE WHOLE REASON IT IS A
+    PARAMETER RATHER THAN A CLAUSE. `[measured 2026-09-10 against qa]`
+
+    Ruling 1 makes "an account with NO estate" the normal state between signing up and founding, so
+    the harness has to express J0. The obvious clause — the one this session proposed and the
+    coordinating session approved — was `hasAccount && !estateId`. ⛔ **IT CAN NEVER FIRE:**
+
+      · `/api/grant/whoami` is GRANT-KEYED. A person who has signed up and not yet founded holds
+        NO GRANT — the grant is minted by `found`, written last, by design — so there is nothing to
+        ask the door WITH, and therefore no `hasAccount: true` for the clause to test.
+      · Asked with no credential, and asked with one the record has never known, the door answers
+        404 BOTH times and deliberately byte-identically; its own comment says *"unknown, revoked or
+        another estate's… so nothing here may claim to know which."* Verified live on qa: both 404.
+      · So a brand-new owner classifies as **J5** when the harness hands them no token and **J4**
+        when it hands them one — never J0, and which of the two is an artefact of the harness rather
+        than a fact about the person.
+
+    ⭐ A BRANCH THAT CANNOT EXECUTE IS WORSE THAN NO BRANCH, because it reads as coverage. So J0 is
+    established from what the WALKER KNOWS — it created this account and did not found, and signup's
+    own response says `estates: []` — and never by re-interrogating a door structurally unable to
+    answer.
+
+    ⚠️ This is the file's own new rule turned on itself a second time in one day: `journey_entered`
+    is entirely correct about *what does the door say about this credential*, and was being relied on
+    for *what journey is this walker in*. Those diverge for exactly one walker — the one holding no
+    credential at all — and ruling 1 just made that walker the main path.
+    """
+    # ⛔ ABOVE EVERY DOOR READING: provenance the walker HOLDS outranks a probe that cannot be asked.
+    if account_no_estate:
+        return "J0", "an account exists and holds no estate — the empty shelf, before founding"
     if not st.get("reachable"):
         return None, "the door could not be asked: %s" % st.get("why")
     if dead or st.get("status") not in (200, None):
@@ -1077,6 +1108,30 @@ def selftest():
     check("an UNREADABLE door is not a journey at all",
           journey_entered(True, False, unreachable)[0] is None,
           "silence from the door was read as an answer — the absence-is-not-evidence rule")
+
+    # ── ⭐⭐ J0, and the clause that keeps the DEAD clause dead. `[2026-09-10, ruling 1]`
+    no_estate = {"reachable": True, "status": 404, "hasAccount": False,
+                 "why": "the record does not know this credential"}
+    check("an account with NO estate is J0, from the walker's own provenance",
+          journey_entered(False, False, no_estate, account_no_estate=True)[0] == "J0",
+          "the empty shelf cannot be expressed, so a founding walker is routed into another journey")
+    # ⛔ THE ONE THAT MATTERS MOST. Without the flag the SAME state reads as a dead credential — a
+    # healthy brand-new owner rendered as a revoked one. This is the live misclassification.
+    check("…and WITHOUT that provenance the identical door reading is J4, not J0",
+          journey_entered(False, False, no_estate)[0] == "J4",
+          "the door was credited with knowledge it cannot have — see this function's docstring")
+    # ⛔⛔ THE ANTI-REGRESSION: `hasAccount && !estateId` was proposed, approved, and is UNREACHABLE.
+    # A future reader WILL re-propose it, because it is the obvious clause. This makes it fail.
+    check("the door alone can NEVER yield J0 — the proposed `hasAccount && !estateId` is dead code",
+          all(journey_entered(f, dd, s)[0] != "J0"
+              for f in (True, False) for dd in (True, False)
+              for s in (spent, unspent, finished, refused, unreachable,
+                        {"reachable": True, "status": 200, "hasAccount": True, "estateId": None,
+                         "name": None, "address": None})),
+          "a door-derived J0 branch exists; it cannot fire, and a branch that cannot fire reads as "
+          "coverage. J0 is the WALKER's knowledge, never the door's")
+    check("J0 is a journey this file has a meaning for",
+          "J0" in JOURNEY_IDS, "J0 is derivable but nameless — it renders as a bare string")
     check("every journey id this file can derive has a meaning on file",
           all(journey_entered(f, dd, s)[0] in JOURNEY_IDS
               for f, dd, s in ((True, False, unspent), (False, False, spent),
