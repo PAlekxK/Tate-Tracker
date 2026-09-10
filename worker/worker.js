@@ -895,13 +895,33 @@ async function handleSession(request, env, scope) {
   // stale credential stops working the next time she signs in.
   const token = b64(crypto.getRandomValues(new Uint8Array(32))).replace(/[+/=]/g, "").slice(0, 43);
   const tokenHash = await sha256Hex(token);
-  const prior = await env.OBSERVATIONS.get(keyFor(scope, "grant", acct.tokenHash || "none"));
+  // ⛔⛔ THE PERSON'S OWN ESTATE, NOT THE DEPLOYMENT'S. This looked the prior grant up at
+  // `keyFor(scope, …)` — the deployment's estate — which was the same thing while signup granted
+  // one. It is WRONG the moment a person FOUNDS an estate: their grant lives at the estate they
+  // founded, so this found nothing, fell through to the literal below, and minted a fresh grant at
+  // `scope.id`. **Signing in re-pointed a founder's credential at the deployment's estate and
+  // silently abandoned the one they had created.**
+  // ⚠️ MEASURED on lab immediately after founding worked: run 2 founded `est-zyn5py`, signed in, and
+  // whoami answered `est-lab0001`. The founding walk passed and the SECOND sign-in destroyed it —
+  // which is why the repeat walk from a clean identity was worth running.
+  // ⭐ The route row is the authority on which estate a credential belongs to, so it is what decides
+  // here — the same row `personFor()` and `grantFor()` both read.
+  let priorEstate = null;
+  try {
+    const rr = await env.OBSERVATIONS.get(ROUTE_PREFIX + (acct.tokenHash || "none"));
+    if (rr) { const p = JSON.parse(rr); if (p && p.estateId) priorEstate = p.estateId; }
+  } catch (e) { /* a malformed route is a miss, never an outage */ }
+  const priorScope = priorEstate ? scopeOfRoute(priorEstate, env) : scope;
+  const prior = await env.OBSERVATIONS.get(keyFor(priorScope, "grant", acct.tokenHash || "none"));
   const grantRow = prior ? JSON.parse(prior) : {
     // ⛔ INHERITED, NOT ASSERTED — same rule as account creation, and this is the path it was missed
     // on. This fallback fires when the prior grant row is gone; hardcoding "administrator" here made
     // a LOST GRANT into a privilege escalation, reachable by simply signing in. Accounts created
     // before the account row carried a capability default to `member`, which fails toward less.
-    personId: acct.personId, estateId: scope.id,
+    // ⛔ AND THE FALLBACK NO LONGER INVENTS ONE EITHER. `estateId: scope.id` handed the deployment's
+    // estate to anyone whose prior grant was missing — the pre-seeding the signup ruling removed,
+    // surviving on the sign-in path. A person who has founded nothing gets NO estate here.
+    personId: acct.personId, estateId: priorEstate || null,
     // ⛔ INHERIT ONLY WHAT WAS CONFERRED, AND ONLY AS A FLOOR. An account that has founded nothing
     // holds no relationship anywhere; reading a live one off it would re-create the estate the
     // signup ruling removed. `member` stays the floor, exactly as before.
@@ -935,11 +955,24 @@ async function handleSession(request, env, scope) {
   // BELONGS to, and it is known here without consulting `acct` at all. Same reason `tokenHash` is
   // written separately below rather than added to that list.
   grantRow.username = username;
-  await env.OBSERVATIONS.put(keyFor(scope, "grant", tokenHash), JSON.stringify(grantRow));
+  // ⛔ WRITTEN AT THE PERSON'S OWN ESTATE. Fixing the lookup and the route while leaving this at
+  // `scope` pointed the route one way and landed the grant the other — whoami then 404'd for a
+  // person who had just founded. All three must agree or the credential resolves to nothing.
+  // ⚠️ And a person who has founded NOTHING gets no grant written at all: there is no estate for
+  // one to belong to, and inventing `scope.id` here is the pre-seeding the signup ruling removed.
+  if (grantRow.estateId) {
+    await env.OBSERVATIONS.put(keyFor(scopeOfRoute(grantRow.estateId, env), "grant", tokenHash), JSON.stringify(grantRow));
+  }
   // ⛔ THE ROTATED CREDENTIAL KEEPS ITS ROUTE. A sign-in mints a NEW token, so the old hash's
   // route is stale and the new one has none — leaving `personFor()` blind to anyone who has
   // simply signed in again. Written AFTER the grant, same ordering rule as everywhere else.
-  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash, JSON.stringify({ estateId: scope.id, personId: acct.personId }));
+  // ⛔ THE ROTATED ROUTE CARRIES THE PERSON'S OWN ESTATE — or none. Writing `scope.id` here was the
+  // same defect as the grant lookup above: it re-pointed a founder's new credential at the
+  // deployment's estate. A person who has founded nothing gets a route naming only themselves,
+  // which is exactly what `personFor()` needs in order to let them found one.
+  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash,
+    JSON.stringify(grantRow.estateId ? { estateId: grantRow.estateId, personId: acct.personId }
+                                     : { personId: acct.personId }));
   if (acct.tokenHash && acct.tokenHash !== tokenHash) {
     await env.OBSERVATIONS.delete(keyFor(scope, "grant", acct.tokenHash));
   }
@@ -4351,6 +4384,24 @@ export default {
     // have to resolve without already knowing which estate to look in.
     const requestScope = scopeFor(request, env, grant);   // eslint-disable-line no-unused-vars
     if (request.headers.get(GRANT_HEADER)) {
+      // ⭐⭐ A PERSON WHO HAS NOT FOUNDED YET IS NOT A FAILED DOOR. Before `found` existed, every
+        // credential resolved to a grant or to nothing, so "no grant" meant a bad credential and a
+        // 404 plus a `door_failed` was right. It is now the NORMAL state between signing up and
+        // founding — and recording it as a door failure would both lie to the record and make a
+        // healthy new owner indistinguishable from a revoked one.
+        // ⛔ THE 404-IDENTICAL DISCIPLINE IS UNTOUCHED: an UNKNOWN credential still gets the same 404
+        // as a missing route. `personFor()` resolves the caller's own credential to themselves and
+        // reveals nothing about any estate that exists.
+        // ⚠️ Scoped to whoami on purpose — this answers "who are you", not "what may you reach".
+        // Every estate-scoped route still requires a grant and still 404s without one.
+        if (!grant && url.pathname === "/api/grant/whoami" && hostAgrees(request, env)) {
+          const who = await personFor(request, env);
+          if (who) {
+            return json({ personId: who.personId, estateId: null, estates: [], hasEstate: false,
+                          capability: null, relationship: [], entry: false, vault: false,
+                          name: null, address: null, coordinates: null, ranked: null, hasAccount: true });
+          }
+        }
       if (!grant || !hostAgrees(request, env)) {
         const reason = !grant ? "unknown-or-other-estate" : "host-mismatch";
         const rec = declarePerson({ id: "door-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
@@ -4458,7 +4509,23 @@ export default {
                       hasAccount: !!grant.username });
       }
     }
-    if (url.pathname === "/api/grant/whoami") return json({ error: "not-found", path: url.pathname }, 404);   // no grant presented → the same 404
+    // ⭐⭐ AN AUTHENTICATED PERSON WITH NO ESTATE IS NOT AN UNKNOWN CREDENTIAL, and answering both
+    // with 404 makes a brand-new owner indistinguishable from a revoked one — to the product AND to
+    // the walk harness, which currently classifies a healthy new owner as a DEAD CREDENTIAL.
+    // ⛔ THE 404-IDENTICAL DISCIPLINE IS NOT WEAKENED. It exists so a caller cannot probe which
+    // ESTATES exist; `personFor()` resolves the caller's OWN credential to themselves and reveals
+    // nothing about any estate. An unknown credential still gets the same 404 as a missing route.
+    // ⚠️ This is the state a real invited person is in between signing up and founding — the gap the
+    // product has to carry them across. A 404 is a fine API answer and a terrible thing to build an
+    // empty state on: "who are you" has an answer here, and it is "you, holding nothing yet".
+    if (url.pathname === "/api/grant/whoami") {
+      const p = await personFor(request, env);
+      if (p) return json({ personId: p.personId, estateId: null, estates: [], hasEstate: false,
+                           capability: null, relationship: [], entry: false, vault: false,
+                           name: null, address: null, coordinates: null, ranked: null,
+                           hasAccount: true });
+      return json({ error: "not-found", path: url.pathname }, 404);   // unknown credential → the same 404
+    }
 
     // ---- READ-ONLY WEATHER, DELIBERATELY UNGATED (2026-08-02) ----
     // The station call it replaces was a DIRECT browser fetch, so it worked on

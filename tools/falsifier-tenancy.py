@@ -234,10 +234,17 @@ def run():
         except Exception as ex:
             print("⛔ UNREADABLE during C4 — %s" % ex); return 3
 
-        est = ((created or {}).get("estates") or [{}])[0]
-        c4 = st == 201 and est.get("capability") == "member" and est.get("estateId") == ESTATE_A
-        results.append(("C4", c4, "a FOREIGN administrator invite buys only member at this estate — "
-                                 "got %s %s/%s" % (st, est.get("estateId"), est.get("capability"))))
+        # ⭐ THE CLAUSE'S SUBJECT IS UNCHANGED — a foreign administrator invite must not buy
+        # administrator here. Its EXPECTED SHAPE changed on 2026-09-10 when Paul ruled that signup
+        # stops granting an estate: there is no longer an estate in the response to be `member` at.
+        # ⛔ SO THE ASSERTION IS NOW STRONGER, NOT WEAKER — the invite must confer NOTHING: no estate,
+        # no conferred capability, and no grant at this deployment's estate. Verified against the
+        # store before this clause was rewritten, rather than relaxing a red control to match code.
+        ests = (created or {}).get("estates")
+        conf = (created or {}).get("conferred")
+        c4 = st == 201 and ests == [] and not conf
+        results.append(("C4", c4, "a FOREIGN administrator invite confers NOTHING — got %s estates=%s conferred=%s"
+                        % (st, ests, conf)))
         if not c4: fails.append("C4")
 
         # C5 — and it must NOT have been spent: it is still B's credential.
