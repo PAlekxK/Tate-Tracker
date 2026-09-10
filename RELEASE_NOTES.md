@@ -14,6 +14,25 @@ product's log, which is the same collision the two-changelog split exists to end
 
 ---
 
+## 2026-09-10 — An account first, your home when you're ready
+
+- **Signing up creates an account, and nothing else.** No home is waiting for you when
+  you arrive, and nobody is handed one they did not create. An empty shelf on a new
+  account is the ordinary state, not a sign that something went wrong.
+- **Setting up your home from the address step now founds it.** One place, made by you,
+  on your own account, placed on the map from the address you give.
+- **The empty shelf has stopped saying two things that were not true.** It used to send
+  you back to a link you had already used, and it used to name a home nobody had made.
+  It does neither now.
+- **Two questions during setup say more plainly what they are.** The interests question
+  names things you actually do rather than categories to file yourself under, and the
+  address question says what the address is not used for.
+- **A home that has just been founded has no Garden Guru reading of it yet.** The Guru
+  learns a place from that place's own record, and a new one has none to read. That
+  will change as the record fills.
+- **Not in this build:** inviting anyone, joining a house somebody else set up, or
+  keeping a second home on the same account. None of the three are here yet.
+
 ## 2026-09-07 — Wildlife is back on the strip
 
 - **The Wildlife shortcut and the Wildlife tile had quietly gone missing.** The card itself

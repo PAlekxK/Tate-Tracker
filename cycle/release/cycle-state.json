@@ -1,6 +1,6 @@
 {
  "state": "ARMED",
- "generated_at": "2026-09-10T18:28:12-04:00",
+ "generated_at": "2026-09-10T18:39:17-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "318416a",
  "beat": {
@@ -71,12 +71,12 @@
    }
   }
  },
- "lap_count": 5,
+ "lap_count": 6,
  "last_lap": {
   "lap": 6,
   "opened": "2026-09-10",
-  "outcome": "open",
-  "closed_at": null,
+  "outcome": "closed",
+  "closed_at": "2026-09-10T22:45:00Z",
   "cleared_sha": "318416a"
  },
  "lap_heading_anomalies": [],
@@ -191,22 +191,64 @@
    "question": "does the two-person falsifier finally RUN on a walked build?",
    "settles": "a transcript at the candidate where B never sees A's rows",
    "at_open": "never run as of 2026-09-10 lap 6 open; candidate 318416a",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "carried",
+   "evidence": "carried into lap 7 as L7-P1: not runnable in the harness — every journey-walk run opens a fresh browser context; the falsifier needs two people in one context (build lane, measured 2026-09-10)."
   },
   {
    "id": "L6-P2-note-derived-not-typed",
    "question": "does the release note change after Paul's walk?",
    "settles": "a non-empty diff between content-steward's pre-walk draft (.content/2026-09-10-release-notes-from-commitment-PROPOSAL.md) and the shipped RELEASE_NOTES.md entry, or a walk that found nothing",
    "at_open": "pre-walk draft exists 2026-09-10; no walk yet",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "answered",
+   "evidence": "YES: content-steward's pre-walk draft held the founding bullet OUT; the shipped RELEASE_NOTES.md 2026-09-10 entry carries it — a non-empty diff caused by the walks (5 seats + Paul at 318416a)."
   },
   {
    "id": "L6-P3-ux-sweep-ran",
    "question": "did the owed two-pass UX sweep run this lap, as ruled 09-08?",
    "settles": "check-ux-sweep.py reads not-owed at close, with a .ux-reviews/ trail at the candidate",
    "at_open": "OWED: last two-pass 2026-08-31, 124 commits to viewer.html vs limit 20",
+   "disposition": "carried",
+   "evidence": "carried into lap 7 as L7-P2: pass 1 was in the browser at close (tate-tracker-8d), not filed; check-ux-sweep.py still OWED; the UX clause was confirmed by the human half (Paul's pass)."
+  },
+  {
+   "id": "L7-P1-two-person-falsifier",
+   "carried_from": "L6-P1-two-person-falsifier",
+   "question": "does the two-person falsifier finally RUN on a walked build?",
+   "settles": "a transcript at the candidate where B never sees A's rows; needs a two-journey-one-context action list in journey-walk.py",
+   "at_open": "never run as of lap 6 close 2026-09-10",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L7-P2-ux-sweep-filed-with-convention",
+   "carried_from": "L6-P3-ux-sweep-ran",
+   "question": "is the two-pass UX sweep filed at a candidate AND does an artifact convention exist so release-gate can read the clause?",
+   "settles": "check-ux-sweep.py not-owed at close; a .ux-reviews/ trail at the candidate; release-gate.py's UX clause no longer hardcoded UNCHECKABLE",
+   "at_open": "pass 1 running in tate-tracker-8d at lap 6 close; convention absent (release-gate.py ~:277)",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L7-P3-content-clause-on-gate",
+   "question": "does gate ① gain a CONTENT clause — the copy a walk met was read by the voice's owner, with an artifact — without becoming a run-property that passes unread?",
+   "settles": "release-gate.py reads a content-read artifact per seat run; practice-steward DESIGN §2 names the beat; TIER 1 · 31",
+   "at_open": "paul-stated 2026-09-10; in no walk, brief or gate tool",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L7-P4-post-deploy-compares-blob",
+   "question": "does post-deploy.py compare the deployed worker.js blob to the candidate's, not the BUILD_SHA stamp?",
+   "settles": "a register-only commit between candidate and deploy reads green; a differing worker.js reads red — both measured",
+   "at_open": "stamp-only comparison, false red at both production deploys 2026-09-10 (TIER 1 · 32)",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L7-P5-gate-or-courtesy-ruled-first",
+   "question": "is 'Does that look right?' ruled gate or courtesy BEFORE the confirm card is redesigned?",
+   "settles": "a [paul-ruled] line on TIER 1 · 19/26 dated before the design window's apply commit",
+   "at_open": "five seats + Paul met it; unruled at lap 6 close",
    "disposition": "open",
    "evidence": null
   }

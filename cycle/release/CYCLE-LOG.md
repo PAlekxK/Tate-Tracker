@@ -2314,8 +2314,8 @@ chronicle line, for what QA serves.**
 
 ---
 
-## Lap 6 — 2026-09-10 · 🔓 **OPEN at OPEN (1/12)** — the founding lap: an owner sets up a house at QA, and the build-description chain runs for the first time
-<!-- outcome:open -->
+## Lap 6 — 2026-09-10 · ✅ **CLOSED 2026-09-10 ~6:45 PM ET — deployed `318416a` to `paul` + `home`, cleared by Paul** — the founding lap: an owner sets up a house at QA, and the build-description chain runs for the first time
+<!-- outcome:closed at:2026-09-10T22:45:00Z -->
 
 ⭐ **Opened by the coordination window at HEAD `326791c` · candidate `318416a`** (qa Pages; qa Worker
 deployed at `d0cec6f`, `worker.js` identical to `318416a`). ⚠️ The build lane's commit is `318416a`;
@@ -2403,3 +2403,59 @@ refusal is said **at submit** on the address step — next candidate, not this o
 
 **UX clause:** the owed two-pass sweep runs as the **design window's first act** `[paul-ruled: "Go on the
 design lane/window"]`, on this candidate, with no surface edit until Paul's walk is recorded here.
+
+### ✅ Beat 11 · CLEAR — Paul, 2026-09-10 ~6:30 PM ET, at `318416a`
+`[paul-cleared 2026-09-10]` verbatim: *"OK, I'm good. I created Homey which can be thrown away."* … *"It's a pass for me."*
+Recorded by `release-state.py --cleared 318416a` (S4b). His walk: existing place as `pkirsch` ✅ (*"smooth journey"*),
+throwaway owner **`PAK`** founded **Homey** at qa (teardown by record). **His findings**, each a register row: feedback
+bubble from the moment an account exists (TIER 1 · 28) · colour copy says *place*, record says *account* (29) · one bubble
+record, formatting of *Your homes / What you told me / Settings* (30, 6:22 PM ET from `pkirsch`) · *"do you want to
+provide a unit number?"* — never forced (§ ADDRESS VALIDATION). ✅ **RULED at close, in the backlog window** `[paul-ruled 2026-09-10]`: *"Does that look right?"* is a **GATE** — founding
+waits for the tap; the PO-box refusal and the confirm become **one card at the address step**. A surface change for the
+next candidate (five seats and his walk met the courtesy-by-construction; his own confirm as PAK read `agrees:true` after founding).
+**Ruled during the lap:** PO boxes refused **at submit** on the address step (next candidate).
+
+### ✅ Beat 12 · DEPLOY & CLOSE — 2026-09-10 ~6:40 PM ET
+`[paul-ruled: "Let's push to production, verify, then close the lap"]` · *"deploy home anyway"* · *"deploy home"*.
+
+| household | Pages | Worker | verified |
+|---|---|---|---|
+| **`paul`** · est-d93508 (his Grant Park condo) | `318416a` (neutral 311/0, headless clean) | stamped `d7b642e`; `worker.js` **byte-identical** to `318416a` | `found` answers 404 (new code) · 3 grants already routed · post-deploy 🔴 on the **stamp only** (→ TIER 1 · 32) |
+| **`home`** · est-e6696a (Mom's) | `318416a`; the deploy read gate ① (5 of 5) **and** `cleared_sha` before shipping | stamped `0d15bd0`; `worker.js` byte-identical to `318416a` | `found` 404 · her 1 grant already routed · post-deploy 🔴 stamp only |
+| `bob` · est-9a74df | not deployed — nothing there, invite unspent, not asked | — | — |
+| legacy · est-3c9f1a | **untouched, by rule** | — | — |
+
+**Beat 12's own condition** — zero undisposed records on a real estate — was met **without an override**: Mom's four
+onboarding answers at `home` were disposed `act` on Paul's word (*"sent to the customer researcher now and integrated
+into the backlog… make sure we save those comments"*) → `.plans/2026-09-10-mom-onboarding-answers-FINDINGS.md`
+(user-researcher; eight proposed rows; **no address text in any tracked file** — her words stay in
+`.private/feedback-sweep/home-2026-09-10.json` and the home store). Ledger `feedback-dispositions.json` committed.
+
+**L4 · the release note** — `RELEASE_NOTES.md` **2026-09-10 — An account first, your home when you're ready**, derived
+from the beat-6 table and the walks, content-steward's shape: five bullets plus *not in this build*. ⭐ **The founding
+bullet entered only now** — content-steward held it out until a seat walked J0 at the sha; five did, then Paul. ⚠️ It
+**reaches a person on the next viewer build** (the card is inlined at build), so it is written, not yet served; Paul
+confirms the wording (chain act 12).
+
+**The chain, first run:** L1 written before any walk ✅ · L2 four fields on rows A and B ✅ · L3 five seats, five
+unprimed reads, `release-gate` 5 of 5 ✅ · L4 derived after the walk ✅ (served next build). ⚠️ The act-8 relay (L1 into
+the seat briefs) was carried **by hand** — P3 edit 1 is not built; if carried by hand again in lap 7, build it.
+
+**Pre-registrations disposed:**
+| id | disposition | evidence |
+|---|---|---|
+| `L6-P1-two-person-falsifier` | **carried → L7-P1** | not runnable: every `journey-walk` run opens a fresh context; the falsifier needs two people in ONE context — a two-journey action list, not built (build lane, measured) |
+| `L6-P2-note-derived-not-typed` | **answered — YES** | the pre-walk draft held the founding bullet OUT; the shipped entry carries it — a non-empty diff, caused by the walks |
+| `L6-P3-ux-sweep-ran` | **carried → L7-P2** | pass 1 was in the browser at close (design window, `tate-tracker-8d`); not filed; `check-ux-sweep.py` still OWED. The UX clause was confirmed by the **human** half (Paul's pass), as `release-gate.py`'s own line requires |
+
+**Lap 7 pre-registrations** (disposed at its close, with evidence): `L7-P1` the two-person falsifier finally runs ·
+`L7-P2` the two-pass UX sweep is filed at a candidate **and an artifact convention exists** so the clause can be read ·
+`L7-P3` gate ① gains a **CONTENT clause** (*the copy a walk met was read by the voice's owner*, an artifact, never a
+run-property that passes unread — `[paul-stated]`, TIER 1 · 31) · `L7-P4` `post-deploy.py` compares the `worker.js`
+blob, not the stamp (TIER 1 · 32) · `L7-P5` gate-or-courtesy is **ruled before** the confirm card is redesigned — **already ruled GATE at lap 6 close**; L7 verifies the apply honours it.
+
+**Windows at close:** coordination (this) · backlog-refinement (**the one door**, also the design window's liaison) ·
+founding-design (`tate-tracker-8d`, open, sweep pass 1 running; apply held until I lift it) · build-founding-walk (idle,
+all files released) · zones (**closed**: raw trace kept, cleaned 23 = leading candidate, preload waits on Mom's own founding).
+
+### ✅ CLOSED — 2026-09-10 ~6:45 PM ET · production serves `318416a` at both real households
