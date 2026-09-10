@@ -444,3 +444,47 @@ real home address** (`Grant Park Condo`, 33.7275/-84.3661), because his live acc
 estate beside 174 synthetic ones. QA's Guru was answering *"clear skies over Mead Street"* from it.
 Removing it restored the honest `canon-not-this-estate`. **Nothing republished or moved it.** ⚠️ The
 remaining question — *why his home address is in a QA estate at all* — is one of Paul's four in ⑦.
+
+## ⑥g 🔴 A `viewer.html` TRAP, IN THE FILE THAT HAS NO OWNER — `2026-09-10 ~5:30 PM`
+
+**Found by `onboarding-ask-b3`; recorded here because `viewer.html` has no lane and a finding about an
+unowned file has nowhere else to live.** Full change-set: `.plans/2026-09-10-interests-reframe-RULING-COSTS.md`
+on `onboarding-ask` @ `f27634e`.
+
+⛔ **RENAMING THE INTEREST LABELS IS NOT A FIND-AND-REPLACE.** `byLabel` (`viewer.html:18412`) is **built
+from the five labels being renamed**, and `:18408`'s own comment says it is the **only resolver for
+records stored before ids existed**. Rename them and a stored `{label:"Gardening"}` resolves to `id
+null`, which then:
+1. drops out of `READER_RANKING` via `.filter(Boolean)` — the pick vanishes from card ordering (`:18433`),
+   the top-card highlight (`:18564`) and the ask-next exclusion (`:18517`), **so the app re-offers a
+   module the person already ranked**; and
+2. fails the idea-card guard at `:18475` — **so a BUILT module renders as an unbuilt "idea card"**.
+
+⭐ **On the surface whose whole job is showing someone we heard them.** Third instance today of the same
+class this lane keeps catching.
+
+⚠️ **And it is wider than one browser:** `onboarding:1195` and `estate:529` both hydrate the ranking from
+the server's `d.ranked`, and `worker.js:3877` stores whatever the client sent — so a pre-id **account**
+record propagates old labels to **every device that person signs in on. Not self-healing.**
+
+✅ **Fix is ~6 lines** (a legacy alias table merged into `byLabel`) and **must ship in the SAME commit as
+any rename.** ⛔ It is **permanent, not a migration step** — a record written under the old vocabulary can
+be read at any future point — so it needs a comment saying so, or the next tidy-up deletes it.
+⛔ `estate/index.html:427` replays the stored label verbatim and **must NOT change**: it repeats back what
+the person was actually shown, which stays correct after a rename.
+
+**⭐ AND THE DECOMPOSITION THAT MAKES PAUL'S RULING CHEAP — the three questions are NOT one bundle:**
+
+| ships alone, waits on nothing | needs the product call |
+|---|---|
+| the address **NOT-use** clause (different screen, different flow) · the four **contract lines** (chrome above the list, reads identically over either vocabulary) · the **reframed question wording** (true over either list) | **"Growing things" vs "Gardening"** — it widens gardening to a windowsill and quietly absorbs the Houseplants record that `feedback-dispositions.json:102` ruled a twelfth interest, **not** a module request |
+
+⭐ **So the ask is not "approve this change." It is: ship the two contract fixes now, decide about
+"Growing things" whenever.** Both fixes close a **ruled** contract gap. **Branch B costs zero
+`viewer.html` changes.**
+
+⚠️ **A self-correction from that lane, worth keeping because it runs the other way:** its shipped
+reversibility line is **understated**, not wrong — `estate/index.html:431` offers *"Change the order ›"*,
+so a post-hoc route does exist and *"or tell me later from your place"* would be TRUE today (unlike
+*"change it any time"*, which was not). Offered as an option, **not applied** — more words on the screen
+already carrying the most reading is a content-steward call.
