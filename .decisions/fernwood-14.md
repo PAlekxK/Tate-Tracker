@@ -36,6 +36,23 @@ index or a scan. It also re-opens *which* estate a request means when the caller
 `scopeFor()` currently answers from the grant, and a person-scoped grant would not answer at all
 without the request naming a household.
 
+### ⛔ RULED — person-scoped `[paul-ruled 2026-09-10]`
+
+**A credential resolves to a PERSON who has estates.** Grants are minted per household on top; an
+estate is reached through a grant. A person holding an account and no household is the natural zero
+case, not a special one — which is exactly Mom's state today.
+
+⚠️ **AND A CORRECTION I OWE THIS CARD.** Earlier the same day I told another session that Paul *"has
+effectively ruled person-scoped"*, and that was **overstated**. He had described the model he wanted
+— *"they have a token, the correspondence of that account, and then they create their own household,
+and they can have as many as they want… we shouldn't be pre-seeding estates earlier in the
+process"* — which points at this answer but is not a ruling on this card, which he had not seen. He
+made the ruling **fresh, with the argument below in front of him**. It was never a standing ruling
+and must not be cited as one.
+
+⬜ **THE ROLLOUT IS NOT RULED.** Paul was explicit that staging is fine. The recommendation below is
+the interim shape, and its two cheap moves are the live candidates.
+
 ### Recommendation
 
 **Ship (a), design so (b) is reachable — and decide (b) before `POST /api/estate` ships, not after.**

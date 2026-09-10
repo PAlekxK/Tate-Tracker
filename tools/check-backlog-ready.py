@@ -78,6 +78,23 @@ KINDS = {"audit", "process", "design", "state", "census", "charter", "practice",
 # noticed the asymmetry while fixing something else.
 DOC_SUFFIXES = ("-AUDIT", "-PROCESS", "-DESIGN", "-STATE", "-CENSUS", "-CHARTER", "-PRACTICE",
                 "-DECISIONS", "-SCAN", "-REQUIREMENT", "-ARCHAEOLOGY", "-MINE", "-CONSOLIDATION")
+
+# ⭐⭐ THE ALLOWLIST ABOVE FAILS OPEN, AND THAT IS THE DEFECT — not which suffixes are in it.
+# `-CONSOLIDATION` was added on 2026-09-07 because beat 1's entire output was graded by NOTHING. The
+# comment recording that fix is nine lines up. **It happened again three days later**: measured
+# 2026-09-10, four documents written that day — `-WORK-QUEUE`, `-SCOPE`, `-REASSESS`,
+# `-PRIVACY-POSTURE` — carry suffixes in neither roster and are graded by nothing, while looking
+# exactly like governed documents.
+# ⛔ Adding those four would fix today and rot again on the next new suffix. So the tool now NAMES
+# every suffix it does not grade, which is the same posture `_headerless_note()` already takes: a
+# control that says what it cannot see beats one that goes quiet.
+# ⚠️ `KINDS` and `DOC_SUFFIXES` DISAGREE and always have: `queue` is a legal kind (line ~67) and
+# `-QUEUE` is not a graded suffix. Named here rather than reconciled — which roster is authoritative
+# belongs to whoever owns this tool.
+# ⚠️ DELIBERATE ABSENCES, each with its reason, so they stay quiet without hiding:
+UNGRADED_BY_DESIGN = {
+    "-PROPOSAL": "whether a proposal is a DOCUMENT or an ITEM is a real unruled call (see above)",
+}
 REPEATABLE = {"stage-note"}   # a dated LOG line, appended per event — many is the design, not a disagreement
 IN_FLIGHT = {"concept", "design", "journey", "build", "qa"}
 
@@ -440,9 +457,11 @@ def main():
         n_concept = sum(1 for _, st, _ in in_flight if st == "concept")
         print("   🚦 WIP bands: " + " · ".join(bands) + f" · concept {n_concept} (uncapped by ruling)")
     if not findings:
+        _ungraded_suffix_note(os.path.join(ROOT, ".plans"))
         _headerless_note()
         print(f"✅ Readiness — {len(plans)} plan(s), every claim has its trail.")
         return 0
+    _ungraded_suffix_note(os.path.join(ROOT, ".plans"))
     _headerless_note()
     print(f"🔴 Readiness — {len(findings)} flag(s) across {len(plans)} plan(s). Flags, never edits.")
     for where, msg in findings:
@@ -451,6 +470,37 @@ def main():
 
 
 # ---------------------------------------------------------------------------------------------
+def _ungraded_suffix_note(plans_dir):
+    """Name every `.plans/` suffix this tool does not grade. Reports; never fails the run."""
+    seen = {}
+    for f in sorted(os.listdir(plans_dir)):
+        if not f.endswith(".md"):
+            continue
+        base = f[:-3]
+        # the 16 pre-convention files carry no TYPE suffix at all — deliberately left alone
+        tail = base.rsplit("-", 1)[-1]
+        if not tail.isupper() or len(tail) < 3:
+            continue
+        suffix = "-" + tail
+        if suffix in DOC_SUFFIXES:
+            continue
+        seen.setdefault(suffix, []).append(f)
+    if not seen:
+        return
+    designed = {k: v for k, v in seen.items() if k in UNGRADED_BY_DESIGN}
+    unknown = {k: v for k, v in seen.items() if k not in UNGRADED_BY_DESIGN}
+    if unknown:
+        print("   ⬜ %d suffix(es) in `.plans/` are graded by NOTHING — not clean, just unseen:"
+              % len(unknown))
+        for suf, files in sorted(unknown.items()):
+            print("      %-18s %d file(s) — e.g. %s" % (suf, len(files), files[0]))
+        print("      Either add the suffix to DOC_SUFFIXES, or record it in UNGRADED_BY_DESIGN with")
+        print("      its reason. ⛔ Do not leave it in neither: that is how -CONSOLIDATION was missed")
+        print("      on 2026-09-07 and how four more were missed on 2026-09-10.")
+    for suf, files in sorted(designed.items()):
+        print("   · %-18s ungraded BY DESIGN — %s (%d file(s))" % (suf, UNGRADED_BY_DESIGN[suf], len(files)))
+
+
 def _headerless_note():
     if HEADERLESS:
         print("   ⬜ %d typed document(s) carry NO header block at all — not graded, and NOT clean:"
