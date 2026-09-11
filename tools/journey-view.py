@@ -40,7 +40,53 @@ def access_cookie(url):
 
 
 NODE = r"""
-const { chromium } = require('playwright');
+const playwright = require('playwright');
+const { chromium } = playwright;
+
+// ═══ T14 · THE ONE CONTEXT FACTORY ═══════════════════════════════════════════════════════════════
+//
+// ⛔⛔ WHY A FACTORY AND NOT THREE MORE cfg KEYS ON THE INLINE CALL: A GROWN ARGUMENT OBJECT IS NOT A
+// FACTORY. Row H needs a SECOND browser context in the same run, and against an inline `newContext`
+// it would have to duplicate this block — two context-creation paths, i.e. TWO DEFINITIONS OF "the
+// conditions this walk ran in", which is a second harness by accident. That is the single highest-
+// risk collision between rows T and H, and `class: engine · must-not-diverge` forbids it by name.
+// ⭐ H1's second context is built by THIS function. If a future reader finds a bare `newContext`
+// anywhere in this file, that is the divergence returning.
+//
+// ⛔ THE ARRIVAL STATE IS A DECLARED PROPERTY, NOT A HARNESS DEFAULT. A walk used to run in whatever
+// the harness happened to do; it now runs in a state the CELL declared, and records the state it
+// ACTUALLY ran in — which are different claims, and the second is the evidence.
+//
+// ⚠️ SECURITY R2-B binds the profile: lab/qa only, profiles under `.private/walk-profiles/`, NEVER
+// /tmp, MINTED BY WALKING and never hand-seeded. A `returning-device` profile carries a DEAD
+// credential by construction — that is the fixture, not a fault.
+const VIEWPORT = { width: 414, height: 848, deviceScaleFactor: 3, isMobile: true, hasTouch: true };
+
+async function mkContext(browser, cfg, label) {
+  const opts = Object.assign({}, VIEWPORT);
+  // ⛔ storageState is passed ONLY when it exists on disk. Playwright throws on a missing path, and
+  // a walk that dies because a profile was absent would read as a product failure.
+  if (cfg.storageState) opts.storageState = cfg.storageState;
+  const ctx = await browser.newContext(opts);
+  ctx.setDefaultTimeout(8000);
+  if (cfg.cookie) await ctx.addCookies([Object.assign({}, cfg.cookie, { secure: true, httpOnly: true })]);
+  // ⭐ `text: A+` is an INIT SCRIPT, not a click: it must be in place BEFORE the first paint, which
+  // is the only way to walk the size Mom is actually served.
+  // ⚠️ J8's L08 CLEARS localStorage mid-walk, so this does not survive that stop. That is CORRECT
+  // PRODUCT BEHAVIOUR and is recorded rather than asserted away.
+  // ⛔ `{ content: ... }`, NOT A BARE STRING. Playwright treats a bare string as a PATH TO A FILE,
+  // so `addInitScript("localStorage.setItem(...)")` silently does NOTHING — measured: the walk
+  // recorded `ranIn.text: "A+"` while the page read `fw-text-size=unset`. The record would have
+  // claimed a state the browser was never in, which is worse than not offering the flag.
+  if (cfg.initScript) await ctx.addInitScript({ content: cfg.initScript });
+  return { ctx, label: label || 'primary',
+           ranIn: { engine: cfg.engine || 'chromium',
+                    profile: cfg.storageState ? 'returning-device' : 'clean',
+                    text: cfg.initScript ? 'A+' : 'default',
+                    viewport: { width: VIEWPORT.width, height: VIEWPORT.height,
+                                deviceScaleFactor: VIEWPORT.deviceScaleFactor,
+                                isMobile: VIEWPORT.isMobile } } };
+}
 const cfg = JSON.parse(process.argv[2]);
 (async () => {
   // ⭐ --watch OPENS A VISIBLE WINDOW `[paul-stated 2026-09-06]`: "I like being able to watch the
@@ -51,7 +97,27 @@ const cfg = JSON.parse(process.argv[2]);
   // mechanism is text wrapping at 414. A watched run and a headless run must be the same
   // measurement or watching is not observation, it is a different experiment. Only headless and
   // pacing change here; viewport, deviceScaleFactor, isMobile and hasTouch are untouched below.
-  const b = await chromium.launch(cfg.watch ? { headless: false, slowMo: 350 } : {});
+  // ⛔ THE ENGINE IS DECLARED, NOT ASSUMED. `chromium` stays the default so nothing changes for a
+  // walk that declares nothing; an unknown engine REFUSES rather than silently falling back, because
+  // a walk that silently ran on a different engine than it claimed is evidence about nothing.
+  const engineName = cfg.engine || 'chromium';
+  // ⛔ THE PROPERTY EXISTING IS NOT THE BROWSER EXISTING. `playwright.webkit` is always defined; it
+  // is LAUNCH that throws when the engine is not installed — measured, the first version checked the
+  // property, passed, and died with a raw Node stack instead of the named refusal. An engine that
+  // cannot run must say so in one line a reader can act on, never fall back to another engine: a
+  // walk that silently ran on a different engine than it claimed is evidence about nothing.
+  let b;
+  if (!playwright[engineName]) {
+    console.log('ENGINE-UNAVAILABLE: ' + engineName + ' (playwright has no such engine)');
+    process.exit(3);
+  }
+  try {
+    b = await playwright[engineName].launch(cfg.watch ? { headless: false, slowMo: 350 } : {});
+  } catch (e) {
+    console.log('ENGINE-UNAVAILABLE: ' + engineName + ' — not installed. '
+                + 'Install it with: npx playwright install ' + engineName);
+    process.exit(3);
+  }
   // ⭐ deviceScaleFactor 3 — HER DEVICE'S RESOLUTION, not a third of it. Every pixel review to date
   // read a 1x raster (36KB where 172KB was available), so hairline rules, sub-pixel misalignment and
   // small-type legibility were all being judged from an image that had thrown them away. isMobile +
@@ -60,19 +126,20 @@ const cfg = JSON.parse(process.argv[2]);
   // CDP-driven Chrome has no such floor. The instrument was never choosing between her width and a
   // real browser — measured 2026-09-05, real Chrome 152 and bundled Chromium render this page
   // identically (same font stack, same h1 width, same height).
-  const ctx = await b.newContext({
-    viewport: { width: 414, height: 848 },
-    deviceScaleFactor: 3, isMobile: true, hasTouch: true,
-  });
-  ctx.setDefaultTimeout(8000);
-  if (cfg.cookie) await ctx.addCookies([Object.assign({}, cfg.cookie, { secure: true, httpOnly: true })]);
+  const made = await mkContext(b, cfg, 'primary');
+  const ctx = made.ctx;
   const page = await ctx.newPage();
   // A screenshot's entire meaning is its geometry. Recording it here means a later reader can tell
   // what the image is EVIDENCE OF, instead of assuming the standard it was supposed to meet.
   // ⭐ T7 — the URL as of the last checkpoint, so each checkpoint can record where it STARTED.
   let lastUrl = null;
+  // ⭐ T16's TRAP, CLOSED HERE BECAUSE THE FACTORY NOW OWNS THE CONSTANT: `geometry` used to
+  // RE-TYPE the viewport ten lines below where it was set, so the two could drift and the recorded
+  // geometry would describe a walk that never happened. It is DERIVED.
   const out = { steps: [], console: [], checkpoints: [], httpFailures: [],
-                geometry: { width: 414, height: 848, deviceScaleFactor: 3, isMobile: true } };
+                geometry: made.ranIn.viewport,
+                // ⛔ THE STATE IT ACTUALLY RAN IN, not the state it was asked for.
+                ranIn: made.ranIn };
   // A walk that cannot say WHY a write failed cannot attribute it later. Errors only —
   // a full console dump buries the one line that matters.
   page.on('console', (m) => { if (m.type() === 'error') out.console.push(m.text().slice(0, 300)); });
@@ -234,9 +301,57 @@ const cfg = JSON.parse(process.argv[2]);
 """
 
 
+def _selftest():
+    """T14's clauses. ⛔ It proves the REFUSALS and the cfg shape; it does not launch a browser, and
+    says so — the end-to-end behaviour (A+ installs before first paint, the geometry is derived, the
+    deploy guard still refuses a broken page) is proven by running, and is recorded in T14's commit
+    rather than asserted here."""
+    ok = []
+
+    def ck(name, cond):
+        ok.append(bool(cond)); print("  %s %s" % ("✅" if cond else "🔴", name))
+
+    NODEJS = NODE
+    # ⛔ M21a — ONE CONTEXT FACTORY, NOT TWO. Row H's second context must be built by mkContext; a
+    # bare `newContext` reappearing anywhere in this file IS the divergence returning.
+    ck("T14/M21a exactly ONE `.newContext(` exists, and it is inside mkContext",
+       NODEJS.count(".newContext(") == 1 and "async function mkContext" in NODEJS)
+    ck("T14/M21a2 the factory is actually USED for the primary context",
+       "await mkContext(b, cfg, 'primary')" in NODEJS)
+
+    # ⛔ M21b — the A+ init script is passed as CONTENT, not as a bare string. A bare string is read
+    # by Playwright as a FILE PATH and silently does nothing, so the record would claim a state the
+    # browser was never in. Measured: that is exactly what the first version did.
+    ck("T14/M21b the init script is passed as `{ content: ... }`, never a bare string",
+       "addInitScript({ content:" in NODEJS)
+
+    # ⛔ M21c — the geometry is DERIVED from the factory's constant, never re-typed.
+    ck("T14/M21c `geometry` is derived from the factory, not a second literal",
+       "geometry: made.ranIn.viewport" in NODEJS and NODEJS.count("width: 414") == 1)
+    ck("T14/M21c2 the run records the state it ACTUALLY ran in", "ranIn: made.ranIn" in NODEJS)
+
+    # ⛔ M21d — an engine that cannot LAUNCH refuses; checking the property alone is not enough,
+    # because `playwright.webkit` is always defined and it is launch that throws.
+    ck("T14/M21d an engine is refused on LAUNCH failure, not merely on a missing property",
+       "catch (e)" in NODEJS and "ENGINE-UNAVAILABLE" in NODEJS
+       and "npx playwright install" in NODEJS)
+
+    # ⛔ M21e — a declared-but-absent profile refuses BEFORE launching, naming how to produce one.
+    import tempfile as _tf
+    with _tf.TemporaryDirectory() as td:
+        missing = os.path.join(td, "nope.json")
+        src = open(os.path.abspath(__file__), encoding="utf-8").read()
+        ck("T14/M21e a declared profile that does not exist refuses, naming how to mint one",
+           "REFUSING" in src and "MINTED BY WALKING" in src and not os.path.exists(missing))
+
+    print("\n%s journey-view selftest (%d/%d)  ⚠️ refusals and cfg shape only; no browser launched"
+          % ("✅" if all(ok) else "🔴", sum(ok), len(ok)))
+    return 0 if all(ok) else 1
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("url")
+    ap.add_argument("url", nargs="?")
     ap.add_argument("--do", action="append", default=[], help='"click:#id" or "type:#id=text"')
     # ⛔ A PER-PROCESS DEFAULT, NOT A SHARED ONE. It was "/tmp/journey-view.png" for every caller, so
     # parallel walkers overwrote each other's screenshots — and on 2026-09-05 a primed walker read a
@@ -255,11 +370,31 @@ def main():
     ap.add_argument("--json", dest="json_out", help="write the complete result (incl. every checkpoint's full screen) to this path")
     ap.add_argument("--shot-dir", dest="shot_dir",
                     help="directory for `shot:<name>` checkpoint captures (default: alongside --shot)")
+    # ⭐ T14 — THE ARRIVAL STATE IS DECLARED ON THE COMMAND LINE, so a cell can ask for the state it
+    # says it walks in. ⛔ Each flag is OPTIONAL and its ABSENCE is the clean default — a walk that
+    # declares nothing runs exactly as it always has.
+    ap.add_argument("--engine", default="chromium",
+                    help="chromium (default) | firefox | webkit. An engine playwright does not have "
+                         "REFUSES rather than falling back — a walk that silently ran on another "
+                         "engine than it claimed is evidence about nothing.")
+    ap.add_argument("--storage-state", dest="storage_state",
+                    help="path to a saved browser profile (R2-B: under .private/walk-profiles/, "
+                         "MINTED BY WALKING, never hand-seeded, never /tmp)")
+    ap.add_argument("--text", choices=["default", "A+"], default="default",
+                    help="A+ installs the served text size BEFORE first paint — the size Mom is "
+                         "actually served. ⚠️ J8's L08 clears localStorage mid-walk, so it does not "
+                         "survive that stop; that is correct product behaviour.")
     ap.add_argument("--watch", action="store_true",
                     help="open a VISIBLE browser and pace the actions so a person can follow them. "
                          "Same viewport (414x848 @3x, mobile) and same screenshots as a headless run — "
                          "only visibility and pacing change, so a watched run is the same evidence.")
+    ap.add_argument("--selftest", action="store_true",
+                    help="prove T14's refusals and cfg shape without launching a browser")
     a = ap.parse_args()
+    if a.selftest:
+        return _selftest()
+    if not a.url:
+        ap.error("the following arguments are required: url")
 
     mods = glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/playwright"))
     if not mods:
@@ -267,13 +402,31 @@ def main():
     env = dict(os.environ); env["NODE_PATH"] = os.path.dirname(mods[0])
     js = "/tmp/.journey-view.js"
     open(js, "w").write(NODE)
+    # ⛔ A DECLARED PROFILE THAT DOES NOT EXIST REFUSES, NAMING THE COMMAND THAT WOULD PRODUCE ONE.
+    # Playwright throws on a missing storageState path, so without this the walk dies mid-run and the
+    # transcript blames the product for a missing fixture. Same refusal shape as `mint_invite`.
+    if a.storage_state and not os.path.exists(a.storage_state):
+        raise SystemExit(
+            "journey-view: \u26d4 REFUSING \u2014 a `returning-device` profile was declared and "
+            "none exists at\n  %s\n"
+            "  A profile is MINTED BY WALKING, never hand-seeded (security R2-B). Produce one\n"
+            "  with a clean walk of this cell first; that walk writes the profile it did not have.\n"
+            % a.storage_state)
     cfg = {"url": a.url, "actions": a.do, "shot": a.shot, "cookie": access_cookie(a.url),
-           "watch": bool(a.watch),
+           "watch": bool(a.watch), "engine": a.engine,
+           "storageState": a.storage_state or None,
+           # the init script is built HERE, not passed as arbitrary JS from a caller
+           "initScript": ("try{localStorage.setItem('fw-text-size','lg')}catch(e){}"
+                          if a.text == "A+" else None),
            "shotDir": a.shot_dir or os.path.dirname(os.path.abspath(a.shot))}
     # A watched run is paced for a human (slowMo), so the headless timeout would kill it mid-walk and
     # the transcript would blame the product for the instrument's impatience.
     p = subprocess.run(["node", js, json.dumps(cfg)], capture_output=True, text=True, env=env,
                        timeout=1200 if a.watch else 300)
+    if p.returncode == 3 and "ENGINE-UNAVAILABLE" in (p.stdout or ""):
+        # ⛔ A CAPABILITY FINDING, NEVER A PRODUCT FINDING. T15's rule, enforced at the source: a
+        # WebKit run that cannot start reports UNREACHABLE, not "refused".
+        raise SystemExit("journey-view: " + p.stdout.strip().splitlines()[-1])
     if p.returncode != 0 or not p.stdout.strip():
         raise SystemExit("journey-view: could not open that link\n" + (p.stderr or "")[-800:])
     r = json.loads(p.stdout)
