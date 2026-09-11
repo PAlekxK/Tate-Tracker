@@ -397,6 +397,104 @@ def ux_clause(sha, ux_dir=None):
     return (True, os.path.relpath(path, ROOT))
 
 
+# ═══ T3 · THE DECLARED CELL LIST, THE MATRIX, AND UNWALKED-BY-NAME ════════════════════════════════
+#
+# ⛔ ABSENCE INDISTINGUISHABLE FROM A PASS is the defect this step removes. Until now a cell nobody
+# walked simply did not appear, and a reader could not tell "we walked it and it was fine" from "no
+# one has ever walked it." ⭐ EMPTY CELLS ARE THE COVERAGE CLAIM, NOT DECORATION.
+#
+# ⛔⛔ NO SCHEDULER, NO SELECTION ENGINE, NO BUDGET — the audit's boundary, verbatim and binding:
+# the classifier may answer "which journeys can REACH what changed", a derivable fact about routes.
+# It may NEVER answer "which journeys are WORTH running" — that is a value judgement and it is
+# Paul's, at beat 6, in the declared cell list. ⭐ THIS STEP PRINTS; IT NEVER PICKS.
+# ITS OWN FALSIFIER: the moment this code needs a weight, a score, a budget or a priority to produce
+# its answer, it has crossed the line and it stops.
+#
+# ⛔ THIS STEP DOES NOT FILE A CELL LIST, AND THAT IS DELIBERATE. `declaredBy: paul` is a record of
+# HIS act at beat 6. A build window writing that field would be minting a declaration nobody made —
+# the same class as inferring a J2 from a token the transcript never held. With no list filed the
+# gate reads UNCHECKABLE WITH THE PATH NAMED (M12c), which is the true state of lap 8 today.
+CELLS_DIR = os.path.join(ROOT, "cycle", "release", "cells")
+
+
+def _journey_library():
+    """→ (JOURNEY_IDS, JOURNEYS, NAMED_UNBUILT). Imported, never re-typed —
+    `release-state.py:171` already reaches journey-walk this way."""
+    try:
+        spec = importlib.util.spec_from_file_location("jw", os.path.join(ROOT, "tools", "journey-walk.py"))
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        return (list(getattr(m, "JOURNEY_IDS", []) or []),
+                dict(getattr(m, "JOURNEYS", {}) or {}),
+                dict(getattr(m, "NAMED_UNBUILT", {}) or {}))
+    except Exception:
+        return [], {}, {}
+
+
+def read_cells(cells_dir=None):
+    """→ (spec, problem). The lap is the HIGHEST-numbered `lap-<N>.json` present — derived from what
+    exists, never a number typed here. `spec` is None whenever the list cannot be honoured, and
+    `problem` always says why; ⛔ neither is ever a silent pass."""
+    d = cells_dir or CELLS_DIR
+    if not os.path.isdir(d):
+        return None, "no cell list filed — expected %s/lap-<N>.json" % os.path.relpath(d, ROOT)
+    files = sorted(f for f in os.listdir(d) if re.fullmatch(r"lap-\d+\.json", f))
+    if not files:
+        return None, "no cell list filed — expected %s/lap-<N>.json" % os.path.relpath(d, ROOT)
+    newest = max(files, key=lambda f: int(re.findall(r"\d+", f)[0]))
+    path = os.path.join(d, newest)
+    try:
+        spec = json.load(open(path, encoding="utf-8"))
+    except Exception as e:
+        return None, "%s is unreadable: %s" % (newest, e)
+    cells = spec.get("cells")
+    if not isinstance(cells, list) or not cells:
+        return None, "%s declares no cells" % newest
+    # ⛔ M12b — A CELL LIST IS NOT A PLACE TO INVENT JOURNEYS. An id the library does not know is
+    # REFUSED BY NAME, because a declaration the harness cannot walk is a coverage claim nobody
+    # can honour, and it would print UNWALKED forever while looking like a fixture problem.
+    ids, _J, named = _journey_library()
+    known = set(ids) | set(named)
+    if known:
+        for c in cells:
+            j = (c or {}).get("journey")
+            if j not in known:
+                return None, ("%s declares journey %r, which is absent from journey-walk's "
+                              "JOURNEY_IDS and NAMED_UNBUILT — refusing" % (newest, j))
+    spec["_file"] = newest
+    return spec, None
+
+
+def cell_last_walked(sha_any=True):
+    """→ {(journey, lens): (newest mtime, source)} across ALL shas. A git-free read of run directory
+    mtimes — used only to say WHICH CELL HAS GONE LONGEST UNWALKED. ⛔ It ranks by age and by
+    nothing else; it is not a scheduler and it must never gain a second sort key.
+
+    ⛔⛔ `source` IS LOAD-BEARING AND WAS NOT HERE ON THE FIRST DRAFT. `journey_of()` falls back to
+    the DOOR's answer for a transcript that declared no journey, so four runs land in cells J1/J2/J3
+    purely because the door read them that way. Printing those as *"last walked"* put a line saying
+    `(J2, handover) last walked 2026-09-10` DIRECTLY ABOVE the standing paragraph that says no
+    transcript at any build has ever recorded a walked J2 — two claims on one screen, one of them
+    false, and the false one was this function's. A door reading is evidence about the RECORD's
+    state at arrival; it is not a walk, and the two may never render the same."""
+    out = {}
+    for seat in seats():
+        for run in runs_for(seat):
+            d = os.path.join(WALKS, seat, run)
+            u = unit_of(d)
+            if not u or is_legacy(u[0]):
+                continue
+            try:
+                t = json.load(open(os.path.join(d, "transcript.json"), encoding="utf-8"))
+                mt = os.path.getmtime(os.path.join(d, "transcript.json"))
+            except Exception:
+                continue
+            _j, src = journey_of(t)
+            if u not in out or mt > out[u][0]:
+                out[u] = (mt, src)
+    return out
+
+
 def report(sha, seats_only=False):
     print("release gate ① — build %s\n" % (sha[:7] if sha else "UNKNOWN"))
     if not sha:
@@ -500,6 +598,72 @@ def report(sha, seats_only=False):
     if _legacy_n:
         print("  ⬜ %d of the %d cells %s BACKFILLED legacy — evidence, never coverage."
               % (_legacy_n, len(cells), "is" if _legacy_n == 1 else "are"))
+    # ═══ T3 · THE MATRIX AND THE COVERAGE CLAIM ══════════════════════════════════════════════════
+    spec, problem = read_cells()
+    declared, unwalked = [], []
+    if spec:
+        declared = [((c or {}).get("journey"), (c or {}).get("lens")) for c in spec["cells"]]
+        print("\n  ── MATRIX · declared cells from %s (lap %s, declaredBy %s) ──"
+              % (spec["_file"], spec.get("lap", "?"), spec.get("declaredBy", "?")))
+        width = max([len("(%s, %s)" % d) for d in declared] + [12])
+        print("     %-*s  %s" % (width, "cell", "  ".join(k for k, _ in CLAUSES)))
+        for d in declared:
+            walked = next((r for r in rows if r[0] == d), None)
+            label = "(%s, %s)" % d
+            if not walked or not walked[1]:
+                # ⛔ EMPTY CELLS ARE THE COVERAGE CLAIM. A declared cell with no run at this sha is
+                # UNWALKED BY NAME and the gate REFUSES — absence never reads as a pass.
+                print("     %-*s  %s  ⛔ UNWALKED at this build" % (width, label,
+                      "  ".join("·".center(len(k)) for k, _ in CLAUSES)))
+                unwalked.append(d)
+                continue
+            v = walked[1][2]
+            marks = "  ".join(("✅" if v.get(k, (None,))[0] is True else
+                               ("🔴" if v.get(k, (None,))[0] is False else "⬜")).center(len(k))
+                              for k, _ in CLAUSES)
+            print("     %-*s  %s" % (width, label, marks))
+        extra = [u for u, b, n, pr, sup in rows if u not in declared and not is_legacy(u[0])]
+        if extra:
+            print("     ⬜ walked but NOT DECLARED: %s — evidence, and not a coverage claim "
+                  "anyone made." % " · ".join("(%s, %s)" % u for u in extra))
+    else:
+        # ⛔ M12c — UNCHECKABLE WITH THE PATH NAMED, never a pass. The H4 convention exactly.
+        print("\n  ⬜ MATRIX UNCHECKABLE — %s" % problem)
+        print("     A cell list is declared by Paul at beat 6; this gate reads it and never writes it.")
+
+    # ── STANDING COVERAGE HOLES — journeys the library knows and NO run has ever walked ───────────
+    # ⭐ DERIVED, never a typed roster. The plan names "J1 · J5 · J7" in prose; J7 is absent from
+    # JOURNEY_IDS entirely, so typing that trio here would assert a journey the harness does not
+    # have. The set is computed, and an id named in a plan but missing from the library prints as
+    # its own finding rather than silently not appearing.
+    ids, _J, named = _journey_library()
+    # ⛔ ONLY A RECORDED JOURNEY COUNTS AS WALKED. A door-measured cell proves the door read a
+    # record that way, never that a walk went through that journey.
+    ever = {u[0] for u, (mt, src) in cell_last_walked().items() if src == "recorded"}
+    holes = [j for j in sorted(set(ids) | set(named)) if j not in ever]
+    if holes:
+        print("\n  ── STANDING UNWALKED — no run at ANY build has ever walked these ──")
+        for j in holes:
+            blocker = ""
+            if j in named:
+                nd = named[j]
+                blocker = str(nd.get("needs", "")) if isinstance(nd, dict) else str(nd)
+            print("     ⛔ %-4s %s" % (j, ("BLOCKER: " + blocker) if blocker else
+                                       "declared in JOURNEYS; no walk on record"))
+    # ⭐ THE LONGEST-UNWALKED READ — three lines, ranked by age and by NOTHING ELSE.
+    lw = cell_last_walked()
+    if lw:
+        import datetime as _dt
+        oldest = sorted(lw.items(), key=lambda kv: kv[1][0])[:3]
+        print("\n  ── LONGEST UNWALKED (any build) ──")
+        for u, (mt, src) in oldest:
+            when = _dt.datetime.fromtimestamp(mt).strftime("%Y-%m-%d")
+            if src == "recorded":
+                print("     %-26s last walked %s" % ("(%s, %s)" % u, when))
+            else:
+                print("     %-26s ⬜ %s %s — NO WALK EVER DECLARED THIS JOURNEY; the door read a "
+                      "record that way. Not a walk." % ("(%s, %s)" % u, src, when))
+
     _retries = [u for u, b, n, pr, sup in rows if sup]
     if _retries:
         print("  ⚠️ %d cell(s) passed ONLY ON RETRY: %s — a retry exits the loop, and this line is "
@@ -522,6 +686,33 @@ def report(sha, seats_only=False):
     print("  📐 coverage — J2 (returning-unfinished) is UNWALKABLE at every build since the open door: an unfinished "
           "record cannot exist without an estate; founding replaced granting; no transcript at any build has ever "
           "recorded a walked J2. Not covered here — awaiting Paul's re-scope-or-retire ruling.")
+    # ⛔⛔ THE PARAGRAPH ABOVE IS CARRIED VERBATIM (T3's instruction: a coverage line may not change
+    # its wording while its question is unruled) — AND ITS LAST CLAUSE IS CONTRADICTED BY THE RECORD.
+    # This gate will not print a measurably false claim unqualified, and it will not rewrite a line
+    # that is Paul's to rule. So it prints BOTH and lets him rule on the truth: FLAGS, NEVER RULES.
+    _j2 = []
+    for _seat in seats():
+        for _run in runs_for(_seat):
+            try:
+                _t = json.load(open(os.path.join(WALKS, _seat, _run, "transcript.json"), encoding="utf-8"))
+            except Exception:
+                continue
+            if _t.get("journey") == "J2":
+                _bad = [x for x in (_t.get("stops") or []) if x.get("status") not in ("walked", "skipped", "n/a")]
+                _j2.append((_seat, _run, (_t.get("buildBefore") or "")[:7],
+                            len(_t.get("stops") or []), len(_bad) + len(_t.get("failedActions") or [])))
+    if _j2:
+        print("  ⛔ CONTRADICTED BY THE RECORD — %d transcript(s) DO record a walked J2, and they are "
+              "clean:" % len(_j2))
+        for _seat, _run, _b, _n, _p in _j2:
+            print("       %s/%s at %s — %d stops, %d problems, journeyDeclared=J2, "
+                  "journeyEntered=J2 (\"an account exists; its record carries no name\")"
+                  % (_seat, _run, _b, _n, _p))
+        print("     ⚠️ The claim was filed [measured 2026-09-11, lap 7 battery] and read the same way "
+              "twice. Both readings were scoped to the BATTERY's candidate shas; these runs are at a "
+              "build outside it. A count correct about its own scope, stated as \"at any build\".")
+        print("     ⛔ THIS MATTERS BECAUSE THE PARAGRAPH IS THE PREMISE OF A PENDING RULING. Ruling "
+              "\"retire J2 as unwalkable\" on it would retire a journey the harness has walked clean.")
     # H4 (lap 7) — the two per-sha clauses, each read from its artifact convention
     cst, cdet = content_clause(sha, ss)
     ust, udet = ux_clause(sha)
@@ -529,6 +720,14 @@ def report(sha, seats_only=False):
     print("  %s content read for this build (L7-P3: every walk read by the voice's owner) — %s" % (mark(cst), cdet))
     print("  %s UX sweep for this build (L7-P2: the two-pass sweep at this candidate) — %s" % (mark(ust), udet))
 
+    # ⛔ M12a — A DECLARED CELL WITH NO RUN REFUSES. This is the 09-10 plan's falsifier ④, the
+    # negative control: a gate that has only ever been seen to pass has proven nothing.
+    if unwalked:
+        print("\n🔴 GATE ① NOT PASSED at %s — %d DECLARED CELL(S) UNWALKED at this build: %s"
+              % (sha[:7], len(unwalked), " · ".join("(%s, %s)" % u for u in unwalked)))
+        print("   A cell nobody walked is not a cell that passed. Walk them, or amend the "
+              "declaration — the gate will not infer which you meant.")
+        return 1
     if len(passing_cells) == len(cells) and cells:
         if cst is True and ust is True:
             print("\n✅ every CELL passes, the content read is filed and the sweep is filed — gate ① PASSED at %s." % sha[:7])
@@ -549,6 +748,9 @@ def report(sha, seats_only=False):
 
 
 def selftest():
+    # ⚠️ ONE declaration for the whole function — several clause blocks below swap these to point at
+    # a temporary corpus, and Python allows only one `global` per name per function body.
+    global WALKS, CELLS_DIR
     print("release-gate --selftest — can every clause FAIL?\n")
     import tempfile
     ok = True
@@ -681,7 +883,6 @@ def selftest():
     # ═══ T1 · M10a/b/c — THE UNIT, THE BACKFILL, AND WHAT A BACKFILLED CELL MAY NOT DO ═══════════
     with tempfile.TemporaryDirectory() as tmp:
         W = os.path.join(tmp, "walks"); os.makedirs(W)
-        global WALKS
         _saved = WALKS
         try:
             WALKS = W
@@ -751,6 +952,72 @@ def selftest():
                   % ("✅" if bit else "🔴")); ok &= bit
         finally:
             WALKS = _saved
+
+    # ═══ T3 · M12a/b/c — THE DECLARED CELL LIST ═══════════════════════════════════════════════════
+    with tempfile.TemporaryDirectory() as tmp:
+        cd = os.path.join(tmp, "cells"); os.makedirs(cd)
+
+        # M12c — no list filed → UNCHECKABLE WITH THE PATH NAMED, never a pass. (H4's convention.)
+        spec, prob = read_cells(cd)
+        bit = spec is None and "lap-<N>.json" in (prob or "")
+        print("  %s M12c no cell list filed → UNCHECKABLE with the path named, never a pass"
+              % ("✅" if bit else "🔴")); ok &= bit
+
+        # M12b — an id the journey library does not know is REFUSED BY NAME.
+        json.dump({"lap": 8, "cells": [{"journey": "J0", "lens": "mom"},
+                                       {"journey": "J99", "lens": "mom"}], "declaredBy": "paul"},
+                  open(os.path.join(cd, "lap-8.json"), "w"))
+        spec, prob = read_cells(cd)
+        bit = spec is None and "J99" in (prob or "")
+        print("  %s M12b a cell naming a journey absent from the library is REFUSED, naming the id "
+              "(a cell list is not a place to invent journeys)" % ("✅" if bit else "🔴")); ok &= bit
+
+        # M12b' — the highest-numbered lap file wins, derived, never a number typed in the tool.
+        json.dump({"lap": 8, "cells": [{"journey": "J0", "lens": "mom"}], "declaredBy": "paul"},
+                  open(os.path.join(cd, "lap-8.json"), "w"))
+        json.dump({"lap": 9, "cells": [{"journey": "J3", "lens": "mom"}], "declaredBy": "paul"},
+                  open(os.path.join(cd, "lap-9.json"), "w"))
+        spec, _ = read_cells(cd)
+        bit = spec is not None and spec.get("lap") == 9
+        print("  %s M12b' the lap is DERIVED from the highest-numbered file, never typed"
+              % ("✅" if bit else "🔴")); ok &= bit
+
+        # M12d — an empty cells[] is refused, not read as "nothing declared, therefore fine".
+        json.dump({"lap": 10, "cells": [], "declaredBy": "paul"},
+                  open(os.path.join(cd, "lap-10.json"), "w"))
+        spec, prob = read_cells(cd)
+        bit = spec is None and "no cells" in (prob or "")
+        print("  %s M12d a list declaring ZERO cells is refused — an empty claim is not coverage"
+              % ("✅" if bit else "🔴")); ok &= bit
+
+    # M12a — a declared cell with no run must REFUSE. Proven on the real `report()` path, because
+    # this is the 09-10 plan's falsifier ④ and a clause that only tests a helper proves nothing
+    # about the gate's exit code.
+    import io, contextlib
+    with tempfile.TemporaryDirectory() as tmp:
+        W = os.path.join(tmp, "walks"); os.makedirs(os.path.join(W, "mom", "R1"))
+        json.dump(dict(base, journey="J0", lens="mom"),
+                  open(os.path.join(W, "mom", "R1", "transcript.json"), "w"))
+        open(os.path.join(W, "mom", "R1", "REPORT.md"), "w").write("all good")
+        cd = os.path.join(tmp, "cells"); os.makedirs(cd)
+        json.dump({"lap": 8, "declaredBy": "paul",
+                   "cells": [{"journey": "J0", "lens": "mom"}, {"journey": "J3", "lens": "mom"}]},
+                  open(os.path.join(cd, "lap-8.json"), "w"))
+        _sw, _sc = WALKS, CELLS_DIR
+        try:
+            WALKS, CELLS_DIR = W, cd
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                rc = report("a" * 40)
+            out = buf.getvalue()
+            bit = rc != 0 and "UNWALKED" in out and "(J3, mom)" in out
+            print("  %s M12a a DECLARED cell with no run prints UNWALKED by name and the gate "
+                  "REFUSES (falsifier ④, the negative control)" % ("✅" if bit else "🔴")); ok &= bit
+            bit = "(J0, mom)" in out
+            print("  %s M12a' … while the declared cell that WAS walked still prints its marks"
+                  % ("✅" if bit else "🔴")); ok &= bit
+        finally:
+            WALKS, CELLS_DIR = _sw, _sc
 
     print("\n%s selftest" % ("✅" if ok else "🔴"))
     return 0 if ok else 1
