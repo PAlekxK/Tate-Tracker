@@ -2806,3 +2806,15 @@ zone active, 0 DNS records; served nothing at lap 3. **Lap 8 · B gains a build 
 DNS · `pages-deploy.py`'s ORIGIN map) and the apex-as-door reading retires the family-door level under §3i — a reading his
 word confirms, not ruled. **It does NOT rule the product's NAME** (plan Q3: *My Home* · a distinct word · no name) — still
 his, still precedes B by his own 8·4; the backlog window is reflecting that question back to him.
+
+### Ahead — lap 10's THEME ruled `[paul-ruled 2026-09-11 ~1:05 AM ET]`
+
+Offered three shapes with a recommendation (the second person: INVITE & JOIN); **Paul picked THE PLACE: zones v1 + the
+capture write path** — Mom's actual ask by name (*"which zones have what plants that need the fertilizer"*). Consequences,
+each a dependency to place, not a commitment: the capture write path (TIER 2 · 8, `concept`) needs its **design pass in
+lap 8 or 9, in its own window** (the ⏭ note: zones' design work is not a lap slot) · zones (TIER 2 · 7) is at `design`;
+the cleaned 23 stays the leading candidate; **preload still waits on Mom's own founding — a disposition, never a
+commitment** · field capture obeys the site premise (**no signal away from the house**: capture local, sync deferred) ·
+zones write per-estate needs lap 8's estate-as-row · **INVITE & JOIN moves to a lap-11 candidate** (its lap-8 scoping
+stands). The backlog window drafts `.plans/2026-09-11-lap10-SCOPE-PROPOSAL.md` on this theme for his pick at lap 10's
+beat 6; engineering-partner's lap-9 READINESS names when the write-path design pass must run.
