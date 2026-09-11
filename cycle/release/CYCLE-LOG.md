@@ -3567,3 +3567,15 @@ register and the revamp window (W8–W11):
 — sign back in whenever you like, from any phone."* + Sign in + *Can't get in?* + the looping *Create your account ›*). So W1
 is narrower: the lede renders after a real sign-out; it did NOT after signing out of the dead PAK grant (step 1b). Reload
 test pending: does this screen survive a reload, or fall to the cold door?
+
+### Lap 7 · BEAT 11 — PAUL CLEARED `87c7aae` · 2026-09-11 09:36 EDT
+
+His walk concluded at the signed-out screen (the throwaway `pkirsch-onetimeuse` kept for the next lap's kit; the reload test
+on the signed-out lede left open). **Three rulings at the clear:** the looping *Create your account ›* link (W2) — *"an issue
+for our backlog to refine and for us to slot into the next lap"* — does NOT hold the release · **the UX clause is CONFIRMED by
+his walk in the sweep's place**, with W8 (the masthead spill at laptop width) noted for lap 8 · **CLEARED for production at
+`paul` and `home`.** On the table and carried as ruled: the owner/content stop verdicts (record, proceed; fix rides lap 8);
+W1–W11. **Beat 12 from this window:** Worker before pages at each household — `deploy-worker.sh --env paul` → `pages-deploy.py
+--env paul --sha 87c7aae` (exports the COMMIT; release-gate --seats-only; post-deploy) → the same for `home` (its household
+export; `cleared_sha` read) → `check-canon-scope` at both → the record check for row D at `paul` after Paul's next load.
+Never `legacy`.

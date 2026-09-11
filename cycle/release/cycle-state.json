@@ -1,13 +1,13 @@
 {
- "state": "FIRED",
- "generated_at": "2026-09-11T09:04:20-04:00",
+ "state": "ARMED",
+ "generated_at": "2026-09-11T09:36:05-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "87c7aae",
  "beat": {
-  "n": 9,
+  "n": 11,
   "of": 12,
   "owner": "paul",
-  "name": "Paul walks it",
+  "name": "Paul cleared it",
   "derivable": [
    8,
    9,
@@ -77,7 +77,7 @@
   "opened": "2026-09-10",
   "outcome": "open",
   "closed_at": null,
-  "cleared_sha": "318416a"
+  "cleared_sha": "87c7aae"
  },
  "lap_heading_anomalies": [],
  "pre_registered": [
