@@ -49,13 +49,48 @@ VIEWPORT_RX = re.compile(r"viewport:\s*\{\s*width:\s*(\d+)\s*,\s*height:\s*(\d+)
 
 
 def walk_viewport():
-    """(width, height) every synthetic walk ran at, read from `journey-view.py`. None if unreadable."""
+    """(width, height) the harness is CONFIGURED to use, read from `journey-view.py`'s source.
+
+    ⚠️ T16 — THIS IS THE FALLBACK, NOT THE ANSWER. It reads what the tool is SET UP to do, never what
+    the walks DID. The constant's own comment says "read, never typed" and it was doing exactly that
+    — while still answering the wrong question. Prefer `walk_geometries(sha)`."""
     try:
         with open(os.path.join(ROOT, "tools", "journey-view.py"), encoding="utf-8") as fh:
             m = VIEWPORT_RX.search(fh.read())
     except OSError:
         return None
     return (int(m.group(1)), int(m.group(2))) if m else None
+
+
+def walk_geometries(sha):
+    """→ (set_of_geometry_strings, n_runs, n_unreadable) READ FROM EACH RUN'S OWN `_view.json`.
+
+    ⛔⛔ THE DEFECT THIS REPLACES: the coverage line said "viewport 414×848 ONLY" by reading a
+    CONSTANT IN THE HARNESS SOURCE. That is a claim about how the tool is configured TODAY, published
+    as a claim about what the evidence covers. The two diverge the instant one walk runs at another
+    size — and T14 just made that possible by declaring the arrival state, so this would have gone
+    wrong on its first use rather than eventually.
+    ⛔ A RUN THAT RECORDS NO GEOMETRY IS COUNTED AS UNREADABLE, NEVER FOLDED INTO THE MAJORITY. "Most
+    runs were 414 wide so they all were" is precisely the narrowed claim this step removes."""
+    geos, n, bad = set(), 0, 0
+    for seat in seats():
+        for run in runs_for(seat):
+            d = os.path.join(WALKS, seat, run)
+            if not judge(d, sha).get("at-sha", (False,))[0]:
+                continue
+            n += 1
+            try:
+                v = json.load(open(os.path.join(d, "_view.json"), encoding="utf-8"))
+                g = v.get("geometry") or {}
+                w, h = g.get("width"), g.get("height")
+                if not (w and h):
+                    bad += 1
+                    continue
+                geos.add("%d×%d@%s%s" % (w, h, g.get("deviceScaleFactor") or "?",
+                                         " mobile" if g.get("isMobile") else ""))
+            except Exception:
+                bad += 1
+    return geos, n, bad
 UNWRITTEN = "WALK-REPORT-UNWRITTEN"
 
 
@@ -1031,13 +1066,22 @@ def report(sha, seats_only=False):
               " · ".join("(%s, %s)" % u for u in _retries)))
     # ⛔ COUNTED, NEVER GRADED — this line states what the battery did not reach. It refuses nothing
     # and it must never gain a pass/fail, or it becomes a second gate nobody ruled on.
-    vp = walk_viewport()
-    print("  📐 coverage — %s" % (
-        ("viewport %d×%d ONLY — no seat has ever walked at another width, and the harness cannot "
-         "produce one (hardcoded in journey-view.py, no flag). ⛔ A pass here says NOTHING about "
-         "laptop width." % vp) if vp else
-        "viewport UNREADABLE — journey-view.py's constant could not be parsed, so what these walks "
-        "covered is UNKNOWN, not assumed."))
+    # ── T16 · THE COVERAGE LINE IS A PER-RUN READ ─────────────────────────────────────────────────
+    _geos, _ngeo, _badgeo = walk_geometries(sha)
+    if _geos:
+        print("  📐 coverage — geometry, READ FROM EACH RUN: %s  (%d run(s) at this build%s)"
+              % (" · ".join(sorted(_geos)), _ngeo,
+                 "; ⬜ %d recorded none — UNREADABLE, not assumed" % _badgeo if _badgeo else ""))
+        if len(_geos) == 1 and _ngeo:
+            print("     ⛔ ONE geometry only — a pass here says NOTHING about any other width.")
+    elif _ngeo:
+        print("  📐 coverage — geometry UNREADABLE: %d run(s) at this build and NONE recorded one. "
+              "What these walks covered is UNKNOWN, not assumed." % _ngeo)
+    else:
+        _vp = walk_viewport()
+        print("  📐 coverage — no run at this build. The harness is CONFIGURED for %s, which is a "
+              "claim about the tool and not about any evidence."
+              % ("%d×%d" % _vp if _vp else "an UNREADABLE viewport"))
     # ⛔ COVERAGE, STATED: J2 is UNWALKABLE at every build since the open door `[measured 2026-09-11, lap 7
     # battery]` — an unfinished record cannot exist without an estate (the profile write 404s without one),
     # founding replaced granting, so the door reads J2's fixture as J0; no transcript at any build has ever
@@ -1439,6 +1483,46 @@ def selftest():
                   % ("✅" if bit else "🔴")); ok &= bit
         finally:
             WALKS, CELLS_DIR = _sw, _sc
+
+    # ═══ T16 · M22 — THE COVERAGE LINE READS THE RUNS, NOT THE SOURCE ═══════════════════════════
+    with tempfile.TemporaryDirectory() as tmp:
+        W = os.path.join(tmp, "walks")
+        _sw = WALKS
+        try:
+            WALKS = W
+
+            def mkgeo(lens, geo):
+                d = os.path.join(W, lens, "R1"); os.makedirs(d, exist_ok=True)
+                json.dump(dict(base, journey="J0", lens=lens),
+                          open(os.path.join(d, "transcript.json"), "w"))
+                open(os.path.join(d, "REPORT.md"), "w").write("all good")
+                if geo is not None:
+                    json.dump({"geometry": geo}, open(os.path.join(d, "_view.json"), "w"))
+
+            mkgeo("mom", {"width": 414, "height": 848, "deviceScaleFactor": 3, "isMobile": True})
+            mkgeo("owner", {"width": 1440, "height": 900, "deviceScaleFactor": 2, "isMobile": False})
+            g, n, bad = walk_geometries("a" * 7)
+            bit = len(g) == 2 and n == 2 and bad == 0
+            print("  %s M22a a corpus at TWO geometries prints BOTH — the claim follows the runs, "
+                  "not the harness constant" % ("✅" if bit else "🔴")); ok &= bit
+
+            import shutil as _sh
+            _sh.rmtree(W); os.makedirs(W)
+            mkgeo("mom", None)
+            g, n, bad = walk_geometries("a" * 7)
+            bit = g == set() and n == 1 and bad == 1
+            print("  %s M22b a run recording NO geometry is UNREADABLE, never folded into a narrowed "
+                  "claim" % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ THE MIXED CASE IS THE DANGEROUS ONE: one run says 414 and one says nothing. "Most
+            # were 414 so they all were" is exactly the narrowing this step removes.
+            mkgeo("owner", {"width": 414, "height": 848, "deviceScaleFactor": 3, "isMobile": True})
+            g, n, bad = walk_geometries("a" * 7)
+            bit = len(g) == 1 and bad == 1 and n == 2
+            print("  %s M22c one known + one unrecorded → the unrecorded one is COUNTED as unreadable "
+                  "beside the known geometry, not absorbed by it" % ("✅" if bit else "🔴")); ok &= bit
+        finally:
+            WALKS = _sw
 
     # ═══ T13 · M20 — A ROUND MAY BE SMALLER, NEVER NARROWER ═════════════════════════════════════
     ck20 = lambda n, c: (ok_list.append(bool(c)), print("  %s %s" % ("✅" if c else "🔴", n)))
