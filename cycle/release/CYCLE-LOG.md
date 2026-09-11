@@ -2516,3 +2516,32 @@ item. The build window's brief points at that plan. Paul reads it before the win
 
 **Still Paul's, asked once at this open:** "go teardown" (row E) · which deployment is his working model (`paul` vs
 `home`) · what "synced" means beyond one sign-in reaching every house.
+
+### Beat 6 · two of the three open questions answered at open `[paul-ruled 2026-09-10 ~10:05 PM ET]`
+
+**Row E · "go teardown" — GIVEN**: *"Yes. Go on the teardown."* on the named list above. A teardown lane was
+opened from this window with his word in its context (a fork, so the word is in the window that runs it). Its
+report lands at `.plans/2026-09-10-teardown-REPORT.md`; expected shape: `bob` and `pkirsch`@qa deleted and
+verified at Cloudflare; the fourteen seat houses REFUSED by `household-fixtures.py` (nothing stamps
+`syntheticFixtureRun` yet) with a per-row evidence table so his next one-word go can be provable.
+
+**"Synced" — RULED, his words across three messages:**
+> *"all input that someone provides to their journal or feedback or whatever is not device dependent. It's
+> all collected regardless of device, synced to that household or estate or account, and we can see it and act
+> on it."* … *"that includes that for every journal entry someone makes, it's accessible from another
+> device."* … *"a member making a contribution to a house or a query to the journal — that's saved centrally;
+> that member can see it from a different device, and the owner can see it as well, and the administrator (me)
+> can see it from our different devices."*
+
+Read as four clauses, each a falsifier for a build: (1) **no input is device-resident** — a journal entry,
+a feedback note, a Guru query written on one device is readable on another by the same person; (2) it is
+**scoped to the household** (estate) and the **account**, not the browser; (3) **the owner sees a member's
+contribution**, and (4) **the administrator sees it from any of his devices**. ⚠️ Where today's build falls
+short is measured, not new: the feedback outbox is localStorage (`tateTracker.feedbackOutbox.v1`), metrics
+are device buckets by design, and card answers reconcile per device via `syncServerAnswers`. This ruling
+is a destination for the single-origin account model (LAP 8, TIER 1 · 46), and it is the reading against
+which lap 7's Worker-map fix (row D) is judged: a Send that lands on the Worker is the first clause's
+precondition. **Forwarded to the backlog window** to carry on rows 41/46 — the register is the one door.
+
+**Still his:** which deployment is his working model (`paul` vs `home`) — the environments walkthrough was
+put to him at this open, with a recommendation.
