@@ -3068,3 +3068,28 @@ repeat cut; the shelf's ＋ retired and hidden while empty; the Journal DOM writ
 **Not frozen yet, by the lane's own call, endorsed by coordination:** one J0 and one J8 shake-out walk at lab first — the
 gate card and the lifecycle journey have never been walked by anything, and a defect found there moves the sha BEFORE the
 freeze, not after a five-seat battery. Then the FROZEN candidate sha, **beat 4's `--record`**, then the qa deploy.
+
+### Lap 7 · THE CANDIDATE IS FROZEN — `d7d6c9f` · beat 4 RECORDED · qa deploying · `~4:20 AM ET 2026-09-11`
+
+**Beat 4 (CARRY) recorded** at the candidate — `product-steward.py --record --sha d7d6c9f --carried 14 --already 0
+--questions 3`; the ledger reads MEASURED, 3 rounds (the clean third round the 09-11 ruling needed). The new CYCLE-MAP
+exit condition is met for this lap. **Beat 7:** Worker first (`deploy-worker.sh --env qa`), then `pages-deploy --env qa
+--sha d7d6c9f` (SEAM-1). **Any fix after this is a new sha and a new battery.**
+
+**The shake-out found two harness defects and fixed them before the freeze** (harness-only commits; served bytes unchanged
+since `a3beb8d`): `754dc6d` J0 and J5 now tap the door (A2's `#s-door` fronts the bare origin; the first J0 run typed into a
+hidden form — 20 actions did not happen, none a product defect) · `d7d6c9f` L07 no longer asserts `fw-accent` is gone (the
+door re-seeds the default swatch on load, correct). **Lab results at `a3beb8d`:** J0 owner — 24 actions, ZERO failed,
+founded `est-as1bgb` (distinct from the deployment's), placed, name as typed; the read-back rendered on the same card
+(frame read: same header, address, unit link above the map line, both buttons, one filled ✓). J8 owner — L01–L07 clean
+(contact shown back · sign-out not covered at rest · inline confirm · signed-out lede); L08 onward is qa-only by
+construction (lab serves the TRACKED index, so `/` cannot paint the door there).
+
+**Two lab-fixture facts, QUEUED FOR THE REGISTER (not this build's):** every durable lab seat's account rows were ABSENT
+from lab's store (username free, both account keys 404) — the lane rebuilt owner@lab deliberately, old entry backed up in
+its scratchpad · `synthetic-identity --complete-setup` cannot finish a seat that has founded nothing (`/api/profile` 404s
+under the open door) — it needs a found step first; founded by hand via `POST /api/estate`. Both belong beside
+`walk-fixtures.py`'s row (a journey is an action list PLUS the state it must be entered in).
+
+**Beat 8 next:** J0 · J2 · J3 · J8 × five seats at qa, `--watch`, 414 × 848 × A+ → the content read
+`.content/walks/d7d6c9f-walk-read.md` (every seat named) → `release-gate --sha d7d6c9f`.

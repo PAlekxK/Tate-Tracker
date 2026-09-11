@@ -1,13 +1,13 @@
 {
- "state": "ARMED",
- "generated_at": "2026-09-10T22:43:35-04:00",
+ "state": "FIRED",
+ "generated_at": "2026-09-10T23:47:07-04:00",
  "generated_by": "tools/release-state.py",
- "candidate_sha": "318416a",
+ "candidate_sha": "d7d6c9f",
  "beat": {
-  "n": 11,
+  "n": 8,
   "of": 12,
-  "owner": "paul",
-  "name": "Paul cleared it",
+  "owner": "session",
+  "name": "the synthetic loop",
   "derivable": [
    8,
    9,
@@ -16,58 +16,23 @@
   "_note": "beats 0, 1 and 6-11 are human or session beats this tool cannot observe; `n` is only ever one of `derivable`. Read CYCLE-MAP.md for the full ladder."
  },
  "gate_1": {
-  "seats_pass": true,
+  "seats_pass": false,
   "ux_clause": "UNCHECKABLE — no artifact convention",
   "seats": {
    "handover": {
-    "run": "2026-09-10T181052",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "mom": {
-    "run": "2026-09-10T180634",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "owner": {
-    "run": "2026-09-10T180218",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "strict": {
-    "run": "2026-09-10T180920",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    },
    "wide-eyed": {
-    "run": "2026-09-10T180759",
-    "at-sha": true,
-    "watched": true,
-    "countable": true,
-    "no-failed-actions": true,
-    "not-rate-limited": true,
-    "walked-in-qa": true,
-    "instrumented": true
+    "run": null
    }
   }
  },
