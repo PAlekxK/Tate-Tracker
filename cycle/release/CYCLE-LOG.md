@@ -3226,3 +3226,16 @@ served a lap later, or the note is drafted BEFORE the freeze as held-out bullets
 `home` (its household export; `cleared_sha` read) → `check-canon-scope --env home --deep` and `--env paul` → the record
 check for row D at `paul` (`watch-feedback.py --env paul` after his next load of the condo app: his note visible with its
 09-10 timestamp, or bullet 7 is cut). Never `legacy`. Beat 12's exit: zero undisposed on `home` · `legacy`.
+
+### Lap 7 · CANDIDATE 3 FROZEN — `87c7aae` · beat 4 re-recorded · qa redeployed · battery from zero · `~6:35 AM ET`
+
+One Worker-only commit: `RECOVER_RATE_MAX` 5 → 20 (same window, fail-closed, own bucket) · `handleSession` repairs a thin
+account row from the prior grant row (placeName · accent · address · addressParts · ranked · coordinates) and the account
+write persists the copy. Beat 4 re-recorded, carried 14 UNCHANGED. **Deploys:** Worker lab + qa (health OK, `87c7aae4`,
+blob `5b56d946…`); pages qa at `87c7aae` — bytes unchanged, deployed so post-deploy reads ONE sha (served `87c7aae`, worker
+`87c7aae4`, payload blob covered, neutral 311/0, headless clean, post-deploy CLEAN). **Proof B at qa:** one session call
+each for the three seats that landed nameless — mom → *"the condo"* · wide-eyed → *"The Old Miller's Place on the Bend"* ·
+handover → *"The Home Place"*, each with address and ranked present, estates 1. **Proof A is the battery itself** (J8 × 5 =
+15 recovery calls inside the window; every one must answer 200). Beat 8: J0 × 5 → J3 × 5 → J8 × 5 at `87c7aae`; a THIRD
+product defect stops and holds. Reports written once at this sha; content read `.content/walks/87c7aae-walk-read.md`;
+`release-gate --sha 87c7aae`.
