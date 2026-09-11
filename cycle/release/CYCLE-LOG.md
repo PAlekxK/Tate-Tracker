@@ -3364,3 +3364,41 @@ mom typed her unit into the street line and was then offered *Add an apartment o
 the unit field being empty — reads as "you missed a box") · strict: a box-only household has no founding path while the app
 holds a box place with *Add where it is* — **a ruling** · every seat notes L13's reset is unexercised and says so rather than
 scoring it.
+
+### THE LAP-7 TESTING-CYCLE AUDIT landed (`.practice/2026-09-11-lap7-testing-cycle-AUDIT.md`, `b31a021e`) · machine clock 2026-09-11 09:12 EDT
+
+⚠️ **CLOCK CORRECTION, FIRST.** Every "~H:MM AM ET" stamp coordination wrote into this lap's entries was AUTHORED, not read
+from a clock, and the audit measured them against the machine clock (sntp +0.07 s; Cloudflare `date:` header): 4 h 33 m
+ahead at the first freeze, 1 h 53 m behind at the third, and the beat-10 hold for Paul's word — rendered above as *~6:00 →
+~6:10 AM* — **actually lasted 8 h 07 m 34 s.** From this entry on, stamps are `date` output; **for lap 7's earlier entries the
+authoritative clock is `git log --format=%ci` on the cited commits, never the prose.** Register note queued: the chronicle
+needs a stamp discipline (a tool-written stamp, or none).
+
+**Headline, normalized per Paul's caveat:** 51.9 min of browser across 45 walks · 9 h 20 m elapsed · **8 h 07 m (87 %) was one
+human hold** · **1 walk per 30.3 changed served lines vs lap 6's 1 per 28.2 — the SAME intensity per unit of change on a build
+with 8× the served surface** (1,365 changed lines / 8 files vs 169 / 2) · 6 of 45 walks (13 %) produced a novel finding, 17
+(38 %) carried any failure signal, 28 walked clean. **Verdict:** *not too thorough — per changed line it tested at lap 6's exact
+rate — but mis-shaped in two places: 38 % of the walking was the harness testing itself or re-driving bytes that had not
+moved, and 87 % of the elapsed was one hold whose rule has no latency term.* No ceiling recommended; *no scheduler* holds; the
+classifier may answer *which journeys can reach what changed*, never *which are worth running*.
+
+**Three structural causes, by cost:** ① **the stop rule has one class and no latency term** — *"a second product defect stops
+and holds"* fired on a PRE-EXISTING, Worker-only defect with a one-commit fix already proposed in the same message; the rule
+cannot tell *introduced by this candidate* from *surfaced by the battery*, and names no expected wait. Row T does not touch
+it; **its resolution is Paul's.** ② **the harness under test inside the battery** — 16 walks, 14.6 min, 28 % of browser time;
+a harness fault fails IDENTICALLY across five lenses and nothing reads that signature. ③ **no impact scoping on a re-sha** —
+`87c7aae` over `12912b9` is `worker.js` only, 17 lines, zero served bytes; `/api/session` has one caller and J0 has no
+sign-in stop; **scope by ROUTE, not file.**
+
+**Two LIVE findings at HEAD:** ⭐⭐ **`release-gate.py --sha 87c7aae` prints five rows, all J0, all ✅ no-failed-actions, while
+12 walks at that sha failed an action** — `seats()` keys on directory names and `report()` replaces only on `score > best`,
+so ties break to the EARLIEST run: **the gate's verdict on a sha depends on the order the journeys were walked; had J8 run
+first it would have refused.** Q2's evidence, live. For tonight's clear: the gate print certifies one journey per seat; the
+J3/J8 evidence is in the reports and this chronicle, and the build lane prints per-journey outcomes beside the gate so Paul's
+clear sees coverage the gate cannot. ⛔ **The chronicle could not answer Paul's question** — see the clock correction above.
+
+**Row T must add (T-a…T-h):** the route-keyed classifier with journeys declaring the routes they touch · a machine-derived
+byte proof for carried-forward evidence (a carried pass is a new false-green class) · a PILOT walk before the four · a reader
+for the identical-failure signature · a cadence for the lens (23 of 45 walks have no written reading, 22 permanently — the
+five-lens reading contributed zero of tonight's eight findings). **Two items would have saved more than row T and are unruled:
+a RANKED household at lab (10 walks — F1 escaped lab because Fernwood ranks nothing) and the pilot walk (11 walks).**
