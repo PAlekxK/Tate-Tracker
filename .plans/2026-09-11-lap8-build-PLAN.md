@@ -100,6 +100,7 @@ model routes are not this lap's problem. **This lap is adoption plus one classif
 
 # 2 · AUDIT — where the sources disagree, what is underspecified, what I recommend changing
 
+- stage-note: 2026-09-11 ~3:00 AM ET — the product's STARTING name is RULED (My **Home** Place; product-name plan Q3), so row B's name gate (8·4) is MET; the build-side strings ride beside the apex binding: onboarding/index.html:7,:304 · estate/index.html:7,:172 · homes/index.html:270 fallback · the apex page · VOCABULARY §3b (amended). Re-audit at open confirms the sites. (coordination)
 ## A1 🔴 BLOCKING · Lap 8's three named lap-7 dependencies were **NOT LANDED** at `06c2a16`
 
 The commitment names **B1 · B2 · B3** as preconditions "all three are lap 7 Worker steps." `measured` at HEAD

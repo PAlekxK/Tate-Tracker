@@ -2972,3 +2972,13 @@ administrator already holds the account. **Flagged to security-steward's next ro
 page has emitted `ev("found", …)` since the founding flow landed and **the store never held one**; the "no reader" finding
 was downstream of a dropped write. Fixed in `4b35664`; `watch-door` prints `found` by detail. ③ **New reader in the pickup
 block:** `watch-recovery.py` (CLAUDE.md, this commit). Row A started (with Almanac → Journal, TIER 2 · 20); then H.
+
+### Ahead — the product's STARTING NAME ruled `[paul-ruled 2026-09-11 ~2:55 AM ET, in the backlog window]`
+
+*"Let's just go with my home place for now and bold home in between my and place or something — to just emphasize home;
+that'll make everything coherent when we kinda move to my home dot place."* → wordmark **My *Home* Place**, title text
+"My Home Place", said "my home dot place"; *"for now"* = a starting name with a planned revisit; a person's own name for
+their place wins the moment they give one; *Estate Manager* stays the administrator's back end only. Departs from
+content-steward's recommendation (keep "My Home") on the one point that is his preference. **Lap 8 · B's name gate (8·4)
+is MET**; the strings ride beside the apex binding in the lap-8 plan (stage-note added). `VOCABULARY.md` §3b's top-bar
+third term amended; `check-vocabulary` clean. The deep dive he asked for earlier tonight is now the revisit, not a gate.
