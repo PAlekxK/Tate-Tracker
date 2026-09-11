@@ -2995,3 +2995,16 @@ third term amended; `check-vocabulary` clean. The deep dive he asked for earlier
 
 Lap 10's shape is otherwise as proposed. Lap 9 therefore carries the write-path design pass as a WINDOW beside the weather
 card build, not a row.
+
+### ~3:20 AM ET — the ASK DESIGN plan drafted; two live defects found on lap 8's critical path
+
+`.plans/2026-09-11-ask-design-PLAN.md` (`stage: design`, agent-proposed; five seat trails: user-research READ · content
+ask-grammar DRAFT · ux surface · security (verbatim) · ai-advisor boundary; §13 = fifteen question · recommendation ·
+alternative rows for Paul, in his own time). Three findings for the map: **(a)** the lead seat REORDERS lap 9 · A — *no ask
+on this product has ever been shown to change what the answerer sees*, so the visible receipt outranks the questionnaire
+and the build order is receipt first; **(b)** security found **two LIVE defects**: `handleFeedback` writes `deviceId`
+beside a `personId` today (a join key on a person's record), and `GET /api/feedback` + the zones read use the
+DEPLOYMENT's scope, not the caller's — harmless while one deployment = one estate, **a cross-household read at the single
+origin** (lap 8 · A2's subject by name; both routes into the lap-8 re-audit); **(c)** the ledger spec changes rider R0:
+per-ask per-env only, never per-estate; served = DISTINCT asks, never exposures. The deviceId write is put to Paul: fold
+into lap 7 · B (worker.js is open tonight) or lap 8.
