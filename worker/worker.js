@@ -867,14 +867,34 @@ async function handleUsernameChange(request, env, scope) {
   return json({ ok: true, username: to });
 }
 
-async function handleSession(request, env, scope) {
+async function handleSession(request, env, scope, ctx) {
   let body;
   try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
   const username = typeof body.username === "string" ? body.username.trim() : "";
   const word = typeof body.word === "string" ? body.word : "";
   // ⛔ ONE failure shape for "no such account" and "wrong word" — a distinguishable pair is a
   // username oracle, the same reason the grant 404 is byte-identical to a missing route.
-  const deny = () => json({ error: "not-found" }, 404);
+  // ⭐ B5 (lap 7) — AND THE REFUSAL IS NOW IN THE RECORD, outcome only. Until tonight `deny()` logged
+  // nothing (SECURITY L3): nobody could read how many people tried the door and could not get in.
+  // Copies the server-side `door_failed` writer's shape field for field — the EXISTING closed roster
+  // name with an `outcome` field, never a new event name (a new name would tempt someone to add it to
+  // DOOR_EVENTS, which is the client-forgeable allow-list; this record is server-side only).
+  // ⛔ THE ATTEMPTED USERNAME IS NEVER WRITTEN — a log of attempted usernames IS the enumeration
+  // oracle, at rest, readable by every tool that reads `door:`. And the reason is ONE constant on
+  // EVERY deny branch: differentiating the record while the response stays constant only moves the
+  // oracle. ⛔ Off the response path via waitUntil on EVERY branch — a write awaited inline on one
+  // branch and deferred on another re-opens the timing oracle the dummy derive() below closes.
+  const deny = () => {
+    try {
+      const rec = declarePerson({ id: "door-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
+        ts: new Date().toISOString(), event: "door_failed", door: "entry", outcome: "signin_failed",
+        deviceId: null, env: env.ENV_NAME || "unset", receivedAt: new Date().toISOString(),
+        reason: "signin-refused", serverSide: true });
+      const p = storeDoorRecord(env, rec).catch(() => {});
+      if (ctx && ctx.waitUntil) ctx.waitUntil(p);
+    } catch (e) { /* the refusal is the answer; a record that cannot be written changes nothing */ }
+    return json({ error: "not-found" }, 404);
+  };
   if (!username || !word) return deny();
   // ⭐ Index first, legacy second. A person who signed up before this shipped is found by the old
   // key and never notices; one who signed up after is found by the index.
@@ -973,10 +993,22 @@ async function handleSession(request, env, scope) {
   await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash,
     JSON.stringify(grantRow.estateId ? { estateId: grantRow.estateId, personId: acct.personId }
                                      : { personId: acct.personId }));
+  // ⛔ B2 (lap 7) — REVOKED AT THE SCOPE THE OLD GRANT LIVES AT. This deleted at `scope` — the
+  // deployment's estate — while the grant four lines up is written at the PERSON's estate. So for any
+  // founder, signing in did not kill the previous credential: "sign out of this phone" (B8) would have
+  // been a promise the Worker did not keep. The old grant lives where `priorScope` resolved it (the
+  // route row is the authority); a pre-ruling account with no estate of its own kept its grant at the
+  // deployment, which is what `priorScope` falls back to. The old ROUTE row goes with it — a route
+  // pointing at a deleted grant is a dangling pointer `personFor()` would otherwise keep following.
   if (acct.tokenHash && acct.tokenHash !== tokenHash) {
-    await env.OBSERVATIONS.delete(keyFor(scope, "grant", acct.tokenHash));
+    await env.OBSERVATIONS.delete(keyFor(priorScope, "grant", acct.tokenHash));
+    await env.OBSERVATIONS.delete(ROUTE_PREFIX + acct.tokenHash);
   }
-  await env.OBSERVATIONS.put(accountKey(scope, username), JSON.stringify(Object.assign({}, acct, { tokenHash })));
+  // ⭐ B3 (lap 7) — THROUGH putAccount, so the dual-write holds. A bare put to the legacy username key
+  // left `account:<personId>` stale on `tokenHash` at the first sign-in once an index exists (FINDINGS
+  // §4.1(4)). Legacy rows with no personId keep the old single write rather than failing sign-in.
+  if (acct.personId) await putAccount(env, scope, username, acct.personId, Object.assign({}, acct, { tokenHash }));
+  else await env.OBSERVATIONS.put(accountKey(scope, username), JSON.stringify(Object.assign({}, acct, { tokenHash })));
 
   // ⭐ AND THE THINGS THAT MAKE IT HERS COME BACK TOO. The place's name and the accent used to live
   // only in localStorage, so clearing a browser reset her to "My Home" in Stone — durable data, and
@@ -1005,8 +1037,14 @@ async function handleSession(request, env, scope) {
                 // the response reports what the GRANT actually says. It claimed administrator
                 // unconditionally, so a member signed in and was told she was an administrator —
                 // the Worker enforced correctly while the client was told something else.
-                estates: [{ estateId: scope.id, relationship: grantRow.relationship,
-                            capability: grantRow.capability }] });
+                // ⛔ B1 (lap 7) — THE PERSON'S OWN ESTATE, OR NONE. This was `scope.id` — the
+                // deployment's — unconditionally, a one-element array for everyone: "the sweep's
+                // account founded est-gndlvf while its sign-in response said est-qa0001." A person
+                // who has founded nothing gets `[]`: the EMPTY SHELF, normal, not an error. The
+                // landing branch (A3: 0 → /homes/, 1 → /viewer, 2+ → /homes/) reads this length,
+                // and it is the only honest home count in the product.
+                estates: grantRow.estateId ? [{ estateId: grantRow.estateId, relationship: grantRow.relationship,
+                                                capability: grantRow.capability }] : [] });
 }
 
 // ---- Every KV key carries the ESTATE (C5 6a/6b/6c, 2026-09-03) ----
@@ -1410,6 +1448,16 @@ async function handleEstateFound(request, env) {
   const address = typeof body.address === "string" ? body.address.trim().slice(0, 300) : "";
   const placeName = typeof body.placeName === "string" ? body.placeName.trim().slice(0, 60) : "";
   if (!address) return json({ error: "need-an-address" }, 400);
+  // ⛔ B4 (lap 7, closure row 10 / D1a) — THE WORKER IS THE AUTHORITY ON THE BOX, and it refuses BEFORE
+  // anything is written. A box number is where post goes, not where a place is: no weather, nothing
+  // that grows there. The page's regex is a courtesy; this is the gate. ⛔ ONLY `refused:box` blocks —
+  // `failed:no-match` must still found, because a rural address no provider matches is a real house,
+  // and blocking it would refuse exactly the households this product is for. Same predicate as the
+  // page (`BOX_ADDRESS_RE`, agreed by check-box-test-agreement.py), NOT widened to bare "Box 12" —
+  // "Box 12, Route 3" is a rural route. Nothing is minted, so there is nothing to undo.
+  if (addressIsBox(addressOneLine(address, (body.addressParts && typeof body.addressParts === "object") ? body.addressParts : null))) {
+    return json({ error: "po-box-not-accepted" }, 422);
+  }
 
   // ⭐ TIER 0 IS WHAT THE PERSON TYPED, VERBATIM. Tier 1 is what a public dataset says about it.
   // Neither is ground truth and the record says so — the confirm loop is what makes any of it
@@ -1424,6 +1472,8 @@ async function handleEstateFound(request, env) {
   } else {
     // ⚠️ A MISS IS RECORDED, NOT HIDDEN, and it does not block founding. A household with an address
     // and no coordinates is placed enough to exist; `geocodeWhy` is why it is not placed further.
+    // ⛔ Since lap 7 B4 a BOX is a different class from a miss and is refused above, before any write;
+    // `refused:box` can therefore no longer be recorded here — only `failed:*` reaches this branch.
     place.geocodeWhy = (geo && (geo.refused ? "refused:" + geo.refused : "failed:" + (geo.failed || "unknown"))) || "failed:unknown";
   }
 
@@ -1607,6 +1657,24 @@ function hostAgrees(request, env) {
   return allowed.includes(host);
 }
 
+// B6r (lap 7) — the administrator's read of the recovery channel. Records carry no person and no
+// address by construction (see POST /api/recover), so this returns doorbells: when, at which
+// deployment, how many. `tools/watch-recovery.py` is the reader in the pickup block.
+async function handleRecoveryRead(request, env, url) {
+  if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
+  const start = url.searchParams.get("start"), end = url.searchParams.get("end");
+  if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
+  const days = {};
+  let d = new Date(start + "T00:00:00Z");
+  const stop = new Date(end + "T00:00:00Z");
+  for (let i = 0; d <= stop && i < 400; i++, d = new Date(d.getTime() + 86400000)) {
+    const day = d.toISOString().slice(0, 10);
+    const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "recovery", day));
+    if (raw) { try { const arr = JSON.parse(raw); if (Array.isArray(arr) && arr.length) days[day] = arr; } catch (e) {} }
+  }
+  return json({ days, total: Object.values(days).reduce((n, a) => n + a.length, 0) });
+}
+
 async function handleDoor(request, env, url) {
   if (request.method === "POST") {
     let body;
@@ -1643,6 +1711,44 @@ async function handleDoor(request, env, url) {
     return json({ range: { start, end }, days });
   }
   return json({ error: "method-not-allowed" }, 405);
+}
+
+// ⛔ B0 (lap 7, security-steward CHANGE-8) — A PROBE BUCKET AND A CAPTURE BUCKET ARE DIFFERENT TIERS.
+// `/api/account/available` used to spend `feedbackRateLimitOk` — the SAME 20-per-IP-per-300s bucket as
+// POST /api/feedback and POST /api/zone-audio. The property has ONE egress IP (CLAUDE.md's founding
+// premise: the only network is the house's Wi-Fi), so twenty username probes from anyone at the house
+// silently ate the household's capture quota. Its own key, same window and max. Fails OPEN on a KV
+// error, deliberately and stated: the probe is a courtesy and creation's 409 stays the authority, so an
+// open probe during an outage costs nothing that the 409 does not still guard.
+async function probeRateLimitOk(request, env) {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
+  const key = keyFor(scopeOf(env), "ratelimit", "probe", ip, bucket);
+  try {
+    const raw = await env.OBSERVATIONS.get(key);
+    const n = raw ? parseInt(raw, 10) || 0 : 0;
+    if (n >= FEEDBACK_RATE_MAX) return false;
+    await env.OBSERVATIONS.put(key, String(n + 1), { expirationTtl: FEEDBACK_RATE_WINDOW_SEC * 2 });
+    return true;
+  } catch (e) { return true; }
+}
+// ⛔ B6 (lap 7) — THE RECOVERY ROUTE'S OWN BUCKET, and it fails CLOSED. A locked-out person must not
+// spend their capture quota on a reset request (closure row 29), so this is not `feedback`; and unlike
+// capture — whose limiter fails open because "a rate-limiter outage must never be the thing that eats
+// her words" — a reset request can wait a minute, while an unbounded unauthenticated write path into
+// the administrator's channel cannot. RR-4's third declared IP-at-rest site, TTL'd like its siblings.
+const RECOVER_RATE_MAX = 5;   // per IP per window — a person retries a form a few times, not twenty
+async function recoverRateLimitOk(request, env) {
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
+  const key = keyFor(scopeOf(env), "ratelimit", "recover", ip, bucket);
+  try {
+    const raw = await env.OBSERVATIONS.get(key);
+    const n = raw ? parseInt(raw, 10) || 0 : 0;
+    if (n >= RECOVER_RATE_MAX) return false;
+    await env.OBSERVATIONS.put(key, String(n + 1), { expirationTtl: FEEDBACK_RATE_WINDOW_SEC * 2 });
+    return true;
+  } catch (e) { return false; }
 }
 
 async function feedbackRateLimitOk(request, env) {
@@ -4374,7 +4480,7 @@ export default {
     if (url.pathname === "/api/account/available" && request.method === "GET" && !authOk(request, env)) {
       const u = (url.searchParams.get("u") || "").trim();
       if (!/^[a-zA-Z0-9._-]{3,40}$/.test(u)) return json({ error: "bad-username" }, 400);
-      if (!(await feedbackRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
+      if (!(await probeRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);   // B0 — its own bucket
       // ⭐ This route has enforced per-deployment uniqueness ALL ALONG — it resolves through
       // `scopeOf(env)`, never a grant. `[paul-ruled 2026-09-10]` confirms the rule; the `username:`
       // index makes the key shape honest about it rather than introducing it.
@@ -4384,12 +4490,55 @@ export default {
       return json({ available: !taken, username: u });
     }
 
+    // ⭐ B6 (lap 7, TIER 2 · 18; design plan D1) — POST /api/recover: "I can't get in." ONE field, ONE
+    // constant answer, its OWN bucket, its OWN key. Paul's four rulings [2026-09-11, CYCLE-LOG "Row B ·
+    // the RECOVERY ROUTE"]: (1) DESTINATION — its own ADMIN-ONLY key `<estate>:recovery:<date>`, never the
+    // estate feedback stream (that stream is member-readable, `MEMBER_OK` `[paul-ruled 2026-09-10]`, and
+    // it is what the mom cycle sweeps as an ARRIVAL — a stranger's failed recovery would fire a lap);
+    // read by GET /api/recovery (ADMIN_ONLY) and tools/watch-recovery.py. (2) LOOKUP — NONE this lap:
+    // the request is written unconditionally and nothing checks whether the address is on file, so the
+    // response is constant because nothing was looked up (no email index of ANY kind — a listable
+    // `email:` key would be a directory of addresses at rest, RR-7). (3) COPY — the page's, a slot until
+    // confirmed. (4) THE RESET RULE — VOCABULARY.md §3e·R: a recovered credential is delivered to the
+    // contact value ON THE ACCOUNT ROW, never to the value in this request, and never to a reply-to.
+    // ⛔ THE RECORD NAMES NOBODY, BY CONSTRUCTION: no email (V1 may not exist at rest), no sessionId (a
+    // join key into a whole behaviour trace), deviceId null EXPLICITLY (as the door_failed writer does),
+    // no note, no outcome that varies with the truth — `declarePerson` throws on a personId/estateId in
+    // the literal, and a caller here has no grant to attribute from. It is a doorbell: "someone at this
+    // door is locked out and has asked", the one signal the administrator can act on.
+    // ⛔ NOT through handleFeedback — that handler rejects a record with neither sentiment nor note.
+    if (url.pathname === "/api/recover" && request.method === "POST" && !authOk(request, env)) {
+      let rb;
+      try { rb = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
+      const emailIn = rb && typeof rb.email === "string" ? rb.email.trim() : "";
+      // bounded and shape-checked, then DROPPED — it is never stored, never compared, never echoed
+      if (!emailIn || emailIn.length > 200 || emailIn.indexOf("@") < 1) return json({ error: "bad-email" }, 400);
+      if (!(await recoverRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
+      const nowIso = new Date().toISOString();
+      const rec = declarePerson({ id: "rc-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
+        ts: nowIso, receivedAt: nowIso, env: env.ENV_NAME || "unset", deviceId: null, serverSide: true,
+        context: { type: "account-recovery" } });
+      try {
+        const key = dateKey(scopeOf(env), "recovery", nowIso.slice(0, 10));
+        const existing = await env.OBSERVATIONS.get(key);
+        let arr = [];
+        if (existing) { try { arr = JSON.parse(existing); if (!Array.isArray(arr)) arr = []; } catch (e) { arr = []; } }
+        arr.push(rec);
+        await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+      } catch (e) {
+        // the store failed — say so rather than answer "ok" for a request nobody will ever see. This
+        // varies with the STORE's health, never with the truth about the address.
+        return json({ error: "not-recorded" }, 503);
+      }
+      return json({ ok: true });
+    }
+
     if (url.pathname === "/api/account/username" && request.method === "POST" && !authOk(request, env)) {
       try { return await handleUsernameChange(request, env, scopeOf(env)); }
       catch (e) { return json({ error: "rename-failed", detail: String(e && e.message || e).slice(0, 300) }, 500); }
     }
     if (url.pathname === "/api/session" && request.method === "POST" && !authOk(request, env)) {
-      try { return await handleSession(request, env, scopeOf(env)); }
+      try { return await handleSession(request, env, scopeOf(env), ctx); }
       catch (e) { return json({ error: "session-failed", detail: String(e && e.message || e).slice(0, 300) }, 500); }
     }
 
@@ -4629,7 +4778,10 @@ export default {
     // ⚠️ ADMIN_ONLY IS THE SHORT LIST AND IT IS ABOUT WRITING CANON OR ADMINISTERING THE ESTATE —
     // never about whether someone may look at their own place.
     const ADMIN_ONLY = ["/api/cost-log", "/api/pending-species", "/api/promote-species",
-                        "/api/remove-species", "/api/admin/clean-observations", "/api/zone-save"];
+                        "/api/remove-species", "/api/admin/clean-observations", "/api/zone-save",
+                        // B6r (lap 7) — the recovery channel is the ADMINISTRATOR's, never a member's:
+                        // a member reading who asked to be let back in is the tier R-A refused.
+                        "/api/recovery"];
     // ⚠️ `/api/feedback` and `/api/conversations` READS are member-reachable `[paul-ruled 2026-09-10]`,
     // chosen over the narrower option with the consequence stated to him first: est-e6696a holds
     // Paul's own condo place ALONGSIDE Mom's, so on that estate a member can read the other's notes.
@@ -4664,6 +4816,7 @@ export default {
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
     if (url.pathname === "/api/door")       return handleDoor(request, env, url);
+    if (url.pathname === "/api/recovery")   return handleRecoveryRead(request, env, url);   // B6r · ADMIN_ONLY
     // ⛔ BELOW the auth gate, unlike its own POST at :3480 — write open, read closed.
     if (url.pathname === "/api/onboarding-metrics") return handleOnboardingMetrics(request, env, url);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
