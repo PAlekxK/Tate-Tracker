@@ -59,3 +59,17 @@ Whether Paul's walk at `318416a` has been recorded yet (check the chronicle befo
 
 ## 9 · STATE AT PAUSE — 2026-09-10 ~10:55 PM ET · committed at `4fb7f64` (coordinator's urgent commit-now, usage 97%; Paul had said "pause")
 - **Unfinished, by name:** pass 2 of the sweep (doctrine adjudication — agent in flight, trail placeholder stands) · the content-steward review, TIER 1 · 31 (agent in flight; target `.content/2026-09-10-founding-flow-copy-REVIEW.md`) · the two `/design-options` exhibits (confirm-as-GATE with the PO-box refusal; the shelf) and the account-lifecycle designs — NOT STARTED · `.plans/2026-09-10-founding-flow-design-PLAN.md` — NOT CREATED · messages owed: trail path + `est-gndlvf` to the coordinator, top findings to refinement. Distillations (seats · plans · bundle rows · rulings) live in this session's scratchpad only.
+
+## 10 · STATE AT CLOSE — 2026-09-10 ~9:55 PM ET · committed at `4b3b06a` (the coordinator's close-out instruction, on Paul's word)
+
+**Proposed (nothing applied; both surfaces untouched since `318416a`):**
+- The two-pass sweep, complete: `.ux-reviews/2026-09-10-founding-flow.md` — pass 1 (14 findings, F1 a blocker), pass 2 (re-verification table, adjudication, 8 coherence findings, a 15-item gated punch list, 5 NEEDS-PAUL), the parent's own check of the checker. The sweep founded `est-gndlvf` at qa (on the coordinator's teardown list).
+- The content read, TIER 1 · 31: `.content/2026-09-10-founding-flow-copy-REVIEW.md` — two CRITICAL findings ("Almanac" minted by arithmetic after the Journal ruling; the "stays on this phone" caption over a button that sends to a model), the gate card's copy drafted in both PO-box forms, the receipt line, the colour noun. All DRAFT.
+- Six exhibits, staged at `~/Desktop/design-options/`, durable under `.private/ux-sweeps/2026-09-10-founding-flow/exhibits/`: the gate card + PO-box · the empty shelf · the receipt at naming · the account lifecycle · the door · the change links. Each carries one recommendation; the rulings each needs went to refinement in Paul's-word form.
+- The plan: `.plans/2026-09-10-founding-flow-design-PLAN.md` — R1–R10 cited from the register, D1–D10, §2a the exhibits, §4 the ONE-candidate apply list, §5 pass 2's punch list and questions.
+
+**Paul has ruled (on the register, verified):** the confirm is a GATE · the PO-box refusal is said at submit · account lifecycle IN · colour = the one-line noun fix only · ONE candidate for the bundle · the feedback bubble from account creation · unit number never forced · the front door for everyone (setup-journey D2) · G6 before any adaptive strip · content-steward reads every walk.
+
+**Owed, by whom:** Paul — PO1 vs PO2; pass 2's Q1–Q5; his reactions to the six exhibits · engineering-partner — D1a (where the PO-box check runs) and D5 (the change links' write path) · security-steward — D4's username-recovery field · a build lane — G6 + card-face opens (co-requisite of the strip), C5 (email on whoami), the front door B2/B3 · the row-41 bug lane — the sign-in model · the coordinator — lifting the hold before any apply; the walk harness needs a sign-out/return stop for D4 · content-steward — the narrator introduction line and the Journal substitution (five sites).
+
+**Not done, by name:** no apply · no deploy · no exhibit for D6 (waits on Q1) or the strip (waits on G6) · TIER 1 · 30/44 "formatting off" measured (trail C13) but not mocked · the sweep's own Refinement-log entry and the design-options run log are appended in `~/.claude/skills/` (not this repo).
