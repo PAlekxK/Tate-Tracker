@@ -887,6 +887,10 @@
   // It is declared here because this file is the canonical roster of every browser key the household
   // surfaces touch, and a key nothing declares is a key the origin move loses.
   var K_COORDS = "fw-onboard-coords";
+  // P2 (lap 7) · DECLARED HERE, WRITTEN BELOW AT SIGN-IN. The journal's own name rides the session
+  // response and is cached for estate/ and settings/place/ to read; it was written as a bare literal
+  // and never rostered, so check-storage-keys.py read it as a key the origin move would lose.
+  var K_JOURNAL = "fw-journal-name";
   // ⛔ THE HIGHEST-STAKES FIELD IN THE FLOW WAS SHOWN BACK NOWHERE. It is pre-selected by default,
   // answered once, and never seen again — and its "please don't contact me" branch closes the only
   // route to a forgotten password. Two seats noticed independently that it vanishes, and ux-expert
@@ -1209,11 +1213,10 @@
             if (d.ranked) store(K_RANK, JSON.stringify(d.ranked));
             if (d.contactPref) store(K_PREF, d.contactPref);
             if (d.coordinates) store(K_COORDS, JSON.stringify(d.coordinates));
-            // ⚠️ the literal, because K_JOURNAL is declared in estate/index.html and NOT here —
-            // as written it threw a ReferenceError straight into the catch below, which would
-            // have swallowed it and skipped this one field silently. Caught by reading the
-            // declarations rather than by trusting that a syntax check means it runs.
-            if (d.journalName) store("fw-journal-name", d.journalName);
+            // K_JOURNAL is declared in this page's roster since lap 7 P2 (it used to be a bare
+            // literal here because the declaration lived only in estate/index.html — a
+            // ReferenceError the catch below would have swallowed silently).
+            if (d.journalName) store(K_JOURNAL, d.journalName);
           } catch (e) { /* a cache that cannot be written must not stop a sign-in */ }
           // ⛔ TO THEIR PLACE — WHICH IS NOT `/estate/` (fixed 2026-09-08, Paul walked it).
           // This read `location.href = "/estate/"` under the comment "back to their place, not back
