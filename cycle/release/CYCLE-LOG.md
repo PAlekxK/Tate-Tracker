@@ -2897,3 +2897,40 @@ address to write to, so if you ever forget your username or password, email him 
 on selection into `#contactnone`. ⚠️ **Its falsifier fires today:** onboarding posts `email` regardless of `contactPref`, so
 a typed-then-withdrawn address ships to the row; one-line fix added to B16. `settings/account:104` promises a reply a
 no-contact row cannot receive — fixed under B10. **Open for Paul:** what §3e·R permits when the row holds NO contact value.
+
+### ~2:15 AM ET — three commit-phase files landed; the cycle map ratified beats 4 and 5
+
+- **`.plans/2026-09-11-lap8-build-PLAN.md`** (`stage: draft`; re-audited at lap 8's open): **42 steps in the candidate**
+  (P 4 · A 16 · C 5 · E 3 · F 4 · G 4 · riders 3 incl. the ask ledger · H 3) **+ 11 as B's own gate** (7 + four apex steps
+  for `myhome.place`). **Seven recommended changes to the commitment, Paul's at lap 8's open:** B1 is absorbed by A9,
+  not depended on — B2/B3 move into lap 8 if lap 7 is tight · build `check-scope-sites.py` BEFORE converting any call
+  site (the falsifier cannot see an unconverted site; 55 non-comment sites measured: 30 caller · 4 cache · ~13 deploy) ·
+  batch by key kind · declare "synced" s3 out of lap 8 by name (no household has two people yet) · amend the
+  multi-tenancy plan before the window reads it · leave the 409 standing, rewrite its comment · a two-browser-context
+  harness stop. **Top risks:** an unconverted site writes one household into another's prefix (silent; after B the two
+  are Paul's and Mom's) · a half-migration reports success · a door that publishes which house a username lives at.
+  **Q0–Q8 for Paul at lap 8's open** (§9): the product NAME · `ESTATE_ID` at the single origin (recommend a sentinel) ·
+  X-Estate with the 409 kept · the oracle posture sentence · re-auth with the password on the editor · s3 out · B2/B3 in
+  if lap 7 slips · row D's 10-session WINDOW · row B exports everything under `est-e6696a:`. **§10 names the four surfaces
+  owed a ux-expert closure at open** (the sign-in page · the shelf after sign-in · the email editor + re-auth · the
+  ribbon's empty state = the empty Perspective card, one brief).
+- **`.plans/2026-09-11-lap9-READINESS.md`**: 🟢 A weather card plannable after one ruling (Q8, the Georgia EPD literal in
+  engine code) · 🟡 C Bob founds twice (the add-another-place surface does not exist; the 409 reverses with
+  `walk-founding` clause B) · 🟠 **D capture write path — its design pass runs in ITS OWN WINDOW DURING LAP 9, after lap
+  8 · A15** (lap 8 too early: A2 converts the sites it would specify against; lap 10 too late) · 🟠 E glance build two
+  links away (the reader exists since `c38f231`; ~a week of real sessions) · ⚪ F zones preload not rankable (Mom's act).
+  §6 carries lap 10's THE PLACE seats and the site premise; §7 INVITE & JOIN's lap-8 scoping feeding a lap-11 build.
+- **`.plans/2026-09-11-legacy-toolchain-INVENTORY.md`**: **every tool that BUILDS an artifact is portable; every tool that
+  AUTHORS or ASKS is not** — 4 take an estate (`build-digest` · `publish-digest` · `derive-property` · `build-viewer`), 9
+  do not (`harvest-questions` · `fold-answer` · `rationalize-bench` · `build-references` · `build-library-index` · …);
+  `derive-property` is the only per-estate canon writer and writes `property.json` alone; `/api/promote-species` commits
+  into ONE repo; `build-digest --estate paul` refuses today (no property record ever derived for a household). **Three
+  expansions ranked:** ① a per-estate canon writer · ② estate-parameterize the authoring tools · ③ the card-intro ask
+  (`renderAskNext()` exists with copy, capture and telemetry and is unreachable in both branches; the elicitation line
+  is clean — ask about INTEREST, never the value: UV and AQI derive from the address, `AIRNOW_API_KEY` is already a
+  Worker secret). Feeds § CONTENT · CARDS and the ask-design window.
+- **`cycle/release/CYCLE-MAP.md`**: beats 4 and 5 RATIFIED to product-steward with the self-bounding grant
+  `[paul-ruled 2026-09-11]`, from practice-steward's quoted lines — beat 4's exit now requires the round RECORDED or the
+  skip NAMED; **lap 6 ran neither and closed green** (release-state sees 8/9/11 only; beat 12's exit reads undisposed
+  records). Falsifier: two consecutive unrecorded laps and the beats return to the main session. `check-release-docs`
+  green — evidence about the count and nothing else. **Lap 7 must record beat 4 or name its skip.**
