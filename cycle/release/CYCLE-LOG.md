@@ -3494,3 +3494,15 @@ sign-in.
 **Paul's walk · step 2, setting up `pkirsch-qa` · 2026-09-11 09:24 EDT** — *"I like the little note when you put in the email address to
 recover."* The contact-step copy confirmed earlier tonight (the address is what recovery runs through; §3e·R) reads well to
 its first real reader. A positive reading for the content read's record, not only the stops.
+
+### RULED at the walk — THE ACCOUNT IS ALWAYS THE FIRST LAYER `[paul-ruled 2026-09-11 09:24 EDT]`
+
+*"A just-signed-out device should not be invited to set up a place without signing into the account. The account is always the
+first layer."* **Reading:** the door's controls are ACCOUNT-level — sign in, or create an account — and *setting up a place*
+happens INSIDE, from the empty shelf, after the account exists (the J0 entry state the harness already models: *an account with
+no estate is normal*). Today's cold door leads with *Set up my place*, which conflates creating an account with founding a
+place, and a signed-out device is shown it too. **Consequences:** lap 8 · A (the single sign-in door for the account) carries
+this as its first design constraint — the door is the account layer; founding is the shelf's; a post-sign-out device leads
+with sign-in (step 1b's marker); the door copy is content-steward's under this rule (*Set up my place* leaves the door). D7/B2
+(founding first on the bare door, ruled 09-10) is **superseded on this point**. Register carry queued: TIER 1 · 41/46 (the
+door), TIER 1 · 19 (founding from the shelf), the lap-8 plan's §10 design-closure list (the sign-in page · the shelf).
