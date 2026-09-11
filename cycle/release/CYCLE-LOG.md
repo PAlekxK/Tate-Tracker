@@ -3663,3 +3663,10 @@ credential may not have localStorage as its sole persistence* → lap 8 · A. **
 walks carry stale real names — **a seat's trail may name ids, counts, selectors, stop names and engine copy; never an address,
 coordinates, email, phone or a real username.** Into the revamp plan's seat brief, and queued for CLAUDE.md's AI-boundary
 section as a standing line.
+
+### The LAP 8 COORDINATION window opened · 2026-09-11 09:57 EDT
+
+`handoff/handoff-fernwood-coordination-lap8.md` (`d82057ed`, 13.9 KB — verified non-empty). Its brief: lap 8 HOLDS for the
+revamp plan · row T first · check in with the revamp window (`tate-tracker-d8`) · reopen the backlog window and hand it the
+register queue (§7's grep) · the unanswered rulings (stop rule · J2 · push) · the beat-6 table as ruled · the guardrails lap 7
+earned. The lap-7 coordination window grades its readback, then Paul clears it in its window, then this window closes.
