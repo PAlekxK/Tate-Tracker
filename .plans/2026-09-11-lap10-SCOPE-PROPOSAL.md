@@ -20,6 +20,8 @@
 
 > ⛔ **Not a build plan** (engineering-partner writes that after the pick) · **not a ranking within the lap** · **not a third register** — every item cites the row that holds its status.
 
+> ✅ **LAPS 9 AND 10 STAY SEPARATE** `[paul-ruled 2026-09-11 ~3:35 AM ET: "OK i accept your preference to keep them separate" — after asking "what do we think about combining nine and ten into one build"]`. The refinement window's reasons, recorded as its own: a merge would design and build the write path in one lap (the shape the READINESS read called *a design gating its own lap*); one candidate would make a zones failure hold the weather card's ship, which has already missed two laps; the write path's same-commit co-requisite (write gate + read gate, R-Z6·B) wants a small walkable candidate around it. **The shape recommended with it, his to confirm at lap 9's open:** keep lap 9 small (the weather card + Bob's second house), run the write-path design pass beside it in its own window, and open lap 10 the day lap 9 clears. **Falsifier, for lap 9's close:** if lap 9's battery and his walk took longer than the design pass, the boundary cost real time and the merge would have been right — re-rule then.
+
 ---
 
 ## 0 · THE SITE'S PHYSICAL PREMISE — a design constraint on EVERY row, stated once `[paul-stated 2026-08-31, CLAUDE.md § THE SITE'S PHYSICAL PREMISE]`
