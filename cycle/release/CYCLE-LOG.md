@@ -4429,3 +4429,54 @@ WAS ASKED, never only where it was answered.**
 
 **Status: the build window stays HELD until Paul releases it.** On release: T0 first, including the two added
 steps (the committed before-image, the corpus manifest) **and now the dual census figures.**
+
+### ⛔⛔ CORRECTION — THE WEATHER RECORDER WAS NEVER BROKEN. THE PUSH WAS CLEARED AND IS **NOT BEING MADE**
+
+**Paul cleared the `origin/main` push. Verifying its shape before making it falsified the finding that motivated
+it.** The push is **not made**, and making it would have caused **the only real harm in this thread.**
+
+⭐ **KEEP THE TWO SURFACES APART — this correction only parses if they are** (`VOCABULARY.md` §3i):
+
+| | what it is | what it holds |
+|---|---|---|
+| **`legacy`** | the frozen first Fernwood (`est-3c9f1a`), GitHub Pages ← **`origin/main`**. ⭐ **THE APP MOM ACTUALLY READS** | ✅ **128 days, newest 2026-09-11** |
+| **local `main`** | this lap's working branch, **1,076 commits diverged** from `origin/main` | 127 days, newest 2026-09-10 |
+| **production** (`home`, `est-e6696a`) | where Mom's **ACCOUNT** `marguerite` lives — **no house founded; she does not read here** | not the weather-card surface |
+
+**Measured by USE, not inference** — fetched from the live Pages origin Mom loads:
+`128 days · newest 2026-09-11 · last six 09-06 … 09-11`, unbroken.
+
+**And the recorder is alive and always was.** `origin/main` carries its commits every ~6 h —
+`2026-09-11 10:42Z` · `03:18Z` · `2026-09-10 20:28Z` · `15:54Z` · `10:45Z` · `03:22Z` · `2026-09-09 20:31Z`.
+**`record-weather.yml` runs in GitHub Actions and commits to `origin/main`, which is where legacy's canonical
+`weather-history.json` lives.** It never stopped.
+
+⛔ **SO EVERY LOAD-BEARING CLAIM IN THE 09a2c283 ENTRY IS WRONG, AND THE ERROR IS ONE THIS REPO HAS NAMED:**
+
+- ~~*"the recorder died part-way through 2026-09-06 and never ran again"*~~ — **it ran on schedule throughout.**
+- ~~*"only the WRITER stopped"*~~ — **nothing stopped.**
+- ~~*"THE REPAIR DOES NOT REACH MOM … her weather card still reads the gap"*~~ — ⛔ **she never had a gap.**
+- The re-record was **real but redundant**; it reproduced locally what the Action had already published.
+
+⭐⭐ **THE ACTUAL FINDING: `health-probe --only fernwood` READS THE LOCAL WORKING TREE, so its "5 days stale" was
+a fact about THIS CHECKOUT and never about the world.** On a branch 1,076 commits from the ref the recorder
+writes to, the local file is *expected* to lag — and the probe cannot tell that lag from an outage. It is the
+standing rule with a fresh instance: **an instrument reads the record it can reach, not the world**, and
+*absence under a prefix is a fact about the prefix.* ⭐ **The green it later printed was equally uninformative** —
+it confirmed the local file, not the served one.
+
+⛔⛔ **AND THE PUSH WOULD HAVE DELETED DATA FROM HER LIVE APP.** `origin/main` holds **2026-09-11**; local does
+not. Pushing local `main` would have **removed the current day** — and, far worse, it is not a fast-forward:
+`origin/main` is **26 ahead**, local is **1,076 ahead**, and the push would have rewritten **434 files including
+3,332 lines of `viewer.html`** — replacing the app Mom reads with a lap's worth of unreleased work. ⭐ **The
+guardrail *never push `origin/main`* was load-bearing for a reason nobody in this thread had stated, and the
+clear to lift it was given on a premise that was false.**
+
+⚠️ **A HAZARD THIS LEAVES BEHIND, recorded so it is not met by surprise:** local `main`'s `weather-history.json`
+is now **one day BEHIND** `origin/main`. Any future merge of this branch toward `origin/main` would **regress
+legacy's weather record by a day** unless that file is taken from `origin/main`. ⛔ **Never resolve that file
+toward the lap branch.**
+
+⭐ **What should have happened, and is the rule going forward: verify by USE at the surface the person actually
+loads, BEFORE acting on a probe that reads a local file.** One fetch answered it. The probe, the backfill, the
+chronicle entry and a cleared push all ran first.
