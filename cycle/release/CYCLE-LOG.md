@@ -3008,3 +3008,16 @@ DEPLOYMENT's scope, not the caller's — harmless while one deployment = one est
 origin** (lap 8 · A2's subject by name; both routes into the lap-8 re-audit); **(c)** the ledger spec changes rider R0:
 per-ask per-env only, never per-estate; served = DISTINCT asks, never exposures. The deviceId write is put to Paul: fold
 into lap 7 · B (worker.js is open tonight) or lap 8.
+
+### Ahead — laps 9 and 10 stay SEPARATE `[paul-ruled 2026-09-11 ~3:30 AM ET, in the backlog window]`
+
+Paul asked whether laps 9 and 10 could be one build. The backlog window recommended against (a design gating its own lap;
+one candidate holding the weather card behind zones; the write path's same-commit co-requisite wants a small candidate)
+and proposed a SMALL lap 9 — the weather card + Bob — with the design pass beside it so lap 10 opens the day 9 clears.
+*"OK, I accept your preference to keep them separate."* Recorded on the lap-10 proposal with a lap-9-close falsifier; the
+small-lap-9 shape is the window's recommendation for his confirmation at lap 9's open.
+
+**Register:** the ask-design window's thirteen forwards placed as TIER 1 · 54–59 + § A-ASK pointers. **TIER 1 · 54 is on lap
+8's critical path** — `GET /api/feedback` and the zones read use `dateKey(scopeOf(env))`, the deployment's scope; `scopeFor()`
+exists and is unused there — into the lap-8 plan's call-site conversion by symbol at the re-audit. The plan's §12·12 asks
+beat 3's exit condition to gain two ask lines — a CYCLE-MAP edit and **Paul's**, queued with §13.
