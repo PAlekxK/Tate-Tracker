@@ -3432,3 +3432,14 @@ covered) · the battery evidence · the content artifact · beat 4 recorded (car
 candidate 1 `est-kxfhht · est-t3h0gl · est-puvevs · est-bvqzw3`. **Not verified, named:** the reset act itself (L13), any width
 but 414, L12's timing half, the UX two-pass at this candidate, row D's record check at `paul` (D7, after the deploy). **Beat 9
 is Paul's.**
+
+**Audit §8 appended (`bc41b919`, revamp window, on Paul's go) · 2026-09-11 09:16 EDT.** Two items bearing on the close: **(1)** the content read's
+STOP — stored ids rendered as the person's words (`estate/index.html:430` unguarded fallback) — **is the same root as the
+owner seat's J3/J8 verdict, already ruled RECORD and proceed; it does not re-open beat 10.** ⭐ It revises the audit's own §3e:
+the lens reading contributed ONE finding tonight, and it is the only one of the eight **invisible to every deterministic
+reader** (the transcript is clean because the ids are correct) — evidence FOR the reading tier in the model policy, not
+against it. **(2)** `release-state.py:119` writes `ux_clause: "UNCHECKABLE — no artifact convention"` as a LITERAL while
+`release-gate.py:247` computes `ux_clause(sha)` — **the state file reads UNCHECKABLE at every sha by construction**; a one-line
+change (call the gate's function, delete the literal), the build window's at lap 8, queued (TIER 1 · 47 family). Also §8: read
+wall-time bounded from file times (median 27 min at `87c7aae`) · 63 non-blocking bullets across the 15 counted reports, 6
+relayed by hand with no reader (T-i) · the hold corrected to **8 h 06 m 34 s** by git.
