@@ -3935,3 +3935,37 @@ under it; three windows were committing). **Nothing edited, deployed or committe
 **✅ Green and worth naming:** data-inline (12 consts) · digest fresh · place-claims 58/0 · storage keys 19 · vocabulary ·
 loop docs · release docs (12 beats agree) · backlog drift rested · ux-sweep rested · walk-integrity (289 runs, 141 countable)
 · `build-viewer --check` (**bytes only — not a running page**).
+
+### ⚠️ CORRECTION to the entry above — ALL 50 RAN; "NINE UNMEASURED" WAS TRUE WHEN WRITTEN AND IS FALSE NOW · 2026-09-11 10:21 EDT
+
+The sub-agent's runner returned. **50 run · 32 green · 17 red · 1 exit-3.** The nine named UNMEASURED above all completed.
+The correction is appended rather than edited into that entry, because a record that silently repairs itself cannot be
+audited — but **do not cite the "nine unmeasured" line as current.** HEAD `8887f25a` → `09661e38` during the run.
+
+**⛔⛔ THE HEADLINE, AND IT IS TWO INDEPENDENT INSTRUMENTS AGREEING:** `watch-accounts` (credentials live in the register and
+absent from the store) and `watch-door` (**311 `door_failed`** — `home` **42, every one `unknown-or-other-estate`**; `legacy`
+**227, same**; lab 41; paul 1) are reading **the same lockout shape at both of Mom's surfaces**, from different keys. `home`
+and `legacy` each show the **silent case — 1 reached, 0 got through.** ⛔ **Neither instrument names a person, by
+construction** (*a door record reports what happened at a door, never who was standing at it*), so **this is not yet a claim
+that anyone is locked out** — much of it is plausibly synthetic-walk traffic. ⭐ **But it is now a hard precondition on lap
+8 · B:** before Mom's row migrates, someone establishes **deterministically** that her account can get through the door.
+Migrating a row whose credential the store may not hold would move a lockout, not a household.
+
+**The rest of the final nine:**
+- 🔴 **`post-deploy --env home`**: `home` serves `87c7aae`; the Worker's `build_sha` reads `05bfb6d7` — *"the Pages half and
+  the Worker half are different code."* ⚠️ **Its `expected 09661e3` is an ARTEFACT** — the tool tracked a HEAD that moved
+  under the run, not a deploy anyone made. **The durable claim is the Pages/Worker split, and it is RELAYED, not verified
+  here.** Verify before acting; this is the class where a reader is right about its own question and wrong about the one it
+  is trusted for.
+- 🔔 **`watch-recovery`: 48 requests to be let back in** (qa 44, newest **55 minutes** before the run; lab 4). Names nobody.
+  Almost certainly synthetic, and **its own doctrine is that a reader is not a channel** — they sit until disposed.
+- 🔴 **`watch-feedback`**: **0 awaiting Paul on a real estate**; **730 undisposed on our own envs** (lab 51 of 51). At `home`,
+  channel **`geocode` holds 3 keys and NO TOOL READS IT** — a new instance of the named failure — plus **3 personIds the local
+  register does not know**, the same divergence class as `watch-accounts`.
+- 🔴 **`product-steward`: 18 ruling lines carried by nothing** (`cycle/release/CYCLE-LOG.md:521 · 537 · 633 · 695 · 794 ·
+  810 · 861`, `cycle/fleet/CYCLE-LOG.md:783`, +10), 9 more uncheckable by the predicate.
+- 🔴 **`check-estate-neutral` exit 0 — and the green is narrower than it looks.** `rendered=0` on all five pages, but **9
+  Fernwood needles sit in COMMENTS THAT SHIP** (`onboarding/index.html:16` · `estate/index.html:12, 22` ·
+  `homes/index.html:37` · `settings/place/index.html:31` · `settings/account/index.html:36`). And **it did not scan
+  `viewer.html`** (excluded by design), so per CLAUDE.md this covers five static pages and **says nothing about the app.**
+- ✅ `watch-activity` 5 envs 0 unreadable · `release-state` ARMED beat 11/12 owner paul · 🟡 `qa-behind` 65 commits.
