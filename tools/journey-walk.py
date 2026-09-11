@@ -758,7 +758,7 @@ def journey_bare_door(answers, origin=""):
     """
     a = answers
     return ["shot:B01-the-door",
-            'click:#s0-signin', "shot:B02-sign-in",
+            'click:#sd-signin', "shot:B02-sign-in",   # A2 (lap 7): the door's own "I've been here before"
             "type:#si-user=" + a["username"], "type:#si-word=" + a["password"],
             "click:#si-go",
             # ⭐ THE IN-FLIGHT SCREEN IS ITS OWN STOP, and it is not padding. Sign-in POSTs to
@@ -812,6 +812,9 @@ def journey_founding(answers, origin=""):
     acts = [
         # ⭐ F01 — the bare door, no ?g= at all: the sentence a stranger reads before anything is typed.
         "shot:F01-the-door",
+        # A2 (lap 7): the bare door is now #s-door — one sentence, two named ways in. The founding walker
+        # takes the first ("Set up my place") to reach the account form it used to land on directly.
+        "click:#sd-setup",
         "type:#uname=" + a["username"], "type:#uword=" + a["password"],
         "type:#uword2=" + a["password"], "type:#uemail=" + a["email"],
         "shot:F02-account", "click:#go0",
@@ -1211,7 +1214,7 @@ def selftest():
           "the door's own words are not the first thing recorded, and both real failures here were "
           "sentences")
     check("J5 reaches sign-in by CLICKING the control, never by goto:",
-          "click:#s0-signin" in bare and not any(x.startswith("goto:") for x in bare),
+          "click:#sd-signin" in bare and not any(x.startswith("goto:") for x in bare),
           "a build with no 'Sign in instead' control would still walk green")
     check("J5 presents NO credential — its arrival is the absence of one",
           JOURNEYS["J5"]["arrival"] == "no-credential" and JOURNEYS["J5"]["enters"] == "J5", "")
