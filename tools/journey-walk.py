@@ -1567,6 +1567,27 @@ def selftest():
     check("a fresh walk spends few enough writes to stay under the limiter", writes <= 6,
           "%d submit clicks — the cap is 20 writes per IP per 5 min, shared by 4 seats" % writes)
 
+    # ═══ T20 · THE LENS AXIS IS NAMED, AND EVERY POSTURE DECLARES WHAT IT RESTS ON ═══════════════
+    _si_t20 = _si
+    check("T20a every ROLES entry declares `cites` — None is legal, ABSENT is not",
+          all("cites" in v for v in _si_t20.ROLES.values()),
+          "missing: %s" % [k for k, v in _si_t20.ROLES.items() if "cites" not in v])
+    check("T20b every entry that cites NOTHING says WHY, so silence is never mistaken for research",
+          all(v.get("citesWhy") for v in _si_t20.ROLES.values() if v.get("cites") is None),
+          "a None citation with no stated reason reads as an oversight")
+    # ⛔ NOTHING MAY BE CITED THAT WAS NOT OPENED. A path that does not resolve is a citation that
+    # looks like evidence and is not — the precise failure `[transcript-UNVERIFIED]` exists for.
+    _bad = []
+    for _k, _v in _si_t20.ROLES.items():
+        _c = _v.get("cites")
+        if _c and not os.path.exists(os.path.expanduser(
+                _c if os.path.isabs(_c) or _c.startswith("~") else os.path.join(ROOT, _c))):
+            _bad.append((_k, _c))
+    check("T20c every CITED artifact actually exists on disk", not _bad, "unresolvable: %r" % _bad)
+    check("T20d `mom` cites its persona AND the note warns the artifact carries a retraction",
+          "retraction" in (_si_t20.ROLES["mom"].get("citesWhy") or "").lower(),
+          "a persona with a retraction cited without the warning is worse than no citation")
+
     # ═══ T9 · THE ELISION, AND THE CONTROL THAT ACTUALLY DISCRIMINATES ═══════════════════════════
     # ⛔ M-elide-b IS THE ONE THAT MATTERS. A mutation proving the NEW shape passes cannot tell an
     # elider from a non-elider — it would pass just as happily on a build that elides nothing. The
@@ -1675,7 +1696,14 @@ def selftest():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--selftest", action="store_true", help="prove the four false-green guards still bite")
-    ap.add_argument("--role")
+    # ═══ T20 · THE AXIS IS NAMED `--lens` ════════════════════════════════════════════════════════
+    # `[Q3, ruled]` a lens is a READING POSTURE. The flag said `--role`, which names a PERSON — and
+    # the whole point of the ruling is that it is not one. ⚠️ `--role` survives as an ALIAS FOR ONE
+    # RELEASE so nothing in a script or a saved command breaks; it is not a second option, and
+    # `a.role` remains the single variable everything downstream reads.
+    ap.add_argument("--lens", help="the reading posture to walk in (see synthetic-identity.ROLES)")
+    ap.add_argument("--role", help="DEPRECATED ALIAS for --lens, one release. A lens is a posture, "
+                                   "not a person.")
     ap.add_argument("--fresh", action="store_true",
                     help="ALIAS for --journey J1. Kept so nothing in a script breaks; the journey "
                          "library is the interface now.")
@@ -1728,6 +1756,14 @@ def main():
                              "Pass one." % (flag, jid_, a.journey))
     if a.selftest:
         return selftest()
+    # ⛔ ONE VARIABLE, NOT TWO. Resolving the alias here means nothing downstream has to know the
+    # flag moved — and a run given BOTH is refused rather than silently preferring one, because
+    # picking for the caller is how a walk ends up in a posture nobody chose.
+    if a.lens and a.role and a.lens != a.role:
+        print("⛔ --lens %r and --role %r disagree. --role is a deprecated alias for --lens; "
+              "pass one." % (a.lens, a.role))
+        return 2
+    a.role = a.lens or a.role
     if not a.role:
         raise SystemExit("journey-walk: --role is required (or use --selftest)")
 

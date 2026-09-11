@@ -41,18 +41,53 @@ WORKERS = {"home": "https://fernwood-home.paul-kirschenbauer.workers.dev",
            "qa": "https://fernwood-qa.paul-kirschenbauer.workers.dev"}
 PAGES = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
          "home": "https://fernwood-home.pages.dev"}
+# ═══ T20 · A LENS IS A READING POSTURE, AND EVERY POSTURE DECLARES WHAT IT RESTS ON ═══════════════
+#
+# `[Q3, ruled]` a lens is a READING POSTURE ONLY — not a person, not a demographic, not a claim about
+# a user. ⭐ The split ALREADY HAPPENED IN STORAGE and nobody wrote it down: this dict holds only
+# `{accent, note}`, the typed answers live in `.private/walk-answers/`, and the credentials live in
+# `synthetic-identities.json`. Three separate things already. T20 is naming and one flag.
+#
+# ⛔ `cites` IS THE HONEST HALF. A posture either rests on a research artifact or it does not, and
+# `None` STATED is a real answer — the failure this guards is a seat that reads as researched because
+# nobody ever asked. ⛔⛔ NOTHING HERE MAY BE CITED THAT WAS NOT OPENED: every path below was verified
+# to exist before it was written, and where none exists the entry says so and says why.
+#
+# ⚠️ `seat-portfolio.py` reads this dict and asks a DIFFERENT question — are these the RIGHT seats.
+# It already flags `handover` as a journey wearing a lens's clothes, and `map-points` and `other` as
+# uncovered. This field does not answer that and must not be read as answering it.
 ROLES = {
-    "owner":     {"accent": "#7A3E2A", "note": "open-ended: invented her own place, no Fernwood context"},
-    "mom":       {"accent": "#2C4A2C", "note": "shaped by ../fernwood-private/.user-research/2026-09-05-synthetic-mom.md"},
-    "wide-eyed": {"accent": "#3F5266", "note": "un-primed: the link and nothing else"},
-    "strict":    {"accent": "#2C5674", "note": "reads the same journey against the design principles"},
+    "owner":     {"accent": "#7A3E2A", "note": "open-ended: invented her own place, no Fernwood context",
+                  "cites": None,
+                  "citesWhy": "NONE, deliberately — the posture IS the absence of priming, so an "
+                              "artifact behind it would defeat it."},
+    "mom":       {"accent": "#2C4A2C", "note": "shaped by ../fernwood-private/.user-research/2026-09-05-synthetic-mom.md",
+                  "cites": "../fernwood-private/.user-research/2026-09-05-synthetic-mom.md",
+                  "citesWhy": "⚠️ A SYNTHETIC PERSONA IN A PRIVATE SIBLING REPO, and it carries its "
+                              "own retraction — read the artifact before trusting the posture. It is "
+                              "a reading stance shaped by research about one person; it is NOT her, "
+                              "and no finding from this lens is a finding about her."},
+    "wide-eyed": {"accent": "#3F5266", "note": "un-primed: the link and nothing else",
+                  "cites": None,
+                  "citesWhy": "NONE, deliberately — un-primed is the whole posture."},
+    "strict":    {"accent": "#2C5674", "note": "reads the same journey against the design principles",
+                  "cites": "~/.claude/design-principles/",
+                  "citesWhy": "The principle libraries themselves — so every rule written into them "
+                              "feeds this lens automatically, rather than being restated here."},
     # ⭐ THE SUCCESSION SEAT, added 2026-09-06. `handover` is one of the eleven things the ranking
     # screen offers and it was the ONLY one no seat had ever ranked — so the flow's answer to
     # "I am setting this up so somebody else can take it over" had never been walked by anyone.
     # That is not a hypothetical gap: the first prospective reader outside the family describes his
     # job exactly that way. ⛔ This seat is a SHAPE, not a person — invented details throughout,
     # nothing about any real neighbour, and it is not a stand-in for meeting him.
-    "handover":  {"accent": "#5C4B7A", "note": "setting the place up so someone else can take it over"},
+    "handover":  {"accent": "#5C4B7A", "note": "setting the place up so someone else can take it over",
+                  "cites": None,
+                  "citesWhy": "⛔ NONE, AND THAT IS A FINDING RATHER THAN A PROPERTY. This seat was "
+                              "added because `handover` was the only one of the eleven ranking "
+                              "modules no seat had ever ranked — a coverage argument, not a research "
+                              "one. `seat-portfolio.py` separately flags it as a JOURNEY wearing a "
+                              "lens's clothes. Both readings say the same thing: it earns its place "
+                              "by what it covers, not by what it rests on."},
 }
 
 
