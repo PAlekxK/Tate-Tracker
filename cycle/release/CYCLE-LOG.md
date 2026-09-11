@@ -3041,3 +3041,30 @@ derived from `ENGINE-MANIFEST.md` + `momlib.DOMAINS` + the toolchain inventory (
 renders at a non-Fernwood household with none of Fernwood's data. **A standing groom thread beside lap 8, not a lap
 item**; sequencing PROPOSED (engineering-partner + ux-expert). Coordination's map: it is the parent of § CONTENT · CARDS
 and of the inventory's three ranked expansions.
+
+### Lap 7 · ROWS A AND H CLOSED, proven at lab · `~4:05 AM ET 2026-09-11` — not yet frozen
+
+Commits (`--only`): `5587b88` Almanac → Journal engine default (Fernwood declares its Almanac; settings/place back-link) ·
+`16ec3b5` A17/A18/A19 (two colours · Stone · seeded place colour) · `35abb04` A1 + A16 + A20·4/5/6/7/11/12/15 + closure
+41/43 · `f76a118` H5 (payload blob compare, L7-P4) · `42edf9d` A2–A13 + A15 (onboarding) WITH H1/H2/H3 in ONE commit
+(SEAM-3) · `a3beb8d` A14 + A20·3 + A22 + H4 + Worker A15. **Lab proof at `a3beb8d`:** Worker `build_sha a3beb8d`,
+`WORKER_BLOB` stamped; Pages deployed; headless load zero page errors; post-deploy CLEAN **with the new payload-blob line
+covered — H5 is live and reading.** Pre-candidate checks: `--check` green · template diff 0 · `journey-walk --selftest`
+60/60 · `release-gate --selftest` green (M8a–M9b new) · `check-storage-keys` green · `check-telemetry` exit 1 = its
+pre-existing never-seen list (reads the legacy Worker; row C is proven by `read-glance-order` at qa).
+
+**Three named deviations, QUEUED FOR THE REGISTER** (the backlog window closed on Paul's word; forwards wait here for its
+reopen): ① **A14** "What I'll build first" → Edit STEP-RETURNS to the ranking screen (`?edit=interests&return=told`) rather
+than an inline tile picker — an inline picker would put the INTERESTS roster in a second file, the divergence the
+interests HOLD (TIER 1 · 36) exists to prevent; row 17's invariant holds at the level of outcome (every Edit ends on
+`#told` with the row rewritten; no Edit opens a note box). ② **A16** sentence case at the slot: *"First on your list:
+<label>."* — no label text changed (the hold); the A/An/The regex retired. ③ **H4 conventions MINTED:** the content read
+`.content/walks/<sha7>-walk-read.md` (must name the sha and EVERY seat on disk) · the UX sweep
+`.ux-reviews/sweeps/<sha7>-ux-sweep.md`; absent → UNCHECKABLE with the path; **a bare gate pass now needs both**
+(L7-P2 + L7-P3 as one step, per Q6). Also: closure 43's false promise WITHDRAWN on s5; closure 41's estate-row PO-box
+repeat cut; the shelf's ＋ retired and hidden while empty; the Journal DOM writer reads `JOURNAL_NAME` (it was recomputing
+"+ Almanac" and ignoring `fw-journal-name`).
+
+**Not frozen yet, by the lane's own call, endorsed by coordination:** one J0 and one J8 shake-out walk at lab first — the
+gate card and the lifecycle journey have never been walked by anything, and a defect found there moves the sha BEFORE the
+freeze, not after a five-seat battery. Then the FROZEN candidate sha, **beat 4's `--record`**, then the qa deploy.
