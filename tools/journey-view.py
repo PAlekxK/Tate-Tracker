@@ -165,9 +165,15 @@ const cfg = JSON.parse(process.argv[2]);
         // A broken promise therefore lands in the transcript as a FAILED ACTION, which release-gate's
         // `no-failed-actions` clause refuses — never a screenshot somebody has to read to notice.
         else if (act.startsWith('expect:')) {
+          // ⛔ WAIT, THEN LOOK — the way `shot:` already does. The first cut checked the instant the previous
+          // click returned; measured 2026-09-11 (lap 7 battery, J8 × 5 at 87c7aae): every seat failed
+          // `expect:.hh-utility` right after the sign-in click while the next two stops on that very bar
+          // passed. An assertion that runs before the navigation lands scores the product's correct
+          // behaviour as a failure — an instrument artefact, not a finding.
           const sel = act.slice(7);
-          const h = await page.$(sel);
-          if (!h || !(await h.isVisible())) throw new Error('expect: not visible — ' + sel);
+          try { await page.waitForLoadState('load', { timeout: 8000 }); } catch (e) {}
+          try { await page.waitForSelector(sel, { state: 'visible', timeout: 8000 }); }
+          catch (e) { throw new Error('expect: not visible — ' + sel); }
         }
         else if (act.startsWith('eval:')) {
           const v = await page.evaluate(act.slice(5));
