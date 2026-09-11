@@ -5130,3 +5130,27 @@ and here the guess would be in the **fail-OPEN** direction. **Recorded as PARTIA
   (UNKNOWN)** into **`False` (MUST land no events)** — **the opposite claim.** It surfaced the moment a journey
   declared `None`. **Left in, a future J4 run landing zero events would have printed ✅** — *a false green
   produced by a type coercion, inside the clause built to remove that exact equivalence.*
+
+### ⭐⭐ T11 LANDS FAIL-CLOSED — and the half-struck falsifier's PURPOSE is satisfied by measurement
+
+`522c7d20`, `tools/change-scope.py` (new, 270 lines) + the derived cache folded in per the ruling. **15 of 24.**
+Invariants: release-gate ✅ · corpus frozen ✅ · **all five frozen verdicts unchanged.**
+
+**Run here, not read from a report:**
+
+| diff | what moved | verdict |
+|---|---|---|
+| `12912b9..87c7aae` | **no served page**, one Worker change | ⛔ **8 × UNSCOPED** — fail-closed, every journey |
+| `d7d6c9f..12912b9` | **`viewer.html` + `engine/viewer.template.html`** | ⭐ **J0 MUST RE-RUN** (it declares `/viewer`), with other journeys **MAY CARRY** |
+
+⭐⭐ **THE DISCRIMINATING CLAUSE IS SATISFIED: J0 CARRIES AT NEITHER.** *"If J0 carries at BOTH, it is reading
+files, not routes"* — it does not, so **the files-vs-routes discrimination is demonstrated rather than asserted.**
+**The falsifier's PURPOSE is met; only its LETTER at one sha is struck**, on P17's fail-closed ruling. Recorded
+**PARTIALLY MET with both halves named**, not softened to *met*.
+
+⭐ **And the fail-closed direction is doing visible work:** a Worker change makes **every** journey UNSCOPED
+rather than letting three carry on a predicate that was true of all seven by construction. **That is the step
+deciding what NOT to test, erring toward testing more** — which is the only safe error it has.
+
+⚪ *A note on this window's own check: the probe for "does J0 carry at either" printed no J0 line — that was the
+grep's pattern, not the tool's output, which plainly shows `J0 MUST RE-RUN`. Named so it is not read as a gap.*
