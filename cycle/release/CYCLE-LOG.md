@@ -3592,3 +3592,12 @@ place · Paul's clear 87c7aae ✅ from cycle-state.json*), neutral 311/0, headle
 `build_sha 05bfb6d7`** (the HEAD the Worker was deployed from) **≠ 87c7aae — the row-32 stamp-vs-payload false red, exactly
 what H5's blob compare exists to tell apart; the caveat wording is queued for lap 8.** Never `legacy`. Coverage lines
 printed by the gate: *414 × 848 ONLY* · *J2 UNWALKABLE, awaiting Paul's re-scope-or-retire*.
+
+**The revamp window, after Paul's clear · 2026-09-11 09:42 EDT** — two instructions given there, verbatim: (1) *"complete your full analysis of all
+the testing that was done"* → **done**, `.practice/2026-09-11-lap7-testing-ANALYSIS.md` (`394c18d4`: five axes, sixteen kinds
+of act, what each found and what none could see; the S1–S20 spine); (2) *"let's run this whole testing plan through whatever
+experts are appropriate to turn it into a real plan that can just be executed in an upcoming lap, let's say lap nine."* →
+the plan **no longer waits for lap 8's monitoring**; four seats convened in parallel (engineering-partner sizing by symbol ·
+user-researcher the lenses · security-steward fixtures/credentials/arrival state · ai-advisor the model policy), synthesis
+into `.plans/2026-09-11-testing-revamp-PLAN.md` at `stage: ready`, agent-proposed, **for Paul's read before lap 9 opens**;
+lap 8's monitoring lands as a stage-note when its battery runs. Read-only on every tool stands.
