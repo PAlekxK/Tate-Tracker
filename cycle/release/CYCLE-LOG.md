@@ -3315,3 +3315,19 @@ The eight rulings stand unchanged. The revamp window gains a third duty: **monit
 second data point, so row T is sized against two laps. Updated: the testing-architecture plan's `ready:` line, the lap-8
 plan's stage-note (superseded), the revamp brief §1. Register carry (queued): the row's lap moves 8 → 9; the 8/9 proposal's
 lap-9 table gains row T.
+
+### Lap 7 · beat 8 COMPLETE at `87c7aae` — the battery is clean · `~9:15 AM ET 2026-09-11`
+
+**J0 5/5** (strict = the refusal walk, as designed) · **J3 5/5** (wide-eyed rerun once — five screenshots lost to Chrome
+timeouts with every click landing) · **J8 5/5** (all five rerun once after `expect:` was made to wait for the navigation —
+a harness verb fix, `8d93b2b`, served sha unmoved; owner rerun once more for two screenshot timeouts). **Zero pageerrors
+anywhere at `87c7aae`.** Store readings at the candidate: `read-glance-order --env qa` — 52 of 55 sessions since midnight
+carry a served order, five distinct declared orders + a default, `auto-ranked-empty` opens recorded (row C, end to end) ·
+`watch-door --env qa` — `signin_failed` 32 (outcome-only), `found` ok 12 (the dropped write, restored) · `watch-recovery
+--env qa` — 43 doorbells naming nobody (B6/B6r). Gate mechanics, read from `release-gate.py` not memory: `instrumented` is
+PRINTED, not in `CLAUSES`; `passing_seats` is `all(... for k in CLAUSES)` over the six seat clauses — **strict's zero app
+events on its refusal walk cannot refuse it**; `countable` flips per run as the reading seats write REPORT.md (in progress).
+Fixtures founded at qa by candidate 3's J0: `est-1tfrzb` · `est-ftrtkj` · `est-kgjxry` · `est-c9pgvw`; strict founded nothing.
+**Register note queued:** `watch-door`'s silent-case line goes negative when the open door records no `door_opened`
+(pre-existing). **Next:** the content read `.content/walks/87c7aae-walk-read.md` (every seat named) → `release-gate --sha
+87c7aae` → hand to coordination for Paul's walk (the amended kit).
