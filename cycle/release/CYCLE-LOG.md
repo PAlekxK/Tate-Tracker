@@ -3199,3 +3199,30 @@ Reports not yet written for any run — the reading seats wait until the sha is 
 **Ruling** `[paul-ruled 2026-09-11 ~6:10 AM ET: "Apply both, new sha, restart tonight."]` — both Worker-only fixes land as one
 commit; re-prove at lab; CANDIDATE 3 frozen; beat 4 re-recorded; Worker before pages at qa; the full battery from zero
 (J0 · J3 · J8 × 5; J2 printed unwalkable). The condition renews: a THIRD product defect stops and holds for Paul.
+
+### Prepared for beats 9–12 while the battery runs · `~6:20 AM ET 2026-09-11`
+
+**The gate kit changed under its own ruling.** TIER 1 · 25's kit is *the candidate door link + his existing username there
+(qa: `pkirsch`) + ONE throwaway owner*. **`pkirsch`@qa was torn down tonight on his "production only" ruling** (watch-accounts:
+👻 gone from the store), so the "check on my existing place" half has no identity at qa. **Amended kit for lap 7:** one
+throwaway owner he names (convention `pk-walk-2026-09-11`), which he FOUNDS (J0), then signs out and returns to on a clean
+tab (J3/J8) — his own throwaway becomes the existing place; two visible Chrome tabs; the 3–40 username rule stated; the
+seats' findings pre-listed; the gate line stated plainly. No qa identity is minted for him. Recorded here so the walk
+does not stall on a missing username.
+
+**The release note's check-off.** The held-out note tags one bullet `[walk: J0 + J2 + J3 · row A]`; J2 is unwalkable by
+model this lap, so at finalisation the tag drops J2 with the ruling cited (J0 + J3 cover the shelf) — content-steward's
+edit, not a cut. **Its ribbon line for Paul's lost note CANNOT ship this lap:** `instance/paul.json` now declares `ack`
+absent (P4), and `MOM_ACK_DATA` is a Fernwood literal — the attribution rides to lap 8 · G (the seam) and the note carries
+the fix as a plain bullet meanwhile.
+
+**L4's latency is one lap, by construction.** `RELEASE_NOTES_DATA` is inlined at viewer build; `pages-deploy --sha
+<candidate>` exports the COMMIT, so a note written after Paul's clear reaches the card at the NEXT build (lap 6's note
+reached it in P1 tonight). Not a defect to fix mid-lap — a chain fact for TIER 1 · 23: the note is written at close and
+served a lap later, or the note is drafted BEFORE the freeze as held-out bullets and only its confirmation follows the walk.
+
+**Production sequence when he clears** (per the amended brief §10): `release-gate.py --sha <candidate>` green →
+`pages-deploy.py --env paul --sha <candidate>` + `deploy-worker.sh --env paul` → `post-deploy.py --env paul` → the same for
+`home` (its household export; `cleared_sha` read) → `check-canon-scope --env home --deep` and `--env paul` → the record
+check for row D at `paul` (`watch-feedback.py --env paul` after his next load of the condo app: his note visible with its
+09-10 timestamp, or bullet 7 is cut). Never `legacy`. Beat 12's exit: zero undisposed on `home` · `legacy`.
