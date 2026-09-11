@@ -2102,7 +2102,25 @@ def main():
         "     attributed to three seats when only two had produced any experiential claim. -->\n"
         "> ⛔ The walker's OWN experience goes here, written by the walker.\n"
         "> This file is deliberately separate from transcript.json: what the product DID and what a\n"
-        "> person FELT are different kinds of claim, and merging them makes the second unfalsifiable.\n" % (a.role, run))
+        "> person FELT are different kinds of claim, and merging them makes the second unfalsifiable.\n"
+        "\n"
+        # ⭐ T8 — TWO FIXED HEADINGS, so a consolidator can find the bullets without guessing.
+        # `[measured 2026-09-11]` across the corpus the experiential section has been written under
+        # at least a dozen different strings — "## 1 · Screen by screen", "## 2 · What I hunted for,
+        # re-read, or guessed at", "## 3 · Verdict", "## 5 · Verdict"… Lap 7 produced 63 bullets,
+        # 6 of which reached anybody, by hand. A channel whose location is renegotiated every run is
+        # a channel nobody can read twice.
+        # ⛔ THE HEADINGS ARE FIXED; WHAT GOES UNDER THEM IS NOT. The walker still writes whatever
+        # they actually noticed — this constrains WHERE, never WHAT, which is the difference between
+        # a schema and a script.
+        "## What I noticed as a person\n\n"
+        "> Prose or bullets. What it felt like — confusion, hesitation, a thing you expected and did\n"
+        "> not get. ⛔ Not a defect list; that is the next heading.\n\n"
+        "## Findings\n\n"
+        "> One `- ` bullet per finding, each standing on its own. These are what `walk-notes.py`\n"
+        "> extracts and attributes to (journey, lens, run). ⛔ Public-repo rule binds what you write\n"
+        "> here: ids, counts, selectors, stop names and engine copy — never an address, coordinates,\n"
+        "> an email, a phone number or a real username.\n" % (a.role, run))
     prior = sorted(glob.glob(os.path.join(OUT, a.role, "*")))
     print("\n  → %s\n  %d run(s) recorded for %s — accretive by design" % (d, len(prior), a.role))
     return 0
