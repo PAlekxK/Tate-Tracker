@@ -1,7 +1,7 @@
 # Handoff: fernwood — the COORDINATION window, between lap 6 and lap 7
 
-<!-- generated 2026-09-10 ~7:00 PM ET · source: Tate-Tracker@82ea90e on LOCAL main · written at 97% utilization,
-     Paul paused everything: "make sure everything is committed and clear, and we can pick it up when my
+<!-- generated 2026-09-10 ~7:00 PM ET · source: Tate-Tracker@82ea90e, RE-STAMPED at ed3a943 (clean tree, every lane closed) on LOCAL main · first written at 97%
+     utilization when Paul paused everything: "make sure everything is committed and clear, and we can pick it up when my
      utilization resets where we are."
      RECEIVER: verify the sha against HEAD. Lane close commits, all landed: design `2a9c6df` · build `d6ba13d` (its brief §8 state at close) · backlog HEAD `82ea90e`
      (every register change committed; the tool diff + patches stay for Paul). Cite the symbol, stamp the sha. -->
@@ -123,3 +123,21 @@ that runs it.
 
 Any lane sha after `82ea90e` (read the log). Whether the design window committed its partial trail. `file:line`
 anywhere tonight. Nothing known-stale at commit time; the seven-house list is by record.
+
+## 9. FIRST TASKS FOR THE SUCCESSOR — Paul: "let's do a seam and start a new session for lap seven"
+
+0. Verify the stamp (`ed3a943`); write the readback; wait for the grade.
+1. **Open lap 7 on his word** ("open lap 7"): beat 1 sweeps (health · accounts · feedback · UX-sweep clock, which should now read
+   not-owed after `112894c`), a dated `## Lap 7 — <date>` heading with `<!-- outcome:open -->` on the next line, the beat-6 table in
+   his words (§5: A the applied founding-flow design with the six exhibit rulings and the five sweep rulings · B account lifecycle
+   · C G6 telemetry · D the Worker map for `myhome-*` origins · E teardown as a process row), exclusions each a ruling (single door
+   = lap 8 · zones preload · INVITE & JOIN · address validation). Run `release-state.py --write`; L7-P1..P5 are already registered.
+2. **Commit-phase rule (§5):** spawn engineering-partner to audit and write `.plans/<date>-lap7-build-PLAN.md`. Paul reads it.
+3. **Reopen the standing backlog window** from `handoff/handoff-backlog-refinement.md` (§8 is its state at close):
+   `succeed.py --open backlog-refinement`. Grade its readback. It is the one door to `BACKLOG.md`.
+4. **Open the build window** from a brief that points at the engineering-partner's build plan; it declares its pull; you declare
+   the freeze on its candidate. Then: deploy qa → full battery once → Paul's walk (gate kit §4, two visible Chrome tabs, state the
+   3–40 username rule) → production (`paul` + `home`, his `!` commands if the classifier blocks you) → close.
+5. **Still his, ask once at open:** "go teardown" (named list §4) · working-model deployment · what "synced" means beyond one sign-in.
+6. **Runs at open with no ruling:** `check-canon-scope.py --deep` at home (row 33) · practice-steward §2 amendment for the CONTENT
+   clause (L7-P3) · the security report's home (`.security/` absent from FINDING_DIRS) · post-deploy blob compare (L7-P4).
