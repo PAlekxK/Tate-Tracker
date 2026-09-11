@@ -245,8 +245,14 @@ prints **five rows** and for every one of them `✅ no-failed-actions`:
   strict    2026-09-11T083055   wide-eyed 2026-09-11T083143
 ```
 
-**All five are J0 walks — the first journey of the battery.** At that same sha, **12 walks failed an
-action** (11 J8 + 1 J3). The gate cannot see one of them.
+**All five are J0 walks — the first journey of the battery.** At that same sha, ~~**12 walks failed an
+action** (11 J8 + 1 J3)~~ — ⛔ **CORRECTED 2026-09-11 at lap 8's open, twice, on two independent code paths:
+12 failed ACTIONS across 7 of 22 RUNS.** The number 12 is right; its noun is not, and the 11/1 split reproduces
+under **neither** predicate. **A count without its predicate — this file's own named class, in the passage that
+founded row T.** ⛔ **And the correction has teeth:** every failing run at `87c7aae` has a later **clean** run
+inside its own `(journey, lens)` cell, so the ruled unit change **absorbs** those failures rather than surfacing
+them — **the new gate PASSES `87c7aae`**, and T21's expectation that it must refuse is struck
+(`.plans/2026-09-11-testing-revamp-PLAN.md` § Falsifier). The gate cannot see one of them.
 
 **Mechanism, read from source:** `seats()` (`:78`) derives the roster from **directory names**;
 `report()` (`:258-280`) keeps, per seat, the run at this sha with the most true clauses, replacing
