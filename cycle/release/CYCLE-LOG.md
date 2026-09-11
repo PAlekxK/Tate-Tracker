@@ -5154,3 +5154,25 @@ deciding what NOT to test, erring toward testing more** — which is the only sa
 
 ⚪ *A note on this window's own check: the probe for "does J0 carry at either" printed no J0 line — that was the
 grep's pattern, not the tool's output, which plainly shows `J0 MUST RE-RUN`. Named so it is not read as a gap.*
+
+### T12 LANDS — the carried-forward pass, with a proof a reader can re-derive. **16 of 24**
+
+`e7f46fca`, `release-gate.py` +155. Invariants green, five verdicts unchanged, corpus frozen.
+
+**Six clauses, and FOUR of them prove the NON-carry paths** — the same ratio T7 and T9 set, and the reason the
+row's controls are trustworthy: a clause that only proves the happy path has proven nothing.
+
+| clause | refuses |
+|---|---|
+| **M19-happy** | a clean prior run + MAY CARRY → **carried, with a re-derivable `git diff --stat` proof beside it** |
+| **M19a** | **MUST RE-RUN** → not carried; the cell reads UNWALKED |
+| **M19a2** | **UNSCOPED** → not carried — *the fail-closed direction, enforced* |
+| ⭐⭐ **M19b** | **a prior run that was RED carries NOTHING forward, even on MAY CARRY** |
+| ⭐ **M19c** | the classifier **UNAVAILABLE** → **UNCHECKABLE, never carried** |
+| **M19d** | a cell with **no prior run anywhere** → nothing to carry |
+
+⭐⭐ **M19b is the one that matters most, and it closes the worst thing carry-forward could do: launder a RED into
+a pass.** Without it, a failing cell plus a *MAY CARRY* verdict would have produced a green — **a defect
+disappearing because the code it was in did not move.** ⭐ **And the byte proof is genuinely re-derivable:** the
+printed proof matches `git diff --stat` run by hand over the declared pages, so it is **evidence a reader can
+check rather than a sentence the gate typed.**
