@@ -412,3 +412,116 @@ this tool should be re-run the day the split lands, as its falsifier.
 **Falsifier for this audit as a whole:** run lap 8 with row T built and M1/M2 unbuilt. If the elapsed
 falls by more than half and the battery count drops to one, the ranking above is wrong and the gate
 unit was the dominant term after all.
+
+---
+
+## 8 · EXTENSIONS — measured after the audit landed `[testing-revamp window (tate-tracker-d8) · 2026-09-11 09:15 −0400 from `date` · HEAD 53817b03]`
+
+> ⛔ **Scope, per the brief:** extended **only** where §6 said *not measurable* or *not read* and the record
+> can now answer. Nothing above is edited; where a figure below revises one above, both are left standing
+> and the revision is marked. Read-only on every tool. Every stamp here is from the machine clock.
+
+### 8a · ⭐⭐ THE CONTENT READ HAS LANDED, and it REVISES §3e
+
+§6 said: *"`.content/walks/` — no artifact exists for `87c7aae` … I have no reading of what the reading
+seats found."* At **09:13** `.content/walks/87c7aae-walk-read.md` landed (12,700 bytes, content-steward,
+15 counted runs read — 5 seats × J0/J3/J8). It is untracked in the working tree at the time of writing.
+
+**Its verdict is a STOP on content**, and the defect is one **no transcript could show**: the receipt's
+*WHAT I'LL BUILD FIRST* renders the stored ids `garden · motor-pool · equipment` as if they were the
+person's own words (`estate/index.html:430`, an unguarded `(r && r.label) || r` fallback; verified by the
+reader on `owner/2026-09-11T083409/R01-arrive.fold.png`, J3 and J8). `transcript.json` records
+`entryState.ranked: ["garden","motor-pool","equipment"]` — **the ids are correct, so the record is
+clean; only a reader of the frame sees the defect.** It also carries **12 draft slots** and per-seat
+findings (a recovery receipt still promising a hand reset *after* a successful sign-in; two vintages of
+Mom's protected phrase *household systems* on one account; no share/invite control anywhere across
+thirteen screens for the handover seat).
+
+⭐ **Revision to §3e:** *"on tonight's evidence the five-lens reading contributed zero of eight
+findings"* was true at 09:04 and is **false at 09:13**. The reading has now contributed a **ninth
+finding**, a product defect of a class the transcript axis cannot reach (a render of correct data).
+§3e's structural point stands unchanged — the reading ran once, at the final sha, ~27 minutes after the
+walks (§8b) — but its evidentiary balance moves: **the lens axis found one of the three product defects
+tonight, and it was the only one of the three invisible to every deterministic reader in the repo.**
+This is the strongest single argument for keeping five readers that tonight produced, and it arrived
+after the audit closed.
+
+### 8b · THE READING'S WALL TIME — now bounded, from file times
+
+§1c said the read leg was *not measurable — a REPORT.md carries no duration*. It carries an **mtime**.
+For the 15 written reports at `87c7aae`, `REPORT.md` mtime − `transcript.json` mtime:
+
+| | minutes |
+|---|---|
+| min | **9** |
+| median | **27** |
+| max | **33** |
+
+⚠️ **An upper bound on reading, not a measure of it** — the seat may have been spawned well after the
+walk ended, and the 15 seats read in parallel across ~25 minutes of wall clock. What it settles: the
+reading half of the cycle is **not** small relative to the driving half (51.9 browser-minutes for 45
+walks ≈ 1.2 min per walk; the read of 15 walks occupied ~25 minutes of wall clock). **Row T's model
+policy (brief §1c) should size the READ act from this bound, not from the walk's.**
+
+### 8c · REPORTS WRITTEN — final count, and it did not rise further
+
+§3e measured *15 of 22 at `87c7aae` (rising)*. At 09:15: **still 15 of 22**; `a3beb8d` 0 of 3, `d7d6c9f`
+0 of 5, `12912b9` 0 of 15 — **23 of 45 unread, unchanged.** The 7 unwritten runs at `87c7aae` are the
+`expect:`-timing re-proofs (§2), not counted seats. The 22 permanently-unread walks at dead shas are
+confirmed permanent: their reading seats were never spawned.
+
+### 8d · ⭐ THE NON-BLOCKING CHANNEL — what the reports carry that nothing reads `[paul-asked 2026-09-11 ~9:40: "are they also coming up with smaller suggestions… that could be helpful to load into the backlog"]`
+
+Not in §4 because the audit could not read the reports. Now measured, and confirmed by the build window
+from live practice (tate-tracker-94, ~9:45):
+
+- The seat brief **requires** a *what you noticed as a person* section, the rule *report a sentence you
+  could not understand as a finding*, and Paul's three last-screen questions. Seats do not volunteer the
+  small things; they are asked for them.
+- Across the 15 counted reports at `87c7aae`: **63 bullets** under headings matching *noticed* / *small
+  things* (heading text varies per seat, which is itself a finding — a consolidator cannot key on it).
+- **What reads them: nothing.** At `87c7aae` no `CONSOLIDATION-<sha>.md` was written (the two that exist
+  are `c821051` and `bfa3f23`). Beat 4 ran `product-steward.py --record --sha 87c7aae --carried 14
+  --already 0 --questions 3` — a **ledger of counts**. The stop-level findings and **six** cross-seat
+  non-blocking findings reached the register **only because the build lane relayed them by message** to
+  coordination, who queued rows. The other ~57 live in REPORT.md files only.
+- Candidates 1 and 2 have **no reports at all** (seats held to the final sha), so their non-blocking
+  channel is empty by construction — the same 22-walk hole as §3e, seen from the reading side.
+
+⭐ **So the ask exists, the capture exists, and the carry is a human relay with no reader behind it** —
+*an event with no reader is not instrumentation*, one rung up. **Added to §4 as T-i:** *what reads the
+non-blocking bullets, and per which candidate?* Evidence: 63 written · 6 relayed · 0 mechanical readers.
+Falsifier: a non-blocking bullet written by a seat at candidate N can be found in a row or an opened
+question at lap close, or the channel is decorative. ⛔ Not a scheduler and not a scorer — a fixed
+heading the consolidator can find, and CARRY run per candidate rather than per memorable round.
+
+### 8e · CONTRADICTION 2 (§6) — RESOLVED BY SYMBOL, not by judgement
+
+§6 left open whether `cycle-state.json`'s `ux_clause: "UNCHECKABLE — no artifact convention"` was a
+stale file or an unwired convention. **It is unwired, by construction:** `tools/release-state.py:119`
+writes that string as a **literal**, while `tools/release-gate.py:247` defines `ux_clause(sha, ux_dir)`
+and calls it at `:323`. The state writer never calls the gate's function, so the state file will read
+UNCHECKABLE at every sha forever, however many sweeps are filed. ⛔ Not fixed here (read-only; the tool
+is the build window's) — **specified**: `release-state.py` derives `gate_1.ux_clause` from
+`release_gate.ux_clause(sha)` and the literal is deleted. Its falsifier: after the change, a sha with a
+filed sweep reads green in the state file without a hand edit.
+
+### 8f · SPOT-CHECKS of §0–§3 against the record, and one correction
+
+| claim | checked against | result |
+|---|---|---|
+| 45 lap-7 walks | run directories since 2026-09-10 23:00 | ✅ **45** (3 · 5 · 15 · 22 by sha) |
+| the hold, *"8 h 07 m 34 s"* | `git log --format=%ci` `dfc6fc2a` → `dea4ad9a` | ⚠️ **8 h 06 m 34 s** — off by one minute; §0's *8 h 07 m* rounds correctly |
+| *"zero served page bytes moved"* `12912b9` → `87c7aae` | `git diff --stat` | ✅ four files: `CYCLE-LOG.md` · `cycle-state.json` · `release-gate.py` (+8) · `worker.js` (+17/−1); **no served page** |
+| journeys walked | `transcript.json.journey` across 45 runs | ✅ exactly `J0 · J3 · J8` — J1/J4/J5 built in `JOURNEYS` and walked by none, as ruled |
+
+### 8g · STILL NOT MEASURABLE, confirmed rather than assumed
+
+- **Deploy duration** — no tool writes one (`pages-deploy.py` · `deploy-worker.sh` · `post-deploy.py`
+  contain no duration/elapsed record; nothing under `.private/` names a deploy). Git commit times only
+  bracket it. The instrument is one `started`/`finished` pair in `post-deploy.py`'s own record —
+  specified, not built.
+- **The reading seats' own compute time** — §8b bounds wall time, not effort; the tier (brief §1c) is
+  set nowhere a file could record it.
+- **§1a's clock** — untouched. Coordination has since recorded the rule (memory
+  `feedback_stamp_the_record_from_the_machine_clock`); this section is stamped from `date` for that reason.
