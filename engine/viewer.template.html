@@ -15028,7 +15028,7 @@ function renderPlantList() {
       const opened = plantEl.classList.toggle("expanded");
       // C3 — a DEPTH-2 open (a plant inside the Plants card), so it is NOT card_expanded: pooling it into
       // the .main-card denominator would corrupt the one number G1–G6 exist to compute (§2 A3).
-      if (opened && typeof MetricsCollector !== "undefined") MetricsCollector.track("plant_expanded", { plantId: plantEl.dataset.id || "", via: "plant-head" });
+      if (opened) trackSafe("plant_expanded", { plantId: plantEl.dataset.id || "", via: "plant-head" });
     });
   });
 }
@@ -18598,7 +18598,7 @@ function renderEmptyCards() {
       top.classList.add("expanded"); document.body.dataset.rankedOpened = "1";
       // C2 — an AUTO open, named as one: the reading is `opens where via ∉ auto-*`. Pooling this with a
       // human tap would make every new household look engaged on arrival.
-      if (typeof MetricsCollector !== "undefined") MetricsCollector.track("card_expanded", { cardId: top.id || "", via: "auto-ranked-empty", pos: cardPos(top), orderSource: cardOrderSource() });
+      trackSafe("card_expanded", { cardId: top.id || "", via: "auto-ranked-empty", pos: cardPos(top), orderSource: cardOrderSource() });
       top.querySelectorAll(".main-card-summary").forEach(s => { s.textContent = ""; });   // "Nothing here yet." twice (wide-eyed, round 9)
     }
   }
@@ -18789,8 +18789,8 @@ function renderHouseholdFirstScreen() {
         ? 'A box number is where your post goes, not where your place is \u2014 so there\u2019s no weather, and nothing about what grows there, to work out yet. Add where it is when you can, and it lands here.'
         : 'We\u2019re working out your weather and what grows here from this address \u2014 it lands on this card as it comes in.';
       body.innerHTML = '<div class="prop-lead">' + line + '</div>';
-      if (!prop.classList.contains("expanded") && typeof MetricsCollector !== "undefined") {
-        MetricsCollector.track("card_expanded", { cardId: prop.id || "", via: "auto-unplaced", pos: cardPos(prop), orderSource: cardOrderSource() });   // C2
+      if (!prop.classList.contains("expanded")) {
+        trackSafe("card_expanded", { cardId: prop.id || "", via: "auto-unplaced", pos: cardPos(prop), orderSource: cardOrderSource() });   // C2
       }
       prop.classList.add("expanded");
     }
@@ -20414,6 +20414,18 @@ const MetricsCollector = (function () {
 // exposure carries its POSITION. `.plans/2026-09-07-glance-measurement-procedure.md` §5.1: without `pos`
 // the position confound is not merely unresolved, it is not reconstructable after the fact, because the
 // order is dynamic. One helper, called where the code already emits.
+// ⛔ MEASURED AT QA 2026-09-10 (lap 7 battery, J0 × 3 ranked seats): `typeof MetricsCollector` THROWS
+// "Cannot access before initialization" when the emitter runs before `const MetricsCollector` is
+// initialised — renderDashboardStrip() runs at init, ~90 lines above that const, and the auto-ranked-empty
+// open lives inside it. A `const` in its temporal dead zone is not "undefined" to typeof; it is an error.
+// The lab load was green because Fernwood's build ranks nothing, so the branch never ran there.
+// So: ONE accessor that catches the dead zone, and a PENDING QUEUE flushed at the observer-wiring site,
+// so an emit that fires before the collector exists is RECORDED later rather than dropped or thrown.
+// (Function declarations only — a `let`/`const` queue would be the same defect one line down.)
+function metricsOrNull() { try { return (typeof MetricsCollector !== "undefined") ? MetricsCollector : null; } catch (e) { return null; } }
+function pendingTracks() { if (!window.__pendingTracks) window.__pendingTracks = []; return window.__pendingTracks; }
+function trackSafe(name, fields) { const c = metricsOrNull(); if (c) c.track(name, fields); else pendingTracks().push([name, fields]); }
+function flushPendingTracks() { const c = metricsOrNull(); if (!c) return; pendingTracks().splice(0).forEach(([n, f]) => { try { c.track(n, f); } catch (e) {} }); }
 function cardPos(el) {
   // ordinal of this card among every .main-card in DOM order AT THIS INSTANT — null when it is not one
   if (!el) return null;
@@ -20434,13 +20446,16 @@ function cardOrderSource() {
 // visible in the record instead of absent from it. Emitted from renderEmptyCards() once the ranking
 // has been applied (the order is final there); the observer-wiring site is the fallback only for a
 // household with NO ranking, whose order never moves.
-let cardOrderServedEmitted = false;
 function emitCardOrderServed() {
-  if (cardOrderServedEmitted || typeof MetricsCollector === "undefined") return;
-  const order = Array.from(document.querySelectorAll(".main-card")).map(c => c.id || c.dataset.module || "?");
+  // the once-flag lives on window, not in a `let` — this is called from a render that runs before the
+  // script's later declarations exist (the dead-zone defect above)
+  if (window.__cardOrderServed) return;
+  const c = metricsOrNull();
+  if (!c) return;                                       // too early: the wiring-site call below will emit
+  const order = Array.from(document.querySelectorAll(".main-card")).map(x => x.id || x.dataset.module || "?");
   if (!order.length) return;
-  cardOrderServedEmitted = true;
-  MetricsCollector.track("card_order_served", { order, orderSource: cardOrderSource() });
+  window.__cardOrderServed = true;
+  c.track("card_order_served", { order, orderSource: cardOrderSource() });
 }
 
 const MetricsViewObserver = (function () {
@@ -21336,7 +21351,7 @@ async function fnSaveInlineEntry(text, opts) {
   const card = document.getElementById("card-fieldnotes");
   if (card && !card.classList.contains("expanded")) {
     card.classList.add("expanded");
-    if (typeof MetricsCollector !== "undefined") MetricsCollector.track("card_expanded", { cardId: card.id, via: "auto-after-save", pos: cardPos(card), orderSource: cardOrderSource() });   // C2
+    trackSafe("card_expanded", { cardId: card.id, via: "auto-after-save", pos: cardPos(card), orderSource: cardOrderSource() });   // C2
     if (typeof syncCardHeaderState === "function") syncCardHeaderState(card);
   }
   renderFieldNotes();
@@ -21382,7 +21397,7 @@ async function fnSaveObservationOnPlant(text, speciesId, speciesName) {
   const card = document.getElementById("card-fieldnotes");
   if (card && !card.classList.contains("expanded")) {
     card.classList.add("expanded");
-    if (typeof MetricsCollector !== "undefined") MetricsCollector.track("card_expanded", { cardId: card.id, via: "auto-after-guru-save", pos: cardPos(card), orderSource: cardOrderSource() });   // C2
+    trackSafe("card_expanded", { cardId: card.id, via: "auto-after-guru-save", pos: cardPos(card), orderSource: cardOrderSource() });   // C2
     if (typeof syncCardHeaderState === "function") syncCardHeaderState(card);
   }
   renderFieldNotes();
@@ -23352,9 +23367,10 @@ UnifiedInput.init();
 if (typeof MetricsViewObserver !== "undefined") {
   MetricsViewObserver.observeCards();
   MetricsViewObserver.observeSections();
-  // C1 fallback — a household with NO ranking has an order that never moves, so it is final here too.
-  // With a ranking, the emit waits for renderEmptyCards(); if that never runs the absence is the signal.
-  if (typeof READER_RANKING === "undefined" || !READER_RANKING.length) { try { emitCardOrderServed(); } catch (e) {} }
+  // C1 — every synchronous render is done by here, so the order is final: flush what fired before the
+  // collector existed (the first-render auto-open), then record the served order if nothing has yet.
+  try { flushPendingTracks(); } catch (e) {}
+  try { emitCardOrderServed(); } catch (e) {}
 }
 
 // Render the Today at Fernwood glance last — after MetricsCollector is defined —

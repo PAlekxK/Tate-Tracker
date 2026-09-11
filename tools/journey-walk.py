@@ -838,6 +838,16 @@ def journey_founding(answers, origin=""):
         # button reads "Saving…" for longer than the 700 ms action gap, and a shot fired then is the
         # honest record of what a person waits at (the J5 B03 lesson). `#go3` lives on s3, so the
         # click WAITS for founding to land before F09 records the confirm screen.
+    ]
+    # ⛔ THE REFUSED-AT-THE-GATE VARIANT (lap 7, A8 / closure 10). A seat whose fixture address IS a box —
+    # `strict` — meets the BLOCKING refusal at #go2: state 2 never renders, nothing is written, no est- is
+    # minted. That is the product doing what Paul ruled, so this walk is the refusal walk A8's own check
+    # describes and it STOPS there; continuing to #ok1 would score the correct behaviour as five failed
+    # actions (measured at qa 2026-09-10, strict). Branches on the seat's OWN answers, never on the role.
+    if re.search(r"\b(p\.?\s?o\.?\s*box|post\s*office\s*box|postal\s*box)\b", str(a.get("line1", "")), re.I):
+        acts += ["click:#go2", "expect:#trouble", "shot:F08-refused-at-the-gate"]
+        return acts
+    acts += [
         # H1 (lap 7) — the gate card: F08 is the READ-BACK (nothing written yet), #ok1 founds; F09 records
         # the in-place receipt / the arrival at s4. The owed "s3 photo stop" retires by name here.
         "click:#go2", "shot:F08-read-back",
@@ -1285,6 +1295,13 @@ def selftest():
                        "dead-credential", "no-credential", "another-estates-valid-token",
                        # ⭐ J0: nothing at the door, and the walk signs up and founds (2026-09-10)
                        "open-signup"}
+    _box = journey_founding(dict(A, line1="PO Box 417"), "https://x/onboarding/")
+    check("a BOX address walks J0 to the gate's refusal and STOPS — no #ok1, no ranking, nothing after",
+          "shot:F08-refused-at-the-gate" in _box and "click:#ok1" not in _box and "click:#go5" not in _box
+          and "expect:#trouble" in _box,
+          "the refusal walk must not continue past the gate (strict@qa, 2026-09-10: 5 false failures)")
+    check("a NON-box address still founds through #ok1",
+          "click:#ok1" in journey_founding(A, "https://x/onboarding/"), "the founding path lost its affirmative")
     check("every arrival named in the library is one this file can produce",
           {j["arrival"] for j in JOURNEYS.values()} <= CREDENTIAL_AXIS,
           "a journey names a credential main() cannot mint")
@@ -1959,6 +1976,10 @@ def main():
         if not readable:
             print("  ⚠️  founding UNREADABLE — the door could not be asked as the person (%s)"
                   % (aft.get("why") or "no answer"))
+        elif not founded and any(x == "shot:F08-refused-at-the-gate" for x in acts):
+            # the box variant: a refusal that minted nothing is the EXPECTED outcome, not a defect
+            record["founding"]["refusedAtGate"] = True
+            print("  ✅ REFUSED AT THE GATE, AS EXPECTED — a box address founded nothing (A8 / closure 10)")
         elif not founded:
             print("  ⛔ NOT FOUNDED — the account resolves to no estate after the walk")
         else:
