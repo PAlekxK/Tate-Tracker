@@ -80,7 +80,7 @@ The 09-10 plan's **PRIMARY falsifier** is: *run the `strict` lens over `J3`, the
 
 ## 0d · What the gate does today, in one paragraph, so the change is legible
 
-`seats()` (`release-gate.py:78`) lists **directory names** under `.private/synthetic-walks/`. `report()` (`:258`) loops those seats, and for each keeps the run at this sha with the highest count of true `CLAUSES` (`:205`), replacing only on **`score > best[0]`** (`:276`) — so **ties break to the earliest run**, which is whichever journey the battery walked first. `[measured, audit §3f]` at `87c7aae` that printed five clean J0 rows while **12 walks failed an action** (11 J8 + 1 J3) at the same sha. The verdict was a function of walk order.
+`seats()` (`release-gate.py:78`) lists **directory names** under `.private/synthetic-walks/`. `report()` (`:258`) loops those seats, and for each keeps the run at this sha with the highest count of true `CLAUSES` (`:205`), replacing only on **`score > best[0]`** (`:276`) — so **ties break to the earliest run**, which is whichever journey the battery walked first. `[measured, audit §3f]` at `87c7aae` that printed five clean J0 rows while ~~**12 walks failed an action** (11 J8 + 1 J3)~~ — ⛔ **CORRECTED: 12 failed ACTIONS across 7 of 22 RUNS**; the 11/1 split reproduces under **neither** predicate. A count without its predicate; audit §3f fixed at `5dea4fcb`. —  at the same sha. The verdict was a function of walk order.
 
 ---
 
@@ -90,7 +90,9 @@ The 09-10 plan's **PRIMARY falsifier** is: *run the `strict` lens over `J3`, the
 
 ## Sequence, so the door's battery runs on the new unit the day the last step lands
 
-**T0 → (T1+T2 as ONE commit) → T3 → T4 → T5 → T7 → T8 → T9 → T20 → T17 → T10 → T11 → T12 → T13 → T14 → T15 → T16 → T18 → T19 → [T6 = Paul] → T21 (the acceptance run).**
+**T0 → (T1+T2 as ONE commit) → T3 → T3b → T4 → T5 → T7 → T8 → T9 → T20 → T17 → T10 → T11 → T12 → T13 → T14 → T15 → T16 → T18 → T19 → [T6 = Paul] → T21 (the acceptance run) → T22 → T23.**
+
+⛔ **CORRECTED 2026-09-11 at lap 8's open — this line dropped THREE ruled steps.** It omitted **T3b** (which `PLAN` §3's own sequence line carries) and ended at T21, leaving **T22/T23** out. `PLAN` §13 **P8 rules the shadow read and the frozen corpus UNCONDITIONAL**, and the plan's STATE-AT-CLOSE names it as item (5) — *what a build window would otherwise rediscover.* It was rediscovered, by the build window, from this line. ⭐ **THE PRECEDENCE RULE, STATED SO IT IS NOT GUESSED AGAIN: §A is the authority on HOW a step is built; `PLAN` §13's RULINGS are the authority on WHETHER a step is in.** A seat's sizing document does not outrank a ruling. **Row T as ruled is 24 steps — T0–T23 including T3b — at ≈28 h + 1 h + 0.25 h of Paul's edit.**
 
 Two ordering constraints are hard; everything else is convenience.
 1. ⛔ **T1 and T2 land in ONE commit with the backfill.** A re-key without the backfill turns 224 historical runs into `journey: None` cells — the gate goes red on lap 4 and lap 5 evidence, and a red that is an artefact of a migration reads exactly like a red that is a finding.
@@ -284,8 +286,8 @@ Two ordering constraints are hard; everything else is convenience.
 
 ## T21 · THE ACCEPTANCE RUN — re-judge lap 7's whole corpus and diff the verdicts
 - **change** — not code. Run `release-gate.py --sha <each of a3beb8d · d7d6c9f · 12912b9 · 87c7aae · bfa3f23>` before and after row T, save both, and diff.
-- **why it is a step** — it is the only act that can say row T landed correctly, and the 09-10 plan's falsifier ③ is written for exactly this. ⭐ **The expected result is knowable in advance, which is what makes it a falsifier rather than an inspection:** `[measured]` at `87c7aae` the gate prints 5 clean seats and **12 walks failed an action at that sha** — after T1 the matrix must show those 12 as failing cells and the gate must **refuse** a sha it previously passed.
-- ⚠️ **A verdict that FLIPS TO RED on a sha Paul already cleared is the correct outcome and must not be softened.** `87c7aae` is deployed; row T does not un-deploy it. What changes is that the *evidence* now says what the battery actually found.
+- **why it is a step** — it is the only act that can say row T landed correctly, and the 09-10 plan's falsifier ③ is written for exactly this. ⛔⛔ **STRUCK 2026-09-11 AT LAP 8'S OPEN — MEASURED FALSE TWICE, ON TWO INDEPENDENT CODE PATHS.** ~~⭐ The expected result is knowable in advance… after T1 the matrix must show those 12 as failing cells and the gate must **refuse** a sha it previously passed.~~ **IT DOES NOT REFUSE.** At `87c7aae`: **22 runs · 12 failed ACTIONS across 7 of them · every failing run has a later CLEAN run inside its own `(journey, lens)` cell.** `report()` keeps the highest-scoring run and a clean run strictly outscores a failing one, so with **T1's tie-break unchanged — which T1 states explicitly — the new gate PASSES `87c7aae`.** ⛔ **This text was the BUILD AUTHORITY's copy and a lane opening §A at T21 would read it as live.** Building toward a refusal means editing the retry semantics T1 preserves on purpose — **the known-answer test corrupting the build it certifies** — and a corruption detector is pre-registered against exactly that commit. ✅ **WHAT REPLACES IT — a test that DISCRIMINATES:** the matrix at `87c7aae` **names every cell, accounts for all 22 runs, and every cell holding a superseded failure says so on its face** (`(J3, mom) ✅ 2 runs · 1 failed action, passing on retry`). *"Does it refuse"* is satisfied by any red, including an over-broad backfill bug, and cannot tell a working row T from a broken one. ⛔ **AND ONE RULING IS OPEN AND PAUL'S:** does a clean retry SUPERSEDE a failing run at the same sha? T1 and T21 answer it oppositely. **Build T1 as written; raise it.** Full record: `.plans/2026-09-11-testing-revamp-PLAN.md` § Falsifier.
+- ⛔ ~~⚠️ **A verdict that FLIPS TO RED on a sha Paul already cleared is the correct outcome and must not be softened.**~~ **STRUCK with the clause above — it does not flip.** `87c7aae` is deployed; row T does not un-deploy it. What changes is that the *evidence* now says what the battery actually found.
 - **CHECK** — the diff is filed in the lap's chronicle; every changed verdict has a named cause. ⛔ **A verdict that changes for a reason nobody can name means the backfill is wrong and row T stops** (falsifier ③).
 - **MOVES CANDIDATE:** no. · **size: 1 h**
 
@@ -458,7 +460,20 @@ Both rows land in the same three files. Here is what row H must **re-check** aft
 
 # G · WHAT PAUL MUST STILL RULE — named, not answered
 
-⛔ **I am not resolving any of these, and row T does not stall on any of them (§D).**
+⛔⛔ **ALL SIX WERE RULED ON 2026-09-11, AFTER THIS SECTION WAS WRITTEN. READ COLD IT RE-RAISES SETTLED QUESTIONS TO A MAN WHO IS AWAY** — flagged by the row-T build window at lap 8's open, which found four; checked against `PLAN` §13 here, it is **all six**:
+
+| §G item | ruled by | ruling |
+|---|---|---|
+| **1 · S8** pilot walk | **P12** | **IN** — a CYCLE-MAP beat edit Paul makes with T6 |
+| **2 · S9** ranked lab household | **P12** | **IN** — scoped beside row T (L8-P1) |
+| **3 · S12** when a lens reads | **P4** | **one pilot read per non-final candidate, lens named by Paul at beat 6; the full list at the final sha** |
+| **4 · J2** re-scope or retire | **P3** | **RE-SCOPED** to *"returning, founded nothing"*, not retired |
+| **5 · S16** the stop rule | **P11** | **two classes + a one-hour wait** |
+| **6 · S17 / webkit / cell list** | **P17** | 429s **declared in the coverage line** · WebKit **installed** · cells live at `cycle/release/cells/` |
+
+⭐ **This is the reachability shape this corpus records repeatedly, pointed the other way:** not a capability the loop cannot reach, but a **question the loop cannot tell has been answered.** A seat's *"what Paul must rule"* list has no mechanism that closes it when he rules, so it stays open-looking forever and spends his attention twice. ⛔ **A ruled item is struck WHERE IT WAS ASKED, never only where it was answered.**
+
+~~⛔ I am not resolving any of these, and row T does not stall on any of them (§D).~~ *(True when written; all six are now closed.)*
 
 1. **S8 · Does a pilot walk precede the four?** One walk per **changed** journey before the other four. `[audit §3b, M2: ≈11 walks, 12 min in lap 7]` It is a beat, so the CYCLE-MAP wording is his.
 2. **S9 · A ranked household at lab, loaded headless before any freeze.** `[audit M1: would have removed battery A entirely + battery B's J0×5 = 10 walks and one of three batteries — the highest-value item in the audit]` It sits between row T and the engine manifest and belongs to neither yet.
