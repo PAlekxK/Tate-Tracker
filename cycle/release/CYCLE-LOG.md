@@ -3093,3 +3093,33 @@ under the open door) — it needs a found step first; founded by hand via `POST 
 
 **Beat 8 next:** J0 · J2 · J3 · J8 × five seats at qa, `--watch`, 414 × 848 × A+ → the content read
 `.content/walks/d7d6c9f-walk-read.md` (every seat named) → `release-gate --sha d7d6c9f`.
+
+### Lap 7 · BEAT 10 — a FAILURE re-enters beat 8 · `~4:45 AM ET 2026-09-11`
+
+**Battery STOPPED after J0 × 5 at `d7d6c9f`; nothing fixed under it.** Two findings:
+
+**F1 · PRODUCT DEFECT (row C, the lane's own):** the app page at qa **throws at init on every RANKED household** —
+*ReferenceError: Cannot access 'MetricsCollector' before initialization* (owner · mom · wide-eyed: 2 PAGEERRORs each;
+handover clean because it ranked nothing). Mechanism: `renderDashboardStrip()` runs at init (`viewer.html:20149`) BEFORE
+`const MetricsCollector` (`:20235`); C2's emit inside `renderEmptyCards` guards with `typeof MetricsCollector`, and
+`typeof` on a `const` in its temporal dead zone THROWS. ⭐ **The lab headless load was GREEN because the tracked Fernwood
+build has no ranking, so the branch never ran** — a green that is evidence about something else, on the very check built
+to catch the 09-06 corpse. Consequence: **0 metrics batches for those walks — the corpse signal, live at qa.** Fix
+(template only, one sha): a safe accessor for every emit rows C/A added · a pending queue flushed at the observer-wiring
+site so the first-render auto-open is RECORDED · `card_order_served` fallback unconditional there. Falsifier: a J0 for a
+ranked seat at qa with zero pageerrors AND `read-glance-order --env qa` printing a served order + an `auto-ranked-empty`
+open. **Coordination adds:** the lab proof must exercise a RANKED load, or lab stays green about the wrong thing.
+
+**F2 · NOT A DEFECT — the product did the right thing and the harness scored it wrong:** strict's fixture address IS a PO
+box, and A8 **blocks at submit exactly as ruled** (box refused, field marked, one sentence, nothing written, the circle as
+the next move; NOT FOUNDED, no `est-` minted — A8's own check passed). But J0's action list continued to `#ok1` → 5
+timed-out actions → gate ① would refuse strict on `no-failed-actions` **for the product refusing correctly**. Ruled (a):
+`journey_founding` branches on the seat's own answers — a box address gets the REFUSED-AT-THE-GATE variant (F08-refused,
+stop, `founded` expected false); strict's J0 IS the refusal walk.
+
+**Ruling (coordination, beat 10's owner):** fix both now · re-prove at lab with a ranked load · **new sha** · beat 4
+re-recorded at it · redeploy qa · **restart the FULL battery from zero tonight**. Condition: a SECOND product defect stops
+the battery and holds for Paul. Fixtures founded at qa by the stopped battery (never real homes): `est-kxfhht` (owner) ·
+`est-t3h0gl` (mom) · `est-puvevs` (wide-eyed) · `est-bvqzw3` (handover); strict founded nothing. **Register notes
+queued:** the walk-capture line *"/api/onboarding-metrics has no GET (worker.js:3296)"* is stale text — the GET exists
+below the auth gate; the tool has no qa token.
