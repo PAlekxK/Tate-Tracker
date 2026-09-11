@@ -4883,6 +4883,8 @@ it look hard enough to find the second.**
 `7710b4ff` — `cycle/release/lenses.json` (new, the declared tiers) + `release-gate.py`. **selftest 31/31**, all
 five frozen verdicts unchanged, corpus frozen, tree clean. **4 of 24.**
 
+⚠️ **CORRECTION to this window's own tally, caught by the build window:** coordination recorded `87c7aae` as **✅**. It is **🟡 with exit 1** — *every CELL passes, the content clause is green, the UX clause is UNFILED* — **so it is NOT a bare pass.** ⭐ **The distinction is the gate's own**, between *"the gate passed"* and *"every cell passed but the artifacts are not filed"*, and blurring it in the chronicle would undo exactly the legibility this row is installing.
+
 ⭐ **practice-steward pre-registered this step's trap at the lap's open:** *"if T3b goes green on its first run
 against a corpus that predates tier recording, it is matching the container, not the payload."* **Tested here,
 and it does not:**
@@ -4897,3 +4899,45 @@ and it does not:**
 ⛔ **So it reads UNCHECKABLE-WITH-REASON, never a false green** — the same posture `instrumented` now takes, and
 the posture the whole row exists to install: **a permanent 🔴 and a real failure must not print the same, and
 neither may an unverifiable claim and a verified one.**
+
+### T4 LANDS — 6 of 24 — and coordination RULES ON A DELIBERATE SPEC EXCEEDANCE
+
+`19f623f3`, `tools/walk-integrity.py` only (+116/−8). **selftest 11/11** (its own suite, a different file),
+`release-gate` still green, **five frozen verdicts unchanged, corpus frozen.**
+
+**The measured result: over 141 countable runs the effective observation count moves 8 → 23.** ⭐ The old unit was
+**right about the half it measured** — four seats typing the same answers are one observation wearing four names —
+**and it collapsed across JOURNEYS too:** five lenses typing one fingerprint through J0, J3 and J8 counted as
+**ONE** observation while the product was exercised **three ways**. ⛔ **Under-counting coverage is the same class
+of error as over-counting it** — both make the number unusable for **attributing a finding**, which is the only
+thing it is for. **Zero countable runs group under UNKNOWN**, so 23 is *reliable* rather than merely larger.
+
+#### ⛔ THE EXCEEDANCE, FLAGGED BY ITS AUTHOR RATHER THAN DISCOVERED — and it is ALLOWED
+
+`answers_fingerprint()` is the **raw typed record joined in clear** — `place|line1|city|state|zip` — and
+`report()` **printed it in full** whenever two seats shared an input. T4's spec did not ask for that to change.
+**It changed the DISPLAY to a 12-char digest plus WHICH FIELDS matched. Presence, never value.**
+
+**Verified here:** `walk-integrity` output now carries **0 raw `place|line1|city|state|zip` patterns** and **25
+digest forms**. **`answers_fingerprint()` ITSELF IS UNCHANGED** — it is a dict key compared only for equality, so
+altering its return would have moved grouping semantics; only the display moved, and the grouping change is the
+separate, specified one (`fingerprint` → `(journey, fingerprint)`).
+
+✅ **COORDINATION'S RULING: IT STAYS.** Three reasons, and the first is the one that decides it:
+
+1. ⭐ **It is a defect in the exact reader T4 rewrites — row T fixing row T**, the same class as T14's
+   `mkContext` extraction, which is already accepted on that ground. **It is not new scope.**
+2. ⛔ **The alternative is knowingly leaving a leak in a reader whose output is quoted into
+   `lap-8-RELEASE-EVIDENCE.md` BY CONSTRUCTION.** Coordination named that reason itself, about a different
+   artifact, three exchanges earlier — **it applies here with more force, because this reader's values are the
+   typed record.**
+3. **It is display-only, independently revertible, one contiguous block, and named in the commit.**
+
+⭐⭐ **AND THE WAY IT WAS RAISED IS THE PART WORTH KEEPING.** Its own words: *"'do not bundle unrequested changes
+into a task' is a standing rule and I broke it on purpose, which is different from breaking it by accident and
+should be visible either way."* ⛔ **A deliberate, flagged, revertible exceedance with its reasoning attached is
+not the failure that rule exists to prevent** — that rule exists to stop *silent* scope drift. **Paul may
+overrule; the record makes that possible in one command.**
+
+⚠️ **Scoped honestly:** the values are **synthetic today**. This matters for the same reason R3-2 does — **at the
+H1 human cell they are Paul's own.**
