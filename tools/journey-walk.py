@@ -697,7 +697,10 @@ def journey_lifecycle(answers, origin=""):
         "click:#signout", "expect:#signout-confirm", "shot:L05-confirm-inline",
         "click:#signout-yes", "shot:L06-signed-out",
         # L07 · identity keys gone, the text size kept, no "Signed in as", the SIGNED-OUT lede (not the broken-link one)
-        'eval:(function(){var gone=["fw-grant","fw-username","fw-onboard-step","fw-onboard-name","fw-onboard-addr","fw-onboard-parts","fw-onboard-owner","fw-onboard-interests","fw-onboard-contact","fw-onboard-coords","fw-accent","fw-profile-accent","fw-journal-name"].every(function(k){return localStorage.getItem(k)===null;});var kept=(localStorage.getItem("fw-text-size")||"")===(sessionStorage.getItem("l7-textsize")||"");var lede=(document.getElementById("si-lede")||{}).textContent||"";return gone&&kept&&!/isn\u2019t working|isn\'t working/.test(lede)&&/signed out/i.test(lede)&&!document.querySelector("#who:not([hidden])");})()',
+        # ⚠️ `fw-accent` is NOT in the gone-list on purpose: sign-out clears it, and the door then re-seeds the
+        # default swatch colour on load (a default she can see is a choice until she changes it) — measured at
+        # lab 2026-09-10; asserting its absence scored the product's correct behaviour as a failure.
+        'eval:(function(){var gone=["fw-grant","fw-username","fw-onboard-step","fw-onboard-name","fw-onboard-addr","fw-onboard-parts","fw-onboard-owner","fw-onboard-interests","fw-onboard-contact","fw-onboard-coords","fw-profile-accent","fw-journal-name"].every(function(k){return localStorage.getItem(k)===null;});var kept=(localStorage.getItem("fw-text-size")||"")===(sessionStorage.getItem("l7-textsize")||"");var lede=(document.getElementById("si-lede")||{}).textContent||"";return gone&&kept&&!/isn\u2019t working|isn\'t working/.test(lede)&&/signed out/i.test(lede)&&!document.querySelector("#who:not([hidden])");})()',
         "shot:L07-the-door-signed-out",
         # L08 · the bare origin, cold: the DOOR, not the invitation-link empty
         'eval:(function(){try{localStorage.clear();}catch(e){}return true;})()',
