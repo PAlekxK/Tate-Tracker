@@ -4219,3 +4219,89 @@ four that exist only because of this audit:
 found in lap 9 **by any means other than the gate** — Paul's walk, a reading seat, a hand check — then the
 synthetic battery was insufficient as release evidence for a gate-building lap, and the next such lap needs an
 **independent reader.**
+
+### ⭐⭐ BOTH OF COORDINATION'S GATES TO PAUL ARE ANSWERED BY MEASUREMENT — neither needed his word · 2026-09-11
+
+The brief §5 named two things to put to Paul as question · recommendation · alternatives. **Both were questions a
+measurement could answer, and asking him would have spent his attention on work an instrument could do.** He is
+away and asked for independence to his gate; each is recorded here with what was measured and what still is not.
+
+#### 1 · 🔴 → ⚪ THE WEATHER RECORDER — re-recording RECOVERED EVERYTHING, so it was NOT an outage
+
+The two honest resolutions were *re-record (idempotent)* or *acknowledge a genuine outage with the evidence that
+re-recording recovered nothing.* ⭐ **Running the idempotent one IS the evidence that decides between them**, so
+the gate became a measurement.
+
+| | |
+|---|---|
+| before | **123 days**, newest **2026-09-06** (5 d stale) — and 09-06 itself **SHORT: 128 records vs a ~281 median** |
+| after | **127 days**, newest **2026-09-10**; 09-06 replaced at **281** |
+| added | 09-07 · 09-08 · 09-09 · 09-10 — **281 records each, a full day every time** |
+| removed | **NONE** — verified against a pre-run copy |
+
+⭐ **The station had the data the whole time. Only the WRITER stopped.** That falsifies the outage branch, and it
+is why **the ack file was NOT touched** — adding a date there would have recorded an outage that did not happen,
+turning the registry into the thing it exists to prevent. ⭐ **And the probe got SHARPER as it cleared** — 🔴 five
+days stale → 🟡 naming 09-06 as a short day **with the exact command** → ⚪ green. The short day is the failure's
+shape: **the recorder died part-way through 2026-09-06 and never ran again.**
+
+⛔ **Two things this does NOT fix, named rather than left implied:** (a) **WHY it stopped is UNKNOWN** — it runs
+every 6 h from `record-weather.yml` and holds no credentials by design; `gh` is not on PATH in this session so
+**the Action's run log was NOT read — UNMEASURED.** The 08-08 incident had this exact shape: the workflow failed
+every 6 h for four days while the dashboard stayed green, *because a break in the recorder is invisible from the
+front end.* (b) ⛔ **THE REPAIR DOES NOT REACH MOM.** She reads `legacy`, served by Pages from **`origin/main`**;
+this is on **local** main, and lap 8's standing guardrail is *never push `origin/main`*. **Her weather card still
+reads the gap until Paul rules on that push.** A commit is not a ship, and neither is a push to the wrong ref.
+
+#### 2 · ⛔ THE DOOR/LOCKOUT PRECONDITION ON ROW B — DE-ESCALATED, on two independent readings
+
+The brief carried this as *"two independent instruments reading the same lockout shape at both her surfaces."*
+**Read at the record, it is the opposite shape**, and the brief's own framing pointed the wrong way.
+
+**(a) The register/store divergence at `home` runs the OTHER DIRECTION.** §5·3 described *"a credential live in
+the register and absent from the store."* Measured, `est-e6696a` holds **1 account and 1 grant**:
+
+- account **`marguerite`** — `p-nezjzeaotlk` · **2026-09-10T16:24:19.442Z** · `member` · place *'Fernwood'*
+- grant **`c842311d`** — the **SAME** `p-nezjzeaotlk` · **2026-09-10T16:24:19.382Z**, 60 ms earlier
+
+**An account and a grant holding the same personId, written 60 ms apart. That is the shape of a SUCCESSFUL
+SIGNUP, not a lockout.** The DIVERGENT flags say the *local register* does not know that personId — **because the
+product minted it server-side**, which is what happens when a real person signs up. ⭐ **And the credential that
+IS gone explains itself:** `p-b91e4d` (grant `1c152afa`) went missing **22 h ago**, and her account was created
+**22 h ago at 16:24:19Z = 12:24 PM ET 2026-09-10** — the timestamp the chronicle already records for it. **A
+signup SPENDS an invite** (`worker.js:513`). ⛔ The tool itself refuses to choose between *spent* and *revoked*;
+**the timing correlation does.** The `p-b91e4d, p-paul` 404 note carries its own caveat verbatim: *"this is
+'absent here', not 'does not exist'."*
+
+**(b) ⭐⭐ THE DISCRIMINATOR: `signin_failed` IS ZERO AT BOTH OF HER SURFACES, AND THE COUNTER IS DEMONSTRABLY
+LIVE.**
+
+| env | door_failed | `signin_failed` | `unknown-or-other-estate` |
+|---|---|---|---|
+| **`home`** | 42 | **0** | **42** |
+| **`legacy`** | 227 | **0** | **227** |
+| `qa` | 103 | **32** | 70 |
+| `lab` | 41 | 6 | 35 |
+| `paul` | 1 | 0 | 1 |
+
+**Every single door failure at both of Mom's surfaces is `unknown-or-other-estate` — the shape of traffic
+arriving at a door for an estate it cannot resolve, which is what probes and synthetic walks produce. Not one is
+a sign-in that failed.** ⭐ **And the zero is meaningful rather than a dead counter: the same field reads 32 at
+`qa` and 6 at `lab`**, where synthetics actually drive sign-ins. **The instrument that would register a person
+failing to get in is live, and it reads zero at both surfaces she uses.**
+
+⛔ **What this does NOT establish, and row B's gate STANDS.** *A door record carries `personId: null` by
+construction*, so **none of this names her** — it is evidence about a door, not about a person, and the honest
+claim is *"the record shows no failed sign-in at her surfaces"*, never *"she can get in."* **The deterministic
+proof is still an actual door test before her row migrates**, and B's gate remains **Paul's word at the act.**
+What changed is the **urgency and the direction**: this is no longer *"two instruments agree someone may be
+locked out"* — it is *"two instruments agree the lockout shape is not present at her surfaces."*
+
+**(c) ⚠️ AND AN INSTRUMENT DEFECT FOUND WHILE READING IT — `watch-door`'s headline is arithmetically broken.**
+It prints *"1 reached the door and 0 got through — **-41** did NEITHER open nor fail, which is the silent case"*
+at `home`, **-226** at `legacy`, **-58** at `qa`. **A negative count, printed as if it were a fact about the
+world.** The silent case is derived as reached − opened − failed and goes negative whenever `door_failed >
+door_reached`, which is the normal state at every env measured. ⭐ **The reading the tool exists for is exactly
+that silent case** — *"someone arrived and neither got in nor reported a failure"* — so **its headline number is
+unusable at four of five environments and has been since it was built.** Not fixed here (row T owns the harness
+this lap); **recorded so it is not read as evidence.** ⛔ **A count that can go negative is not a count.**
