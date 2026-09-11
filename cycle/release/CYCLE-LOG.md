@@ -3490,3 +3490,7 @@ in to your place."*, onboarding:~1200) exists and was not reached, because sign-
 Register (lap 8's copy/flow pass): a post-sign-out marker (rostered key) so the door leads with SIGN IN and the signed-out
 lede renders; and *"on any phone"* is the same device-noun slip as step 1. For tonight: *I've been here before* is the
 sign-in.
+
+**Paul's walk · step 2, setting up `pkirsch-qa` · 2026-09-11 09:24 EDT** — *"I like the little note when you put in the email address to
+recover."* The contact-step copy confirmed earlier tonight (the address is what recovery runs through; §3e·R) reads well to
+its first real reader. A positive reading for the content read's record, not only the stops.
