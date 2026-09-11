@@ -3969,3 +3969,35 @@ Migrating a row whose credential the store may not hold would move a lockout, no
   `homes/index.html:37` · `settings/place/index.html:31` · `settings/account/index.html:36`). And **it did not scan
   `viewer.html`** (excluded by design), so per CLAUDE.md this covers five static pages and **says nothing about the app.**
 - ✅ `watch-activity` 5 envs 0 unreadable · `release-state` ARMED beat 11/12 owner paul · 🟡 `qa-behind` 65 commits.
+
+### ✅ THE BACKLOG WINDOW IS CLOSED — `1e2498c7` · and THE LAP-8 OPEN BRIEF IS WRITTEN · 2026-09-11 10:23 EDT
+
+**Backlog window, closed.** Three commits, `BACKLOG.md` and its own brief only, `--only` every time, nothing pushed.
+**CARRIED at `31f806c6`:** TIER 1 · **60–69** — §10.A's twelve chronicle lines read IN CONTEXT and filed as rows, not
+restated (60 `check-telemetry` has no `--env` · 61 the three A/H deviations · 62 two lab-fixture facts · 63 six cross-seat
+findings, **the box-only founding path flagged as needing PAUL'S RULING, not a fix** · 64 the two `ranked` record shapes +
+the bare-id renderer · 65 the device noun + post-sign-out marker · 66 lap 7's qa fixtures for the stamp row · 67 **Mom
+parked** · 68 UR-§7c as legibility). **CARRIED at `09661e38`:** § **PW · PAUL'S WALK, PW1–PW11**, plus TIER 1 · **70** for
+SEC-R4-1 (measured 0 hits **before** the write). **PARKED with §12 written so nothing rests on a transcript:** UR-§7a ·
+SIZ-0c · SIZ-T18 · MP-0 unfiled; TIER 2 · 22's correction unmade and its three "done" items unverified; the two-lap queue not
+regenerated.
+
+⭐⭐ **AND A LESSON IT PAID FOR, which is now a guardrail in the lap-8 brief.** Its row 69 described the CLAUDE.md A+
+contradiction; `eea77381` struck the paragraph **in the gap between its verification and its commit**, so it shipped a row
+describing a defect already fixed. It **struck the row as CLOSED rather than deleting it**, because the lesson outranks the
+row: **the brief's "one-hour half-life" for a `file:line` measured UNDER TEN MINUTES with three windows on one tree.** The
+rule, applied to its own second commit and carried forward: **re-read the file you cite immediately before the COMMIT, not
+only before the edit.** ⚠️ Its `PW3`–`PW6` labels are **inferred and say so** — the chronicle numbers W1, W2 and W7–W11 and
+then refers to *"W1–W6"* without numbering the middle four; the content is transcribed exactly. **Move the labels, never the
+content.** And `check-backlog-ready`'s exit 1 **is not the backlog** — every complaint is a `.plans/` header on the two plans
+landed mid-session.
+
+**THE LAP-8 OPEN BRIEF: `handoff/handoff-lap8-open.md`** (14.6 KB, verified non-empty, stamped from `date`). Lap 8 opens in a
+**FRESH window on ROW T ALONE**. Its §5 carries the four things that must be handled at or before the open: **the two plans'
+filing failure** · **J3 refused for all five seats while sitting in the cell list three times** · **the door/lockout
+precondition on lap 8 · B** · **the weather recorder**. Its §7 carries every ruling Paul made today so none is re-asked, and
+names the **beat-9 gate-kit edit (TIER 1 · 25) as the incoming window's**, deliberately not made here.
+
+**Windows at this close: NONE.** Coordination (this window) closes after Paul's word; the revamp window closed at
+`e73d5098`; the backlog window at `1e2498c7`; build and the lap-7 coordinator closed earlier. **The next window is opened
+from the brief, and PAUL GRADES ITS READBACK** — the writing window will not be live.
