@@ -1,0 +1,524 @@
+{
+ "_what": "T0 corpus freeze for lap 8 row T. The five frozen shas' transcripts, content-hashed.",
+ "_falsifier": "If this manifest can be REGENERATED after a battery run and still match, it is keyed on the wrong thing. It is keyed on (a) the exact run set per sha and (b) sha256 of each transcript.json \u2014 a new run at any frozen sha changes runCount and fails verification; an edited transcript changes its hash.",
+ "_verify": "python3 tools/verify-corpus-manifest.py  (T0; re-run by every acceptance run at T21)",
+ "generatedAt": "2026-09-11T11:35:41-0400",
+ "generatedAtSha": "768d128e9a55e5b320e66292cb1472ba54619958",
+ "shas": [
+  "a3beb8d",
+  "d7d6c9f",
+  "12912b9",
+  "87c7aae",
+  "bfa3f23"
+ ],
+ "runCountPerSha": {
+  "a3beb8d": 3,
+  "d7d6c9f": 5,
+  "12912b9": 15,
+  "87c7aae": 22,
+  "bfa3f23": 5
+ },
+ "runCount": 50,
+ "runs": [
+  {
+   "sha": "12912b9",
+   "seat": "handover",
+   "run": "2026-09-11T000407",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "handover",
+   "failedActions": 0,
+   "sha256": "d17093069be30624dbfe408547682a153039dbdf965bf8ef3dabb8585220109b"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "handover",
+   "run": "2026-09-11T001013",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "handover",
+   "failedActions": 0,
+   "sha256": "2814d5216359dbe9daeae3664cd47d6c5ad54dbcddceecbbc642660ba9ed8976"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "handover",
+   "run": "2026-09-11T001619",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "handover",
+   "failedActions": 5,
+   "sha256": "5b1f27fa00c822b921e2a106db5541fec549abb4b1a3ad17085026769f59706c"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "mom",
+   "run": "2026-09-11T000113",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "mom",
+   "failedActions": 0,
+   "sha256": "d923cee20608632d80736d9dfe6c15de55572ceaac297e548b7005d1814bd618"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "mom",
+   "run": "2026-09-11T000830",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "mom",
+   "failedActions": 0,
+   "sha256": "102c8c49f79272e63222518360d07453cebe1cf20b7de7c94b243c7dcfdafa9b"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "mom",
+   "run": "2026-09-11T001218",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "mom",
+   "failedActions": 5,
+   "sha256": "6ab7c8fc48a827e6ad0da74fa1942598c4b8d9d3fc04e544cc79c5a7d26f2730"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "owner",
+   "run": "2026-09-10T235936",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "owner",
+   "failedActions": 0,
+   "sha256": "84f19504cf0821e9102febf122fea510ad49bfae25c13be0354720ddbe5e23df"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "owner",
+   "run": "2026-09-11T000756",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "owner",
+   "failedActions": 0,
+   "sha256": "dac157c6b86ce67cbeb659688d13f130f282e52d1519b3d273d7b16b12376dab"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "owner",
+   "run": "2026-09-11T001102",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "owner",
+   "failedActions": 0,
+   "sha256": "c1330d9d3ace3c0a028e3ca7a6de1c67720eebc7ece6d7c06c77d8c037f3be11"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "strict",
+   "run": "2026-09-11T000215",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "strict",
+   "failedActions": 0,
+   "sha256": "0fa6133459edbb26e4cfc91c7c321a6b5d1026c900c19c066a2b9027c2a72f46"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "strict",
+   "run": "2026-09-11T000904",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "strict",
+   "failedActions": 0,
+   "sha256": "88e30899ebd0c7039482310aec429bf4384de9e16349a38e792c3b08076910a8"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "strict",
+   "run": "2026-09-11T001340",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "strict",
+   "failedActions": 1,
+   "sha256": "1da4d133b460d0fde2c3aa259ef98f635243cd5874f1a6ee3c666f23ccf24998"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "wide-eyed",
+   "run": "2026-09-11T000302",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "wide-eyed",
+   "failedActions": 0,
+   "sha256": "d647ee4e219a49832eb491b9e70befaa6cdc0e5c2d8c78729fa7f4b1d12b1c46"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "wide-eyed",
+   "run": "2026-09-11T000939",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "wide-eyed",
+   "failedActions": 0,
+   "sha256": "1e70213e8615c85882dd66aceb8724d070b6f7906cd61fca01ac0399af651818"
+  },
+  {
+   "sha": "12912b9",
+   "seat": "wide-eyed",
+   "run": "2026-09-11T001456",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "wide-eyed",
+   "failedActions": 4,
+   "sha256": "c2415ecdcc5c1caef5b88df808fccae6d498de3a6d3a6662801e3a8f75905b25"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "handover",
+   "run": "2026-09-11T083249",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "handover",
+   "failedActions": 0,
+   "sha256": "7538dc8b72f10bf5b8b2197b4d271a3369121a661246210eb46de3b4c380d31b"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "handover",
+   "run": "2026-09-11T083717",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "handover",
+   "failedActions": 0,
+   "sha256": "34712b2501b0c92e4bc568db4b954cb090654232da820dae26fa1012d94e9a5b"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "handover",
+   "run": "2026-09-11T084406",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "handover",
+   "failedActions": 1,
+   "sha256": "6e5a6a5b2148fc2a3239a632de46ce7bdb5409551e85db8e07d95e5acee7bf96"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "handover",
+   "run": "2026-09-11T085158",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "handover",
+   "failedActions": 0,
+   "sha256": "718301f499003c54efa32645a043e1a1d7a1a780688bf844fa967908a82eb3f5"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "mom",
+   "run": "2026-09-11T082952",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "mom",
+   "failedActions": 0,
+   "sha256": "2bce495e890988b8cf3afb79514a14ef0442f605fa86ce06804a1cc5ea6dd4d2"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "mom",
+   "run": "2026-09-11T083445",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "mom",
+   "failedActions": 0,
+   "sha256": "4ec2b8cb1e2a9dd2850732e1c53841c1753da6e86c5621a83da3224c08ca2be6"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "mom",
+   "run": "2026-09-11T084015",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "mom",
+   "failedActions": 1,
+   "sha256": "21d433c0ed7c583146a14a2f692bce9638dafb0eead1ae399da80f47cbf616b7"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "mom",
+   "run": "2026-09-11T084800",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "mom",
+   "failedActions": 0,
+   "sha256": "dd225b2b7a73ca44fbc76797ba8562fc4bfcc92e6f34056a5124524d9bd87e9a"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "owner",
+   "run": "2026-09-11T082846",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "owner",
+   "failedActions": 0,
+   "sha256": "0a7c753ec4a0f9f00de7bf372a7ae5f43b568ed376d70dfd30db0cd879a890da"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "owner",
+   "run": "2026-09-11T083409",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "owner",
+   "failedActions": 0,
+   "sha256": "8f832ef219c31473b4aa1a2d42637d02a0f2c1d07a6ef2efc2af856277423cd1"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "owner",
+   "run": "2026-09-11T083859",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "owner",
+   "failedActions": 1,
+   "sha256": "d391d809e989d498303362ed7c21d35d65a7e844e2dd6b4a913dcc3ad7bf4b6e"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "owner",
+   "run": "2026-09-11T084622",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "owner",
+   "failedActions": 2,
+   "sha256": "1709a763b93837d733fd670232db99b24fa0a4418d2ef30416c65e816709d480"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "owner",
+   "run": "2026-09-11T085347",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "owner",
+   "failedActions": 0,
+   "sha256": "93c45cda1ac6d2f190eb01248455c625d6699ad3d0d5d6581f1f318d1b74ca89"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "strict",
+   "run": "2026-09-11T083055",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "strict",
+   "failedActions": 0,
+   "sha256": "7b9600d44f97733c7a13bb651b0339887ae864d41ed6ab4664a9d97a3cf85e2d"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "strict",
+   "run": "2026-09-11T083519",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "strict",
+   "failedActions": 0,
+   "sha256": "7f287435aec6f5ece157499e5747fe230570bc46b08339d9930ad2260195a268"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "strict",
+   "run": "2026-09-11T084132",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "strict",
+   "failedActions": 1,
+   "sha256": "cf343413e6b419bc317db081c385f40cf1802dd833a027d6e113978891de2719"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "strict",
+   "run": "2026-09-11T084922",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "strict",
+   "failedActions": 0,
+   "sha256": "d5c324d8004a3794edfbdd78c75a6ff556aa3017018087cd0a45d94625039854"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "wide-eyed",
+   "run": "2026-09-11T083143",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "wide-eyed",
+   "failedActions": 0,
+   "sha256": "e94eca26009eb2c023047f42dcb2b8a20e7fb1ad9c415e0b27cd4931e6d553ba"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "wide-eyed",
+   "run": "2026-09-11T083555",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "wide-eyed",
+   "failedActions": 5,
+   "sha256": "1161ebb0f17e91b6f8521e466f3574afa4a5a4945167d10d9eb43251180cdaed"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "wide-eyed",
+   "run": "2026-09-11T083821",
+   "journey": "J3",
+   "journeyEntered": "J3",
+   "lens": "wide-eyed",
+   "failedActions": 0,
+   "sha256": "62a2452c6aa03194734cd145df92553912140aa2be7cf297072cb1cea8ae5fd7"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "wide-eyed",
+   "run": "2026-09-11T084249",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "wide-eyed",
+   "failedActions": 1,
+   "sha256": "cf07cf856dc14fbc29e8211ea0e2f4fdfc0ed8144a558686efb4b577f6352e6c"
+  },
+  {
+   "sha": "87c7aae",
+   "seat": "wide-eyed",
+   "run": "2026-09-11T085040",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "wide-eyed",
+   "failedActions": 0,
+   "sha256": "9909748a5d0f77b748da9784210a42234826986c8191b57332734eafac4c765c"
+  },
+  {
+   "sha": "a3beb8d",
+   "seat": "owner",
+   "run": "2026-09-10T233543",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "owner",
+   "failedActions": 20,
+   "sha256": "86d59e57566c308679dc495b4a05cf442046dcbd5f8f24e6ce6103b0b8d2b8da"
+  },
+  {
+   "sha": "a3beb8d",
+   "seat": "owner",
+   "run": "2026-09-10T233945",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "owner",
+   "failedActions": 0,
+   "sha256": "735c0993d544d4ddb918ab9f2c4b9a08d8a990b8f8a02e648cd490cd259b100b"
+  },
+  {
+   "sha": "a3beb8d",
+   "seat": "owner",
+   "run": "2026-09-10T234206",
+   "journey": "J8",
+   "journeyEntered": "J3",
+   "lens": "owner",
+   "failedActions": 28,
+   "sha256": "552ddcf03532445198bc6669f4586b7f74c38942de90dcde9335fe3917bdcee1"
+  },
+  {
+   "sha": "bfa3f23",
+   "seat": "mom",
+   "run": "2026-09-08T161148",
+   "journey": null,
+   "journeyEntered": null,
+   "lens": null,
+   "failedActions": 0,
+   "sha256": "ff4f94d5a29f6acf2432a01c00b64454c4d97a9301a1eb644900ec7ad96f4764"
+  },
+  {
+   "sha": "bfa3f23",
+   "seat": "owner",
+   "run": "2026-09-08T161314",
+   "journey": null,
+   "journeyEntered": null,
+   "lens": null,
+   "failedActions": 0,
+   "sha256": "f94f0cfaf1a4ba2697c1c7c214b77ed86b559688d476ff877793a834618cd013"
+  },
+  {
+   "sha": "bfa3f23",
+   "seat": "owner",
+   "run": "2026-09-08T161649",
+   "journey": null,
+   "journeyEntered": null,
+   "lens": null,
+   "failedActions": 3,
+   "sha256": "9415882a5c3cf030f0f9fed9654ec60cc685896ffbe3d669161be28c22cf3ba4"
+  },
+  {
+   "sha": "bfa3f23",
+   "seat": "strict",
+   "run": "2026-09-08T161424",
+   "journey": null,
+   "journeyEntered": null,
+   "lens": null,
+   "failedActions": 0,
+   "sha256": "df49a9c7b82ab2e4799e0a71ad4b36a9425666344015fd26dc9d2f927e6d6128"
+  },
+  {
+   "sha": "bfa3f23",
+   "seat": "wide-eyed",
+   "run": "2026-09-08T161532",
+   "journey": null,
+   "journeyEntered": null,
+   "lens": null,
+   "failedActions": 0,
+   "sha256": "d2cac822ee9dc67c0bb1b3a97cbcf48c64147a80f252be62528f1aa18cd68d97"
+  },
+  {
+   "sha": "d7d6c9f",
+   "seat": "handover",
+   "run": "2026-09-10T235236",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "handover",
+   "failedActions": 0,
+   "sha256": "e81ba145bd4a5b3ef61933e2230a0b94482f8dfe680e008fe1d6a2f35f28e04f"
+  },
+  {
+   "sha": "d7d6c9f",
+   "seat": "mom",
+   "run": "2026-09-10T234852",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "mom",
+   "failedActions": 2,
+   "sha256": "0d21a490a286abb14d13a08909541fbac1df062cbaefb766b335f1d4c8d0629e"
+  },
+  {
+   "sha": "d7d6c9f",
+   "seat": "owner",
+   "run": "2026-09-10T234748",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "owner",
+   "failedActions": 2,
+   "sha256": "d7b646fc98d6e5862092d84e4a52c91dbeee6e01ee0d24cd0d5d45a07ad896aa"
+  },
+  {
+   "sha": "d7d6c9f",
+   "seat": "strict",
+   "run": "2026-09-10T234955",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "strict",
+   "failedActions": 5,
+   "sha256": "1889b93450025103d770c16c8fba31c7a7cf40ac7eb1ecd279d1d7d29f2d1752"
+  },
+  {
+   "sha": "d7d6c9f",
+   "seat": "wide-eyed",
+   "run": "2026-09-10T235131",
+   "journey": "J0",
+   "journeyEntered": "J5",
+   "lens": "wide-eyed",
+   "failedActions": 2,
+   "sha256": "32999078e706e74a9705c927997fd657fdb90e51e6c5677356227f8961027404"
+  }
+ ]
+}
