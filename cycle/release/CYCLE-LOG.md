@@ -4001,3 +4001,221 @@ names the **beat-9 gate-kit edit (TIER 1 · 25) as the incoming window's**, deli
 **Windows at this close: NONE.** Coordination (this window) closes after Paul's word; the revamp window closed at
 `e73d5098`; the backlog window at `1e2498c7`; build and the lap-7 coordinator closed earlier. **The next window is opened
 from the brief, and PAUL GRADES ITS READBACK** — the writing window will not be live.
+
+## Lap 8 — 2026-09-11 · 🔓 **OPEN at OPEN (1/12)** — ROW T ALONE: the testing architecture, the lap whose deliverable is the judge
+<!-- outcome:open at:2026-09-11T14:47:57Z -->
+
+Opened at `4011f9fe`, `main`, clean tree, **2026-09-11 10:47 EDT** (from `date`, never authored). Opened by the fresh
+coordination window the lap-7 close handed off to; **the writing window was not live and Paul graded the readback himself.**
+
+### ⭐ THE BEAT-6 TABLE — lap 8's committed scope, in Paul's words. ROW T ALONE
+
+| row | the commitment | ruled |
+|---|---|---|
+| **T** | **the testing architecture — the whole testing package, whole and first** | *"hold lap eight until all this is determined and we have a clear plan… I'd rather not split it up unless there's a really good reason — that's not just time and effort"* `[paul-ruled 2026-09-11]` · and at the open: *"I'm pre-authorizing the commitment to be the whole testing package so you don't need my gate there"* `[paul-ruled 2026-09-11 10:36 EDT]` |
+
+⛔ **That is the whole table.** The door rows (A · B · C · E · F · G · H · riders) join it **only after
+engineering-partner's re-audit** of `.plans/2026-09-11-lap8-build-PLAN.md`, which itself follows **ux-expert's
+closure** of that plan's §10 four surfaces under the account-first ruling. **The scope gate is discharged** — the
+commitment needs no further word from Paul.
+
+**What row T is:** the gate's unit changes from a **folder name** to the **`(journey, lens)` cell**; every journey
+**declares** its routes, pages, whether it should emit app events, and the **arrival state** it must be entered in;
+a re-sha re-runs only what the change can reach and prints the carried-forward pass with byte proof; cells nobody
+walked **print UNWALKED** instead of being absent; and the **tier each reading runs at is declared**, not inherited.
+**21 steps, ≈28 h, and NOT ONE OF THEM MOVES THE CANDIDATE.**
+
+### ⭐⭐ AND A SECOND RULING AT THE OPEN — WHAT THIS LAP'S RELEASE IS `[paul-ruled 2026-09-11 10:36 EDT]`
+
+> *"it'll be more just by you running through the artificial synthetic testing battery and trying everything out —
+> that'll be probably the release for this lap rather than me walking through something live on the website."*
+
+Then, immediately, he commissioned the audit of his own ruling rather than letting it stand unexamined:
+
+> *"Yeah. I mean, definitely do some digging on the release and whether that's the right way to approach it. But I
+> wanna balance, obviously, the fact that I can't directly drive or see some of the testing with waving my hand.
+> But I think you'll be able to do a deep analysis, and then we can do an audit after the lap to see how it went."*
+
+**practice-steward ran it (mode: audit, read-only, sha `3a15d1bf`). Its verdict, and it does not rubber-stamp:**
+
+⭐ **His ruling is RIGHT, and for a better reason than the one given.** Verified against the step table's
+`file:symbol` column: **not one of the 21 steps moves a served page.** At a row-T sha there is nothing for Paul to
+walk that he has not already walked at `87c7aae`. **Standing him down is correct instrument selection, not a
+concession.** *"There'll be a lot of testing"* is the weaker justification and is the one that would mislead,
+because it points at the wrong residual risk.
+
+⛔ **But "the battery is the release" is the structural error, and the correction is precise.** A battery at a
+row-T sha walks **the same product bytes** as `87c7aae`. A green battery therefore proves **the harness still
+runs** — it cannot prove the harness now **judges correctly**, because the product it judges did not move.
+**A judge cannot be tested by a case whose answer it also sets.** The release evidence for this lap is **T21 —
+the re-judgement of five historical shas against a frozen corpus, with no browser in it** — and the battery is a
+legitimate **smoke test** beside it.
+
+⛔⛔ **AND T21 IS OWNED BY NO BEAT.** Beat 8 gates the battery; beat 9 is Paul's walk; beat 11 is his clear. §12·10
+says *"the row is done at T21's diff, filed in the chronicle"* — but **nothing in the beat map reads that file**,
+`release-gate`'s exit code does not depend on it, and `check-release-docs.py` cannot see it. **The lap can close
+green with T21 unfiled, or filed and wrong.** That is this repo's most-recorded shape — *a capability the loop
+cannot reach by running its own procedure* — landing on **the lap's own acceptance evidence.**
+
+### ⛔⛔ THE ACCEPTANCE EXPECTATION IS STRUCK — IT WAS ARITHMETICALLY FALSE, AND IT WOULD HAVE CORRUPTED THE BUILD
+
+**Measured twice, on two different code paths, and they agree.** practice-steward simulated T1 exactly as §3
+specifies it — unit `(journey, lens)`, `report()`'s best-run scope moved from seat to unit, **tie-break unchanged**
+— by calling `release-gate.judge()` itself. The coordination window then re-measured independently over the
+transcripts.
+
+| at `87c7aae` | measured |
+|---|---|
+| runs | **22** |
+| failed actions | **12, across 7 of the 22 runs** |
+| cells holding a failure | every one also holds a **later clean run** |
+| cells that would print RED under *best run wins* | **0** |
+| **the new gate's verdict** | ⛔ **PASSES** |
+
+**So T21's stated expectation — *"the gate refuses a sha Paul already cleared, the correct outcome, not to be
+softened"* — would fire against a CORRECTLY BUILT row T.** And because it is a **published expected answer**, a
+build lane holding it *keeps editing the gate until `87c7aae` refuses* — which means changing the retry semantics
+**T1 preserves on purpose**. ⭐ **That is the known-answer test corrupting the build it exists to certify, and it
+is the single most likely way this lap ends with a gate nobody ruled on.** Struck in the plan at `4011f9fe`,
+**struck and not deleted**, because this corpus's measured failure is that a rejected alternative nobody wrote
+down gets re-proposed.
+
+**Three corrections ride with it:**
+
+1. ⛔ **THE PREDICATE.** The founding evidence reads *"12 walks failed an action (11 J8 + 1 J3)"*. Measured:
+   **12 failed ACTIONS across 7 RUNS**; the 11/1 split reproduces under **neither** predicate. The number is
+   right and its noun is wrong — **a count without its predicate**, this repo's own named class, in the file that
+   founded the row. `.practice/2026-09-11-lap7-testing-cycle-AUDIT.md` §3f is owed the fix.
+2. ⚠️ **THE TWO MEASUREMENTS DISAGREE ON THE CELL GROUPING, AND THAT IS ITSELF A FINDING.** Grouping on the
+   transcript's `journey` gives **15 cells**, failures under **J8**; grouping on `journeyEntered` gives **10
+   cells**, failures under **J3**. **The load-bearing conclusion is identical under both.** But *which field
+   defines a cell* is exactly what **T1's `journey_of()` decides** — so **the matrix's shape is not yet
+   determined, and no cell count may be quoted as fact before T1 lands.**
+3. ⛔ **"`check-release-docs.py` goes RED between T5 and T6" IS INVERTED.** That checker compares three things —
+   beat **count** against `release-state.py`'s `"of"`, named beats ⊆ declared, and beat-12's gating envs. It
+   **reads nothing** about gate ①'s unit, clauses or exit-condition prose. It goes red **when Paul ADDS the S8
+   beat (12 → 13) while `release-state.py` still publishes 12** — that is **after** T6, and it clears by editing
+   `release-state.py`, **not** the map. ⚠️ **A lane told to "expect red and leave it red" will see GREEN between
+   T5 and T6 and conclude T6 landed when it has not.** The plan, §5, and the lap-8 brief §4 all carried the
+   inversion. *Ask what a control is a control OVER.*
+
+**What replaces the struck test — one that DISCRIMINATES.** Not *"does it refuse `87c7aae`"* (satisfied by any
+red, including an over-broad backfill bug that reds every historical cell — it cannot tell a working row T from a
+broken one), but: **the matrix at `87c7aae` names every cell, accounts for all 22 runs, and every cell holding a
+superseded failure says so on its face** — `(J3, mom) ✅ 2 runs · 1 failed action, passing on retry`. ⛔ **Its
+falsifier:** if the gate's face cannot distinguish a cell that passed first time from one that passed on retry,
+**T1 moved the unit without moving the legibility** and the 12 failed actions are merely hidden in a new place.
+
+**Two preconditions the plan did not carry:**
+
+- ⚠️ **THE BEFORE-IMAGE DOES NOT EXIST UNLESS T0 COMMITS IT.** Once `release-gate.py` is edited the old gate is
+  gone, and the obvious workaround **fails silently**: the tool derives its walk root from its own file location,
+  so a git-worktree run at a pre-T sha reads an empty `.private/` and prints `UNCHECKABLE: no seats found`.
+  `.private/` is gitignored — it exists only in the main tree. **Capture the five shas' verdicts at T0 and commit
+  them, or there is no before leg.** T0 today freezes the backfill census only.
+- ⚠️ **THE CORPUS IS MUTABLE AND UNFINGERPRINTED** while this lap's own battery writes into it and a `--teardown`
+  sits in the repo. A committed manifest (per run: sha, journey, lens, sha256 of `transcript.json`) for the five
+  candidate shas, re-verified by every acceptance run. **Falsifier: if it can be regenerated after a battery run
+  and still match, it is keyed on the wrong thing.**
+
+### BEAT 1 — THE SWEEP. All 50 run with output recorded · 33 green · 15 red · **2 NOT MEASURED**
+
+Run by this window, output captured per check to `.private/lap8/NN-<name>.log` + `sweep.json`, 583 s.
+⛔ **UNREADABLE IS NEVER ZERO BY ASSUMPTION**, so the two non-0/1 exits are named rather than folded into a count:
+
+- ⬜ **`walk-founding` — exit 124, TIMEOUT at 180 s. NOT MEASURED, not green.** J0 stays unwalked and clause A
+  stays unprovable; this run says nothing either way.
+- ⬜ **`health-probe --only fernwood` — exit 2.** The weather flag below.
+
+**🔴 The fifteen reds:** `check-arrival-dispositions` · `check-backlog-ready` · `check-canon-scope` ·
+`check-config-derivation` · `check-engine-manifest` · `check-mom-ack` · `instance-recipe` · `post-deploy-home` ·
+`product-steward` · `qa-divergence` · `release-gate` · `seat-portfolio` · `walk-fixtures` · `watch-accounts` ·
+`watch-feedback`.
+
+**⭐ `walk-fixtures` — J3 CONFIRMED, and it is WORSE than the brief said.** Re-measured at the open, and the brief's
+§5·2 understated it: **J3 is refused for all five seats** (`handover` · `mom` · `owner` · `strict` · `wide-eyed`,
+each *"the record refuses it"*) **and so is J8** — the brief recorded J8 as merely *"needs its own credential"*.
+Also **J5** (no seat has an account to sign back in as) and **J6** (no procedure — it needs a second estate holding
+a real credential at the same env, plus a ruling on whether a hostile fixture may be minted at all). **8
+journey-or-seat gaps.** The proposed cell list names **J3 in cells 3 and 4 and J8 in cell 5 — 3 of the 7 buildable
+cells cannot be entered today.** ⭐ **That is good news for falsifier ②:** UNWALKED will print on its first run and
+is **not hypothetical**. ⛔ **Do not write a cell list whose cells cannot run** — repair inside row T, or declare
+them UNWALKED with the blocker named verbatim.
+
+**⛔ A CONTROL THIS LAP DEPENDS ON IS ITSELF BEING EDITED, and *"no step moves the candidate"* does not cover it.**
+`pages-deploy.py:132` invokes `journey-view.py` for the pre-deploy headless PAGEERROR check — the control CLAUDE.md
+credits with stopping a broken build reaching an origin after the 09-06 *"four seats walked a corpse"* incident.
+**T14 rewrites `newContext` (`journey-view.py:63-67`) into the one context factory with three new cfg keys.** So
+*"no step moves the candidate"* is TRUE and is **not the same claim** as *"no step moves anything a release depends
+on."* T21 re-judges the gate across five shas; **it does not re-run the deploy check.** Require one
+`pages-deploy --no-deploy` before and after T14, with the PAGEERROR refusal **proven still able to fire**.
+
+**⚠️ A control that will be amber all lap, correctly and meaninglessly.** `ux_clause()` returns UNCHECKABLE when no
+sweep is filed and `report()` then refuses a bare pass. **At a row-T sha no person-facing surface moved, so a UX
+sweep is genuinely NOT OWED — and the gate cannot say that.** It will print 🟡 and exit 1 for this entire lap.
+Either the coverage line gains a derived `NOT OWED — no person-facing surface moved between <sha> and <sha>`
+(falsifier: if `NOT OWED` ever prints where a served page DID move, it reads the wrong file list and must fail
+closed to UNCHECKABLE), or it stays amber and **the evidence file's scope block says so.**
+
+### ✅ THE TWO PLANS' FILING — FIXED. 19 readiness findings → 2, and both that remain need the backlog door
+
+Brief §5·1, done at `e14162c2`. ⚠️ **The brief named the wrong defect set for one of the two files:**
+`lap8-build-PLAN.md` was missing all five claim keys as stated (cause: the **bolded** header form the parser cannot
+read); `testing-revamp-PLAN.md` **carried all five fine** — its real defects were an unresolvable `objective:`
+parenthetical, the divergence tier hidden inside a parenthetical on the second `·`, seven seats on one line, and an
+annotated `depends-on:` path. **Different files, different edits.**
+
+⛔ **AND A CORRECTION TO THIS CHRONICLE'S 10:23 ENTRY**, which reads *"`check-backlog-ready`'s exit 1 is not the
+backlog — every complaint is a `.plans/` header on the two plans landed mid-session."* **Measured at HEAD: 136
+findings across 38 `.plans/` files**, of which these two were 19. **Fixing them does not make the checker green, so
+its exit code cannot be the done-condition** — read the two files **by name**. *Ask what a control is a control OVER.*
+
+**Both files remain ORPHANS** — no `BACKLOG.md` row points at either. ⛔ **`BACKLOG.md` is the backlog window's ONE
+DOOR** `[paul-ruled 2026-09-10: "fold it in"]` and **coordination routes, never absorbs.** Routed, not written.
+
+### ⛔ OWED TO PAUL — four things, none of them lap 8's build
+
+1. ⛔ **T6'S TWO CYCLE-MAP EDITS ARE HIS**, and they are unmade by design: **beat 8's exit condition** (§5, quoted
+   in the plan, not applied) **and the pilot-walk beat (S8)**. ⚠️ Note the corrected ordering above — the checker
+   goes red **after** the S8 beat lands, not between T5 and T6.
+2. ⛔⛔ **A NEW RULING THE BUILD MUST NOT PICK SILENTLY: does a clean retry SUPERSEDE a failing run at the same
+   sha?** T1 (*tie-break unchanged; within a cell two runs are a retry*) and T21 (*the gate refuses a sha Paul
+   already cleared*) answer it **oppositely, inside one `stage: ready` plan**. Both readings are coherent — *a
+   retry is how "run it until it no longer fails" exits* versus *evidence of a failure at this sha does not expire
+   because you ran it again*. **It is a release-condition judgement and it is Paul's.**
+3. **The door/lockout precondition on lap 8 · B** (brief §5·3) — two instruments read the same lockout shape at
+   both of Mom's surfaces, and ⛔ **neither names a person, by construction**, so this is **not yet a claim that
+   anyone is locked out.** Put to him as question · recommendation · alternatives.
+4. 🔴 **The weather recorder** (brief §5·4) — **re-measured: newest `weather-history.json` entry 2026-09-06, 5 days
+   old, 123 rows**, against a recorder that runs every 6 h. **Her weather card is the one card she demonstrably
+   opens.** Two honest resolutions, both clear the flag: re-record (idempotent), or acknowledge a genuine outage
+   **with the evidence that re-recording recovered nothing.** ⛔ Never add a date to the ack file to quiet a flag
+   nobody has understood. **Outside lap 8's scope; it is about the integrity of the record a real person reads.**
+
+### THE POST-LAP AUDIT — PRE-REGISTERED NOW, BEFORE THE RESULT IS KNOWN `[paul-commissioned 2026-09-11]`
+
+*"we can do an audit after the lap to see how it went as well."* The specification at `:3863-3888` (the monitor's
+question, its **binding method** — git author dates and run-directory mtimes, **never** the chronicle's authored
+stamps — its per-battery columns, its eight new reads, its whole-audit falsifier) is **pre-registered as-is**, plus
+four that exist only because of this audit:
+
+1. **Did T21 discriminate?** Count the five shas whose verdict changed, and whether each change had a cause named
+   **before** the run, from T0's pre-image. **If all five verdicts change, the backfill is wrong and T21's own stop
+   clause fires.**
+2. ⭐⭐ **THE CORRUPTION DETECTOR.** Any commit touching `report()`'s best-run selection or the tie-break **after
+   T21 first ran** is recorded and flagged. ⛔ **Falsifier: if the tie-break moved during the lap and the filed
+   reason is any form of "so that `87c7aae` would refuse", the known-answer test was reverse-engineered and its
+   evidence is void.** This catches the specific failure the struck expectation makes likely — **by a rule written
+   before the lap, not by argument after it.**
+3. **Did any cell ever print UNWALKED?** J3 and J8 are refused for all five seats today, so the first run should
+   print **at least three**. **If zero print across the lap, either the fixtures were repaired without anyone
+   recording it, or the matrix is not reading the declared list.**
+4. ⭐ **THE LEGIBILITY TEST, AND IT IS PAUL'S TO RUN, ONCE.** Hand him `lap-8-RELEASE-EVIDENCE.md` and nothing
+   else. ⛔ **Falsifier: if he cannot answer *"what did this lap NOT test"* from that file alone, without a session
+   in the room, the artifact failed regardless of what the gate printed.** That is the question he actually
+   commissioned, and **it is the only one an agent cannot grade.**
+
+**Whole-mechanism falsifier:** if lap 8 closes green on the battery-as-release and a defect in row T's own gate is
+found in lap 9 **by any means other than the gate** — Paul's walk, a reading seat, a hand check — then the
+synthetic battery was insufficient as release evidence for a gate-building lap, and the next such lap needs an
+**independent reader.**
