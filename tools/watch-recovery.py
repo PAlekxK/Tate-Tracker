@@ -50,7 +50,7 @@ def read_recovery(env, estate):
 
 def summarise(env, estate):
     row = {"env": env, "estate": estate, "result": None, "why": None, "rows": [], "bad": [],
-           "by_day": Counter(), "newest": None, "named_someone": 0}
+           "by_day": Counter(), "newest": None, "named_someone": 0, "signed_in": []}
     try:
         row["rows"], row["bad"] = read_recovery(env, estate)
         row["result"] = "READ"
@@ -62,10 +62,16 @@ def summarise(env, estate):
         ts = r.get("ts") if isinstance(r, dict) else None
         if ts and (row["newest"] is None or ts > row["newest"]):
             row["newest"] = ts
-        # ⛔ the record must name NOBODY. A row that does is a defect in the writer, and it is
-        # reported as one — never printed.
-        if isinstance(r, dict) and any(r.get(k) for k in ("email", "personId", "estateId", "sessionId", "deviceId", "note", "username")):
-            row["named_someone"] += 1
+        # ⛔ an ANONYMOUS request (the door's "Can't get in?") must name NOBODY — a row that does is a
+        # defect in the writer and is reported as one, never printed. A SIGNED-IN request (B9, the
+        # account page) is attributed from a resolved grant and carries the username on purpose: the
+        # administrator has to know whom to reset. `signedIn` is written by the Worker, never by a client.
+        if isinstance(r, dict):
+            if r.get("signedIn") is True:
+                if r.get("username"):
+                    row["signed_in"].append((r.get("ts"), r.get("username")))
+            elif any(r.get(k) for k in ("email", "personId", "estateId", "sessionId", "deviceId", "note", "username")):
+                row["named_someone"] += 1
     return row
 
 
@@ -102,6 +108,8 @@ def main():
               (" · newest %s (%s)" % (r["newest"], ago(r["newest"]))) if r["newest"] else ""))
         for day, c in sorted(r["by_day"].items()):
             print("      %s  %d" % (day, c))
+        for ts, uname in r["signed_in"]:
+            print("      🔑 %s  signed-in request from `%s` — reset goes to the address on THEIR account row" % (ts, uname))
         if r["named_someone"]:
             print("      ⛔ %d record(s) carry a person-naming field — the WRITER is defective; not printed" % r["named_someone"])
         for b in r["bad"]:
@@ -134,7 +142,10 @@ def selftest():
     ck("M0b reads ONLY the recovery channel, not feedback beside it", len(r["rows"]) == 2)
     wire([K], {K: json.dumps([{"id": "rc-3", "ts": "2026-09-11T03:00:00Z", "email": "x@y"}])})
     r = summarise("qa", "est-x")
-    ck("M1 a record naming someone is reported as a WRITER defect, not printed", r["named_someone"] == 1)
+    ck("M1 an ANONYMOUS record naming someone is reported as a WRITER defect, not printed", r["named_someone"] == 1)
+    wire([K], {K: json.dumps([{"id": "rc-4", "ts": "2026-09-11T04:00:00Z", "signedIn": True, "username": "pkirsch", "personId": "p-1"}])})
+    r = summarise("qa", "est-x")
+    ck("M1b a SIGNED-IN record carries its username on purpose and is not a defect", r["signed_in"] == [("2026-09-11T04:00:00Z", "pkirsch")] and r["named_someone"] == 0)
     wire([K], {K: "{not json"})
     r = summarise("qa", "est-x")
     ck("M2 a day that will not parse is BAD, never zero", r["bad"] == [K] and not r["rows"])

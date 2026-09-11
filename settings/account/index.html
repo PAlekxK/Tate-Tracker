@@ -76,6 +76,12 @@
   button.save { font:inherit; cursor:pointer; border-radius:12px; padding:12px 18px; border:1.5px solid var(--accent);
                 background:var(--accent); color:#fff; font-weight:600; }
   .tick { margin-right:7px; }
+  /* lap 7 B8 — the SECONDARY shape: outlined neutral, no ✓. One affirmative grammar everywhere she taps
+     (CLAUDE.md § four standing rules, 1): filled green + ✓ is "yes, do it"; this is the other one. */
+  button.outline { font:inherit; cursor:pointer; border-radius:12px; padding:12px 18px; border:1.5px solid var(--accent);
+                   background:transparent; color:var(--accent); font-weight:600; }
+  .inline-confirm { margin-top:12px; padding-top:12px; border-top:1px solid var(--line); }
+  .inline-confirm button + button { margin-left:10px; }
   .trouble { color:#8a3b2a; margin-top:10px; }
   [hidden] { display:none !important; }
   /* `[paul-ruled 2026-09-06]` the general-feedback bubble: on every signed-in screen, pinned to the
@@ -101,7 +107,11 @@
     <div class="radio"><input type="radio" name="contact" id="c-phone" value="phone"><label for="c-phone" style="text-transform:none;font-size:1rem;margin:0">By phone</label></div>
     <div class="radio"><input type="radio" name="contact" id="c-none" value="none"><label for="c-none" style="text-transform:none;font-size:1rem;margin:0">Please don't</label></div>
     <p class="quiet" id="contactvalue" hidden></p>
-    <p class="quiet" id="nonenote" hidden>I'll keep to that. If you lose your password, email me and I'll sort it.</p>
+    <!-- B10/B16 (lap 7) — was "email me and I'll sort it": the wrong person, and a promise of a reply
+         a no-contact row cannot receive. ⛔ Until Paul rules what §3e·R permits for a row with NO
+         contact value, no surface may say "he'll get you back in" to a please-don't account; this
+         only states the consequence. DRAFT slot, content-steward's. -->
+    <p class="quiet" id="nonenote" hidden>Then he won&rsquo;t. It also leaves Paul no address to write to, so if you ever forget your username or password, email him at paul.kirschenbauer@gmail.com.</p>
   </div>
 
   <div class="card">
@@ -118,6 +128,34 @@
 
   <p><button type="button" class="save" id="save"><span class="tick">✓</span>Save</button></p>
   <p class="trouble" id="trouble" hidden></p>
+
+  <!-- ⭐ B9 (lap 7, closure row 30) — the signed-in twin of the door's "Can't get in?". The request
+       names the USERNAME (the person is signed in, so the record can be attributed from the grant),
+       never the password, and lands on the administrator's own recovery channel — never in the
+       household's feedback stream, which a member can read. ⚠️ Sentences are DRAFT slots, content-steward's;
+       do NOT reuse the door's receipt here — a different reader. -->
+  <div class="card" id="lockedout">
+    <label>If you get locked out</label>
+    <p class="quiet">Paul does the resetting himself. If you can&rsquo;t sign in on another phone, ask from here while you&rsquo;re still signed in on this one.</p>
+    <p><a href="#" id="askreset">Ask Paul to reset my password &rsaquo;</a></p>
+    <p class="quiet" id="askreset-done" hidden></p>
+  </div>
+
+  <!-- ⭐ B8 (lap 7, closure rows 25/26) — THIS PHONE. Sign-out is a DEVICE act: it forgets identity on
+       this phone and nothing else — the place, the notes and the account are the record's, not the
+       device's. TWO TAPS, inline in the same card: a mis-tap here costs a phone call to a human.
+       ⛔ Clears a NAMED allow-list of identity keys, never localStorage.clear(): the A+ text size is
+       an accessibility setting and the measured standard, and it stays; so does every other device
+       preference (rules: CLAUDE.md § 414 × A+). Sentences are DRAFT slots, content-steward's. -->
+  <div class="card" id="thisphone">
+    <label>This phone</label>
+    <p class="quiet">Signing out forgets you on this phone only. Your place, your notes and your account stay exactly as they are, and you can sign back in from any phone.</p>
+    <p><button type="button" class="outline" id="signout">Sign out of this phone</button></p>
+    <div class="inline-confirm" id="signout-confirm" hidden>
+      <p class="quiet">Sign out of this phone?</p>
+      <p><button type="button" class="save" id="signout-yes"><span class="tick">✓</span>Sign out</button><button type="button" class="outline" id="signout-no">Cancel</button></p>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -131,15 +169,42 @@
   var K_GRANT = "fw-grant", K_USER = "fw-username", K_PREF = "fw-onboard-contact",
       K_PROFILE = "fw-profile-accent";
   // ⭐ B1's three states on this screen too: ok · empty · unknown. Two used to render as one.
+  // ⭐ D3/D4's split, THIRD COPY (lap 7 B10): "unknown" was also two states — the fetch THREW (no
+  // network; the credential is fine; do NOT send them to sign in again) and the record ANSWERED 404
+  // (this credential is not known here; the door IS the remedy). Plus "broken" (5xx, Paul's).
   var reach = "fetching";
   function sayReach() {
     try {
       var t = el("trouble"); if (!t) return;
+      // ⚠️ DRAFT slots, content-steward's.
       if (reach === "unknown") {
-        t.innerHTML = "We couldn’t reach your account just now, so what you see is what this device " +
-                      'remembers — not the record. ' + '<a href="/estate/">Sign in again ›</a>';
+        t.textContent = "We couldn’t reach your account just now, so what you see is what this device remembers — not the record. Nothing is lost.";
+        t.hidden = false;
+      } else if (reach === "refused") {
+        t.innerHTML = "This sign-in isn’t working here, so what you see is what this device remembers — not the record. " +
+                      '<a href="/onboarding/">Sign in again ›</a>';
+        t.hidden = false;
+      } else if (reach === "broken") {
+        t.textContent = "Something’s wrong on my side, not yours — what you see is what this device remembers. Nothing is lost.";
         t.hidden = false;
       } else if (!t.innerHTML || t.hidden) { t.hidden = true; }
+    } catch (e) {}
+  }
+  // ⭐ B10 (lap 7, closure row 19) — THE VALUE, SHOWN BACK, in ONE of THREE states and NEVER ABSENT:
+  // the address · none on file · UNKNOWN (the record could not be read). Absent was the defect —
+  // three seats across two builds: "you have my email address and you will not show it to me."
+  // A value with no affordance: display-only this lap [Q1, paul-ruled 2026-09-10]; the editor is lap 8.
+  // ⛔ No link beside it that only sends a message. ⛔ No fw-email storage key is minted — the value is
+  // read from the record on every load, never cached on the device.
+  function sayContact(d) {
+    try {
+      var cv = el("contactvalue"); if (!cv) return;
+      cv.hidden = false;
+      if (!d || d.contactRead === false) { cv.textContent = "On file: unknown — I couldn’t read your record just now."; return; }
+      var parts = [];
+      if (d.email) parts.push("Email on file: " + d.email);
+      if (d.phone) parts.push("Phone on file: " + d.phone);
+      cv.textContent = parts.length ? parts.join(" · ") : "No email or phone on file.";
     } catch (e) {}
   }
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -210,21 +275,20 @@
   // The record is the truth; what the device holds is a cache. Same rule as every other surface.
   if (grant) {
     fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
-      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (r) {
+        if (r.ok) return r.json();
+        reach = r.status >= 500 ? "broken" : (r.status === 404 || r.status === 401 || r.status === 403) ? "refused" : "unknown";
+        return null;
+      })
       .then(function (d) {
         // ⛔ B1 — a null is "we could not ask", never "there is nothing". This screen used to return
         // silently and show the device's cached values as though the record had agreed with them.
-        if (!d) { reach = "unknown"; sayReach(); return; }
+        if (!d) { if (reach === "fetching") reach = "unknown"; sayReach(); sayContact(null); return; }
         reach = "ok"; sayReach();
         if (d.contactPref) { store(K_PREF, d.contactPref); setPref(d.contactPref); }
         // ⭐ THE VALUE, NOT JUST THE CHANNEL `[paul-ruled 2026-09-06]`: "when we ask how to reach them we have
         // to record the value too." The Worker has held it since signup; this is the first screen to show it.
-        try {
-          var cv = el("contactvalue"); var parts = [];
-          if (d.email) parts.push("Email on file: " + d.email);
-          if (d.phone) parts.push("Phone on file: " + d.phone);
-          if (cv) { cv.textContent = parts.join(" · "); cv.hidden = !parts.length; }
-        } catch (e) {}
+        sayContact(d);
         if (d.profileAccent) {
           chosen = d.profileAccent; store(K_PROFILE, d.profileAccent);
           document.documentElement.style.setProperty("--accent", d.profileAccent);
@@ -267,6 +331,50 @@
         t.hidden = false;
       });
   });
+
+  // ── B9 · ask for a reset while signed in ───────────────────────────────────────────────────
+  // The request goes to the administrator's own recovery channel (POST /api/recover) WITH the grant,
+  // so the Worker can attribute it from a RESOLVED credential — the username rides in the record,
+  // the password never does. ⛔ Not the household feedback stream (member-readable), and not an
+  // account-scoped feedback key (nothing reads those — an event with no reader is not instrumentation).
+  (function () {
+    var a = el("askreset"), done = el("askreset-done"); if (!a) return;
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      var h = { "Content-Type": "application/json" };
+      if (grant) h["X-Grant"] = grant;
+      fetch(WORKER + "/api/recover", { method: "POST", headers: h, body: JSON.stringify({ signedIn: true }) })
+        .then(function (r) {
+          if (!r.ok) throw new Error("not ok");
+          // ⚠️ DRAFT slot, content-steward's — not the door's receipt (a different reader).
+          done.textContent = "Asked. Paul does these by hand and writes to the address your account already has.";
+          done.hidden = false; a.hidden = true;
+        })["catch"](function () {
+          done.textContent = "That didn’t go through — nothing was sent. Try again once you’re back on wi-fi.";
+          done.hidden = false;
+        });
+    });
+  })();
+
+  // ── B8 · sign out of THIS phone ─────────────────────────────────────────────────────────────
+  (function () {
+    var b = el("signout"), c = el("signout-confirm"), yes = el("signout-yes"), no = el("signout-no");
+    if (!b || !c) return;
+    b.addEventListener("click", function () { c.hidden = false; b.hidden = true; try { yes.focus(); } catch (e) {} });
+    no.addEventListener("click", function () { c.hidden = true; b.hidden = false; });
+    yes.addEventListener("click", function () {
+      // ⛔ A NAMED ALLOW-LIST OF IDENTITY KEYS — every one declared in onboarding's roster. NOT
+      // localStorage.clear(): the A+ text size (fw-text-size, the measured standard) and every other
+      // device preference stay. The feedback outbox stays too — words a person wrote are not identity.
+      var IDENTITY_KEYS = ["fw-grant", "fw-username", "fw-onboard-step", "fw-onboard-name", "fw-onboard-addr",
+                           "fw-onboard-parts", "fw-onboard-owner", "fw-onboard-interests", "fw-onboard-contact",
+                           "fw-onboard-contact-chosen", "fw-onboard-coords", "fw-accent", "fw-accent-chosen",
+                           "fw-profile-accent", "fw-journal-name"];
+      IDENTITY_KEYS.forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+      // B13 — the door gets its own lede on this route; it must not inherit "This link isn't working."
+      location.href = "/onboarding/?from=signout";
+    });
+  })();
 })();
 </script>
 <a class="fbbubble" aria-label="Something not right? Tell me." href="/estate/?fb=1&from=settings-account">💬</a>

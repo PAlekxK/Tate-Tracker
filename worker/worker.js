@@ -4511,17 +4511,27 @@ export default {
     // the literal, and a caller here has no grant to attribute from. It is a doorbell: "someone at this
     // door is locked out and has asked", the one signal the administrator can act on.
     // ⛔ NOT through handleFeedback — that handler rejects a record with neither sentiment nor note.
+    // ⭐ B9 rides the same route, SIGNED IN: a caller presenting a grant that RESOLVES is attributed
+    // from it (`attributeTo`, the one legal writer of a non-null person) and the record carries the
+    // USERNAME — so the administrator knows whom to reset — never the password. The signed-in request
+    // does not need an email: the reset goes to the address on the account row regardless (§3e·R).
+    // ⚠️ Deviation from the security read's R-D LETTER (a person-naming record on an account: key) that
+    // keeps its SPIRIT: nothing reads account-scoped feedback keys, so a record there is instrumentation
+    // with no reader; this key is ADMIN_ONLY, which is the tier R-D exists to guarantee. Named to
+    // coordination at row B's close.
     if (url.pathname === "/api/recover" && request.method === "POST" && !authOk(request, env)) {
       let rb;
       try { rb = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
+      const signedGrant = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;
       const emailIn = rb && typeof rb.email === "string" ? rb.email.trim() : "";
       // bounded and shape-checked, then DROPPED — it is never stored, never compared, never echoed
-      if (!emailIn || emailIn.length > 200 || emailIn.indexOf("@") < 1) return json({ error: "bad-email" }, 400);
+      if (!signedGrant && (!emailIn || emailIn.length > 200 || emailIn.indexOf("@") < 1)) return json({ error: "bad-email" }, 400);
       if (!(await recoverRateLimitOk(request, env))) return json({ error: "rate-limited" }, 429);
       const nowIso = new Date().toISOString();
-      const rec = declarePerson({ id: "rc-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
+      let rec = declarePerson({ id: "rc-" + Math.random().toString(36).slice(2, 10) + "-" + Date.now().toString(36),
         ts: nowIso, receivedAt: nowIso, env: env.ENV_NAME || "unset", deviceId: null, serverSide: true,
-        context: { type: "account-recovery" } });
+        signedIn: !!signedGrant, context: { type: "account-recovery" } });
+      if (signedGrant) { rec = attributeTo(rec, signedGrant); rec.username = signedGrant.username || null; }
       try {
         const key = dateKey(scopeOf(env), "recovery", nowIso.slice(0, 10));
         const existing = await env.OBSERVATIONS.get(key);
@@ -4686,7 +4696,23 @@ export default {
             }
           }
         } catch (e) { /* the door opens regardless */ }
+        // ⭐ B10 (lap 7) — THE CONTACT VALUE, read from the ACCOUNT ROW in this same request and returned
+        // in the response, creating no second copy at rest. settings/account/ has asked whoami for
+        // `email`/`phone` since 09-06 and this literal never carried them — the grant's copy list has
+        // `contactPref` (the channel) and never the value — so the field rendered ABSENT for three seats
+        // across two builds. ⛔ NOT by widening the :942 grant copy list / grant-mint's PLACE_FACTS: that
+        // would put a contact value onto every grant row at every rotation and into the register
+        // (security-steward CHANGE-6). ⛔ Never null-by-omission: `email: null` here means "the account
+        // row holds none" and the page renders that as its own state; a row that could not be READ is
+        // reported as `contactRead: false` so the page can say "unknown" rather than "none".
+        let _email = null, _phone = null, _contactRead = false;
+        try {
+          let _araw = grant.personId ? await env.OBSERVATIONS.get(personAccountKey(grant.personId)) : null;
+          if (!_araw && grant.username) _araw = await env.OBSERVATIONS.get(accountKey(scopeOf(env), grant.username));
+          if (_araw) { const _a = JSON.parse(_araw); _email = _a.email || null; _phone = _a.phone || null; _contactRead = true; }
+        } catch (e) { _contactRead = false; }
         return json({ personId: grant.personId, estateId: grant.estateId, capability: grant.capability,
+                      email: _email, phone: _phone, contactRead: _contactRead,
                       relationship: grant.relationship || [], entry: !!grant.entry, vault: !!grant.vault,
                       // her place, so a return on a cleared browser is a RESUME and not a fresh start
                       name: grant.placeName || null, accent: grant.accent || null,
