@@ -71,6 +71,22 @@ vs `origin/main` (legacy, **never push**).
 - **Rulings tonight:** `pkirsch` is production-only (its `qa` copy joins the teardown list) · Paul's phone had never
   been at `fernwood-home` · his lost note relayed as rows 43–44.
 
+## 4c. Paul's rulings at the reassessment — 2026-09-10 ~9:50 PM ET (all on the register via tate-tracker-0d)
+
+- **Sweep pass 2, five:** keep interests hidden-when-empty (copy promise fixed) · TWO colours (account colour AND a colour
+  per estate — two honest labels) · sentence-case receipt · one bubble shape, the corner circle · Stone as the cold default.
+- **Exhibits, six:** (1) PO-box refusal **blocking at submit**, instant check allowed if cheap · (2) **one** founding control on
+  the empty shelf; the "one home for now" ＋ card **dropped** · (2b) the naming-screen receipt **"your account's set up"** yes ·
+  (3) lifecycle three screens **as drafted** · (3b) **REJECTED** — *"a single sign-in page that redirects to everywhere it
+  needs to go, not individual sign-in pages"* · (4) "change it" links become **real editors, each labelled "Edit"**.
+- **Sequencing:** lap 7 = the founding bundle as ruled (Worker map → G6 → lifecycle → applied design, one candidate,
+  `/estate/` tells refused from unreachable); **the single-origin sign-in door = LAP 8.** *"It will be a big build."*
+- **Still his at lap 7 open:** "go teardown" (named list incl. `pkirsch`@qa) · working-model deployment (`paul` vs `home`)
+  · what "synced" means beyond one sign-in reaching every house.
+- **Every lane closed on his word** — tate-tracker-0d (backlog), -8d (design), -21 (bug) told to commit, write state-at-close,
+  exit; their shas are in `git log`. Lap 7 opens with fresh windows from the briefs: this one, `handoff-backlog-refinement.md`,
+  a build brief for the Worker map + G6 + lifecycle + the apply list (design plan §4).
+
 ## 5. Lap 7 as ruled — for the beat-6 table when he opens it
 
 **ONE candidate** — *"Let's try to do it as one candidate"*: sweep → exhibits → his rulings → **one apply** → deploy qa →
