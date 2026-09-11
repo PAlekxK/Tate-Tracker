@@ -2460,8 +2460,8 @@ all files released) · zones (**closed**: raw trace kept, cleaned 23 = leading c
 
 ### ✅ CLOSED — 2026-09-10 ~6:45 PM ET · production serves `318416a` at both real households
 
-## Lap 7 — 2026-09-10 · 🔓 **OPEN at OPEN (1/12)** — the founding bundle as ONE candidate: the Worker map → G6 → account lifecycle → the applied design; the first lap whose build plan is written by the build expert before the build window opens
-<!-- outcome:open -->
+## Lap 7 — 2026-09-10 · ✅ **CLOSED 2026-09-11 09:50 EDT — deployed `87c7aae` to `paul` + `home`, cleared by Paul** — the founding bundle as ONE candidate (Worker map → G6 → lifecycle → the applied design), three candidates, the first lap planned by the build expert before its build window opened, and the lap whose testing was audited with context
+<!-- outcome:closed at:2026-09-11T13:51:16Z -->
 
 ⭐ **Opened by the successor coordination window at HEAD `97e526f` on Paul's word** (*"Let's move to the lap"*,
 2026-09-10 ~9:50 PM ET). No candidate yet: QA still serves lap 6's `318416a`, 97 commits behind HEAD, none of
@@ -3614,3 +3614,36 @@ certified on the new unit; **no split unless a seat names a STRUCTURAL reason** 
 own rows · a falsifier that cannot run before the door exists) — never hours. The lap-8 build plan's stage-note and the
 testing-architecture plan's ready-line re-pointed. **For the lap-8 coordination handoff: its first act is to read the revamp
 plan with Paul, not to open the lap.**
+
+### ✅ CLOSED — 2026-09-11 09:51 EDT · production serves `87c7aae` at both real households · closed by the coordination window, candidate `87c7aae`
+
+**What shipped:** the Worker map for the `myhome-*` origins (D) · G6 telemetry with its reader (C) · the account lifecycle —
+sign-out, recovery to an admin-only channel, the constant refusal, the honest recovery copy (B) · the applied founding-flow
+design with all eleven rulings, Almanac → Journal as the engine default (A) · the harness: J8, the content-clause and UX-sweep
+conventions, the payload-blob compare (H) · the teardown as a process row (E). **Three candidates** (`d7d6c9f` → `12912b9`
+→ `87c7aae`), two beat-10 re-entries, one held 8 h 06 m for Paul's word; the third battery 15 of 15 clean and read; gate ①
+5 of 5 with the content clause green and the UX clause confirmed by Paul's walk; Paul's walk found W1–W11 (one defect, W2,
+riding lap 8 by ruling; one ruling, *the account is always the first layer*); cleared; deployed Worker-then-Pages to `paul`
+and `home`, post-deploy covered at both with the row-32 stamp false red named. **The chain ran end to end a second time:**
+L1 before any build · L2 the four fields on every committed row (backlog window) · L3 the battery + the content read at the
+sha · L4 the release note derived from the walks, confirmed by Paul (*"I like those release notes. Looks good."*), viewer
+rebuilt (`75e56829`; the card ships at the next build — L4's one-lap latency stands). **Beat 4 was RECORDED at every candidate**
+(the ratified exit condition, first lap under it).
+
+**Pre-registrations disposed** (evidence in `cycle-state.json`): L7-P1 **carried → L8-P1** (the two-person falsifier still
+has no action list) · L7-P2 **answered, PARTIAL** (the convention exists; no sweep filed at the sha; Paul confirmed in its place;
+`release-state.py:119`'s literal still to fix) · L7-P3 **YES** (the content clause, and its one lens-only finding) · L7-P4
+**YES** (H5 read the stamp/payload difference live, three times) · L7-P5 **YES** (GATE ruled and honoured; strict's refusal
+walk). **Lap 8 pre-registered, L8-P1…P7:** the two-person falsifier · a RANKED household at lab · a pilot walk before every
+battery · the stop rule's two classes and a wait · row D's record check at `paul` · J2 ruled before the cell list · the WebKit
+cell named.
+
+**Windows at close:** coordination (this; the successor brief follows) · the testing revamp (`tate-tracker-d8`, four seats
+running toward `.plans/2026-09-11-testing-revamp-PLAN.md`; lap 8 HOLDS for it) · backlog-refinement CLOSED (reopen from its
+brief; **the register queue from tonight sits in this chronicle — every "queued for the register" line since the window
+closed**) · build CLOSED (`eb44494`). **Fixtures at qa from lap 7, never real homes, for the fixture-stamp row:** `est-kxfhht
+· est-t3h0gl · est-puvevs · est-bvqzw3 · est-tfmxem · est-0qeqzs · est-uqjofw · est-pqob3d · est-1tfrzb · est-ftrtkj ·
+est-kgjxry · est-c9pgvw`; lab `est-as1bgb` + one; KEEP `pkirsch-qa` (Paul's durable) · `pkirsch-onetimeuse` (his throwaway,
+kept for the next kit). **Unpushed:** 251+ commits ahead of `origin/staging` — Paul's call. **Not done, named:** the reload test
+on the signed-out lede · row D's record check (his next condo load) · the decision write-back (23 commits claiming a decision
+vs 8 card lines).

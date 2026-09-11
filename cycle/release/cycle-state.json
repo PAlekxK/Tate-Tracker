@@ -1,6 +1,6 @@
 {
  "state": "ARMED",
- "generated_at": "2026-09-11T09:36:05-04:00",
+ "generated_at": "2026-09-11T09:51:16-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "87c7aae",
  "beat": {
@@ -71,12 +71,12 @@
    }
   }
  },
- "lap_count": 6,
+ "lap_count": 7,
  "last_lap": {
   "lap": 7,
   "opened": "2026-09-10",
-  "outcome": "open",
-  "closed_at": null,
+  "outcome": "closed",
+  "closed_at": "2026-09-11T13:51:16Z",
   "cleared_sha": "87c7aae"
  },
  "lap_heading_anomalies": [],
@@ -216,8 +216,8 @@
    "question": "does the two-person falsifier finally RUN on a walked build?",
    "settles": "a transcript at the candidate where B never sees A's rows; needs a two-journey-one-context action list in journey-walk.py",
    "at_open": "never run as of lap 6 close 2026-09-10",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "carried",
+   "evidence": "carried → L8-P1: still not runnable — every journey-walk run opens a fresh context; no two-journey action list was built in lap 7 (the audit priced the gap; row T owns it)"
   },
   {
    "id": "L7-P2-ux-sweep-filed-with-convention",
@@ -225,30 +225,86 @@
    "question": "is the two-pass UX sweep filed at a candidate AND does an artifact convention exist so release-gate can read the clause?",
    "settles": "check-ux-sweep.py not-owed at close; a .ux-reviews/ trail at the candidate; release-gate.py's UX clause no longer hardcoded UNCHECKABLE",
    "at_open": "pass 1 running in tate-tracker-8d at lap 6 close; convention absent (release-gate.py ~:277)",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "answered",
+   "evidence": "PARTIAL: the artifact CONVENTION exists (H4, a3beb8d: .ux-reviews/sweeps/<sha7>-ux-sweep.md and .content/walks/<sha7>-walk-read.md; the gate prints UNCHECKABLE with the path); no two-pass sweep was FILED at 87c7aae — Paul confirmed the UX clause in its place by his walk, with W8 (masthead spill at laptop width) noted. release-state.py:119 still writes the clause as a literal (lap 8, TIER 1 · 47 family)"
   },
   {
    "id": "L7-P3-content-clause-on-gate",
    "question": "does gate ① gain a CONTENT clause — the copy a walk met was read by the voice's owner, with an artifact — without becoming a run-property that passes unread?",
    "settles": "release-gate.py reads a content-read artifact per seat run; practice-steward DESIGN §2 names the beat; TIER 1 · 31",
    "at_open": "paul-stated 2026-09-10; in no walk, brief or gate tool",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "answered",
+   "evidence": "YES: gate ① gained the content clause; .content/walks/87c7aae-walk-read.md names every seat and the gate read it ✅ (d0e2026); the content read produced the one finding no deterministic reader could (stored ids rendered as words)"
   },
   {
    "id": "L7-P4-post-deploy-compares-blob",
    "question": "does post-deploy.py compare the deployed worker.js blob to the candidate's, not the BUILD_SHA stamp?",
    "settles": "a register-only commit between candidate and deploy reads green; a differing worker.js reads red — both measured",
    "at_open": "stamp-only comparison, false red at both production deploys 2026-09-10 (TIER 1 · 32)",
-   "disposition": "open",
-   "evidence": null
+   "disposition": "answered",
+   "evidence": "YES: H5 (f76a118) — deploy-worker.sh stamps WORKER_BLOB and post-deploy compares the payload; it read the difference live at candidate 2 (stamp mismatch, blob matched) and at both production deploys; caveat wording for the sha-mismatch-when-blob-matches case queued"
   },
   {
    "id": "L7-P5-gate-or-courtesy-ruled-first",
    "question": "is 'Does that look right?' ruled gate or courtesy BEFORE the confirm card is redesigned?",
    "settles": "a [paul-ruled] line on TIER 1 · 19/26 dated before the design window's apply commit",
    "at_open": "five seats + Paul met it; unruled at lap 6 close",
+   "disposition": "answered",
+   "evidence": "YES: ruled GATE at lap 6 close; the apply honoured it — A8 blocks at submit; strict's J0 is the refusal walk (REFUSED AT THE GATE, AS EXPECTED, nothing minted) at all three candidates"
+  },
+  {
+   "id": "L8-P1-two-person-falsifier",
+   "question": "does the two-person, one-context falsifier finally RUN (two journeys in one browser context, one estate)?",
+   "settles": "a walk transcript at lap 8's candidate with two personIds in one context, or a named harness item that builds it",
+   "at_open": "carried from L6-P1 → L7-P1; never runnable — every journey-walk run opens a fresh context",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L8-P2-ranked-household-at-lab",
+   "question": "does the lab proof exercise a RANKED household before any freeze?",
+   "settles": "a lab headless load whose branch moduleState()==='empty' fires (an instance with an empty module), green, before the candidate is declared",
+   "at_open": "lap 7's F1 (a ranked-household init throw) escaped lab because Fernwood's canon leaves no module empty; the audit priced it at 10 walks",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L8-P3-pilot-walk-before-the-battery",
+   "question": "does ONE pilot walk at qa precede the five-seat battery at every new sha?",
+   "settles": "the first walk at each candidate is a single seat; the battery starts only after it reads clean",
+   "at_open": "the audit priced the missing pilot at 11 walks in lap 7; the lane did a shake-out at lab by its own choice",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L8-P4-stop-rule-has-two-classes-and-a-wait",
+   "question": "is beat 10's stop rule RULED with two classes (introduced-by-candidate vs surfaced-pre-existing) and a latency term before lap 8's first battery?",
+   "settles": "a [paul-ruled] line in CYCLE-MAP or the chronicle naming both classes and the wait",
+   "at_open": "lap 7 held 8 h 06 m on a pre-existing Worker-only defect with a proposed fix; the rule had one class and no wait; put to Paul at lap 7's close",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L8-P5-row-D-record-check-at-paul",
+   "question": "did Paul's lost condo note reach the record with its 2026-09-10 timestamp after his next load of the condo app?",
+   "settles": "watch-feedback.py --env paul shows the note; or the note is declared lost with the reason",
+   "at_open": "the Worker map (row D) is live at myhome-paul from 87c7aae; the outbox flushes on load; not yet loaded by Paul",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L8-P6-J2-ruled-before-the-cell-list",
+   "question": "is J2 re-scoped ('returning, founded nothing') or retired BEFORE lap 8's beat-6 cell list is declared?",
+   "settles": "a [paul-ruled] line; journey-walk's JOURNEYS/NAMED_UNBUILT updated to match",
+   "at_open": "J2 collapsed into J0 when founding replaced granting; unwalkable at every build; the gate prints it every run",
+   "disposition": "open",
+   "evidence": null
+  },
+  {
+   "id": "L8-P7-webkit-cell-named",
+   "question": "does lap 8's cell list NAME the WebKit/Safari cell (Mom's actual browser) even if it cannot walk it?",
+   "settles": "a coverage line printing webkit as unwalked, or a first webkit walk",
+   "at_open": "no WebKit installed under ~/Library/Caches/ms-playwright; Mom's Safari has never been walked once (revamp window, measured)",
    "disposition": "open",
    "evidence": null
   }
