@@ -80,7 +80,7 @@ Full text per step — symbol, change, CHECK, mutation clauses — is `SIZING §
 | **T16** | `release-gate.py` `walk_viewport()` reads each run's **own** `_view.json` geometry (already written at `journey-view.py:71`) and prints the **set** covered; source-regex only as a fallback → UNREADABLE | S7. The constant's own comment says *read, never typed* — and it reads what the tool is configured to do, not what the walks did (CLAUDE.md's 09-10 rule, a third instance). Prerequisite for any wider walk | `M22a` two geometries → both printed · `M22b` no geometry → UNREADABLE, never a narrowed claim | 1 |
 | **T18** | NEW `tools/check-href-controls.py` — zero browser; every `href="#"` control is allow-listed `dynamic-href` or has `getElementById` + `addEventListener("click"` in the same page. **8 controls today** (onboarding ×7, settings/account ×1). Reads **tracked engine source only** (security R6-A), never an origin or a built instance | S11 · M7 — **partially, and the shortfall is on its face**: ⛔ `[SIZING §T18, measured]` **this check is GREEN on W2** — `si-tosignup`'s handler exists (`onboarding/index.html:2384`) but is registered inside `showFrontDoor()`, so a person reaching sign-in by another route has a live `href="#"` and no listener. **The real W2 cover is a region-change stop, and it lands in lap 8 · H against the page A11 creates** (§9). The docstring names the class it cannot see and the stop that can | `M24a` no handler → red with id and file · `M24b` allow-listed → green · `M24c` a control pointed at a hidden region stays green **and the output says why** | 1.5 |
 | **T19** | `pages-deploy.py` (already stamps `builtAt`, already brackets every leg) appends `{env, sha, startedAt, finishedAt, seconds, legs}` to `.private/deploy-log.jsonl` · **ships with its reader** (`release-gate.py --deploys` or one line in `release-state.py`) | S19 — the deploy chain is the only act in the lap with no measurable cost. `post-deploy.py` writes no record at all, so the deployer is the truer site. *An event with no reader is not instrumentation* | a `--no-deploy` run appends a plausible row; the reader prints it · `M25` a deploy that raises mid-leg writes `finishedAt: null`, so failed ≠ unmeasured | 1 |
-| **T21** | **THE ACCEPTANCE RUN** — `release-gate.py --sha` for each of `a3beb8d · d7d6c9f · 12912b9 · 87c7aae · bfa3f23` before and after row T; diff filed in the chronicle with a named cause per changed verdict | falsifier ③. **The expected result is knowable in advance**: at `87c7aae` the gate today prints 5 clean seats while 12 walks failed an action; after T1 those 12 are failing cells and **the gate refuses a sha Paul already cleared — the correct outcome, not to be softened**; `87c7aae` stays deployed, the evidence now says what the battery found | ⛔ a verdict that changes for a reason nobody can name → the backfill is wrong → **row T STOPS** (the only stop the sizing could construct; §10) | 1 |
+| **T21** | **THE ACCEPTANCE RUN** — `release-gate.py --sha` for each of `a3beb8d · d7d6c9f · 12912b9 · 87c7aae · bfa3f23` before and after row T; diff filed in the chronicle with a named cause per changed verdict | falsifier ③. ⛔ **SEE `## Falsifier` — THE NEXT CLAUSE IS STRUCK, MEASURED FALSE AT THE LAP'S OPEN.** ~~**The expected result is knowable in advance**~~: at `87c7aae` the gate today prints 5 clean seats while 12 walks failed an action; after T1 those 12 are failing cells and **the gate refuses a sha Paul already cleared — the correct outcome, not to be softened**; `87c7aae` stays deployed, the evidence now says what the battery found | ⛔ a verdict that changes for a reason nobody can name → the backfill is wrong → **row T STOPS** (the only stop the sizing could construct; §10) | 1 |
 | **T22** *(if M-2 ruled yes)* | the **shadow read** convention — once per lap, one finished run read a second time by the alternate tier on identical artifacts; findings diffed on `(journey, stop, claim)` into both · only A · only B; filed `.practice/tier-ab/`; **never gating** | MODEL-POLICY §2b. Uniform tier across lenses within a lap (varying it confounds lens with tier). Downgrade permitted only on superset-or-equal blocking findings across two laps | the diff file exists per lap or the policy prints UNFALSIFIED | 0.5 |
 | **T23** *(if M-2 ruled yes)* | the **frozen regression corpus** — three known-hard findings, offline: the §8a schema-id receipt on `owner/2026-09-11T083409/R01-arrive.fold.png` · the J8 username dash · the recovery-reset promise after a successful sign-in | MODEL-POLICY §2a. **A tier that misses the schema-id receipt fails outright, no averaging** | the corpus is readable by both tiers from one command; ~$1–4, no walk, no lap | 0.5 |
 
@@ -167,7 +167,7 @@ Measured: every walk ever has been a fresh Playwright Chromium context at 414×8
 |---|---|---|
 | ① | `strict` reads J3; no PO box, no fixture address anywhere in the run folder; `walk-integrity` counts it | ⛔ **fails at HEAD on the recorder** (§1·3); runnable after T9 + T20 |
 | ② | the gate prints a never-walked cell **and names it**; pre-registered: if two laps close with every cell green and none ever read UNWALKED, the matrix decorates a pass | T3; J1 · J5 · J7 · webkit · signed-in-desktop guarantee a first UNWALKED print |
-| ③ | re-judge `bfa3f23`: owner's returning walk moves from invisible to a failing row; **nothing else moves** | T1's own check; T21 extends it to lap 7's five shas — **`87c7aae` must flip to refused** |
+| ③ | re-judge `bfa3f23`: owner's returning walk moves from invisible to a failing row; **nothing else moves** | T1's own check; T21 extends it to lap 7's five shas — ⛔ ~~**`87c7aae` must flip to refused**~~ **STRUCK: measured, it does NOT flip; every failure there is absorbed by a clean retry in its own cell. See `## Falsifier`.** ⚠️ And ③ itself is REASONED, NOT RUN — it depends on `journey_of()`, which does not exist yet. |
 | ④ | the negative control: a synthetic corpus with one unwalked cell exits nonzero | `M12a` |
 | T11 | J0 carries at `87c7aae`, not at `12912b9`; if both, it reads files not routes | on lap 7's own corpus, today |
 | §5·convergence | give any other lens a bare-ids record and the id-render appears; strict's J3 fold frame prints `1. papers` where a label belongs | cheap; cell 3 of §4 |
@@ -278,19 +278,77 @@ test to **seven** candidates and found **none**.
 
 ⚠️ **§3's table in this plan is the ORDER, not the spec.** Where the two disagree, **SIZING §A wins.**
 
-⛔ **`check-release-docs.py` goes RED between T5 and T6 — that is the checker working.** The gate carries the new
-unit before the map's wording catches up; **the edit ratifies what landed.** Do not quiet it.
+⛔⛔ **THE "RED BETWEEN T5 AND T6" CLAIM IS INVERTED — MEASURED, AND STRUCK.** The plan's §3·T6 and §5, and the
+lap-8 brief's §4, all say *"`check-release-docs.py` goes RED between T5 and T6 — that is the checker working."*
+**It will not.** That checker compares exactly three things — the beat COUNT against `release-state.py`'s `"of"`,
+named beats ⊆ declared beats, and beat-12's gating envs. **It reads nothing about gate ①'s unit, clauses or
+exit-condition prose**, and T5 renames `gate_1.seats` → `gate_1.cells` in `release-state.py`, which it does not
+read. It goes red **when Paul ADDS the S8 pilot-walk beat (12 → 13) and `release-state.py` still publishes 12** —
+that is red **AFTER** T6, and it is cleared by editing `release-state.py`, **not** by the map edit.
+
+⚠️ **Why this matters more than the ordering:** a lane instructed to *"expect red and leave it red"* will instead
+see **green** between T5 and T6 and conclude **T6 landed when it has not.** Ask what a control is a control OVER —
+`check-release-docs` is entirely correct about beat counts and answers nothing about the release condition it is
+here being credited with guarding.
 
 ## Falsifier
 
 **Per step, the falsifier table is SIZING §A's** (T0…T19, cited never restated). The row's own, at the level of
 the commitment:
 
-- ⭐⭐ **THE ACCEPTANCE RUN IS T21, AND IT IS A KNOWN-ANSWER TEST.** The gate row T replaces certified `87c7aae`
-  **green while twelve walks at that sha had failed an action** — it kept one run per seat and broke ties to the
-  earliest. **So the new gate is run against that same sha, and it must print the failures the old one hid.**
-  T21's before/after diff is the baseline. ⛔ **If the new gate prints green on `87c7aae`, row T has failed —
-  however many of the 21 steps landed.**
+- ⭐⭐ **THE ACCEPTANCE RUN IS T21, AND IT IS A KNOWN-ANSWER TEST — BUT NOT THE ONE THIS SECTION FIRST CARRIED.**
+
+  ⛔⛔ **STRUCK, AND THE STRIKE IS RECORDED RATHER THAN THE TEXT DELETED.** This section was first written as:
+  *"if the new gate prints green on `87c7aae`, row T has failed — however many of the 21 steps landed."*
+  **That is arithmetically false and it is dangerous in the build direction.** Measured twice at the lap's open,
+  by practice-steward calling `release-gate.judge()` and independently by the coordination window over the
+  transcripts: at `87c7aae` there are **22 runs**, and **every run that failed an action has a later clean run
+  inside its own `(journey, lens)` cell**. `report()` keeps the highest-scoring run and a clean run strictly
+  outscores a failing one, so with **T1's tie-break unchanged — which T1 states explicitly — the new gate
+  PASSES `87c7aae`.** A lane holding the struck expectation would keep editing the gate until that sha refused,
+  **changing the retry semantics T1 preserves on purpose.** That is the known-answer test corrupting the build
+  it exists to certify, and it is the most likely way this lap ends with a gate nobody ruled on.
+
+  ⛔ **THE PREDICATE WAS ALSO WRONG, and it is this repo's own named class — a count without its predicate.**
+  The founding evidence reads *"12 walks failed an action (11 J8 + 1 J3)"*. Measured: **12 failed actions across
+  7 of 22 runs.** The number 12 is right; its noun is not, and the 11/1 split reproduces under neither predicate.
+  `.practice/2026-09-11-lap7-testing-cycle-AUDIT.md` §3f carries the original and is owed the correction.
+
+  ⚠️ **AND THE TWO MEASUREMENTS DISAGREE ON THE CELL GROUPING, WHICH IS ITSELF A FINDING.** practice-steward
+  grouped on the transcript's `journey` and read **15 cells**, failures under **J8**; coordination grouped on
+  `journeyEntered` and read **10 cells**, failures under **J3**. **The load-bearing conclusion is identical under
+  both — every failure is absorbed by a clean retry in its own cell, 0 cells red.** But *which field defines a
+  cell* is exactly what **T1's `journey_of()` decides**, so **the matrix's shape is not yet determined** and no
+  cell count may be quoted as fact before T1 lands.
+
+  ✅ **WHAT REPLACES IT — a test that discriminates.** Not *"does it refuse `87c7aae`"* (satisfied by any red,
+  including an over-broad backfill bug that reds every historical cell — it cannot tell a working row T from a
+  broken one), but: **the matrix at `87c7aae` names every cell, accounts for all 22 runs, and every cell holding
+  a superseded failure says so on its face** — e.g. `(J3, mom) ✅ 2 runs · 1 failed action, passing on retry`.
+  ⛔ **Falsifier:** if the gate's face at `87c7aae` cannot distinguish a cell that passed first time from one that
+  passed on retry, **T1 moved the unit without moving the legibility** — and the 12 failed actions are still
+  hidden, merely in a new place.
+
+- ⛔⛔ **AN OPEN RULING FOR PAUL, AND THE BUILD MUST NOT PICK IT SILENTLY.** T1 (tie-break unchanged: *"within a
+  cell two runs are a retry"*) and T21 (*"the gate refuses a sha Paul already cleared — the correct outcome, not
+  to be softened"*) **are in contradiction inside the same `stage: ready` plan.** Both readings are coherent:
+  *a retry is how "run it until it no longer fails" exits* · versus · *evidence of a failure at this sha does not
+  expire because you ran it again.* **This is a release-condition judgement and it is Paul's.** ⚠️ `M10a`'s
+  parenthetical *"(the `87c7aae` shape)"* is wrong for the same reason — the mutation is valid, the label is not,
+  and a lane reading both will see `M10a` green and T21 green and read a contradiction it cannot resolve.
+
+- ⚠️ **THE BEFORE-IMAGE DOES NOT EXIST UNLESS T0 COMMITS IT.** T21 says *"before and after row T"*, but once
+  `release-gate.py` is edited the old gate is gone, and the obvious workaround **fails silently**: the tool
+  derives its walk root from its own file location, so a git-worktree run at a pre-T sha reads an empty
+  `.private/` and prints `UNCHECKABLE: no seats found`. `.private/` is gitignored — it exists only in the main
+  tree. **Capture the five shas' verdicts at T0 and commit them, or there is no before leg.** T0 today freezes
+  the backfill census only.
+
+- ⚠️ **THE CORPUS IS MUTABLE AND UNFINGERPRINTED.** The known-answer test's whole strength is that
+  `.private/synthetic-walks/` is a fixed past — and it is a live directory this lap's own battery writes into,
+  with a `--teardown` in the repo. **A committed manifest (per run: sha, journey, lens, sha256 of
+  `transcript.json`) for the five candidate shas, re-verified by every acceptance run.** ⛔ Falsifier: if the
+  manifest can be regenerated after a battery run and still match, it is keyed on the wrong thing.
 - **T11 re-judges lap 7:** J0 **MAY CARRY** at `87c7aae` and **MUST RE-RUN** at `12912b9`. *"If it carries at
   both, it is reading files, not routes."*
 - **A cell nobody walked prints UNWALKED** — never absent (T3, T15). Absence indistinguishable from a pass is
