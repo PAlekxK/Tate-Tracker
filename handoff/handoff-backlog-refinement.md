@@ -95,3 +95,58 @@ edits to the rows it names until it releases. Everything else keeps moving.
 The 174 qa accounts and 7 lab households (no KV read by the coordinator today). Whether deploying the
 new Pages build to qa affects existing accounts under the changed route-row shape (a dry-run was
 running at handoff time). Every `file:line` older than an hour.
+
+---
+
+## 8. STATE AT CLOSE — 2026-09-10 ~10:05 PM ET · HEAD `7631c34` (+ this commit)
+
+**Closed on Paul's word** (*"let's close out all the other sessions you've got running to be sure we don't have any
+loose ends"*). The standing backlog window reopens from this brief via `succeed.py` when he opens lap 7.
+
+**Uncommitted, for Paul, by design:** `tools/check-backlog-ready.py` (the ④ `row:` three-state parser + the
+`--ladder` derived view; selftest 41 pass, 1 pre-existing fail) and `handoff/patches/` (the header-pass diff, already
+applied at `326791c`; the patch is the record). Apply or discard is his.
+
+**Rows added tonight, TIER 1:** 23 the build-description chain (into lap 6, act 6 done) · 24 `/api/session` lies to a
+founder · 25 the gate kit for Paul's walk (PAK/Homey; username-rule lesson) · 26 the founding-flow design window →
+the lap-7 UX bundle (closed `112894c`; both sweep passes, the content read, the plan, six exhibits; **all eleven
+rulings given**) · 27 the lap-7 UX bundle (a/b/c ruled: lifecycle in · colour noun only · one candidate) · 28 the
+feedback bubble from account creation · 29 the colour noun · 30 Paul's 6:22 PM bubble note · 31 content-steward
+reads every walk (① done; ② a gate-① content clause, lap 7's open) · 32 `post-deploy.py` container vs payload ·
+33–40 Mom's onboarding answers (user-researcher; 33 = two published places under her estate id at `home`) · 41
+cross-device sign-in (single door now a RULING; lap 8) · 42 the lost condo note (in his phone's outbox behind a
+"Saved on your phone ✓"; mechanism = no Worker mapping; "fold in") · 43 empty *Your Perspective* card · 44 Settings /
+What you told me, second sighting · 45 `myhome-*` origins have no Worker mapping (lap 7, first by class) · 46 the
+account model (ruled: one sign-in page routing to every estate; lap 8).
+**Also:** § INVITE & JOIN (three roles · second estates · member spill-over; Bob's invite overtaken) · § ADDRESS
+VALIDATION (fresh, not this lap; unit number optional) · § THE FIFTH LENS (people found their own; Fernwood-in-
+production the one exception; **the teardown ruling**) · § THE STANDING PRINCIPLE (capture what personalizes;
+describe-or-infer open) · ⏭ THE NEXT TWO LAPS (derived queue) · ONE DOOR (the registrar folded in) · the
+21-proposal header pass · C7 set aside + the Midtown scratch instance retired · C9's founding clause struck · P-26
+reworded · TIER 2 · 7 Z-13, the cleaned 23 as leading candidate, labelled and watched, preload on Mom's founding.
+
+**Rulings given, NOT YET ACTED — lap 7's opening queue:**
+1. **The teardown** — Bob's deployment first (the nigel/aida procedure), the Midtown scratch instance (keep the
+   ownerless neutrality fixture), `pkirsch`@qa (*production only*), PAK/Homey, the seven qa seat houses
+   (`rihhdp` · `d7teqw` · `bzr4gb` · `pr9pwl` · `otzfk2` · `ofd6vk` · `gndlvf`), lab's seven — a NAMED list, one
+   unprovable row stops the run; `marguerite`@home and `pkirsch`@paul kept. The go is his.
+2. **`check-canon-scope.py --deep` at `home`** (row 33) before any digest there.
+3. Rows 33–40's items (user-researcher), 43/44/45 (exhibit- and bug-derived), the not-punch-sized list in the
+   sweep trail, and the 15-item punch list — all inside lap 7's one candidate.
+4. The gate-① content clause (31 ②) and the post-deploy blob check (32) at lap 7's open, per the chronicle's
+   pre-registrations.
+
+**Still Paul's, unanswered:** which deployment is his working model (`paul` vs `home`); the three unclassified
+proposals (canon-ingestion · interests-as-activities · the 09-10 rationalization draft — my reading: `proposed`);
+the surname in two seat trails and the pushed staging history; the tool diff.
+
+**What I would put in front of him at lap 7's open, one line each:** the Worker map first, because a real
+household is printing false receipts today · the teardown before the first battery, because every battery adds
+houses to it · row 33's collision before `home`'s Guru speaks for anyone · then the bundle, with all eleven
+design rulings already in hand.
+
+**Blind spots for the successor:** the coordinator (`paulkirschenbauer-96`) holds the map, the candidate and the
+apply — check with it before any write it might be sequencing; `git status BACKLOG.md` before every write, explicit
+paths only; the register-trailer convention (`Backlog-Register:` / `Backlog-Forwarded-By:` in the final paragraph
+with `Co-Authored-By:`); and two reader traps measured tonight — `wrangler kv key list` without `--remote` returns
+`[]` exit 0, and `watch-feedback.py` prints a stale "checked Nh ago" line when it did not read.
