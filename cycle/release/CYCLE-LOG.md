@@ -3537,3 +3537,11 @@ chromium · webkit; text size: default · A+), declared per cell at beat 6 — n
 **Evidence in one row:** W1–W6 (the six base-level findings above) were found by a real person on a non-sterile Chrome — a
 profile carrying a dead grant and a dead place name — within twenty minutes; the sterile battery's 15 of 15 clean could not
 see any of them. Routed to the revamp window by id for the audit's §2 and the plan.
+
+**Paul's walk · `pkirsch-qa` founded · 2026-09-11 09:31 EDT** — the whole setup walked (username checks: *"I like all the checks on the
+username"*; the recovery-address note; gate card; ranking). **W7, backlog question, not a fail** — his words: *"when I got
+through the setup input and confirmed all my information, I was expecting to just be open to my page — now it brings me to
+this where it says 'My QA place · in the early days'. Does this 'early days' fit into the user journey? Where does it fit in?
+We don't need to solve it now — it seems awkward to me."* Register: the post-founding landing — a person who has just
+confirmed everything expects THEIR PLACE, not an interstitial; *"in the early days"* is a state label wearing a screen's
+clothes. Routed to the revamp window as W7 (a returning/first-open cell) and to lap 8's ux-expert closure of the shelf.
