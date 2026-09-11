@@ -310,6 +310,14 @@ def report(sha, seats_only=False):
          "laptop width." % vp) if vp else
         "viewport UNREADABLE — journey-view.py's constant could not be parsed, so what these walks "
         "covered is UNKNOWN, not assumed."))
+    # ⛔ COVERAGE, STATED: J2 is UNWALKABLE at every build since the open door `[measured 2026-09-11, lap 7
+    # battery]` — an unfinished record cannot exist without an estate (the profile write 404s without one),
+    # founding replaced granting, so the door reads J2's fixture as J0; no transcript at any build has ever
+    # recorded a walked J2. A pass here says nothing about a resumed-unfinished person until Paul rules
+    # the re-scope-or-retire (coordination's recommendation: re-scope as "returning, founded nothing").
+    print("  📐 coverage — J2 (returning-unfinished) is UNWALKABLE at every build since the open door: an unfinished "
+          "record cannot exist without an estate; founding replaced granting; no transcript at any build has ever "
+          "recorded a walked J2. Not covered here — awaiting Paul's re-scope-or-retire ruling.")
     # H4 (lap 7) — the two per-sha clauses, each read from its artifact convention
     cst, cdet = content_clause(sha, ss)
     ust, udet = ux_clause(sha)
