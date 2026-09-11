@@ -3123,3 +3123,24 @@ the battery and holds for Paul. Fixtures founded at qa by the stopped battery (n
 `est-t3h0gl` (mom) · `est-puvevs` (wide-eyed) · `est-bvqzw3` (handover); strict founded nothing. **Register notes
 queued:** the walk-capture line *"/api/onboarding-metrics has no GET (worker.js:3296)"* is stale text — the GET exists
 below the auth gate; the tool has no qa token.
+
+### Lap 7 · CANDIDATE 2 FROZEN — `12912b9` · beat 4 re-recorded · qa redeployed · `~5:05 AM ET 2026-09-11`
+
+One commit over `d7d6c9f` (served bytes: the template only; harness: `journey-walk`): **(1)** `metricsOrNull()` catches the
+dead zone; every emit rows C/A added goes through `trackSafe()`; a pending queue flushes at the observer-wiring site so the
+first-render auto-open is RECORDED; the once-flag is on `window` (a `let` would be the same defect); `card_order_served`'s
+fallback there is unconditional. **(2)** `journey_founding` branches on the seat's own answers — a box address walks to the
+BLOCKING refusal, `expect:#trouble`, shot F08-refused-at-the-gate, STOPS; the founding check prints *REFUSED AT THE GATE, AS
+EXPECTED* (`founding.refusedAtGate`). Selftest 62/62 (two new clauses). Beat 4 re-recorded at `12912b9` (carried 14
+unchanged, noted).
+
+**Proof:** lab pages at `12912b9` headless-clean — ⚠️ **lab CANNOT exercise the ranked branch** (Fernwood's canon leaves no
+module empty, so `moduleState(...) === "empty"` never fires there; stated, per the rule). qa: pages at `12912b9`, neutral
+311/0, headless clean; **the Worker RESTAMPED at `12912b9`, bytes unchanged, blob `1d6587ad96b5…` matched throughout —
+which is exactly what H5 was for**: post-deploy's sha compare flagged the stamp mismatch while the payload compare stayed
+covered; restamped rather than touch the tool mid-battery. **For the register:** the sha mismatch should print as a CAVEAT
+when the blob matches (TIER 1 · 32's own words). post-deploy qa: CLEAN.
+
+**Beat 8 re-entered:** first proof = J0 for `owner` (a ranked seat) at qa, alone, `--watch`, read for zero pageerrors AND
+`read-glance-order --env qa` printing its served order + `auto-ranked-empty` open — F1's falsifier; only then the full
+battery from zero (J0 × 5 → J2 × 5 → J3 × 5 → J8 × 5). Second product defect = STOP and hold for Paul.
