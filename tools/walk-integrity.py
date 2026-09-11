@@ -17,7 +17,7 @@ Absence of a refusal is not a pass — a corpus with zero runs exits NONZERO her
 printing a clean line, because "nothing to refuse" and "nothing to count" are the same state and
 only one of them looks like success.
 """
-import argparse, glob, json, os, re, sys
+import hashlib, importlib.util, argparse, glob, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WALKS = os.path.join(ROOT, ".private", "synthetic-walks")
@@ -77,13 +77,50 @@ def answers_fingerprint(rec):
     return "|".join(str(a.get(k)) for k in ("place", "line1", "city", "state", "zip"))
 
 
+# ═══ T4 · THE JOURNEY IS IMPORTED, NEVER RE-DERIVED ═══════════════════════════════════════════════
+# `release-gate.py` already imports `rate_limits` from THIS file rather than minting a second opinion
+# about whose 429 it was. The same discipline runs the other way: `journey_of()` — with its backfill,
+# its `J1-legacy`/`J-returning-legacy` buckets and its refusal to infer a bare J2/J4 — lives in
+# release-gate, and this file asks it rather than re-implementing it. Two definitions of "which
+# journey was this" is exactly the divergence `class: engine · must-not-diverge` exists to prevent.
+# ⚠️ CACHED, and deliberately: release-gate imports this module lazily inside `judge()`, so an
+# uncached lazy import in the other direction would re-exec a module on every single call.
+_RG = None
+
+
+def _release_gate():
+    global _RG
+    if _RG is None:
+        try:
+            spec = importlib.util.spec_from_file_location(
+                "rg_for_wi", os.path.join(ROOT, "tools", "release-gate.py"))
+            m = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(m)
+            _RG = m
+        except Exception:
+            _RG = False        # ⛔ FALSE, not None — a failed import must not retry on every row
+    return _RG or None
+
+
+def journey_of_record(rec):
+    """→ the journey this run walked, via release-gate's `journey_of`. ⬜ None when release-gate
+    cannot be read — UNKNOWN, never a guessed default, and never a locally-invented rule."""
+    rg = _release_gate()
+    if rg is None:
+        return None
+    try:
+        return rg.journey_of(rec)[0]
+    except Exception:
+        return None
+
+
 def verdict(rundir):
     """→ {run, seat, refusals: [...], fingerprint, origin, build}. Empty refusals = countable."""
     tpath = os.path.join(rundir, "transcript.json")
     seat = os.path.basename(os.path.dirname(rundir))
     run = os.path.basename(rundir)
     out = {"seat": seat, "run": run, "dir": rundir, "refusals": [], "caveats": [], "fingerprint": None,
-           "origin": None, "build": None, "answersSource": "unrecorded"}
+           "origin": None, "build": None, "answersSource": "unrecorded", "journey": None}
     try:
         rec = json.load(open(tpath, encoding="utf-8"))
     except (OSError, ValueError) as e:
@@ -91,6 +128,7 @@ def verdict(rundir):
         out.setdefault("caveats", [])
         return out
     out["origin"], out["fingerprint"] = rec.get("origin"), answers_fingerprint(rec)
+    out["journey"] = journey_of_record(rec)
     # Recorded by journey-walk since 2026-09-06 so the collapse is legible in the record itself and
     # not only inferable by comparing fingerprints across seats after the fact.
     out["answersSource"] = rec.get("answersSource") or "unrecorded"
@@ -215,23 +253,52 @@ def report(rows, countable_only=False):
 
     # ⭐ THE EFFECTIVE SEAT COUNT. Four seats that typed the same answers are ONE observation of the
     # product wearing four names. This is the number a finding may be attributed to — never len(seats).
+    # ⭐ T4 — THE UNIT OF OBSERVATION IS (JOURNEY, FINGERPRINT), NOT THE FINGERPRINT ALONE.
+    # The old count was right about the half it measured: four seats that typed the same answers are
+    # ONE observation of the product wearing four names. But it collapsed across JOURNEYS too — five
+    # lenses typing one fingerprint through J0, J3 and J8 counted as ONE observation, when the
+    # product was actually exercised three different ways. Under-counting coverage is the same class
+    # of error as over-counting it: both make the number unusable for attributing a finding.
+    #   five lenses · one journey · one fingerprint  → 1 observation (the collapse this catches)
+    #   the same five · three journeys               → 3 observations (three real exercises)
     by_fp = {}
     for r in counted:
-        by_fp.setdefault(r["fingerprint"], set()).add(r["seat"])
+        by_fp.setdefault((r.get("journey"), r["fingerprint"]), set()).add(r["seat"])
     seats = {r["seat"] for r in counted}
     effective = len(by_fp)
     if not countable_only:
         print("\n  runs: %d · countable: %d · refused: %d" % (len(rows), len(counted), len(refused)))
-        print("  seats with a countable run: %d · DISTINCT INPUTS AMONG THEM: %d" % (len(seats), effective))
+        print("  seats with a countable run: %d · DISTINCT OBSERVATIONS AMONG THEM: %d"
+              % (len(seats), effective))
+        print("     (an observation is one (journey, input-fingerprint) pair — the same input walked "
+              "through two journeys is two observations; two seats typing one input through one "
+              "journey is one.)")
+        _nojourney = [r for r in counted if r.get("journey") is None]
+        if _nojourney:
+            # ⛔ UNKNOWN, NEVER FOLDED SILENTLY. A run whose journey could not be read groups under
+            # None, which would quietly merge unrelated runs into one "observation".
+            print("  ⬜ %d countable run(s) could not report a journey — they group together under "
+                  "UNKNOWN and their observation count is UNRELIABLE, not zero." % len(_nojourney))
         shared = [r["seat"] for r in counted if r["answersSource"] == "shared-default"]
         if len(shared) > 1:
             print("  🔴 %d seats ran on the SHARED default answers: %s" % (len(shared), ", ".join(sorted(shared))))
-        for fp, ss in by_fp.items():
+        for (j, fp), ss in by_fp.items():
             if len(ss) > 1:
-                print("  🔴 %d seats share one input fingerprint — they are ONE observation, not %d"
-                      % (len(ss), len(ss)))
+                print("  🔴 %d seats share one input fingerprint ON ONE JOURNEY (%s) — they are ONE "
+                      "observation, not %d" % (len(ss), j or "UNKNOWN", len(ss)))
                 print("       seats: %s" % ", ".join(sorted(ss)))
-                print("       typed: %s" % fp)
+                # ⛔ THE IDENTITY, NEVER THE VALUES. `answers_fingerprint()` is the raw typed record
+                # joined in clear — place|line1|city|state|zip — and this line used to PRINT it. The
+                # finding it exists to make is "these seats typed the SAME thing", which a stable
+                # digest carries exactly as well; the address itself adds nothing to that claim and
+                # is the one thing security R3-1 says a trail may never hold (presence, never value).
+                # Synthetic today. At the H1 human cell — a real person walking their own profile —
+                # it would not be, and this reader's output is quoted into release evidence.
+                _fields = [k for k, v in zip(("place", "line1", "city", "state", "zip"),
+                                             (fp or "").split("|")) if v and v != "None"]
+                print("       identical input: %s (%d field(s): %s)"
+                      % (hashlib.sha256((fp or "").encode()).hexdigest()[:12],
+                         len(_fields), ", ".join(_fields) or "none recorded"))
     return counted, refused, effective
 
 
@@ -257,6 +324,47 @@ def selftest():
                  "stops": [{"stop": "01", "status": "walked", "screen": "PAGE TITLE Fernwood"}]}
         d = mk("clean", "R1", clean, "# written by the walker\n")
         check("a clean run is countable", not verdict(d)["refusals"])
+
+        # ═══ T4 · M13 — THE OBSERVATION UNIT IS (journey, fingerprint) ════════════════════════
+        # ⛔ Proven BOTH directions on the real report() path. A clause that only shows the collapse
+        # case cannot tell a working count from one that collapses everything.
+        _five = []
+        for i, lens in enumerate(["mom", "wide-eyed", "strict", "owner", "handover"]):
+            _five.append(mk("t4a-" + lens, "R1", dict(clean, journey="J0", lens=lens),
+                            "# written by the walker\n"))
+        import io as _io, contextlib as _ctx
+        _quiet = lambda rows: _ctx.redirect_stdout(_io.StringIO())
+        _rows = [verdict(x) for x in _five]
+        with _ctx.redirect_stdout(_io.StringIO()):
+            _, _, eff = report(_rows, countable_only=True)
+        check("T4/M13a five lenses · ONE journey · one fingerprint → 1 observation", eff == 1,
+              "got %s" % eff)
+
+        _three = []
+        for lens, j in [("mom", "J0"), ("wide-eyed", "J3"), ("strict", "J8"),
+                        ("owner", "J0"), ("handover", "J3")]:
+            _three.append(mk("t4b-" + lens, "R1", dict(clean, journey=j, lens=lens),
+                             "# written by the walker\n"))
+        with _ctx.redirect_stdout(_io.StringIO()):
+            _, _, eff3 = report([verdict(x) for x in _three], countable_only=True)
+        check("T4/M13b the same five across THREE journeys → 3 observations", eff3 == 3,
+              "got %s" % eff3)
+
+        # ⛔ M13c — THE REFUSALS MUST STILL BITE. Re-keying the count must not quietly make an
+        # uncountable run countable; the effective number is computed over COUNTED rows only.
+        _bad = mk("t4c", "R1", dict(clean, journey="J0", lens="mom"), "# stub\n<!-- %s -->\n" % MARKER)
+        with _ctx.redirect_stdout(_io.StringIO()):
+            _c, _r, eff4 = report([verdict(_bad)], countable_only=True)
+        check("T4/M13c a refused run is still refused and counts 0 observations",
+              len(_r) == 1 and len(_c) == 0 and eff4 == 0, "counted=%s refused=%s eff=%s" % (len(_c), len(_r), eff4))
+
+        # ⭐ M13d — the journey is IMPORTED from release-gate, backfill and all, not re-derived here.
+        check("T4/M13d journey_of_record imports release-gate's backfill (fresh → J1-legacy)",
+              journey_of_record({"fresh": True}) == "J1-legacy",
+              "got %r" % journey_of_record({"fresh": True}))
+        check("T4/M13e … and never infers a bare J2/J4 for the returning bucket",
+              journey_of_record({"fresh": False}) == "J-returning-legacy",
+              "got %r" % journey_of_record({"fresh": False}))
 
         d = mk("unwritten", "R1", clean, "# stub\n<!-- %s -->\n" % MARKER)
         check("R1 · the unwritten marker refuses the seat",
