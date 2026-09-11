@@ -1,6 +1,6 @@
 # Backlog rationalization against the 2026-09-10 rulings — what they CLOSE, what they INVALIDATE
 
-- row: `BACKLOG.md` § ▶️ NEXT (the rationalization trail; this file is the third run, after 07-29 and 09-02)
+- row: proposed — a rationalization is applied as a diff Paul approves, never as a row of its own; the trail it joins is `BACKLOG.md` § ▶️ NEXT (this is the third run, after 07-29 and 09-02) `[paul-ruled 2026-09-10 ~11:00 PM ET: "proposed sounds good"]`
 - objective: O5
 - class: engine · declared
 - class-note: the backlog's reading order is shared machinery every estate's work is planned through, but nothing renders from it — a divergence here is a legibility cost, not a defect

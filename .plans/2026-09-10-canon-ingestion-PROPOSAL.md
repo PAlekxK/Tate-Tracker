@@ -1,5 +1,17 @@
 # Canon ingestion — when an estate's Guru learns something new
 
+- row: proposed — a row beside TIER 2 · 12 (the per-estate canon store), which this mechanism is the first consumer of `[paul-ruled 2026-09-10 ~11:00 PM ET: "proposed sounds good"]`
+- objective: O2
+- class: engine · declared
+- stage: draft
+- seats: engineering-partner → owed: the recompose path, its allowlist and its measured cost (§3 · §6) are code claims nobody has reviewed
+         ai-advisor → owed: what a model route may learn from and when (§4's "must NOT trigger" list is the AI-boundary half)
+         ux-expert → waived: no surface is drawn here
+         content-steward → waived: no copy reaches a person
+         user-researcher → waived: no claim about a person is made
+- ready: agent-proposed 2026-09-10 — Paul rules. ⚠️ Its core is already RULED on the board (`.plans/2026-09-10-OPEN-ITEMS.md` ①: *ingestion on the confirmation clock*); the allowlist, first light, cost and the eager/lazy fork (§3 · §5 · §6 · §8) are still proposed.
+- stage-note: 2026-09-10 ~11:00 PM ET — header added by the backlog-refinement window on Paul's word; the body below is untouched and predates the header.
+
 **Paul asked for** *"a good suggestion for what that ingestion time and process would be."*
 This is the answer. It is a PROPOSAL — nothing here is `[paul-ruled]` yet.
 

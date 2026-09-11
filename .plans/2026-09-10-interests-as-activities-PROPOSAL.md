@@ -9,6 +9,7 @@
         engineering-partner → waived: no tool was built and the machinery is byte-identical to HEAD (§3, §9)
         ai-advisor → waived: no model is on this path — capture stays deterministic and the free-text answer is stored verbatim
 - ready: agent-proposed 2026-09-10 — Paul rules
+- stage-note: 2026-09-10 ~11:00 PM ET — §7's product question ANSWERED by Paul: houseplants is NOT absorbed into the garden module by widening the label; it is its own module-with-overlap with deep research owed (`BACKLOG.md` § 🪴 HOUSEPLANTS, his words verbatim there). *"Gardening"* stays (board ①). The link back is now written on TIER 1 · 35 in the checker's `→ PLAN ·` form, so `row:` above stays a pointer — the row exists — rather than `proposed`.
 - stage: concept
 - wip-exception: builds nothing and opens no item between concept and QA. It re-authors words on an existing
   screen; the machinery underneath is byte-identical (§3) and no tool's contract moved.

@@ -803,12 +803,95 @@ def selftest():
         f, _ = check(td); ok("  and an older dependency is clean", not any("NEWER than this plan" in m for _, m in f))
         open(main_p, "w").write(GOOD_PLAN.replace("- stage: ready", "- depends-on: .plans/2026-09-03-ghost-PLAN.md\n- stage: ready"))
         f, _ = check(td); ok("  and a missing dependency is flagged", any("depends on" in m and "does not exist" in m for _, m in f))
+    # ── the committed-by-ruling rung reads the chronicle, never the heading text ────────────────
+    CHRON = ("## Lap 5 — 2026-09-08 · 🔓 **OPEN at OPEN (1/12)** — heading lies, marker tells\n<!-- outcome:closed -->\n"
+             "### Beat 6 · COMMIT — x\n| | committed | done means |\n|---|---|---|\n"
+             "| **A** | **old thing** (TIER 1 · 1) — text | done |\n\n"
+             "## Lap 7 — 2026-09-10 · 🔓 **OPEN at OPEN (1/12)** — the bundle\n<!-- outcome:open -->\n"
+             "### Beat 1 · OPEN\n| **Z** | **not a commitment** | x |\n"
+             "### Beat 6 · COMMIT — the scope\n| | committed | done means |\n|---|---|---|\n"
+             "| **D** | **the Worker map for the `myhome-*` origins** (TIER 1 · 45; the instance TIER 1 · 42) — **FIRST** | at the candidate |\n"
+             "| **E** | **the teardown — a PROCESS row**, not a build: `bob` | waits |\n")
+    c = parse_commitments(CHRON)
+    ok("the committed rung reads every beat-6 row with its lap and outcome", [(x[0], x[1], x[2]) for x in c] == [("5", "closed", "A"), ("7", "open", "D"), ("7", "open", "E")])
+    ok("  and a lap is open by its outcome MARKER, never its heading", not any(x[1] == "open" for x in c if x[0] == "5"))
+    ok("  and a beat-1 table row is not a commitment", not any(x[2] == "Z" for x in c))
+    ok("  and the row's TIER pointers ride along", [x for x in c if x[2] == "D"][0][4] == [("1", "45"), ("1", "42")])
+    with tempfile.TemporaryDirectory() as td:
+        os.makedirs(os.path.join(td, "cycle", "release")); os.makedirs(os.path.join(td, ".plans"))
+        open(os.path.join(td, "cycle", "release", "CYCLE-LOG.md"), "w").write(CHRON)
+        r = committed_rung(td)
+        ok("  and only OPEN laps print on the rung, build plan named as owed when absent", len(r) == 2 and "none in .plans yet" in r[0] and "process row" in r[1])
+        open(os.path.join(td, ".plans", "2026-09-10-lap7-build-PLAN.md"), "w").write("x")
+        ok("  and an existing lap build plan is named as what the build window pulls", "build plan exists" in committed_rung(td)[0])
+    ok("  and a missing chronicle reads UNREADABLE, never empty", "UNREADABLE" in committed_rung(tempfile.mkdtemp())[0])
     print(f"\n{'PASS' if not failed else 'FAIL'} — {failed} failure(s), {passed} passed")
     return 0 if not failed else 1
 
 
 # ---------------------------------------------------------------------------------------------
 LADDER = ["draft", "concept", "design", "journey", "ready", "build", "qa", "shipped", "retro"]
+
+# ⭐ THE RUNG THE PLAN HEADERS CANNOT SEE — what Paul COMMITTED at beat 6 `[paul-ruled 2026-09-10, on the
+# refinement window's recommendation]`. The ladder below derives from `.plans` headers; Paul commits BACKLOG
+# rows. Measured 2026-09-10: lap 7's five items and lap 8's door sat on no rung, and § ⏭'s own falsifier
+# fired the first lap it met. This reads the chronicle's `### Beat 6 · COMMIT` tables of OPEN laps and
+# prints them ABOVE the plan rungs. ⛔ It is READ, never typed; the chronicle stays the source. ⛔ A lap is
+# open by its `<!-- outcome:open -->` marker, never by its heading text (lap 5's heading still says OPEN).
+COMMIT_ROW_PAT = re.compile(r"^\| \*\*([A-Z])\*\* \| (.*?) \| ")
+LAP_PAT = re.compile(r"^## Lap (\d+) — ")
+OUTCOME_PAT = re.compile(r"<!--\s*outcome:(\w+)\s*-->")
+
+def parse_commitments(text):
+    """→ [(lap, outcome, letter, title, [(tier,row)…], [plan paths…])] for every beat-6 COMMIT row, all laps."""
+    out, lap, outcome, in_beat6, want_outcome = [], None, None, False, False
+    for line in text.split("\n"):
+        m = LAP_PAT.match(line)
+        if m:
+            lap, outcome, in_beat6, want_outcome = m.group(1), "unknown", False, True
+            continue
+        if want_outcome:
+            o = OUTCOME_PAT.search(line)
+            if o:
+                outcome, want_outcome = o.group(1), False
+            elif line.strip():
+                want_outcome = False
+        if line.startswith("### "):
+            in_beat6 = line.startswith("### Beat 6 · COMMIT")
+            continue
+        if in_beat6 and lap:
+            r = COMMIT_ROW_PAT.match(line)
+            if r:
+                letter, body = r.groups()
+                title = re.sub(r"\*\*|`", "", re.split(r" — | \(", body, maxsplit=1)[0]).strip()
+                if "PROCESS" in body.upper():
+                    title += " (process)"
+                rows = re.findall(r"TIER\s*(\d)\s*·\s*(\d+[a-z]?)", body)
+                plans = re.findall(r"\.plans/[^\s`|)]+", body)
+                out.append((lap, outcome, letter, title[:58], rows, plans))
+    return out
+
+def committed_rung(root):
+    """The committed-by-ruling rows of OPEN laps, each with what would make it READY: the lap's build plan
+    (the commit-phase rule — engineering-partner writes `.plans/<date>-lap<N>-build-PLAN.md`), or, for a
+    process row, its report. Returns printable lines; empty when no lap is open."""
+    path = os.path.join(root, "cycle", "release", "CYCLE-LOG.md")
+    if not os.path.exists(path):
+        return ["   ⚠️ no cycle/release/CYCLE-LOG.md — the committed rung is UNREADABLE, not empty"]
+    lines = []
+    for lap, outcome, letter, title, rows, plans in parse_commitments(open(path, encoding="utf-8").read()):
+        if outcome != "open":
+            continue
+        plan = sorted(glob.glob(os.path.join(root, ".plans", f"*lap{lap}-build-PLAN.md")))
+        if "PROCESS" in title.upper():
+            need = "a process row — its report, not a plan"
+        elif plan:
+            need = "build plan exists: " + os.path.basename(plan[-1]) + " → the build window pulls it"
+        else:
+            need = "the lap's build plan (commit-phase rule: engineering-partner writes it) — none in .plans yet"
+        ref = " · ".join(f"TIER {t} · {r}" for t, r in rows) or (" · ".join(plans) if plans else "no row cited")
+        lines.append("   lap %s · %s  %-58s %-34s %s" % (lap, letter, title, ref[:34], need))
+    return lines
 
 
 def ladder():
@@ -868,6 +951,11 @@ def ladder():
         rows.append((LADDER.index(stage) if stage in LADDER else -1, os.path.basename(path)[:-3], stage,
                      "✅" if stamped else "·", link, rs, "; ".join(need) or "—"))
     print(f"🪜 Ladder — derived from {len(rows)} plan header(s) at {sha} · a snapshot, ranks nothing")
+    rung = committed_rung(ROOT)
+    print("   ⭐ committed by RULING — read from cycle/release/CYCLE-LOG.md, beat-6 tables of OPEN laps (never typed; the chronicle is the source)")
+    for l in rung or ["   (no lap is open — nothing is committed by ruling right now)"]:
+        print(l)
+    print()
     print("   %-52s %-8s %-3s %-10s %-9s %s" % ("plan", "stage", "✓", "link", "row:", "what would make it READY / move it"))
     for _, name, stage, st, link, rs, need in sorted(rows, key=lambda r: (r[0], r[1])):
         print("   %-52s %-8s %-3s %-10s %-9s %s" % (name[:52], stage, st, link, rs, need))
