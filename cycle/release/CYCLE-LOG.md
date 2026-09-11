@@ -4012,7 +4012,7 @@ coordination window the lap-7 close handed off to; **the writing window was not 
 
 | row | the commitment | ruled |
 |---|---|---|
-| **T** | **the testing architecture — the whole testing package, whole and first** | *"hold lap eight until all this is determined and we have a clear plan… I'd rather not split it up unless there's a really good reason — that's not just time and effort"* `[paul-ruled 2026-09-11]` · and at the open: *"I'm pre-authorizing the commitment to be the whole testing package so you don't need my gate there"* `[paul-ruled 2026-09-11 10:36 EDT]` |
+| **T** | **the testing architecture — the whole testing package, whole and first.** ⛔ **24 STEPS** (T0–T23 incl. T3b) — ~~21~~ **CORRECTED**: §A's sequence dropped T3b and T22/T23, which §13 P8 rules UNCONDITIONAL | *"hold lap eight until all this is determined and we have a clear plan… I'd rather not split it up unless there's a really good reason — that's not just time and effort"* `[paul-ruled 2026-09-11]` · and at the open: *"I'm pre-authorizing the commitment to be the whole testing package so you don't need my gate there"* `[paul-ruled 2026-09-11 10:36 EDT]` |
 
 ⛔ **That is the whole table.** The door rows (A · B · C · E · F · G · H · riders) join it **only after
 engineering-partner's re-audit** of `.plans/2026-09-11-lap8-build-PLAN.md`, which itself follows **ux-expert's
@@ -4480,3 +4480,78 @@ toward the lap branch.**
 ⭐ **What should have happened, and is the rule going forward: verify by USE at the surface the person actually
 loads, BEFORE acting on a probe that reads a local file.** One fetch answered it. The probe, the backfill, the
 chronicle entry and a cleared push all ran first.
+
+### engineering-partner's RE-AUDIT of the lap-8 door plan — and it CORRECTS THIS WINDOW'S OWN CORRECTION
+
+`.engineering/2026-09-11-lap8-build-REAUDIT.md` (441 lines), stamped from `date`, read at `e354ed04` → `0a6c3684`
+(**HEAD moved under it mid-read; it diffed the gap itself** — two `.md` files, no `worker/`, `tools/` or served
+page — rather than assuming). **The door rows may now join the beat-6 table.**
+
+#### ⛔⛔ F1, THIRD PASS — AND THIS WINDOW'S CORRECTION WAS ALSO WRONG. Verified here before recording
+
+| pass | claim | verdict |
+|---|---|---|
+| **ux-expert** | the grant-resolved `whoami` literal carries **no `estates`** | ✅ **TRUE** (18 keys, confirmed twice) |
+| **ux-expert** | …so the shelf *"falls back to building an array of one"* | ❌ wrong |
+| **this window** | …the fallback inference is fed by `localStorage`, so an **estate-less account with a cached place name renders a phantom home** | ❌ **ALSO WRONG** |
+| **engineering-partner** | an estate-less account never reaches the grant branch at all | ✅ **CORRECT** |
+
+**Measured:** an estate-less person has **no grant** (a grant carries an `estateId`), so `/api/grant/whoami`
+falls through to `personFor()`, which returns **`estates: []`** — `told` is **TRUE** and **the inference never
+runs.** ⛔ **So the phantom this window described cannot occur on the path it described it for**, and telling
+Paul otherwise was a claim made from reading one branch and not the one the caller actually takes.
+
+⭐ **The real defect is on the FAILURE path**, where the re-audit places it: `if (!d) { … renderHomes(cached.length
+? cached : []); return; }` — the **B15 quarantine re-renders `cached`, which came from `localStorage`**, so the
+phantom persists on a refusal or a dropped connection, **with no retry control** (which is ux-expert's F7, on the
+same screen, and neither seat connected them).
+
+⭐⭐ **AND THE FINDING NEITHER SEAT NOR THIS WINDOW REACHED, which is larger than all of the above:**
+`renderHomes(empty ? [] : [merged])` — **the shelf NEVER READS `d.estates` FOR THE RENDERING AT ALL.** It renders
+`[merged]`, a single constructed object. ⛔ **Put the array on both literals and a two-home person still sees one
+row** — the array becomes **correct and unread**, which is strictly worse than today, because the next reader
+will believe it is wired. The code's own comment claims *"rendering an array of one keeps this page correct the
+day there are two"* — **it does not.** **A9 must also make the shelf render the array: three changes, not two.**
+
+⭐ **Three passes, each correcting the last, and the third found what the first two could not see.** Worth naming
+because the two wrong answers were **both produced by reading a branch and reasoning forward**, and the right one
+came from asking *which branch does this caller actually reach.*
+
+#### The rest, carried
+
+- ✅ **The plan's only 🔴 BLOCKING finding is DISCHARGED by measurement, not by Paul's word.** B1/B2/B3 all landed
+  in lap 7 — `estates` from the grant, revoke at `priorScope`, the account write through `putAccount`. **A0a/A0b
+  are deleted, P1 becomes a one-command confirmation, and Q6 is WITHDRAWN from Paul's list.**
+- **`render()` at a questions-absent instance never runs** — `start()` returns before it, and the master panel is
+  hidden when `questions` and `ack` are both absent, which **all three non-Fernwood instances declare**. ⭐ **So
+  ux-expert's F5 is already shipped.** The real G2 finding is one layer down: **both gates read a BUILD-TIME
+  declaration**, so a household's first feedback cannot raise a ribbon until someone edits its instance file and
+  rebuilds — **and G1 entrenches that.**
+- ⛔ **A DEFECT IN ROW T ITSELF, on the T↔H seam.** `journey-view.py:63`'s `newContext` is **inline**, with `page`,
+  `out` and three handlers bound to it. SIZING T14 says the cfg surface *"grows by three keys… lands in the
+  existing call"* — but **a grown argument object is not a factory**, so H1 must either duplicate it (**the
+  parallel path the ruling forbids by name**) or refactor a landed, pre-authorized step. **One-hour amendment
+  inside T14: extract `mkContext(browser, cfg, label)`.** Separately, **T16 as specified swaps a regex for a
+  hand-typed literal** — `out.geometry` duplicates the viewport ten lines above it instead of deriving from it.
+- **The surface grew five sites and a whole key kind in one lap** — 55 → **60** non-comment `scopeOf(env)`, with a
+  `recovery` kind that did not exist. ⭐ That is A0's case made for it, **and it falsifies A0's own delete-clause
+  as written**, which would have counted the tool's successes as evidence to delete it.
+- ⛔ **§5 of the build plan (THE BATTERY) must be REWRITTEN, not amended** — its seat roster
+  (`mom · owner · strict · wide-eyed · handover`) **no longer exists** (`owner` retired as a lens, `strict` →
+  `conformance` per P1) and its unit is the **pre-T** one.
+- ⚠️ **The beat-6 entry in this chronicle says "21 steps" and row T is 24.** Named by the re-audit, corrected below.
+
+#### ⭐ AND IT CAUGHT ITSELF, IN THE CLASS IT WAS AUDITING FOR
+
+It first wrote that R0 should move to lap 9 because *"`.plans/2026-09-11-ask-design-PLAN.md` does not exist."*
+**It does.** It had listed `tools/` and never `.plans/`, then **wrote the absence as a finding.** The strike is in
+its own §6·5 rather than rewritten away, and §9 now carries the general form: ⛔ **if an *"X does not exist"* here
+was not produced by a command printed in §10, it is an ASSERTION.** ⭐ **And the self-correction produced a better
+finding than the error hid:** the draft's R0 step **points at `ask-design-PLAN` §4 while the spec is at §9** —
+and **§4 is THE FOLD**, so a build window following the pointer lands on the wrong section of the right file,
+**which reads like a spec and is not one.**
+
+**Eleven rows surfaced for Paul as question · recommendation · alternatives**, two of them new — **Q9** (is the
+ribbon's appearance build-time or runtime?) and **Q10** (A9 in three changes) — plus **Q11** (R0's sizing).
+**Q6 withdrawn.** On **Q0** it endorses ux-expert: the apex settles the **link**; **A11 is the SCREEN**, and it
+names a place **four times** before a credential resolves.
