@@ -3545,3 +3545,25 @@ this where it says 'My QA place · in the early days'. Does this 'early days' fi
 We don't need to solve it now — it seems awkward to me."* Register: the post-founding landing — a person who has just
 confirmed everything expects THEIR PLACE, not an interstitial; *"in the early days"* is a state label wearing a screen's
 clothes. Routed to the revamp window as W7 (a returning/first-open cell) and to lap 8's ux-expert closure of the shelf.
+
+**Paul's walk · inside `pkirsch-qa`'s place · 2026-09-11 09:34 EDT** — *"That looks good. No hard fails"* — four notes, his words, for the
+register and the revamp window (W8–W11):
+- **W8 formatting, the masthead utility** — *"Your homes · What you told me · Settings at the very top… spilling out of the
+  margins of the rest of the page — 'Your homes' the left part is cut off, 'Settings' the right part is cut off."* = TIER 1 ·
+  30 (his 6:22 PM note) STILL PRESENT at `87c7aae` on his laptop width; the battery walks 414 only (the gate's own coverage
+  line). A width cell for the matrix.
+- **W9 the cards vs the jump strip** — *"four cards below My QA place which I think should say: the property (My QA place) ·
+  Weather · Sky & Stars · What you told me — and that needs to line up with our jump strip in our menu… for all the cards we
+  have, we should have the same number of entries on the jump strip. I think we're moving in the right direction."* = TIER 2 ·
+  10 (GL-1…13: strip and page order share ONE source) — *"that frankly should also be caught and run by the UX expert."*
+- **W10 the weather card** — *"I do see that I have a Weather card, which is fine, but it's not the revamped one — showing a
+  weather station; no station here, just don't show that; a 'do you want radar?' button — let's prompt for input."* = TIER 2 ·
+  11 (lap 9 · A) and its card-intro ask; the station line is the declared-absent state (C7 1c) — check it renders as
+  *REGION*, not as an empty station.
+- **W11 the Journal's line** — *"under My QA place, Journal: 'Stays on this phone for now — nobody else sees it.' I want to
+  eventually work towards it NOT staying on the phone."* = the "synced" ruling's destination; the capture write path (lap 10 ·
+  B) is the act; the copy is honest today and must change the day the write lands.
+**Then he signed out** — and the SIGNED-OUT LEDE rendered (*"You're signed out of this phone. Your place is where you left it
+— sign back in whenever you like, from any phone."* + Sign in + *Can't get in?* + the looping *Create your account ›*). So W1
+is narrower: the lede renders after a real sign-out; it did NOT after signing out of the dead PAK grant (step 1b). Reload
+test pending: does this screen survive a reload, or fall to the cold door?
