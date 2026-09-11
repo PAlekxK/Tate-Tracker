@@ -2605,3 +2605,23 @@ build window does not open until he has read the plan.
 
 The build plan `.plans/2026-09-10-lap7-build-PLAN.md` is now the ratified plan for the build window; its brief is
 `handoff/handoff-lap7-build.md`. Rows frozen at the pull: TIER 1 · 45 · 42 · 26 · 27 · 28 · 29 · 30 · 43 · 44 · 32 · 23 · TIER 2 · 10 · 13 · 18.
+
+### Row E · TEARDOWN — ran and committed (`6889d0d`, lane report `.plans/2026-09-10-teardown-REPORT.md`), ~11:10 PM ET
+
+| item | outcome |
+|---|---|
+| `bob` deployment (est-9a74df) | **DESTROYED, each act verified at Cloudflare**: Worker `myhome-bob` → 404 · KV `22250acec…` absent from the namespace list · Pages project absent, origin 530. ⚠️ Unlike nigel/aida the namespace held **9 keys** (the unspent invite for `p-2f4735`, its route, one `door_failed`, five days of onboarding-metrics) — **exported to `.private/teardown-bob-est-9a74df-2026-09-10.json` before deletion**. `[env.bob]` → tombstone; deploy maps and health URLs lose bob; `people.json` holds the person. est-9a74df RETIRED, NEVER REUSED |
+| `pkirsch`@qa | **DELETED**, account + route rows (2 keys; personId agreed by content; no grant row existed); absent after |
+| PAK/Homey | held on "do not touch", then **DELETED on his word** (account `pak` · founding grant · route · `est-jfkeea:place` · geocode; 5 keys); `est-jfkeea:` empty after |
+| Midtown scratch instance | **REFUSED** — never a tracked file; its scratch build in `.private/condo-falsifier/` is read by `check-condo-falsifier.py` and `place-claims.py` (pickup block). Retiring = repoint both to `instance/paul.json`, regenerate the ledger, `trash` — a build item |
+| the fourteen fixture houses | **REFUSED by `household-fixtures.py --teardown`, correctly** (qa: 0 fixture · 1 person · 208 unmarked). Evidence table built: qa's seven each have a walk-side creation record at `318416a` (`est-ofd6vk` behind an UNWRITTEN walk report); lab's seven have none — "product-founded" is not "fixture". Not hand-deleted |
+
+**Findings outside the list, for the register (report §6):** Bob's invite row keeps `revokedAt: null` — `grant-mint revoke`
+refuses to stamp when the store delete cannot succeed and the store is gone; needs a store-gone verb · the fixture stamp
+already ships (`grant-mint --fixture-out` → `worker.js:803`) but never reaches a J0 seat, and `handleEstateFound` copies no
+`fixture` onto the founding grant or place row — two server-side proposals in §5 · inside the qa namespace `est-3c9f1a`
+(legacy's id) holds 6 keys and `est-qa0002` holds one 09-04 fixture grant; neither on any list.
+
+⚠️ The lane's return carried the harness's classifier warning (a wrangler act blocked mid-run). Coordination read the report
+against the ruled list: only the three ruled deletions happened, each verified after the act; nothing on KEEP or in an
+unnamed env was touched. **SEAM-9 is clear** — the teardown commit is landed; the build window rebases on `6889d0d`.
