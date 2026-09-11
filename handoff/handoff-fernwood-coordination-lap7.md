@@ -40,10 +40,10 @@ vs `origin/main` (legacy, **never push**).
 
 | ruling (his words are on the register) | state | who acts |
 |---|---|---|
-| **Teardown**: *"sweep all the environments… get rid of Bob and anything else… tired of bringing this up"* | ⛔ **needs his "go teardown" in the coordination window** (irreversible; reached me via a peer). Named list from the record: `bob` deployment (nigel/aida procedure) · Midtown scratch instance (check what reads it; keep the ownerless neutrality fixture) · **seven** qa seat houses `rihhdp · d7teqw · bzr4gb · pr9pwl · otzfk2 · ofd6vk · gndlvf` (the last = the sweep's `syn-sweep-0910`, "Bramble Hill") · lab's seven. KEEP `pkirsch`, `PAK`/Homey, `marguerite`, est-qa0001 itself. One unprovable row stops the run; refusals reported | a **visible teardown lane** |
+| **Teardown**: *"sweep all the environments… get rid of Bob and anything else… tired of bringing this up"* | ⛔ **needs his "go teardown" in the coordination window** (irreversible; reached me via a peer). Named list from the record: `bob` deployment (nigel/aida procedure) · Midtown scratch instance (check what reads it; keep the ownerless neutrality fixture) · **seven** qa seat houses `rihhdp · d7teqw · bzr4gb · pr9pwl · otzfk2 · ofd6vk · gndlvf` (the last = the sweep's `syn-sweep-0910`, "Bramble Hill") · **lab's seven** `est-1nq5gr · est-2dpewr · est-auirns · est-k2wowm · est-l71bed · est-vbvhsj · est-zyn5py` (measured 09-10 by `walk-founding.py`, recorded in CLAUDE.md's pickup block). ⚠️ **`household-fixtures.py --teardown` refuses by design today** — nothing writes `syntheticFixtureRun`, so the qa houses are unprovable to the TOOL; the named list + Paul's word is the record, and the lane reports REFUSED where the tool cannot prove a row rather than deleting by name. Bob's deployment is the Wrangler procedure, not that tool. KEEP `pkirsch`, `PAK`/Homey, `marguerite`, est-qa0001 itself. One unprovable row stops the run; refusals reported | a **visible teardown lane** |
 | **Midtown scratch instance RETIRED** — *"use the Grant Park condo to inform them"* | part of the teardown list; 08-14 rule first (what else reads it) | same lane |
 | **Confirm card = GATE**; PO-box refusal + confirm on **one card at the address step** | design proposed (tate-tracker-8d), **apply held** | lap 7's one candidate |
-| **Account lifecycle IN** the lap-7 bundle; **colour = one-line noun fix**; **one candidate** | designed, not built | design → build lane |
+| **Account lifecycle IN** the lap-7 bundle; ~~colour = one-line noun fix~~ → **TWO colours** (account + per-estate, two honest labels — §4c supersedes); **one candidate** | designed, not built | design → build lane |
 | **Content clause on gate ①** (content-steward reads every walk) | L7-P3 pre-registered; practice-steward §2 amendment owed at lap 7 open | coordination commissions |
 | **Zones**: cleaned 23 = LEADING CANDIDATE, `zones.json` NOT replaced, preload **not until Mom has founded her Fernwood and is ready** | parked, by ruling | nobody until then |
 | **Mom's household holds TWO places** (her Fernwood record + Paul's Grant Park records under est-e6696a) — `check-canon-scope --deep` for home never run since her signup (row 33) | ⚠️ read-only check owed | teardown lane, report only |
@@ -107,10 +107,10 @@ out. **The build window's brief points at that plan.** Memory: `feedback_build_e
 ## 6. Window map at pause
 
 coordination (this brief's author) · **backlog-refinement `tate-tracker-0d` — the ONE DOOR to `BACKLOG.md`
-`[paul-ruled "fold it in"]`, stays open, also the design window's liaison** · founding-design `tate-tracker-8d` (paused
+`[paul-ruled "fold it in"]` — CLOSED on his word at `06e3c7d`, its brief §8 is its state; reopen it via `succeed.py`** · founding-design `tate-tracker-8d` (paused
 by Paul, told to commit partial) · build-founding-walk `tate-tracker-c4` (idle, all files released) · zones (closed).
-**Uncommitted for Paul, not anyone's:** `tools/check-backlog-ready.py` diff + `handoff/patches/` (the row-state ④
-tool change, his to apply). `worker/digest.json` is hook/deploy-generated — never commit it.
+~~Uncommitted for Paul: `tools/check-backlog-ready.py` diff + `handoff/patches/`~~ → **APPLIED at `ed3a943` on his word**
+(*"I'm good with your recommendation there"*); the tree is clean. `worker/digest.json` is deploy-generated — never commit it.
 
 ## 7. Guardrails — Paul's
 
@@ -141,3 +141,19 @@ anywhere tonight. Nothing known-stale at commit time; the seven-house list is by
 5. **Still his, ask once at open:** "go teardown" (named list §4) · working-model deployment · what "synced" means beyond one sign-in.
 6. **Runs at open with no ruling:** `check-canon-scope.py --deep` at home (row 33) · practice-steward §2 amendment for the CONTENT
    clause (L7-P3) · the security report's home (`.security/` absent from FINDING_DIRS) · post-deploy blob compare (L7-P4).
+
+## 10. Amended after the successor's readback — 2026-09-10 ~10:30 PM ET
+
+- §6 was STALE (④ applied on Paul's word, `ed3a943`); §4's colour line superseded by §4c; §4b "stays open" superseded (closed
+  `06e3c7d`). Fixed in place above.
+- **The battery needs a sign-out/return journey stop** for the account-lifecycle screens (design plan D4). `journey-walk.py` has
+  none. Put it in the engineering-partner's build plan as a harness item beside the s3 "Got it" photo fix; otherwise gate ① passes
+  on a battery that never exercised lifecycle.
+- **Memory location:** this repo's sessions recall from `~/.claude/projects/-Users-paulkirschenbauer-Developer-Tate-Tracker/`; every
+  memory named in this brief lives in the HOME project dir (`~/.claude/projects/-Users-paulkirschenbauer/memory/`, indexed by its
+  `MEMORY.md`). Read them by path when the brief names one; the brief carries the rules so nothing is lost.
+- **Deploy mechanism**, named: `pages-deploy.py --env <paul|home> --sha <candidate>` (exports the COMMIT, runs `release-gate
+  --seats-only` + `cleared_sha` for `home`, then `post-deploy.py`) and `deploy-worker.sh --env <env>` per Worker. The auto-mode
+  classifier blocked the first production deploy from a session; Paul runs it with the `!` prefix, or it may pass on retry.
+- `check-canon-scope.py --deep` at home: run it in the coordination window at open (read-only), not the teardown lane.
+- Health at open: weather-history newest 09-06 (legacy-side recorder, every 6 h) — an agenda item, not a block.
