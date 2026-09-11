@@ -2694,3 +2694,43 @@ account (`pkirsch`), **zero metrics batches** (consistent with the app having no
 **Laps 8/9 scope proposal** (`.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md`, backlog window, `0c4a983`) reviewed:
 approved to Paul with three changes — lap 8 · A's done-means carries the "synced" clauses · lap 8 · D is conditional
 on a G6 reading window with a slip rule · security-steward named on A and B.
+
+## Laps 8 and 9 — SCOPE COMMITTED BY RULING, ahead of their open `[paul-ruled 2026-09-11 ~12:10 AM ET: "Let's go on laps eight and nine… let's walk through it."]`
+<!-- pre-commitment: transcribed into each lap's beat-6 table at its open; the committed-by-ruling rung reads it from here -->
+
+Source: `.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md` (`0c4a983` + the three review changes). Walked question by question
+with Paul in the coordination window; every answer below is his pick from options with coordination's recommendation
+stated first. Where he picked the recommendation it says so; it is still his pick.
+
+**Lap 8 — the door and what it makes possible.** ONE candidate for **A** the single-origin sign-in door (done = the four
+"synced" clauses s1–s4, his words) · **C** the email editor · **E** the Midtown repoint · **F** the fixture stamp as a
+rider. **B** Mom's account row migrates into `myhome-paul` as **its own gate on his word at the act**. **D** the glance
+design pass, **conditional: ≥ 10 real sessions in `read-glance-order.py` across the real households at lap 8's beat 6,
+else it moves to lap 9 by rule.** **G** the ribbon seam rides (proposed → accepted by inclusion). Riders 36/37.
+
+| q | ruling |
+|---|---|
+| 8·1 walkers | **Mom waits until B is proven** — nobody real walks the door while A's steps land at lab; she founds once, at the production origin |
+| 8·2 order | **B after A's isolation falsifier passes at lab** |
+| 8·3 weather card | **Lap 9, first row** |
+| 8·4 name | **Rule the product name BEFORE B** — a link she receives is not renamed under her (`.plans/2026-09-03-product-name-PLAN.md` is the open ruling) |
+| 8·5 shape | **One candidate A + C + E + F; B its own gate** |
+| 8·6 stamp | **Lap 8 rider** (qa/lab only; production never sets the var) |
+
+**Lap 9 — the second person and the first feature.** **A** the weather card from an address, **first row** · **C** Bob —
+**founds his own, twice (J0 × 2)**, no invite; ⚠️ a second house needs the *add another place* path (TIER 1 · 19) — lap 8's
+estate-as-row plus a founding-surface step; carried as C's dependency · **E** the glance build (if D ran in lap 8) ·
+**D** capture write path after its design pass · **B** INVITE & JOIN **off lap 9's critical path**; its **five-seat scoping
+runs in lap 8** so a lap-10 build is possible · **F** zones preload stays gated on Mom's act.
+
+| q | ruling |
+|---|---|
+| 9·1 Bob | **J0 twice** — founds his own houses at the open door |
+| 9·2 weather leads | **Yes** (follows 8·3) |
+| 9·3 Mom's founding | **A disposition when it happens, never a commitment** — the loop rests; her input fires it |
+| 9·4 scoping | **Convene INVITE & JOIN's five seats in lap 8** |
+| D threshold | **10 sessions** |
+
+**Also ruled in the walk:** the two qa feedback records carrying his real address (row 51) — **DELETE both, by id**,
+verified absent after; a lane runs it. ⛔ Nothing here opens lap 8; lap 7 is the open lap. The register carries these
+rulings on the proposal and its rows.
