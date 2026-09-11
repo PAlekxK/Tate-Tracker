@@ -5003,3 +5003,38 @@ the record says Y"* would be **most costly to discover late.**
 against a risk that has not appeared and pays for it in the one artifact this lap has proven unreliable. **If he
 wants one for hygiene, after T13 — and `row-T-carries.md` goes with the brief, because it is the half the brief
 has been missing.**
+
+### ⭐ T9 LANDS — the privacy divergence is CLOSED, and it carries the control that actually discriminates
+
+`54c033fe`, `journey-walk.py` + `walk-integrity.py`. **selftest 85/85** (twelve new), release-gate green, **corpus
+frozen — NOT back-filled**, which is correct: it is the past T21 depends on. **11 of 24.**
+
+**The seven elision clauses, verified by running them:**
+
+| clause | what it proves |
+|---|---|
+| **M-elide-a** | a typed action renders `<N chars>`, **selector intact** |
+| ⭐⭐ **M-elide-b** | **THE NEGATIVE CONTROL — the PRE-T9 shape FAILS the clause** |
+| **M-elide-b2** | a non-typed action is untouched (clicks carry no value) |
+| ⭐ **M-elide-c** | **the password is MASKED, never length-elided** — parity with `:1745`, whose whole point is that a password's LENGTH is not wanted either |
+| **M-elide-d / e** | only keys the walk TYPED survive; a key never typed is **ABSENT, not blanked** |
+| **M-elide-f** | **falsifier ①** — a walk that types nothing records **no fixture value** |
+
+⭐⭐ **M-elide-b is the one that matters and it was the build window's own addition, not the brief's.** Coordination
+specified *"the elision must actually elide"*; **it added that a mutation proving the NEW shape passes cannot tell
+an elider from a non-elider, so the OLD shape must FAIL.** That is the same false-green class caught four times
+today — **this is the first instance caught before the code was written rather than after.**
+
+⛔ **What this closes:** `journey-walk.py:1745` masked the password in `answers` (283 of 283) while **the same
+writer** appended it **in clear** to `stops[].actions` (15 runs, all carrying both). **One definition of what the
+record may hold, currently two, inside one file** — `must-not-diverge` in its literal sense. The frozen corpus
+still carries the old shape **by design**, and the before-image records that it does.
+
+#### ⚪ A NON-FINDING, RECORDED SO IT IS NOT RE-RAISED
+
+T9's selftest fixture hardcodes **Fernwood's own street address**. Checked before treating it as an issue: the
+address appears in **five tracked `.py` files already** — including `check-estate-neutral.py`, which **requires**
+it as a needle — and `CLAUDE.md:1030` publishes address and coordinates **by decision**. ⛔ **So it is the repo's
+known state, adds no disclosure, and is NOT a finding.** ⭐ Raising it would have been **manufacturing one**,
+which is the failure the elicitation lens already paid for (16 findings, 13 noise). *A synthetic fixture would be
+marginally better and costs nothing, but it is not owed and nothing waits on it.*
