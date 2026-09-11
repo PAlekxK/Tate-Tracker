@@ -4941,3 +4941,65 @@ overrule; the record makes that possible in one command.**
 
 ⚠️ **Scoped honestly:** the values are **synthetic today**. This matters for the same reason R3-2 does — **at the
 H1 human cell they are Paul's own.**
+
+### ⭐⭐ THE SEAM QUESTION — ANSWERED BY MEASUREMENT: NO SEAM. And the asking produced the artifact
+
+Paul, considering fresh build windows for row T's remaining 16 steps: *"I'm open to assessing whether there are
+a couple seams… as long as that context loss doesn't result in lower quality of work, but maybe we could watch
+our token utilization."* Coordination could not answer it — **the deciding number is inside the build window** —
+so it was asked directly, with an instruction not to be reassuring.
+
+**Its answer: ~3 % of budget consumed, on a 1M-context model. Not close, not managing it.** And the reasoning
+that decides it is sharper than the number:
+
+> ⛔ **MY CONTEXT IS FREE RIGHT NOW AND YOUR BRIEF IS NOT.** *A seam mints a new brief, so it spends the scarce
+> thing to save the abundant one. On today's evidence that trade is clearly negative, and it would still be
+> negative if my context were at 50 %.*
+
+⭐ **That is correct, and the evidence is coordination's own record:** the brief it was handed carried **two**
+significant defects — the step count **short by three**, and an instruction whose **obvious recovery was a real
+deploy**. Both were caught by the receiving window at several exchanges each. **The brief is this lap's least
+reliable artifact, and a seam concentrates risk in exactly it.**
+
+#### ⭐⭐ AND ASKING PRODUCED SOMETHING BETTER THAN THE ANSWER — `handoff/row-T-carries.md` (`f6165805`, 100 lines)
+
+Asked *"what are you carrying that is not written down"*, it **stopped reporting and wrote it.** Six sections,
+all learned by building, **verified present here:**
+
+1. **THE PER-STEP VERIFICATION BATTERY** — the invariant coordination has tracked at every step (*five verdicts
+   unchanged, corpus frozen*), which **no document says how to produce.** Now copy-pasteable, with the expected
+   exit codes on its face.
+2. **THE PREDICATE REFLEX** — a table of **six measured predicate failures in this row alone**: `steps[].ok` ·
+   exact `## Findings` · `- ` bullets only · fingerprint alone · the non-exclusive census · a truncated grep.
+   ⛔ **Every one silent. Every one under-reporting.**
+3. **What it has learned to distrust in this corpus** — exact matching on human-authored text · grep output read
+   for an ABSENCE claim · **any field named in a plan** · a count of lines *mentioning* a thing · anything
+   scoped to *"the lap 7 battery"* stated as *"at any build."*
+4. **Six mechanical traps, each of which cost a failed run** — including that **the selftest harnesses DIFFER
+   PER TOOL**, and that `release-state` writes only with `--write` **while the post-commit hook always passes it.**
+5. **Obligations that outlive a window** — the NOT-YET-ENFORCED marker coming off **at T21 and not before** ·
+   T17 reading `failedActions[]` · T9's negative control and password parity with `:1745` · ⛔ **do not back-fill
+   the frozen corpus.**
+6. ⭐ **The one that cannot be written down:** *row T's errors are not in its STEPS, they are in the PREDICATES
+   the steps are described with. **Treat the plan as intent and the record as authority.***
+
+⭐ **So the insurance was bought without paying the premium:** a seam is now materially cheaper **whether or not
+one ever happens**, and the tacit half — the thing that would have been silently carried and lost — is on disk.
+
+#### WHERE A SEAM GOES IF ONE IS EVER FORCED — **after T13**, for a sharper reason than the hour grouping
+
+Two remaining steps depend on knowledge **earned in this window rather than written in the plan**, and **both
+sit before T13**: **T17**, specified against a field that does not exist (*"a fresh window WILL reach for it — I
+did, from that same line"*), the single most likely place a new window ships a **permanent false-green**; and
+**T9**, whose controls need the R3-2 divergence hot — the 588/0 measurement, the `:1745` mask, and why the
+**negative control** is the one that matters, because the failure mode is **a privacy clause that looks
+implemented and elides nothing.**
+
+⛔ **And one boundary it would refuse: never seam before T21.** The acceptance run needs the T0 before-image, the
+marker obligation and the corpus freeze **held together**, and it is the one step where *"the documents say X and
+the record says Y"* would be **most costly to discover late.**
+
+**COORDINATION'S RECOMMENDATION TO PAUL: no seam.** Nothing is being lost to context, so a seam buys insurance
+against a risk that has not appeared and pays for it in the one artifact this lap has proven unreliable. **If he
+wants one for hygiene, after T13 — and `row-T-carries.md` goes with the brief, because it is the half the brief
+has been missing.**
