@@ -4555,3 +4555,47 @@ and **§4 is THE FOLD**, so a build window following the pointer lands on the wr
 ribbon's appearance build-time or runtime?) and **Q10** (A9 in three changes) — plus **Q11** (R0's sizing).
 **Q6 withdrawn.** On **Q0** it endorses ux-expert: the apex settles the **link**; **A11 is the SCREEN**, and it
 names a place **four times** before a credential resolves.
+
+### ⭐⭐ PAUL RULES THE OPEN QUESTIONS AND RELEASES THE BUILD — and LAP 8 STAYS ROW T ALONE `[paul-ruled 2026-09-11]`
+
+> *"I think at this point we've closed as many questions as we can… after I answer these we'll go ahead and
+> launch the build window. I'm good with your recommendation. The exit condition is an exception here because of
+> what we're building, right — so I ratify that change… Let's make a clear note of what we did here but not
+> adjust the entire process unless we think it's helpful in the future, for wherever the recommendation didn't
+> move. I don't know what A11 is. I don't know what the new ones really mean — let's not add anything to the lap.
+> I think that should be enough to work through, and as we learn more we can revisit some of the other open
+> questions."*
+
+| # | ruled |
+|---|---|
+| **the build window** | ✅ **RELEASED.** 24 steps, T0 first |
+| **retry supersession** (T1 vs T21) | ✅ **recommendation accepted — KEEP T1's TIE-BREAK, and the gate PRINTS THE SUPERSESSION ON ITS FACE.** A retry still exits the loop; a cell that needed one may never render like a cell that passed clean |
+| **T6 · beat 8's exit condition** | ✅ **RATIFIED, with his reason: *the exit condition is an exception HERE BECAUSE OF WHAT WE'RE BUILDING.*** ⭐ **The reason is the ruling's substance** — this is the one lap whose deliverable IS the gate, so changing the gate's exit condition is the work, not scope creep |
+| **the 7 unchanged rows** (Q1·Q2·Q3·Q4·Q5·Q7·Q8) | ✅ **NOTED, NOT PROMOTED.** *"Make a clear note of what we did here but not adjust the entire process unless we think it's helpful in the future."* ⛔ A re-verified recommendation that did not move is **a confirmation, not a process change** |
+| **Q0 · A11** | ⏸ **NOT RULED — he does not know what A11 is, and that is a legibility failure on our side, not an open decision on his.** The question is re-asked when it can be asked in his vocabulary |
+| **Q9 · Q10 · Q11** (the three new) | ⏸ **NOT RULED — *"I don't know what the new ones really mean"*** |
+| ⛔⛔ **THE SCOPE** | **LAP 8 STAYS ROW T ALONE.** *"Let's not add anything to the lap… that should be enough to work through."* |
+
+#### ⛔⛔ THE SCOPE RULING SUPERSEDES THE DOOR-ROWS-JOIN-AT-THE-RE-AUDIT PLAN
+
+The standing order was **T whole and first → ux-expert closure → engineering-partner re-audit → the door rows
+join the beat-6 table.** ⭐ **The first three all happened today. The fourth is now RULED OFF.** The door rows do
+**not** join lap 8; **the beat-6 table keeps its single row.**
+
+⚠️ **The re-audit is NOT wasted and must not be re-commissioned** — it discharged the plan's only 🔴 BLOCKING
+finding by measurement, withdrew Q6, found a defect in **row T itself** (the T↔H seam), and left eleven rows in
+question · recommendation · alternatives form ready for whichever lap takes the door. **It is a finished artifact
+waiting on a lap, not an open thread.**
+
+⭐ **And one thing it found DOES belong to row T and rides this lap**, because it is a defect in row T and not an
+addition to it: **`journey-view.py:63`'s `newContext` is inline, and a grown argument object is not a factory**,
+so H1 would have to duplicate it — **the parallel path the ruling forbids by name**. The one-hour amendment
+inside **T14** (`extract mkContext(browser, cfg, label)`) is **row T fixing row T**, not scope.
+
+#### ⚠️ WHAT "I DON'T KNOW WHAT A11 IS" ACTUALLY MEANS — a finding about us, not a question about him
+
+⛔ **A11 is a step id from a draft plan Paul never read**, used in a gate put to him as though it were shared
+vocabulary. The re-audit and ux-expert both argued Q0 **in step ids**. ⭐ **His own standing rule is the test:
+every gate is question · recommendation · alternatives — and a question he cannot parse is not a question.**
+The same applies to Q9/Q10/Q11: each is a real engineering choice stated in the vocabulary of the seat that
+raised it. **They are re-asked when they can be asked in his terms, or they are not asked.**
