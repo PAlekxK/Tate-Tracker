@@ -342,6 +342,26 @@
     <button type="button" id="si-go"><span class="tick">✓</span>Sign in</button>
     <p class="trouble" id="si-trouble" hidden></p>
 
+    <!-- ⭐ B12 (lap 7, closure rows 28/29) — ONE entry point covers username AND password: a locked-out
+         person usually cannot say which they forgot, and D1 makes both the same act (the administrator
+         resets). Tapping reveals the block INLINE — no new page. One field, one ✓ Send, ONE constant
+         receipt on a 200 whatever the address (nothing is looked up: POST /api/recover, B6). The words
+         are content-steward's, CONFIRMED by Paul 2026-09-11 (.content/2026-09-11-recovery-copy-DRAFT.md).
+         ⛔ The receipt never renders into #si-trouble — that slot is the sign-in refusal constant (row 31);
+         two constants, two jobs. -->
+    <p class="quiet" style="margin-top:14px"><a href="#" id="si-cantgetin">Can't get in?</a></p>
+    <div id="recover" hidden>
+      <p class="soft" style="margin-top:6px"><strong>Forgotten username or password</strong></p>
+      <p class="quiet">Type the email address you set up with. Paul built this, and he does the resetting himself &mdash; he writes to the address your account already has. This page won&rsquo;t say whether it&rsquo;s on file, because that would tell anyone who typed it.</p>
+      <div class="field">
+        <label for="rc-email">Your email address</label>
+        <input id="rc-email" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" inputmode="email">
+      </div>
+      <button type="button" id="rc-send"><span class="tick">✓</span>Send</button>
+      <p class="quiet" id="rc-done" hidden></p>
+      <p class="trouble" id="rc-trouble" hidden></p>
+    </div>
+
     <!-- ⚠️ Kept, and moved BELOW the door. It is the honest fallback for someone who never had an
          account, and for someone who has forgotten the password — there is no reset, which this
          project already records as its own word-of-mouth dependency. -->
@@ -354,7 +374,7 @@
          it that means asking him. -->
     <p class="quiet" style="margin-top:18px">Never set one up?
       <a href="#" id="si-tosignup">Create your account ›</a></p>
-    <p class="quiet">Can't remember your password? Ask Paul — he can reset it, and it only takes him a second.</p>
+    <!-- B12: "Can't remember your password? Ask Paul…" CUT — "Can't get in?" above does the whole job. -->
   </section>
 
   <!-- ── SCREEN 1 · she is recognised ──────────────────────────────────────────── -->
@@ -459,7 +479,12 @@
     <!-- ⛔ NAMES THE COST. There is no password reset; Paul resetting it by hand is the ONLY way back
          in, and that requires a way to reach her. Choosing "please don't" is allowed and is HER call,
          but a choice whose consequence is invisible is not a choice. -->
-    <p id="contactnone" class="quiet" style="margin-top:8px" hidden></p>
+    <!-- B16 (lap 7) — the "please don't" state SAYS what recovery then means, inline on selection
+         (paintContact shows it when the rows hide; no growth at 414×A+). Content-steward's words,
+         Paul-confirmed shape (.content/2026-09-11-recovery-copy-DRAFT.md §6b). ⛔ Until Paul rules
+         what §3e·R permits for a row with NO contact value, no surface says "he'll get you back in"
+         to this account; this names the consequence only. -->
+    <p id="contactnone" class="quiet" style="margin-top:8px" hidden>Then he won&rsquo;t. It also leaves Paul no address to write to, so if you ever forget your username or password, email him at paul.kirschenbauer@gmail.com.</p>
 
     <div id="emailrow">
       <label for="uemail" style="margin-top:16px">Email address <span class="optional" id="emailopt" hidden>— optional</span></label>
@@ -1182,8 +1207,13 @@
             // username oracle. The copy must not undo server-side care by being more specific.
             btn.disabled = false; btn.innerHTML = '<span class="tick">\u2713</span>Sign in';
             t.hidden = false;
-            t.textContent = "That username and password don't go together. Have another look — "
-                          + "or ask Paul for a fresh link.";
+            // ⭐ B11 (lap 7, closure row 31) — ONE string, byte-identical for a wrong password · an
+            // unknown username · another house's credential · a revoked one, selected from THIS single
+            // non-2xx branch. It names the DOOR, never the credential; no server reason reaches here;
+            // no second round trip. The remedy it points at (Can't get in?) needs only a phone and a
+            // link. ⛔ Exhibit 3b's "that username isn't set up at this house" is REJECTED
+            // [paul-ruled 2026-09-10]. ⚠️ DRAFT slot, content-steward's.
+            t.textContent = "That didn\u2019t get you in. Check both boxes and try once more \u2014 or tap Can\u2019t get in? below.";
             return;
           }
           // ⭐ A NEW CREDENTIAL, so the answers cached against the OLD one must not survive it —
@@ -1235,6 +1265,37 @@
         });
     }
     btn.addEventListener("click", attempt);
+    // ── B12 · Can't get in? → the recovery block, inline ──────────────────────────────────────
+    (function () {
+      var link = document.getElementById("si-cantgetin"), box = document.getElementById("recover");
+      var send = document.getElementById("rc-send"), done = document.getElementById("rc-done"), rt = document.getElementById("rc-trouble");
+      if (!link || !box) return;
+      link.addEventListener("click", function (e) {
+        e.preventDefault(); box.hidden = false; link.hidden = true;
+        try { document.getElementById("rc-email").focus(); } catch (err) {}
+      });
+      if (!send) return;
+      send.addEventListener("click", function () {
+        var em = (document.getElementById("rc-email").value || "").trim();
+        rt.hidden = true; done.hidden = true;
+        if (!em || em.indexOf("@") < 1) { rt.hidden = false; rt.textContent = "Type the email address you set up with, then tap Send."; return; }
+        send.disabled = true; send.innerHTML = "Sending\u2026";
+        fetch(WORKER + "/api/recover", { method: "POST", headers: { "Content-Type": "application/json" },
+                                          body: JSON.stringify({ email: em }) })
+          .then(function (r) {
+            if (!r.ok) throw new Error("not-ok");
+            // ⭐ THE RECEIPT — one string, every outcome, on a 200 ONLY (Paul-confirmed 2026-09-11)
+            done.textContent = "That\u2019s written down where only Paul can read it, and he answers these by hand. If nothing\u2019s come back by tomorrow evening, email him at paul.kirschenbauer@gmail.com.";
+            done.hidden = false; send.hidden = true;
+            // no page-side event: the Worker's own record IS the instrumentation (watch-recovery.py reads it)
+          })
+          ["catch"](function () {
+            send.disabled = false; send.innerHTML = '<span class="tick">\u2713</span>Send';
+            rt.hidden = false;
+            rt.textContent = "That didn\u2019t go through \u2014 nothing was sent. Try again once you\u2019re back on wi-fi.";
+          });
+      });
+    })();
     // Enter from either box signs in, which is what a keyboard does everywhere else.
     ["si-user", "si-word"].forEach(function (id) {
       var el2 = document.getElementById(id);
@@ -1745,7 +1806,13 @@
     if (inv) inviteHdrs["X-Grant"] = inv;
     fetch(WORKER + "/api/account", {
       method: "POST", headers: inviteHdrs,
-      body: JSON.stringify({ username: u, word: w, email: em || null, phone: ph || null,
+      // ⛔ B16 (lap 7) — A "PLEASE DON'T" SHIPS NO ADDRESS. This posted `em || null` regardless of
+      // the choice, and paintContact() hides the rows but never clears them — so a person who typed
+      // an address and then chose "please don't" sent it to the row while being told none was on
+      // file. The choice is the person's; the record must agree with what they were shown.
+      body: JSON.stringify({ username: u, word: w,
+                             email: pref === "none" ? null : (em || null),
+                             phone: pref === "none" ? null : (ph || null),
                              contactPref: pref, accent: read(K_COLOR) })
     })
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
@@ -2236,6 +2303,19 @@
   // ⛔ NO CREDENTIAL AT ALL is the only case this page may decide by itself. Everything else waits
   // for whoami. A stranger with no grant gets the door; a person WITH a grant is the server's to
   // recognise — on any device, including one that has never seen them.
+  // ⭐ B13 (lap 7, closure row 27) — SIGNED OUT is its own route, `?from=signout` (B8 sends it), with
+  // its own lede. It must NOT inherit "This link isn't working." — that sentence is a lie on this
+  // route and alarming on the screen where a person has just chosen to leave. A correct action must
+  // not render as a fault. ⚠️ DRAFT slots, content-steward's.
+  if (!grant && url.searchParams.get("from") === "signout") {
+    try {
+      var _sL = document.getElementById("si-lede"), _sS = document.getElementById("si-sub");
+      if (_sL) _sL.textContent = "You\u2019re signed out of this phone.";
+      if (_sS) _sS.textContent = "Your place is where you left it \u2014 sign back in whenever you like, from any phone.";
+      history.replaceState(null, "", location.pathname);
+    } catch (e) {}
+    show("s-nolink"); return;
+  }
   if (!grant) { showFrontDoor(); return; }
 
   // Recognition is the SERVER's to confirm, never this page's. An unknown, revoked or
