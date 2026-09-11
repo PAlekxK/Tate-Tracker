@@ -571,6 +571,83 @@ def tier_writer_exists(sha):
     return False
 
 
+# ═══ T12 · THE CARRIED-FORWARD PASS — and why it is the most dangerous green in the gate ══════════
+#
+# ⛔⛔ A CARRIED PASS IS A NEW FALSE-GREEN CLASS. It says "nobody walked this cell at this build and
+# that is fine" — which is exactly the sentence row T exists to stop anyone writing. The only safe
+# version is MACHINE-DERIVED AT PRINT TIME, from two shas and the run record, with the proof printed
+# beside it. ⛔ IF IT CANNOT BE COMPUTED, THE CELL READS UNWALKED. It is never a sentence a window
+# types, never a flag, never a file someone edits.
+#
+# ⭐ THE BYTE PROOF MUST BE RE-DERIVABLE BY HAND. The gate prints the exact `git diff --stat` a reader
+# can run to check it. If the proof is not reproducible from the two shas alone, it is not a proof —
+# it is a sentence the gate typed about itself.
+
+def _change_scope():
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "cs", os.path.join(ROOT, "tools", "change-scope.py"))
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        return m
+    except Exception:
+        return None
+
+
+def runs_by_sha_for_unit(unit):
+    """→ {sha7: [(run, clauses)]} for every run on record in this cell, any build."""
+    out = {}
+    for seat in seats():
+        for run in runs_for(seat):
+            d = os.path.join(WALKS, seat, run)
+            if unit_of(d) != unit:
+                continue
+            tp = os.path.join(d, "transcript.json")
+            try:
+                t = json.load(open(tp, encoding="utf-8"))
+            except Exception:
+                continue
+            b, a = (t.get("buildBefore") or ""), (t.get("buildAfter") or "")
+            if not b or b != a:
+                continue
+            out.setdefault(b[:7], []).append((run, judge(d, b[:40])))
+    return out
+
+
+def carried_forward(unit, sha):
+    """→ (ok, detail). True only when EVERY condition holds and each is checked here, at print time:
+      · a PRIOR sha has a run in this cell that passed EVERY clause, and
+      · `change-scope` says this journey MAY CARRY FORWARD from that sha to this one.
+    ⛔ Any failure — no prior run, a red prior run, an unavailable classifier, a MUST RE-RUN or an
+    UNSCOPED verdict — returns False, and the cell reads UNWALKED. There is no branch that carries on
+    a doubt."""
+    cs = _change_scope()
+    if cs is None:
+        return False, "the change classifier could not be loaded — UNCHECKABLE, never carried"
+    by_sha = runs_by_sha_for_unit(unit)
+    by_sha.pop(sha[:7], None)
+    if not by_sha:
+        return False, "no run in this cell at any other build"
+
+    # newest prior build first — a carry rests on the most recent clean evidence, never the oldest
+    for prior in sorted(by_sha, key=lambda k: max(r for r, _ in by_sha[k]), reverse=True):
+        clean = [run for run, v in by_sha[prior]
+                 if all(v.get(k, (None,))[0] is True for k, _ in CLAUSES)]
+        if not clean:
+            continue                                  # ⛔ a red prior run carries NOTHING forward
+        try:
+            verdict, _notes = cs.classify(prior, sha[:40])
+        except Exception as e:
+            return False, "the classifier refused this pair (%s) — UNCHECKABLE, never carried" % e
+        state, why = verdict.get(unit[0], (cs.UNSCOPED, "this journey is not in the library"))
+        if state != cs.CARRY:
+            return False, "%s from %s: %s" % (state, prior, why)
+        return True, ("CARRIED from %s — %s · run %s passed every clause · "
+                      "PROOF, re-derivable by hand: `git diff --stat %s %s`"
+                      % (prior, why, clean[-1], prior, sha[:7]))
+    return False, "every prior run in this cell failed at least one clause"
+
+
 # ═══ T17 · THE IDENTICAL-FAILURE READ — is the HARNESS lying, or is the PRODUCT broken? ════════════
 #
 # ⛔ THE EVIDENCE IT EXISTS ON, measured: at `87c7aae`, FIVE of five lenses walking J8 failed the
@@ -816,8 +893,15 @@ def report(sha, seats_only=False):
             if not walked or not walked[1]:
                 # ⛔ EMPTY CELLS ARE THE COVERAGE CLAIM. A declared cell with no run at this sha is
                 # UNWALKED BY NAME and the gate REFUSES — absence never reads as a pass.
+                # ── T12 · may this cell CARRY a prior pass forward? Computed here, now. ──
+                _ok, _why = carried_forward(d, sha)
+                if _ok:
+                    print("     %-*s  %s  ✅ %s" % (width, label,
+                          "  ".join("·".center(len(k)) for k, _ in CLAUSES), _why))
+                    continue
                 print("     %-*s  %s  ⛔ UNWALKED at this build" % (width, label,
                       "  ".join("·".center(len(k)) for k, _ in CLAUSES)))
+                print("        no carry: %s" % _why)
                 unwalked.append(d)
                 continue
             v = walked[1][2]
@@ -1286,6 +1370,77 @@ def selftest():
                   % ("✅" if bit else "🔴")); ok &= bit
         finally:
             WALKS, CELLS_DIR = _sw, _sc
+
+    # ═══ T12 · M19 — THE CARRIED-FORWARD PASS, AND THE FOUR WAYS IT MUST REFUSE ═════════════════
+    # ⛔ FIVE of the six clauses prove it REFUSES. A carried pass is the gate saying "nobody walked
+    # this and that is fine"; a clause set that only proved the happy path would be certifying the
+    # most dangerous green in the file on its best day alone.
+    import unittest.mock as _mock
+    with tempfile.TemporaryDirectory() as tmp:
+        W = os.path.join(tmp, "walks")
+        _sw = WALKS
+        try:
+            WALKS = W
+
+            def mkprior(lens, sha, journey="J0", clean=True):
+                d = os.path.join(W, lens, "R-" + sha); os.makedirs(d, exist_ok=True)
+                json.dump(dict(base, buildBefore=sha * 8, buildAfter=sha * 8,
+                               journey=journey, lens=lens,
+                               watched=clean, failedActions=[] if clean else ["click:#x"]),
+                          open(os.path.join(d, "transcript.json"), "w"))
+                open(os.path.join(d, "REPORT.md"), "w").write("all good")
+
+            class _CS:
+                CARRY, UNSCOPED, MUST = "MAY CARRY FORWARD", "UNSCOPED", "MUST RE-RUN"
+                def __init__(self, state): self.state = state
+                def classify(self, a, b, J=None): return {"J0": (self.state, "because")}, []
+
+            mkprior("mom", "b")
+            with _mock.patch.object(sys.modules[__name__], "_change_scope", lambda: _CS(_CS.CARRY)):
+                okc, why = carried_forward(("J0", "mom"), "a" * 40)
+            bit = okc and "CARRIED from" in why and "git diff --stat" in why
+            print("  %s M19-happy a clean prior run + MAY CARRY → carried, with a re-derivable "
+                  "`git diff --stat` proof printed beside it" % ("✅" if bit else "🔴")); ok &= bit
+
+            with _mock.patch.object(sys.modules[__name__], "_change_scope", lambda: _CS(_CS.MUST)):
+                okc, why = carried_forward(("J0", "mom"), "a" * 40)
+            bit = (not okc) and "MUST RE-RUN" in why
+            print("  %s M19a a MUST RE-RUN verdict → NOT carried (the cell reads UNWALKED)"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            with _mock.patch.object(sys.modules[__name__], "_change_scope", lambda: _CS(_CS.UNSCOPED)):
+                okc, why = carried_forward(("J0", "mom"), "a" * 40)
+            bit = (not okc) and "UNSCOPED" in why
+            print("  %s M19a2 an UNSCOPED verdict → NOT carried" % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ M19b — A RED PRIOR RUN CARRIES NOTHING FORWARD.
+            import shutil as _sh
+            _sh.rmtree(W); os.makedirs(W)
+            mkprior("mom", "c", clean=False)
+            with _mock.patch.object(sys.modules[__name__], "_change_scope", lambda: _CS(_CS.CARRY)):
+                okc, why = carried_forward(("J0", "mom"), "a" * 40)
+            bit = (not okc) and "failed at least one clause" in why
+            print("  %s M19b a prior run that was RED carries NOTHING forward, even on MAY CARRY"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ M19c — THE CLASSIFIER UNAVAILABLE → every cell UNWALKED, never carried.
+            _sh.rmtree(W); os.makedirs(W)
+            mkprior("mom", "b")
+            with _mock.patch.object(sys.modules[__name__], "_change_scope", lambda: None):
+                okc, why = carried_forward(("J0", "mom"), "a" * 40)
+            bit = (not okc) and "UNCHECKABLE" in why
+            print("  %s M19c the classifier UNAVAILABLE → UNCHECKABLE, never carried" 
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ and no prior run at all is not a carry either.
+            _sh.rmtree(W); os.makedirs(W)
+            with _mock.patch.object(sys.modules[__name__], "_change_scope", lambda: _CS(_CS.CARRY)):
+                okc, why = carried_forward(("J0", "mom"), "a" * 40)
+            bit = (not okc) and "no run in this cell" in why
+            print("  %s M19d a cell with NO prior run anywhere → not carried (nothing to carry)"
+                  % ("✅" if bit else "🔴")); ok &= bit
+        finally:
+            WALKS = _sw
 
     # ═══ T17 · M23 — THE IDENTICAL-FAILURE READ, AND THE THREE WAYS IT MUST NOT FIRE ════════════
     with tempfile.TemporaryDirectory() as tmp:
