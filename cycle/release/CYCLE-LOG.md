@@ -2459,3 +2459,60 @@ founding-design (`tate-tracker-8d`, open, sweep pass 1 running; apply held until
 all files released) · zones (**closed**: raw trace kept, cleaned 23 = leading candidate, preload waits on Mom's own founding).
 
 ### ✅ CLOSED — 2026-09-10 ~6:45 PM ET · production serves `318416a` at both real households
+
+## Lap 7 — 2026-09-10 · 🔓 **OPEN at OPEN (1/12)** — the founding bundle as ONE candidate: the Worker map → G6 → account lifecycle → the applied design; the first lap whose build plan is written by the build expert before the build window opens
+<!-- outcome:open -->
+
+⭐ **Opened by the successor coordination window at HEAD `97e526f` on Paul's word** (*"Let's move to the lap"*,
+2026-09-10 ~9:50 PM ET). No candidate yet: QA still serves lap 6's `318416a`, 97 commits behind HEAD, none of
+them an app surface (`qa-behind.py`). Prior lap CLOSED and machine-readable (`release-state.py`: six laps closed,
+last lap 6, cleared `318416a`). L7-P1..P5 were pre-registered at lap 6's close and are not restated here.
+
+### Beat 1 · OPEN — the sweeps, output recorded (UNREADABLE is never zero by assumption; it measured 0 on both stores)
+
+| sweep | result |
+|---|---|
+| health (`health-probe.py --only fernwood`) | 🟡 AMBER 1 — weather-history freshness (newest **2026-09-06**, 4 d; the legacy-side recorder runs every 6 h); 7 green. **Agenda item, not a block** — same flag as lap 6's open, unresolved since |
+| accounts (`watch-accounts.py`) | 6 environments · **0 unreadable**. Real estates: `home` **1 account (`marguerite`, member, place 'Fernwood')**, 1 grant, both new since watching began; the minted invite `p-b91e4d` is **gone from the store** (spent or revoked — the tool does not choose). `paul` 1 account (`pkirsch`, administrator, 'Grant Park Condo'), 3 grants. `bob` 0 accounts, 1 grant (invite unspent). `legacy` 0. Our own: `qa` 209 accounts / 211 grants (newest `syn-sweep-0910`, 'Bramble Hill'), `lab` 51 / 43. ⚡ 411 DIVERGENT rows at qa, 90 at lab, 2 at home (server-minted ids the local register does not know) — the standing shape, carried, not new |
+| feedback (`watch-feedback.py`) | **0 awaiting Paul on a REAL ESTATE.** `home` 17 records, 0 awaiting, 4 of 17 fully labelled. 673 on our own environments (qa 626, lab 47) = backlog material, per the 09-08 scoping. **0 unreadable.** Channels NO TOOL READS, named by the sweep: `geocode` (home 3, paul 1, qa 12), `conversation` (qa 21), `library` (qa 8,114), `cache` (qa 1), `zones` (legacy 1) |
+| Mom's channel (`read-mom-feedback.py --pickup`, legacy Fernwood) | 🌿 last checked 2 d ago · her last card answer 2026-08-20 (21 d). ⚠️ **2 undispositioned arrivals (1 Guru, 1 cards)**, each needing its own disposition (`check-arrival-dispositions.py`), and **one thing she told us nothing has answered: "Vehicles" (2026-09-06)**. Beat 2 material, Paul's |
+| UX sweep (`check-ux-sweep.py`) | 🔍 **rested** — last two-pass 2026-09-10 (`112894c`, the founding-flow sweep at `318416a`), 0 viewer commits, 0 laps. L7-P2's *filed* half is met; its *artifact convention* half is not (`cycle-state.json` gate ① `ux_clause: UNCHECKABLE`) |
+| row 33 (`check-canon-scope.py --env home --deep`) | reads **1 placed row, 1 distinct place name, canon names 'Fernwood'**; 🔴 3 Fernwood needles (Fernwood · Jasper · Church Mountain) — **a self-match**: this household IS Fernwood, and the needle list cannot tell Fernwood-at-Fernwood from a leak (the CLAUDE.md control-scope rule). ⚠️ **The row's premise — TWO published places under `est-e6696a` — is not what the store reads tonight.** Either Paul's Grant Park records under this estate are not *placed* rows, or they moved. Forwarded to the backlog window to reconcile row 33 against this reading; **not** a finding that Mom's Guru speaks for the wrong place |
+
+**Beat 2 · DISPOSE is Paul's:** nothing on `home` or `paul`; on `legacy`, the two undispositioned arrivals and
+the "Vehicles" note above. Mom's input; the AI boundary binds. Nothing here reads them.
+
+**Beats 3–5** ran ahead of this lap in the closed lanes and on the register: user-researcher's read of Mom's four
+answers (rows 33–40), the two-pass sweep + content read carried to rows 26–31 and 43–46, the bug lane's FINDINGS
+carried to rows 41–42, 45–46. The groom lives in `BACKLOG.md` (one door: the backlog-refinement window).
+
+### Beat 6 · COMMIT — the scope, in Paul's words `[paul-ruled 2026-09-10]`, written BEFORE any build (chain L1)
+
+> *"Let's try to do it as one candidate."* … *"It will be a big build in the next lap."* … on the Worker map:
+> *"fold in — we are about to consolidate a lot of feedback."* … *"since this is such a big build… have at least
+> our build expert audit the plan and make a distinct, detailed plan for the build window to execute."* … at
+> open: *"the build commitment is ratified and thought through and turned into a detailed plan by the
+> engineering partner… call another expert like the UX expert to help close any last-minute design decisions."*
+
+| | committed | done means |
+|---|---|---|
+| **D** | **the Worker map for the `myhome-*` origins** (TIER 1 · 45; the instance TIER 1 · 42) — **FIRST in the build order**: one map row per served origin or the host-label derivation the other four pages use, so the app at `paul` (and `bob`) has a backend and a Send no longer prints "Saved ✓" against a dead relative URL | at the candidate, a capture from the condo's app reaches the condo's Worker and the record shows it; `/estate/` tells *refused* from *unreachable* |
+| **C** | **G6 telemetry** (TIER 2 · 10 ① · 13) — the served order recorded on every `session_start` and the card-face open events, **before** any adaptive order exists | the events fire at the candidate **and a named tool reads them** (an event with no reader is not instrumentation) |
+| **B** | **the account lifecycle** (TIER 2 · 18; design plan D4, exhibit 3 **as drafted**): sign out of this device · email shown back · recover a password as an action to the administrator · recover a username without an existence oracle · the house-named refusal | TIER 2 · 18's own falsifier: a seat creates an account, signs out, returns on a clean device, recovers both, and reaches its place asking no human except where D1 says so. ⚠️ **Needs a sign-out/return journey stop `journey-walk.py` does not have — a harness item in the build plan** |
+| **A** | **the applied founding-flow design, one apply** (design plan §4, R5): front door B2 · post-signup bubble · account receipt at naming · **the gate card with the PO-box refusal blocking at submit and the optional unit line** · one filled commit on ranking · receipt with live "Edit" editors · one shelf control when empty · D8 punch items. Carrying **all eleven rulings**: pass 2's five (interests hidden-when-empty · **TWO colours**, account + per-estate · sentence-case receipt · one bubble shape, the corner circle · Stone as the cold default) and the six exhibits (1 PO-box blocking · 2 one shelf control, the ＋ dropped · 2b "your account's set up" at naming · 3 lifecycle as drafted · **3b REJECTED** · 4 "Edit" editors) | the five seats walk J0 + J2 + J3 + the new lifecycle journey at the sha, each read unprimed, `release-gate` green; **content-steward reads every walk** (L7-P3); then Paul |
+| **E** | **the teardown — a PROCESS row**, not a build: `bob` deployment · Midtown scratch instance (keep the ownerless neutrality fixture) · `pkirsch`@qa · qa's seven `rihhdp · d7teqw · bzr4gb · pr9pwl · otzfk2 · ofd6vk · gndlvf` · lab's seven `est-1nq5gr · est-2dpewr · est-auirns · est-k2wowm · est-l71bed · est-vbvhsj · est-zyn5py`. KEEP `pkirsch`@paul · `PAK`/Homey · `marguerite`@home · est-qa0001 | ⛔ **waits on Paul's "go teardown" in the window that runs it**; one unprovable row stops the run and prints REFUSED (nothing writes `syntheticFixtureRun` today) |
+
+**Excluded, each with its ruling:** the single-origin sign-in door — **LAP 8** `[paul-ruled: "a single sign-in page
+that redirects to everywhere it needs to go, not individual sign-in pages"]` (TIER 1 · 41/46) · zones preload — parked
+until Mom has founded her own Fernwood and is ready (TIER 2 · 7) · § INVITE & JOIN and § ADDRESS VALIDATION — groom,
+not build · D9 the glance consolidation — design after G6 lands, not this candidate · D6/D9 "only if ruled and built
+in time" per design plan §4 step 10, else named as *not in this build* on the release note.
+
+⭐ **COMMIT-PHASE RULE, first enactment** `[paul-stated 2026-09-10]`: after this table and before any build window:
+**ux-expert** closes whatever design decision the §4 apply list still leaves open (never re-opening a ruling), then
+**engineering-partner (path-evaluation)** audits A–D and writes `.plans/2026-09-10-lap7-build-PLAN.md` — ordered steps
+by symbol, seams, per-step check, what moves the candidate, what is out, the lifecycle journey stop as a harness
+item. The build window's brief points at that plan. Paul reads it before the window opens.
+
+**Still Paul's, asked once at this open:** "go teardown" (row E) · which deployment is his working model (`paul` vs
+`home`) · what "synced" means beyond one sign-in reaching every house.
