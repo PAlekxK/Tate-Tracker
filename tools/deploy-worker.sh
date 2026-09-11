@@ -129,8 +129,13 @@ else
     # uncommitted work is legitimate; letting /health claim it is a clean sha is not.
     BUILD_SHA="${BUILD_SHA}-dirty"
   fi
-  echo "==> stamping BUILD_SHA=${BUILD_SHA}"
-  ( cd worker && npx --yes wrangler@4 deploy ${WRANGLER_ARGS[@]+"${WRANGLER_ARGS[@]}"} --var BUILD_SHA:"$BUILD_SHA" )
+  # ⭐ H5 / L7-P4 (lap 7, TIER 1 · 32) — THE PAYLOAD, NOT ONLY THE CONTAINER. `BUILD_SHA` names the
+  # commit the tree was at; two commits can share one worker.js and one commit's worker.js can differ
+  # from what was deployed. The blob id of worker/worker.js AS DEPLOYED is what post-deploy compares
+  # against `git rev-parse <sha>:worker/worker.js`; the sha compare stays as a caveat.
+  WORKER_BLOB="$(git hash-object worker/worker.js 2>/dev/null || echo unknown)"
+  echo "==> stamping BUILD_SHA=${BUILD_SHA} WORKER_BLOB=${WORKER_BLOB:0:12}"
+  ( cd worker && npx --yes wrangler@4 deploy ${WRANGLER_ARGS[@]+"${WRANGLER_ARGS[@]}"} --var BUILD_SHA:"$BUILD_SHA" --var WORKER_BLOB:"$WORKER_BLOB" )
 
   # ⛔ THE HEALTH CHECK MUST PROVE IT REACHED THE ENVIRONMENT IT DEPLOYED TO. The old one read a
   # hardcoded URL, so a deploy to any environment printed the top level's OK — a check that passes

@@ -4200,6 +4200,7 @@ export default {
         // `null` — unstamped — rather than inheriting a stale value and lying. Null is UNKNOWN, and
         // nothing downstream may read unknown as a pass.
         build_sha: env.BUILD_SHA ?? null,
+        worker_blob: env.WORKER_BLOB ?? null,   // H5 (lap 7): the blob id of worker.js as deployed — post-deploy compares the PAYLOAD
         estateId: env.ESTATE_ID ?? null,          // C5 6a — the key prefix this deploy writes under
         legacyBefore: env.LEGACY_BEFORE ?? null,  // C5 6b — dates before this read the unprefixed keys
         ...(env.CHAT_DAILY_BUDGET_USD ? { chat_budget: await (async () => {   // Guru 3b — reported wherever a budget is DECLARED, in dollars

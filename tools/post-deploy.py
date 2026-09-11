@@ -208,6 +208,29 @@ def check(env, expected, out=print):
                                     % (wsha, expected))
                 else:
                     covered.append("worker build_sha (%s)" % wsha)
+                # ⭐ H5 / L7-P4 (lap 7, TIER 1 · 32) — MATCH THE PAYLOAD, NOT THE CONTAINER. A Worker deployed
+                # from a HEAD whose worker.js differs from the candidate's would read GREEN above if the
+                # stamps happened to match (measured at the condo deploy 2026-09-10). The blob id is the
+                # verdict; the sha compare above is the caveat. Absent → UNCOVERED (an older deploy script).
+                wblob = h.get("worker_blob")
+                if not wblob:
+                    uncovered.append("worker PAYLOAD IDENTITY — /health reports no worker_blob (deploy via "
+                                     "tools/deploy-worker.sh to stamp it)")
+                elif expected:
+                    try:
+                        want = subprocess.check_output(["git", "-C", ROOT, "rev-parse", "%s:worker/worker.js" % expected],
+                                                       text=True, stderr=subprocess.DEVNULL).strip()
+                    except Exception:
+                        want = None
+                    if not want:
+                        uncovered.append("worker PAYLOAD IDENTITY — the expected sha %r has no worker/worker.js blob "
+                                         "this checkout can name" % expected)
+                    elif want != wblob:
+                        findings.append("worker PAYLOAD %s… is not the worker.js the candidate %s carries (%s…) — "
+                                        "the deployed code differs from the certified code even where the sha stamp agrees"
+                                        % (str(wblob)[:12], expected, want[:12]))
+                    else:
+                        covered.append("worker payload blob (%s…)" % wblob[:12])
     except Unreadable as e:
         uncovered.append("worker (%s)" % e)
 
