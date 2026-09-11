@@ -2560,3 +2560,8 @@ The working-model question is the same question and is retired in its favour.
 KEEP line was wrong against his own lap-6 words (*"I created Homey which can be thrown away"*, chronicle :2408); the
 backlog window caught the divergence at its carry. **PAK/Homey → TEARDOWN.** KEEP is now `pkirsch`@paul ·
 `marguerite`@home · est-qa0001 itself. The lane has the ruling.
+
+⚠️ **Concurrent-write slip, recorded** (~10:45 PM ET): the backlog window's register commit `dcbc660` swept the
+teardown lane's deletion of `instance/bob.json` into a BACKLOG.md commit — two windows writing one tree, one of
+them staging broadly. Content correct, attribution wrong, nothing rewritten; both windows told **explicit paths
+only**, and the lane cites `dcbc660` in its report. The same shape the concurrent-session guard exists for.
