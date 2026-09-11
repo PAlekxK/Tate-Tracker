@@ -11,7 +11,8 @@
 - depends-on: VOCABULARY.md
 - depends-on: .plans/2026-09-10-teardown-REPORT.md
 - depends-note: the chronicle's lap 7 · Beat 6 and its AMENDED rulings (`ef03acc`); `VOCABULARY.md` §3i
-- ready: agent-proposed 2026-09-10 — **Paul commits at each lap's beat 6. This file proposes, never commits.**
+- ready: agent-proposed 2026-09-10 — **Paul commits at each lap's beat 6. This file proposes, never commits.** ✅ **EVERY QUESTION RULED** `[paul-ruled 2026-09-11 ~12:10 AM ET, walked in the coordination window: "Let's go on laps eight and nine… let's walk through it."]` — the commitment lives in `cycle/release/CYCLE-LOG.md` § *Laps 8 and 9 — SCOPE COMMITTED BY RULING* (`767242c`) and is transcribed into each lap's beat-6 table at its open; the committed-by-ruling rung reads it from there. The rulings are carried onto each question below, cited never restated.
+- stage-note: 2026-09-11 ~12:20 AM ET — status lines below marked RULED from `767242c` by the refinement window; nothing here opens lap 8 (lap 7 is the open lap).
 - stage-note: 2026-09-10 ~11:50 PM ET — drafted by the backlog-refinement window (`tate-tracker-2a`) at HEAD `cea1ce1` while the lap-7 build window builds; reviewed by the coordination window against the release loop's dependencies before it reaches Paul. Sources: `check-backlog-ready.py --ladder` (the rungs) · the register's rows by number · the chronicle. `product-steward.py` T1's 18 uncarried ruling lines were read and **not swept in** — all predate lap 6 and none names a lap-8/9 item.
 
 > **How to read every line.** **RULED** = Paul's words place it, cited. **PROPOSED** = this window's reading, his to overrule. **MEASURED** = read from a file or a tool at the sha named. A row that says *unruled — his* has no ruling and is not being smuggled in as one.
@@ -48,7 +49,19 @@
 | **The capture write path** (TIER 2 · 8) | stamped at `concept`; a design pass is owed before any build (the ⏭ rung) — a lap-9 candidate |
 | **G3 (a close signal)** | left out of lap 7 *unless Paul wants it* (build plan §2 A2); still unasked |
 
-### Questions Paul answers to commit lap 8
+### Questions Paul answers to commit lap 8 — ✅ ALL RULED `[paul-ruled 2026-09-11 ~12:10 AM ET; CYCLE-LOG `767242c`]`
+
+| q | RULED |
+|---|---|
+| 8·1 | **Mom waits until B is proven** — nobody real walks the door while A's steps land at lab; she founds once, at the production origin |
+| 8·2 | **B after A's isolation falsifier passes at lab** |
+| 8·3 | **The weather card = lap 9, first row** |
+| 8·4 | **Rule the product name BEFORE B** — `.plans/2026-09-03-product-name-PLAN.md` is now a lap-8 prerequisite, flagged AWAITING on its header |
+| 8·5 | **One candidate A + C + E + F; B its own gate on his word at the act** |
+| 8·6 | **The fixture stamp = lap 8 rider** (qa/lab only; production never sets the var) |
+| D | **threshold = 10 sessions**; row G the ribbon seam **accepted by inclusion** |
+
+*(The questions as asked, kept for the record:)*
 
 - **Q-8·1 — Who is walking while the credential path moves?** The plan's timing rule is *behind them, not across them*. If Mom is to found her Fernwood during lap 8 (she has an account, no house), the door work and her founding collide. **Recommendation:** her founding waits for row B's migration to be proven, and she founds at the production origin once; nobody real walks the door while A's steps 1–3 land at lab.
 - **Q-8·2 — Order of A and B.** Migrate `home` before or after A's falsifier passes at lab? **Recommendation: after** — a migration into an origin whose isolation is unproven is the one irreversible act done on inference.
@@ -67,7 +80,7 @@
 |---|---|---|---|---|---|---|
 | **A** | **The weather card from an address** — base card from the address, two opt-ins (radar · the household's own station) | TIER 2 · 11 | **RULED a priority** `[paul-ruled 2026-09-07]`; **unplaced in a lap — his** (Q-8·3) | lap 8 **A** (one origin; every household's card reads one address model) · TIER 2 · 12's canon store seam for the station opt-in | its plan exists → the row's pointer; seats per its header; a `design` pass if the opt-in copy is not yet content-steward's | every household at the production origin renders a weather card from its own address with the honest *REGION* labelling; the station opt-in only where a station is declared |
 | **B** | **§ INVITE & JOIN — the build** — an owner invites an existing account by username; the invitee sees the notification naming the house and the inviter; accepts; comes out a member with the conferred role; **no new `est-` id minted** | § 🤝 INVITE & JOIN · TIER 1 · 19 (`conferred*` never read by founding) | **unruled — his**; the scoping (lap 8) precedes it; his three roles (read-only · member read-and-write · owner) are his answer to *what "role type" means*, recorded verbatim on the section | lap 8 **A** (the grant edge `grant:<personId>:<estateId>`, `route: → {personId}` — M1+M2, *conforming to a ruling already made*) · the lap-8 scoping session's PLAN with five seat trails | the scoping itself: what the pending invitation is as a record and where it lives · role type against the two ratified axes (relationship SET · capability SINGLE) · whether an owner may confer `administrator` · what a username lookup may reveal (the enumeration oracle, security-steward) · **and the one instrument gap it makes structural**: nothing can see within-estate, cross-person (OPEN-ITEMS ⑤·1) — a falsifier for that must exist before two people share a house | the section's falsifier verbatim: *"a synthetic owner at qa invites a second synthetic by username; the second signs in, sees the notification naming the house and the inviter, accepts, and `whoami` lists that estate with the conferred role — with no new `est-` id minted"* |
-| **C** | **Bob — the first real second person** | § INVITE & JOIN · TIER 1 · 19 · teardown report §1 (`bob` DESTROYED, invite died with it) | **unruled — his.** ⚠️ Two different journeys hide under "Bob": **J0** (Bob signs up at the production origin's open door and founds his own house — needs no invite and no row B) or **J1** (Bob is invited into an existing house — needs row B). *"Bob's two houses"* reads as J0 twice, or J0 + J1; **which is his to say** | lap 8 **A** for J0; lap 9 **B** for J1; a re-mint is a ruling either way (`grant-mint.py`; TIER 1 · 49's store-gone verb) | none beyond the journey he names; a gate-kit walk (TIER 1 · 25) for a real person is *his* walk, not a seat's | Bob reaches his house(s) from his own device; every read he makes for another estateId is 404 (the multi-tenancy falsifier, now with a real person in it) |
+| **C** | **Bob — the first real second person** | § INVITE & JOIN · TIER 1 · 19 · teardown report §1 (`bob` DESTROYED, invite died with it) | **unruled — his.** ⚠️ Two different journeys hide under "Bob": **J0** (Bob signs up at the production origin's open door and founds his own house — needs no invite and no row B) or **J1** (Bob is invited into an existing house — needs row B). *"Bob's two houses"* reads as J0 twice, or J0 + J1; **which is his to say** | ✅ **RULED J0 × 2** (`767242c`): lap 8 **A** (estate-as-row) **plus a founding-surface step for the second house — the *add another place* path, TIER 1 · 19, carried here as C's dependency**; no invite, no re-mint | none beyond the journey he names; a gate-kit walk (TIER 1 · 25) for a real person is *his* walk, not a seat's | Bob reaches his house(s) from his own device; every read he makes for another estateId is 404 (the multi-tenancy falsifier, now with a real person in it) |
 | **D** | **The capture write path** — LEG 0, the co-requisite of zones | TIER 2 · 8 | stamped at `concept` `[paul-approved]`; **the ⏭ rung says a design pass is owed first**; unplaced | a design pass (lap 8 or beside it — its own window, per the ⏭ note that zones' design work is not a lap slot) | the design pass with its declared seats | `handleZoneSave`'s KV write lands at a household with no `GITHUB_TOKEN` (the one broken create, MEASURED on the row) and every capture handler is proven per-estate |
 | **E** | **D9 — the glance consolidation, the BUILD** | TIER 2 · 10 | ruled shape (GL-1…13); the build waits on lap 8 · D's design | lap 8 **D** (the design with G6 evidence) | none beyond D | the strip and tile row stop repeating the cards; the ranked order the G6 reader shows is what renders |
 | **F** | **Zones preload (Z-13)** | TIER 2 · 7 | **RULED gated**: *not until Mom has created her Fernwood and is ready* | **Mom's act**, after lap 8 · B; ⛔ **a person's act cannot be committed to a lap** — it is listed so the gate is visible, not so it can be picked | its plan is at `design`, stamped; the stage gate to build is a sha on QA | her Fernwood, founded by her, opens with the cleaned 23 zones preloaded and her sixteen names on them |
@@ -81,7 +94,16 @@
 | **C8 · the condo build-out with his images** | *"at his pace"* on its own row; instance content, not engine |
 | **The invite-flow surface for Mom to invite Paul** (multi-tenancy plan § *How Paul gets in*) | this IS lap 9 · B seen from Mom's side — one build, not two; listed so it is not minted twice |
 
-### Questions Paul answers to commit lap 9
+### Questions Paul answers to commit lap 9 — ✅ ALL RULED `[paul-ruled 2026-09-11 ~12:10 AM ET; CYCLE-LOG `767242c`]`
+
+| q | RULED |
+|---|---|
+| 9·1 | **Bob founds his own, TWICE (J0 × 2)** — no invite; INVITE & JOIN is **off lap 9's critical path**. ⚠️ **Row C gains a dependency:** a second house needs the *add another place* path (TIER 1 · 19) — lap 8's estate-as-row **plus a founding-surface step** |
+| 9·2 | **The weather card leads lap 9** (follows 8·3) |
+| 9·3 | **Mom's founding is a disposition when it happens, never a commitment** — the loop rests; her input fires it |
+| 9·4 | **INVITE & JOIN's five-seat scoping convenes IN lap 8**, so a lap-10 build is possible |
+
+*(The questions as asked, kept for the record:)*
 
 - **Q-9·1 — Bob: J0 or J1, and how many houses?** See row C. The answer decides whether row B is on lap 9's critical path or can slip.
 - **Q-9·2 — Does the weather card lead lap 9?** If Q-8·3 puts it in lap 8, lap 9 opens with INVITE & JOIN instead.

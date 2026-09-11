@@ -11,8 +11,9 @@
          ai-advisor → waived: no model reads or writes anything on this path
          practice-steward → waived: this item *names* a mechanism gap (§ Seat staleness) and fixes nothing — `check-backlog-ready.py` belongs to the readiness proposal's own session
 - depends-on: .plans/2026-09-03-c4-environments-PLAN.md
-- ready: agent-proposed 2026-09-03 — Paul rules
+- ready: agent-proposed 2026-09-03 — Paul rules. ⛔ **AWAITING PAUL — now a LAP-8 PREREQUISITE** `[paul-ruled 2026-09-11 ~12:10 AM ET, laps 8/9 scope walk, 8·4: "rule the product name BEFORE B" — a link Mom receives is not renamed under her; CYCLE-LOG `767242c`]`. The migration of her account row into the production origin (lap 8 · B) waits on this ruling.
 - stage: ready
+- stage-note: 2026-09-11 ~12:20 AM ET — AWAITING flag added by the backlog-refinement window on the 8·4 ruling; body untouched.
 
 **What this item is.** C4 Q1 ruled the **address** — `myhome.place`, registered, premium, transfer-locked
 `[paul-stated 2026-09-03]`. It did not rule the **name**. Paul's refinement in the same breath named
