@@ -194,6 +194,69 @@ same way: 200 → the receipt, anything else → the shipped send-failure senten
 
 ---
 
+## 6b · The "please don't" state — the ask-side fix for question 4
+
+> ⚠️ **Numbered `6b`, not `6`.** `§6` was already taken by the findings section above, and `§0` and
+> `§5` cite it three times as *"§6 finding 1"* / *"§6 finding 3"*. Renumbering to make room would have
+> broken those pointers silently, which is the one thing this file is about.
+
+> `[paul-ruled 2026-09-11]` — question 4 is settled on the **ask** side, not in the receipt: when a
+> person chooses *"Please don't"*, the flow tells them there and then what recovery will mean, so the
+> receipt later never promises a reply that cannot come. §1 and §2 are unchanged by this.
+
+**The slot already exists and is empty.** `onboarding/index.html:462` — `<p id="contactnone" class="quiet" hidden>` — with its own comment at `:459–461`: *"NAMES THE COST… a choice whose consequence is invisible is not a choice."* Nothing ever writes text into it (`:1574` sets only `.hidden`). This is that text. It supersedes review **B9**'s draft line, which was written before `VOCABULARY.md` §3e·R existed and said *"email is how I'd get you back in"* — vague about direction, and it promised a way back in.
+
+### DRAFT — recommended
+
+> **Then he won't. It also leaves Paul no address to write to, so if you ever forget your username or
+> password, email him at paul.kirschenbauer@gmail.com.**
+
+*Two sentences, 25 words. Renders in the space the email and phone rows vacate.*
+
+| clause | why |
+|---|---|
+| **`Then he won't.`** | ⭐ **The anti-nag move, and it is the first three words on purpose.** The choice is honoured before its cost is named; nothing here asks her to reconsider, qualifies the choice, or calls it a risk. It answers the screen's own question (`:449` *"How should Paul reach you?"*) in that question's own person — so the pronoun has its antecedent one line up, on a screen where the A4 introduction is still unshipped |
+| **`It also leaves Paul no address to write to`** | The consequence as a **fact about the record**, not a capability removed from her — `describe-don't-grade`. It is the plainest true statement of `VOCABULARY.md` §3e·R at a row with no contact value: the reset goes to the address on the account row, and there is now no such address. ⛔ Not *"you won't be able to reset your password"*, which grades her choice and is also wrong — she can still ask |
+| **`if you ever forget your username or password`** | Both, because row 28 makes `Can't get in?` one door for both and D1 makes them one act. `ever` does the softening that a hedge would otherwise have to do |
+| **`email him at paul.kirschenbauer@gmail.com`** | ⭐ **Byte-identical to §1's receipt clause, deliberately.** One wording at two sites — the discipline the shipped send-failure sentence keeps across five files. It is also the whole of the ruling: the reset can only go the other way, and the way is named, in full, at the moment of choosing rather than at the moment of being locked out |
+| ⛔ **what is NOT there** | **no promise that he can get her back in.** §3e·R forbids delivering a credential to the address in a request, and this account will have none on its row — so *"and he'll get you back in"* is a sentence this route cannot keep for exactly this reader. See open question 5. Also: no *"are you sure"*, no *"we recommend"*, no apology, and **no changeability clause** — see the falsifier |
+
+### Where it renders
+
+**Inline, on selection — the existing `#contactnone` mechanism, unchanged.** `paintContact()` (`:1572–1579`) already shows it only when `contactPref() === "none"` and hides the email and phone rows at the same moment, so the line lands in the vertical space those rows vacate: no reflow cost, no growth on the 414 × A+ screen, and it appears **at the moment of choosing**, which is the ruling.
+
+⛔ **Not always-visible under the three radios.** Three costs: it becomes a standing caution attached to two choices it is not true of (CLAUDE.md #5's *"never a standing footer"*); it pushes the email field below the fold at A+ for the majority who chose email; and a consequence shown before the choice reads as a warning about the *question*, which is the nag this line is written to avoid. The one thing always-visible would buy — every reader learns the recovery model — is already bought twenty-six lines above at `:420` (*"if you lose it, email him"*).
+
+### Falsifier — the fact it asserts, and where it is false
+
+| | |
+|---|---|
+| **asserts** | after this signup, the account row holds **no** contact address |
+| ⛔ **FALSE TODAY, and there is a code site** | `:1748` posts `email: em \|\| null` and `phone: ph \|\| null` **regardless of `pref`**. `paintContact()` only *hides* the rows — it never clears them. So a person who types an address and **then** switches to *"Please don't"* ships that address to their account row, is told on the same screen that none is on file, and under §3e·R a reset would be sent to it. Reachable in one change of mind, not exotic |
+| ✅ **the fix, one line** | `email: pref === "none" ? null : (em \|\| null)` (and the same for `phone`) at `:1748`. ⛔ **Build, not copy — flagged to the build lane.** The posture is **B7**'s: the sentence states the intended design and the build catches up to the copy. Do not hedge the sentence to survive the bug |
+| **check** | `python3 tools/watch-accounts.py --env qa` — an arrival with `contactPref: "none"` must carry no email and no phone. ⚠️ Today nothing checks this; the field is simply present or absent on the row |
+| **second falsifier** | *"Then he won't"* is a claim about **Paul's own act**, which no code enforces — the same shape as **F7**. `contactPref` is stored and readable; honouring it is his |
+| ⚠️ **stale in the good direction, lap 8** | The line says nothing about changing the choice later **because in lap 7 that is not true enough to say.** `settings/account/index.html:239–240` posts `{ contactPref }` **only** — the preference flips, but there is no way to supply the address that would make *"Email me"* mean anything, and `:224` renders `Email on file: …` as **read-back, never editable**. **The moment the lap-8 email editor lands, CLAUDE.md #5 is owed a clause here** — one short varied one, e.g. *"You can add an address later if you change your mind."* Adding it now would be the exact failure #5's caveat names: calling a thing changeable and making changing it costly |
+
+### One alternate, with the trade
+
+> **ALTERNATE — the reversal said outright**
+>
+> **Then he won't. With nothing on file, getting back in has to start with you: if you forget your
+> username or password, email Paul at paul.kirschenbauer@gmail.com.**
+
+**The trade.** It names the *mechanism* — the direction of the reset is reversed, and she is the one who has to move — where the recommended line lets *"leaves Paul no address to write to"* imply it. Clearer to a reader who wants to understand the system. **What it costs:** *"has to start with you"* puts a job on the reader in the sentence that answers her choice, which is the one place this line must not, and *"with nothing on file"* is vaguer about **what** is missing than *"no address to write to"* — for a reader whose fear is getting it wrong, a vague absence is worse than a named one. Choose it only if Paul wants the reversal stated rather than shown.
+
+⚠️ **Rejected outright: any version that points at the address instead of printing it** (*"his address is at the bottom of this screen"*). That is a claim about the product's **order**, which is the principle this review's sibling already proposed — *name the act, not the position* — and `:488` is a line an edit could move tomorrow.
+
+### Two things this turned up
+
+**1 · The twin at `settings/account/index.html:104` says more than the route can keep.** The same choice, made later, renders *"I'll keep to that. If you lose your password, email me and I'll sort it."* — first person where s0 is third (A4 edit 3 already wants *"email me"* → *"email Paul"* at its sibling `estate:388`), **and it promises a resolution** (*"I'll sort it"*) to the one account shape §3e·R gives no delivery path. **Flagged, not drafted** — it is a different reader on a different screen and wants its own pass, but it should not ship promising more than `#contactnone` does.
+
+**2 · The address is now a literal in three places.** `onboarding:488`, §1's receipt, and this line. **F6** recorded it as load-bearing in two. A change moves three — and one of them is a line only a fraction of readers ever see, which is how the third copy is the one that gets missed.
+
+---
+
 ## 7 · Questions Paul must answer before these words ship
 
 1. ⭐ **May the screen use your name?** The drafts say **Paul**, four times across the two blocks, plus
@@ -224,13 +287,23 @@ same way: 200 → the receipt, anything else → the shipped send-failure senten
    channel doctrine deliberately keeps text out of the product. **Your call, and it may differ per
    deployment.**
 
-4. ⚠️ **What does this say to someone whose account has no email on it?** *"Please don't"*
-   (`#contactnone`) is a real choice at signup, and review B9 already found that its cost — *this
-   closes the only reset route* — is stated **nowhere at the moment of choosing**. For that person,
-   F5 fires: the receipt tells them to wait for a reply that cannot come. **This is not a wording
-   problem and I am not solving it in this string.** Two honest exits, both yours: say the cost at
-   the moment of choosing (review B9's draft line), or let the second door carry them. **Flagged to
-   `ux-expert` / the build lane** as the one reader this route cannot serve.
+4. ✅ **RULED 2026-09-11 — fixed on the ASK side. See §6b.** ~~What does this say to someone whose
+   account has no email on it?~~ Paul took the first of the two exits: the cost is said **at the
+   moment of choosing**, in `#contactnone`, so the receipt is never the first place this reader
+   learns it. §1 and §2 are unchanged. ⚠️ **F5 is narrowed, not cleared** — the receipt still says
+   *"if nothing's come back by tomorrow evening"* to a person for whom nothing can come back; what
+   changed is that they were told so on the screen where they chose it, and told where to write.
+
+5. ⭐ **NEW, and it is the one §6b could not answer: what does §3e·R permit when the account row has
+   no contact value at all?** The rule is *deliver to the address on the account row, never to the
+   address in the request* — and this reader's row has none, so on a literal read **there is no
+   delivery path**, not even replying to the email §6b tells them to send. So §6b deliberately stops
+   at *"email him at paul.kirschenbauer@gmail.com"* and promises nothing after it. Two exits, yours:
+   (a) **write the exception into §3e·R** — an empty row permits a reply to the requesting address,
+   *after* Paul has established who they are by some means he names; or (b) **leave it as it stands**,
+   a doorbell with no promise, resolved by Paul knowing these people (the word-of-mouth deployment).
+   ⛔ Until you rule, no surface may say *"he'll get you back in"* to a `contactPref: "none"` account
+   — and `settings/account/index.html:104` currently does (*"email me and I'll sort it"*).
 
 ---
 
