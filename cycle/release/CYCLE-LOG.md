@@ -2656,3 +2656,41 @@ production is behind gate ①); (2) a per-instance ack seam is a **lap 8 candida
 literal would invert the leak. Also from the draft: *Almanac → Journal* is out of the build but **unruled as copy**;
 the beat-6 table carries no `note:` field, so the title is authored — backfill from it when P2 lands; bullet 7 (row D)
 is gated by a RECORD check (his note visible at his origin with its 2026-09-10 timestamp), cut not reworded if absent.
+
+### ~11:55 PM ET — the build window's readback GRADED CLEAN; two of Paul's questions answered from the record
+
+**Build readback** (`handoff/handoff-lap7-build.readback.md`, at `7b36392`): clean on state, measured the two RED
+preconditions itself, spot-checked the plan's symbols, and found nine things — coordination's rulings on each:
+1. **P3 edit 1 has no step and depends on chain P1** (`committed[]` does not exist in `cycle-state.json`) → **build P1
+   too**: an `id` column on the beat-6 table + the parser, then the `walk-brief.py` header. Process tools, no app
+   surface; the 59th step.
+2. **The `found` event has no reader** (owed to lap 7 by the last build lane's §8) → **one roster line in B7**
+   (`watch-door.py`). **L7-P1** stays pre-registered; disposed at close with evidence, carried if unbuilt.
+3. **`door_failed` vs `signin_failed`** → use the EXISTING closed roster name `door_failed` with an outcome field;
+   `recovery_requested` joins roster AND reader together or not at all. (Coordination's naming ruling, not Paul's.)
+4. **The recovery route has had no security read** → **security-steward commissioned** (roster + legibility on B6;
+   read-only; filed to `.engineering/2026-09-10-recovery-route-SECURITY.md`). B6 may be BUILT to spec; **not deployed
+   to qa before the read lands.**
+5. **The pull list** — the brief/plan's fuller list is right: TIER 1 · 45 · 42 · 26 · 27 · 28 · 29 · 30 · **31** · 43 ·
+   44 · 32 · 23 and TIER 2 · 10 · 13 · 18 · **19 · 20 · 21 · 25**. The "Rows frozen" line above was short; corrected here.
+6. **H4 (the content-clause + UX-artifact convention) lands BEFORE the qa deploy for the battery**, not after.
+7–9. Q7 consistent; **P4 = `instance/paul.json` absent gains `ack` + `questions`** acknowledged as a step; the
+   `release-state.py` readout says beat 11/12 until qa is redeployed — a thing not to misread (TIER 1 · 47).
+**Paul clears the window with his keystroke there**; coordination's grade is the recommendation to clear.
+
+**Paul's QA feedback, traced** (his words in the app are his to see): `fb-rifyhed4-mtw3ez7m` at 6:22 PM ET from the
+open-standing card under his qa account — *"Formatting of 'You homes' 'What you told me' and 'Settings' is off"* — is
+**TIER 1 · 30**, already carried. The empty *Your Perspective* box at the condo is **TIER 1 · 43** (relayed), and its
+mechanism is TIER 1 · 50 (Mom's queue renders at his household). Three "via-proof / no-cred probe" notes at 3:40 PM
+are the bug lane's probes, not his. ⚠️ **Residue:** PAK's two setup notes (6:24–6:25 PM) in the qa feedback
+day-record carry his real street address in full and **outlived the PAK/Homey teardown** — feedback records are not
+deleted with a house. Forwarded to the register; the address is not printed anywhere in this repo.
+
+**Production movement, measured:** `home` — one account (`marguerite`, member, created 12:24 PM ET), 13 sessions across
+3 active days on 4 device buckets 09-07 → 09-10 12:26 PM (ending at her signup; nothing after it). `paul` — one
+account (`pkirsch`), **zero metrics batches** (consistent with the app having no Worker there, row D). `bob` — gone.
+**No one else has done anything.**
+
+**Laps 8/9 scope proposal** (`.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md`, backlog window, `0c4a983`) reviewed:
+approved to Paul with three changes — lap 8 · A's done-means carries the "synced" clauses · lap 8 · D is conditional
+on a G6 reading window with a slip rule · security-steward named on A and B.
