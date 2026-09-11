@@ -56,7 +56,7 @@
 | 8·1 | **Mom waits until B is proven** — nobody real walks the door while A's steps land at lab; she founds once, at the production origin |
 | 8·2 | **B after A's isolation falsifier passes at lab** |
 | 8·3 | **The weather card = lap 9, first row** |
-| 8·4 | **Rule the product name BEFORE B** — `.plans/2026-09-03-product-name-PLAN.md` is now a lap-8 prerequisite, flagged AWAITING on its header |
+| 8·4 | **Rule the product name BEFORE B** — `.plans/2026-09-03-product-name-PLAN.md` is now a lap-8 prerequisite, flagged AWAITING on its header. ✅ **The ADDRESS half RULED 2026-09-11 ~12:40 AM ET** `[paul-ruled: "we got the domain myhome.place, right? We should use that."]`: **the production origin is `myhome.place`** — the link Mom receives; B gains a build step (bind the Pages project to the apex, write its DNS — zero records today — and add it to `pages-deploy.py`'s `ORIGIN` map). ⚠️ The NAME (plan Q3) is still open and still precedes B by his own rule |
 | 8·5 | **One candidate A + C + E + F; B its own gate on his word at the act** |
 | 8·6 | **The fixture stamp = lap 8 rider** (qa/lab only; production never sets the var) |
 | D | **threshold = 10 sessions**; row G the ribbon seam **accepted by inclusion** |

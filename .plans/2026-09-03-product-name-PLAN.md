@@ -14,6 +14,7 @@
 - ready: agent-proposed 2026-09-03 — Paul rules. ⛔ **AWAITING PAUL — now a LAP-8 PREREQUISITE** `[paul-ruled 2026-09-11 ~12:10 AM ET, laps 8/9 scope walk, 8·4: "rule the product name BEFORE B" — a link Mom receives is not renamed under her; CYCLE-LOG `767242c`]`. The migration of her account row into the production origin (lap 8 · B) waits on this ruling.
 - stage: ready
 - stage-note: 2026-09-11 ~12:20 AM ET — AWAITING flag added by the backlog-refinement window on the 8·4 ruling; body untouched.
+- stage-note: 2026-09-11 ~12:40 AM ET — **the ADDRESS half of 8·4 is RULED**: *"we got the domain myhome.place, right? We should use that."* `[paul-ruled]` — the production origin's address is the apex `myhome.place` (TIER 1 · 46; lap 8 · B). ⚠️ **Q3 (the product's NAME — My Home · a distinct word · no name) is still his**, and Q2/Q2b's family-door level (`kirschenbauer.myhome.place`) reads as retired by `VOCABULARY.md` §3i's one origin plus this ruling — the apex IS the door; his one word confirms or reverses that reading. The AWAITING flag stays for Q3.
 
 **What this item is.** C4 Q1 ruled the **address** — `myhome.place`, registered, premium, transfer-locked
 `[paul-stated 2026-09-03]`. It did not rule the **name**. Paul's refinement in the same breath named
