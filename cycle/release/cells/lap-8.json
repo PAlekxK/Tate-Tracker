@@ -1,0 +1,32 @@
+{
+  "lap": 8,
+  "declaredBy": "paul",
+  "declaredAt": "2026-09-11 15:28 EDT",
+  "_his_words": "OK great that's a good starting point — [paul-declared 2026-09-11, on the ten-cell proposal put to him in plain terms: what the person is doing, read as whom, and whether it can walk today]",
+
+  "_what_a_cell_is": "One pair: a JOURNEY (a path a real person takes through the product) and a LENS (the posture it is read in). The gate passes on every DECLARED cell; a declared cell with no run at this sha prints UNWALKED and the gate REFUSES, unless the change classifier says its journey cannot reach what moved AND the carried-forward pass prints its byte proof.",
+
+  "_why_declaring_matters": "Until this file existed the exit condition was VACUOUSLY satisfied: zero declared means zero can be UNWALKED means nothing to refuse on. This is what turns 'every cell passed' from a statement about whatever happened to run into a statement about what we said we would walk.",
+
+  "rounds": [
+    { "n": 1, "cells": "all",
+      "_why_declared_explicitly": "Round 1 is 'all' by default if no rounds key exists. Declaring it anyway makes the FIRST round an ACT rather than a default, and makes round 2's shape visible before anyone proposes a smaller battery. The cheapest moment to establish that a round names its carried cells is before anyone wants a smaller one." }
+  ],
+
+  "cells": [
+    { "journey": "J0", "lens": "mom",         "_is": "founds a place from scratch at the open door, no invite" },
+    { "journey": "J0", "lens": "wide-eyed",   "_is": "founds a place from scratch, first-time eyes" },
+    { "journey": "J1", "lens": "mom",         "_is": "arrives on an invite someone sent them" },
+    { "journey": "J1", "lens": "wide-eyed",   "_is": "arrives on an invite, first-time eyes" },
+    { "journey": "J3", "lens": "mom",         "_is": "comes back to a place they already set up" },
+    { "journey": "J3", "lens": "wide-eyed",   "_is": "comes back to a set-up place, first-time eyes — FIXTURE UNDER REPAIR" },
+    { "journey": "J2", "lens": "mom",         "_is": "comes back to a half-finished setup" },
+    { "journey": "J5", "lens": "strict",      "_is": "turns up at the bare door with nothing" },
+    { "journey": "J4", "lens": "strict",      "_is": "arrives with a dead credential — the refusal path. NEVER CARRIES: declares no pages, so it re-runs every round. Paul's choice, not an accident" },
+    { "journey": "J6", "lens": "strict",      "_is": "arrives as THE WRONG PERSON — the cross-tenant attack. NO PROCEDURE EXISTS: prints UNWALKED with its blocker every round, and the gate REFUSES until it is built. That is the point, not a side effect" }
+  ],
+
+  "_lens_names_are_the_ones_that_EXIST": "Paul ruled the roster mom · wide-eyed · conformance · successor (P1), retiring 'owner' as a lens and renaming 'strict' to 'conformance'. This file uses 'strict' because that is what the harness has TODAY — the rename is cheap and unmade. 'successor' is genuinely new and is deliberately NOT declared here: a cell that cannot walk for a reason nobody is fixing is noise, not coverage. Both are open and named rather than silently resolved.",
+
+  "_not_in_round_1_and_why": "J8 account-lifecycle (fixture refused for 4 of 5 seats, under repair) · the 'other' free-text lens (P2 rules it IN and seat-portfolio calls it the best cell on the board — nothing has ever walked the product as somebody whose want is not on the list; it needs a lens that exists first) · 'successor'."
+}
