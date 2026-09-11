@@ -67,7 +67,10 @@ def summarise(env, estate):
            # outcome "signin_failed" — the EXISTING event name with a field, never a new name, because
            # DOOR_EVENTS is the client-forgeable allow-list and this record is server-side only), and
            # the onboarding `found` event by detail (ok · already · refused:* · unreachable).
-           "failed_by_outcome": Counter({"signin_failed": 0}), "found": Counter()}
+           "failed_by_outcome": Counter({"signin_failed": 0}), "found": Counter(),
+           # ⛔ PER-DEVICE SETS, because the silent case is NOT derivable by subtracting event
+           # COUNTS. See `silent_case()`.
+           "dev_by_event": {}, "reached_no_device": 0}
     try:
         row["door"], bad1 = read_channel(env, estate, "door")
         row["onboarding"], bad2 = read_channel(env, estate, "onboarding-metrics")
@@ -78,9 +81,15 @@ def summarise(env, estate):
         return row
     for _d, r in row["door"]:
         if isinstance(r, dict):
-            row["events"][r.get("event") or "?"] += 1
+            ev = r.get("event") or "?"
+            row["events"][ev] += 1
             if r.get("deviceId"):
                 row["devices"].add(r["deviceId"])
+                row["dev_by_event"].setdefault(ev, set()).add(r["deviceId"])
+            elif ev == "door_reached":
+                # ⛔ AN ARRIVAL WITH NO DEVICE CANNOT BE FOLLOWED. Counted, never dropped — it is
+                # what makes the silent case a FLOOR rather than an exact number.
+                row["reached_no_device"] += 1
             if r.get("event") == "door_failed":
                 row["failed_by_outcome"][r.get("outcome") or (r.get("reason") or "gate")] += 1
     for _d, b in row["onboarding"]:
@@ -88,6 +97,44 @@ def summarise(env, estate):
             if isinstance(e, dict) and e.get("name") == "found":
                 row["found"][e.get("detail") or "?"] += 1
     return row
+
+
+def silent_case(row):
+    """→ (state, n, why). The silent case: ARRIVED AND NEITHER GOT IN NOR REPORTED A FAILURE.
+
+    ⛔⛔ THIS WAS ARITHMETICALLY BROKEN SINCE THE TOOL WAS BUILT, in the one reading it exists for.
+    It was derived as `reached − opened − failed` over EVENT COUNTS, and went NEGATIVE wherever
+    `door_failed > door_reached` — which is the NORMAL state at four of five environments (measured
+    2026-09-11: −41 at home, −226 at legacy, −58 at qa). A COUNT THAT CAN GO NEGATIVE IS NOT A COUNT.
+    ⭐ The counts were never subtractable: the three events are not emitted in matched pairs — one
+    arrival can produce several failures, and a failure can be written on a path that never wrote an
+    arrival. Subtracting them asks a question the record cannot answer in that shape.
+
+    ⭐ THE HONEST DERIVATION IS PER DEVICE, and the record supports it: every door row carries a
+    `deviceId`. A silent device is one that emitted `door_reached` and NEITHER `door_opened` NOR
+    `door_failed`. That cannot go negative, because it is a set difference.
+    ⛔ AN ARRIVAL WITH NO deviceId CANNOT BE FOLLOWED, so it is reported as a FLOOR ("at least N")
+    rather than silently dropped — and where NOTHING is attributable the answer is UNCHECKABLE with
+    the reason, never a number.
+    ⚠️ A deviceId IS A BROWSER BUCKET, NEVER A PERSON. This counts buckets, and the tool's standing
+    rule holds: it reports what happened at a door, never who was standing at it."""
+    reached_n = row["events"].get("door_reached", 0)
+    if not reached_n:
+        return "NONE", 0, "no arrival recorded"
+    by = row.get("dev_by_event") or {}
+    reached = set(by.get("door_reached") or ())
+    if not reached:
+        return ("UNCHECKABLE", 0,
+                "%d arrival(s) recorded and NONE carries a deviceId, so no arrival can be followed "
+                "to an outcome" % reached_n)
+    silent = reached - set(by.get("door_opened") or ()) - set(by.get("door_failed") or ())
+    unattributable = row.get("reached_no_device", 0)
+    why = ""
+    if unattributable:
+        why = (" — ⬜ plus %d arrival(s) with NO deviceId, which cannot be followed to an outcome; "
+               "this is a FLOOR, not an exact count" % unattributable)
+        return "FLOOR", len(silent), why
+    return "COUNT", len(silent), " (device buckets, never people)"
 
 
 def main():
@@ -133,9 +180,17 @@ def main():
         reached = r["events"].get("door_reached", 0)
         opened = r["events"].get("door_opened", 0)
         failed = r["events"].get("door_failed", 0)
-        if reached and reached > opened:
-            print("      ⚡ %d reached the door and %d got through — %d did NEITHER open nor fail, "
-                  "which is the silent case" % (reached, opened, reached - opened - failed))
+        # ── THE SILENT CASE — the reading this tool exists for ───────────────────────────────────
+        state, n, why = silent_case(r)
+        if state == "COUNT":
+            print("      ⚡ %d reached the door and %d got through — ⭐ %d DEVICE(S) DID NEITHER "
+                  "open nor fail, which is the silent case%s" % (reached, opened, n, why))
+        elif state == "FLOOR":
+            print("      ⚡ %d reached the door and %d got through — ⭐ AT LEAST %d device(s) did "
+                  "NEITHER open nor fail%s" % (reached, opened, n, why))
+        elif state == "UNCHECKABLE":
+            print("      ⬜ %d reached the door and %d got through — the SILENT CASE is UNCHECKABLE "
+                  "here: %s" % (reached, opened, why))
         if failed:
             print("      🔴 %d door_failed — someone tried and could not get in" % failed)
         # B7 — named at zero. `signin_failed` is the refusal at POST /api/session (wrong word OR unknown
@@ -176,6 +231,47 @@ def selftest():
                               {"event": "door_opened", "deviceId": "d-1"}])})
     r = summarise("home", "est-x")
     ck("M0 counts events and device buckets", r["events"]["door_reached"] == 2 and len(r["devices"]) == 2)
+    # ═══ THE SILENT CASE — the reading this tool exists for, and it was broken since it was built ══
+    ck("S0 the silent case is a COUNT when every arrival carries a deviceId",
+       silent_case(r) == ("COUNT", 1, " (device buckets, never people)"))
+
+    # ⛔⛔ THE REGRESSION GUARD. `reached − opened − failed` went NEGATIVE wherever door_failed >
+    # door_reached — the NORMAL state at four of five environments (measured: −41 home, −226 legacy,
+    # −58 qa). A COUNT THAT CAN GO NEGATIVE IS NOT A COUNT.
+    K2 = "est-y:door:2026-09-07"
+    wire([K2], {K2: json.dumps([{"event": "door_reached", "deviceId": "d-1"}] +
+                               [{"event": "door_failed", "deviceId": "d-%d" % i} for i in range(9)])})
+    r2 = summarise("home", "est-y")
+    st, n, _ = silent_case(r2)
+    ck("S1 MANY more failures than arrivals NEVER yields a negative — the old subtraction gave %d"
+       % (r2["events"]["door_reached"] - r2["events"].get("door_opened", 0)
+          - r2["events"]["door_failed"]), n >= 0 and st in ("COUNT", "FLOOR"))
+
+    # ⛔ an arrival that later FAILED is not silent.
+    K3 = "est-z:door:2026-09-07"
+    wire([K3], {K3: json.dumps([{"event": "door_reached", "deviceId": "d-1"},
+                                {"event": "door_failed", "deviceId": "d-1"}])})
+    ck("S2 an arrival that later FAILED is not silent — it reported", silent_case(summarise("home", "est-z"))[1] == 0)
+
+    # ⛔ an arrival with NO deviceId cannot be followed → FLOOR, never dropped.
+    K4 = "est-w:door:2026-09-07"
+    wire([K4], {K4: json.dumps([{"event": "door_reached", "deviceId": "d-1"},
+                                {"event": "door_reached"}])})
+    st, n, why = silent_case(summarise("home", "est-w"))
+    ck("S3 an arrival with NO deviceId makes it a FLOOR, counted and named, never dropped",
+       st == "FLOOR" and n == 1 and "cannot be followed" in why)
+
+    # ⛔ NOTHING attributable → UNCHECKABLE with the reason, never a number.
+    K5 = "est-v:door:2026-09-07"
+    wire([K5], {K5: json.dumps([{"event": "door_reached"}, {"event": "door_failed"}])})
+    st, n, why = silent_case(summarise("home", "est-v"))
+    ck("S4 arrivals with NO deviceId at all → UNCHECKABLE with the reason, never a number",
+       st == "UNCHECKABLE" and n == 0 and "deviceId" in why)
+
+    wire([K], {K: json.dumps([{"event": "door_reached", "deviceId": "d-1"},
+                              {"event": "door_reached", "deviceId": "d-2"},
+                              {"event": "door_opened", "deviceId": "d-1"}])})
+    r = summarise("home", "est-x")
     ck("M1 the SILENT case is derivable (reached > opened)",
        r["events"]["door_reached"] > r["events"].get("door_opened", 0))
 
