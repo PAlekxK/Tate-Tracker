@@ -416,16 +416,21 @@ def main():
     if not a.url:
         ap.error("the following arguments are required: url")
 
-    # ⛔ T15 — THE NEWEST TREE, NOT AN ARBITRARY ONE. `glob` returns filesystem order, and `mods[0]`
-    # took whichever came first across THREE playwright installs on this machine. An engine installed
-    # into one tree while NODE_PATH points at another reads as UNAVAILABLE though it is installed —
-    # a capability finding manufactured by a sort order. The plan says to fix this the day the
-    # WebKit install lands; this is that day.
+    # ⛔⛔ T15/T19 — THE TREE IS CHOSEN BY CAPABILITY, NOT BY TIME, AND THAT CORRECTION COST A REAL
+    # REGRESSION. `mods[0]` originally took whichever of THREE playwright trees `glob` returned
+    # first — arbitrary, and the plan said to fix it the day the WebKit install landed. It was fixed
+    # to NEWEST-FIRST by mtime, and `npx playwright install webkit` then created a NEWER tree that
+    # had no chromium in it. The sort dutifully pointed at the new tree and CHROMIUM — the engine
+    # every walk in this project uses — began reporting ENGINE-UNAVAILABLE. Caught by running the
+    # deploy preflight, not by reading the change.
+    # ⭐ THE LESSON IS THAT MTIME WAS ALSO A PROXY. "Newest" is not "can run the engine you asked
+    # for"; only trying it is. The candidates are ordered newest-first as a heuristic and then
+    # ACTUALLY TRIED in order, so an incomplete tree is skipped rather than fatal.
     mods = sorted(glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/playwright")),
                   key=lambda d: os.path.getmtime(d), reverse=True)
     if not mods:
         raise SystemExit("journey-view: no browser available")
-    env = dict(os.environ); env["NODE_PATH"] = os.path.dirname(mods[0])
+    env = dict(os.environ)
     js = "/tmp/.journey-view.js"
     open(js, "w").write(NODE)
     # ⛔ A DECLARED PROFILE THAT DOES NOT EXIST REFUSES, NAMING THE COMMAND THAT WOULD PRODUCE ONE.
@@ -447,8 +452,15 @@ def main():
            "shotDir": a.shot_dir or os.path.dirname(os.path.abspath(a.shot))}
     # A watched run is paced for a human (slowMo), so the headless timeout would kill it mid-walk and
     # the transcript would blame the product for the instrument's impatience.
-    p = subprocess.run(["node", js, json.dumps(cfg)], capture_output=True, text=True, env=env,
-                       timeout=1200 if a.watch else 300)
+    # ⛔ TRY EACH TREE UNTIL ONE CAN ACTUALLY RUN THE ENGINE. rc 3 is the named ENGINE-UNAVAILABLE
+    # refusal; anything else is a real result and is returned immediately.
+    p = None
+    for _tree in mods:
+        env["NODE_PATH"] = os.path.dirname(_tree)
+        p = subprocess.run(["node", js, json.dumps(cfg)], capture_output=True, text=True, env=env,
+                           timeout=1200 if a.watch else 300)
+        if not (p.returncode == 3 and "ENGINE-UNAVAILABLE" in (p.stdout or "")):
+            break
     if p.returncode == 3 and "ENGINE-UNAVAILABLE" in (p.stdout or ""):
         # ⛔ A CAPABILITY FINDING, NEVER A PRODUCT FINDING. T15's rule, enforced at the source: a
         # WebKit run that cannot start reports UNREACHABLE, not "refused".

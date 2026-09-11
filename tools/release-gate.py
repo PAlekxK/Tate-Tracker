@@ -1188,6 +1188,47 @@ def report(sha, seats_only=False):
     return 1
 
 
+def deploys_report():
+    """T19's READER, shipped with the writer. ⛔ An event with no reader is not instrumentation
+    `[paul-ruled 2026-09-07]` — measured the day that ruling landed, `GET /api/door` existed and no
+    tool called it."""
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "pd", os.path.join(ROOT, "tools", "pages-deploy.py"))
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+    except Exception as e:
+        print("⬜ UNCHECKABLE — could not load pages-deploy: %s" % e)
+        return 3
+    rows, unfinished = m.read_deploy_log()
+    if not rows:
+        print("⬜ no deploy on record yet — EMPTY, not fast. (%s)"
+              % os.path.relpath(m.DEPLOY_LOG, ROOT))
+        return 3
+    done = [r for r in rows if r.get("finishedAt")]
+    print("deploy log — %d row(s), %d completed\n" % (len(rows), len(done)))
+    for r in done[-10:]:
+        print("  ✅ %-8s %-8s %6ss  %s" % (r.get("env"), r.get("sha"),
+                                           r.get("seconds"), r.get("startedAt")))
+    if done:
+        secs = sorted(x["seconds"] for x in done if isinstance(x.get("seconds"), (int, float)))
+        if secs:
+            print("\n  median %.1fs · slowest %.1fs across %d completed deploy(s)"
+                  % (secs[len(secs) // 2], secs[-1], len(secs)))
+    # ⛔⛔ THE HALF THAT MATTERS: a deploy that STARTED AND NEVER REPORTED is a FINDING, not an
+    # absence. Without this line the only evidence of a failed deploy is a missing row, and a missing
+    # row and a deploy that never happened read identically.
+    if unfinished:
+        print("\n  🔴 %d deploy(s) STARTED AND NEVER REPORTED — a failed deploy and an unmeasured "
+              "one must not read the same:" % len(unfinished))
+        for r in unfinished:
+            print("     %-8s %-8s started %s · finishedAt: null" % (r.get("env"), r.get("sha"),
+                                                                    r.get("startedAt")))
+        return 1
+    print("\n  ✅ every deploy on record reported a finish.")
+    return 0
+
+
 def selftest():
     # ⚠️ ONE declaration for the whole function — several clause blocks below swap these to point at
     # a temporary corpus, and Python allows only one `global` per name per function body.
@@ -1484,6 +1525,53 @@ def selftest():
         finally:
             WALKS, CELLS_DIR = _sw, _sc
 
+    # ═══ T19 · M25 — A FAILED DEPLOY AND AN UNMEASURED ONE MUST NOT READ THE SAME ═══════════════
+    _pdspec = importlib.util.spec_from_file_location("pd_t19", os.path.join(ROOT, "tools", "pages-deploy.py"))
+    _pd = importlib.util.module_from_spec(_pdspec); _pdspec.loader.exec_module(_pd)
+    with tempfile.TemporaryDirectory() as tmp:
+        lg = os.path.join(tmp, "deploy-log.jsonl")
+        _saved = _pd.DEPLOY_LOG
+        try:
+            _pd.DEPLOY_LOG = lg
+            rows, unf = _pd.read_deploy_log(lg)
+            bit = rows == [] and unf == []
+            print("  %s M25a no log yet reads EMPTY, never 'fast'" % ("✅" if bit else "🔴")); ok &= bit
+
+            r = _pd.deploy_log_start("qa", "abc1234def")
+            rows, unf = _pd.read_deploy_log(lg)
+            bit = len(rows) == 1 and len(unf) == 1 and rows[0]["finishedAt"] is None
+            print("  %s M25b a deploy that RAISED MID-LEG leaves finishedAt: null ON THE RECORD — a "
+                  "failed deploy is a FINDING, not an absence" % ("✅" if bit else "🔴")); ok &= bit
+
+            _pd.deploy_log_finish(r, ["build", "upload"])
+            rows, unf = _pd.read_deploy_log(lg)
+            bit = len(rows) == 2 and unf == [] and rows[-1]["finishedAt"] and rows[-1]["seconds"] is not None
+            print("  %s M25c a completed deploy pairs with its start and reports its duration"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ THE STARTED ROW IS NOT REWRITTEN — a reader can still see that it BEGAN.
+            bit = rows[0]["finishedAt"] is None and rows[1]["finishedAt"] is not None
+            print("  %s M25d the started row is APPENDED TO, never rewritten — the record keeps that "
+                  "the deploy began" % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ TWO deploys, one of which died: the dead one must still stand out.
+            _pd.deploy_log_start("home", "dead9999")
+            rows, unf = _pd.read_deploy_log(lg)
+            bit = len(unf) == 1 and unf[0]["sha"] == "dead999"
+            print("  %s M25e among completed deploys, the one that never reported is named"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ A LOGGING FAILURE MUST NOT TAKE A DEPLOY DOWN.
+            _pd.DEPLOY_LOG = "/nonexistent-dir-t19/deploy.jsonl"
+            try:
+                _pd.deploy_log_start("qa", "x" * 8); crashed = False
+            except Exception:
+                crashed = True
+            print("  %s M25f a logging failure NEVER raises — a deploy is not taken down by its own "
+                  "instrumentation" % ("✅" if not crashed else "🔴")); ok &= (not crashed)
+        finally:
+            _pd.DEPLOY_LOG = _saved
+
     # ═══ T16 · M22 — THE COVERAGE LINE READS THE RUNS, NOT THE SOURCE ═══════════════════════════
     with tempfile.TemporaryDirectory() as tmp:
         W = os.path.join(tmp, "walks")
@@ -1761,11 +1849,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sha", default=None)
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--deploys", action="store_true",
+                    help="T19 — read the deploy log: how long each deploy took, and which ones "
+                         "STARTED AND NEVER REPORTED")
     ap.add_argument("--seats-only", action="store_true",
                     help="exit 0 when every seat passes every seat clause at the sha (the UX clause still prints as uncheckable)")
     a = ap.parse_args()
     if a.selftest:
         return selftest()
+    if a.deploys:
+        return deploys_report()
     return report((a.sha or head_sha())[:40], seats_only=a.seats_only)
 
 

@@ -23,6 +23,7 @@ Three things this does that a bare `wrangler pages deploy` did not, each one a d
    the bare host served the previous index.html for minutes after a "complete" deploy. So this polls
    until the origin reports the sha it was just given, and says plainly if it never does.
 """
+import datetime as dt
 import argparse, json, os, shutil, subprocess, sys, tempfile, time, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
@@ -144,6 +145,76 @@ def page_errors_on_load(export):
         httpd.shutdown(); httpd.server_close()
 
 
+# ═══ T19 · THE DEPLOY'S OWN COST — recorded, and SHIPPED WITH ITS READER ═══════════════════════════
+#
+# ⛔ THE DEPLOY CHAIN WAS THE ONLY ACT IN THE LAP WITH NO MEASURABLE COST. `post-deploy.py` writes no
+# record at all, so the DEPLOYER is the truer site. S19.
+# ⭐ AND IT SHIPS WITH A READER IN THE SAME COMMIT, because `[paul-ruled 2026-09-07]` AN EVENT WITH NO
+# READER IS NOT INSTRUMENTATION — measured the day that ruling landed, `GET /api/door` existed and no
+# tool called it. More writers is not more instrumentation.
+#
+# ⛔⛔ A FAILED DEPLOY AND AN UNMEASURED ONE MUST NOT READ THE SAME. A row is written when the deploy
+# STARTS, carrying `finishedAt: null`; the null is overwritten only when it finishes. So a deploy that
+# raises mid-leg leaves `finishedAt: null` ON THE RECORD — which is a DIFFERENT fact from "no row at
+# all", and both are different from a clean row. Without that, the only evidence of a failed deploy is
+# its absence, and absence is exactly what this row spent a day refusing to read as a pass.
+DEPLOY_LOG = os.path.join(ROOT, ".private", "deploy-log.jsonl")
+
+
+def deploy_log_start(env, sha, legs=None):
+    """→ the row dict, already appended with `finishedAt: null`. ⛔ Never raises: a logging failure
+    must not take a deploy down with it, and a deploy that happened with no row is visible as a gap
+    in the log rather than as a crash."""
+    row = {"env": env, "sha": (sha or "")[:7],
+           "startedAt": dt.datetime.now().astimezone().isoformat(timespec="seconds"),
+           "finishedAt": None, "seconds": None, "legs": legs or []}
+    try:
+        os.makedirs(os.path.dirname(DEPLOY_LOG), exist_ok=True)
+        with open(DEPLOY_LOG, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(row) + "\n")
+    except OSError:
+        pass
+    return row
+
+
+def deploy_log_finish(row, legs=None):
+    """Append the COMPLETED row. ⚠️ APPEND, never rewrite: the started row stays on the record, so a
+    reader can see that a deploy began — and the pairing is by (env, sha, startedAt)."""
+    if not row:
+        return
+    try:
+        t0 = dt.datetime.fromisoformat(row["startedAt"])
+        done = dt.datetime.now().astimezone()
+        row = dict(row, finishedAt=done.isoformat(timespec="seconds"),
+                   seconds=round((done - t0).total_seconds(), 1), legs=legs or row.get("legs") or [])
+        with open(DEPLOY_LOG, "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(row) + "\n")
+    except (OSError, ValueError):
+        pass
+
+
+def read_deploy_log(path=None):
+    """→ (rows, unfinished). A row whose (env, sha, startedAt) never gained a finished twin is an
+    UNFINISHED deploy — it started and did not report, which is a FINDING and not an absence."""
+    p = path or DEPLOY_LOG
+    rows = []
+    if not os.path.exists(p):
+        return [], []
+    for line in open(p, encoding="utf-8"):
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            rows.append(json.loads(line))
+        except ValueError:
+            continue
+    done = {(r.get("env"), r.get("sha"), r.get("startedAt")) for r in rows if r.get("finishedAt")}
+    unfinished = [r for r in rows
+                  if not r.get("finishedAt")
+                  and (r.get("env"), r.get("sha"), r.get("startedAt")) not in done]
+    return rows, unfinished
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--env", required=True, choices=sorted(PROJECT))
@@ -155,6 +226,7 @@ def main():
     if not sha:
         raise SystemExit("pages-deploy: cannot resolve %r" % a.sha)
     subject = run(["git", "log", "-1", "--format=%s", sha]).stdout.strip()
+    _dlog = deploy_log_start(a.env, sha)
 
     # ⛔ A dirty tree is not an error, but it MUST be said: what deploys is the commit, so uncommitted
     # work is silently NOT going out. Discovering that after a walk is how a fix looks like it failed.
@@ -414,6 +486,7 @@ def main():
                     if pd.returncode != 0:
                         print("     ⚠️  post-deploy reported the above against a deploy that has "
                               "ALREADY LANDED. Read it before walking or clearing this build.")
+                    deploy_log_finish(_dlog, ["build", "preflight", "upload", "edge", "post-deploy"])
                     return 0
             except Exception:
                 pass
