@@ -3274,3 +3274,11 @@ re-runs) and the SCOPE of lap 8 · row T sized by symbol → `.plans/2026-09-11-
 plan's sequence under the eight rulings; engineering-partner leads the sizing, user-researcher names the lenses,
 security-steward the fixtures/credentials. Read-only on every tool while lap 7's battery runs; it specifies the CYCLE-MAP
 release-condition edit quoted, never made. Its readback is graded here; Paul clears it in its window.
+
+**Paul's caveat on the testing audit** `[paul-stated 2026-09-11 ~7:20 AM ET]`: *"to be fair, we also did commission a big UX
+review, so there's probably a lot of changes, and this is a big build. I don't want to artificially restrict how much testing
+we do. I think it's probably too much, but I do want to call out that we're launching pretty big builds as well."* → the audit
+and the revamp plan normalize cost against build size (lap 7: 59 steps, five rows, a UX sweep's findings, eleven design
+rulings), separate THOROUGH (real defects found: F1, B) from MIS-SHAPED (unchanged paths re-driven, harness self-tests, the
+battery testing its own cadence), and recommend no ceiling — only where a walk's cost buys nothing. Written into the
+revamp brief §1b and relayed to the running audit.

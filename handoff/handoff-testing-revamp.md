@@ -23,6 +23,17 @@ You own TWO things and deliver ONE file the build window can execute:
    the falsifiers · what is OUT with its ruling · what the build window's brief must say · what Paul must still rule.
    **Say plainly whether one piece fits beside the door in lap 8; the ruled fallback is two laps.**
 
+## 1b. Paul's caveat on the audit's framing `[paul-stated 2026-09-11 ~7:20 AM ET]` — binding on both deliverables
+
+*"To be fair, we also did commission a big UX review, so there's probably a lot of changes, and this is a big build. I don't
+want to artificially restrict how much testing we do. I think it's probably too much, but I do want to call out that we're
+launching pretty big builds as well."* So: **normalize every cost against build size** (lap 7 = 59 steps across five rows,
+four pages, the Worker and the template, carrying a two-pass UX sweep's findings and an 11-ruling design bundle; compare to
+lap 6's one row on the same basis) · **separate THOROUGH from MIS-SHAPED** — time that found real defects (F1, B) is
+thoroughness paid for; time re-driving unchanged paths, harness self-testing (F2) or the battery testing its own cadence (A)
+is shape · **recommend no ceiling on testing volume** — recommend where a walk's cost buys nothing. The plan's steps are
+judged by cost-per-finding and re-work avoided, never by fewer walks for their own sake.
+
 ## 2. Paul's rulings — in force, cite never re-open (`cycle/release/CYCLE-LOG.md` § "LAP 8 GAINS A ROW", 2026-09-11 ~7:00 AM ET)
 
 Q2 gate ① changes its unit from `seat` to **(journey, lens)** — a change to the release condition; its own falsifier gates it ·
