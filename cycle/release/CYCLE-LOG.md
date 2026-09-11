@@ -4003,7 +4003,7 @@ names the **beat-9 gate-kit edit (TIER 1 · 25) as the incoming window's**, deli
 from the brief, and PAUL GRADES ITS READBACK** — the writing window will not be live.
 
 ## Lap 8 — 2026-09-11 · 🔓 **OPEN at OPEN (1/12)** — ROW T ALONE: the testing architecture, the lap whose deliverable is the judge
-<!-- outcome:open at:2026-09-11T14:47:57Z -->
+<!-- outcome:open -->
 
 Opened at `4011f9fe`, `main`, clean tree, **2026-09-11 10:47 EDT** (from `date`, never authored). Opened by the fresh
 coordination window the lap-7 close handed off to; **the writing window was not live and Paul graded the readback himself.**
