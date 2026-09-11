@@ -3852,3 +3852,37 @@ give me a handoff to launch the next lap focusing on testing in a fresh window t
 concludes, don't force it."* → **Lap 8 does NOT open here.** Every window finishes the work in flight, records its state at
 close, and closes; a fresh window opens lap 8 on **row T alone** from a brief written at this window's hot context. ⛔ **No
 window is cut off mid-task** — the instruction is explicit that work concludes first.
+
+### ✅ THE TESTING-REVAMP WINDOW IS CLOSED — `e73d5098` · 2026-09-11 10:19 EDT
+
+Delivered: `.plans/2026-09-11-testing-revamp-PLAN.md` at `stage: ready` with **all fifteen §13 questions ruled**, a **STATE AT
+CLOSE** stage-note carrying the eight things a build window would otherwise rediscover, and four seat trails. Its readback's
+monitor duty is **struck** (a duty does not survive its window). Nothing of its own is uncommitted. Its held CLAUDE.md
+question is **withdrawn** — already ruled here, struck at `eea77381`.
+
+#### ⭐ WHAT A LAP-8 BATTERY MONITOR WOULD NEED — re-open it DELIBERATELY or not at all
+
+Recorded here, not only in the brief, because the loop's own measured failure is a capability living where the procedure
+cannot reach it. **It is not a beat and nothing waits on it.**
+
+1. **The question:** the audit's, for lap 8 — where the time went, what each act bought, **thorough vs mis-shaped**,
+   normalised to build size (lap 8's changed served lines and steps against lap 7's **1,365 / 59** and lap 6's **169 / 1**).
+   ⛔ Never *"was it too much."*
+2. ⛔ **The method is BINDING: git author dates (`git log --format=%ci`) and run-directory mtimes/dirnames under
+   `.private/synthetic-walks/<seat>/<ts>/` — NEVER the chronicle's authored "~H:MM" stamps** (audit §1a: an 8 h hold rendered
+   as ten minutes). It stamps its own file from `date`. File: `.practice/2026-09-1x-lap8-testing-cycle-MONITOR.md`.
+3. **Per-battery table** (audit §1b's columns): walks · journeys · steps (`_view.json`) · browser time (dirname start →
+   `transcript.json` mtime) · span · NEW findings · walks that re-drove an unchanged path. Plus per-act cost (§1c) and the
+   deploy legs once T19 lands (`.private/deploy-log.jsonl`).
+4. **The new reads row T makes possible — each a FIRST-EVER measurement:** (a) did the gate on the `(journey, lens)` unit
+   **REFUSE** anything the seat unit would have passed (T21's before/after diff is the baseline) · (b) were `CARRIED from
+   <sha>` cells **honest** — spot-check two by hand against `change-scope --from --to` · (c) did any round print **SUSPECT
+   HARNESS**, and was it right · (d) reports written per sha and read wall-time (`REPORT.md` mtime − transcript mtime; lap 7
+   median **27 min**) · (e) T8's `CONSOLIDATION-<sha>.md` — bullets written vs bullets that **reached a row** by lap close
+   (M15b's falsifier) · (f) was **H1 declared before Paul walked**, and did the observer's frames stay in `.private/` · (g)
+   third-party 429s per walk · (h) the **recorded tier per read** vs `lenses.json` (T3b).
+5. ⭐⭐ **The whole-audit falsifier, PRE-REGISTERED:** with row T built and S8/S9 IN, **if lap 8's elapsed is less than half of
+   lap 7's 9 h 20 m and it takes ONE battery, the ranking was wrong** (stop rule > harness-under-test > re-runs) **and the
+   gate unit was the dominant term.** ⛔ Read it at close, from the record — **not by argument.**
+6. Never quote a synthetic's typed text; counts and ids. Read-only on the harness. It **extends** the audit's method; it does
+   not re-run practice-steward.
