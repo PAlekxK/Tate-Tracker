@@ -72,9 +72,22 @@ def rate_limits(rec, rundir=None):
 
 
 def answers_fingerprint(rec):
-    """What this walker actually TYPED. Two seats sharing it are one observation, not two."""
+    """The IDENTITY of the input this walker loaded. Two seats sharing it are one observation.
+
+    ⛔ T9 — READS THE DIGEST WHERE ONE EXISTS. `journey-walk` no longer writes the fixture's values
+    into the record; it writes `fixtureLoaded.fingerprint`, a sha256 of the same five fields. This
+    function answers exactly one question — "did two seats load the same input?" — and a digest
+    answers it as well as the values did.
+    ⚠️ LEGACY RECORDS ARE HASHED TO THE SAME SHAPE rather than compared raw, so a pre-T9 run and a
+    post-T9 run remain comparable. Comparing a digest against a join would have made every old run
+    look like a distinct input and quietly inflated the observation count — the failure mode is
+    silent and in the flattering direction, which is this corpus's whole pattern."""
+    fl = rec.get("fixtureLoaded")
+    if isinstance(fl, dict) and fl.get("fingerprint"):
+        return fl["fingerprint"]
     a = rec.get("answers") or {}
-    return "|".join(str(a.get(k)) for k in ("place", "line1", "city", "state", "zip"))
+    raw = "|".join(str(a.get(k)) for k in ("place", "line1", "city", "state", "zip"))
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
 # ═══ T4 · THE JOURNEY IS IMPORTED, NEVER RE-DERIVED ═══════════════════════════════════════════════
@@ -294,11 +307,9 @@ def report(rows, countable_only=False):
                 # is the one thing security R3-1 says a trail may never hold (presence, never value).
                 # Synthetic today. At the H1 human cell — a real person walking their own profile —
                 # it would not be, and this reader's output is quoted into release evidence.
-                _fields = [k for k, v in zip(("place", "line1", "city", "state", "zip"),
-                                             (fp or "").split("|")) if v and v != "None"]
-                print("       identical input: %s (%d field(s): %s)"
-                      % (hashlib.sha256((fp or "").encode()).hexdigest()[:12],
-                         len(_fields), ", ".join(_fields) or "none recorded"))
+                # ⛔ THE IDENTITY, NEVER THE VALUES — and `fp` is now already a digest, so there
+                # is nothing here to redact: the values never reach this function at all.
+                print("       identical input: %s" % (fp or "")[:12])
     return counted, refused, effective
 
 

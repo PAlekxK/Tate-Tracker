@@ -97,6 +97,93 @@ def invitee(role):
 MINT_OK = ("qa", "lab")  # ⛔ a synthetic may rotate a credential ONLY on our own environments — never a real household's
 
 
+# ═══ T9 · THE RECORD HOLDS WHAT THE WALK TYPED, NOT WHAT THE FIXTURE LOADED ═══════════════════════
+#
+# ⛔ THE DEFECT, measured 2026-09-11: `record["answers"]` was written UNCONDITIONALLY from the loaded
+# fixture — 283 of 283 transcripts carry seven full values each, INCLUDING RETURNING WALKS THAT TYPE
+# NOTHING. `strict`'s J3 run recorded `typedFields: []` and the seat's full address in the same file.
+# The fixture was welded to the record even where the journey could not touch it, and the 09-10
+# plan's own PRIMARY falsifier — walk J3 under the strict lens, grep the run folder, find no trace of
+# the seat's address — could not pass against correct behaviour.
+#
+# ⛔ AND IT IS A DIVERGENCE INSIDE ONE WRITER, not an unimplemented clause. `:1745` ALREADY masks the
+# password (`"<password>"`, 283 of 283) — so this file already ruled that a secret may not reach the
+# record, implemented that ruling on one path, and wrote the same class of value in clear on another.
+# T9 closes the divergence; it does not introduce a constraint.
+#
+# ⚠️ SCOPE, MEASURED RATHER THAN ASSUMED. The plan names `steps[].action` as the surface. That field
+# DOES NOT EXIST — `stops[].actions` does, in 18 transcripts, all from a writer retired before
+# 2026-09-06; the current writer emits none. The LIVE surfaces are `record["answers"]` (283/283) and
+# `entryState`/`recordAfter`'s `name`/`address` (32-33 each). Those are what this step changes.
+
+_R3_1_PRESENCE_ONLY = ("name", "address", "addressParts", "coordinates", "contactPref")
+
+
+def _presence(value):
+    """→ a presence receipt for a value that may never be recorded. R3-1: `{"address": true,
+    "addressLen": 34}` — enough to prove the record HOLDS one and to see it change, never enough to
+    read it. ⛔ A length is not a value; it is what makes 'they filled it in' checkable."""
+    if value is None:
+        return None, None
+    if isinstance(value, str):
+        return (bool(value.strip()), len(value))
+    if isinstance(value, (list, tuple, dict)):
+        return (bool(value), len(value))
+    return (bool(value), None)
+
+
+def redact_record_state(state):
+    """→ a copy of an entryState/recordAfter dict with R3-1's fields reduced to presence.
+
+    ⛔ IDS AND RELATIONSHIP STAY. `personId`, `estateId`, `relationship`, `capability`, `status`,
+    `hasAccount`, `ranked` are the fields every reader in this repo actually joins on, and none of
+    them is a person's own words. Redacting them would break the readers to protect nothing.
+    ⚠️ ADDITIVE, NOT DESTRUCTIVE: `<field>` becomes a boolean and `<field>Len` carries the length, so
+    a reader can still see the record GAIN a name between arrival and departure — which is the whole
+    point of recording these two states — without ever holding what the name was."""
+    if not isinstance(state, dict):
+        return state
+    out = {}
+    for k, v in state.items():
+        if k in _R3_1_PRESENCE_ONLY:
+            present, length = _presence(v)
+            out[k] = present
+            if length is not None:
+                out[k + "Len"] = length
+        else:
+            out[k] = v
+    return out
+
+
+def elide_typed(action):
+    """→ a typed action with its VALUE removed: `type:#line1=282 Church…` → `type:#line1=<21 chars>`.
+
+    ⛔ THE SELECTOR SURVIVES AND THE VALUE DOES NOT. Every reader that uses these — T17's
+    identical-failure signature among them — compares a normalised key of verb + selector, dropping
+    everything after the first `=`. So nothing downstream needs the value, and nothing ever did."""
+    if not isinstance(action, str) or not action.startswith("type:"):
+        return action
+    head, sep, val = action.partition("=")
+    if not sep:
+        return action
+    return "%s=<%d chars>" % (head, len(val))
+
+
+def typed_answer_keys(answers, actions):
+    """→ the subset of `answers` keys whose VALUE this journey's action list actually types.
+
+    ⭐ DERIVED BY MATCHING VALUES, never by a selector→key map. The action list is built from the
+    answers dict (`"type:#uname=" + a["username"]`), so a typed value IS an answers value; a hand-kept
+    map of `#uname → username` would be a second roster to drift. ⛔ A key with an empty value is
+    never counted: it cannot be matched and must not be guessed at."""
+    typed = set()
+    vals = [a.partition("=")[2] for a in (actions or []) if isinstance(a, str) and a.startswith("type:")]
+    for k, v in (answers or {}).items():
+        if isinstance(v, str) and v and v in vals:
+            typed.add(k)
+    return typed
+
+
 def _shot_digest(path):
     """→ md5 of a checkpoint's screenshot, or None when it cannot be read.
 
@@ -1480,6 +1567,70 @@ def selftest():
     check("a fresh walk spends few enough writes to stay under the limiter", writes <= 6,
           "%d submit clicks — the cap is 20 writes per IP per 5 min, shared by 4 seats" % writes)
 
+    # ═══ T9 · THE ELISION, AND THE CONTROL THAT ACTUALLY DISCRIMINATES ═══════════════════════════
+    # ⛔ M-elide-b IS THE ONE THAT MATTERS. A mutation proving the NEW shape passes cannot tell an
+    # elider from a non-elider — it would pass just as happily on a build that elides nothing. The
+    # clause therefore asserts the PRE-T9 shape FAILS.
+    _FULL = "type:#line1=282 Church Mountain Road"
+    _ELIDED = elide_typed(_FULL)
+
+    def _holds_a_typed_value(action):
+        """the predicate the old record would have failed"""
+        head, sep, val = (action or "").partition("=")
+        return bool(sep) and not re.fullmatch(r"<\d+ chars>", val or "")
+
+    check("T9/M-elide-a a typed action renders as `<N chars>`, selector intact",
+          _ELIDED == "type:#line1=<%d chars>" % len("282 Church Mountain Road"), "got %r" % _ELIDED)
+    check("T9/M-elide-b THE NEGATIVE CONTROL — the PRE-T9 shape FAILS the clause",
+          _holds_a_typed_value(_FULL) is True and _holds_a_typed_value(_ELIDED) is False,
+          "a control that only passes on the new shape cannot detect a build that elides nothing")
+    check("T9/M-elide-b2 a non-typed action is untouched (clicks carry no value)",
+          elide_typed("click:#go1") == "click:#go1", "a click carries no value to elide")
+
+    # ⭐ M-elide-c — PARITY WITH `:1745`, not mere length-elision. That line already ruled a
+    # password may not reach the record; a password's LENGTH is not wanted either.
+    _ans = {"username": "syn-x", "password": "s3cret-long-value", "line1": "282 Church Mountain Road",
+            "place": "Somewhere", "city": "Jasper", "state": "GA", "zip": "30143"}
+    _acts_fresh = ["type:#uname=" + _ans["username"], "type:#uword=" + _ans["password"],
+                   "type:#a1=" + _ans["line1"], "type:#city=" + _ans["city"]]
+    _typed = typed_answer_keys(_ans, _acts_fresh)
+    _rec_answers = {k: ("<password>" if k == "password" else v)
+                    for k, v in _ans.items() if k in _typed or k == "password"}
+    check("T9/M-elide-c the password is MASKED, never length-elided",
+          _rec_answers.get("password") == "<password>", "got %r" % _rec_answers.get("password"))
+    check("T9/M-elide-d only the keys the walk TYPED survive into the record",
+          set(_rec_answers) == {"username", "password", "line1", "city"},
+          "got %s" % sorted(_rec_answers))
+    check("T9/M-elide-e a key the walk never typed is ABSENT, not blanked",
+          "zip" not in _rec_answers and "state" not in _rec_answers, "an untyped key must be absent")
+
+    # ⭐⭐ FALSIFIER ① — a RETURNING walk types nothing, so the record must hold nothing of the
+    # fixture. This is the clause the whole step exists for: before T9, `strict`'s J3 run recorded
+    # `typedFields: []` and the seat's full address in the same file.
+    _typed_ret = typed_answer_keys(_ans, ["shot:01-arrive", "click:#go1", "shot:02-place"])
+    _rec_ret = {k: v for k, v in _ans.items() if k in _typed_ret}
+    check("T9/M-elide-f FALSIFIER ① — a walk that types nothing records NO fixture value",
+          _rec_ret == {} and _typed_ret == set(), "got %s" % sorted(_rec_ret))
+
+    # ⛔ R3-1 — presence, never value; ids and relationship survive.
+    _st = {"name": "A Real Person", "address": "282 Church Mountain Road", "personId": "p-x",
+           "estateId": "est-x", "relationship": "owner", "hasAccount": True, "ranked": ["a"]}
+    _red = redact_record_state(_st)
+    check("T9/R3-1a name and address become PRESENCE, never value",
+          _red["name"] is True and _red["address"] is True
+          and "A Real Person" not in json.dumps(_red)
+          and "Church Mountain" not in json.dumps(_red), "a value survived redaction")
+    check("T9/R3-1b a LENGTH rides along, so the record can be seen to GAIN a name",
+          _red["addressLen"] == 24 and _red["nameLen"] == 13,
+          "got %r/%r" % (_red.get("addressLen"), _red.get("nameLen")))
+    check("T9/R3-1c ids, relationship and capability survive — the readers join on them",
+          _red["personId"] == "p-x" and _red["estateId"] == "est-x"
+          and _red["relationship"] == "owner" and _red["hasAccount"] is True, "a join key was redacted")
+    check("T9/R3-1d an EMPTY name reads False, not True — presence must mean present",
+          redact_record_state({"name": ""})["name"] is False, "empty read as present")
+    check("T9/R3-1e a missing field stays missing (None in, None out)",
+          redact_record_state({"name": None})["name"] is None, "missing became a boolean")
+
     # ═══ T7 · M14 — `same-screen`, AND THE THREE WAYS IT MUST NOT FIRE ═══════════════════════════
     # ⛔ Proven on the DIGEST helper and the flag's own predicate. The finding is "this tap did not
     # move the page"; the failure mode is manufacturing that finding out of a missing file.
@@ -1757,7 +1908,10 @@ def main():
               "inviteFor": (invite or unfinished or {}).get("invitee"),
               "inviteCredential": (invite or unfinished or {}).get("hash"),
               "provisionedPersonId": (unfinished or {}).get("personId"),
-              "entryState": st, "journeyEntered": jid, "journeyEnteredWhy": jwhy,
+              # ⛔ T9 · R3-1 — PRESENCE, NEVER VALUE. `entryState.name`/`.address` held real values
+              # in 32 transcripts and `recordAfter`'s in 33. Ids and relationship stay; a reader can
+              # still watch the record GAIN a name without ever holding what it was.
+              "entryState": redact_record_state(st), "journeyEntered": jid, "journeyEnteredWhy": jwhy,
               "journeyMeans": JOURNEY_IDS.get(jid),
               # ⛔⛔ TWO ADJACENT FIELDS WITH NO NOTE COST TWO SEATS A FINDING EACH (2026-09-08).
               # `personId` and `signedInAs` differ on every --fresh run BY DESIGN, and a reader given
@@ -1793,9 +1947,26 @@ def main():
                            "`--fresh` until 2026-09-10 and is kept under its old name because "
                            "walk-integrity and release-gate read it.",
               },
-              "answers": {k: ("<password>" if k == "password" else x) for k, x in ans.items()},
               "stops": []}
     acts = JOURNEYS[walked]["actions"](ans, base)
+    # ⭐ T9 — THE RECORD HOLDS WHAT THE WALK TYPED. `acts` is built one line above so the answers
+    # filter can be derived from the journey that actually ran, rather than from the fixture that
+    # happened to be loaded.
+    _typed = typed_answer_keys(ans, acts)
+    record["answers"] = {k: ("<password>" if k == "password" else v)
+                         for k, v in ans.items() if k in _typed or k == "password"}
+    # ⛔ THE FIXTURE IS RELABELLED, NOT RE-WRITTEN. `walk-integrity.answers_fingerprint()` needs to
+    # answer ONE question — "did two seats type the same input?" — and a DIGEST answers it exactly as
+    # well as the values do. Relabelling the raw fixture into `fixtureLoaded` would have moved the
+    # leak, not closed it: falsifier ① greps the whole run folder, not one key.
+    _fp_src = "|".join(str(ans.get(k)) for k in ("place", "line1", "city", "state", "zip"))
+    record["fixtureLoaded"] = {
+        "fingerprint": hashlib.sha256(_fp_src.encode("utf-8")).hexdigest(),
+        "fields": sorted(k for k, v in ans.items() if isinstance(v, str) and v and k != "password"),
+        "_what": "the identity of the input this seat LOADED, never its content — so two seats "
+                 "sharing one fixture are still detectable without the record holding either copy.",
+    }
+    record["typedFields"] = sorted(_typed)
     # ⛔⛔ THE ROSTER IS DERIVED FROM THE JOURNEY ACTUALLY RUN, NEVER FROM `STOP_NAMES`.
     # `STOP_NAMES` is the FRESH journey's roster. Scoring every run against it meant a RETURNING walk
     # — which shoots R01…R07 — recorded all 15 fresh stops as `not-reached`, dropped every stop it
@@ -1995,7 +2166,7 @@ def main():
     who_can_sign_in = walked in ("J0", "J1", "J2", "J3", "J5")
     if who_can_sign_in:
         after, new_tok = record_after(a.origin, ans["username"], ans["password"])
-        record["recordAfter"] = after
+        record["recordAfter"] = redact_record_state(after)
         before_f, after_f = record_facts(st), record_facts(after)
         if after_f is None:
             record["recordGained"] = None
@@ -2010,11 +2181,14 @@ def main():
                 else sorted(f for f, v in after_f.items() if v)
             record["recordGainedBaseline"] = "measured-at-arrival" if base is not None else \
                 "NONE — this journey has no comparable before-state; the list is what the record HOLDS"
-            record["typedFields"] = sorted({x[len("type:#"):].split("=")[0]
-                                            for x in acts if x.startswith("type:#")})
+            # ⚠️ SELECTOR ids, not answers keys — a DIFFERENT alphabet from the one set above
+            # (`#line1` vs `line1`, `#uname` vs `username`). Recorded under its own name so the two
+            # are never silently conflated; the T9 filter uses the answers-key form.
+            record["typedSelectors"] = sorted({x[len("type:#"):].split("=")[0]
+                                               for x in acts if x.startswith("type:#")})
             print("  the record now holds: %s  (typed this run: %s)"
                   % (", ".join(record["recordGained"]) or "nothing",
-                     ", ".join(record["typedFields"]) or "nothing"))
+                     ", ".join(record.get("typedSelectors") or []) or "nothing"))
         # ⛔ THE MEASUREMENT MUST NOT ROT THE FIXTURE. Signing in rotated the grant, so a durable
         # seat's stored token is now dead — the next returning walk would meet J4 and read as a
         # product failure. Write the new one back where the seat's identity lives.
