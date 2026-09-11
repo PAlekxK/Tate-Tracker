@@ -648,6 +648,58 @@ def carried_forward(unit, sha):
     return False, "every prior run in this cell failed at least one clause"
 
 
+# ═══ T13 · ROUNDS — a later battery may be SMALLER, never NARROWER ════════════════════════════════
+#
+# `[paul-stated, brief §1d]` The first round is the full declared cell list. Later rounds are sized to
+# what `change-scope` says moved, down to a single run-through — ⛔ BUT NEVER NARROWER THAN THE
+# DECLARED CELLS. Coverage is the invariant; battery size is not.
+#
+# ⛔⛔ THE DISTINCTION THAT MAKES THIS SAFE, and it is one line: A SMALLER ROUND THAT CANNOT NAME ITS
+# CARRIED CELLS IS A CUT, NOT A ROUND. "We only re-walked three" is a budget decision wearing a
+# coverage claim's clothes unless every cell NOT re-walked is named AND carries a machine-derived
+# proof. So a round declares `carried` explicitly, and the gate REFUSES a carried set containing any
+# cell that cannot actually carry — it does not quietly demote it to UNWALKED, because a round that
+# claimed a carry it did not have is a different fault from a cell nobody walked, and they must not
+# print the same.
+#
+# ⚠️ NO SCHEDULER STILL. This reads a round someone DECLARED and checks it. It never proposes one,
+# never sizes one, and never picks which cells go in it.
+
+def current_round(spec):
+    """→ (n, declared_cells_or_None, carried) for the highest-numbered round, or (1, None, []) when
+    a list declares no rounds at all — round 1 is the full declared list by definition."""
+    rounds = (spec or {}).get("rounds")
+    if not isinstance(rounds, list) or not rounds:
+        return 1, None, []
+    cur = max(rounds, key=lambda r: (r or {}).get("n", 0))
+    cells = cur.get("cells")
+    if cells == "all":
+        cells = None
+    if isinstance(cells, list):
+        cells = [(c.get("journey"), c.get("lens")) if isinstance(c, dict) else tuple(c) for c in cells]
+    carried = [(c.get("journey"), c.get("lens")) if isinstance(c, dict) else tuple(c)
+               for c in (cur.get("carried") or [])]
+    return cur.get("n", 1), cells, carried
+
+
+def round_refusals(spec, sha, declared):
+    """→ [(cell, why)] for every cell a round CLAIMS is carried that cannot actually carry.
+
+    ⛔ M20 — this is the refusal the step exists for. A round-2 carried set containing a cell whose
+    journey MUST RE-RUN is a coverage claim nobody can honour, and it is refused BY NAME."""
+    n, cells, carried = current_round(spec)
+    out = []
+    for c in carried:
+        if declared and c not in declared:
+            out.append((c, "claimed as carried but never DECLARED — a round may not carry a cell "
+                           "that is not in the list"))
+            continue
+        okc, why = carried_forward(c, sha)
+        if not okc:
+            out.append((c, why))
+    return out
+
+
 # ═══ T17 · THE IDENTICAL-FAILURE READ — is the HARNESS lying, or is the PRODUCT broken? ════════════
 #
 # ⛔ THE EVIDENCE IT EXISTS ON, measured: at `87c7aae`, FIVE of five lenses walking J8 failed the
@@ -880,7 +932,7 @@ def report(sha, seats_only=False):
               % (_legacy_n, len(cells), "is" if _legacy_n == 1 else "are"))
     # ═══ T3 · THE MATRIX AND THE COVERAGE CLAIM ══════════════════════════════════════════════════
     spec, problem = read_cells()
-    declared, unwalked = [], []
+    declared, unwalked, _round_bad = [], [], []
     if spec:
         declared = [((c or {}).get("journey"), (c or {}).get("lens")) for c in spec["cells"]]
         print("\n  ── MATRIX · declared cells from %s (lap %s, declaredBy %s) ──"
@@ -909,6 +961,15 @@ def report(sha, seats_only=False):
                                ("🔴" if v.get(k, (None,))[0] is False else "⬜")).center(len(k))
                               for k, _ in CLAUSES)
             print("     %-*s  %s" % (width, label, marks))
+        _rn, _rcells, _rcarried = current_round(spec)
+        if _rn > 1 or _rcarried:
+            print("     ── round %d · %s cell(s) this round%s" %
+                  (_rn, "all declared" if _rcells is None else str(len(_rcells)),
+                   (" · %d carried: %s" % (len(_rcarried),
+                    " · ".join("(%s, %s)" % c for c in _rcarried))) if _rcarried else ""))
+        for _c, _why in round_refusals(spec, sha, declared):
+            print("     ⛔ ROUND REFUSED — (%s, %s) is claimed CARRIED and cannot be: %s" % (_c[0], _c[1], _why))
+            _round_bad.append(_c)
         extra = [u for u, b, n, pr, sup in rows if u not in declared and not is_legacy(u[0])]
         if extra:
             print("     ⬜ walked but NOT DECLARED: %s — evidence, and not a coverage claim "
@@ -1050,6 +1111,14 @@ def report(sha, seats_only=False):
 
     # ⛔ M12a — A DECLARED CELL WITH NO RUN REFUSES. This is the 09-10 plan's falsifier ④, the
     # negative control: a gate that has only ever been seen to pass has proven nothing.
+    # ⛔ A ROUND THAT CLAIMED A CARRY IT DOES NOT HAVE REFUSES SEPARATELY FROM AN UNWALKED CELL.
+    # They are different faults: one is a coverage claim nobody can honour, the other is a cell
+    # nobody walked, and collapsing them would hide which happened.
+    if _round_bad:
+        print("\n🔴 GATE ① NOT PASSED at %s — the declared ROUND claims %d carry/carries it cannot "
+              "honour: %s" % (sha[:7], len(_round_bad), " · ".join("(%s, %s)" % c for c in _round_bad)))
+        print("   A smaller round that cannot name its carried cells is a CUT, not a round.")
+        return 1
     if unwalked:
         print("\n🔴 GATE ① NOT PASSED at %s — %d DECLARED CELL(S) UNWALKED at this build: %s"
               % (sha[:7], len(unwalked), " · ".join("(%s, %s)" % u for u in unwalked)))
@@ -1370,6 +1439,52 @@ def selftest():
                   % ("✅" if bit else "🔴")); ok &= bit
         finally:
             WALKS, CELLS_DIR = _sw, _sc
+
+    # ═══ T13 · M20 — A ROUND MAY BE SMALLER, NEVER NARROWER ═════════════════════════════════════
+    ck20 = lambda n, c: (ok_list.append(bool(c)), print("  %s %s" % ("✅" if c else "🔴", n)))
+    ok_list = []
+    _n, _c, _carr = current_round({})
+    ck20("M20a a list declaring NO rounds is round 1 over the FULL declared list",
+         _n == 1 and _c is None and _carr == [])
+    _n, _c, _carr = current_round({"rounds": [{"n": 1, "cells": "all"},
+                                              {"n": 2, "cells": [["J0", "mom"]],
+                                               "carried": [["J3", "mom"]]}]})
+    ck20("M20b the CURRENT round is the highest-numbered one",
+         _n == 2 and _c == [("J0", "mom")] and _carr == [("J3", "mom")])
+    ck20("M20b2 `cells: \"all\"` means the full declared list, not an empty one",
+         current_round({"rounds": [{"n": 1, "cells": "all"}]})[1] is None)
+
+    import unittest.mock as _m2
+    with tempfile.TemporaryDirectory() as tmp:
+        W = os.path.join(tmp, "walks"); os.makedirs(W)
+        _sw = WALKS
+        try:
+            WALKS = W
+            DECL = [("J0", "mom"), ("J3", "mom")]
+            spec = {"rounds": [{"n": 2, "cells": [["J0", "mom"]], "carried": [["J3", "mom"]]}]}
+            # ⛔ M20 — the ruled clause: a round-2 carried set containing a MUST RE-RUN cell is
+            # REFUSED AT THE GATE, NAMING IT.
+            with _m2.patch.object(sys.modules[__name__], "carried_forward",
+                                  lambda c, s: (False, "MUST RE-RUN from abc1234: a page it declares moved")):
+                bad = round_refusals(spec, "a" * 40, DECL)
+            ck20("M20c a carried set containing a MUST RE-RUN cell is REFUSED, naming the cell",
+                 len(bad) == 1 and bad[0][0] == ("J3", "mom") and "MUST RE-RUN" in bad[0][1])
+
+            with _m2.patch.object(sys.modules[__name__], "carried_forward",
+                                  lambda c, s: (True, "CARRIED from abc1234 — proof")):
+                good = round_refusals(spec, "a" * 40, DECL)
+            ck20("M20d a carried set whose cells genuinely carry is accepted", good == [])
+
+            # ⛔ A ROUND MAY NOT CARRY A CELL NOBODY DECLARED — that is narrowing by the back door.
+            spec2 = {"rounds": [{"n": 2, "cells": [["J0", "mom"]], "carried": [["J8", "strict"]]}]}
+            with _m2.patch.object(sys.modules[__name__], "carried_forward",
+                                  lambda c, s: (True, "CARRIED")):
+                bad2 = round_refusals(spec2, "a" * 40, DECL)
+            ck20("M20e a round carrying a cell that was never DECLARED is refused by name",
+                 len(bad2) == 1 and "never DECLARED" in bad2[0][1])
+        finally:
+            WALKS = _sw
+    ok &= all(ok_list)
 
     # ═══ T12 · M19 — THE CARRIED-FORWARD PASS, AND THE FOUR WAYS IT MUST REFUSE ═════════════════
     # ⛔ FIVE of the six clauses prove it REFUSES. A carried pass is the gate saying "nobody walked
