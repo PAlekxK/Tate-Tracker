@@ -86,8 +86,8 @@ most of Mom's machinery IS engine (the ask → fold → acknowledge path is shar
 
 **Paul:** *"line up a couple of different things for the next few builds to just take from the backlog… what
 we're close on, what questions we need to answer, what we need to explore."* **This section is a POINTER
-LIST derived from `python3 tools/check-backlog-ready.py --ladder`** (the ④ tool change, a diff for Paul until
-applied) **at `326791c` — regenerate it, never retype it.** The audit's finding is that the register is
+LIST derived from `python3 tools/check-backlog-ready.py --ladder`** (④, applied at `ed3a943` on Paul's
+word) **at `4766cc3` — regenerate it, never retype it.** The audit's finding is that the register is
 duplicated, not derived; a queue typed here by hand would be a third home for the same facts. The pick is
 **beat 6, Paul's, and no instrument is built for it.** Order within a rung is alphabetical.
 
@@ -96,13 +96,15 @@ duplicated, not derived; a queue typed here by hand would be a third home for th
 | rung | items | what moves them |
 |---|---|---|
 | **READY, stamped, nothing owed** | *(none)* — ⚠️ **the ladder first put C7 condo paper model here and was wrong**: its header said `ready` while its own stage-notes record the falsifier build held 09-03, the 414×A+ read passed, and Paul's 09-04 read fixes shipped to staging; the `paul` deployment IS that condo. A derived view is only as honest as the field it reads — header corrected 2026-09-10. What C7 still owes is Paul's: Midtown elevation source · the condo's estate id · the Guru prompt's owner · the AI-boundary third path (ai-advisor) · a retro | — |
-| **in flight behind gate ①** | C4 environments · C6 door for Paul · Guru retrieval (`build`) · onboarding (`qa`) | they exit by being WALKED and cleared, not by being picked |
+| **in flight behind gate ①** | C4 environments · C6 door for Paul · C7 condo paper model (link promoted → READY 2026-09-10 on the checker's read) · Guru retrieval (`build`) · onboarding (`qa`) | they exit by being WALKED and cleared, not by being picked |
 | **stamped at `concept`, a design pass owed** | capture write path (TIER 2 · 8, zones' co-requisite) · derived first draft (TIER 2 · 9) · weather card | concept → design; each a session with its declared seats |
 | **`design`, stamped for the stage** | zones (TIER 2 · 7) | its own window (`handoff/handoff-zones-session.md`); the stage gate to build is a sha on QA, and G1 holds features until met |
 | **SCOPING, not a build** | 🤝 INVITE & JOIN — three roles · second estates · member spill-over | a PLAN with declared seats (user-researcher · engineering-partner · security-steward · ux-expert · content-steward) before READY |
 | **Paul's word, not work** | 14 proposals AWAITING (the checker names them) · c3 trace-query · product-name · testing-architecture · setup-journey | a stamp or a no |
 
-*Refinement window's recommendation, marked as such — Paul overrules by ranking (revised 2026-09-10 after the condo correction):* **lap 7** = the capture-write-path design pass (it unblocks zones' v1 and Mom's Z-13 preload, and is the smaller of the two zones legs) + the INVITE & JOIN scoping session (no build) · **lap 8** = the derived-first-draft design pass, or zones v1 if row 8 cleared. C7's leftovers are rulings, not a slot. Zones' design work runs beside both in its own window and is not a lap slot.
+*The refinement window's afternoon recommendation (lap 7 = the capture-write-path design pass + INVITE & JOIN scoping; lap 8 = the derived-first-draft pass, or zones v1) was **OVERRULED at beat 6.*** **Paul's pick is in his own words in `cycle/release/CYCLE-LOG.md` § Lap 7 · Beat 6 (`b57ca71`, `5c66e38`) — cited, never restated here:** **lap 7** = D the Worker map (TIER 1 · 45) → C G6 telemetry (TIER 2 · 10/13) → B the account lifecycle (TIER 2 · 18) → A the applied founding-flow design (TIER 1 · 26/27), with E the teardown as a process row · **lap 8** = the single-origin sign-in door (TIER 1 · 41/46). Zones' design work runs beside both in its own window and is not a lap slot.
+
+⛔ **The falsifier below FIRED on the first lap it met** `[measured 2026-09-10 by the refinement window at `4766cc3`]`: every one of those picks is a `BACKLOG.md` row with **no plan file**, so none sits on a rung above — the ladder derives from `.plans` headers, and Paul commits rows. The missing rung is *committed by ruling*, read from the chronicle's beat-6 tables. Adding it is a tool edit **put to Paul** (his call; recommendation: add it), not typed here — a rung typed by hand would be the third home for the same facts that the audit warned of.
 
 **Falsifier:** a beat-6 pick that is not on this list means the ladder is missing a rung or this snapshot is
 stale — regenerate before arguing.
