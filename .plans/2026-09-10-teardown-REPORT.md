@@ -119,3 +119,23 @@ run.** lab — the same shape, 50 unmarked. Its own words: *"the fix is a stamp,
   `est-3c9f1a` keys inside the qa namespace · `est-qa0002` · the two stamp gaps · `est-ofd6vk` sits behind an
   UNWRITTEN walk report.
 - `RELEASE_NOTES.md`: none — infrastructure, no person-facing change.
+
+## 7 · Row 51 — two feedback records deleted by id `[paul-ruled 2026-09-11: "Delete both, by id"]`
+
+**What:** `onboard-address-47neyq` and `onboard-addr-confirm-r3hog5` — PAK's two setup notes (personId
+`p-bcjyaldyts`, 2026-09-10 22:24–22:25Z) carrying a real person's street address, which outlived the PAK/Homey
+teardown (§4) because feedback is stored **day-keyed**, not per house. The address is not reproduced here.
+
+**Pre-deletion reading:** `est-qa0001:feedback:2026-09-10` fetched `--remote`, exit 0, saved in full to
+`.private/qa-feedback-2026-09-10.before.json`. **44 records.** Exactly two carried the target ids, each once;
+both carried `personId = p-bcjyaldyts` — read from the fields, not inferred from the id.
+
+**Act:** the list minus exactly those two written back with `kv key put --remote` (exit 0). Before the put, the
+remaining 42 were confirmed byte-identical (JSON-normalised) to the before-list minus the two.
+
+**Verified after:** re-`get` → **42 records**, neither id present, remaining 42 identical to before-minus-two.
+`kv key list --prefix est-qa0001:` (8,589 keys) names **no per-record key** for either id. `feedback-dispositions.json`
+holds neither id, so no disposition is orphaned (not edited — the backlog window's ledger).
+
+**Generalised (row 51's shape):** an `est-<id>:` sweep cannot reach day-keyed feedback, so every fixture teardown
+leaves its person's words behind unless the `feedback` channel is swept by personId in the same act.
