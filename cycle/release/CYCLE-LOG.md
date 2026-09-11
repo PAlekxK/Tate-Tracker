@@ -4376,3 +4376,56 @@ security-steward · whether A9 lands in two literals, and what `render()` does a
 
 **Three principles PROPOSED, none filed:** absent-before-first-entry attribution surfaces · a sharpening clause
 recording the fourth occurrence of *One engine, one verdict* · *a security regime is a card boundary.*
+
+### ⭐⭐ THE ROW-T BUILD WINDOW'S READBACK — GRADED CLEAN, and it found FOUR defects in this window's own work
+
+`handoff/handoff-lap8-rowT-build.readback.md` (`tate-tracker-0b`, 172 lines). **It is HOLDING, not building**, and
+that is correct: its launch prompt says *"Do not start the work yet… write the readback and wait"*, and it
+**declined to treat coordination's peer relay of Paul's scope pre-authorisation as its user converting his own
+"wait" into "go."** ⭐ **A peer cannot convert a user's instruction, and it said so in those words.** The error was
+coordination's — §10 of the brief told a window to proceed when that window's own launch prompt said wait.
+
+⭐ **It verified rather than accepted**, re-deriving the stamp diff itself instead of taking this window's word for
+what had moved, and it lists what it claims **nothing** on: `walk-fixtures`' 8 gaps · **the `87c7aae` corpus
+reading the entire strike rests on** (*"measured twice by others, re-derived by me zero times"*) · falsifier ③ ·
+whether WebKit is installed · `walk-founding` (**TIMED OUT, unmeasured not green**).
+
+**All four findings verified here before acting. Three are defects in artifacts THIS window produced or designated.**
+
+| # | finding | verdict |
+|---|---|---|
+| **①** | **Row T is 24 steps, not 21** — §A's sequence drops **T3b** (which `PLAN` §3's own sequence carries, and which is a real row) and stops at T21, leaving **T22/T23** out while §13 **P8 rules them UNCONDITIONAL** | ✅ **CONFIRMED** |
+| **②** | **The T21 strike was in the WRONG DOCUMENT** — SIZING §T21 still carried *"must refuse a sha it previously passed"* and *"must not be softened"* verbatim; §0d still carried the struck predicate | ✅ **CONFIRMED — the most serious** |
+| **③** | **`journey_of()` is a choice, not a tie-break** — the two journey fields disagree on **40 of 59** (**68 %**), systematically | ✅ **CONFIRMED, reproduces exactly** |
+| **④** | **T0's frozen census does not reproduce exclusively** — 59+4+201+23 = **287 over a stated 283** | ✅ **CONFIRMED arithmetically** |
+
+⭐⭐ **THE ROOT CAUSE OF ① IS A PRECEDENCE RULE COORDINATION WROTE WRONG.** The brief said *"where they disagree,
+§A wins"*, full stop. **Corrected everywhere:**
+
+> **§A is the authority on HOW a step is built. `PLAN` §13's RULINGS are the authority on WHETHER a step is in.**
+> **A seat's sizing document does not outrank a ruling Paul made.**
+
+⛔ **② is the one that would have cost the most.** The strike landed in `PLAN`'s `## Falsifier` while SIZING was
+designated the build authority **in the same breath** — so **the strike lived everywhere except the document the
+lane was told to obey**, and the mitigation worked only while someone was reading the brief. Struck in SIZING
+**in place**, at the point of use, with the replacement discriminating test and the open Paul ruling beside it.
+
+**④'s remedy is the build window's own and it is right: COMMIT BOTH FIGURES WITH THE PREDICATE STATED INLINE.**
+The published census is correct on a **non-exclusive** predicate — the 4 door-measured runs are counted once in
+their own bucket and again inside fresh/returning — but `journey_of()` returns **one value per transcript**, so
+the post-T1 re-run is necessarily **exclusive** and prints **199/21**. ⛔ **A window that freezes 201/23 then sees
+a mismatch on a CORRECT backfill and either "fixes" a working `journey_of` or spends the falsifier** — precisely
+what the corruption detector exists to catch.
+
+#### ⑤ AND A FIFTH, WHICH IT FOUND AND UNDERCOUNTED: SIZING §G RE-RAISES SETTLED QUESTIONS
+
+It found **four** of §G's six already ruled. Checked against §13 here it is **ALL SIX** — S8/S9 (**P12**) · S12
+(**P4**) · J2 (**P3**) · S16 (**P11**) · and item 6's 429s / webkit / cell-list (**P17**). Marked with the ruling
+beside each. ⭐ **This is the reachability shape this corpus records repeatedly, POINTED THE OTHER WAY: not a
+capability the loop cannot reach, but a QUESTION THE LOOP CANNOT TELL HAS BEEN ANSWERED.** A seat's *"what Paul
+must rule"* list has no mechanism that closes when he rules, so it stays open-looking forever and **spends his
+attention twice** — and it would have done so today, to a man who is away. ⛔ **A ruled item is struck WHERE IT
+WAS ASKED, never only where it was answered.**
+
+**Status: the build window stays HELD until Paul releases it.** On release: T0 first, including the two added
+steps (the committed before-image, the corpus manifest) **and now the dual census figures.**
