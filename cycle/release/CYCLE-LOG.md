@@ -3195,3 +3195,7 @@ Both fixes are **Worker-only** → a new sha, a new battery (Worker before pages
 for Paul's word, per the beat-10 condition (a second product defect stops the battery).** Fixtures founded at qa by
 candidate 2's J0 (never real homes): `est-tfmxem` · `est-0qeqzs` · `est-uqjofw` · `est-pqob3d`; strict founded nothing.
 Reports not yet written for any run — the reading seats wait until the sha is final.
+
+**Ruling** `[paul-ruled 2026-09-11 ~6:10 AM ET: "Apply both, new sha, restart tonight."]` — both Worker-only fixes land as one
+commit; re-prove at lab; CANDIDATE 3 frozen; beat 4 re-recorded; Worker before pages at qa; the full battery from zero
+(J0 · J3 · J8 × 5; J2 printed unwalkable). The condition renews: a THIRD product defect stops and holds for Paul.
