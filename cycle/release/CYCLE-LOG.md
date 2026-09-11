@@ -2734,3 +2734,18 @@ runs in lap 8** so a lap-10 build is possible · **F** zones preload stays gated
 **Also ruled in the walk:** the two qa feedback records carrying his real address (row 51) — **DELETE both, by id**,
 verified absent after; a lane runs it. ⛔ Nothing here opens lap 8; lap 7 is the open lap. The register carries these
 rulings on the proposal and its rows.
+
+### Lap 7 · the build window is CLEARED and building — the pull declared, the FREEZE in force `~12:20 AM ET 2026-09-11`
+
+Paul cleared `tate-tracker-94` in its window. **Row P closed** in four `--only` commits: `c20417f` P1 (viewer rebuilt,
+`--check` green, template untouched) · `5ad1bec` P2 (`K_JOURNAL` rostered) · `742636b` P3 (four pages classified engine;
+unclassified 6 → 2) · `1302358` P4 (`instance/paul.json` absent += `ack`, `questions`; verified on a scratch build that
+`ABSENT_DOMAINS` carries both). **Pull declared** = the plan §8 fuller list + TIER 1 · 32 (L7-P4) + TIER 1 · 23 (P3 edit 1 +
+chain P1); the register holds those rows frozen. D1 started (`PAGES_WORKERS` → host-label derivation).
+
+**Laps 8/9 → the build expert** `[paul-stated 2026-09-11 ~12:15 AM ET: "we should have the build expert audit those two
+commitments as well and produce the build plan like we did in the most recent lap… once it's defined enough for a
+detailed work plan"]`. Lap 8 is defined enough (twelve rulings) → engineering-partner commissioned for
+`.plans/2026-09-11-lap8-build-PLAN.md` at `stage: draft` (re-audited at lap 8's open; §10 names where ux-expert's design
+closure is still owed, per the commit-phase rule's order). Lap 9 is not → `.plans/2026-09-11-lap9-READINESS.md`, a
+readiness ranking naming when each row is "defined enough" to plan.
