@@ -4877,3 +4877,23 @@ to **the DOOR's answer** for transcripts declaring no journey, and four runs lan
 **source**, and the two render differently. **The two findings are independent** — that fix concerns
 door-measured runs, and the J2 walks above are `recorded` and survive it — **but finding the first is what made
 it look hard enough to find the second.**
+
+### T3b LANDS — and it DISCHARGES a pre-registered falsifier rather than merely passing
+
+`7710b4ff` — `cycle/release/lenses.json` (new, the declared tiers) + `release-gate.py`. **selftest 31/31**, all
+five frozen verdicts unchanged, corpus frozen, tree clean. **4 of 24.**
+
+⭐ **practice-steward pre-registered this step's trap at the lap's open:** *"if T3b goes green on its first run
+against a corpus that predates tier recording, it is matching the container, not the payload."* **Tested here,
+and it does not:**
+
+- **284 `REPORT.md` files, 0 carrying a recorded tier** — the whole corpus predates the write.
+- The gate prints **`⬜ read tier — UNCHECKABLE: nothing in the stack writes a tier into a run yet, so no run at
+  this build records one. Declared 'opus'; unverified.`**
+- And it names its own boundary on its face: **"A DETECTOR, NOT A PREVENTER — nothing can force a session to
+  spawn a lens at the declared tier; this gate refuses to COUNT a read whose recorded tier is absent or
+  mismatched."**
+
+⛔ **So it reads UNCHECKABLE-WITH-REASON, never a false green** — the same posture `instrumented` now takes, and
+the posture the whole row exists to install: **a permanent 🔴 and a real failure must not print the same, and
+neither may an unverifiable claim and a verified one.**
