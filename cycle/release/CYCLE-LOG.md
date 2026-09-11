@@ -3788,3 +3788,23 @@ thread owns: **2 undispositioned arrivals (1 Guru, 1 cards) and Mom's last card 
 
 **Lap 8's gate is now one act: Paul's word to OPEN.** Every precondition his HOLDS ruling named is met — the plan is ready,
 he has ruled its fifteen, row T is whole and first, the door rows wait on the re-audit.
+
+### ⛔ MOM'S FEEDBACK IS PARKED, NOT DISPOSED — held until the stability work lands `[paul-ruled 2026-09-11 10:13 EDT]`
+
+*"We have to just hold, put all the feedback from Mom into the backlog or something we need to address once we get all the
+stability taken care of."* → **The mom cycle does NOT fire on this signal.** The two undispositioned arrivals (1 Guru, 1
+cards) and the 22-day `answer-age` are **parked as backlog material**, to be worked after the stability work — row T and the
+door — is done. Routed to the backlog window (the ONE DOOR), which files the row; coordination does not write `BACKLOG.md`.
+
+⚠️ **PARKING IS A DECISION ABOUT WHEN, NOT A DISPOSITION — and the distinction is this repo's own doctrine.**
+`check-arrival-dispositions.py`'s rule is that a disposition is **per (channel, record id)** and **nothing but opening that
+record can supply it**; the `readThrough` watermark may not step over one, and a batch may not be cleared by one of its
+members. **So the parked row does not clear the channel and the checker will keep flagging both arrivals — which is the
+checker working, not a fault to repair.** Neither record has been opened by anyone; they are held unread, and that is
+recorded as their state rather than converted into a clear.
+
+⚠️ **The honest cost, stated once and not re-litigated:** her last card answer is **22 days** old, past the 21-day threshold,
+and the standing rule is that **the ribbon goes quiet when she does** — parking means she gets no return leg while the
+stability work runs. `[paul-ruled]`; the record carries the cost so that a later reader knows it was chosen, not missed.
+⭐ And the 09-07 rule still stands over it: *before any finding about her BEHAVIOUR becomes an organising claim, ask Paul
+what she has asked him for lately* — a parked channel is not evidence about her.
