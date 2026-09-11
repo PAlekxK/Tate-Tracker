@@ -71,9 +71,12 @@
   /* ⛔ OUTLINED, NEVER FILLED + ✓. The affirmative grammar means RECORDED, and tapping this records
      nothing — it opens a truthful explanation. Wearing the affirmative here would spend the one
      signal this product has taught. */
+  /* A22 (lap 7, closure 23) — the ＋ is RETIRED AS A SHAPE: a quiet row-styled link, no glyph, no dashed
+     box (button-glyph clause [paul-ratified 2026-08-02]). The card behind it keeps its copy exactly. */
   .add {
-    display:block; width:100%; text-align:left; background:transparent; border:1.5px dashed #c6d6bb;
-    border-radius:16px; padding:16px; margin:14px 0; font:inherit; color:var(--ink); cursor:pointer;
+    display:block; width:100%; text-align:left; background:transparent; border:0; border-top:1px solid var(--line);
+    border-radius:0; padding:14px 4px; margin:6px 0 0; font:inherit; color:var(--ink-soft); cursor:pointer;
+    text-decoration:underline; text-underline-offset:3px;
   }
   .card { background:var(--paper); border:1.5px solid var(--line); border-radius:18px; padding:18px; margin:14px 0; }
   .lede { margin:0 0 8px; }
@@ -120,7 +123,9 @@
        has broken twice — so this opens a card that says what is true, and captures what she would
        have set up, as a message rather than as a record. Collecting a NAME AND ADDRESS here would
        assert a home is being made; collecting a sentence does not. -->
-  <button type="button" class="add" id="addbtn">＋&nbsp; Add a home</button>
+  <!-- A22 (lap 7, closure 22/23) — NOT rendered while the shelf is empty (the only control then is
+       "Set up my first home"); once a home exists it returns, as a quiet link with no glyph. -->
+  <button type="button" class="add" id="addbtn" hidden>Add a home ›</button>
 
   <div class="card" id="addcard" hidden>
     <p class="lede"><strong>One account, one home — for now.</strong></p>
@@ -183,6 +188,8 @@
   function renderHomes(homes) {
     var host = el("list");
     host.innerHTML = "";
+    // A22 (closure 22) — one control when empty: the add link and its card exist only once a home exists
+    try { el("addbtn").hidden = !homes.length; if (!homes.length) el("addcard").hidden = true; } catch (e) {}
     if (!homes.length) {
       var p = document.createElement("p");
       p.className = "soft";

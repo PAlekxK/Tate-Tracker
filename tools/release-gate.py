@@ -218,6 +218,43 @@ CLAUSES = [
 ]
 
 
+# ⭐ H4 (lap 7, L7-P2 + L7-P3 as ONE step [Q6, paul-ruled 2026-09-10]) — TWO ARTIFACT CONVENTIONS so two
+# clauses can be READ rather than printed UNCHECKABLE forever:
+#   content: `.content/walks/<sha7>-walk-read.md` — the copy a walk met was read by the voice's owner
+#            (content-steward), one section per seat; the clause checks that an artifact EXISTS for this
+#            sha and NAMES every seat on disk. ⛔ It checks that a read was WRITTEN, never that it was right.
+#   ux:      `.ux-reviews/sweeps/<sha7>-ux-sweep.md` — the two-pass sweep filed at this candidate.
+# Absent → UNCHECKABLE with the PATH named, never a silent omission and never a pass.
+CONTENT_DIR = os.path.join(ROOT, ".content", "walks")
+UX_DIR = os.path.join(ROOT, ".ux-reviews", "sweeps")
+
+
+def content_clause(sha, seat_names, content_dir=None):
+    """→ (state, detail). True only when the artifact exists for this sha and names every seat."""
+    d = content_dir or CONTENT_DIR
+    path = os.path.join(d, "%s-walk-read.md" % sha[:7])
+    if not os.path.exists(path):
+        return (None, "UNCHECKABLE — no content read filed at %s" % os.path.relpath(path, ROOT))
+    body = open(path, encoding="utf-8").read()
+    if sha[:7] not in body:
+        return (False, "the artifact at %s does not name this sha" % os.path.relpath(path, ROOT))
+    missing = [s_ for s_ in seat_names if not re.search(r"(^|\W)%s(\W|$)" % re.escape(s_), body)]
+    if missing:
+        return (False, "the content read names no section for seat(s): %s" % ", ".join(missing))
+    return (True, os.path.relpath(path, ROOT))
+
+
+def ux_clause(sha, ux_dir=None):
+    d = ux_dir or UX_DIR
+    path = os.path.join(d, "%s-ux-sweep.md" % sha[:7])
+    if not os.path.exists(path):
+        return (None, "UNCHECKABLE — no two-pass sweep filed at %s" % os.path.relpath(path, ROOT))
+    body = open(path, encoding="utf-8").read()
+    if sha[:7] not in body:
+        return (False, "the sweep at %s does not name this sha" % os.path.relpath(path, ROOT))
+    return (True, os.path.relpath(path, ROOT))
+
+
 def report(sha, seats_only=False):
     print("release gate ① — build %s\n" % (sha[:7] if sha else "UNKNOWN"))
     if not sha:
@@ -273,16 +310,26 @@ def report(sha, seats_only=False):
          "laptop width." % vp) if vp else
         "viewport UNREADABLE — journey-view.py's constant could not be parsed, so what these walks "
         "covered is UNKNOWN, not assumed."))
-    # ⬜ The UX sweep has no artifact convention yet. DECLARED, never silently omitted.
-    print("  ⬜ UX sweep for this build — UNCHECKABLE: no artifact convention exists yet.")
+    # H4 (lap 7) — the two per-sha clauses, each read from its artifact convention
+    cst, cdet = content_clause(sha, ss)
+    ust, udet = ux_clause(sha)
+    mark = lambda st: "✅" if st is True else ("🔴" if st is False else "⬜")
+    print("  %s content read for this build (L7-P3: every walk read by the voice's owner) — %s" % (mark(cst), cdet))
+    print("  %s UX sweep for this build (L7-P2: the two-pass sweep at this candidate) — %s" % (mark(ust), udet))
 
     if len(passing_seats) == len(ss) and ss:
-        print("\n🟡 every seat passes — but the UX clause is UNCHECKABLE, so this is NOT a bare pass.")
-        print("   Gate ① exits beat 2 only when a human confirms the UX clause too.")
+        if cst is True and ust is True:
+            print("\n✅ every seat passes, the content read is filed and the sweep is filed — gate ① PASSED at %s." % sha[:7])
+            return 0
+        print("\n🟡 every seat passes — but %s, so this is NOT a bare pass." % (
+              "the content clause is %s and the UX clause is %s" % (
+                  "unfiled" if cst is None else ("red" if cst is False else "green"),
+                  "unfiled" if ust is None else ("red" if ust is False else "green"))))
+        print("   Gate ① exits beat 2 only when both artifacts are filed at this sha (or a human confirms in their place).")
         # ⛔ EXIT CODE AGREES WITH STDOUT. This returned 0 here while the text refused, so a machine
         # caller (pages-deploy) would have read a pass. practice-steward, 2026-09-06. `--seats-only`
         # is the machine question "did every seat pass every seat clause at this sha" and answers 0;
-        # the bare command keeps answering the whole gate, which is not yet passable by a machine.
+        # the bare command keeps answering the whole gate.
         return 0 if seats_only else 1
     print("\n🔴 GATE ① NOT PASSED at %s. The synthetic loop has not been exited." % sha[:7])
     print("   Paul's rule: the build stays in the synthetic loop UNTIL IT NO LONGER FAILS.")
@@ -393,6 +440,31 @@ def selftest():
         open(os.path.join(tmp, "record-only", "REPORT.md"), "w").write("second-hand")
         bit = is_seat(os.path.join(tmp, "seatlike")) and not is_seat(os.path.join(tmp, "record-only"))
         print("  %s M7 a record-only folder is NOT a seat; a folder with a run is" % ("✅" if bit else "🔴")); ok &= bit
+
+        # H4 (lap 7) — the two artifact clauses can FAIL, and absence is UNCHECKABLE, never a pass
+        cdir = os.path.join(tmp, "content"); udir = os.path.join(tmp, "ux"); os.makedirs(cdir); os.makedirs(udir)
+        st, _ = content_clause("a" * 40, ["mom", "owner"], cdir)
+        bit = st is None
+        print("  %s M8a no content read filed → UNCHECKABLE, never a pass" % ("✅" if bit else "🔴")); ok &= bit
+        open(os.path.join(cdir, "aaaaaaa-walk-read.md"), "w").write("# read at bbbbbbb\n## mom\n## owner\n")
+        st, _ = content_clause("a" * 40, ["mom", "owner"], cdir)
+        bit = st is False
+        print("  %s M8b a read filed under this sha that names ANOTHER sha → red" % ("✅" if bit else "🔴")); ok &= bit
+        open(os.path.join(cdir, "aaaaaaa-walk-read.md"), "w").write("# read at aaaaaaa\n## mom\n")
+        st, det = content_clause("a" * 40, ["mom", "owner"], cdir)
+        bit = st is False and "owner" in det
+        print("  %s M8c a read that names only SOME seats → red, naming the missing seat" % ("✅" if bit else "🔴")); ok &= bit
+        open(os.path.join(cdir, "aaaaaaa-walk-read.md"), "w").write("# read at aaaaaaa\n## mom\n## owner\n")
+        st, _ = content_clause("a" * 40, ["mom", "owner"], cdir)
+        bit = st is True
+        print("  %s M8d a read at this sha naming every seat → green" % ("✅" if bit else "🔴")); ok &= bit
+        st, _ = ux_clause("a" * 40, udir)
+        bit = st is None
+        print("  %s M9a no sweep filed → UNCHECKABLE, never a pass" % ("✅" if bit else "🔴")); ok &= bit
+        open(os.path.join(udir, "aaaaaaa-ux-sweep.md"), "w").write("two-pass sweep at aaaaaaa\n")
+        st, _ = ux_clause("a" * 40, udir)
+        bit = st is True
+        print("  %s M9b a sweep filed at this sha → green" % ("✅" if bit else "🔴")); ok &= bit
 
     print("\n%s selftest" % ("✅" if ok else "🔴"))
     return 0 if ok else 1

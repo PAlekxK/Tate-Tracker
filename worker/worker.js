@@ -4319,6 +4319,10 @@ export default {
         // what run identity attaches to, AND the value lands here, which is the current value. The
         // split this file already draws correctly for placeName and drew wrongly for the address.
         // ⚠️ Each field is written ONLY when present, so a caller sending one never blanks another.
+          // A15 (lap 7, closure 18) — a CHANGED address does not keep the old coordinates: they are nulled
+          // before the geocode so the place is re-placed from the new address, and if that fails the address
+          // she gave is kept and nothing is silently retained from the old one.
+          if (typeof b.address === "string" && b.address.slice(0, 300) !== grow.address) grow.coordinates = null;
           if (typeof b.address === "string") grow.address = b.address.slice(0, 300);
           if (b.addressParts && typeof b.addressParts === "object") grow.addressParts = b.addressParts;
           if (Array.isArray(b.ranked)) grow.ranked = b.ranked.slice(0, 20);
@@ -4346,6 +4350,7 @@ export default {
         // field never blanks the others.
         if (typeof b.name === "string") acct.placeName = b.name.slice(0, 60);
         if (typeof b.accent === "string") acct.accent = b.accent.slice(0, 9);
+        if (typeof b.address === "string" && b.address.slice(0, 300) !== acct.address) acct.coordinates = null;   // A15 — see the grant branch
         if (typeof b.email === "string") acct.email = b.email.trim().slice(0, 200) || null;
         if (typeof b.phone === "string") acct.phone = b.phone.trim().slice(0, 40) || null;
         if (["email", "phone", "none"].indexOf(b.contactPref) >= 0) acct.contactPref = b.contactPref;

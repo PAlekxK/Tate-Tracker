@@ -318,7 +318,10 @@
         if (!r.ok) throw new Error("not ok");
         store(K_PREF, pref);
         if (chosen) store(K_PROFILE, chosen);
-        location.href = "/homes/";                 // the loop closes on the return trip
+        // A14 (lap 7) — an Edit from the receipt returns TO the receipt with the row rewritten (#told opens
+        // and scrolls to the card); otherwise the loop closes on the shelf as before.
+        var _rt = false; try { _rt = new URLSearchParams(location.search).get("return") === "told"; } catch (e) {}
+        location.href = _rt ? "/viewer.html#told" : "/homes/";
       })["catch"](function (err) {
         btn.disabled = false; btn.innerHTML = '<span class="tick">✓</span>Save';
         var t = el("trouble");

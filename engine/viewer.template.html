@@ -388,7 +388,11 @@
                    background: #fff; color: var(--green-primary); cursor: pointer; min-height: 44px; }
   .ask-next-chip:active { background: var(--green-primary); color: #fff; }
   .ui-who { font-size: 13px; color: var(--ink-soft, #5d6b57); margin: 6px 2px 0; }
-  .hh-utility { display: flex; gap: 16px; font-family: "DM Sans", sans-serif; font-size: 14px; margin-bottom: 10px; }
+  /* A22 (lap 7, closure 40 / TIER 2 · 21): the two NAVIGATIONS sit left and right like the sibling pages
+     (space-between kills the measured 76 px dead band); the in-page jump sits between them at the same size,
+     lighter, with no chevron — it goes nowhere. */
+  .hh-utility { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-family: "DM Sans", sans-serif; font-size: 14px; margin-bottom: 10px; }
+  .hh-utility a[data-open-told] { opacity: .8; font-weight: 400; }
   .hh-utility a { color: #fff; opacity: .92; text-decoration: underline; text-underline-offset: 3px; }
   .text-size-toggle {
     position: absolute;
@@ -19972,7 +19976,13 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
     // the Early days screen would have deleted them.
     u.innerHTML = '<a href="/homes/">‹ Your homes</a><a href="#" data-open-told="1">What you told me</a><a href="/settings/place/">Settings</a>';
     const _told = u.querySelector('[data-open-told]');
-    if (_told) _told.addEventListener("click", (e) => { e.preventDefault(); try { expandCard("card-told", "nav"); } catch (err) {} });
+    if (_told) _told.addEventListener("click", (e) => {
+      e.preventDefault();
+      try { expandCard("card-told", "nav"); } catch (err) {}
+      // A20·3 (lap 7): the jump SCROLLS — expandCard's own scroll is on a 50 ms timer and the utility bar sits
+      // in the masthead, so without this the card opened out of view and the tap read as doing nothing
+      try { setTimeout(() => { const c = document.getElementById("card-told"); if (c) c.scrollIntoView({ block: "start", behavior: "smooth" }); }, 80); } catch (err) {}
+    });
     hdr.insertBefore(u, hdr.firstChild);
   }
   // ⭐⭐ THE RECEIPTS, RENDERED IN THE APP. Ported from estate/index.html's own rows so the record a
@@ -19992,16 +20002,24 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
     const host = document.getElementById("told-body"), sum = document.getElementById("told-summary");
     const card = document.getElementById("card-told");
     if (!host || !card) return;
+    // ⭐ A14 (lap 7, closure 16/17) — ONE LABEL FOR ALL THREE — `Edit` — and the destination differs because
+    // what exists differs: the address step-returns to the ONE address screen (the same gate card, the same
+    // refusal), contact to /settings/account/, the ranking to the ranking screen. Every Edit ends back on
+    // this receipt (#told) with the row rewritten, and NO Edit ever opens a note box (closure 38: punch 10's
+    // "Tell Paul it's wrong ›" is NOT applied here). ⚠️ The closure asked for the ranking editor INLINE; that
+    // needs the INTERESTS roster in a second file — the divergence the interests HOLD (TIER 1 · 36) exists to
+    // prevent — so it step-returns; the invariant (row 17) holds at the level of outcome. Named to coordination.
     const rows = [];
     const addr = mine ? rd(K.addr) : null;
     if (addr) {
       const boxy = /\b(p\.?\s?o\.?\s*box|post\s*office\s*box|postal\s*box)\b/i.test(addr);
       rows.push({ label: "Where it is", value: addr,
-        prov: boxy ? "A box number is where your post goes, not where your place is — so I can't work out your weather or what grows there." : "" });
+        prov: boxy ? "A box number is where your post goes, not where your place is — so I can't work out your weather or what grows there." : "",
+        edit: "/onboarding/?edit=address&return=told" });
     }
     const pref = mine ? rd(K.pref) : null;
     if (pref) {
-      rows.push({ label: "How to reach you",
+      rows.push({ label: "How to reach you", edit: "/settings/account/?return=told",
         value: pref === "none" ? "You asked me not to." : pref === "phone" ? "By phone." : "By email.",
         // B16 (lap 7) — the "please don't" consequence, in the confirmed shape (content-steward, Paul-confirmed)
         prov: pref === "none" ? "Then he won\u2019t. It also leaves Paul no address to write to, so if you ever forget your username or password, email him at paul.kirschenbauer@gmail.com."
@@ -20010,7 +20028,7 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
     let ranked = null;
     try { ranked = mine ? JSON.parse(rd(K.rank) || "null") : null; } catch (e) { ranked = null; }
     if (mine && ranked && ranked.length) {
-      rows.push({ label: "What I'll build first",
+      rows.push({ label: "What I'll build first", edit: "/onboarding/?edit=interests&return=told",
         value: ranked.map((r, i) => (i + 1) + ". " + ((r && r.label) || r) + ((r && r.soon) ? "  (an idea — not built yet)" : "")).join("\n") });
     }
     // ⛔ NOTHING TO SHOW MEANS NO CARD. An empty receipt card on the front of someone's place is
@@ -20026,8 +20044,18 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
       const v = document.createElement("p"); v.className = "told-value"; v.textContent = r.value;
       d.appendChild(l); d.appendChild(v);
       if (r.prov) { const pv = document.createElement("p"); pv.className = "told-prov"; pv.textContent = r.prov; d.appendChild(pv); }
+      if (r.edit) {
+        const ep = document.createElement("p"); ep.className = "told-edit";
+        const ea = document.createElement("a"); ea.href = r.edit; ea.textContent = "Edit"; ea.setAttribute("aria-label", "Edit — " + r.label);
+        ep.appendChild(ea); d.appendChild(ep);
+      }
       host.appendChild(d);
     });
+    // A14 — an Edit RETURNS here: `#told` opens the card and scrolls to it, so the rewritten row is what she sees
+    if (location.hash === "#told") {
+      try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+      setTimeout(() => { try { expandCard("card-told", "nav"); card.scrollIntoView({ block: "start", behavior: "smooth" }); } catch (e) {} }, 300);
+    }
   })();
 
   // ⭐ THE ONE WRITER of the Journal's display name into the DOM — and it must read JOURNAL_NAME, which
