@@ -1,6 +1,6 @@
 {
  "state": "ARMED",
- "generated_at": "2026-09-11T12:31:23-04:00",
+ "generated_at": "2026-09-11T13:33:10-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "87c7aae",
  "beat": {
@@ -30,7 +30,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J0/mom": {
     "run": "2026-09-11T082952",
@@ -43,7 +43,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J0/owner": {
     "run": "2026-09-11T082846",
@@ -56,7 +56,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J0/strict": {
     "run": "2026-09-11T083055",
@@ -69,7 +69,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": false
    },
    "J0/wide-eyed": {
     "run": "2026-09-11T083143",
@@ -82,7 +82,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/handover": {
     "run": "2026-09-11T083717",
@@ -95,7 +95,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/mom": {
     "run": "2026-09-11T083445",
@@ -108,7 +108,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/owner": {
     "run": "2026-09-11T083409",
@@ -121,7 +121,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/strict": {
     "run": "2026-09-11T083519",
@@ -134,7 +134,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/wide-eyed": {
     "run": "2026-09-11T083821",
@@ -147,7 +147,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/handover": {
     "run": "2026-09-11T085158",
@@ -160,7 +160,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/mom": {
     "run": "2026-09-11T084800",
@@ -173,7 +173,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/owner": {
     "run": "2026-09-11T085347",
@@ -186,7 +186,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/strict": {
     "run": "2026-09-11T084922",
@@ -199,7 +199,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/wide-eyed": {
     "run": "2026-09-11T085040",
@@ -212,7 +212,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    }
   },
   "seats_pass": true,
@@ -228,7 +228,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J0/mom": {
     "run": "2026-09-11T082952",
@@ -241,7 +241,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J0/owner": {
     "run": "2026-09-11T082846",
@@ -254,7 +254,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J0/strict": {
     "run": "2026-09-11T083055",
@@ -267,7 +267,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": false
    },
    "J0/wide-eyed": {
     "run": "2026-09-11T083143",
@@ -280,7 +280,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/handover": {
     "run": "2026-09-11T083717",
@@ -293,7 +293,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/mom": {
     "run": "2026-09-11T083445",
@@ -306,7 +306,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/owner": {
     "run": "2026-09-11T083409",
@@ -319,7 +319,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/strict": {
     "run": "2026-09-11T083519",
@@ -332,7 +332,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J3/wide-eyed": {
     "run": "2026-09-11T083821",
@@ -345,7 +345,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/handover": {
     "run": "2026-09-11T085158",
@@ -358,7 +358,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/mom": {
     "run": "2026-09-11T084800",
@@ -371,7 +371,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/owner": {
     "run": "2026-09-11T085347",
@@ -384,7 +384,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/strict": {
     "run": "2026-09-11T084922",
@@ -397,7 +397,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    },
    "J8/wide-eyed": {
     "run": "2026-09-11T085040",
@@ -410,7 +410,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": null
+    "instrumented": true
    }
   }
  },
