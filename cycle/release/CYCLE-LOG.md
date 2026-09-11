@@ -3601,3 +3601,16 @@ the plan **no longer waits for lap 8's monitoring**; four seats convened in para
 user-researcher the lenses · security-steward fixtures/credentials/arrival state · ai-advisor the model policy), synthesis
 into `.plans/2026-09-11-testing-revamp-PLAN.md` at `stage: ready`, agent-proposed, **for Paul's read before lap 9 opens**;
 lap 8's monitoring lands as a stage-note when its battery runs. Read-only on every tool stands.
+
+### Ahead — LAP 8 HOLDS for the testing plan; ROW T lands WHOLE and FIRST `[paul-ruled 2026-09-11 09:47 EDT, in the revamp window]`
+
+*"I'm good investing now in getting a really good testing procedure down. So if we have to hold lap eight until all this is
+determined and we have a clear plan, that's fine. And I'd rather not split it up unless there's a really good reason to do it —
+that's not just time and effort."* **Supersedes** the 9:10 AM lap-9 placement (which predated his walk) — his walk found six
+base-level issues in twenty minutes that fifteen sterile walks could not see, and he ruled on the evidence. **Reading, agreed
+by coordination and the revamp window:** lap 8 does not OPEN until `.plans/2026-09-11-testing-revamp-PLAN.md` is clear and
+Paul has read it; row T lands whole and FIRST in lap 8's beat-6 table, before the door's build and battery, so the door is
+certified on the new unit; **no split unless a seat names a STRUCTURAL reason** (a ruling not given · a dependency on lap 8's
+own rows · a falsifier that cannot run before the door exists) — never hours. The lap-8 build plan's stage-note and the
+testing-architecture plan's ready-line re-pointed. **For the lap-8 coordination handoff: its first act is to read the revamp
+plan with Paul, not to open the lap.**
