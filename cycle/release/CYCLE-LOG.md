@@ -2982,3 +2982,16 @@ their place wins the moment they give one; *Estate Manager* stays the administra
 content-steward's recommendation (keep "My Home") on the one point that is his preference. **Lap 8 · B's name gate (8·4)
 is MET**; the strings ride beside the apex binding in the lap-8 plan (stage-note added). `VOCABULARY.md` §3b's top-bar
 third term amended; `check-vocabulary` clean. The deep dive he asked for earlier tonight is now the revisit, not a gate.
+
+### Ahead — lap 10's questions walked `[paul-ruled 2026-09-11 ~3:10 AM ET, in the backlog window]`
+
+| q | ruling |
+|---|---|
+| 10·4 answer key | **RULED — the cleaned 23**, count and version (*"The clean twenty-three is the right zone count and version to go with."*); the served 18 is a separate act |
+| 10·1 negative control | **RULED — the Grant Park condo is v1's negative control AND proving ground** (*"definitely"*) |
+| 10·3 design pass | **RULED — the capture write path's design pass in lap 9, its own window, after lap 8 · A15** (*"Design pass in lap nine."*) — the READINESS placement is now his |
+| 10·5 R-A1…R-A6 | **DEFERRED to lap 10's groom** (*"those are specific to zones — zone questions for Fernwood."*) |
+| 10·2 the fertilizer question as THE acceptance walk | **open — a lean to NO**, re-put in plain words; the fallback bar is the zones plan's own v1 |
+
+Lap 10's shape is otherwise as proposed. Lap 9 therefore carries the write-path design pass as a WINDOW beside the weather
+card build, not a row.
