@@ -59,6 +59,17 @@ it), which want the strongest (a lens reading for coherence; the synthesis), and
 the same artifact read by both tiers, do the findings differ? A tier change is never ruled on cost alone. **Seat:
 ai-advisor** (consult mode) owns the tiering recommendation; engineering-partner wires where the tier is set; Paul rules.
 
+## 1d. Round sizing `[paul-stated 2026-09-11 ~9:20 AM ET, in the revamp window]`
+
+*"If we have multiple rounds of testing it's worth checking whether each round of testing needs to be the same size or we can
+get more specific or just have one run-through… I don't want to sacrifice coverage for speed, but we don't necessarily need
+to do every single walk every single time."* Read as widening the impact-scoped re-run rule from sha-to-sha to the ROUND:
+the first battery at a candidate is full coverage (the declared cell list); each later round at a re-sha is sized to what
+moved, down to one run-through, with the carried-forward cells and their proof named. **Coverage is the invariant; battery
+size is not.** The plan carries a round-sizing section with its own falsifier: a smaller later round must show which cells
+it carried forward and why, or it is a cut. Filing: the lap-8 monitoring trail sits beside the audit under `.practice/`.
+Read-only on the harness tools runs to **lap 8's close** (lap 8's own harness steps are the build window's, row H).
+
 ## 2. Paul's rulings — in force, cite never re-open (`cycle/release/CYCLE-LOG.md` § "LAP 8 GAINS A ROW", 2026-09-11 ~7:00 AM ET)
 
 Q2 gate ① changes its unit from `seat` to **(journey, lens)** — a change to the release condition; its own falsifier gates it ·

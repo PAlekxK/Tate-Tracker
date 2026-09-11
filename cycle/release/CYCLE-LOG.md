@@ -3331,3 +3331,11 @@ Fixtures founded at qa by candidate 3's J0: `est-1tfrzb` · `est-ftrtkj` · `est
 **Register note queued:** `watch-door`'s silent-case line goes negative when the open door records no `door_opened`
 (pre-existing). **Next:** the content read `.content/walks/87c7aae-walk-read.md` (every seat named) → `release-gate --sha
 87c7aae` → hand to coordination for Paul's walk (the amended kit).
+
+**Round sizing joins the revamp** `[paul-stated 2026-09-11 ~9:20 AM ET, in the revamp window]`: *"whether each round of testing
+needs to be the same size or we can get more specific or just have one run-through… I don't want to sacrifice coverage for
+speed, but we don't necessarily need to do every single walk every single time."* → the impact-scoped re-run rule widens
+from sha-to-sha to the ROUND: first battery = full coverage (the declared cell list); later rounds sized to what moved, down
+to one run-through, carried-forward cells and their proof named. **Coverage is the invariant; battery size is not.** Brief
+§1d; the revamp window's monitoring trail files beside the audit under `.practice/`; read-only on the harness tools runs to
+lap 8's close.
