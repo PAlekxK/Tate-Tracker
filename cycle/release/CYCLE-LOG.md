@@ -3289,3 +3289,17 @@ reading."* Brief §1c: a table per act (drive · capture · read · content read
 first (the walk drives from an action list and may invoke no model; the spend sits in frame reads and reader seats); a
 falsifier per downgrade (same artifact, both tiers, do the findings differ); ai-advisor owns the tiering recommendation,
 Paul rules.
+
+### ~9:05 AM ET — the TESTING REVAMP window's readback graded CLEAN
+
+`handoff/handoff-testing-revamp.readback.md` at `fbf3ee93`. Three findings coordination did not have: **(1)** the Q4 wording
+*"J1 · J5 · J7 named-unbuilt"* was coordination's compression — at HEAD `journey-walk.JOURNEYS` holds J0 · J1 · J2 · J3 · J4 ·
+J5 · J8 as built action lists and `NAMED_UNBUILT` holds only J6; Paul's operative ruling is a **declared cell list** (lap 8
+walks J0 · J3 · J8; J1 · J5 built and J7 unbuilt print UNWALKED every lap); **(2)** a FILE-level change classifier would say
+"everything moved" on exactly the Worker-only shas the impact-scoped re-run rule exists to skip — every journey calls the
+Worker — so the classifier must be by ROUTE (a journey's stops' routes vs the diff's routes), page bytes the second proof;
+**(3)** `strict` reads `instrumented: false` at `87c7aae` — strict is the REFUSAL walk by design and never reaches an
+instrumented screen, so the gate's `instrumented` clause may refuse it for the product doing right → flagged to the build
+window before `release-gate` runs; for row T, a refusal journey needs its own expected-events profile (zero is the pass).
+Also: the 09-10 plan's line citations are stale (`JOURNEYS` sits at `:876`); no `.security/` exists — the seat files under
+`.engineering/` by tonight's convention. **Paul clears the window with his keystroke there.**
