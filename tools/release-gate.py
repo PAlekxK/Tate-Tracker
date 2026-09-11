@@ -210,7 +210,13 @@ def expects_app_events(journey):
         return None
     if not isinstance(entry, dict) or "expectsAppEvents" not in entry:
         return None
-    return bool(entry["expectsAppEvents"])
+    v = entry["expectsAppEvents"]
+    # ⛔ A DECLARED `None` IS UNKNOWN, NOT FALSE — and `bool(None)` silently made it False, which is
+    # the OPPOSITE claim: "this journey must land NO events". Caught by T10's own clauses the moment
+    # a journey declared None (J4, which has no runs on record to derive a profile from). A journey
+    # whose profile is unknown must read UNCHECKABLE; coercing it to False would have made a future
+    # J4 run landing zero events print ✅ — a false green produced by a type coercion.
+    return None if v is None else bool(v)
 
 
 def judge(run_dir, sha):
@@ -1175,12 +1181,36 @@ def selftest():
                   % ("✅" if bit else "🔴")); ok &= bit
 
             # ═══ T2 · M11a/b — `instrumented` RE-KEYED ════════════════════════════════════════════
-            d = mkrun("strict", "R1", journey="J0", lens="strict")
+            # ⭐ T10 ARMED THESE. Until T10 no journey declared a profile, so every branch but
+            # UNCHECKABLE was unreachable and M11a could only test the unarmed state. These use REAL
+            # declarations — J0 declares expectsAppEvents True, J4 declares None.
+            d = mkrun("strict", "R1", journey="J4", lens="strict")
             json.dump({"app": {"events": 0}}, open(os.path.join(d, "capture.json"), "w"))
             st, det = judge(d, "a" * 7)["instrumented"]
-            bit = st is None and "UNCHECKABLE" in det and "T10" in det
-            print("  %s M11a with NO declared profile, zero events reads ⬜ UNCHECKABLE naming the "
-                  "reason — never the 🔴-forever it used to print" % ("✅" if bit else "🔴")); ok &= bit
+            bit = st is None and "UNCHECKABLE" in det
+            print("  %s M11a a journey declaring NO profile reads ⬜ UNCHECKABLE with the reason — "
+                  "never the 🔴-forever it used to print" % ("✅" if bit else "🔴")); ok &= bit
+
+            d = mkrun("mom", "R9", journey="J0", lens="mom")
+            json.dump({"app": {"events": 0}}, open(os.path.join(d, "capture.json"), "w"))
+            st, _ = judge(d, "a" * 7)["instrumented"]
+            bit = st is False
+            print("  %s M11c a journey that EXPECTS events and landed none goes 🔴 — the clause can "
+                  "still fail, which is what makes a green mean anything" % ("✅" if bit else "🔴"))
+            ok &= bit
+
+            d = mkrun("mom", "R10", journey="J0", lens="mom")
+            json.dump({"app": {"events": 7}}, open(os.path.join(d, "capture.json"), "w"))
+            st, _ = judge(d, "a" * 7)["instrumented"]
+            bit = st is True
+            print("  %s M11d … and reads ✅ when they landed" % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ THE FOURTH BRANCH IS UNTESTED AND NAMED RATHER THAN FAKED. `expectsAppEvents: False`
+            # — a journey that must land NO events — has no declaring journey today, because the
+            # measurement said every journey on record reaches the app. A clause asserting a branch
+            # no fixture can reach would be ceremony; this states the gap instead.
+            print("  ⬜ M11e the expectsAppEvents:False branch is UNTESTED — no journey declares it "
+                  "(measured: every journey on record lands app events). Named, not faked.")
 
             d2 = mkrun("strict", "R2", journey="J0", lens="strict")
             open(os.path.join(d2, "capture.json"), "w").write("{not json")

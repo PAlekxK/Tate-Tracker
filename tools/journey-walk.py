@@ -1001,30 +1001,44 @@ JOURNEYS = {
     # ⛔ THE ENTRY GATE IS NOT WEAKENED: a declared J0 is still refused if the door says anything but
     # J5 — arriving WITH a credential and calling it founding is exactly how every "fresh" run on
     # record was actually a returning one.
-    "J0": {"name": "founding-owner", "enters": "J5", "arrival": "open-signup",
+    "J0": {"name": "founding-owner",
+           "routes": None, "pages": ['/estate/', '/homes/', '/onboarding/', '/viewer'], "expectsAppEvents": True,
+           "arrivalState": {"profile": "clean", "engine": "chromium", "text": "default"}, "enters": "J5", "arrival": "open-signup",
            "actions": journey_founding},
-    "J1": {"name": "invited-stranger", "enters": "J1", "arrival": "per-run-invite",
+    "J1": {"name": "invited-stranger",
+           "routes": None, "pages": ['/estate/', '/homes/', '/onboarding/', '/settings/account/'], "expectsAppEvents": True,
+           "arrivalState": {"profile": "clean", "engine": "chromium", "text": "default"}, "enters": "J1", "arrival": "per-run-invite",
            "actions": lambda a, o: journey(True, a, origin=o)},
     # ⚠️ J2's ARRIVAL IS PROVISIONED PER RUN, like J1's invite and for the same reason: the walk
     # FINISHES the record, so the entry state cannot survive its own journey. See `mint_unfinished`.
-    "J2": {"name": "returning-unfinished", "enters": "J2", "arrival": "per-run-unfinished",
+    "J2": {"name": "returning-unfinished",
+           "routes": None, "pages": ['/estate/', '/onboarding/', '/viewer'], "expectsAppEvents": True,
+           "arrivalState": {"profile": "clean", "engine": "chromium", "text": "default"}, "enters": "J2", "arrival": "per-run-unfinished",
            "actions": journey_resuming},
-    "J3": {"name": "returning-finished", "enters": "J3", "arrival": "durable-credential",
+    "J3": {"name": "returning-finished",
+           "routes": None, "pages": ['/estate/', '/homes/', '/settings/account/', '/viewer'], "expectsAppEvents": True,
+           "arrivalState": {"profile": "clean", "engine": "chromium", "text": "default"}, "enters": "J3", "arrival": "durable-credential",
            "actions": journey_returning},
     # ⚠️ J4 REUSES J3's LIST ON PURPOSE, and it is the one place a mismatch with
     # JOURNEY_RETURNING_ENTERS is correct. A refused credential reaches nothing, so the FAILURES are
     # the record: the question is what a person holding a dead link can get to, and the answer is
     # measured by trying the route a recognised person would take. Unchanged from `--dead-credential`
     # as built 2026-09-08 — this map names its behaviour, it does not alter it.
-    "J4": {"name": "dead-credential", "enters": "J4", "arrival": "dead-credential",
+    "J4": {"name": "dead-credential",
+           "routes": None, "pages": None, "expectsAppEvents": None,
+           "arrivalState": {"profile": "clean", "engine": "chromium", "text": "default"}, "enters": "J4", "arrival": "dead-credential",
            "actions": journey_returning},
-    "J5": {"name": "bare-door", "enters": "J5", "arrival": "no-credential",
+    "J5": {"name": "bare-door",
+           "routes": None, "pages": ['/onboarding/', '/viewer'], "expectsAppEvents": True,
+           "arrivalState": {"profile": "clean", "engine": "chromium", "text": "default"}, "enters": "J5", "arrival": "no-credential",
            "actions": journey_bare_door},
     # ⭐ J8 (lap 7 H2) — enters J3 because its preconditions are one account, one PLACED home, signed in;
     # arrival is the seat's own durable credential, which `refresh()` re-mints before every run — so the
     # durable thing is the username and the word, never the token (the walk revokes the token at L06 and
     # the credential rotates again at L14). It does NOT consume its entry state.
-    "J8": {"name": "account-lifecycle", "enters": "J3", "arrival": "durable-credential",
+    "J8": {"name": "account-lifecycle",
+           "routes": None, "pages": ['/', '/estate/', '/homes/', '/onboarding/', '/settings/account/'], "expectsAppEvents": True,
+           "arrivalState": {"profile": "clean", "engine": "chromium", "text": "default"}, "enters": "J3", "arrival": "durable-credential",
            "actions": journey_lifecycle},
 }
 
@@ -1566,6 +1580,64 @@ def selftest():
     writes = len([x for x in fresh if x.startswith("click:#go")])
     check("a fresh walk spends few enough writes to stay under the limiter", writes <= 6,
           "%d submit clicks — the cap is 20 writes per IP per 5 min, shared by 4 seats" % writes)
+
+    # ═══ T10 · EVERY JOURNEY DECLARES ITS ROUTES, PAGES, EVENT PROFILE AND ARRIVAL STATE ════════
+    # ⛔ M17b — THE SCHEMA CLAUSE. Same shape as the existing JOURNEY_IDS ⊆ JOURNEYS clause: a key
+    # that may be MISSING is a declaration nobody has to make, and T11 would then silently scope
+    # against nothing.
+    _T10_KEYS = ("routes", "pages", "expectsAppEvents", "arrivalState")
+    _missing = {j: [k for k in _T10_KEYS if k not in e] for j, e in JOURNEYS.items()}
+    _missing = {j: v for j, v in _missing.items() if v}
+    check("T10/M17b every JOURNEYS entry declares all four keys (None is legal, ABSENT is not)",
+          not _missing, "missing: %r" % _missing)
+
+    # ⛔ M17a — THE SUBSET CLAUSE. Every page LITERALLY PRESENT in a journey's action list must be in
+    # its declaration. ⭐ THIS PROVES NOT-STALE AND CANNOT PROVE COMPLETE, and it says so: a journey
+    # navigates mostly by CLICKING, so most pages it reaches never appear as a literal. That is the
+    # limitation row A must know about — the clause fails loudly when A11/A13 move a route a journey
+    # names, and stays silent about one it only clicks to.
+    _ans = {"username": "u", "password": "p", "email": "e@x.invalid", "place": "P",
+            "line1": "L", "city": "C", "state": "GA", "zip": "1"}
+    _stale, _unbuilt = [], []
+    for _j, _e in sorted(JOURNEYS.items()):
+        try:
+            _acts = _e["actions"](_ans, "https://x.pages.dev")
+        except Exception as _ex:
+            # ⛔ A JOURNEY THIS CLAUSE COULD NOT BUILD IS UNCHECKED, AND SAYS SO. Silently
+            # `continue`-ing would make the clause report green over journeys it never examined —
+            # coverage asserted by omission, which is the defect this whole row exists to remove.
+            _unbuilt.append((_j, type(_ex).__name__))
+            continue
+        _lit = set()
+        for _a in _acts:
+            if isinstance(_a, str) and _a.startswith("goto:"):
+                _lit.add(re.sub(r"^https?://[^/]+", "", _a[len("goto:"):]).split("?")[0] or "/")
+        _dec = set(_e.get("pages") or [])
+        _extra = _lit - _dec
+        if _extra:
+            _stale.append((_j, sorted(_extra)))
+    check("T10/M17a every page a journey NAMES in its actions is in its declaration",
+          not _stale, "undeclared: %r" % _stale)
+
+    # ⭐ THE CLAUSE HAS TEETH ON ITS FIRST RUN — it caught J8 naming the origin root `/` in a
+    # `goto:` that no declaration held. ⚠️ AND ITS COVERAGE IS PARTIAL AND NAMED: the action builders
+    # for several journeys need a richer fixture than this clause constructs and cannot be built
+    # here, so they are UNCHECKED rather than silently passed. A clause that reports green over
+    # journeys it never examined is the absence-is-a-pass defect wearing a selftest's clothes.
+    check("T10/M17a2 the clause names its OWN coverage — %d of %d journeys examined"
+          % (len(JOURNEYS) - len(_unbuilt), len(JOURNEYS)), True, "")
+    if _unbuilt:
+        print("       ⬜ UNCHECKED by M17a (action list not constructible here): %s"
+              % " · ".join("%s(%s)" % x for x in _unbuilt))
+
+    # ⛔ M17c — ROUTES ARE UNKNOWN AND MUST STAY THAT WAY UNTIL SOMETHING CAN DERIVE THEM.
+    # `[measured 2026-09-11]` NO journey's action list contains a single `/api/` literal, and the
+    # record logs only FAILED requests (`httpFailures`), never the full set a walk made. So a routes
+    # list would be a GUESS wearing a declaration's clothes, and T11 keying carry-forward on a guess
+    # is the most dangerous thing in this row. ⛔ UNKNOWN → UNSCOPED → the full declared cell list.
+    check("T10/M17c no journey claims a routes list it cannot derive",
+          all(e.get("routes") is None for e in JOURNEYS.values()),
+          "a journey declares routes; nothing in the record can derive them yet")
 
     # ═══ T20 · THE LENS AXIS IS NAMED, AND EVERY POSTURE DECLARES WHAT IT RESTS ON ═══════════════
     _si_t20 = _si
