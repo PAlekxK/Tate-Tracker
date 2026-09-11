@@ -4765,3 +4765,51 @@ point.**
 incidental write rather than commit into a file another lane is live in, **twice**, and it refused to keep running a
 tool that dirties coordination's file. ⛔ **A lane that stops to flag a shared-file write is behaving correctly even
 when the flag looks empty — and this one was not empty.**
+
+### ⭐⭐ THE WRITER WAS A HOOK — and THREE explanations for one file were wrong before anyone enumerated the writers
+
+The build window found it: **`.git/hooks/post-commit:9` runs `release-state.py --write` after EVERY commit**,
+`[paul-ruled 2026-09-07, flex-point audit R3]`, with the reason on its own face — *"a TRIGGERED step here, so the
+state artifact cannot drift between hand-runs."* **Verified.**
+
+**It explains the whole sequence, including the part neither offered explanation covered:**
+
+| moment | why |
+|---|---|
+| after **T0**'s commit, tree **CLEAN** | the hook wrote — but T0 moved no gate output, so **no diff** |
+| after **T1+T2**'s commit, tree **DIRTY** | the hook wrote, and T1+T2 **moved `instrumented`** |
+| coordination's *"I regenerated, byte-identical"* | a **bare run does not write** (`:222 if a.write:`) — it printed and persisted nothing |
+| the build window's *"my smoke run wrote it, then I reverted"* | plausible and **also wrong** — the hook did |
+
+⭐ **And `release-state.py:222` carries the clause that makes a clean tree MEAN something:** *"⛔ **A WRITE THAT
+CHANGES ONLY THE TIMESTAMP IS NOT A WRITE**"* — an unconditional dump re-dirtied the tree after every commit and
+the seam gate never read clean. **So a dirty `cycle-state.json` after a commit means the DERIVED STATE GENUINELY
+MOVED**, never mere churn.
+
+⛔⛔ **THE REUSABLE FORM IS THE BUILD WINDOW'S AND IT IS NARROWER AND BETTER THAN "a control correct about its own
+question":**
+
+> **When a file changes and nobody admits to writing it, ENUMERATE THE WRITERS before reconstructing a timeline.**
+
+**Both windows reasoned about who ran what. Neither grepped the hooks.** Three explanations were offered for one
+file — two from coordination, one from the build window — and **all three were wrong**, while the answer sat in a
+ten-line hook with a ruling stamped in its comments.
+
+#### ⭐ AND THE BUILD WINDOW WITHDREW CREDIT IT HAD BEEN GIVEN, which is the right instinct misfiring
+
+Coordination had praised it for reverting rather than writing into a shared file. **It declined the credit:** it
+was reverting **a designed, Paul-ruled side effect**, and the next commit regenerated it anyway. ⛔ **Reverting a
+hook's output is futile by construction.** The general instinct — *do not silently write into a file another lane
+is live in* — **stands**; it misfired only because the writer was diagnosed as **a lane** rather than **the repo's
+own machinery.**
+
+#### ⛔ COORDINATION'S RULING ON THE FILE, so the next step does not re-litigate it
+
+**`cycle/release/cycle-state.json` is NOT coordination's to guard against the hook** — that framing was
+coordination's and it is what caused two futile reverts and one stale record. **The hook owns the write.**
+
+> **Let the hook's write STAND. Fold `cycle-state.json` into the NEXT commit, naming which step moved it.**
+
+T3 · T5 · T12 · T16 · T17 all move gate output, so this will recur. ⚠️ **The cache is one commit behind BY
+CONSTRUCTION** — the hook fires *after* the commit, so a commit that moves gate output cannot leave a clean tree.
+**That is the mechanism behind the brief's §9 warning, and it is not a defect to fix in row T.**
