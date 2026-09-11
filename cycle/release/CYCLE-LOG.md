@@ -2818,3 +2818,26 @@ commitment** · field capture obeys the site premise (**no signal away from the 
 zones write per-estate needs lap 8's estate-as-row · **INVITE & JOIN moves to a lap-11 candidate** (its lap-8 scoping
 stands). The backlog window drafts `.plans/2026-09-11-lap10-SCOPE-PROPOSAL.md` on this theme for his pick at lap 10's
 beat 6; engineering-partner's lap-9 READINESS names when the write-path design pass must run.
+
+### Ahead — CONTENT BUILD-OUT, and the card-intro ASK `[paul-stated 2026-09-11 ~1:15 AM ET]`
+
+His words: *"we need to start building content out — like cards — and figuring out, probably, going through some of the
+history of how we put together the legacy Fernwood: see what tools are there and what's available to us and how we can
+expand on that. As well as ask questions when we first introduce a card, like the weather: are you interested in UV, air
+quality? What do people want from a data point of view in their dash view? I think that little questionnaire helps us
+then decide what are the different sub-components of weather that we present and how we highlight it."*
+
+Three threads, routed:
+1. **The legacy toolchain inventory** — what built Fernwood's content (harvest · promote · research · references ·
+   digest · derive · the schema and honesty markers) and what is portable to a household that is not Fernwood → a
+   read-only research pass, `.plans/2026-09-11-legacy-toolchain-INVENTORY.md` (engine vs instance per tool, reading
+   `ENGINE-MANIFEST.md`, `check-config-derivation.py` and `momlib.DOMAINS`), so the content build-out starts from what
+   exists rather than re-deriving it.
+2. **The card-intro ask** — when a card is first introduced, ask what the person wants from it; the answers decide the
+   card's sub-components and their highlighting. **Placed as the `ask` field of lap 9 · A (the weather card, TIER 2 · 11),
+   the exemplar**, and as a standing pattern under the four-field contract (*every item ships with an ask*). ⚠️ Bound by
+   the elicitation-lens ruling: **not "ask more questions"** — one ask, many derived presentation facts; never ask what
+   the address or the interests ranking already derives; and it is an ask-path surface, so AI may draft it behind the
+   administrator's approval, capture stays deterministic.
+3. **The content build-out itself** — a register section (§ CONTENT · CARDS) the backlog window opens, capture-first,
+   fed by the inventory; the weather card is its first row; nothing committed to a lap by it tonight.
