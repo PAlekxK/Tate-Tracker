@@ -160,6 +160,19 @@ const cfg = JSON.parse(process.argv[2]);
         }
         else if (act.startsWith('goto:')) { await page.goto(act.slice(5), { waitUntil: 'load', timeout: 45000 }); await page.waitForTimeout(1200); }
         else if (act.startsWith('click:')) { await page.click(act.slice(6)); }
+        // ⭐ lap 7 (H3) — ASSERTIONS AS ACTIONS. `expect:<selector>` fails the action unless the element is
+        // present and visible; `eval:<js>` fails it unless the expression (a value or a promise) is truthy.
+        // A broken promise therefore lands in the transcript as a FAILED ACTION, which release-gate's
+        // `no-failed-actions` clause refuses — never a screenshot somebody has to read to notice.
+        else if (act.startsWith('expect:')) {
+          const sel = act.slice(7);
+          const h = await page.$(sel);
+          if (!h || !(await h.isVisible())) throw new Error('expect: not visible — ' + sel);
+        }
+        else if (act.startsWith('eval:')) {
+          const v = await page.evaluate(act.slice(5));
+          if (!v) throw new Error('eval: falsy — ' + act.slice(5, 90));
+        }
         else if (act.startsWith('type:')) {
           const rest = act.slice(5); const i = rest.indexOf('=');
           await page.fill(rest.slice(0, i), rest.slice(i + 1));

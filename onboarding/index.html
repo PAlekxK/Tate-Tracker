@@ -113,7 +113,7 @@
     font-weight: 600; font-size: 1.72rem; line-height: 1.2;
     margin: 0; letter-spacing: .2px;
   }
-  main { flex: 1; width: 100%; max-width: 560px; margin: 0 auto; padding: 22px 18px 40px; }
+  main { flex: 1; width: 100%; max-width: 560px; margin: 0 auto; padding: 22px 18px 96px; }   /* A5 (lap 7, closure 5): 40 → 96 so a commit button at REST clears the corner circle */
   .card {
     background: var(--card);
     border: 1.5px solid var(--edge);
@@ -230,6 +230,15 @@
     background: var(--accent); color: #fff;
   }
   .fbwrap { max-width: 560px; margin: 18px auto 34px; padding: 0 16px; }
+  /* A4 (lap 7, closure 4/6) — THE ONE BUBBLE SHAPE, the 46px corner circle, byte-identical to the four pages
+     that carry it; on this page it opens the page's OWN #fbbox and renders on s1 · s2 · s4 only (once an
+     account exists); before that the inline link is the one door. */
+  .fbbubble { position:fixed; right:12px; bottom:14px; z-index:900; display:inline-flex; align-items:center; justify-content:center;
+              width:46px; height:46px; padding:0; background:var(--accent); color:#fff; border:0; border-radius:50%;
+              box-shadow:0 2px 10px rgba(0,0,0,.25); font:inherit; font-size:1.25rem; text-decoration:none; cursor:pointer; }
+  /* A12 (closure 13) — the ROUTE control is outlined until the ranking is saved; exactly one filled control per moment */
+  .bigbtn.outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+  .s2read { white-space: pre-line; font-size: 1.05rem; margin: 6px 0 10px; }
   .fblink {
     display: block; width: auto; margin: 0 auto; padding: 8px 4px; min-height: 0;
     background: none; border: 0; color: #5d7387; font: inherit; font-size: .92rem;
@@ -382,6 +391,16 @@
        account. This is Act 01 and it runs AHEAD of naming the place: the colour lives here too,
        because it is an account-level choice and because it is the flow's only no-wrong-answer beat.
        ⛔ DEV ONLY UNTIL REVIEWED — credential code, unreviewed. -->
+  <!-- ⭐ A2 (lap 7, closure 2) — THE DOOR: one sentence and two named ways in, over the two screens that
+       already exist (#s0 the account form · #s-nolink the sign-in). Never a new page, never a second form.
+       ⚠️ Sentences are DRAFT slots, content-steward's. -->
+  <section id="s-door" class="card" hidden>
+    <p class="lede">Your place, on any phone.</p>
+    <p class="soft">Set it up once, then sign in from wherever you are.</p>
+    <button type="button" id="sd-setup"><span class="tick">✓</span>Set up my place</button>
+    <button type="button" id="sd-signin" class="btn-secondary">I've been here before</button>
+  </section>
+
   <section id="s0" class="card" hidden>
     <!-- ⭐ NAME THE STEP `[paul-stated 2026-09-05, walking it]`. The screen never said what part of the
          process it was, so a reader typing a password could not tell whether this WAS the setup or
@@ -534,6 +553,9 @@
          name on it rather than one we are still calling "My Home".
          ⚠️ COPY IS INTERIM — content-steward has not read this screen since it changed shape, and
          "starting with one question" now sits above the FIRST of two. That sentence is on its list. -->
+    <!-- A6 (lap 7, closure 7 / exhibit 2b R) — the account-exists RECEIPT, the only ✓ on this screen
+         until go1; a receipt mark, not a button. Shown only on the way in from signup. DRAFT slot. -->
+    <p id="s1receipt" class="soft" hidden><span class="tick">✓</span>Your account&rsquo;s set up. Now your place.</p>
     <p class="soft">Nothing in it yet — it gets built from what you tell me.</p>
     <label for="pname">What do you call it?</label>
     <input id="pname" type="text" enterkeyhint="next" autocapitalize="words" autocomplete="off" maxlength="60">
@@ -575,6 +597,10 @@
          (48 Hwy 136 W). Two address-shaped strings, one screen, and the app never said which was
          which. This says it once, quietly, and only where the confusion actually happens. -->
 
+    <!-- A10 (closure 11) — after "Not quite": one quiet line saying the values are still here. DRAFT slot. -->
+    <p class="quiet" id="s2note" hidden>Everything you typed is still here — change what needs changing and tap <em>That's it</em> again.</p>
+
+    <div id="s2fields">
     <div class="field">
       <label for="a1">Street address</label>
       <input id="a1" type="text" autocomplete="address-line1" autocapitalize="words" enterkeyhint="next">
@@ -635,6 +661,25 @@
          reader who tapped and saw nothing move had to scroll PAST the button to find out why. Both
          walkers who met it thought the button was broken; one would have abandoned. The answer to
          "why did nothing happen" has to render where the reader is already looking. -->
+    </div><!-- /#s2fields -->
+    <!-- ⭐ A7 (lap 7, closure 8 / R1) — THE GATE CARD, IN PLACE. #go2 swaps the field group for this read-back
+         block; the card does not scroll, the header does not change, NOTHING IS WRITTEN until #ok1. The old
+         #s3 interstitial is gone and #s4's confirm pair lives here now (same ids, so the harness stops hold).
+         A9 (row 9): the unit line renders ONLY when a2 is empty, directly under the address and ABOVE the
+         map line and both buttons. A11 (row 12): on the affirmative a receipt line prints in place, then the
+         flow advances — no note box on the affirmative, ever. ⚠️ Sentences are DRAFT slots. -->
+    <div id="s2read" hidden>
+      <p class="soft" style="margin-bottom:0">Does that look right?</p>
+      <p class="s2read" id="s2readline"></p>
+      <p class="quiet" id="s2unitline" hidden><a href="#" id="s2unit">Add an apartment or unit number ›</a></p>
+      <div class="field" id="s2unitwrap" hidden>
+        <label for="a2b">Apartment or unit</label>
+        <input id="a2b" type="text" autocomplete="address-line2" autocapitalize="words" enterkeyhint="done">
+      </div>
+      <p class="quiet" id="s2maps" hidden><a id="maplink2" class="maplink" href="#" target="_blank" rel="noopener noreferrer">See it on Google Maps ›</a> — nothing goes to Google unless you tap.</p>
+      <button type="button" id="ok1"><span class="tick">✓</span>Yes, that's it</button>
+      <button type="button" id="ok2" class="btn-secondary">Not quite</button>
+    </div>
     <div class="trouble" id="trouble" hidden></div>
     <button type="button" id="go2"><span class="tick">✓</span>That's it</button>
   </section>
@@ -648,15 +693,7 @@
          ⚠️ "a few days" is deliberately not a number. Paul set the cadence at ~3 days
          and called it the interim of a vision with no wait at all; a promise of THREE
          is a promise to a person whose documented fear is getting things wrong. ───── -->
-  <section id="s3" class="card" hidden>
-    <p class="lede">Got it — that's the address down.</p>
-    <!-- ⛔ THIS PROMISED CONTACT SHE MAY HAVE JUST DECLINED. It read "Paul will send you the first
-         piece in a few days" — two screens after she may have chosen "Please don't contact me", on
-         the screen whose only job is making the wait feel safe. It also promised a CADENCE nothing
-         schedules (Paul sends by hand; "a few days" has been wrong before) and said "one more
-         question" over more than one. Says only what is true for every reader. -->
-    <button type="button" id="go3">Next ›</button>
-  </section>
+  <!-- A7 (lap 7): the #s3 "Got it" interstitial is DELETED — the gate card holds that moment now. -->
 
   <!-- ── SCREEN 4 · HER PLACE, on day one ─────────────────────────────────────────
          ⭐ paul-stated 2026-09-05: "when we give people a thank-you and say there's more
@@ -740,29 +777,8 @@
          constraint is the fear of getting things wrong; a correction that reads as her mistake is
          the expensive kind. It is an outlined neutral, it carries no ✓, and the copy after it
          apologises for nothing. -->
-    <div id="confirm" hidden>
-      <!-- ⛔ THIS ASKED ABOUT A MAP THAT IS NOT ON THE SCREEN. "Does the map find you?" assumes she
-           has seen a pin — and there is deliberately no embedded map here, because embedding one
-           would send her address to Google on page load and falsify the privacy sentence she read
-           one screen earlier. The privacy call is right; the copy simply never followed it.
-           ⛔ AND TWO SEATS CONFIRMED SOMETHING THEY HAD NEVER SEEN (2026-09-06). `strict` tapped
-           "Yes, that's it" on a technicality — the string matched what she typed — and `wide-eyed`
-           called it "a blind tap, not a verified confirmation". A confirmation nobody can actually
-           perform is worse than no confirmation, because the record then says she checked.
-           ⭐ So the question is now about the thing that IS on screen: her address, as she typed it.
-           The map stays available above as an optional way to check, and checking it is her choice
-           rather than an assumed step. Wording is content-steward's ratified no-blame form — the
-           fault sits with whoever supplied the value, never with the reader. -->
-      <p class="soft" style="margin-bottom:0">Does that look right?</p>
-      <button type="button" id="ok1"><span class="tick">✓</span>Yes, that's it</button>
-      <button type="button" id="ok2" class="btn-secondary">Not quite</button>
-    </div>
-    <div id="s4ask" hidden>
-      <p id="s4asktext" class="soft"></p>
-      <textarea id="s4note" rows="3" placeholder="Optional"></textarea>
-      <button type="button" id="sendNote"><span class="tick">✓</span>Send</button>
-    </div>
-    <p id="s4thanks" class="soft" hidden></p>
+    <!-- A7/A11 (lap 7): #confirm moved to the gate card in #s2; #s4ask / #sendNote no longer render — the
+         affirmative never opens a note box, and "Not quite" returns the gate card to its fields. -->
 
     <!-- ⭐ THE INTERESTS ASK, IN THE INITIAL ONBOARDING `[paul-stated 2026-09-05]`: "we should also
          close out on a list of the modules or areas of interest that we asked them to rank — that's
@@ -861,7 +877,7 @@
          first one's estate and can read and write her records with or without it. This just makes
          the shared estate visible, which is a reason to fix the tenancy, not to hide the door. -->
     <div id="handoff" hidden style="margin-top:20px">
-      <a id="gohome" class="bigbtn" href="/estate/">Open my home</a>
+      <a id="gohome" class="bigbtn outline" href="/estate/">Open my home</a>
       <!-- instrumented below: crossing this is the difference between a finished setup and a
            finished setup nobody walked out of -->
       <!-- ⭐ THE OFFER, NOT A RECEIPT `[paul-stated 2026-09-05]`: the foundation finishes, the
@@ -889,6 +905,7 @@
       <p id="fbthanks" class="quiet" hidden></p>
     </div>
   </div>
+  <button type="button" class="fbbubble" id="fbcircle" aria-label="Something not right? Tell me." hidden>💬</button>
 </main>
 
 <script>
@@ -1103,9 +1120,10 @@
       desc: "Missing something? Say what.", builds: [] }
   ];
   var el = {};
-  ["s-wait", "s-nolink", "s1", "s2", "s3", "s4", "go1", "go2", "go3", "trouble", "head", "s4addr",
+  ["s-wait", "s-nolink", "s-door", "sd-setup", "sd-signin", "s1", "s2", "s4", "go1", "go2", "trouble", "head", "s4addr",
+   "s2fields", "s2read", "s2readline", "s2unitline", "s2unit", "s2unitwrap", "a2b", "s2maps", "maplink2", "s2note", "s1receipt", "fbcircle",
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
-   "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
+   "s4seam", "s4placeholder", "ok1", "ok2",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
    "unamestate", "uwordstate", "uword2state", "s0invite", "handoff", "gohome", "fb", "fbopen", "fbbox", "fbnote", "fbsend", "fbthanks", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
    "s5", "s5seam", "interests", "go5", "s5thanks", "otherbox", "othernote", "renameLink", "renameBox", "rename2", "renameGo"]
@@ -1113,9 +1131,17 @@
 
   var currentScreen = null;
   function show(which) {
-    ["s-wait", "s-nolink", "s0", "s1", "s2", "s3", "s4"].forEach(function (id) {
+    ["s-wait", "s-nolink", "s-door", "s0", "s1", "s2", "s4"].forEach(function (id) {
       el[id].hidden = (id !== which);
     });
+    // A4 (closure 4/6) — ONE DOOR PER SCREEN: once an account exists (s1 · s2 · s4) the corner circle is
+    // the door and the inline link hides; before it (s-door · s0 · s-nolink) the inline link stays and
+    // the circle does not render.
+    try {
+      var onAccount = (which === "s1" || which === "s2" || which === "s4");
+      el.fbcircle.hidden = !onAccount;
+      if (el.fbbox.hidden) el.fbopen.hidden = onAccount;
+    } catch (e) {}
     if (currentScreen && currentScreen !== which) ev("screen", "left:" + currentScreen);
     currentScreen = which;
     screenAt = Date.now();
@@ -1263,7 +1289,11 @@
           // being true when the receipts moved into the app (#card-told) and the shelf began opening
           // the place directly. `[paul-ruled 2026-09-08]`: "that early days page fits fine in the
           // onboarding process, but ONLY in the onboarding process."
-          location.href = "/viewer.html";
+          // ⭐ A3 (lap 7, closure 3) — BRANCH ON THE HOME COUNT the session response carries (B1 made it the
+          // person's own): 0 → the shelf (the one founding control) · 1 → the place · 2+ → the shelf. An older
+          // Worker that sends no `estates` degrades to today's landing rather than reading absence as zero.
+          var n = Array.isArray(d.estates) ? d.estates.length : null;
+          location.href = (n === 1 || n === null) ? "/viewer.html" : "/homes/";
         })
         ["catch"](function () {
           btn.disabled = false; btn.innerHTML = '<span class="tick">\u2713</span>Sign in';
@@ -1405,6 +1435,13 @@
   function wireHandoff() {
     if (!el.gohome) return;
     el.gohome.addEventListener("click", function (e) {
+      // A13 (closure 15) — unsaved picks are saved first; a failed save keeps her here with the shipped
+      // "didn't go through" line and the route does not happen.
+      if (rankDirty) {
+        e.preventDefault();
+        saveRanking(function (ok) { if (ok) { var h = el.gohome.getAttribute("href") || "/estate/"; location.href = h; } });
+        return;
+      }
       // ⛔ HOLD THE NAVIGATION FOR A BEAT. Neither a beacon nor a keepalive fetch reliably wins the
       // race against a link's own navigation — measured in QA across three attempts, `handoff` landed
       // zero times while every other event landed. So the link stops being a link for ~120ms: send,
@@ -1500,8 +1537,6 @@
       el.maplink.hidden = !hasQuery;
       el.mapnote.hidden = !hasQuery;
       if (hasQuery) el.maplink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q);
-      // the ask only appears once there is something to confirm
-      el.confirm.hidden = !a;
       // she named it, so stop explaining a placeholder that is no longer on screen
       if (read(K_NAME)) el.s4placeholder.hidden = true;
       el.s4seam.hidden = !a;
@@ -1742,6 +1777,11 @@
     el.fbopen.hidden = opening;                    // the invitation gets out of the way once accepted
     if (opening) { ev("feedback_open"); el.fbnote.focus(); }
   });
+  // A4 — the corner circle is the same channel, the page's own box, never a link out
+  el.fbcircle.addEventListener("click", function () {
+    el.fbbox.hidden = false; el.fbopen.hidden = true;
+    ev("feedback_open"); try { el.fbbox.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (e) {} el.fbnote.focus();
+  });
 
   el.fbsend.addEventListener("click", function () {
     var note = (el.fbnote.value || "").trim();
@@ -1875,6 +1915,7 @@
         // surfaced again" — after a review seat had already predicted the field would go missing.
         // The list is right; the position was wrong.
         store(K_PREF, pref);
+        try { el.s1receipt.hidden = false; } catch (e) {}   // A6 — the account-exists receipt, this page-life only
         step(1);
       })
       ["catch"](function () {
@@ -1886,6 +1927,7 @@
 
   // ---- INTERESTS, RANKED BY TAP ORDER ----
   var ranked = [];
+  var rankDirty = false;
   function paintInterests() {
     [].forEach.call(el.interests.children, function (n) {
       var i = ranked.indexOf(n.getAttribute("data-id"));
@@ -1903,6 +1945,7 @@
     b.addEventListener("click", function () {
       var i = ranked.indexOf(it.id);
       if (i >= 0) { ranked.splice(i, 1); } else { ranked.push(it.id); }
+      rankDirty = true;                                   // A13 — unsaved picks are saved by Open, never lost
       // ⭐ the ITEM and the running count. Whether anyone ever discovers the second tap is a live
       // question — wide-eyed found it by accident — and this is the only thing that can answer it.
       ev("rank", (i >= 0 ? "remove:" : "add:") + it.id + "@" + (INTERESTS.indexOf(it) + 1), ranked.length);
@@ -1936,7 +1979,10 @@
     el.renameLink.textContent = "Call it something else ›";
   });
 
-  el.go5.addEventListener("click", function () {
+  // ⭐ A12/A13 (lap 7, closure 13/14/15) — ONE routine, two callers: #go5 saves and stays; #gohome with
+  // unsaved picks saves FIRST and then routes (no dialog, no warning, no loss). After a save #go5 relabels
+  // to "Update these" and loses its fill and ✓; #gohome becomes the filled route. Zero picks is still a save.
+  function saveRanking(after) {
     // Nothing chosen is a legitimate answer and is recorded as one — an empty ranking and an unasked
     // question are different observations, and only the first says she looked.
     el.go5.disabled = true; el.go5.innerHTML = "Saving…";
@@ -1978,7 +2024,12 @@
         // Re-tapping re-sends; the fingerprint carries the answer, so a changed order lands as a new
         // record and an unchanged one dedups.
         el.go5.disabled = false;
-        el.go5.innerHTML = '<span class="tick">\u2713</span>Update these';
+        el.go5.className = "btn-secondary"; el.go5.innerHTML = "Update these";   // A12 — the commit is spent; the route is the one filled control
+        el.gohome.classList.remove("outline");
+        rankDirty = false;
+        if (after) { after(true); return; }
+        // A14 — an EDIT from the receipt returns to the receipt with the row rewritten
+        if (EDIT_RETURN) { location.href = "/viewer.html#told"; return; }
         // ⛔ TWO PRESSES FOR WHAT FELT LIKE ONE DECISION. The `mom` seat: "'Save these' and then,
         // immediately after, 'Open the condo' — two separate presses for what feels like one
         // decision. Neither one on its own got me to the home screen, and I didn't know that going
@@ -1996,8 +2047,10 @@
         // Same rule as the address: a failed REQUEST is not an observed failed WRITE.
         el.s5thanks.textContent = "That didn't go through — your picks are still here, tap once more.";
         el.s5thanks.hidden = false;
+        if (after) after(false);
       });
-  });
+  }
+  el.go5.addEventListener("click", function () { saveRanking(null); });
 
   el.go1.addEventListener("click", function () {
     var nm = el.pname.value.trim();
@@ -2095,51 +2148,32 @@
   // Copy settled by content-steward 2026-09-05 (../fernwood-private/.content-reviews/
   // 2026-09-05-onboarding-copy.md). ⛔ The QUESTION carries the no-blame rule, not the button:
   // "Does that look right? → Not quite" leaves the fault with whoever supplied the value.
-  function ask(kind) {
-    el.confirm.hidden = true;
-    el.s4ask.hidden = false;
-    el.s4asktext.textContent = kind === "ok"
-      // ⛔ JUST ASK `[paul-stated 2026-09-05, walking it]`. This read "Anything read oddly on the way
-      // through? That's the useful bit — or leave it blank." — three clauses to ask one question,
-      // "read oddly" is our internal reviewing vocabulary rather than hers, and "that's the useful
-      // bit" tells her which of her own answers we value before she has given any.
-      ? "Anything else to add?"
-      : "What should it say?";
-    el.s4note.setAttribute("data-kind", kind);
-    el.s4note.focus();
+  // ── A7 · THE GATE CARD's two answers ──────────────────────────────────────────────────────
+  // ok1 = the affirmative: NOW the write happens (founding or the profile save), a receipt line prints in
+  // place, then the flow advances. ok2 = "Not quite": the same card back to its fields, every value intact,
+  // focus on #a1, one quiet line — outlined, no ✓, no note box; nothing was written, nothing to undo.
+  var pendingParts = null, pendingText = "";
+  function gateState(two) {
+    el.s2fields.hidden = two; el.go2.hidden = two; el.s2read.hidden = !two;
+    if (!two) { el.s2unitwrap.hidden = true; }
   }
-  el.ok1.addEventListener("click", function () {
-    postAnswer("onboard-addr-confirm", "confirmed: " + (read(K_ADDR) || ""),
-               { type: "onboarding", field: "address-confirm", step: 4, agrees: true })["catch"](function () {});
-    ask("ok");
+  el.s2unit.addEventListener("click", function (e) {
+    e.preventDefault(); el.s2unitline.hidden = true; el.s2unitwrap.hidden = false; try { el.a2b.focus(); } catch (err) {}
   });
   el.ok2.addEventListener("click", function () {
-    postAnswer("onboard-addr-dispute", "not right: " + (read(K_ADDR) || ""),
-               { type: "onboarding", field: "address-confirm", step: 4, agrees: false })["catch"](function () {});
-    ask("no");
+    postAnswer("onboard-addr-dispute", "not right: " + pendingText,
+               { type: "onboarding", field: "address-confirm", step: 2, agrees: false })["catch"](function () {});
+    gateState(false); el.s2note.hidden = false; try { el.a1.focus(); } catch (e) {}
   });
-  el.sendNote.addEventListener("click", function () {
-    var note = el.s4note.value.trim();
-    // ⛔ AN EMPTY SEND IS NOT A DELIVERY. This printed "that comes straight to me" over a box that
-    // sent nothing — a receipt for something that never happened, on the screen where the flow spends
-    // its credibility. The close is true of the null case or it is not this slot.
-    if (!note) { el.s4ask.hidden = true; el.s4thanks.textContent = "You're done."; el.s4thanks.hidden = false; return; }
-    var kind = el.s4note.getAttribute("data-kind") === "no" ? "address-correction" : "onboarding-note";
-    el.sendNote.disabled = true; el.sendNote.innerHTML = "Sending…";
-    postAnswer("onboard-" + kind, note, { type: "onboarding", field: kind, step: 4 })
-      .then(function () {
-        el.s4ask.hidden = true;
-        el.s4thanks.textContent = "Got it — that's with Paul.";
-        el.s4thanks.hidden = false;
-      })
-      ["catch"](function () {
-        el.sendNote.disabled = false;
-        el.sendNote.innerHTML = '<span class="tick">\u2713</span>Send';
-        el.s4asktext.textContent = "That didn't send. Your words are still here — tap Send once more.";
-      });
+  el.ok1.addEventListener("click", function () {
+    if (!pendingParts) return;
+    var unit = (el.a2b.value || "").trim();
+    if (unit && !pendingParts.line2) { pendingParts.line2 = unit; el.a2.value = unit; pendingText = composed(pendingParts); }
+    postAnswer("onboard-addr-confirm", "confirmed: " + pendingText,
+               { type: "onboarding", field: "address-confirm", step: 2, agrees: true })["catch"](function () {});
+    el.ok1.disabled = true; el.ok1.innerHTML = "Saving…"; el.ok2.disabled = true;
+    commitAddress(pendingParts, pendingText);
   });
-
-  el.go3.addEventListener("click", function () { step(4); });
 
   el.go2.addEventListener("click", function () {
     var p = parts();
@@ -2167,7 +2201,32 @@
     }
 
     var text = composed(p);
-    el.trouble.hidden = true;
+    el.trouble.hidden = true; el.s2note.hidden = true;
+    // ⛔ A8 (lap 7, closure 10 / D1a) — THE PO-BOX REFUSAL IS BLOCKING, AT SUBMIT: state 2 does not render,
+    // focus returns to #a1, nothing is written. The shipped regex, NOT widened to bare "Box 12" (a rural
+    // route). The Worker is the authority and refuses the same predicate (B4) — one sentence whichever
+    // refused. No "continue anyway": a box-only household's next move is the feedback circle. DRAFT slot.
+    if (BOX_ADDRESS_RE.test(text)) {
+      el.trouble.hidden = false; el.trouble.innerHTML = BOX_SENTENCE;
+      el.a1.classList.add("bad"); try { el.trouble.scrollIntoView({ block: "center", behavior: "smooth" }); } catch (e) {}
+      el.a1.focus(); ev("validation", "box", 1); return;
+    }
+    // ⭐ A7 — STATE 2: the read-back, in place. Nothing is written until #ok1.
+    pendingParts = p; pendingText = text;
+    el.s2readline.textContent = text;
+    el.s2unitline.hidden = !!p.line2; el.s2unitwrap.hidden = true; el.a2b.value = "";
+    var q2 = [p.line1, p.line2, p.city, (p.state + " " + p.zip).trim()].filter(Boolean).join(", ");
+    el.maplink2.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(q2);
+    el.s2maps.hidden = false;
+    el.ok1.disabled = false; el.ok1.innerHTML = '<span class="tick">\u2713</span>Yes, that\'s it'; el.ok2.disabled = false;
+    gateState(true);
+    ev("reveal", "read-back");
+  });
+
+  var BOX_ADDRESS_RE = /\b(p\.?\s?o\.?\s*box|post\s*office\s*box|postal\s*box)\b/i;
+  var BOX_SENTENCE = "<strong>A box number is where your post goes, not where your place is</strong> \u2014 so there\u2019s no weather, and nothing about what grows there, to work out. Add where the place itself is.";
+
+  function commitAddress(p, text) {
     el.go2.disabled = true;
     el.go2.innerHTML = "Saving…";
 
@@ -2185,8 +2244,11 @@
     // AFTER the answer lands, so the profile write used to send `addressParts: undefined` on the
     // first pass and the unit number a blob parse drops was never on the record. Same fix, both paths.
     var founding = Array.isArray(SERVER_ESTATES) && SERVER_ESTATES.length === 0;
-    function refuse() {
+    function refuse(box) {
+      gateState(false);
+      el.ok1.disabled = false; el.ok1.innerHTML = '<span class="tick">\u2713</span>Yes, that\'s it'; el.ok2.disabled = false;
       el.trouble.hidden = false;
+      if (box) { el.trouble.innerHTML = BOX_SENTENCE; el.a1.classList.add("bad"); el.go2.disabled = false; el.go2.innerHTML = '<span class="tick">✓</span>That\'s it'; try { el.a1.focus(); } catch (e) {} return; }
       // ⛔ NEVER "That didn't save." — the request can fail AFTER the write lands, and on 2026-09-05
       // a walker was told her address was lost while it sat on file. The client observes a failed
       // REQUEST, never a failed WRITE. Say only what is true from here.
@@ -2202,9 +2264,17 @@
         .then(function () {
           store(K_ADDR, text);
           store(K_PARTS, JSON.stringify(p));
-          step(3);
+          // A11 — the RECEIPT, in place, then advance. A15 — on an EDIT the line names what moved with it
+          // (weather and sky) and the flow returns to the receipt. DRAFT slots.
+          el.s2readline.textContent = "\u2713 " + (EDIT_ADDRESS ? "Got it \u2014 your weather and sky move with it." : "Got it \u2014 that\u2019s the address down.");
+          el.ok1.hidden = true; el.ok2.hidden = true; el.s2unitline.hidden = true; el.s2maps.hidden = true;
+          setTimeout(function () {
+            el.ok1.hidden = false; el.ok2.hidden = false;
+            if (EDIT_ADDRESS && EDIT_RETURN) { location.href = "/viewer.html#told"; return; }
+            gateState(false); step(4);
+          }, 900);
         })
-        .catch(refuse);
+        .catch(function () { refuse(false); });
     }
     if (!founding) {
       saveProfile({ address: text, addressParts: p });
@@ -2241,10 +2311,10 @@
         }
         // a REFUSAL wrote nothing, so "nothing is lost" is exactly true here
         ev("found", "refused:" + ((res.b && res.b.error) || res.status));
-        refuse();
+        refuse(res.status === 422 && res.b && res.b.error === "po-box-not-accepted");
       })
-      ["catch"](function () { ev("found", "unreachable"); refuse(); });
-  });
+      ["catch"](function () { ev("found", "unreachable"); refuse(false); });
+  }
 
   // ---- ROUTING RUNS LAST, AND THAT ORDER IS LOAD-BEARING ----
   // ⛔ This block RETURNS. When it sat above the listener wiring, every `return` skipped the rest of
@@ -2286,8 +2356,7 @@
     // is being used. `door_reached` with reason "chose-sign-in" distinguishes someone who CHOSE the
     // door from someone a broken link dumped there, and the two readings want different fixes.
     try {
-      var _si = document.getElementById("s0-signin");
-      if (_si) _si.addEventListener("click", function (e) {
+      var chooseSignIn = function (e) {
         e.preventDefault();
         try {
           var L = document.getElementById("si-lede"), S = document.getElementById("si-sub");
@@ -2304,7 +2373,11 @@
         } catch (err) {}
         show("s-nolink");
         try { document.getElementById("si-user").focus(); } catch (err) {}
-      });
+      };
+      var _si = document.getElementById("s0-signin");
+      if (_si) _si.addEventListener("click", chooseSignIn);
+      if (el["sd-signin"]) el["sd-signin"].addEventListener("click", chooseSignIn);   // A2
+      if (el["sd-setup"]) el["sd-setup"].addEventListener("click", function () { show("s0"); try { el.uname.focus(); } catch (err) {} });
       // ⛔ AND A WAY BACK. Someone who taps "Sign in instead" and finds they never had an account
       // had only the browser's back button — a dead end one tap deep, which is the same shape as
       // the dead end this whole step exists to remove.
@@ -2314,7 +2387,9 @@
         try { el.uname.focus(); } catch (err) {}
       });
     } catch (e) {}
-    show("s0"); el.uname.focus();
+    // A2 — an INVITED reader still routes through account creation (the invite says why); a cold visitor meets
+    // the door: one sentence, two named ways in.
+    if (grant) { show("s0"); el.uname.focus(); } else { show("s-door"); }
   }
 
   // ⛔ NO CREDENTIAL AT ALL is the only case this page may decide by itself. Everything else waits
@@ -2324,6 +2399,16 @@
   // its own lede. It must NOT inherit "This link isn't working." — that sentence is a lie on this
   // route and alarming on the screen where a person has just chosen to leave. A correct action must
   // not render as a fault. ⚠️ DRAFT slots, content-steward's.
+  // ⭐ A14/A15 (lap 7, closure 16/17/18) — EDIT FROM THE RECEIPT. "Where it is" step-returns to THIS address
+  // screen (the same gate card, the same refusal, the write through the same route); "What I'll build first"
+  // step-returns to the ranking. Both end back on the receipt (#told) with the row rewritten. ⚠️ The
+  // closure asked for the ranking editor INLINE on the receipt; that needs the INTERESTS roster in a second
+  // file — the divergence the interests-vocabulary HOLD (TIER 1 · 36) exists to prevent — so the step-return
+  // keeps the invariant (row 17) at the level of outcome. Named to coordination.
+  var EDIT_ADDRESS = url.searchParams.get("edit") === "address";
+  var EDIT_INTERESTS = url.searchParams.get("edit") === "interests";
+  var EDIT_RETURN = url.searchParams.get("return") === "told";
+
   if (!grant && url.searchParams.get("from") === "signout") {
     try {
       var _sL = document.getElementById("si-lede"), _sS = document.getElementById("si-sub");
@@ -2394,6 +2479,15 @@
       // ⭐ SO THE OLD BUG WAS NOT "no redirect" — it was a redirect to the wrong door, and almost
       // nobody reached it, because the device-local gate above sent them to signup first. Fixing
       // recognition is what made this reachable, and reachable is what made it measurable.
+      if (EDIT_ADDRESS || EDIT_INTERESTS) {
+        try {
+          var pp = JSON.parse(read(K_PARTS) || "null");
+          if (pp) { el.a1.value = pp.line1 || ""; el.a2.value = pp.line2 || ""; el.city.value = pp.city || ""; el.state.value = pp.state || ""; el.zip.value = pp.zip || ""; }
+          if (EDIT_INTERESTS) { var rk = JSON.parse(read(K_RANK) || "[]"); ranked = rk.map(function (x) { return x && x.id ? x.id : x; }).filter(Boolean); paintInterests(); }
+        } catch (e) {}
+        if (EDIT_ADDRESS) { step(2); return; }
+        step(4); try { el.s5.scrollIntoView({ block: "start", behavior: "smooth" }); } catch (e) {} return;
+      }
       if (who && who.name && who.address) { location.href = "/estate/"; return; }
       var at = read(K_STEP);
       // Only an unfinished setup resumes — and only then does the local hint get a say.

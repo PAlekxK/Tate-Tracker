@@ -320,6 +320,10 @@ JOURNEY_IDS = {
     "J3": "returning-finished — an account AND a completed household; expects to be carried to the place",
     "J4": "dead-credential — a credential the record refuses",
     "J5": "bare-door — no credential at all",
+    # ⭐ J8 — THE ACCOUNT LIFECYCLE (lap 7, TIER 2 · 18's own falsifier): sign out of this phone · return on
+    # a clean device · recover both · sign back in · reach the place. ⚠️ Not J7 — that id is spoken for in
+    # prose as `second-member`.
+    "J8": "account-lifecycle — one account, one PLACED home, signed in: sign out · cold door · refuse · recover · sign in · the receipt",
 }
 
 
@@ -487,7 +491,7 @@ def view(url, actions, shot, watch=False, shot_dir=None):
 # screen either — but it means a late stop's absence is no longer independent evidence that the
 # late stop is broken. walk-integrity refuses a run with incomplete stops for exactly this reason.
 STOP_NAMES = ["01-arrive", "02-account", "02b-naming", "03-named", "04-address",
-              "05-submitted", "06-confirm", "06b-ranked", "07-handoff",
+              "05-read-back", "06-confirm", "06b-ranked", "07-handoff",
               # ⭐ THE JOURNEY DID NOT END AT THE HANDOFF ANY MORE. Four surfaces shipped on
               # 2026-09-06 — the shelf, both settings pages, and the utility row that reaches them
               # — and a walk that stops at 07 cannot see any of them. The same gap that let the
@@ -642,8 +646,11 @@ def journey_resuming(answers, origin=""):
             "type:#pname=" + a["place"], "click:#go1", "shot:U03-named",
             "type:#a1=" + a["line1"], "type:#city=" + a["city"],
             "type:#state=" + a["state"], "type:#zip=" + a["zip"], "shot:U04-address",
-            "click:#go2", "shot:U05-submitted",
-            "click:#go3", "shot:U06-confirm"] + \
+            # H1 (lap 7) — THE GATE CARD: #go2 renders the read-back IN PLACE (nothing written), #ok1 is the
+            # affirmative that writes. The read-back shot is the successor of the owed "s3 photo stop" — the
+            # screen that now occupies that moment; #s3 no longer exists (A7).
+            "click:#go2", "shot:U05-read-back",
+            "click:#ok1", "shot:U06-confirm"] + \
            ["click:button.interest[data-id=\"%s\"]" % r for r in (a.get("interests") or [])] + \
            ["shot:U07-ranked", "click:#go5",
             # ⛔ THROUGH THE DOOR, NEVER `goto:` — the rule this file already runs on. `#gohome`
@@ -651,6 +658,76 @@ def journey_resuming(answers, origin=""):
             # name), so `#openapp` is reachable from there without routing around anything.
             "click:#gohome", "shot:U08-handoff",
             "click:#openapp", "shot:U09-the-place"]
+
+
+def journey_lifecycle(answers, origin=""):
+    """⭐⭐ J8 — THE ACCOUNT LIFECYCLE, the 15 taps of `.ux-reviews/2026-09-10-lap7-design-closure.md`
+    (stops L01…L15), TIER 2 · 18's own falsifier walked rather than asserted.
+
+    ⛔ L13 IS A HUMAN STEP — the administrator resets — and is OUT OF THE HARNESS BY D1's OWN DESIGN. It is
+    recorded as a shot named for what it is, never scored walked: a walk that scored it passed would be
+    asserting a human did something (the check-arrival-dispositions rule applied to a walk).
+
+    ⭐ THE ASSERTIONS ARE ACTIONS. `eval:` and `expect:` (journey-view.py, lap 7) fail the action when the
+    claim is false, so a broken promise reads as a failed action in the transcript and release-gate's
+    `no-failed-actions` clause refuses it — never a checkpoint somebody has to read to notice.
+    ⚠️ L12's TIMING half is UNCHECKED here by ruling (a browser round trip cannot measure it); the
+    byte-identity half IS checked. L10's `signin_failed` record is read by watch-door at the store, not here.
+    """
+    a = answers
+    base = re.sub(r"/onboarding/?$", "", origin.rstrip("/"))
+    worker = 'location.hostname.split(".")[0]'
+    W = '("https://" + %s + ".paul-kirschenbauer.workers.dev")' % worker
+    u, w = a.get("username", ""), a.get("password", "")
+    return [
+        # the durable credential arrives at the door; a finished record is carried to /estate/ (J3's R03)
+        "shot:L00-arrive",
+        # L01 · from the place, the masthead's way back out
+        "click:#openapp", "shot:L01-the-place",
+        'click:.hh-utility a[href="/homes/"]', "shot:L01b-your-homes",
+        # L02 · the shelf's footlink → the account
+        'click:a[href="/settings/account/"]', "shot:L02-account",
+        # L03 · the contact value renders in ONE of three states, never absent
+        "expect:#contactvalue", "shot:L03-contact-shown-back",
+        # L04 · This phone — the sign-out button is not covered at rest by the corner circle
+        'eval:(function(){var b=document.getElementById("signout");b.scrollIntoView({block:"end"});var r=b.getBoundingClientRect();var c=document.querySelector(".fbbubble");if(!c)return true;var k=c.getBoundingClientRect();var overlap=!(r.right<k.left||r.left>k.right||r.bottom<k.top||r.top>k.bottom);return !overlap;})()',
+        'eval:(function(){try{sessionStorage.setItem("l7-old-grant",localStorage.getItem("fw-grant")||"");sessionStorage.setItem("l7-textsize",localStorage.getItem("fw-text-size")||"");}catch(e){}return true;})()',
+        "shot:L04-this-phone",
+        # L05/L06 · two taps, inline in the same card
+        "click:#signout", "expect:#signout-confirm", "shot:L05-confirm-inline",
+        "click:#signout-yes", "shot:L06-signed-out",
+        # L07 · identity keys gone, the text size kept, no "Signed in as", the SIGNED-OUT lede (not the broken-link one)
+        'eval:(function(){var gone=["fw-grant","fw-username","fw-onboard-step","fw-onboard-name","fw-onboard-addr","fw-onboard-parts","fw-onboard-owner","fw-onboard-interests","fw-onboard-contact","fw-onboard-coords","fw-accent","fw-profile-accent","fw-journal-name"].every(function(k){return localStorage.getItem(k)===null;});var kept=(localStorage.getItem("fw-text-size")||"")===(sessionStorage.getItem("l7-textsize")||"");var lede=(document.getElementById("si-lede")||{}).textContent||"";return gone&&kept&&!/isn\u2019t working|isn\'t working/.test(lede)&&/signed out/i.test(lede)&&!document.querySelector("#who:not([hidden])");})()',
+        "shot:L07-the-door-signed-out",
+        # L08 · the bare origin, cold: the DOOR, not the invitation-link empty
+        'eval:(function(){try{localStorage.clear();}catch(e){}return true;})()',
+        "goto:" + base + "/", "expect:#s-door", "shot:L08-cold-bare-origin",
+        # L09 · two named doors; the returning one
+        'eval:!!document.getElementById("sd-setup")&&!!document.getElementById("sd-signin")',
+        "click:#sd-signin", "expect:#s-nolink", "shot:L09-two-doors",
+        # L10 · a wrong word and an unknown name draw ONE constant string, byte-identical
+        "type:#si-user=" + u, "type:#si-word=not-the-word-" + "x", "click:#si-go", "expect:#si-trouble",
+        'eval:(function(){var t=document.getElementById("si-trouble").textContent;sessionStorage.setItem("l7-refusal",t);return t.length>0;})()',
+        "type:#si-user=zz-nobody-lap7", "type:#si-word=whatever", "click:#si-go", "expect:#si-trouble",
+        'eval:document.getElementById("si-trouble").textContent===sessionStorage.getItem("l7-refusal")',
+        "shot:L10-one-constant-refusal",
+        # L11 · Can't get in? reveals the block inline
+        "click:#si-cantgetin", "expect:#recover", "shot:L11-cant-get-in",
+        # L12 · known and unknown addresses answer byte-identically (timing UNCHECKED by ruling)
+        'eval:fetch(%s+"/api/recover",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:%s})}).then(function(r){return r.text();}).then(function(x){sessionStorage.setItem("l7-rc",x);return x.length>0;})' % (W, repr(a.get("email", "known@synthetic.invalid")).replace("'", '"')),
+        'eval:fetch(%s+"/api/recover",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:"nobody-lap7@example.invalid"})}).then(function(r){return r.text();}).then(function(x){return x===sessionStorage.getItem("l7-rc");})' % W,
+        "type:#rc-email=" + a.get("email", "known@synthetic.invalid"), "click:#rc-send", "expect:#rc-done", "shot:L12-the-receipt",
+        # L13 · the administrator resets — OUT OF THE HARNESS, recorded as such, never scored walked
+        "shot:L13-administrator-resets-OUT-OF-HARNESS",
+        # L14 · the good credential lands by home count (1 → the place); the prior token now 404s (B2)
+        "type:#si-user=" + u, "type:#si-word=" + w, "click:#si-go", "shot:L14-signing-in",
+        "expect:.hh-utility", "shot:L14-landed-in-the-place",
+        'eval:fetch(%s+"/api/grant/whoami",{headers:{"X-Grant":sessionStorage.getItem("l7-old-grant")||"none"}}).then(function(r){return r.status===404;})' % W,
+        # L15 · the receipt card holds the three rows and each row's Edit
+        'click:.hh-utility a[data-open-told]', "expect:#card-told .told-row",
+        'eval:(function(){var rows=document.querySelectorAll("#card-told .told-row");if(!rows.length)return false;return Array.prototype.every.call(rows,function(r){return !!r.querySelector(".told-edit a");});})()',
+        "shot:L15-the-receipt-with-edit",
+    ]
 
 
 def journey_bare_door(answers, origin=""):
@@ -755,8 +832,10 @@ def journey_founding(answers, origin=""):
         # button reads "Saving…" for longer than the 700 ms action gap, and a shot fired then is the
         # honest record of what a person waits at (the J5 B03 lesson). `#go3` lives on s3, so the
         # click WAITS for founding to land before F09 records the confirm screen.
-        "click:#go2", "shot:F08-founding",
-        "click:#go3", "shot:F09-founded-confirm",
+        # H1 (lap 7) — the gate card: F08 is the READ-BACK (nothing written yet), #ok1 founds; F09 records
+        # the in-place receipt / the arrival at s4. The owed "s3 photo stop" retires by name here.
+        "click:#go2", "shot:F08-read-back",
+        "click:#ok1", "shot:F09-founded-confirm",
     ]
     acts += ["click:button.interest[data-id=\"%s\"]" % r for r in (a.get("interests") or [])]
     acts += ["shot:F10-ranked", "click:#go5", "click:#gohome", "shot:F11-the-place",
@@ -806,6 +885,12 @@ JOURNEYS = {
            "actions": journey_returning},
     "J5": {"name": "bare-door", "enters": "J5", "arrival": "no-credential",
            "actions": journey_bare_door},
+    # ⭐ J8 (lap 7 H2) — enters J3 because its preconditions are one account, one PLACED home, signed in;
+    # arrival is the seat's own durable credential, which `refresh()` re-mints before every run — so the
+    # durable thing is the username and the word, never the token (the walk revokes the token at L06 and
+    # the credential rotates again at L14). It does NOT consume its entry state.
+    "J8": {"name": "account-lifecycle", "enters": "J3", "arrival": "durable-credential",
+           "actions": journey_lifecycle},
 }
 
 
@@ -923,8 +1008,8 @@ def journey(fresh, answers, origin=""):
     acts += ["type:#pname=" + a["place"], "click:#go1", "shot:03-named",
              "type:#a1=" + a["line1"], "type:#city=" + a["city"],
              "type:#state=" + a["state"], "type:#zip=" + a["zip"], "shot:04-address",
-             "click:#go2", "shot:05-submitted",
-             "click:#go3", "shot:06-confirm"]
+             "click:#go2", "shot:05-read-back",          # H1 (lap 7): the gate card's read-back
+             "click:#ok1", "shot:06-confirm"]
     acts += ranks
     acts += ["shot:06b-ranked", "click:#go5", "click:#gohome", "shot:07-handoff"]
     # ── the five acts past the handoff ──────────────────────────────────────────────────────────
