@@ -1,0 +1,14 @@
+{
+ "_what": "Per-lens READ TIER. MODEL-POLICY §3(B): the churning lens roster declares its tier in a data file, not in a global agent file, because Q3 ruled a lens is a reading posture only and the roster is explicitly unsettled.",
+ "_ruling": "The read tier is DECLARED Opus 5 [paul-ruled 2026-09-11, PLAN §13 P7] — half the price of the inherited Fable 5.1, and the tier every agent file in the stack already names. Before this file, Fernwood's release-evidence tier was set by ~/.claude/settings.json: outside the repo, changed for unrelated reasons, and read by no Fernwood check.",
+ "_this_file_declares_TIER_only": "⛔ It does NOT declare the ROSTER. Which lenses should exist is Paul's (P1 names mom · wide-eyed · conformance · successor) and is open — seat-portfolio.py flags `handover` as a journey wearing a lens's clothes, and `map-points` and `other` as uncovered. The names below are DERIVED from lenses present in the walk record, so this file never asserts that a lens SHOULD exist, only what tier it is read at if it does.",
+ "_limit": "⚠️ A DETECTOR, NOT A PREVENTER. Nothing can force a driving session to spawn a lens at the declared tier — a spawn takes its model from an agent file or inherits the session's. The gate refuses to COUNT a read whose recorded tier is absent or mismatched. That is weaker than a hook and stronger than a sentence in a document, and an overstated boundary is worse than an unstated one.",
+ "declaredTier": "opus",
+ "lenses": {
+  "mom": {"tier": "opus"},
+  "wide-eyed": {"tier": "opus"},
+  "strict": {"tier": "opus"},
+  "owner": {"tier": "opus"},
+  "handover": {"tier": "opus"}
+ }
+}

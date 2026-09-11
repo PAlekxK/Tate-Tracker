@@ -495,6 +495,76 @@ def cell_last_walked(sha_any=True):
     return out
 
 
+# ═══ T3b · THE LENS'S READ TIER — DECLARED, RECORDED, AND CHECKED ═════════════════════════════════
+#
+# MODEL-POLICY §3(B). Before this, Fernwood's release-evidence tier was set by `~/.claude/settings.json`
+# — outside the repo, changed for unrelated reasons, read by no Fernwood check. The tier is now
+# DECLARED in `cycle/release/lenses.json` [paul-ruled, P7: Opus 5] and the gate refuses to COUNT a
+# read whose recorded tier is absent or does not match.
+#
+# ⚠️⚠️ A DETECTOR, NOT A PREVENTER — in those words, because the policy requires them and because an
+# OVERSTATED BOUNDARY IS WORSE THAN AN UNSTATED ONE. Nothing here can force a driving session to
+# spawn a lens at the declared tier; a spawn takes its model from an agent file or inherits the
+# session's. This refuses to COUNT a mismatched read. Weaker than a hook, stronger than a sentence
+# in a document.
+#
+# ⛔ AND IT IS SELF-ARMING RATHER THAN RED-ON-DAY-ONE, which is the T1 lesson applied: NOTHING WRITES
+# A TIER INTO A RUN YET. If the clause refused every read with no recorded tier, all 283 historical
+# runs would go uncountable at once and the gate would red everywhere — "a red that is an artefact of
+# a migration reads exactly like a red that is a finding." So the arming condition is DERIVED FROM
+# THE CORPUS, never from a flag someone must remember to flip: if NO run at this sha records a tier,
+# the writer does not exist and every read reads ⬜ UNCHECKABLE with the reason named. The moment ANY
+# run records one, the writer exists — and a run that omits it is then a real gap and REFUSES.
+LENSES_FILE = os.path.join(ROOT, "cycle", "release", "lenses.json")
+
+
+def declared_tiers(path=None):
+    """→ ({lens: tier}, problem). ⛔ Never invents a roster — an absent file means UNCHECKABLE."""
+    p = path or LENSES_FILE
+    if not os.path.exists(p):
+        return {}, "no tier declaration filed — expected %s" % os.path.relpath(p, ROOT)
+    try:
+        d = json.load(open(p, encoding="utf-8"))
+    except Exception as e:
+        return {}, "%s is unreadable: %s" % (os.path.basename(p), e)
+    lenses = d.get("lenses")
+    if not isinstance(lenses, dict) or not lenses:
+        return {}, "%s declares no lenses" % os.path.basename(p)
+    return {k: (v or {}).get("tier") for k, v in lenses.items()}, None
+
+
+def recorded_tier(run_dir):
+    """→ the tier this run says it was READ at, or None. Read from the run's own record, so nothing
+    but that record can supply it — `check-arrival-dispositions.py`'s rule, applied to a tier."""
+    for name in ("read.json", "capture.json", "transcript.json"):
+        fp = os.path.join(run_dir, name)
+        if not os.path.exists(fp):
+            continue
+        try:
+            d = json.load(open(fp, encoding="utf-8"))
+        except Exception:
+            continue
+        for key in ("readTier", "read_tier", "tier"):
+            v = d.get(key) if isinstance(d, dict) else None
+            if isinstance(v, str) and v:
+                return v
+        r = d.get("read") if isinstance(d, dict) else None
+        if isinstance(r, dict) and isinstance(r.get("tier"), str) and r["tier"]:
+            return r["tier"]
+    return None
+
+
+def tier_writer_exists(sha):
+    """⭐ DERIVED ARMING. True once ANY run at this sha records a tier — i.e. once something in the
+    stack actually writes one. Never a flag; a flag is a thing someone must remember to flip."""
+    for seat in seats():
+        for run in runs_for(seat):
+            d = os.path.join(WALKS, seat, run)
+            if judge(d, sha).get("at-sha", (False,))[0] and recorded_tier(d):
+                return True
+    return False
+
+
 def report(sha, seats_only=False):
     print("release gate ① — build %s\n" % (sha[:7] if sha else "UNKNOWN"))
     if not sha:
@@ -542,6 +612,7 @@ def report(sha, seats_only=False):
         if best and all(best[2].get(k, (None,))[0] is True for k, _ in CLAUSES):
             passing_cells.append(u)
 
+    _tier_armed = tier_writer_exists(sha)
     for u, best, n_runs, problems, superseded in rows:
         label = "(%s, %s)" % u
         if not best:
@@ -583,6 +654,28 @@ def report(sha, seats_only=False):
             st, detail = v.get(key, (None, "not evaluated"))
             if st is not True:
                 print("        %s %s — %s" % ("🔴" if st is False else "⬜", label, detail))
+        # ── T3b · the READ TIER, checked against the declaration ──────────────────────────────
+        _tiers, _tprob = declared_tiers()
+        _rt = recorded_tier(os.path.join(WALKS, seat, run))
+        _want = _tiers.get(u[1]) if _tiers else None
+        if _tprob:
+            print("        ⬜ read tier — UNCHECKABLE: %s" % _tprob)
+        elif _rt and _want and _rt != _want:
+            print("        🔴 READ TIER MISMATCH — this read records %r, %s declares %r. NOT COUNTED."
+                  % (_rt, os.path.basename(LENSES_FILE), _want))
+        elif _rt and _want:
+            print("        ✅ read tier %r matches the declaration" % _rt)
+        elif _rt and not _want:
+            print("        🔴 READ TIER %r recorded for lens %r, which the declaration does not name "
+                  "— NOT COUNTED (a lens with no declared tier cannot be checked against one)."
+                  % (_rt, u[1]))
+        elif _tier_armed:
+            print("        🔴 NO READ TIER RECORDED — other runs at this build record one, so the "
+                  "writer exists and this run omitted it. NOT COUNTED.")
+        else:
+            print("        ⬜ read tier — UNCHECKABLE: nothing in the stack writes a tier into a run "
+                  "yet, so no run at this build records one. Declared %r; unverified."
+                  % (_want or "—"))
         tp = v.get("third-party-throttled")
         if tp:
             print("        %s" % tp[1])
@@ -732,6 +825,16 @@ def report(sha, seats_only=False):
     print("     ⚠️ OPEN, and it is a MEASUREMENT rather than a judgement: is J2 walkable AT HEAD? "
           "Its fixture is provisioned per run because the walk finishes the record it arrived on, so "
           "\"was walked\" and \"can be walked\" are different claims. Beat 8's to take, not this gate's.")
+    _tiers, _tprob = declared_tiers()
+    if _tprob:
+        print("  ⬜ read tier — UNCHECKABLE: %s" % _tprob)
+    else:
+        print("  📐 read tier — declared in %s for %d lens(es). ⚠️ A DETECTOR, NOT A PREVENTER: "
+              "nothing can force a session to spawn a lens at the declared tier; this gate refuses "
+              "to COUNT a read whose recorded tier is absent or mismatched.%s"
+              % (os.path.relpath(LENSES_FILE, ROOT), len(_tiers),
+                 "" if _tier_armed else " Nothing writes a tier into a run yet, so every read at "
+                 "this build is UNVERIFIED rather than verified."))
     # H4 (lap 7) — the two per-sha clauses, each read from its artifact convention
     cst, cdet = content_clause(sha, ss)
     ust, udet = ux_clause(sha)
@@ -769,7 +872,7 @@ def report(sha, seats_only=False):
 def selftest():
     # ⚠️ ONE declaration for the whole function — several clause blocks below swap these to point at
     # a temporary corpus, and Python allows only one `global` per name per function body.
-    global WALKS, CELLS_DIR
+    global WALKS, CELLS_DIR, LENSES_FILE
     print("release-gate --selftest — can every clause FAIL?\n")
     import tempfile
     ok = True
@@ -1037,6 +1140,56 @@ def selftest():
                   % ("✅" if bit else "🔴")); ok &= bit
         finally:
             WALKS, CELLS_DIR = _sw, _sc
+
+    # ═══ T3b · M13a-e — THE READ TIER. ⚠️ The plan labels these M12d, which T3 already used for
+    # "a list declaring zero cells is refused"; renaming a proven clause to match a label would be
+    # churn, so they are M13*. Flagged rather than silently renumbered.
+    with tempfile.TemporaryDirectory() as tmp:
+        lf = os.path.join(tmp, "lenses.json")
+        _sl = LENSES_FILE
+        try:
+            LENSES_FILE = os.path.join(tmp, "absent.json")
+            t, prob = declared_tiers()
+            bit = t == {} and "no tier declaration filed" in (prob or "")
+            print("  %s M13a no tier declaration → UNCHECKABLE with the path, never a pass"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            json.dump({"lenses": {"mom": {"tier": "opus"}}}, open(lf, "w"))
+            LENSES_FILE = lf
+            t, prob = declared_tiers()
+            bit = prob is None and t.get("mom") == "opus"
+            print("  %s M13b a filed declaration reads its tiers" % ("✅" if bit else "🔴")); ok &= bit
+
+            W = os.path.join(tmp, "walks"); os.makedirs(os.path.join(W, "mom", "R1"))
+            rd = os.path.join(W, "mom", "R1")
+            json.dump(dict(base, journey="J0", lens="mom"), open(os.path.join(rd, "transcript.json"), "w"))
+            open(os.path.join(rd, "REPORT.md"), "w").write("all good")
+            bit = recorded_tier(rd) is None
+            print("  %s M13c a run recording no tier reads None (never a guessed default)"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            json.dump(dict(base, journey="J0", lens="mom", readTier="sonnet"),
+                      open(os.path.join(rd, "transcript.json"), "w"))
+            bit = recorded_tier(rd) == "sonnet"
+            print("  %s M13d a recorded tier is read from the run's OWN record"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⭐ M13e — THE SELF-ARMING PROPERTY, which is the whole reason this clause cannot red
+            # the historical corpus on day one. Proven both ways.
+            _sw = WALKS
+            try:
+                WALKS = W
+                armed_with = tier_writer_exists("a" * 7)
+                json.dump(dict(base, journey="J0", lens="mom"), open(os.path.join(rd, "transcript.json"), "w"))
+                armed_without = tier_writer_exists("a" * 7)
+            finally:
+                WALKS = _sw
+            bit = armed_with is True and armed_without is False
+            print("  %s M13e the clause SELF-ARMS from the corpus — dormant while nothing writes a "
+                  "tier, armed the moment any run does (never a flag someone must flip)"
+                  % ("✅" if bit else "🔴")); ok &= bit
+        finally:
+            LENSES_FILE = _sl
 
     print("\n%s selftest" % ("✅" if ok else "🔴"))
     return 0 if ok else 1
