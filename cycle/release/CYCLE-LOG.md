@@ -2841,3 +2841,25 @@ Three threads, routed:
    administrator's approval, capture stays deterministic.
 3. **The content build-out itself** — a register section (§ CONTENT · CARDS) the backlog window opens, capture-first,
    fed by the inventory; the weather card is its first row; nothing committed to a lap by it tonight.
+
+### Ahead — zones v1's SUBJECT ruled `[paul-ruled 2026-09-11 ~1:20 AM ET]`
+
+*"Zones v1 will be Mom's Fernwood, and we have kind of a draft version of the zones to work with."* → lap 10 · A's first
+real subject is **Mom's Fernwood**, built against **the draft zones — the cleaned 23** (TIER 2 · 7 Z-13, labelled and
+watched; `zones.json` not replaced). The standing gate is unchanged: the **preload into her record waits on her own
+founding and readiness** — a disposition; the design and build may proceed against the draft before that act. The
+"whose zones" question the lap-10 proposal carried is answered.
+
+### Lap 7 · ROW C CLOSED · `~1:20 AM ET`
+
+`8574ddf` C1–C5 in the template (`card_order_served` once per session at render, from `renderEmptyCards` after the ranking
+is applied; `pos` + `orderSource` on `card_expanded` / `card_section_viewed` / `mp_envelope_toggled` via `cardPos()`; the
+four auto-expands emit their own `auto-*` vias; `plant_expanded {plantId}` for the depth-2 open, never `card_expanded`;
+`observeCards()` re-runs after the card-creating renders) · `c38f231` C7 **`tools/read-glance-order.py`** — the named
+reader (served order per session · per-card exposure / human opens / each `auto-*` via · `plant_expanded` · incomplete-render
+sessions; both key eras; exit 3 UNREADABLE; selftest 11/11). Proofs: `--check` green, template diff clean, `node --check`
+clean, `check-telemetry`'s EMIT side sees every new literal, the reader ran LIVE against lab (0 batches, exit 0 — a real
+read). ⚠️ **Not yet fired anywhere** — proven at the candidate's qa deploy (C6). For the register: `check-telemetry.py`
+has no `--env` (reads Fernwood's tracked build + the legacy Worker) — for the candidate at qa the reader of record for C
+is `read-glance-order.py --env qa`; `check-telemetry` covers EMIT only. Row B started (B0 → B1 … B6 built and held from qa
+→ B6r → B7 → B8–B15).
