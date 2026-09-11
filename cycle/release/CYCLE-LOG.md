@@ -2786,3 +2786,23 @@ recommendation."*
 | 4 `anchors.py` at Bob's address | **DROPPED** (coordination's reading of "your recommendation": the deployment is gone and Bob founds his own at production; his data arrives with him) |
 | 5 the rationalization set | **GO** — the backlog window applies the six moves as one diff |
 | 6–14 | **the backlog window verifies each and recommends; Paul pre-agrees to the recommendation.** ⚠️ Pre-agreement is to a recommendation he has not yet seen: each is SHOWN to him in his window before it is acted on, and nothing outward or irreversible is among them |
+
+### Lap 7 · ROW D CLOSED at lab · `~12:55 AM ET 2026-09-11` — and the production ADDRESS ruled
+
+**Row D** (build window, `--only`): `bd74e76` D1+D2 (`PAGES_WORKERS` → host-label derivation in the template; hazard
+note rewritten; `--check` green, template diff clean) · `8a2021b` D3+D4 (`/estate/` and `/homes/` split reach into ok ·
+unknown · refused · broken; homes' *Sign in again ›* moved from unknown to REFUSED; sentences are DRAFT slots). D4
+searched-POSITIVE: the collapse was on `/homes/` too, and a third copy sits on `settings/account` (fixed in B10). **D5/D6
+proof:** `pages-deploy --env lab --sha 8a2021b` → *the built app loads headless with zero page errors*; lab serves
+`8a2021b`. post-deploy 🔴 one pre-existing finding (lab's Worker built from a dirty tree, `1dfe461-dirty` — not this
+lane's; row B's Worker deploy replaces it). D7 (the record check at `paul`) is not the lane's and is not run. Security L2's
+by-hand falsifier goes into J8 as stops beside L07 rather than being eyeballed once. **B0 added to row B:** split the
+`/api/account/available` probe bucket from the capture bucket. Row C started.
+
+**The production origin's ADDRESS** `[paul-ruled 2026-09-11 ~12:55 AM ET, in the backlog window: "we got the domain
+myhome.place, right? We should use that."]` — the apex **`myhome.place`** is the production origin's address; the link
+Mom receives at lap 8 · B is never `myhome-paul.pages.dev`. Record (C4 2a): registered 2026-09-03 at Cloudflare Registrar,
+zone active, 0 DNS records; served nothing at lap 3. **Lap 8 · B gains a build step** (bind the Pages project to the apex ·
+DNS · `pages-deploy.py`'s ORIGIN map) and the apex-as-door reading retires the family-door level under §3i — a reading his
+word confirms, not ruled. **It does NOT rule the product's NAME** (plan Q3: *My Home* · a distinct word · no name) — still
+his, still precedes B by his own 8·4; the backlog window is reflecting that question back to him.
