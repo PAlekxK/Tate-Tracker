@@ -2555,3 +2555,8 @@ app reaches production's Worker at the deployment that exists*, and the build pl
 account row becomes when production collapses to one origin at lap 8 (a MIGRATION, never a delete). **The one
 decision left his:** which standing deployment becomes THE production origin — recommendation `myhome-paul`.
 The working-model question is the same question and is retired in its favour.
+
+**Row E amendment** `[paul-ruled 2026-09-10 ~10:40 PM ET]`: *"Yep. PAK/Homey can be torn down."* The beat-6 table's
+KEEP line was wrong against his own lap-6 words (*"I created Homey which can be thrown away"*, chronicle :2408); the
+backlog window caught the divergence at its carry. **PAK/Homey → TEARDOWN.** KEEP is now `pkirsch`@paul ·
+`marguerite`@home · est-qa0001 itself. The lane has the ruling.
