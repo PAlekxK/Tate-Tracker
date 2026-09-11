@@ -1,6 +1,6 @@
 {
  "state": "ARMED",
- "generated_at": "2026-09-11T10:54:58-04:00",
+ "generated_at": "2026-09-11T12:08:36-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "87c7aae",
  "beat": {
@@ -27,7 +27,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": true
+    "instrumented": null
    },
    "mom": {
     "run": "2026-09-11T082952",
@@ -37,7 +37,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": true
+    "instrumented": null
    },
    "owner": {
     "run": "2026-09-11T082846",
@@ -47,7 +47,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": true
+    "instrumented": null
    },
    "strict": {
     "run": "2026-09-11T083055",
@@ -57,7 +57,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": false
+    "instrumented": null
    },
    "wide-eyed": {
     "run": "2026-09-11T083143",
@@ -67,7 +67,7 @@
     "no-failed-actions": true,
     "not-rate-limited": true,
     "walked-in-qa": true,
-    "instrumented": true
+    "instrumented": null
    }
   }
  },

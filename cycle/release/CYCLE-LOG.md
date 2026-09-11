@@ -4733,3 +4733,35 @@ Open-Meteo 429 URLs — **2 in this run**, and they are **NOT Fernwood's**; they
 `research-resources.md`'s coordinates are **Fernwood's own, published by decision** (`CLAUDE.md:1030`). The build
 window redacts before writing and verifies by regex after. ⛔ **Recorded because the lap's own
 `lap-8-RELEASE-EVIDENCE.md` is precisely an artifact that quotes gate output.**
+
+### ⛔ CORRECTION — THE `instrumented` STALENESS WAS REAL. Coordination was wrong twice, and the second one is a reusable trap
+
+The build window flagged that T2 would drive `gate_1.seats[*].instrumented` to **`null`**. Coordination checked,
+reported **"byte-identical, nothing to regenerate"**, and told Paul so. ⛔ **Both halves of that were wrong.**
+
+| coordination said | measured |
+|---|---|
+| *"these seats' journeys declare a profile, so `instrumented` stayed true/false"* | ⛔ **ZERO journeys declare `expectsAppEvents`** — `grep -c` on `journey-walk.py` returns **0** across all seven (J0·J1·J2·J3·J4·J5·J8). `expects_app_events()` returns **None** for every one, by design, until T10 |
+| *"the cache is byte-identical, nothing stale"* | ⛔ **STALE.** `judge()` returns `instrumented: None`; the committed cache said `true`. `--write` produces **6 insertions, 6 deletions, every `true` → `null`** |
+
+⭐⭐ **THE TRAP, AND IT IS THE DAY'S PATTERN LANDING ON THE COORDINATOR FOR THE THIRD TIME:
+`release-state.py` ON A BARE RUN PRINTS THE DERIVED STATE AND DOES NOT PERSIST IT.** Writing requires **`--write`**.
+So *"I ran the tool and saw no diff"* is **not evidence the cache is current** — it is evidence that a tool which
+never wrote produced no diff. ⛔ **The check was correct about its own question (what is the state?) and useless for
+the one it was used for (is the file current?)** — the exact class this repo has now recorded four times today,
+against a needle list, two truncated greps, and now a non-writing generator.
+
+⚠️ **And the brief's §9 warning is now literally discharged rather than hypothetical.** It said `cycle-state.json`
+*"reads as a current verdict"* when stale. It did, in a field the lap had just moved, and **only a peer's insistence
+caught it** — coordination had already reported the opposite to Paul.
+
+✅ **Regenerated with `--write` and committed.** `instrumented` now reads **`null` for all five seats** — UNCHECKABLE
+with its reason on the gate's own face (*"declares no `expectsAppEvents` profile (T10 not yet landed) — UNCHECKABLE,
+not a failure"*). ⭐ **Nothing gates on it** — verified: `instrumented` is **not in the `CLAUSES` literal** and
+`release-gate.py:189` says so — **so the blast radius was nil and the correctness of the record is the whole of the
+point.**
+
+⭐ **The build window's own call was right on both counts and is worth keeping as the pattern:** it reverted its
+incidental write rather than commit into a file another lane is live in, **twice**, and it refused to keep running a
+tool that dirties coordination's file. ⛔ **A lane that stops to flag a shared-file write is behaving correctly even
+when the flag looks empty — and this one was not empty.**
