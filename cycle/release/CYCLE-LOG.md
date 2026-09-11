@@ -3886,3 +3886,52 @@ cannot reach it. **It is not a beat and nothing waits on it.**
    gate unit was the dominant term.** ⛔ Read it at close, from the record — **not by argument.**
 6. Never quote a synthetic's typed text; counts and ids. Read-only on the harness. It **extends** the audit's method; it does
    not re-run practice-steward.
+
+### THE PICKUP SWEEP — 41 of 50 checks run · 2026-09-11 10:20 EDT · ⚠️ NINE UNMEASURED, NOT GREEN
+
+Run read-only by a coordination sub-agent from CLAUDE.md's session-start block, HEAD `8887f25a` → `31f806c6` (the tree moved
+under it; three windows were committing). **Nothing edited, deployed or committed.** ⛔ **NOT RUN, and therefore UNMEASURED
+— never read as passing:** `watch-activity.py` (hung in-flight), `watch-recovery.py`, `watch-door.py`, `watch-feedback.py`,
+`product-steward.py`, `post-deploy.py --env home`, `release-state.py`, `qa-behind.py`, `check-estate-neutral.py`.
+
+**🔴 THE TWO THAT NEED A HUMAN, ranked:**
+
+1. ⛔⛔ **CREDENTIALS ARE MISSING FROM THE STORE AT BOTH REAL DEPLOYMENTS, AND FOUR MORE VANISHED MID-RUN.** `watch-accounts`:
+   `home` credential `p-b91e4d` (grant `1c152afa`) **gone from the store, first missed 22 h ago**; `paul` `p-yjnw9lt41nww`
+   (grant `6608722e`) gone 13 h; five at qa gone 2 h–3 d; **four qa grants (`0d3f9988` · `32fa7982` · `59050d19` ·
+   `5d385e01`) disappeared DURING the run itself.** DIVERGENT rows: est-e6696a **2**, est-lab0001 **95**, est-qa0001 **431**.
+   ⭐ **This is the shape CLAUDE.md names by precedent** — a person live in the register and absent from the store answers
+   `unknown-or-other-estate` at the door and renders as *"you have no homes."* ⚠️ **Scoped honestly: Mom reads `legacy`
+   today**, so this is not what she opens; it is **the account lap 8 · B migrates**, and B's gate is Paul's word at the act.
+   ⛔ Coordination did NOT probe `home`'s or `paul`'s KV — the standing guardrail. **A grant vanishing while a reader watches
+   is either a TTL nobody declared or a writer nobody has identified, and both are answers this loop does not have.**
+2. 🔴 **The weather recorder is the 2026-08-08 shape again** — `health-probe --only fernwood` exit 2: newest
+   `weather-history.json` entry **2026-09-06, 5 days old**, against a recorder that runs every 6 h. **Her weather card is the
+   one card she demonstrably opens**, so the integrity of that record is upstream of every reading this loop takes. Its two
+   honest resolutions stand (re-record, idempotent; or acknowledge a genuine outage with the evidence) — **do not add a date
+   to the ack file to quiet a flag nobody has understood.** Also 🟡 *Build check (viewer) last run failed 2026-09-11*.
+
+**🔴 Structural, for the next lap's brief:**
+
+- ⭐ **The plan lap 8 turns on FAILS THE REPO'S OWN READINESS CHECK.** `check-backlog-ready`: `.plans/2026-09-11-testing-revamp-PLAN.md`
+  is an **orphan** — no `BACKLOG.md` row, objective **`O5` is not in `OBJECTIVES.md`**, it names no divergence tier, and it
+  lacks `## Files touched` · `## Sequence` · `## Falsifier` · `## QA`. ⚠️ **Its CONTENT is ruled and sound; its FILING is
+  not** — and the readiness checker's whole purpose is that a row claiming readiness has the trail behind it. Fix at lap 8's
+  open, before the build window reads it. (Also: 20 proposals still `row: proposed` awaiting Paul.)
+- 🔴 **`check-canon-scope`: two CROSS-HOUSEHOLD carries** — `home`/est-e6696a holds 3 Fernwood needles and **carries legacy's
+  own address**; `legacy`/est-3c9f1a holds 295 needles and **carries home's own name**; `qa` model routes **DARK** (no record
+  published). Reading 3 (`--deep`) NOT RUN. ⛔ A household naming another household is the leak, whichever way it points.
+- 🔴 **`walk-fixtures`: J3 is REFUSED for all five seats**; J5 no seat can sign back in; J6 no procedure; J8 needs its own
+  credential. **J3 is in lap 8's declared cell list three times** — row T's cell list cannot be walked until this is repaired.
+- 🔴 `release-gate`: **0 of 5 at `19a3c98`** (no run, no content read, no sweep at this build) — correct and expected; no lap
+  is open and nothing is frozen. 🔴 `qa-divergence`: **92 SURFACE commits named in no stage-note** (1,041 commits
+  `origin/main..origin/staging`). 🔴 `seat-portfolio`: `map-points` uncovered; the roster still mixes a posture, a fixture and
+  a journey. 🔴 `check-engine-manifest` P1 4 unclassified (three are today's own `.practice` files) · P4 12. 🔴
+  `check-config-derivation` 12 typed instance values (**most look like selftest fixtures, not live leaks** — classify, do not
+  mass-fix). 🔴 `instance-recipe` stale. ⬜ `walk-founding` exit 3: the record-side invariant HOLDS (every grant points at an
+  existing estate; lab 11/13 · qa 21/23 founded through the product; home/legacy/paul 0) but **J0 itself is UNWALKED** and
+  clause A stays unprovable.
+
+**✅ Green and worth naming:** data-inline (12 consts) · digest fresh · place-claims 58/0 · storage keys 19 · vocabulary ·
+loop docs · release docs (12 beats agree) · backlog drift rested · ux-sweep rested · walk-integrity (289 runs, 141 countable)
+· `build-viewer --check` (**bytes only — not a running page**).
