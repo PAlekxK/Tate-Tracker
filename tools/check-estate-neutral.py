@@ -267,8 +267,27 @@ def main():
               % (mark, where, len(body), len(rendered), len(only_comment)))
         for n, line, excerpt in rendered[:6]:
             print("       🔴 %-24s line %-5d %s" % (repr(n), line, excerpt))
-        for n, line, excerpt in only_comment[:4]:
-            print("       ⚠️  %-24s line %-5d (comment — renders nothing, ships anyway)" % (repr(n), line))
+        # ⛔⛔ CLASSIFY WHERE THE HIT ACTUALLY SITS. `only_comment` is everything stripped before the
+        # rendered check — and strip_comments() removes URLs TOO, so a Worker hostname was printing
+        # as "(comment — renders nothing)". Measured 2026-09-11: three served pages carry
+        # `https://<instance>.paul-kirschenbauer.workers.dev` as the LIVE Worker fallback, and this
+        # reporter called all three a comment. ⚠️ The pass/fail was always correct — URLs are
+        # infrastructure and excluded by design — but a reader acting on the LABEL would have edited
+        # live code out of a served page. A control correct about its own question, mis-describing
+        # what it found, in a security check.
+        _urls_only = re.sub(r"https?://[^\s\"'<>)]+", " ", body)
+        _in_url = [h for h in in_source if h not in hits_in(_urls_only, needles)]
+        for n, line, excerpt in only_comment[:12]:
+            kind = ("URL — infrastructure, excluded by design; ⛔ NOT a comment, may be LIVE CODE"
+                    if (n, line, excerpt) in _in_url
+                    else "comment — renders nothing, ships anyway")
+            print("       ⚠️  %-24s line %-5d (%s)" % (repr(n), line, kind))
+        # ⛔ AND SAY WHEN THE LIST IS CUT. It printed the first 4 with no marker, so the header count
+        # and the list disagreed silently — which is how a count of nine was carried into a chronicle
+        # and a plan when the real set was larger. A truncated list that does not say so is a
+        # measurement whose predicate is "the first N".
+        if len(only_comment) > 12:
+            print("       … %d more not listed (use --json for the full set)" % (len(only_comment) - 12))
         total += len(rendered)
         worst = max(worst, 1 if rendered else 0)
 
