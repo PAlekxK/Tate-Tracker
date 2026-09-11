@@ -3479,3 +3479,14 @@ answers). Tab 2 → `/onboarding/`, the setup door. **Throwaway name: `pkirsch-o
 this phone' and you don't know that someone's using a phone — it may not need to include 'this phone'."* The closure's rule
 was that the copy says what the act does to THIS device only; the noun is wrong on a laptop. **Register: a copy slot** — a
 device-neutral word for the sign-out control (content-steward's; e.g. *this device* / *here*), riding lap 8's copy pass.
+
+**Paul's walk · step 1b · 2026-09-11 09:23 EDT** — reload after sign-out landed on the COLD DOOR (*My Home · "Your place, on any phone." · "Set
+it up once, then sign in from wherever you are." · [✓ Set up my place] filled · [I've been here before] outlined · "Something
+not right? Tell me."*). His words: *"it brought me to My Home, set up my place, which doesn't quite seem right — I was
+expecting to be given the sign-in screen."* **Reading:** the door treats every grant-less device as cold (A1 routes on local
+state; D7/B2 leads with founding by ruling), but a device that just SIGNED OUT is not cold — and B13's signed-out lede (*"Sign
+in to your place."*, onboarding:~1200) exists and was not reached, because sign-out clears the identity keys and leaves no
+"someone has been here" marker for the door to read. **Not a fail against the plan; a finding against the returning person.**
+Register (lap 8's copy/flow pass): a post-sign-out marker (rostered key) so the door leads with SIGN IN and the signed-out
+lede renders; and *"on any phone"* is the same device-noun slip as step 1. For tonight: *I've been here before* is the
+sign-in.
