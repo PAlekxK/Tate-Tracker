@@ -2636,3 +2636,23 @@ repoint · the fixture-stamp gaps); lap 9's are candidates, none ruled. Coordina
 dependencies before it reaches him. **L2 for lap 7 is complete** on the frozen rows (backlog window, one commit after
 `8267764`), with three gaps named in the fills rather than papered: D's refused/unreachable split has no event and no
 reader · A ships no new event and its channel's reader is TIER 1 · 37 (open) · the interests-wording stamp (36) is out.
+
+### L4 landed as a HELD-OUT draft — and it found a live seam gap `[measured 2026-09-10 ~11:30 PM ET]`
+
+`.content/2026-09-10-lap7-release-note-HELD-OUT.md` (`60e439d`): title *"Signing out, getting back in, and a note that
+goes through"*; **9 walk-gated bullets + 2 not-yet**, each tagged with the walk that must pass at the deploy sha; row C
+gets no bullet (a tool we read, not a thing a person sees); the ribbon line for Paul's lost condo note (TIER 1 · 42) in
+the attribution grammar, target `card-fieldnotes`; his one confirming line for chain act 12.
+
+🔴 **The ribbon cannot ship as drafted, and the gap is live today.** `MOM_ACK_DATA` is a **concrete literal in
+`engine/viewer.template.html:12022`** with no per-instance seam; the only control is the instance `absent` list.
+**Verified:** `instance/home.json` and `instance/qa.json` declare `ack` and `questions` absent; **`instance/paul.json`
+declares neither.** So Mom's acknowledgment ribbon and Mama's Perspective queue — addressed to her, in her nouns —
+**render at Paul's household now.** Contained (Paul is the only account there) and invisible to `check-estate-neutral`
+(it tests for Fernwood's names; a ribbon written to Mom carries none). The class is the 09-07 gauge leak again: a
+person's record reaching another household without the household's name on it. **Two acts:** (1) `paul.json` gains
+`ack` + `questions` in `absent` — one line, rides lap 7's candidate as a P-step (not a hotfix: only Paul sees it, and
+production is behind gate ①); (2) a per-instance ack seam is a **lap 8 candidate** — writing Paul's line into the engine
+literal would invert the leak. Also from the draft: *Almanac → Journal* is out of the build but **unruled as copy**;
+the beat-6 table carries no `note:` field, so the title is authored — backfill from it when P2 lands; bullet 7 (row D)
+is gated by a RECORD check (his note visible at his origin with its 2026-09-10 timestamp), cut not reworded if absent.
