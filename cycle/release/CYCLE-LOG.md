@@ -3144,3 +3144,25 @@ when the blob matches (TIER 1 · 32's own words). post-deploy qa: CLEAN.
 **Beat 8 re-entered:** first proof = J0 for `owner` (a ranked seat) at qa, alone, `--watch`, read for zero pageerrors AND
 `read-glance-order --env qa` printing its served order + `auto-ranked-empty` open — F1's falsifier; only then the full
 battery from zero (J0 × 5 → J2 × 5 → J3 × 5 → J8 × 5). Second product defect = STOP and hold for Paul.
+
+### Lap 7 · beat 8 at `12912b9` — J0 × 5 CLEAN, row C live end to end; J2 UNWALKABLE by model, not by defect · `~5:30 AM ET`
+
+**J0 × 5:** owner `est-tfmxem` · mom `est-0qeqzs` · wide-eyed `est-uqjofw` · handover `est-pqob3d` founded, placed, names as
+typed; **strict REFUSED AT THE GATE, AS EXPECTED**, minted nothing. Zero pageerrors, zero failed actions. **F1's falsifier
+passed:** `read-glance-order --env qa` reads the proof walk's session with a declared served order and an
+`auto-ranked-empty` open on `card-plants` at pos 0 — **row C is live end to end.**
+
+**J2 × 5: every seat REFUSED AT THE ENTRY GATE** — *the door reports hasEstate=false — an account that has founded nothing
+(J0)*. **Not a second product defect and not this candidate's: a journey-MODEL gap the open door created.** Evidence:
+`handleAccountCreate` writes only a route row `{personId}` and NO grant, invite or not (*signup no longer grants*
+`[paul-ruled 2026-09-10]`) · `mint_unfinished()` provisions J2 as invite-signup-then-stop, so its fixture IS an account with
+no estate, which `journey_entered()` classifies J0 by the door's own assertion · **no transcript at ANY build has ever
+recorded a walked J2**. J2 ("returning-unfinished") collapsed into J0 the moment founding replaced granting — an unfinished
+record cannot exist without an estate (the profile write 404s without one); its action list is exactly a J0 walker's after
+the empty shelf. **Tonight's battery covers J0 · J3 · J8; J2 prints UNWALKABLE with this reason in the gate's coverage
+line.** ⚠️ The beat-6 table's done-means named J2; **this is a scope note, amended by ruling, not a failure.**
+
+**Ruling owed to Paul (coordination recommends the first):** re-scope J2 as *"returning, founded nothing — an EXISTING
+account arriving on its own token, resumed from the empty shelf"* (distinct from J0 only in the ARRIVAL, which is exactly the
+half `walk-fixtures.py` exists to read), or fold it into J0 and name it retired. Register notes queued: the J2 re-scope · the
+four `d7d6c9f` fixtures + these four `12912b9` fixtures for the fixture-stamp row.
