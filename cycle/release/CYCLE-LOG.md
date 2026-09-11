@@ -3025,3 +3025,19 @@ beat 3's exit condition to gain two ask lines — a CYCLE-MAP edit and **Paul's*
 **The deviceId-beside-personId write → LAP 8** `[paul-ruled 2026-09-11 ~3:35 AM ET: "folded in with lap eight, just to be
 clear"]` — not lap 7. It rides with the call-site conversion (lap 8 · A2) and TIER 1 · 54's two deployment-scope reads as
 one feedback-path pass; the build lane verifies the write site before the fix. Lap 7's candidate is unchanged.
+
+### ~3:45 AM ET — the ASK DESIGN plan committed; a standing groom thread opened
+
+`927d93c` — the ask-design plan + five seat trails + the window's readback, `--only` on seven paths. Stamped
+`stage: concept` (a `design` with no `[paul-approved]` reads as built without the gate); complete, the rung claimed when
+Paul stamps. `check-backlog-ready` flags it ORPHAN until § A-ASK carries the `→ PLAN ·` pattern — the backlog window's
+one-line edit. The window stays open for Paul's §13 rulings in his time.
+
+**§ PRODUCTIZE LEGACY FERNWOOD** `[paul-stated 2026-09-11 ~3:40 AM ET, in the backlog window]`: *"look at everything
+that's in Fernwood and talk about how we productize all of Fernwood's components and be sure there are things we can
+replicate in our new production environment… a huge backlog item in and of itself that will spawn many more."* Opened as
+a CAPTURE section: a census per component with three verdicts (**replicates as-is · estate-parameterize · instance-only**),
+derived from `ENGINE-MANIFEST.md` + `momlib.DOMAINS` + the toolchain inventory (its toolchain half is done); falsifier =
+renders at a non-Fernwood household with none of Fernwood's data. **A standing groom thread beside lap 8, not a lap
+item**; sequencing PROPOSED (engineering-partner + ux-expert). Coordination's map: it is the parent of § CONTENT · CARDS
+and of the inventory's three ranked expansions.
