@@ -85,7 +85,9 @@
 <body>
 
 <header><div class="inner">
-  <div class="utility"><a class="ubtn tap44" id="back" href="/estate/">‹ Back</a></div>
+  <!-- A22 (lap 7, closure row 39) — names the PLACE it returns to, falling back to "My Home"; never
+       "Your homes", which is the wrong destination (this page is reached from inside a home). -->
+  <div class="utility"><a class="ubtn tap44" id="back" href="/estate/">‹ My Home</a></div>
   <h1>Settings</h1>
 </div></header>
 
@@ -103,7 +105,7 @@
        ⚠️ The placeholder shows the CURRENT default rather than sitting empty, so the field answers
        "what is it called now?" before it asks "what would you call it?" -->
   <div class="card">
-    <label for="jn">What you call the Almanac</label>
+    <label for="jn">What you call the Journal</label>
     <input id="jn" type="text" maxlength="40" autocapitalize="words">
     <p class="quiet">The record of this place — where notes, questions and what grows here live.
       Leave it empty to use the usual name.</p>
@@ -137,6 +139,7 @@
     ? "https://" + label + ".paul-kirschenbauer.workers.dev"
     : "https://fernwood.paul-kirschenbauer.workers.dev";
 
+  try { var __bn = localStorage.getItem("fw-onboard-name"); if (__bn && __bn.trim()) document.getElementById("back").textContent = "\u2039 " + __bn.trim(); } catch (e) {}   // A22
   var K_GRANT = "fw-grant", K_NAME = "fw-onboard-name", K_COLOR = "fw-accent", K_USER = "fw-username",
       K_JOURNAL = "fw-journal-name";   // ⭐ E1 — the DISPLAY name only; nothing keys off it
   function read(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -180,7 +183,7 @@
   // ⭐ Show the name it currently goes by, so the field can be read before it is answered.
   try {
     var hh = read(K_NAME);
-    el("jn").placeholder = hh ? (hh + " Almanac") : "Almanac";
+    el("jn").placeholder = hh ? (hh + " Journal") : "Journal";   // Almanac → Journal [paul-ruled 2026-09-11]
   } catch (e) {}
   // A default sat on is not a choice (strict seat, round 5): say so, the way the receipt page does for
   // contact. And no "your other homes" three screens from "I can't set up a second home yet".

@@ -106,7 +106,10 @@ IDENTITY = {
                                         if prop["property"].get("address") else ""),
     "addressLine": lambda ident, prop: _address_line(ident, prop),
     # C4 5c (2026-09-03): the three strip labels that named the founding instance in engine markup.
-    "journalTile":     lambda ident, prop: ident.get("journalTile") or (ident["name"] + " Almanac"),
+    # ⭐ Almanac → JOURNAL as the ENGINE DEFAULT `[paul-ruled 2026-09-11, lap 7 TIER 2 · 20]`: for every
+    # household that is not Fernwood the noun is "Journal". Fernwood keeps "Fernwood Almanac" because its
+    # INSTANCE declares `journalTile` — never because an engine file names it.
+    "journalTile":     lambda ident, prop: ident.get("journalTile") or (ident["name"] + " Journal"),
     "propertyTile":    lambda ident, prop: ident["name"],
     "propertyTileSub": lambda ident, prop: ident.get("propertyTileSub", ""),
     # ⛔ "Mama's Perspective" WAS AN ENGINE LITERAL and shipped to every household — a stranger
@@ -117,10 +120,12 @@ IDENTITY = {
     # It cannot see a household's VOICE. Only a reader — synthetic or real — looking at the rendered
     # screen can, which is exactly what the reading pass is for.
     "perspectiveTitle": lambda ident, prop: ident.get("perspectiveTitle") or "Your Perspective",
-    "inputAria":       lambda ident, prop: "Note or ask the " + (ident.get("journalTile") or (ident["name"] + " Almanac")),
+    "inputAria":       lambda ident, prop: "Note or ask the " + (ident.get("journalTile") or (ident["name"] + " Journal")),
+    # the composer's one filled control — Fernwood's instance declares its own "Save & consult the Almanac"
+    "composerLabel":   lambda ident, prop: ident.get("composerLabel") or "Save &amp; ask the Journal",
     # JS string consts (C4 5c) — json.dumps minus the quotes so a name with a quote cannot break the script
     "nameJs":          lambda ident, prop: json.dumps(ident["name"], ensure_ascii=False)[1:-1],
-    "journalTileJs":   lambda ident, prop: json.dumps(ident.get("journalTile") or (ident["name"] + " Almanac"), ensure_ascii=False)[1:-1],
+    "journalTileJs":   lambda ident, prop: json.dumps(ident.get("journalTile") or (ident["name"] + " Journal"), ensure_ascii=False)[1:-1],
     "stationName":     lambda ident, prop: json.dumps(ident.get("stationName") or "the weather station", ensure_ascii=False)[1:-1],
     # C7 1c — three-state station: "present" (fetch; offline → error dot) · "declared-absent" (no fetch; regional label, no error dot).
     # A missing key is NOT a default: it builds as "undeclared" and the viewer treats that like present, loudly labelled.
@@ -158,6 +163,7 @@ IDENTITY_MARKUP = {  # exact markup in the viewer, with the string as a group
     "propertyTile":    re.compile(r"(onclick=\"expandCard\('card-property','dash'\)\">\n\s*<div class=\"dash-cell-label\">)(.*?)(</div>)"),
     "propertyTileSub": re.compile(r'(<div class="dash-cell-sub" id="dash-property-sub">)(.*?)(</div>)'),
     "inputAria":       re.compile(r'(<section class="unified-input" id="unified-input" aria-label=")(.*?)(">)'),
+    "composerLabel":   re.compile(r'(<button id="ui-log-btn" class="ui-action-btn ui-save-btn" type="button">\n\s*<span class="ui-action-label">)(.*?)(</span>)'),
     "nameJs":          re.compile(r'(^(?:const|let) ESTATE_NAME = ")(.*?)(";$)', re.M),
     "journalTileJs":   re.compile(r'(^(?:const|let) JOURNAL_NAME = ")(.*?)(";$)', re.M),
     "stationName":     re.compile(r'(^const STATION_NAME = ")(.*?)(";$)', re.M),

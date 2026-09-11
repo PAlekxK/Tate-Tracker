@@ -6732,7 +6732,7 @@
            primary two cards above the launcher's full-color twin read as two
            different apps. Full-color always; an empty tap focuses the field. -->
       <button id="ui-log-btn" class="ui-action-btn ui-save-btn" type="button">
-        <span class="ui-action-label">Save &amp; consult the Almanac</span>
+        <span class="ui-action-label">{{IDENTITY:composerLabel}}</span>
       </button>
     </div>
   </div>
@@ -7469,7 +7469,7 @@ let ESTATE_NAME = "{{IDENTITY:nameJs}}";
 // Her word for the place, from the account, overrides the build's default (see the pre-paint block).
 if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) ESTATE_NAME = window.__HOUSEHOLD_NAME;
 let JOURNAL_NAME = "{{IDENTITY:journalTileJs}}";
-if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) JOURNAL_NAME = window.__HOUSEHOLD_NAME + " Almanac";   // "Tell the My Home Almanac" (mom seat, round 3)
+if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) JOURNAL_NAME = window.__HOUSEHOLD_NAME + " Journal";   // "Tell the My Home Journal" — Almanac → Journal for every household that is not Fernwood [paul-ruled 2026-09-11]
 // ⭐⭐ E1 — THE HOUSEHOLD'S OWN WORD WINS `[paul-ruled 2026-09-07]`: "everyone may have a different
 // take on what makes sense or feels the most natural… systematically replacing the name in the
 // displays, but keeping that module still have an internal name that's consistent."

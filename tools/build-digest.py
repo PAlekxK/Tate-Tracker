@@ -540,7 +540,7 @@ def _identity_for(load):
         ident = inst.get("identity") or {}
         name = ident.get("name")
         if name:
-            out = {"name": name, "journalName": ident.get("journalTile") or (name + " Almanac")}
+            out = {"name": name, "journalName": ident.get("journalTile") or (name + " Journal")}   # Almanac → Journal [paul-ruled 2026-09-11]
             if ident.get("journalShort"):
                 out["journalShort"] = ident["journalShort"]
             return out
