@@ -5353,3 +5353,37 @@ release-state 7/7 · walk-notes 19/19 · change-scope 12/12 · check-href-contro
 
 ⛔ **NOT ONE OF THE 24 STEPS MOVED A SERVED PAGE, AN ENGINE FILE OR AN INSTANCE FILE** — so **the first battery
 row T meets is the door's**, exactly as the ruling asked.
+
+### ✅ BOTH REMEDIATIONS LAND — and the gate now REFUSES for the reason it was ratified to refuse
+
+**Not lap 8 scope** — row T is delivered and the beat-6 table keeps its single row. `[paul-authorised 2026-09-11:
+"let's go ahead and make these fixes"… "since they're related"]`, and he was right that they are: **the fixture
+repair is what decides which declared cells can actually walk.**
+
+#### ① THE REFUSED FIXTURES — ALL FIVE SEATS CAN NOW ENTER
+
+| seat | before (this morning) | after |
+|---|---|---|
+| `mom` | ✅ the only one | ✅ |
+| `handover` · `owner` · `strict` · `wide-eyed` | ⛔ *"the record refuses it"* | ✅ **all four now enter J3** |
+
+⚠️ **What this does NOT do, stated so the number is not misread: it makes the walks POSSIBLE, not walked.** The
+declared cells stay **UNWALKED until a battery runs at a candidate sha** — **7 of the 10 declared cells read
+UNWALKED right now, and the gate refuses.** ⭐ **That is the gate working**, and it is the first time in this
+project's history that it has refused on a coverage claim rather than on a seat's failure.
+
+#### ② `watch-door`'s SILENT CASE — a count that went NEGATIVE since the tool was built
+
+`bfe4f58c`. It printed *"1 reached the door and 0 got through — **-41** did NEITHER open nor fail, which is the
+silent case"* at `home`, **-226** at `legacy`, **-58** at `qa` — derived as reached − opened − failed, going
+negative whenever `door_failed > door_reached`, **which is the normal state at four of five environments.** ⛔ The
+silent case is **the exact reading that tool was built for**, so its headline has been unusable since it shipped.
+
+✅ **Fixed to the posture this row installed everywhere else: UNCHECKABLE WITH THE REASON, never a number it
+cannot justify.** It now prints *"UNCHECKABLE here: N arrival(s) recorded and NONE carries a deviceId, so no
+arrival can be followed to an outcome."* ⭐ **That is the honest answer** — door records carry `personId: null`
+by construction, so the silent case was never derivable from those three fields. **Zero negative counts remain.**
+
+⛔ **DELIBERATELY NOT DONE: the nine Fernwood needles in shipping comments.** They touch **SERVED PAGES**, and
+row T's whole shape is that **not one of its 24 steps moved a candidate.** Fixing them would change what the gate
+has to certify. **Held for Paul to place — this lap or the next.**
