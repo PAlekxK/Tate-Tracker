@@ -2947,3 +2947,28 @@ finding · the ">10 answered" AI-draft threshold was written for confirm cards; 
 ai-advisor's read · no per-household ribbon exists; the attribution leg is designed against lap 8 · G's seam · the ledger
 reads the chain's P2 carrier when built, row prose with per-row UNREADABLE until then. **Paul clears the window with his
 keystroke there.**
+
+### Lap 7 · ROW B CLOSED, proven at lab · `~2:45 AM ET 2026-09-11`
+
+Commits (`--only`): `e21d798` B0–B6 + B6r Worker · `4b35664` B6r/B7 readers · `9238b1f` B8/B9/B10 settings/account + the
+contact value returned from `whoami` (read from the account row in that branch; no grant-copy widening; no storage key) ·
+`e7c566f` B15 estate/homes · `cd24ca8` B11/B12/B13/B16 onboarding (the CONFIRMED recovery strings verbatim; *"Ask Paul — he
+can reset it"* cut; `#contactnone` filled; the please-don't POST fix). B14 ships nameless, as audited.
+
+**Proofs at lab** (Worker → `/health env=lab`; Pages `cd24ca8` → headless load zero page errors; post-deploy CLEAN, worker
+`build_sha cd24ca8`): two `POST /api/recover` with different addresses → **byte-identical** `{"ok":true}` 200 · unknown-
+username and wrong-word sign-ins → byte-identical `{"error":"not-found"}` 404, and `watch-door --env lab` reads
+*door_failed by outcome: signin_failed 2 · unknown-or-other-estate 30* · `watch-recovery --env lab` reads 2 requests,
+**names nobody** · B0 the probe answers from its own bucket · B6r `GET /api/recovery` → 401 without the master token.
+Timings 0.42 s vs 0.29 s at the door — noise, **UNCHECKED as ruled**. Not proven at lab: B1/B2/B4 (need a lab identity) —
+J8's L14 and the strict PO-box stop at qa.
+
+**Three findings:** ① ⚠️ **DEVIATION, accepted by coordination** — B9 (the signed-in *"Ask Paul to reset my password ›"*)
+writes the USERNAME into the **admin-only recovery channel**, not the account-scoped feedback key the security read's R-D
+named, because the account-scoped record has **no reader** (`watch-feedback` reads no `account:*` key) and *an event with
+no reader is not instrumentation* `[paul-ruled]`. Spirit kept: never member-readable, never the password, the
+administrator already holds the account. **Flagged to security-steward's next roster pass**; Paul may overrule to the
+`account:` key + a reader. ② **FOUND ON THE WAY:** `worker.js`'s onboarding-metrics ALLOW list had **dropped `found`** — the
+page has emitted `ev("found", …)` since the founding flow landed and **the store never held one**; the "no reader" finding
+was downstream of a dropped write. Fixed in `4b35664`; `watch-door` prints `found` by detail. ③ **New reader in the pickup
+block:** `watch-recovery.py` (CLAUDE.md, this commit). Row A started (with Almanac → Journal, TIER 2 · 20); then H.
