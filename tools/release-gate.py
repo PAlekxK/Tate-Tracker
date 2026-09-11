@@ -565,28 +565,18 @@ def tier_writer_exists(sha):
     return False
 
 
-def report(sha, seats_only=False):
-    print("release gate ① — build %s\n" % (sha[:7] if sha else "UNKNOWN"))
-    if not sha:
-        print("🔴 UNCHECKABLE: no candidate sha. Refusing to gate nothing.")
-        return 2
-    ss = seats()
-    if not ss:
-        print("🔴 UNCHECKABLE: no seats found on disk — refusing to report on an empty roster.")
-        return 2
-
-    # ⭐ T1 — THE ROSTER IS NOW CELLS, NOT DIRECTORIES. Every run at this sha is placed in its
-    # `(journey, lens)` cell; the best run wins the cell's row, exactly as it used to win the seat's.
-    # ⛔ THE TIE-BREAK IS UNCHANGED — `score > best[0]`, so ties keep the EARLIEST run — and that is
-    # correct once the key is right. `[paul-ruled 2026-09-11]` a clean retry SUPERSEDES a failing run
-    # at the same sha: within one cell, two runs are genuinely a retry, and a retry is how "run it
-    # until it no longer fails" exits. The defect was never the comparison; it was the key.
-    # ⭐ AND THE SUPERSESSION IS PRINTED ON THE GATE'S FACE — his ruling's second half, and a BUILD
-    # REQUIREMENT, not merely a falsifier: a cell that needed a retry may never render like a cell
-    # that passed first time. Without that print, T1 moves the unit without moving the legibility and
-    # the failed actions are merely hidden in a new place.
+# ═══ T5 · ONE DEFINITION OF "WHICH CELLS WERE TESTED AT THIS SHA" ═════════════════════════════════
+# ⛔ EXTRACTED BECAUSE release-state.py HELD A SECOND COPY. It re-implemented the best-run loop —
+# same tie-break, same scoring, keyed on the SEAT — so the state file and the gate could disagree
+# about the same sha and nothing would say so. `class: engine · must-not-diverge` names exactly this:
+# ONE definition of "this candidate was tested". release-state now calls this rather than keeping an
+# opinion of its own, the same way this file imports `rate_limits` from walk-integrity.
+def cells_at(sha):
+    """→ (rows, passing_cells, cells). `rows` is [(unit, best, n_runs, problems, superseded)] where
+    best is (score, run, clauses, seat) or None. ⛔ The tie-break is `score > best[0]` and stays that
+    way: within one cell two runs are a retry [paul-ruled 2026-09-11]."""
     cells = {}
-    for seat in ss:
+    for seat in seats():
         for run in runs_for(seat):
             d = os.path.join(WALKS, seat, run)
             v = judge(d, sha)
@@ -611,6 +601,30 @@ def report(sha, seats_only=False):
         rows.append((u, best, n_runs, problems, superseded))
         if best and all(best[2].get(k, (None,))[0] is True for k, _ in CLAUSES):
             passing_cells.append(u)
+    return rows, passing_cells, cells
+
+
+def report(sha, seats_only=False):
+    print("release gate ① — build %s\n" % (sha[:7] if sha else "UNKNOWN"))
+    if not sha:
+        print("🔴 UNCHECKABLE: no candidate sha. Refusing to gate nothing.")
+        return 2
+    ss = seats()
+    if not ss:
+        print("🔴 UNCHECKABLE: no seats found on disk — refusing to report on an empty roster.")
+        return 2
+
+    # ⭐ T1 — THE ROSTER IS NOW CELLS, NOT DIRECTORIES. Every run at this sha is placed in its
+    # `(journey, lens)` cell; the best run wins the cell's row, exactly as it used to win the seat's.
+    # ⛔ THE TIE-BREAK IS UNCHANGED — `score > best[0]`, so ties keep the EARLIEST run — and that is
+    # correct once the key is right. `[paul-ruled 2026-09-11]` a clean retry SUPERSEDES a failing run
+    # at the same sha: within one cell, two runs are genuinely a retry, and a retry is how "run it
+    # until it no longer fails" exits. The defect was never the comparison; it was the key.
+    # ⭐ AND THE SUPERSESSION IS PRINTED ON THE GATE'S FACE — his ruling's second half, and a BUILD
+    # REQUIREMENT, not merely a falsifier: a cell that needed a retry may never render like a cell
+    # that passed first time. Without that print, T1 moves the unit without moving the legibility and
+    # the failed actions are merely hidden in a new place.
+    rows, passing_cells, cells = cells_at(sha)
 
     _tier_armed = tier_writer_exists(sha)
     for u, best, n_runs, problems, superseded in rows:

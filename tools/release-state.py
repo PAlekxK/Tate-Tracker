@@ -30,27 +30,95 @@ def gate_module():
     m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m); return m
 
 
+def cells_all_pass(cells, clause_keys):
+    """→ True only if there is at least one cell and EVERY cell is True on EVERY clause.
+
+    ⛔ EXTRACTED SO IT CAN BE PROVEN TO GO FALSE. It was an inline comprehension, and T5's own CHECK
+    is "`--selftest` proves `cells_pass` false when any cell is red" — which nothing could do while
+    the predicate had no name. ⚠️ An empty dict is FALSE, never vacuously true: "no cells were
+    tested" must not read as "every cell passed", which is the absence-is-a-pass defect row T exists
+    to remove, arriving in a boolean instead of a matrix."""
+    if not cells:
+        return False
+    return all(all(c.get(k) is True for k in clause_keys) for c in cells.values())
+
+
+def selftest():
+    """T5's CHECK, and only that. ⛔ It proves the PREDICATE and the UX clause's derivation; it does
+    not prove the whole state file, and says so rather than implying coverage it does not have."""
+    ok = []
+
+    def ck(name, cond):
+        ok.append(bool(cond))
+        print("  %s %s" % ("✅" if cond else "🔴", name))
+
+    K = ["at-sha", "watched"]
+    ck("S5a cells_pass is FALSE when any cell is red",
+       cells_all_pass({"J0/mom": {"at-sha": True, "watched": True},
+                       "J8/mom": {"at-sha": True, "watched": False}}, K) is False)
+    ck("S5b cells_pass is TRUE when every cell is green on every clause",
+       cells_all_pass({"J0/mom": {"at-sha": True, "watched": True},
+                       "J8/mom": {"at-sha": True, "watched": True}}, K) is True)
+    ck("S5c an UNCHECKABLE (None) cell is not a pass — cannot-prove is not passed",
+       cells_all_pass({"J0/mom": {"at-sha": True, "watched": None}}, K) is False)
+    ck("S5d NO cells is FALSE, never vacuously true (absence is not a pass)",
+       cells_all_pass({}, K) is False)
+    ck("S5e a cell with no run at this build is FALSE",
+       cells_all_pass({"J0/mom": {"run": None}}, K) is False)
+
+    # ⭐ S5f — THE UX CLAUSE IS DERIVED, NOT A LITERAL. The line this replaced published
+    # "UNCHECKABLE — no artifact convention" UNCONDITIONALLY, so it could never go green however
+    # many sweeps were filed. Proven against a temp directory, both ways.
+    import tempfile
+    rg = gate_module()
+    with tempfile.TemporaryDirectory() as td:
+        st, _ = rg.ux_clause("a" * 40, td)
+        ck("S5f no sweep filed → the ux clause is UNCHECKABLE (None)", st is None)
+        open(os.path.join(td, "aaaaaaa-ux-sweep.md"), "w").write("two-pass sweep at aaaaaaa\n")
+        st, _ = rg.ux_clause("a" * 40, td)
+        ck("S5f' a sweep filed at this sha → the ux clause goes GREEN with no hand edit", st is True)
+
+    print("\n%s release-state selftest (%d/%d)" % ("✅" if all(ok) else "🔴", sum(ok), len(ok)))
+    return 0 if all(ok) else 1
+
+
 def derive(cleared=None, prior=None, sha=None):
     rg = gate_module()
     if sha:
         sha = subprocess.check_output(["git", "-C", ROOT, "rev-parse", sha], text=True).strip()
     else:
         sha = rg.head_sha()
-    seats = {}
-    for seat in rg.seats():
-        best = None
-        for run in rg.runs_for(seat):
-            v = rg.judge(os.path.join(rg.WALKS, seat, run), sha[:40])
-            if v.get("at-sha", (False, ""))[0]:
-                score = sum(1 for k, _ in rg.CLAUSES if v.get(k, (None,))[0] is True)
-                if best is None or score > best[0]:
-                    best = (score, run, v)
-        if best:
-            _, run, v = best
-            seats[seat] = {"run": run, **{k: v.get(k, (None, ""))[0] for k in [c for c, _ in rg.CLAUSES] + ["instrumented"]}}
-        else:
-            seats[seat] = {"run": None}
-    seats_pass = bool(seats) and all(all(s.get(k) is True for k, _ in rg.CLAUSES) for s in seats.values())
+    # ═══ T5 · THE STATE FILE PUBLISHES CELLS, AND ASKS THE GATE RATHER THAN RE-DERIVING ═══════════
+    # ⛔ WHAT THIS REPLACED: a SECOND COPY of the gate's best-run loop — same tie-break, same scoring,
+    # keyed on the SEAT — so this file and `release-gate.py` could disagree about the same sha and
+    # nothing would say so. It now calls `rg.cells_at(sha)`, the one definition, exactly as
+    # release-gate imports `rate_limits` from walk-integrity rather than minting a second opinion.
+    rows, passing_cells, _raw = rg.cells_at(sha[:40])
+    cells = {}
+    for u, best, n_runs, problems, superseded in rows:
+        key = "%s/%s" % u                       # journey/lens — the unit, not the storage layout
+        if not best:
+            cells[key] = {"run": None}
+            continue
+        _score, run, v, _seat = best
+        cells[key] = {"run": run, "runs": n_runs, "problems": problems,
+                      # ⭐ THE SUPERSESSION TRAVELS WITH THE DATA [paul-ruled 2026-09-11]. A cell that
+                      # needed a retry may never render like one that passed first time — and a
+                      # reader of this file is as entitled to that distinction as a reader of the
+                      # gate's stdout.
+                      "passed_on_retry": superseded,
+                      **{k: v.get(k, (None, ""))[0] for k in [c for c, _ in rg.CLAUSES] + ["instrumented"]}}
+    cells_pass = cells_all_pass(cells, [k for k, _ in rg.CLAUSES])
+    # ⚠️ DEPRECATED ALIAS, ONE LAP. `:213`'s print and any external reader still say `seats_pass`; the alias
+    # keeps them working while the name moves. Remove it at lap 9 — and note it is an ALIAS, not a
+    # second computation: there is exactly one predicate here.
+    seats = cells
+    seats_pass = cells_pass
+    _uxst, _uxdet = rg.ux_clause(sha[:40])
+    # ⚠️ NO DOUBLE-STAMPING: ux_clause()'s own detail already leads with "UNCHECKABLE" when it is
+    # uncheckable, and prefixing blindly published "UNCHECKABLE — UNCHECKABLE — no two-pass sweep…".
+    _uxword = "PASS" if _uxst is True else ("FAIL" if _uxst is False else "UNCHECKABLE")
+    _ux_state = _uxdet if _uxdet.strip().startswith(_uxword) else "%s — %s" % (_uxword, _uxdet)
     prior = prior or {}
     # ⭐⭐ J-c `[paul-ruled 2026-09-07]` — THE CHRONICLE IS THE SOURCE OF LAP STATE, not this JSON.
     # WHAT THIS REPLACED AND WHY: the line here read
@@ -116,8 +184,13 @@ def derive(cleared=None, prior=None, sha=None):
                  "derivable": [8, 9, 11],
                  "_note": "beats 0, 1 and 6-11 are human or session beats this tool cannot observe; "
                           "`n` is only ever one of `derivable`. Read CYCLE-MAP.md for the full ladder."},
-        "gate_1": {"seats_pass": seats_pass, "ux_clause": "UNCHECKABLE — no artifact convention",
-                   "seats": seats},
+        # ⛔ THE LITERAL ux_clause STRING IS GONE. It read "UNCHECKABLE — no artifact convention"
+        # UNCONDITIONALLY — a hardcoded verdict that could never go green however many sweeps were
+        # filed, published into the artifact other readers trust. H4 minted the convention and
+        # `release-gate.ux_clause()` reads it; this asks that function.
+        "gate_1": {"cells_pass": cells_pass, "ux_clause": _ux_state, "cells": cells,
+                   # deprecated alias, one lap — see above
+                   "seats_pass": seats_pass, "seats": seats},
         "lap_count": lap_count,
         "last_lap": last,
         # ⛔ Non-empty means a hand-typed heading did not parse and A LAP IS MISSING FROM THE COUNT.
@@ -145,6 +218,7 @@ def derive(cleared=None, prior=None, sha=None):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--selftest", action="store_true")
     ap.add_argument("--cleared", help="Paul cleared this sha (his word, typed by a session on his say-so)")
     # ⭐ D3 `[process-audit, 2026-09-07]`: this tool CARRIED `pre_registered[]` forward and could never
     # ADD to it, so a lap's own pre-registrations lived in prose in the retro and nothing existed to
@@ -157,6 +231,8 @@ def main():
                          "evidence and must never be silently replaced by a re-registration.")
     ap.add_argument("--sha", help="derive against this build instead of HEAD (the deployed, walked candidate when HEAD moved by a non-app commit)")
     a = ap.parse_args()
+    if a.selftest:
+        return selftest()
     prior = None
     try: prior = json.load(open(STATE, encoding="utf-8"))
     except (OSError, ValueError): pass
@@ -208,9 +284,13 @@ def main():
         for r in refused:
             print("  ⛔ %s" % r)
         print("  ✚ pre-registered: %s" % (", ".join(added) if added else "none"))
-    print("release loop — %s · beat %d/%d (%s) · owner: %s · candidate %s · seats pass: %s"
+    # ⚠️ THE LABEL SAYS CELLS BECAUSE THE UNIT IS CELLS. `seats_pass` survives in the JSON as a
+    # deprecated alias for one lap, for readers outside this repo; a line that keeps SAYING "seats"
+    # would re-teach the unit row T just replaced, which is how the wrong model gets relearned at
+    # every glance.
+    print("release loop — %s · beat %d/%d (%s) · owner: %s · candidate %s · cells pass: %s"
           % (st["state"], st["beat"]["n"], st["beat"]["of"], st["beat"]["name"], st["beat"]["owner"],
-             st["candidate_sha"], st["gate_1"]["seats_pass"]))
+             st["candidate_sha"], st["gate_1"].get("cells_pass", st["gate_1"].get("seats_pass"))))
     if note: print(note)
     # ⭐ The loud half of J-c: a heading that did not parse means a lap silently vanished from the
     # count, so it prints at the top level rather than living only in the JSON nobody opens.
