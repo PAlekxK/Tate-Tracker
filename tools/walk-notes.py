@@ -31,6 +31,22 @@ an address, coordinates, an email, a phone number or a real username may not. Th
 un-write what a walker typed, so it SCANS what it is about to emit and refuses rather than
 publishing a bullet that carries one. The refusal names the run, never the value.
 
+⛔⛔ THIS TOOL CAUGHT ITSELF UNDER-REPORTING THREE TIMES BEFORE IT SHIPPED, and the next person to
+change it should know the shape, because all three were the same class, all silent, and all in the
+FLATTERING direction — under-reporting, which nobody questions:
+  1. It recognised only `- ` bullets. `[measured]` NINE reports already carry a findings section and
+     NOT ONE uses bullets — every finding is a BOLD NUMBERED PARAGRAPH. It reported "3 wrote findings
+     · 0 bullets" over a corpus full of substantial findings.
+  2. It treated present-but-unparsed as "read, 0 findings". "The walker found nothing" and "the format
+     defeated the reader" are different claims and now render differently (`heading-empty`).
+  3. It matched the heading EXACTLY, so `## Findings, strongest first` printed as **heading-missing**
+     over a section the walker plainly wrote.
+⭐ THE MEASURE, on the real corpus: 3 reports / 20 findings before the last correction, SIX / THIRTY-
+SEVEN after. A version shipped at "3 / 0" would have told everyone the walkers wrote nothing — and it
+would have been believed, because this tool is the only thing looking at that channel.
+⛔ THE RULE THAT FALLS OUT: a reader of HUMAN-AUTHORED text may not use an exact-match predicate. Match
+on a prefix, accept more than one form, and RECORD the variant you saw so the variance stays visible.
+
 THE PRE-REGISTERED FALSIFIER (plan §3 · T8/M15b), which this tool cannot check and which is the only
 thing that makes the channel real: **a bullet written at candidate N is findable in a backlog row or
 an opened question at lap close — or the channel is decorative.** Nothing here proves that. It is
