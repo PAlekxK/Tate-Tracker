@@ -1813,7 +1813,10 @@
       body: JSON.stringify({ username: u, word: w,
                              email: pref === "none" ? null : (em || null),
                              phone: pref === "none" ? null : (ph || null),
-                             contactPref: pref, accent: read(K_COLOR) })
+                             // A17 (lap 7, closure 34 — TWO COLOURS): the swatch chosen at signup is the
+                             // ACCOUNT's colour (profileAccent). The place's own (accent) is seeded from it
+                             // at founding (A19) and then moves independently, via /settings/place/ only.
+                             contactPref: pref, profileAccent: read(K_COLOR) })
     })
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, b: b }; }); })
       .then(function (res) {

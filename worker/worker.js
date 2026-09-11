@@ -801,6 +801,12 @@ async function handleAccountCreate(request, env, scope) {
     // ⚠️ Accounts created before this carry no marker and must stay UNCLASSIFIABLE. A teardown that
     // refuses them is correct; one that guesses from a name is the failure this exists to prevent.
     fixture: !!(invite && invite.fixture),
+    // ⛔ A17 (lap 7, closure 34 — TWO COLOURS [paul-ruled 2026-09-10]): ACCOUNT = `profileAccent`, written
+    // at signup and by /settings/account/; PLACE = `accent`, written by /settings/place/ only and seeded
+    // at founding from the person's profileAccent (A19). `accent` is still accepted here from an OLDER
+    // page that posts it, so a stale client cannot lose the choice; the new page posts profileAccent.
+    profileAccent: typeof body.profileAccent === "string" ? body.profileAccent.slice(0, 9)
+                 : (typeof body.accent === "string" ? body.accent.slice(0, 9) : null),
     accent: typeof body.accent === "string" ? body.accent.slice(0, 9) : null,
     placeName: null,
   }));
@@ -1465,6 +1471,15 @@ async function handleEstateFound(request, env) {
   const estateId = "est-" + b64(crypto.getRandomValues(new Uint8Array(6)))
                     .replace(/[^a-z0-9]/gi, "").toLowerCase().slice(0, 6);
   const place = { placeName: placeName || null, address, addressParts: (body.addressParts && typeof body.addressParts === "object") ? body.addressParts : null };
+  // ⭐ A19 (lap 7, closure 36) — THE PLACE OPENS IN A CLAIMED COLOUR: seeded from the founder's own
+  // profileAccent, so the place picker never opens unset and the masthead never renders a colour no
+  // swatch claims. After this the two move independently (account = profileAccent · place = accent).
+  let founderAccent = null;
+  try {
+    const _fa = await env.OBSERVATIONS.get(personAccountKey(person.personId));
+    if (_fa) { const _acc = JSON.parse(_fa); founderAccent = _acc.profileAccent || _acc.accent || null; }
+  } catch (e) { founderAccent = null; }
+  if (founderAccent) place.accent = founderAccent;
   const geo = await geocodeAddress(env, scopeOfRoute(estateId, env), address, place.addressParts);
   if (geo && geo.coordinates) {
     place.coordinates = geo.coordinates;                       // carries countyFips, matchedAddress, source
@@ -1486,6 +1501,7 @@ async function handleEstateFound(request, env) {
   const tokenHash = await sha256Hex(presented);
   const grantRow = {
     personId: person.personId, estateId,
+    accent: place.accent || null,     // A19 — whoami reads the grant, so the seeded place colour rides it
     relationship: ["owner"], capability: "member",
     entry: true, vault: false,
     issuedAt: new Date().toISOString(), issuedBy: person.personId,
