@@ -5279,3 +5279,33 @@ browser launched"* — which is the posture this whole row exists to install: **
 NOT cover.**
 
 **Remaining: T18 · T19 · T21 (the acceptance run) · T22 · T23.**
+
+### T18 + T19 LAND — **22 of 24** — and T18 CAUGHT ITSELF MANUFACTURING 5 FINDINGS OUT OF 8
+
+`51f7bbc3` + `947c3585`. **check-href-controls 10/10**, all eight suites green, release-gate ✅, corpus frozen,
+five verdicts unchanged.
+
+⭐⭐ **T18's SHORTFALL IS PRESERVED AS ITS FALSIFIER — the instruction is IN THE SOURCE, not in a brief.** Its own
+header: *"⛔⛔ ITS STATED SHORTFALL IS ITS FALSIFIER, AND THAT IS DELIBERATE. THIS CHECK IS GREEN ON W2"* — the
+handler exists in the page, so the static test passes — and *"⚠️ IF SOMEONE LATER 'FIXES' THIS TOOL TO GO RED ON
+W2 WITHOUT A BROWSER, CHECK WHAT IT NOW ALSO GOES RED ON."* ⭐ **The real W2 cover is a region-change stop, and it
+lands in row H.** A static check that acquired browser-shaped authority would be worse than one admitting its
+boundary.
+
+⭐⭐ **AND `M24h` IS THE ELICITATION-LENS FAILURE CAUGHT BEFORE SHIPPING RATHER THAN AFTER: the first version
+reported FIVE red findings out of eight ON THE REAL TREE, every one a FALSE POSITIVE.** It now reports **zero**,
+with four clauses (`M24e` · `M24f` · `M24g` · `M24c`) existing purely to prove **the check does NOT fire** on
+shapes that look wrong and are not — a bulk id cache, a helper bound to a local, a runtime href assignment, and
+a handler registered inside a function. ⛔ *A lens that manufactures findings is worse than no lens: it spends a
+reader's attention and teaches them to skim it.* **Second tool in this row to catch that in itself.**
+
+⭐ **T19 — a failed deploy and an unmeasured one no longer read the same.** The row is written when the deploy
+**STARTS**, carrying `finishedAt: null`, overwritten only on completion — *"so a deploy that raises mid-leg leaves
+`finishedAt: null` ON THE RECORD, which is a DIFFERENT fact from 'no row at all'."* ⛔ **And the logger never
+raises:** a logging failure may not break a deploy.
+
+⚠️⚠️ **AND T19 FOUND A REGRESSION T15 HAD INTRODUCED — its own, two steps back, found and fixed in the same
+commit.** That is the row's controls catching the row's own work, which is the strongest evidence so far that
+they are load-bearing rather than decorative.
+
+**Remaining: T22 · T23, then ⛔ STOP before T21 (the acceptance run).**
