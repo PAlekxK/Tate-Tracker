@@ -1,4 +1,4 @@
-# Handoff: LAP 8 · ROW T — the testing revamp. BUILD WINDOW, 21 steps, whole
+# Handoff: LAP 8 · ROW T — the testing revamp. BUILD WINDOW, 24 steps, whole
 
 <!-- generated 2026-09-11 10:54 EDT · source: Tate-Tracker@5dea4fcb (5dea4fcbcaa99bc1f69faeb5279c64a684b15582) on LOCAL main, clean tree · written by the
      lap-8 coordination window at hot context with a QUOTED heredoc. RECEIVER: verify this sha against HEAD and
@@ -8,16 +8,31 @@
 
 **You are the BUILD window for lap 8 · ROW T — the testing architecture — and you build it WHOLE.**
 
+⛔ **CORRECTED after this brief's first readback: ROW T IS 24 STEPS, NOT 21.** This brief said 21 and quoted a
+§A sequence line that **dropped three ruled steps** — **T3b** (the `lenses.json` tier record; it is in `PLAN`
+§3's own sequence AND its step table) and **T22 · T23** (the shadow read and the frozen corpus, whose rows
+still read *"(if M-2 ruled yes)"* while **`PLAN` §13 P8 rules them UNCONDITIONAL**). The build window caught
+it from the authority line this brief told it to trust. Both documents corrected at `0a6c3684`.
+**≈28 h + 1 h + 0.25 h of Paul's edit.**
+
 Lap 8 is **OPEN** (`cycle/release/CYCLE-LOG.md` § *Lap 8*). Its beat-6 table carries **one row: T.** The door rows
 join only after engineering-partner's re-audit. **The scope gate is discharged** — `[paul-ruled 2026-09-11: "I'm
 pre-authorizing the commitment to be the whole testing package so you don't need my gate there"]`. You do not
 need Paul's word to proceed on scope. He is away; work independently to his gate.
 
-⛔ **`.engineering/2026-09-11-testing-revamp-SIZING.md` §A IS THE BUILD AUTHORITY** — 21 steps by symbol.
-`.plans/2026-09-11-testing-revamp-PLAN.md` §3's table is **the ORDER, not the spec.** Where they disagree, §A wins.
+⛔ **`.engineering/2026-09-11-testing-revamp-SIZING.md` §A IS THE BUILD AUTHORITY** — every step by symbol.
+`.plans/2026-09-11-testing-revamp-PLAN.md` §3's table is **the ORDER, not the spec.**
 
-> **T0 → (T1+T2 as ONE commit) → T3 → T4 → T5 → T7 → T8 → T9 → T20 → T17 → T10 → T11 → T12 → T13 → T14 → T15 →
-> T16 → T18 → T19 → [T6 = Paul] → T21 (the acceptance run).**
+⭐⭐ **THE PRECEDENCE RULE, CORRECTED — its first version caused a real scope error.** This brief originally
+said *"where they disagree, §A wins"*, full stop. **That is wrong, and it dropped three ruled steps.**
+
+> **§A is the authority on HOW a step is built. `PLAN` §13's RULINGS are the authority on WHETHER a step is in.**
+> **A seat's sizing document does not outrank a ruling Paul made.**
+
+Disagree about a step's *content* → §A wins. Disagree about its *existence or conditionality* → **check §13**.
+
+> **T0 → (T1+T2 as ONE commit) → T3 → T3b → T4 → T5 → T7 → T8 → T9 → T20 → T17 → T10 → T11 → T12 → T13 → T14 →
+> T15 → T16 → T18 → T19 → [T6 = Paul] → T21 (the acceptance run) → T22 → T23.**
 
 **No split** without a STRUCTURAL reason you can name — a ruling not given · a dependency on a lap-8 row · a
 falsifier that cannot run before the door exists. **Never hours.** SIZING §D tested seven candidates, found none.
