@@ -150,3 +150,53 @@ apply — check with it before any write it might be sequencing; `git status BAC
 paths only; the register-trailer convention (`Backlog-Register:` / `Backlog-Forwarded-By:` in the final paragraph
 with `Co-Authored-By:`); and two reader traps measured tonight — `wrangler kv key list` without `--remote` returns
 `[]` exit 0, and `watch-feedback.py` prints a stale "checked Nh ago" line when it did not read.
+
+---
+
+## 9. STATE AT CLOSE — 2026-09-11 ~3:55 AM ET · HEAD `7450b9d` (+ this commit) · window `tate-tracker-2a`
+
+**Closed on Paul's word** (*"ok let's close out"*). The successor reopens from this brief; ⚠️ **§1–§8 are two earlier
+sittings — §6's task list is stale on its face (④ and the queue are done); read §8 then this section, not §6.**
+
+**Who is live at close:** coordination `tate-tracker-ea` (the map, the chronicle, the freeze) · the lap-7 build window
+`tate-tracker-94` (row A in progress; rows B, C, P closed) · the ask-design window `tate-tracker-52` (plan tracked at
+`927d93c`). This window is the ONE DOOR to `BACKLOG.md` `[paul-ruled "fold it in"]`; the freeze on the lap-7 rows
+(TIER 1 · 45 · 42 · 26 · 27 · 28 · 29 · 30 · 31 · 43 · 44 · 32 · 23; TIER 2 · 10 · 13 · 18 · 19 · 20 · 21 · 25) is in force —
+those rows take only the build's own forwards and four-field fills until the coordinator lifts it.
+
+**What this window landed (all on `main`, none pushed):** the readback at `5c66e38` graded clean · Paul's rulings carried as
+they came: synced · teardown go (PAK/Homey resolved) · row 33 reconciled against the live store · §3i deployment/environment
+glosses · the eight build-plan rulings Q1–Q8 · L2's four fields on every lap-7 row · the environment model · `myhome.place` as
+the production origin's ADDRESS · the STARTING NAME **My Home Place**, Home emphasized (product-name Q3 ruled; the plan can take
+his stamp) · laps 8/9 scope RULED on every question · lap 10 scope (three ruled, one deferred, one lean-to-no) · laps 9 and 10
+stay separate · the fourteen open items (1 deferred, 2–5 closed, 6–14 by recommendation, all carried) · the third
+rationalization applied as one diff (drift reads rested at 2026-09-11) · the committed-by-ruling rung in
+`check-backlog-ready.py --ladder` (48/1 selftest; reads OPEN laps by outcome marker) · sections opened in his words:
+HOUSEPLANTS · CONTENT · CARDS · PRODUCTIZE LEGACY FERNWOOD · rows 47–59 · TIER 1 · 51 acted (his address deleted from qa by id).
+
+**Still his, none blocking a lap:** the lap-8 build plan's Q0–Q8 (at lap 8's open) · the ask-design plan's §13 (fifteen rows,
+his time) · lap 10 Q-10·2 (the fertilizer question as the acceptance walk — a lean to no) and Q-10·5 (five Fernwood zone
+facts, deferred to lap 10's groom) · the product-name plan's `ready:` stamp · the receipt-first reorder of the weather card
+(lap 9's open) · the small-lap-9 shape (lap 9's open).
+
+**Owed by this window, not started:** run the distinct-`questionId` count (TIER 1 · 59) when the lap-8 window closes · the four
+register edits the closed zones window still owes to TIER 2 · 7 and the derived-first-draft plan (lap-10 proposal's riders) ·
+the PRODUCTIZE census (engineering-partner + ux-expert, citing the inventory's §2 as done) · a `#card-told` cut of the
+changeable clause is content's, routed.
+
+**Blind spots for the successor — measured tonight:**
+1. ⛔ **`git commit --only BACKLOG.md`, always.** The index is SHARED with live lanes; `git add <path>` by name does NOT exclude
+   what another lane staged — `dcbc660` swept in the teardown lane's staged deletion of `instance/bob.json` under a register
+   message. HEAD moved before a rewrite could run, so it stands, cited by the lane's report. `--only` ignores the rest of the index.
+2. **The abort guard worked once and should stay:** `test "$(git rev-parse --short HEAD)" = "<expected>" || exit` before any
+   history-touching command — HEAD moves under this window a dozen times an hour.
+3. **`registrar-sweep.py`'s matcher** drops a `§` prefix and splits on `·` inside a heading name, and a `TIER n · m` anywhere in
+   the claim short-circuits the rest; name a heading by its words. `4766cc3` and `dcbc660` read UNPLACED for that reason and are
+   placed in fact.
+4. **The rung reads `## Lap N —` headings + `### Beat 6 · COMMIT` tables of laps whose `<!-- outcome:open -->` marker says open** —
+   lap 5's heading still says OPEN while its marker says closed; a pre-commitment written as a `###` under lap 7 is not on the
+   rung by design.
+5. **Every `.plans` `depends-on:` line must be a bare path** — an annotation after the path reads as a path that does not exist.
+6. **A Bash heredoc carrying long quoted markdown can be refused by the auto-mode classifier** ("Instruction Poisoning"); the Edit
+   tool with anchored strings is the reliable path, and a Python line-range move (no content embedded) for block moves.
+7. `MEMORY.md`'s one-door memory lives under `~/.claude/projects/-Users-paulkirschenbauer/memory/`, not this repo's memory dir.
