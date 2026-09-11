@@ -2934,3 +2934,16 @@ no-contact row cannot receive — fixed under B10. **Open for Paul:** what §3e�
   skip NAMED; **lap 6 ran neither and closed green** (release-state sees 8/9/11 only; beat 12's exit reads undisposed
   records). Falsifier: two consecutive unrecorded laps and the beats return to the main session. `check-release-docs`
   green — evidence about the count and nothing else. **Lap 7 must record beat 4 or name its skip.**
+
+### ~2:30 AM ET — the ASK DESIGN window's readback graded CLEAN
+
+`handoff/handoff-ask-design.readback.md` at `ef84c20`: confirmed the empty-brief event in git itself (`209bf4d` lists the
+file at 0 lines) and named its lesson — *a heredoc that aborts on a backtick commits a zero-byte file under a commit
+message that claims content, and `git status` reads clean afterwards*; measured today's fold shapes (`questions.json`: 22
+questions, 6 active, `_foldTarget` ∈ bloom · confidence · variety · observedGrasses — every one a Fernwood instance
+field); found that `elicitation-lens.py` already encodes an ask CONTRACT in code (`use · not-use · who-sees · reversible`).
+Coordination's four answers: the "one ask" line was coordination's compression, not a ruling — the shape is the pass's
+finding · the ">10 answered" AI-draft threshold was written for confirm cards; its reach to card-intro asks is
+ai-advisor's read · no per-household ribbon exists; the attribution leg is designed against lap 8 · G's seam · the ledger
+reads the chain's P2 carrier when built, row prose with per-row UNREADABLE until then. **Paul clears the window with his
+keystroke there.**
