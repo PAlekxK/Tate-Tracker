@@ -68,7 +68,14 @@ these.**
    the pre-deploy headless PAGEERROR check — the control that stops a broken build reaching an origin (the 09-06
    *"four seats walked a corpse"* incident). **T14 rewrites `newContext` (`journey-view.py:63-67`) into the one
    context factory.** *"No step moves the candidate"* is TRUE and is **not** *"no step moves anything a release
-   depends on."* **Run `pages-deploy --no-deploy` before and after T14; prove the PAGEERROR refusal still fires.**
+   depends on."* ⛔⛔ **CORRECTED — THE ORIGINAL INSTRUCTION WAS DANGEROUS AND IS STRUCK.** It read ~~*"run
+   `pages-deploy --no-deploy` before and after T14"*~~. **`--no-deploy` DOES NOT EXIST** — `pages-deploy.py` takes
+   only `--env` (**REQUIRED**), `--sha`, `--wait`. The command errors, **and the obvious recovery — dropping the
+   unknown flag — IS A REAL DEPLOY.** ✅ **Working form: import `pages-deploy` and call
+   `page_errors_on_load(<export dir>)` directly (`:116`) — that IS the function the deploy path uses (`:132`
+   shells `journey-view`, `:139` filters `PAGEERROR`), so it exercises the real control without deploying.**
+   ⭐ **Run it BOTH WAYS — a control seen only to pass has proven nothing:** tracked page → **0 PAGEERRORs**; a
+   page with a top-level `throw` → **≥1**, the refusal path firing.
 
 ## 3. ⛔ T0 GAINS TWO STEPS. Without them the acceptance run has no BEFORE leg
 
@@ -162,6 +169,13 @@ windows on one tree. ⛔ **A double-quoted `-m` containing a backtick or `$(…)
 an address, coordinates, email, phone or a real username.** `build-viewer.py --check` green means reproducible
 **bytes**, never a running page. `check-estate-neutral` green covers **five static pages** and says nothing about
 `viewer.html` or the model's prompt.
+
+## 8b. ⚠️ TWO ENVIRONMENT FACTS THIS MACHINE ENFORCES
+
+- ⛔ **`timeout` IS NOT INSTALLED** (BSD userland, no coreutils). Any step assuming it **fails**. Use the tool's
+  own timeout or `subprocess.run(..., timeout=)`.
+- ⛔ **`${PIPESTATUS[0]}` IS BASH-ONLY and silently expands to EMPTY in zsh**, this tool's shell. Use
+  **`${pipestatus[1]}`, 1-indexed**, or `bash -c`. A hook blocks the bash form — it is blocking a real error.
 
 ## 9. What NOT to trust in this brief
 
