@@ -5038,3 +5038,38 @@ it as a needle — and `CLAUDE.md:1030` publishes address and coordinates **by d
 known state, adds no disclosure, and is NOT a finding.** ⭐ Raising it would have been **manufacturing one**,
 which is the failure the elicitation lens already paid for (16 findings, 13 noise). *A synthetic fixture would be
 marginally better and costs nothing, but it is not owed and nothing waits on it.*
+
+### T20 + T17 LAND — 13 of 24, and the row's HIGHEST-RISK STEP AVOIDED ITS TRAP EXPLICITLY
+
+**T20** `f0d7f643` — the lens axis named, every posture declaring what it rests on. `journey-walk` **89/89**.
+**T17** `66ba00b0` — the identical-failure read: *is the HARNESS lying, or is the PRODUCT broken?*
+Invariants at both: release-gate ✅ · corpus frozen ✅ · walk-integrity ✅ · map-vs-code ✅ · **all five frozen
+verdicts unchanged.** Thirteen steps, unbroken at all thirteen.
+
+⭐⭐ **T17 WAS THE ONE THE CARRIES FILE NAMED AS MOST LIKELY TO SHIP A PERMANENT FALSE-GREEN**, because the plan
+specifies it against `steps[].ok` — **a field that does not exist** (0 of 283 transcripts). ⛔ **It did not fall
+in, and the correction is IN THE SOURCE where the next reader meets it**, not only in a commit message:
+
+> *"⛔⛔ IT READS `failedActions[]`, NOT `steps[].ok`. The plan specifies `steps[].ok`; THAT FIELD DOES NOT
+> EXIST… already reads `failedActions` in `judge()`, so the corrected predicate is this file's own."*
+
+**SECURITY R6-B's read-scope is honoured with the CORRECTED field list** — the clause that was inoperative this
+morning because it bounded a reader to a field that never existed.
+
+#### ⭐ SEVEN CLAUSES, AND THREE ARE GUARDS NOBODY SPECIFIED
+
+| clause | what it refuses |
+|---|---|
+| **M23a** | five lenses, one journey, the same failure, zero page errors → **SUSPECT** |
+| **M23b** | five **different** failures → not suspect — *that is five findings* |
+| **M23c** | identical failures **with** page errors → not suspect — *a product fault* |
+| ⭐ **M23d** | **four of five → NOT suspect.** Only **unanimity** points at what they share |
+| ⭐⭐ **M23e** | **ONE lens alone NEVER triggers it — *1-of-1 is unanimous and says nothing*** |
+| ⭐ **M23f** | a planted address in a failed action yields **only the SELECTOR** |
+| ⭐ **M23g** | an unreadable failure is **None, never a bucket** unlike failures merge into |
+
+⛔ **M23e is the trap the spec walked straight past.** *"N of N lenses"* is **trivially satisfied by N = 1**, so a
+single-lens run would have fired SUSPECT HARNESS on one ordinary failure — **the detector manufacturing the exact
+thing it exists to catch.** ⭐ **M23g is `walk-notes`' M14g again** — no sentinel for unreadable input, so two
+unknowns cannot compare equal and be reported as a shared cause — and **M23f carries T9's privacy discipline into
+a different reader**, which is what *must-not-diverge* looks like when it is working.
