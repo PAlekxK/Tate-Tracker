@@ -336,6 +336,26 @@ def _selftest():
        "catch (e)" in NODEJS and "ENGINE-UNAVAILABLE" in NODEJS
        and "npx playwright install" in NODEJS)
 
+    # ═══ T15 · THE WEBKIT CELL ═══════════════════════════════════════════════════════════════════
+    # ⭐ `[paul-ruled, P17: WebKit is installed]`. Zero walks in this project's history had used
+    # anything but bundled Chromium — MOM'S SAFARI ENGINE HAD NEVER BEEN WALKED ONCE — and as of
+    # 2026-09-11 it has: `--engine webkit` opens the QA origin and reports a screen, recording
+    # `ranIn.engine: "webkit"`.
+    # ⛔ SECURITY R4: no new tier and no new trust root. A WebKit run that cannot reach the origin
+    # reports UNREACHABLE; A FAILURE HERE IS A CAPABILITY FINDING, NEVER A PRODUCT FINDING.
+    # ⭐⭐ AND THE PRODUCT FACT THIS CELL EXISTS TO FALSIFY (L8-P7), measured: `fw-grant` is written
+    # to **localStorage only** — no cookie, no sessionStorage anywhere in the served pages. WebKit
+    # evicts localStorage for an origin left idle, so a returning person on Safari can lose the grant
+    # that keeps them signed in. This cell is the instrument that would show it; it is a roster row
+    # for lap 8 · A, not row T's to fix.
+    ck("T15/M22a the engine is DECLARED and recorded, so a walk can say which browser it ran in",
+       "'engine': " in NODEJS or "engine: cfg.engine" in NODEJS or "engine: engineName" in NODEJS
+       or "cfg.engine || 'chromium'" in NODEJS)
+    ck("T15/M22b the playwright tree is the NEWEST, not an arbitrary glob hit — an engine installed "
+       "into another tree would read as unavailable though it is installed",
+       "key=lambda d: os.path.getmtime(d), reverse=True" in open(os.path.abspath(__file__),
+                                                                 encoding="utf-8").read())
+
     # ⛔ M21e — a declared-but-absent profile refuses BEFORE launching, naming how to produce one.
     import tempfile as _tf
     with _tf.TemporaryDirectory() as td:
@@ -396,7 +416,13 @@ def main():
     if not a.url:
         ap.error("the following arguments are required: url")
 
-    mods = glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/playwright"))
+    # ⛔ T15 — THE NEWEST TREE, NOT AN ARBITRARY ONE. `glob` returns filesystem order, and `mods[0]`
+    # took whichever came first across THREE playwright installs on this machine. An engine installed
+    # into one tree while NODE_PATH points at another reads as UNAVAILABLE though it is installed —
+    # a capability finding manufactured by a sort order. The plan says to fix this the day the
+    # WebKit install lands; this is that day.
+    mods = sorted(glob.glob(os.path.expanduser("~/.npm/_npx/*/node_modules/playwright")),
+                  key=lambda d: os.path.getmtime(d), reverse=True)
     if not mods:
         raise SystemExit("journey-view: no browser available")
     env = dict(os.environ); env["NODE_PATH"] = os.path.dirname(mods[0])
