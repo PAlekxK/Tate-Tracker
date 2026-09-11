@@ -3670,3 +3670,32 @@ section as a standing line.
 revamp plan · row T first · check in with the revamp window (`tate-tracker-d8`) · reopen the backlog window and hand it the
 register queue (§7's grep) · the unanswered rulings (stop rule · J2 · push) · the beat-6 table as ruled · the guardrails lap 7
 earned. The lap-7 coordination window grades its readback, then Paul clears it in its window, then this window closes.
+
+### The lap-8 coordinator's readback graded CLEAN — and two gaps it found in the lap-7 record, closed here · 2026-09-11 10:02 EDT
+
+`handoff/handoff-fernwood-coordination-lap8.readback.md` (`tate-tracker-42`, stamped from `date`). Everything it measured
+matches; two things it could not find were coordination's omissions:
+
+**1 · THE STOP-RULE RECOMMENDATION, now in the record** (it had been put to Paul only in the coordination window's chat, after
+the lap-7 audit; L8-P4 is its pre-registration). Beat 10's rule *"a second product defect stops and holds for Paul"* fired on a
+pre-existing, Worker-only defect with a one-commit fix already proposed and held **8 h 06 m**. **Recommendation, coordination's,
+for Paul's ruling:** two classes — **(a) a defect the candidate INTRODUCED stops and holds for Paul; (b) a PRE-EXISTING defect the
+battery SURFACED, with a proposed fix and no real household's data touched, proceeds on coordination's ruling with Paul
+informed, overrulable at his clear** — plus **a wait term: if his word has not come within ONE HOUR, the lane proceeds on the
+recommendation.** The rule is CYCLE-MAP's (beat 10) and the edit is his; **unanswered**.
+
+**2 · WHICH APP MOM OPENS.** `legacy` (top-level `fernwood`, est-3c9f1a, the GitHub-Pages viewer) is **the app Mom actually
+uses today**, frozen as a DATA CONTROL (her 23 hand-traced zones are the answer key). `home` (`fernwood-home`, est-e6696a)
+holds **her ACCOUNT on the new product** — `marguerite`, created 2026-09-10 12:24 PM ET, **no house founded** — and is not where
+she reads. **Lap 8 · B migrates that one ACCOUNT ROW into production** (`myhome-paul` at the apex `myhome.place`), with a
+verified copy, never a delete; `legacy` stays as it is until **she founds her own Fernwood on the new product — her act, a
+disposition, never a commitment** (9·3), after which the zones preload follows (Z-13). Two different acts; the brief's §4 ran
+them together.
+
+Also confirmed from its list: the register-queue line about *row T → lap 9* (`:3316`) is SUPERSEDED — carry as *lap 8, first*;
+the roster (five owners incl. Paul) names PEOPLE-SHAPES the product serves, the lens list names READING POSTURES — distinct
+axes, the revamp plan states it in one line; the brief's §8 order is the last RULED order, and Paul's message to the successor
+(*"a little shuffling of our commit commitments which we can take time to sort out"*) means the door rows may re-sequence
+behind T. Its reading *"open lap 8 on row T alone, the door rows joining the table at the re-audit"* is consistent with his words
+and is **his to say**, put to him by the successor with a recommendation. **Paul clears the successor in its window; this
+window closes after.**
