@@ -2695,6 +2695,8 @@ than pass.
 
 ## 🌱 A-ASK · THE ASK DESIGN — 🗳 **decision card `fernwood-11`** (minted 2026-09-01)
 
+> ✅ **OPENED AS ITS OWN WINDOW, 2026-09-11 ~1:50 AM ET** `[paul-ruled: "I say go on both"; relayed by the coordination window]` — brief `handoff/handoff-ask-design.md`; user-researcher leads, with content-steward · ux-expert · security-steward · ai-advisor; output `.plans/2026-09-11-ask-design-PLAN.md` — **the ask playbook, the weather card's intro ask as the first template (TIER 2 · 11's `ask` field, § 🃏 CONTENT · CARDS), and the SPEC of `tools/ask-ledger.py`.** It forwards rows here by message. **And the act he ruled with it: the ASK LEDGER reader is a LAP 8 RIDER** (`.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md`, beside riders 36/37) — a reader, no surface: every ask the product has ever made · served · answered, as counts · folded into what · which feature row it links to; exit 3 = UNREADABLE, never zero by absence. It exists because *every item ships with an ask* has had no reader of the asks themselves. Bound by the elicitation-lens ruling: the ledger measures asks, it does not multiply them.
+
 `paul-stated 2026-09-01`: *"whatever she's interested in is what we need to latch onto, and that
 should continue to be a key component of the feedback cycle and absolutely could be a seed for a
 future scoping conversation."*
