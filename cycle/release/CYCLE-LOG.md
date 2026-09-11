@@ -3808,3 +3808,21 @@ and the standing rule is that **the ribbon goes quiet when she does** — parkin
 stability work runs. `[paul-ruled]`; the record carries the cost so that a later reader knows it was chosen, not missed.
 ⭐ And the 09-07 rule still stands over it: *before any finding about her BEHAVIOUR becomes an organising claim, ask Paul
 what she has asked him for lately* — a parked channel is not evidence about her.
+
+### CLAUDE.md — the stale A+ walk-back paragraph STRUCK `[paul-ruled 2026-09-11 10:15 EDT: "get rid of the stale paragraph"]`
+
+Surfaced by the revamp window's UR-§7c and **re-measured by coordination before the edit, not relayed**: all four instance
+files set `display.defaultTextSize: "lg"` and the built `viewer.html` carries `DEFAULT_SIZE = "lg"`, so **A+ is what is
+served.** CLAUDE.md carried the 09-03 ruling (*A+ IS THE STANDARD*) and, ten lines below it, the 08-19 walk-back asserting
+*"Mom was never served A+; the default is `normal` again"* plus an instruction to treat `check-live.py` text-size drift as a
+real finding. **The second read as current and is false at HEAD.** Struck, with the strike and its reason left in place so the
+paragraph is not re-added — this corpus's measured failure is that a rejected alternative nobody wrote down gets re-proposed.
+
+⭐ **Stale in the DANGEROUS direction, which is why it was worth Paul's turn rather than a tidy-up:** a session reading it
+would have seen a correct A+ default, classified it as drift, and reverted **what Mom is served**. The 08-19 words were right
+when said and were answered by measurement — she was already on A+, so serving it is not forcing it.
+
+⚠️ Related, still OPEN and now a backlog row: `settings/account` presents the instance default as a choice the person made
+(*a preference shown as chosen that nobody chose*) — content-steward's, legibility not defect. And the harness's *"no walk
+has ever run at A+"* was **wrong for the app screens, right for the setup screens** — the exact class row T's `arrivalState`
+declaration (T10) exists to stop.

@@ -733,11 +733,17 @@ been using the first as evidence for the second. So the one combination she meet
 had checked. Full reasoning, the first honest run, and the three false-positive classes its first
 version invented: `MOM-CYCLE-MAP.md` § Leg 6e.
 
-✅ **THE A+ DEFAULT WAS WALKED BACK, 2026-08-19 — the 08-15 hold is RESOLVED and this file no
-longer carries an exception.** `2e8791a` was never pushed, so **Mom was never served A+**; the
-default is `normal` again and the reasoning + verdict live in `viewer.html`'s `wireTextSizeToggle`
-block. `check-live.py` drift is once again a real finding, not an expected one — treat it as such.
-Paul, 2026-08-19: *"let's not force an A+ text resizing if she's used to A."*
+⛔ **THE 2026-08-19 WALK-BACK PARAGRAPH WAS STRUCK 2026-09-11 `[paul-ruled: "get rid of the stale
+paragraph"]` — it was SUPERSEDED and it read as current.** It asserted *"Mom was never served A+;
+the default is `normal` again"* and told the reader to treat `check-live.py` drift on text size as a
+real finding. **Both halves are false at HEAD**, measured: `instance/fernwood.json` ·
+`paul.json` · `home.json` · `qa.json` all set `display.defaultTextSize: "lg"`, and the built
+`viewer.html` carries `DEFAULT_SIZE = "lg"`. The 09-03 ruling directly above **is** the live one.
+⭐ **Why the strike is recorded rather than the paragraph silently deleted:** it is stale in the
+DANGEROUS direction — a session reading it would see a correct A+ default, classify it as drift, and
+revert what Mom is served. The 08-19 words (*"let's not force an A+ text resizing if she's used to
+A"*) were right when said and were **answered by measurement**: she was already on A+, so serving it
+is not forcing it. Do not re-add the paragraph; the history lives in `MOM-CYCLE-MAP.md` § Leg 6e.
 
 ⭐⭐ **A COMMIT IS NOT A SHIP — AND NEITHER IS A PUSH.** This file has said "shipping means a push"
 since July. That was already too weak, and *nothing verified even the push*. Pages rebuilds
