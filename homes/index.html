@@ -240,10 +240,21 @@
       // Wi-Fi range must not be told to sign in again — the credential is fine, the network is not.
       if (grant && reach === "refused") {
         var a = document.createElement("p"); a.className = "soft";
-        var link = document.createElement("a"); link.href = "/estate/"; link.textContent = "Sign in again ›";
+        // the DOOR, not /estate/ — /estate/ is the receipt screen and cannot sign anyone in (B15)
+        var link = document.createElement("a"); link.href = "/onboarding/"; link.textContent = "Sign in again ›";
         a.appendChild(link); host.appendChild(a);
       }
       return;
+    }
+    // ⭐ B15 (lap 7, closure row 33) — QUARANTINE ON A REFUSED CREDENTIAL, with rows CACHED: keep them,
+    // drop "Signed in as", swap each row's open for the door, say the state above the list. ⛔ Never
+    // clear storage on a refusal — only the person changes what the device keeps. DRAFT slot.
+    var refused = !!grant && reach === "refused";
+    if (refused) {
+      try { el("who").hidden = true; } catch (e) {}
+      var rs = document.createElement("p"); rs.className = "soft";
+      rs.textContent = "This sign-in isn’t working here. These are the homes this phone remembers — sign in again to open one.";
+      host.appendChild(rs);
     }
     homes.forEach(function (h) {
       var b = document.createElement("button");
@@ -260,7 +271,7 @@
       b.appendChild(rail); b.appendChild(nm);
       var where = townState(h.addressParts);
       if (where) { var w = document.createElement("p"); w.className = "where"; w.textContent = where; b.appendChild(w); }
-      var go = document.createElement("span"); go.className = "go"; go.textContent = "›";
+      var go = document.createElement("span"); go.className = "go"; go.textContent = refused ? "Sign in ›" : "›";   // B15
       b.appendChild(go);
       // ⭐⭐ ONE TAP FROM THE SHELF TO THE PLACE `[paul-ruled 2026-09-08]`. This sent every reader to
       // `/estate/` first — the "Early days" card — so choosing your home landed you on an
@@ -278,7 +289,7 @@
       // reachable. What changed is that a RETURNING reader no longer passes through it every time —
       // which is the other half of the ruling: a receipt is shown once, not re-shown on every
       // arrival.
-      b.addEventListener("click", function () { location.href = "/viewer.html"; });
+      b.addEventListener("click", function () { location.href = refused ? "/onboarding/" : "/viewer.html"; });   // B15: the door on a refusal
       host.appendChild(b);
     });
   }
@@ -309,7 +320,8 @@
         // ⛔ A null here means the credential did not resolve OR the transport failed. We did not
         // learn anything about this person's homes either way — but WHICH of the two it was is now
         // kept (D4), because the two want opposite remedies.
-        if (!d) { if (reach === "fetching") reach = "unknown"; if (!cached.length) renderHomes([]); return; }
+        // B15 — on a refusal, RE-RENDER the cached rows so they wear the door, not the app
+        if (!d) { if (reach === "fetching") reach = "unknown"; renderHomes(cached.length ? cached : []); return; }
         reach = "ok";
         // ⚠️ ONE HOME, AND THAT IS THE TRUTH RATHER THAN A LIMITATION OF THIS PAGE. A credential
         // resolves to exactly one estate today; there is no person→estates index. Rendering an

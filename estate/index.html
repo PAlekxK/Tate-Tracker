@@ -192,6 +192,8 @@
          correct for anyone whose scripting never runs. -->
     <p class="lede" id="doorstate">Nothing's been built on it yet — that's my job.</p>
 
+    <!-- B15 (lap 7, closure row 33) — the refusal state prints ABOVE the rows; the rows themselves stay -->
+    <p class="soft" id="reachstate" hidden></p>
     <div class="rows" id="rows"></div>
     <!-- ⭐ THE DOOR. Until R4 (2026-09-06) `/viewer` on every origin was Fernwood's build, so this page
          deliberately offered no way in. Each household origin now builds its own app from its own
@@ -532,7 +534,7 @@
         // "Fetching your place…" on screen forever. Three different truths, one dead screen.
         // a non-2xx says nothing about her place — and now the screen says that rather than
         // presenting silence as an inventory
-        if (!d) { fetching = false; if (reach === "ok") reach = "unknown"; render(); return; }
+        if (!d) { fetching = false; if (reach === "ok") reach = "unknown"; render(); quarantine(); return; }
         reach = "ok";
         var changed = false;
         function put(k, v) {
@@ -580,9 +582,25 @@
         // ⛔ AND IT MUST NOT FALL BACK TO "Nothing here yet", which is a claim about her place made
         // by a request that never arrived. A rejection and a refusal are the same claim: we did not
         // learn anything.
-        fetching = false; reach = "unknown"; render();
+        fetching = false; reach = "unknown"; render(); quarantine();
       });
   })();
+
+  // ⭐ B15 (lap 7, closure row 33) — QUARANTINE ON A REFUSED CREDENTIAL. Keep the cached rows; drop
+  // "Signed in as <user>" (a claim the record just declined); turn the open control into the door;
+  // print the refusal state above the list. ⛔ NEVER clear storage on a refusal — the no-signal
+  // premise makes clear-on-failure destructive. A refusal changes what the page CLAIMS; only the
+  // person changes what the device KEEPS. Sentence is a DRAFT slot, content-steward's.
+  function quarantine() {
+    try {
+      var st = el("reachstate");
+      if (reach !== "refused") { if (st) st.hidden = true; return; }
+      el("who").hidden = true;
+      var open = el("openapp");
+      if (open) { open.textContent = "Sign in \u203a"; open.href = "/onboarding/"; }
+      if (st) { st.textContent = "This sign-in isn\u2019t working here. What\u2019s below is what this phone remembers \u2014 sign in again to see the record."; st.hidden = false; }
+    } catch (e) {}
+  }
 
   // ── telemetry: `complete` lives HERE now ───────────────────────────────────────────────────
   // ⛔ IT USED TO FIRE ON THE HANDOFF TAP, 120ms before navigation began, with the detail
