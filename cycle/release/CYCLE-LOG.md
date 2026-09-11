@@ -3699,3 +3699,28 @@ axes, the revamp plan states it in one line; the brief's §8 order is the last R
 behind T. Its reading *"open lap 8 on row T alone, the door rows joining the table at the re-audit"* is consistent with his words
 and is **his to say**, put to him by the successor with a recommendation. **Paul clears the successor in its window; this
 window closes after.**
+
+### The LAP 8 coordinator is CLEARED · four rulings at the clear `[paul-ruled 2026-09-11 10:05 EDT]`
+
+Readback `handoff/handoff-fernwood-coordination-lap8.readback.md` graded CLEAN by the lap-7 window (its two gaps — the
+stop-rule recommendation, and which app Mom opens today — written into this chronicle at `8887f25a`). Paul, in the lap-8
+window: *"I'm good on all your recommendations here. Those make sense."* — the clear, and four rulings, each put as
+question · recommendation · alternatives:
+
+| ruling | ruled |
+|---|---|
+| **the stop rule (L8-P4)** | **two classes + a one-hour wait.** A defect the candidate INTRODUCED stops and holds. A PRE-EXISTING defect the battery SURFACED, with a proposed fix and no real household's data touched, proceeds on coordination's ruling with Paul informed, overrulable at his clear. The CYCLE-MAP beat-10 edit follows (quoted in the plan first, made at lap 8's open) |
+| **J2 (L8-P6)** | **re-scoped to "returning, founded nothing"**, not retired; the cell list may name it |
+| **push `origin/staging`** | **push** — 268 commits; `main:staging`, never `origin/main` |
+| **open lap 8 on row T alone** | **yes** — when `.plans/2026-09-11-testing-revamp-PLAN.md` is ready and Paul has read it, lap 8 opens with T as the only committed row; the door rows join the beat-6 table after engineering-partner's re-audit of the lap-8 plan. §8's order in the coordination brief is the last RULED order, not the table |
+
+**The revamp window's state at the clear** (`tate-tracker-d8`, by message): four seats returned and committed (SIZING `13d93181`
+— 21 steps T0–T21, ≈28 h, no structural split across seven candidates; SECURITY · LENSES · MODEL-POLICY `7fb3be32`; ANALYSIS
+`394c18d4`; audit §8/§8h `bc41b919` `c0ca03d8`); the plan file is being written as one piece, `stage: ready`, expected within
+the hour by git's clock. **Row H FOLLOWS T and rebases on it** (three rebase points in SIZING §C1: H1's second browser context
+from T14's factory · H2's J9 carries T10's four JOURNEYS keys and sits in the cell list · the region-change stop for `href="#"`
+lands in H against A11's page). Its ruling list for Paul rides the plan file, ruled once against it. ⚠️ One item touches
+production and is a gate at the act: a lane reading the SHAPE of the ranked record on Mom's production account.
+
+**Coordinator of record from here: `tate-tracker-42`.** The lap-7 window closes. Next: the register queue to the backlog
+window (reopened from its brief §10) · the pickup block · the plan when its sha arrives.

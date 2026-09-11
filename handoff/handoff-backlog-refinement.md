@@ -200,3 +200,37 @@ changeable clause is content's, routed.
 6. **A Bash heredoc carrying long quoted markdown can be refused by the auto-mode classifier** ("Instruction Poisoning"); the Edit
    tool with anchored strings is the reliable path, and a Python line-range move (no content embedded) for block moves.
 7. `MEMORY.md`'s one-door memory lives under `~/.claude/projects/-Users-paulkirschenbauer/memory/`, not this repo's memory dir.
+
+## 10. REOPEN — the register queue held while this window was closed `[written by the lap-8 coordination window, tate-tracker-42]`
+
+Lap 7 CLOSED at `87c7aae` (09:51 EDT 2026-09-11); lap 8 HOLDS for the testing-revamp plan; **row T lands whole and FIRST in
+lap 8** (supersedes the lap-9 placement). Every line below is an unfiled carry. Carry with the register-trailer convention,
+`git commit --only BACKLOG.md`. HEAD moves under you many times an hour — three windows commit on this tree.
+
+**A. The chronicle's queue** — `grep -n -iE 'queued for the register|register carry|Register:' cycle/release/CYCLE-LOG.md | awk -F: '$1>2698'`
+returns twelve lines (2862 · 3020 · 3056 · 3088 · 3141 · 3316 · 3359 · 3469 · 3480 · 3507 · 3545 · 3643); every one first
+appears in git AFTER `06e3c7d`. ⚠️ **`:3316` is SUPERSEDED** — it moves row T to lap 9; carry it as **lap 8, first**
+(`CYCLE-LOG.md` § "LAP 8 HOLDS", 09:47 EDT). Read `:3498` (the account is always the first layer) and `:3605` before the rest.
+
+**B. Paul's walk W1–W11 + two rules**, from the coordination brief §6: W2 the looping *Create your account ›* link (lap 8 ·
+A11) · W1 post-sign-out door · W7 the "early days" landing · W8 masthead spill at laptop width · W9 cards ≠ jump strip · W10
+weather card · W11 the Journal's "stays on this phone" · the renderer's bare-id fragility · the seat-trails public-repo rule →
+CLAUDE.md's AI-boundary section (a standing line; you file the row, coordination edits CLAUDE.md).
+
+**C. Nine findings by id from the revamp window** (none needs it; route as rows or folds):
+SEC-R1-A `mint_invite` env allow-list — FIXED `2010eee5` (cite done; optional: remove `home` from `--origin` choices) ·
+SEC-R4-1 `fw-grant` localStorage-only, WebKit-evictable — lap 8 · A roster row · SEC-R3-4 seat artifacts tracked in a public
+repo (.content 16 · .practice 3 · .engineering 83 · .user-research 48) — the standing rule above · UR-§5 two record SHAPES
+for `ranked` in the store (bare strings vs label objects) and `estate/index.html`'s unguarded `(r && r.label) || r` prints
+ids · UR-§7a Mom's protected phrase in two vintages on one account · SIZ-0c recorder bug: `transcript.answers` written from
+the loaded fixture regardless of typing → row T · T9 · SIZ-T18 W2's handler registered only inside `showFrontDoor()` — a
+product fact for A11 · MP-0 the reading tier is inherited from the global settings file and no Fernwood check reads it ·
+UR-§7c an A+ contradiction reported, not resolved (LENSES file). Also: **three of TIER 2 · 22's four items are done** (the J3
+fixture, field notes, the bare door) and the row does not say so; only `urlBefore` is open, and it is T7.
+
+**D. Your own §9 owes** stand unless you measure otherwise (the distinct-questionId count · the zones window's four register
+edits · the PRODUCTIZE census · the #card-told cut).
+
+Four rulings at the clear (the stop rule's two classes + one-hour wait · J2 re-scoped "returning, founded nothing" · staging
+pushed · lap 8 opens on row T alone) are in `CYCLE-LOG.md`'s newest section — cite, never restate. Forward any row that needs
+Paul to coordination by message; you never gate him yourself.
