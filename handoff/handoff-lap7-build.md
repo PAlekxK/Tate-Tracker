@@ -103,7 +103,7 @@ file:line older than an hour.
    teardown commit lands · the first three steps by symbol · what looks thin); tell Paul it is written; wait for the grade.
 1. On clear: greens P1–P3 → declare your pull to `tate-tracker-ea` → D1…
 
-## 8. State at close — written by the build lane, 2026-09-11 ~09:20 AM ET, at Tate-Tracker@d0e2026
+## 9. State at close — written by the build lane, 2026-09-11 ~09:20 AM ET, at Tate-Tracker@d0e2026
 
 <!-- clearing-state: LIVE — lap 7 is at beat 10 (Paul's walk) on candidate 87c7aae; clear when gate ① exits on Paul's clear -->
 
