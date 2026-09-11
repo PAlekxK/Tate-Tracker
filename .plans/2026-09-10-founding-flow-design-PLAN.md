@@ -7,7 +7,7 @@
 - depends-on: `.plans/2026-09-08-setup-journey-PLAN.md` (D2 front door · B2/B3/B4 · B9 · D3 receipts) · `.plans/2026-09-10-interests-as-activities-PROPOSAL.md` (the ranking screen's words; not redesigned here) · `.plans/2026-09-07-backlog-grooming-SCAN.md` §11 (GL-1…GL-13) · `.user-research/2026-09-07-glance-measurement-procedure.md` §5.1 (G1–G6) · `.plans/2026-09-01-preglance-stack-ledger.md` (D4 ledger, RUN) · `handoff/handoff-cross-device-signin.md` (row 41's bug lane; cited, not re-derived)
 - ready: **agent-proposed 2026-09-10 — Paul rules.** ⛔ Nothing here is applied. `onboarding/index.html` and `homes/index.html` are frozen at `318416a` until the coordinator lifts the hold; every proposal below is a patch, an exhibit or a sentence.
 - stage: concept
-- stage-note: 2026-09-10 — written in the design window while pass 2 and the content read were in flight; §2 (exhibits) and §5 (punch list) are filled as they land. Sweep target: qa at `318416a`, 414×848, A+. The sweep founded `est-gndlvf` (recorded for teardown).
+- stage-note: 2026-09-10 — written in the design window; pass 2, the content read and the six exhibits are folded in (§2a, §5). Sweep target: qa at `318416a`, 414×848, A+. The sweep founded `est-gndlvf` (recorded for teardown).
 
 > ### ⭐ THE ONE PARAGRAPH
 > Five seats and one un-primed pass agree on what the founding path does wrong, and Paul has already ruled the two
@@ -81,6 +81,23 @@ Pass 1 F6 (one name four times; the Almanac chip scrolls nowhere; Weather and Sk
 2. **"Stays on this phone for now — nobody else sees it."** (`viewer.html:19995`) captions a composer whose button *Save & consult the Almanac* POSTs the words to `/api/chat` (`:22939–22992`). True of the note, false of the button. Capture must not lie, on the AI-boundary surface. Handover's ruling (2) and strict's F8 are the same finding from the person's side.
 **Also from the read, folding into D1/D5/D8:** the narrator introduction ruled 2026-09-05 was never written (`onboarding:387–391` is a comment describing an absent sentence) — one new line resolves the I/we/Paul drift, and the existing split (first person for intent, the name for who-sees-it) stays · *"check it on the next screen"*: only *next* is false · *Change that ›* should route to `/settings/account/` (already works); *Change the order ›* is true only on the onboarding screen; the address link is honestly a note — so D5's option B applies to the address only · *"nothing is switched off or hidden"* is false on this build: the build catches up to the copy (D6), not the reverse · `＋ Add a home`: fix the glyph/label, keep the card's copy.
 
+## 2a · The exhibits — STAGED for Paul, 2026-09-10 ~9:50 PM ET (`~/Desktop/design-options/`, durable copies under `.private/ux-sweeps/2026-09-10-founding-flow/exhibits/`)
+
+| # | file | question | recommendation |
+|---|---|---|---|
+| 1 | `1-gate-card-and-PO-box.html` | the address step as a GATE (A, ruled) vs courtesy said honestly (B, the alternative); PO-box refusal at submit non-blocking (PO1) vs blocking (PO2) | **A + PO2** — PO2 because R1 says a refusal never fires after the record exists; PO1 is the steward's pick for the "not a validator" rule. **Paul's.** |
+| 2a | `2a-empty-shelf.html` | one control while empty (A) · one control + a quiet line (A2) · keep two | **A** |
+| 2b | `2b-account-receipt-at-naming.html` | add the one-line account-exists receipt at naming (R) or not | **R** |
+| 3a | `3a-account-lifecycle.html` | email shown back · sign out of THIS phone · recovery as an action (appearance only) | **A**, with C5's Worker change first |
+| 3b | `3b-door-names-its-house.html` | the door names its house; "not set up at this house" distinct from a wrong password | **A** (the sentences; the model is the bug lane's) |
+| 4 | `4-change-links-and-changeable.html` | per row: a real editor (A) or an honest message beside the row (B), with EVERYTHING IS CHANGEABLE printed beside it | **A for contact and ranking, B for the address** |
+
+Every exhibit: baseline leftmost, ≤3 candidates, one variable, a "Look at:" pointer, one recommendation with its why. Copy is content-steward's §C drafts verbatim; all DRAFT. Captured on the local tree (byte-identical to `318416a` for both surfaces) at 414 wide via Playwright, behaviour NOT claimed anywhere a write path does not exist. **Not exhibited:** D6 (needs Paul's Q1 first) · D9 the strip (needs G6 first) · TIER 1 · 30/44 "formatting off" — pass 2's C13 measured three candidate meanings per surface and the plain page shots in 2a/3a show him two of the three surfaces as they are.
+
+## 5 · Pass 2's punch list (15, gated; the trail has the file:line for each) and its five questions
+Punch: 1 "We work out" → "I" (`onboarding:604`) · 2 the colour line (`:479`, C4 flagged) · 3 `scrollIntoView` after `expandCard("card-told")` · 4 `.told-list` padding · 5 `text-lg` rules for `.told-label`/`.hh-utility` · 6 hide the almanac chip when its card is hidden · 7 `#uwordstate` "That'll do." (TIER 2 · 19) · 8 receipt line after "Yes" + Send demoted · 9 "＋ Add a home" → "Another home? Tell me ›" · 10 one honest label for the change links · 11 replace "LOADING ERA5 ACTUALS…" once rendered · 12 drop the body "Hot day ahead." repeat · 13 settings/place "‹ Back" → "‹ Your homes" · 14 sign-in copy names username recovery · 15 event titles wrap at A+.
+NEEDS-PAUL (question · recommendation): **Q1** keep hidden-when-empty for ranked modules? · yes, reword the promise and put the #1 pick's single first ask on the first screen (covers TIER 1 · 43 too) · **Q2** which field is THE colour? · one `accent` on the account; the place page stops offering a colour · **Q3** uppercase receipt labels on all four layers? · sentence-case the receipt, keep caps for numeric meta · **Q4** cold bubble clearance vs the 08-03 ruling? · one shape everywhere once an account exists · **Q5** Stone or Pine as the cold default? · Stone.
+
 ## 3 · Engineering finding carried, not fixed (for the register)
 `POST /api/session` reports `estates: [{estateId: scope.id …}]` — the DEPLOYMENT's estate — to a person whose own estate is elsewhere (`worker/worker.js:1008`, read 2026-09-10). The sweep's account founded `est-gndlvf` (confirmed via `GET /api/grant/whoami` as the person) while its sign-in response said `est-qa0001`. Nothing on a page misreads it today; the row-41 bug lane and the M1+M2 route work should know.
 
@@ -88,5 +105,5 @@ Pass 1 F6 (one name four times; the Almanac chip scrolls nowhere; Weather and Sk
 1. Front door B2 (D7) · 2. bubble on post-signup screens (R6) · 3. account-exists receipt at naming (D2·C) · 4. the gate card with the PO-box refusal and the optional unit line (D1) · 5. ranking screen: one filled commit (D3) · 6. receipt: email shown back; change links honest or live (D4·2, D5) · 7. shelf: one control when empty; name + town on a row (D2·A) · 8. account: sign out, recovery actions, house-named refusals (D4) · 9. the D8 punch items · 10. D6 and D9 only if ruled and built in time; otherwise named as NOT in this candidate on the release note.
 Walked once by the five seats at the new sha (J0 + J2 + J3 + a sign-out/return journey the harness does not yet have — `journey-walk` needs a stop for D4, the build lane's), then Paul.
 
-## 5 · What this file does NOT claim
-No exhibit has been staged at this draft (§2 marks them EXHIBIT 1–3; paths land here when they exist). Pass 2's adjudication and punch list, and the content read, are not yet folded in. Nothing has been applied, deployed, or walked. The rulings in §1 are quoted from the register at `6f98f9d` and later; a ruling not on the register is not in force.
+## 6 · What this file does NOT claim
+The exhibits are appearance and affordance; no behaviour behind a missing write path is claimed. Nothing has been applied, deployed, or walked. The rulings in §1 are quoted from the register at `6f98f9d` and later; a ruling not on the register is not in force.
