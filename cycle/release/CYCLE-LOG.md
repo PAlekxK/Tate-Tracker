@@ -3455,3 +3455,16 @@ the fixtures by id, what is NOT verified, what it sees as owed to lap 8. Its rea
 Paul's own `!` commands if the classifier blocks a session; never `legacy`; then the record check for row D at `paul` and
 beat 12's exit (zero undisposed on `home` · `legacy`). Live windows now: coordination (this) and the testing revamp
 (`tate-tracker-d8`, awaiting Paul's clear).
+
+### Beat 9 · THE GATE KIT gains a DURABLE QA ACCOUNT for Paul `[paul-ruled 2026-09-11 09:20 EDT: "let's just make rules now — I have a pkirsch-qa account in QA that is durable"]`
+
+Context: the kit (TIER 1 · 25) named *his existing username at qa (`pkirsch`)*, and `pkirsch`@qa was torn down tonight on his
+own "production only" ruling, so tonight's walk had no existing account to sign in to. **Rule:** `pkirsch-qa` is Paul's
+DURABLE account at `est-qa0001` — created by him at the open door (an agent never creates an account or enters a
+password), on the KEEP list beside `pkirsch`@paul · `marguerite`@home · est-qa0001 itself; **no teardown, fixture sweep or
+migration touches it**; `household-fixtures.py --teardown`'s allow-list and the fifth-lens KEEP line carry the name. The
+kit reads: **two visible Chrome tabs — tab 1 the door (`/`) signed in as `pkirsch-qa` (the existing-account journey);
+tab 2 the setup door (`/onboarding/`) with one throwaway he names (the new-account journey)**; no invite token, since
+signup no longer grants. Tonight tab 2 creates `pkirsch-qa` itself (its first founding IS the new-account walk) and tab 1
+signs in to it after sign-out. Register carry queued: TIER 1 · 25 amended; the KEEP list; TIER 1 · 48's fixture-stamp row
+must never stamp this account.
