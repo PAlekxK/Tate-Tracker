@@ -82,7 +82,6 @@ else
   fi
   WRANGLER_ARGS=(--env "$ENV")
   case "$ENV" in
-    bob)  HEALTH="https://myhome-bob.paul-kirschenbauer.workers.dev" ;;
     paul) HEALTH="https://myhome-paul.paul-kirschenbauer.workers.dev" ;;
     *)    HEALTH="https://fernwood-${ENV}.paul-kirschenbauer.workers.dev" ;;
   esac

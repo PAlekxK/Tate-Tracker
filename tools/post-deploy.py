@@ -31,8 +31,8 @@ import argparse, json, os, re, subprocess, sys, time, urllib.error, urllib.reque
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORIGIN = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
-          "home": "https://fernwood-home.pages.dev", "bob": "https://myhome-bob.pages.dev",
-          "paul": "https://myhome-paul.pages.dev"}
+          "home": "https://fernwood-home.pages.dev",
+          "paul": "https://myhome-paul.pages.dev"}   # ⚰️ bob destroyed 2026-09-10 (wrangler.toml tombstone)
 # ⛔ DERIVED, NEVER TYPED. A hardcoded list of "the paths the app fetches" is a second source that
 # drifts silently the moment someone adds a fetch — which is exactly how the tombstone class stayed
 # invisible. This reads the app the ORIGIN IS SERVING and asks it what it fetches.
@@ -76,7 +76,7 @@ def worker_health(env):
     """
     if env == "legacy":
         return "https://fernwood.paul-kirschenbauer.workers.dev/health"
-    if env in ("bob", "paul"):
+    if env == "paul":   # ⚰️ bob was the other myhome-* env; destroyed 2026-09-10
         return "https://myhome-%s.paul-kirschenbauer.workers.dev/health" % env
     return "https://fernwood-%s.paul-kirschenbauer.workers.dev/health" % env
 
