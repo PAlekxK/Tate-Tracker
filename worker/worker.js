@@ -965,6 +965,18 @@ async function handleSession(request, env, scope, ctx) {
   // credential-shaped VIEW of it, refreshed every time she signs in — which is precisely when a new
   // device needs it. A field is carried only when the account HAS it, so an older account with no
   // address does not overwrite anything with null.
+  // ⛔ CANDIDATE 3 (lap 7, paul-ruled 2026-09-11) — THE THIN ACCOUNT ROW. Measured by the J8 battery: for
+  // three of five seats `/api/session` answered `name: null, address: null` while `estates: 1`, because their
+  // place facts live on the GRANT row (written by /api/profile's grant branch when the account row was not
+  // findable at the time) and this response reads only `acct`. A person signing in on a clean device after
+  // signing out then landed in a NAMELESS app — no masthead, no receipt. So the account row is REPAIRED
+  // from the prior grant row for the facts it lacks (the whoami geocode-repair shape), and the account
+  // write below persists the copy; the response then answers from a whole row.
+  if (prior) {
+    for (const f of ["placeName", "accent", "address", "addressParts", "ranked", "coordinates"]) {
+      if ((acct[f] === undefined || acct[f] === null) && grantRow[f] !== undefined && grantRow[f] !== null) acct[f] = grantRow[f];
+    }
+  }
   for (const f of ["placeName", "accent", "address", "addressParts", "ranked", "contactPref",
                    "profileAccent", "coordinates"]) {
     if (acct[f] !== undefined && acct[f] !== null) grantRow[f] = acct[f];
@@ -1753,7 +1765,10 @@ async function probeRateLimitOk(request, env) {
 // capture — whose limiter fails open because "a rate-limiter outage must never be the thing that eats
 // her words" — a reset request can wait a minute, while an unbounded unauthenticated write path into
 // the administrator's channel cannot. RR-4's third declared IP-at-rest site, TTL'd like its siblings.
-const RECOVER_RATE_MAX = 5;   // per IP per window — a person retries a form a few times, not twenty
+// ⛔ 5 WAS TOO TIGHT, measured 2026-09-11 by the lap 7 battery itself: fifteen recovery calls from one IP in six
+// minutes — and the property's founding premise is ONE egress IP, so a household of three trying twice each
+// would have met the same 429. Twenty per window, like the capture bucket; still fail-closed, still its own key.
+const RECOVER_RATE_MAX = 20;  // per IP per window [paul-ruled 2026-09-11, candidate 3]
 async function recoverRateLimitOk(request, env) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const bucket = Math.floor(Date.now() / (FEEDBACK_RATE_WINDOW_SEC * 1000));
