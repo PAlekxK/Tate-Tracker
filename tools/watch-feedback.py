@@ -129,6 +129,9 @@ READ_ELSEWHERE = {
     # corrected reason under the wrong heading is a truer sentence that still reads false.
     "door": "watch-door.py — arrivals, and who reached the door without getting through",
     "onboarding-metrics": "watch-door.py · GET /api/onboarding-metrics (worker.js, 2026-09-07)",
+    # B6r (lap 7, 2026-09-11) — the recovery channel is ADMIN-ONLY by Paul's ruling and is read by its own
+    # tool; it is deliberately NOT a feedback arrival, so it must never print here as one.
+    "recovery": "watch-recovery.py · GET /api/recovery (ADMIN_ONLY, worker.js, lap 7 B6r)",
 }
 # Kinds that carry a person's input and have NO deterministic reader anywhere. Listing them by name
 # is the whole remedy — and the entries here are a CLAIM ABOUT THE WORLD that expires the moment

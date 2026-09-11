@@ -61,7 +61,13 @@ def read_channel(env, estate, kind):
 
 def summarise(env, estate):
     row = {"env": env, "estate": estate, "result": None, "why": None,
-           "door": [], "onboarding": [], "bad": [], "events": Counter(), "devices": set()}
+           "door": [], "onboarding": [], "bad": [], "events": Counter(), "devices": set(),
+           # B7 (lap 7) — two rosters that print at ZERO, so an absence reads as an absence and never
+           # as an unnamed one: door_failed split by `outcome` (the server-side sign-in refusal writes
+           # outcome "signin_failed" — the EXISTING event name with a field, never a new name, because
+           # DOOR_EVENTS is the client-forgeable allow-list and this record is server-side only), and
+           # the onboarding `found` event by detail (ok · already · refused:* · unreachable).
+           "failed_by_outcome": Counter({"signin_failed": 0}), "found": Counter()}
     try:
         row["door"], bad1 = read_channel(env, estate, "door")
         row["onboarding"], bad2 = read_channel(env, estate, "onboarding-metrics")
@@ -75,6 +81,12 @@ def summarise(env, estate):
             row["events"][r.get("event") or "?"] += 1
             if r.get("deviceId"):
                 row["devices"].add(r["deviceId"])
+            if r.get("event") == "door_failed":
+                row["failed_by_outcome"][r.get("outcome") or (r.get("reason") or "gate")] += 1
+    for _d, b in row["onboarding"]:
+        for e in (b.get("events") or []) if isinstance(b, dict) else []:
+            if isinstance(e, dict) and e.get("name") == "found":
+                row["found"][e.get("detail") or "?"] += 1
     return row
 
 
@@ -126,6 +138,12 @@ def main():
                   "which is the silent case" % (reached, opened, reached - opened - failed))
         if failed:
             print("      🔴 %d door_failed — someone tried and could not get in" % failed)
+        # B7 — named at zero. `signin_failed` is the refusal at POST /api/session (wrong word OR unknown
+        # name, ONE constant, the username never written); everything else is the grant gate's.
+        print("      · door_failed by outcome: %s"
+              % " · ".join("%s %d" % (k, v) for k, v in sorted(r["failed_by_outcome"].items())))
+        print("      · founded through the product (onboarding `found`): %s"
+              % (" · ".join("%s %d" % (k, v) for k, v in sorted(r["found"].items())) or "none recorded (0)"))
         for d in r["bad"]:
             print("      ⛔ %s did not parse — its records are UNCOUNTED, not zero" % d)
         if a.all:
@@ -176,6 +194,21 @@ def selftest():
     r = summarise("home", "est-x")
     ck("M4 an unreadable environment reports UNREADABLE, never 0 arrivals",
        r["result"] == "UNREADABLE" and not r["door"])
+
+    # B7 (lap 7)
+    O = "est-x:onboarding-metrics:2026-09-11"
+    wire([K, O], {K: json.dumps([{"event": "door_failed", "outcome": "signin_failed", "deviceId": None},
+                                 {"event": "door_failed", "reason": "unknown-or-other-estate", "deviceId": None},
+                                 {"event": "door_failed", "outcome": "signin_failed", "deviceId": None}]),
+                  O: json.dumps([{"sid": "s1", "events": [{"name": "found", "detail": "ok"}, {"name": "found", "detail": "refused:po-box-not-accepted"}, {"name": "screen", "detail": "s1"}]}])})
+    r = summarise("qa", "est-x")
+    ck("M5 door_failed is split by outcome — signin_failed counted apart from the gate's refusals",
+       r["failed_by_outcome"]["signin_failed"] == 2 and r["failed_by_outcome"]["unknown-or-other-estate"] == 1)
+    ck("M6 the onboarding `found` event is counted by detail, other names ignored",
+       r["found"] == Counter({"ok": 1, "refused:po-box-not-accepted": 1}))
+    wire([K], {K: json.dumps([{"event": "door_reached", "deviceId": "d-1"}])})
+    r = summarise("qa", "est-x")
+    ck("M7 signin_failed is NAMED at zero, never an unnamed absence", r["failed_by_outcome"]["signin_failed"] == 0 and "signin_failed" in r["failed_by_outcome"])
 
     mod.kv_list, mod.kv = real_list, real_kv
     print("\n%s selftest (%d failure(s))" % ("✅" if not fails else "🔴", len(fails)))

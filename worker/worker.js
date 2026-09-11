@@ -4438,8 +4438,12 @@ export default {
       try { body = await request.json(); } catch (e) { return json({ error: "bad-json" }, 400); }
       const evs = Array.isArray(body && body.events) ? body.events.slice(0, 100) : null;
       if (!evs || !evs.length) return json({ error: "missing-events" }, 400);
+      // ⛔ B7 (lap 7) — `found` WAS EMITTED BY THE PAGE AND DROPPED HERE. onboarding/index.html has fired
+      // ev("found", ok|already|refused:<code>|unreachable) since the founding flow landed, the last build
+      // lane owed lap 7 "a reader for it", and this allow-list silently discarded every one before any
+      // reader could exist. An event the store never holds is not instrumentation twice over.
       const ALLOW = ["screen", "field", "validation", "swatch", "contact", "reveal",
-                     "feedback_open", "feedback_sent", "rank", "handoff", "complete", "session"];
+                     "feedback_open", "feedback_sent", "rank", "handoff", "complete", "session", "found"];
       const clean = [];
       for (const e of evs) {
         if (!e || ALLOW.indexOf(e.name) < 0) continue;
