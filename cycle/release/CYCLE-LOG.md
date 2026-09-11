@@ -2565,3 +2565,7 @@ backlog window caught the divergence at its carry. **PAK/Homey → TEARDOWN.** K
 teardown lane's deletion of `instance/bob.json` into a BACKLOG.md commit — two windows writing one tree, one of
 them staging broadly. Content correct, attribution wrong, nothing rewritten; both windows told **explicit paths
 only**, and the lane cites `dcbc660` in its report. The same shape the concurrent-session guard exists for.
+↳ **The mechanism, sharper** (backlog window, `678f2d5`): it had run `git add BACKLOG.md` only — the lane had already
+STAGED its deletion in the **shared index**, and `git commit` takes the whole index. Naming paths at add time cannot
+exclude what another window staged. **Rule for any window committing on a tree another lane is mid-act on:
+`git commit --only <paths>`.** Adopted by all three windows tonight; belongs in the next coordination brief.
