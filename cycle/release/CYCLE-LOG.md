@@ -3166,3 +3166,32 @@ line.** ⚠️ The beat-6 table's done-means named J2; **this is a scope note, a
 account arriving on its own token, resumed from the empty shelf"* (distinct from J0 only in the ARRIVAL, which is exactly the
 half `walk-fixtures.py` exists to read), or fold it into J0 and name it retired. Register notes queued: the J2 re-scope · the
 four `d7d6c9f` fixtures + these four `12912b9` fixtures for the fixture-stamp row.
+
+### Lap 7 · beat 10 again — BATTERY STOPPED at the end of J8, HELD FOR PAUL · `~6:00 AM ET 2026-09-11`
+
+**Status at `12912b9`:** J0 5/5 clean · J3 5/5 clean · **J8: owner CLEAN through all fifteen stops — the first complete
+lifecycle walk on record** (L13 recorded out-of-harness, never scored); mom · strict · wide-eyed · handover each fail 1–5
+actions, every failure traced to one of two causes **against the store, not the screen**:
+
+**A · the lane's own recover LIMITER, hit by the battery's cadence and too tight for the property anyway.** B6's bucket is
+5 / IP / 300 s (fail-closed, its own key). Each J8 walk makes THREE `/api/recover` calls from one IP; five walks in six
+minutes = 15 → 429s in mom's, strict's and handover's transcripts (our-own-origin 429 → gate ① `not-rate-limited` refuses
+them). Not only a harness artefact: **the founding premise is ONE egress IP at the property**, so a household of three
+trying twice each would hit it. Proposed: `RECOVER_RATE_MAX` 5 → 20, same window, still fail-closed, still its own bucket
+— the security read's shape unchanged.
+
+**B · a SECOND PRODUCT DEFECT, pre-existing, surfaced by J8.** After sign-out and sign-in on the same clean device,
+mom/wide-eyed/handover land in a **NAMELESS app** ("My Home", no masthead utility, no receipt card). Cause, measured:
+`POST /api/session` for mom@qa answers `name: null, address: false, estates: 1` while owner@qa answers its name and
+address — the session literal reads ONLY the ACCOUNT row, and for older fixtures the place facts live on the GRANT row
+(written by `/api/profile`'s grant branch when the account row was not findable). **So a real person whose account row is
+thin, signing in on a clean device, gets a device that knows nothing and an app in no household mode** — the shape of
+Paul's own 09-10 sign-in. Proposed: `handleSession` falls back to the prior grant row's place facts (`grantRow` is in
+scope) for name · accent · address · addressParts · ranked · coordinates when the account row lacks them, and COPIES them
+back onto the account row (the repair shape `whoami` already does for the geocode). ⛔ Not a page change; the pages did
+what the response told them.
+
+Both fixes are **Worker-only** → a new sha, a new battery (Worker before pages at qa; served page bytes unchanged). **Held
+for Paul's word, per the beat-10 condition (a second product defect stops the battery).** Fixtures founded at qa by
+candidate 2's J0 (never real homes): `est-tfmxem` · `est-0qeqzs` · `est-uqjofw` · `est-pqob3d`; strict founded nothing.
+Reports not yet written for any run — the reading seats wait until the sha is final.
