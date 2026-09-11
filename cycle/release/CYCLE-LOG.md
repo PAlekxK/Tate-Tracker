@@ -4678,3 +4678,58 @@ nothing — is nowhere near firing.**
 absence-claims read off truncated output, one from each window. ⭐ **When a grep is load-bearing for an ABSENCE claim,
 COUNT OCCURRENCES rather than read a window** — a window answers *"what is in the first N chars"*; only a count
 answers *"is it there."* Written into the standing corrections memory.
+
+### ⭐⭐ T1+T2 LAND — THE UNIT IS THE `(journey, lens)` CELL, and the STRIKE IS CONFIRMED BY THE BUILT GATE
+
+`8977f024`, `tools/release-gate.py` only, +297/−19, tree clean. **The cell is keyed on `journey` — the WALKED
+journey.** Its three reasons, and the third is the decisive one:
+
+1. **A cell is a unit of TEST COVERAGE, and what we commit to is the walk.**
+2. **The entry state already has a home** (T10's `arrivalState`, T14's recorded state); keying the cell on the
+   door would put it in two places with neither authoritative.
+3. ⛔⛔ **KEYING ON THE DOOR COLLAPSES DISTINCT TESTS.** At `87c7aae` **all 17 J8 walks entered J3**, so grouping
+   on the door makes lifecycle and returning **indistinguishable** — and **the matrix could never show J8 was
+   walked at all.** ⭐ **That is this row's own defect one level up.** The door's answer is **not discarded**: it
+   prints when it **DISAGREES**, because a walk whose arrival contradicts its own premise is a finding.
+
+**VERIFIED HERE by re-running, not by reading the report:**
+
+| check | result |
+|---|---|
+| all five frozen shas' verdicts | ⭐ **UNCHANGED** — `a3beb8d` · `d7d6c9f` · `12912b9` · `bfa3f23` 🔴, **`87c7aae` ✅ passes on cells** (exit 1 only on the unfiled UX sweep) |
+| **the strike** | ⭐⭐ **CONFIRMED A FOURTH TIME — now BY THE BUILT GATE rather than by analysis.** It does **not** refuse a sha Paul cleared. **What moved is the LEGIBILITY, not the judgement** |
+| the discriminating test | ✅ **15 distinct cells** — J0 · J3 · J8 × five lenses — and **6 cells print `PASSING ON RETRY`** on their face |
+| `--selftest` | ✅ **20/20**, M10a/a′/b/b′/c and M11a/b in the same commit |
+| the frozen corpus | ✅ `verify-corpus-manifest` **PASS** — untouched |
+
+⭐ **AND T0's FINDING ④ PAID FOR ITSELF ONE STEP LATER, exactly as predicted.** The census through `journey_of()`
+reads the **EXCLUSIVE** 59/4/199/21 = 283. **Had T0 frozen only the published 201/23, this would have read as a
+mismatch on a CORRECT backfill** — and a window would have "fixed" a working `journey_of` or spent the falsifier.
+
+⭐ **A PREDICATE CAUGHT IN ITS OWN SUPERSESSION LINE, by the build window, on itself.** It first wrote
+*"N failed actions"* — but the clause counts **non-walked stops PLUS `failedActions[]`**, and the two differ
+(`87c7aae`: **12 failed actions, 22 problems**). It now reads **"N problem stop/action(s)"**. ⛔ **Re-committing a
+count without its predicate INSIDE THE VERY LINE that exists to make a failure legible would have been absurd** —
+and it is the day's fourth instance of that class, caught by the author this time.
+
+#### TWO FLAGS IT ROUTED TO COORDINATION — one resolves, one dissolves
+
+- ✅ **`instrumented` IS advisory, not gating — its boundary claim HOLDS.** Verified programmatically:
+  `instrumented` is **not in the `CLAUSES` literal**, and `release-gate.py:189` states it in those words —
+  *"`instrumented` STAYS OUT OF `CLAUSES` — advisory, not gating."* ⚠️ Coordination's first check counted 4
+  "gating-ish" grep hits and they were **comments and selftests** — a bad predicate, and the day's lesson
+  reapplied: **count the thing, not lines mentioning it.**
+- ⭐ **THE PREDICTED STALENESS DID NOT MATERIALISE, so there is nothing to regenerate.** It flagged that T2 would
+  drive `gate_1.seats[*].instrumented` from `true` to **`null` for every seat**, and reverted its own incidental
+  write rather than commit into coordination's file mid-lap — **the right call on a shared file.** But regenerated
+  deliberately here, **`cycle-state.json` is byte-identical: no diff, tree clean.** The `null` branch fires only
+  where a journey **declares no profile**, and these seats' journeys declare one. **The cache was never stale.**
+  ⚠️ **Its caution cost nothing and its prediction was over-broad; both are worth recording, because a lane that
+  stops to flag a shared-file write is behaving correctly even when the flag turns out empty.**
+
+⚠️ **A LATENT HAZARD, NOT A LEAK, and it is NOT scope:** the gate's own output embeds **coordinates** in
+Open-Meteo 429 URLs — **2 in this run**, and they are **NOT Fernwood's**; they are other households' places
+(synthetic fixtures today, **a real home's at a real household**). **Nothing tracked carries them** —
+`research-resources.md`'s coordinates are **Fernwood's own, published by decision** (`CLAUDE.md:1030`). The build
+window redacts before writing and verifies by regex after. ⛔ **Recorded because the lap's own
+`lap-8-RELEASE-EVIDENCE.md` is precisely an artifact that quotes gate output.**
