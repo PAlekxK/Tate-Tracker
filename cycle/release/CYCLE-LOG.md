@@ -3443,3 +3443,15 @@ against it. **(2)** `release-state.py:119` writes `ux_clause: "UNCHECKABLE — n
 change (call the gate's function, delete the literal), the build window's at lap 8, queued (TIER 1 · 47 family). Also §8: read
 wall-time bounded from file times (median 27 min at `87c7aae`) · 63 non-blocking bullets across the 15 counted reports, 6
 relayed by hand with no reader (T-i) · the hold corrected to **8 h 06 m 34 s** by git.
+
+### Lap 7 · the BUILD WINDOW CLOSED on Paul's word · 2026-09-11 09:17 EDT
+
+`tate-tracker-94` closed (*"let's close this window out"*); its brief §9 state-at-close is committed at `eb44494` — candidate
+`87c7aae`, every row's commits, the gate output, the seat × journey table, the stop verdict on the table, the named deviations,
+the fixtures by id, what is NOT verified, what it sees as owed to lap 8. Its readback committed here for the record. **Beats
+9–12 from here:** beat 9 is Paul's walk (kit above) · beat 11 his clear, typed here on his say-so (`release-state.py --cleared
+87c7aae`) · beat 12 the production deploys run from THIS window per the amended brief §10 — `pages-deploy.py --env paul --sha
+87c7aae` + `deploy-worker.sh --env paul` → `post-deploy.py --env paul`; then `home` (its household export; `cleared_sha` read);
+Paul's own `!` commands if the classifier blocks a session; never `legacy`; then the record check for row D at `paul` and
+beat 12's exit (zero undisposed on `home` · `legacy`). Live windows now: coordination (this) and the testing revamp
+(`tate-tracker-d8`, awaiting Paul's clear).
