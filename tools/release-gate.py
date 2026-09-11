@@ -565,6 +565,96 @@ def tier_writer_exists(sha):
     return False
 
 
+# ═══ T17 · THE IDENTICAL-FAILURE READ — is the HARNESS lying, or is the PRODUCT broken? ════════════
+#
+# ⛔ THE EVIDENCE IT EXISTS ON, measured: at `87c7aae`, FIVE of five lenses walking J8 failed the
+# SAME assertion — `expect:.hh-utility` — with ZERO page errors. Eleven of battery C's twenty-two
+# walks were spent on a fault the FIRST walk had already shown. Nothing read that signature, so the
+# battery kept paying for the same finding.
+#
+# ⭐ THE INFERENCE, and its limit: when every lens on one journey fails the SAME action and the page
+# raised no error, the thing they share is the ACTION LIST, not the product. A product fault reaches
+# different lenses differently, and usually leaves a page error behind. ⛔ It is a SUSPICION, printed
+# as one — "fix the action list, not the product" is advice, not a verdict.
+#
+# ⚠️⚠️ IT PRINTS; IT DOES NOT STOP THE BATTERY. Stopping is the pilot-walk clause in beat 8 and that
+# is Paul's. This builds the signature that rule keys on and acquires no authority of its own.
+#
+# ⛔⛔ IT READS `failedActions[]`, NOT `steps[].ok`. The plan specifies `steps[].ok`; THAT FIELD DOES
+# NOT EXIST — 0 of 283 transcripts carry a `steps` key, `journey-walk.py` contains the string zero
+# times, and no stop carries an `ok`. Built against it this detector would find zero identical
+# failures FOREVER and print silence: a permanent false-green in the one control whose entire job is
+# catching a harness that is lying.
+# ⭐ A CONFIDENT WRONG PREDICATE AND A CORRECT ONE PRINT THE SAME WAY: A NUMBER. The only thing that
+# separated them here was reading the schema instead of trusting the field name. `release-gate.py`
+# already reads `failedActions` in `judge()`, so the corrected predicate is this file's own.
+#
+# ⛔ SECURITY R6-B — it may read `journey · buildBefore/After · lens · origin · failedActions ·
+# pageErrors` AND NOTHING ELSE, and it compares on a NORMALISED KEY: verb + selector, everything
+# after the first `=` dropped. A typed action therefore contributes `type:#line1` and never its
+# value, so a planted address cannot reach the output.
+
+def normalise_action_key(failure):
+    """→ `verb:selector` for a failed-action string, value dropped. ⛔ None when no action can be
+    read — UNKNOWN, never a bucket that silently merges unlike failures into a false signature."""
+    if not isinstance(failure, str) or not failure.strip():
+        return None
+    m = re.search(r"'([^']+)'", failure)
+    act = m.group(1) if m else failure.strip().split(" ")[0]
+    act = act.strip()
+    if not act:
+        return None
+    return act.partition("=")[0]            # ⛔ everything after the first `=` is a VALUE
+
+
+def suspect_harness(sha):
+    """→ [(journey, key, lenses, total_lenses, env)] where EVERY lens that walked that journey at
+    this sha failed the same normalised action, with zero page errors across all of them.
+
+    ⚠️ N OF N, not "several". Four of five failing is a finding about the product or about one lens;
+    only unanimity points at the thing they all share. ⛔ A single-lens journey can never trigger it:
+    1-of-1 is unanimous and means nothing, so it is excluded by name rather than by accident."""
+    by_journey = {}
+    for seat in seats():
+        for run in runs_for(seat):
+            d = os.path.join(WALKS, seat, run)
+            tp = os.path.join(d, "transcript.json")
+            if not os.path.exists(tp):
+                continue
+            try:
+                t = json.load(open(tp, encoding="utf-8"))
+            except Exception:
+                continue
+            b, a = (t.get("buildBefore") or ""), (t.get("buildAfter") or "")
+            if not (sha and b.startswith(sha) and b == a):
+                continue
+            j = journey_of(t)[0]
+            lens = t.get("lens") or seat
+            env = t.get("origin")
+            keys = {normalise_action_key(f) for f in (t.get("failedActions") or [])}
+            keys.discard(None)
+            by_journey.setdefault((j, env), []).append(
+                (lens, keys, len(t.get("pageErrors") or [])))
+
+    out = []
+    for (j, env), runs in sorted(by_journey.items(), key=lambda kv: str(kv[0])):
+        lenses = {r[0] for r in runs}
+        if len(lenses) < 2:
+            continue                         # 1-of-1 is unanimous and says nothing
+        counts = {}
+        for lens, keys, _pe in runs:
+            for k in keys:
+                counts.setdefault(k, set()).add(lens)
+        for k, who in sorted(counts.items()):
+            if who != lenses:
+                continue                     # not unanimous
+            # ⛔ A PAGE ERROR ANYWHERE AMONG THEM MAKES IT A PRODUCT FAULT, not a harness one.
+            if any(pe for lens, keys, pe in runs if k in keys and pe):
+                continue
+            out.append((j, k, sorted(who), len(lenses), env))
+    return out
+
+
 # ═══ T5 · ONE DEFINITION OF "WHICH CELLS WERE TESTED AT THIS SHA" ═════════════════════════════════
 # ⛔ EXTRACTED BECAUSE release-state.py HELD A SECOND COPY. It re-implemented the best-run loop —
 # same tie-break, same scoring, keyed on the SEAT — so the state file and the gate could disagree
@@ -770,6 +860,18 @@ def report(sha, seats_only=False):
             else:
                 print("     %-26s ⬜ %s %s — NO WALK EVER DECLARED THIS JOURNEY; the door read a "
                       "record that way. Not a walk." % ("(%s, %s)" % u, src, when))
+
+    # ── T17 · SUSPECT HARNESS ─────────────────────────────────────────────────────────────────────
+    for j, key, who, total, env in suspect_harness(sha):
+        print("\n  ⛔ SUSPECT HARNESS — FIX THE ACTION LIST, NOT THE PRODUCT")
+        print("     %s of %s lenses walking %s at %s failed the SAME action, with ZERO page errors:"
+              % (len(who), total, j, env or "an unrecorded env"))
+        print("       %s" % key)
+        print("       lenses: %s" % " · ".join(who))
+        print("     ⚠️ A SUSPICION, NOT A VERDICT, and it stops nothing — when every lens on one "
+              "journey fails the same action and the page raised no error, the thing they SHARE is "
+              "the action list. A product fault reaches different lenses differently and usually "
+              "leaves a page error behind. Read the first failing walk before spending the rest.")
 
     _retries = [u for u, b, n, pr, sup in rows if sup]
     if _retries:
@@ -1154,6 +1256,68 @@ def selftest():
                   % ("✅" if bit else "🔴")); ok &= bit
         finally:
             WALKS, CELLS_DIR = _sw, _sc
+
+    # ═══ T17 · M23 — THE IDENTICAL-FAILURE READ, AND THE THREE WAYS IT MUST NOT FIRE ════════════
+    with tempfile.TemporaryDirectory() as tmp:
+        W = os.path.join(tmp, "walks")
+        _sw = WALKS
+        try:
+            WALKS = W
+
+            def mkw(lens, fails, pe=0, journey="J8"):
+                d = os.path.join(W, lens, "R1"); os.makedirs(d, exist_ok=True)
+                json.dump(dict(base, journey=journey, lens=lens, failedActions=fails,
+                               pageErrors=["PAGEERROR: x"] * pe),
+                          open(os.path.join(d, "transcript.json"), "w"))
+                open(os.path.join(d, "REPORT.md"), "w").write("all good")
+
+            FIVE = ["mom", "wide-eyed", "strict", "owner", "handover"]
+            for L in FIVE:
+                mkw(L, ["'expect:.hh-utility' — expect: not visible — .hh-utility"])
+            r = suspect_harness("a" * 7)
+            bit = len(r) == 1 and r[0][1] == "expect:.hh-utility" and r[0][3] == 5
+            print("  %s M23a five lenses, one journey, the SAME failure, zero page errors → SUSPECT"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            for L in FIVE:
+                mkw(L, ["'expect:.x-%s' — expect: not visible" % L])
+            bit = suspect_harness("a" * 7) == []
+            print("  %s M23b five DIFFERENT failures → not suspect (that is five findings)"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            for L in FIVE:
+                mkw(L, ["'expect:.hh-utility' — expect: not visible"], pe=1)
+            bit = suspect_harness("a" * 7) == []
+            print("  %s M23c identical failures WITH page errors → not suspect (a product fault)"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ FOUR OF FIVE IS NOT UNANIMOUS — it is a finding about the product or about one lens.
+            for L in FIVE[:4]:
+                mkw(L, ["'expect:.hh-utility' — expect: not visible"])
+            mkw(FIVE[4], [])
+            bit = suspect_harness("a" * 7) == []
+            print("  %s M23d FOUR of five → not suspect; only unanimity points at what they share"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            # ⛔ A SINGLE-LENS JOURNEY IS UNANIMOUS BY CONSTRUCTION AND MEANS NOTHING.
+            import shutil as _sh
+            _sh.rmtree(W); os.makedirs(W)
+            mkw("mom", ["'expect:.hh-utility' — expect: not visible"])
+            bit = suspect_harness("a" * 7) == []
+            print("  %s M23e ONE lens alone never triggers it — 1-of-1 is unanimous and says nothing"
+                  % ("✅" if bit else "🔴")); ok &= bit
+        finally:
+            WALKS = _sw
+
+    # ⛔ R6-B — A PLANTED VALUE MUST NOT REACH THE OUTPUT. The key is verb + selector, everything
+    # after the first `=` dropped, so a typed action contributes its FIELD and never its content.
+    _planted = normalise_action_key("'type:#line1=282 Church Mountain Road' — could not do")
+    bit = _planted == "type:#line1" and "Church" not in _planted
+    print("  %s M23f a planted address in a failed action yields only the SELECTOR"
+          % ("✅" if bit else "🔴")); ok &= bit
+    bit = normalise_action_key("") is None and normalise_action_key(None) is None
+    print("  %s M23g an unreadable failure is None, never a bucket unlike failures merge into"
+          % ("✅" if bit else "🔴")); ok &= bit
 
     # ═══ T3b · M13a-e — THE READ TIER. ⚠️ The plan labels these M12d, which T3 already used for
     # "a list declaring zero cells is refused"; renaming a proven clause to match a label would be
