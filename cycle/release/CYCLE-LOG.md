@@ -4813,3 +4813,67 @@ coordination's and it is what caused two futile reverts and one stale record. **
 T3 · T5 · T12 · T16 · T17 all move gate output, so this will recur. ⚠️ **The cache is one commit behind BY
 CONSTRUCTION** — the hook fires *after* the commit, so a commit that moves gate output cannot leave a clean tree.
 **That is the mechanism behind the brief's §9 warning, and it is not a defect to fix in row T.**
+
+### ⭐⭐ T3 LANDS — and its real yield is that A PENDING DECISION'S PREMISE IS FALSE. ⛔ But the DECISION IS ALREADY MADE
+
+`f6e93e73`, selftest **26/26**, all five verdicts unchanged, corpus frozen, tree clean. ⭐ **The UNWALKED
+falsifier is satisfied on its FIRST run** — it prints **J4 and J6**, **derived rather than typed**. ⭐ **And no
+cell list was filed, deliberately:** `declaredBy: paul` records **Paul's act at beat 6**, so a build window
+writing that field would **mint a declaration nobody made.** With none filed the matrix reads **UNCHECKABLE with
+the path named** — which is lap 8's true state.
+
+#### THE FINDING: the claim that J2 has never been walked is FALSE, and it was the premise of a ruling
+
+**The standing paragraph** (filed `4be85719`, *"[measured 2026-09-11, lap 7 battery; coordination-read the same
+way]"*) says **no transcript at any build has ever recorded a walked J2**. **Measured here, independently:**
+
+| run | build | journey | entered | stops | walked | failed |
+|---|---|---|---|---|---|---|
+| `handover/2026-09-10T150521` | **`196e146`** | **J2** | J2 | **9** | **9** | **0** |
+| `handover/2026-09-10T150658` | **`196e146`** | **J2** | J2 | **9** | **9** | **0** |
+
+⭐ **The stop ids are `U01-arrive · U02-resume · U03-named · U04-address · U05-submitted · U06-confirm ·
+U07-ranked · U08-handoff · U09-the-place`** — **`journey_resuming`'s OWN purpose-built list, walked end to end.**
+Not an accidental traversal. **`196e1461` is an ancestor of HEAD.**
+
+⚠️ **Why both prior readings missed it:** both were scoped to **the BATTERY's candidate shas**, and `196e146` is
+not one of them. ⛔ **A count correct about its own scope, published as *"at any build"*** — **the fifth instance
+today**, and the first whose consequence was a **human ruling** rather than a tool's output.
+
+✅ **And the record is coherent once you see it:** the *third* J2-entered run (`145157`, build `8d17e4e`) carries
+`journey: None`, **7 stops and 5 failed actions** — that is the **J3-shaped list walked from J2**, exactly the
+documented case where *"it failed 5 of 5 clicks against the naming screen — and not one of those failures a
+defect."* The purpose-built list appeared at `196e146` and walked clean twice.
+
+#### ⛔⛔ DEEP-CHECK #3 FIRES: PAUL ALREADY RULED THIS, AT 10:05 THIS MORNING
+
+The build window handed it up as sitting *"under a decision he has not yet made."* **It is made.**
+`CYCLE-LOG.md:3713` — **`J2 (L8-P6)` → re-scoped to *"returning, founded nothing"*, NOT retired; the cell list
+may name it.** `[paul-ruled 2026-09-11 10:05 EDT]`
+
+⭐⭐ **SO THE FALSE PREMISE DOES NOT REOPEN THE RULING — IT STRENGTHENS IT.** He ruled **not to retire** on the
+belief that J2 was untestable. **The measurement shows it was walked clean, twice, through its own procedure.**
+That is the **same direction**, better supported than when he made it. ⛔ **Nothing goes to Paul.** Putting it to
+him would be **SIZING §G repeating within three hours** — re-raising a settled question because the artifact
+carrying it never closed.
+
+**What remains genuinely open is a MEASUREMENT, not a judgement:** *is J2 walkable at HEAD?* The build has moved
+**99 commits** and **the fixture is provisioned per run, because the walk finishes the record it arrived on.**
+⭐ **The build window was careful to claim only the first:** *"it was walked clean on 09-10"* and *"it can be
+walked now"* are different claims, and it made only the first. **That belongs to beat 8, not to row T.**
+
+#### ⭐ AND HOW IT HANDLED THE UNRULED LINE IS THE MODEL
+
+T3's own instruction is that **a coverage line may not change its wording while its question is unruled.** So the
+paragraph is **carried VERBATIM** and the contradicting measurement **prints directly beneath it** — run ids,
+build, stop counts, and why the earlier readings disagreed. ⛔ **Rewriting the line would have been deciding the
+question; printing it alone would have been publishing something measurably untrue.** **The gate flags; it does
+not rule.**
+
+⚠️ **And a false line of its own, caught before it shipped:** its first draft printed *"(J2, handover) last
+walked 2026-09-10"* **two lines above** the paragraph saying J2 had never been walked. `journey_of()` falls back
+to **the DOOR's answer** for transcripts declaring no journey, and four runs land in J1/J2/J3 cells that way —
+⭐ **a door reading is evidence about the record's state at ARRIVAL, not a walk.** The function now carries the
+**source**, and the two render differently. **The two findings are independent** — that fix concerns
+door-measured runs, and the J2 walks above are `recorded` and survive it — **but finding the first is what made
+it look hard enough to find the second.**
