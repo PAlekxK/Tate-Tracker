@@ -4628,3 +4628,53 @@ not by argument.**
 
 ⚠️ **What it is NOT:** a re-commissioning of the seats. The artifacts stand; the deep run re-verifies **their
 conclusions against the world at the moment of the gate**, and it is coordination's own work, not a new round.
+
+### T0 LANDS AND ITS GATE IS DISCHARGED — Paul: *"Go"* · 2026-09-11
+
+**T0 committed at `30965386`** — the before-image, the corpus freeze, and a verifier (`tools/verify-corpus-manifest.py`).
+The build window **held** at it, because it had told Paul it would stop before T1 touches tool code. ⭐ **That hold was
+honoured rather than overridden** — coordination made the same mistake this morning and did not repeat it; the release
+came from Paul's own word, not from a relay of his earlier pre-authorisation.
+
+**Verified here — the ARTIFACT, not the report of it:**
+
+- All five shas carry a verdict and a run count. `87c7aae` reads **22**, matching coordination's own count.
+  Its verdict is **🟡 every seat passes, content green, UX unfiled — not a bare pass**, which is the predicted
+  permanently-amber `ux_clause` at a candidate-less sha, arriving exactly as forecast.
+- The manifest covers all five with correct per-sha counts. `verify-corpus-manifest` passes clean; **selftest 5/5**,
+  and ⭐ **M1 is precisely the falsifier coordination specified** — *a NEW run at a frozen sha FAILS; regeneration must
+  not be able to match.* **M4 reads UNCHECKABLE on a missing manifest, never a pass.**
+- The **dual census** is on its face, with **"199/21 is not a regression"** in those words.
+
+#### ⛔ AND T0's REAL YIELD WAS A PRIVACY DIVERGENCE, not the census
+
+Two **security read-scope** clauses named `steps[]`, a field that **does not exist** (0 of 283 transcripts).
+**T17's R6-B** — *"may read X and nothing else"* — and **T9's R3-2**, the clause that elides a person's typed value.
+⛔ **A bound naming a nonexistent field cannot be complied with OR audited: an implementer obeying it literally reads
+nothing, a reviewer checking compliance finds nothing to check, and BOTH LOOK GREEN.**
+
+⭐⭐ **And R3-2 is a DIVERGENCE INSIDE ONE WRITER, which is what makes T9 a `must-not-diverge` fix in the literal
+sense.** `journey-walk.py:1745` **masks** the password in `answers` — **283 of 283**. The **same writer** appends the
+**same secret in clear** to `stops[].actions` — **15 transcripts, all 15 carrying both.** **The project already ruled a
+password may not reach the record, implemented it, and one of two write paths honours it.** The mask is **evidence of
+intent, not a proposal.** Protected surface, all in clear: username · password · password-confirm · email · person
+name · address line 1 · city · state · zip. ⚠️ **No leak: all synthetic, `.private/` gitignored, `git ls-files` on it
+returns 0. But the H1 human cell is Paul walking his own profile.**
+
+⚠️ **THE FROZEN CORPUS IS NOT BACK-FILLED** — it is the past T21 depends on, the manifest hashes it, and a rewrite
+failing `verify-corpus-manifest` is **the mechanism working.** T9 changes what is WRITTEN from T9 onward.
+
+#### ⭐ THE METHOD FINDING, and it is the day's most reusable
+
+**Three passes, three different misses, none findable by the other two:** the build window applied deep-check **#1**
+(re-measure, don't re-read) and **caught itself** — its first derivation returned zero failed actions and it was one
+step from reporting three prior derivations wrong. Coordination applied **#2** (test the premise by a path the author
+did not use) and caught its **mis-attribution**. It then applied **#2 to coordination's correction** and caught a
+**truncation**. ⛔ **The pre-registered falsifier — collapse to checks 3 and 5 if three consecutive deep runs change
+nothing — is nowhere near firing.**
+
+⛔⛔ **AND THE ROOT SHAPE UNDER BOTH OF THE DAY'S WRONG CLAIMS: A TRUNCATED GREP IS A MEASUREMENT WHOSE PREDICATE IS
+"THE FIRST N CHARACTERS", AND IT REPORTS ABSENCE FOR ANYTHING PAST THE CUT.** Both wrong claims today were
+absence-claims read off truncated output, one from each window. ⭐ **When a grep is load-bearing for an ABSENCE claim,
+COUNT OCCURRENCES rather than read a window** — a window answers *"what is in the first N chars"*; only a count
+answers *"is it there."* Written into the standing corrections memory.
