@@ -3647,3 +3647,19 @@ est-kgjxry · est-c9pgvw`; lab `est-as1bgb` + one; KEEP `pkirsch-qa` (Paul's dur
 kept for the next kit). **Unpushed:** 251+ commits ahead of `origin/staging` — Paul's call. **Not done, named:** the reload test
 on the signed-out lede · row D's record check (his next condo load) · the decision write-back (23 commits claiming a decision
 vs 8 card lines).
+
+### After the close · three security findings from the row-T seats · 2026-09-11 09:55 EDT
+
+From `.engineering/2026-09-11-testing-revamp-SECURITY.md` (`7fb3be32`), verified by the revamp window: **(1) ⛔ LIVE, FIXED
+NOW** — `journey-walk.py`'s `mint_invite()` had no environment allow-list, its act is `grant-mint --rotate` (revokes the prior
+credential, deletes its grant and route rows), and `--origin` admitted `home` — so `--fresh --origin home` would have rotated
+a credential at Mom's production deployment; nobody ran it, nothing refused it. **`MINT_OK = ("qa","lab")` now refuses by name
+before any file or network act; three selftest clauses; 65/65** — a defensive refusal in a harness tool, outside any candidate,
+so it did not wait for the hold. **(2)** `fw-grant` lives ONLY in localStorage (no cookie); WebKit's storage eviction can clear
+it for an origin not visited for ~a week — **Mom on Safari could lose her grant by not opening the app for a stretch.**
+Unverified against Safari's current window; the WebKit walk (L8-P7) is the falsifier; a roster row either way: *a bearer
+credential may not have localStorage as its sole persistence* → lap 8 · A. **(3)** `.content` · `.practice` · `.engineering`
+· `.user-research` are git-TRACKED in a PUBLIC repo, so a reading seat's artifact is the unguarded boundary once arrival-state
+walks carry stale real names — **a seat's trail may name ids, counts, selectors, stop names and engine copy; never an address,
+coordinates, email, phone or a real username.** Into the revamp plan's seat brief, and queued for CLAUDE.md's AI-boundary
+section as a standing line.
