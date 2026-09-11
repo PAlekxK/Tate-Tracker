@@ -3402,3 +3402,33 @@ byte proof for carried-forward evidence (a carried pass is a new false-green cla
 for the identical-failure signature · a cadence for the lens (23 of 45 walks have no written reading, 22 permanently — the
 five-lens reading contributed zero of tonight's eight findings). **Two items would have saved more than row T and are unruled:
 a RANKED household at lab (10 walks — F1 escaped lab because Fernwood ranks nothing) and the pilot walk (11 walks).**
+
+### Lap 7 · GATE ① RUN at `87c7aae` — beat 8 CLOSED, handed over for Paul's walk · 2026-09-11 09:15 EDT
+
+**`release-gate.py --sha 87c7aae`:** seats passing every clause **5 of 5** (at-sha · watched · countable · no-failed-actions ·
+not-rate-limited · walked-in-qa; instrumented printed 7–8 app events each, strict 0 by design). **Content read (L7-P3) ✅**
+`.content/walks/87c7aae-walk-read.md` (`d0e2026`). **UX sweep (L7-P2) ⬜ UNCHECKABLE** — no two-pass sweep filed at
+`.ux-reviews/sweeps/87c7aae-ux-sweep.md`; the gate's own line: *"🟡 every seat passes — but the UX clause is unfiled, so this
+is NOT a bare pass; exits beat 2 only when both artifacts are filed (or a human confirms in their place)."* **Coverage lines,
+verbatim:** *viewport 414×848 ONLY — no seat has ever walked at another width* · *J2 is UNWALKABLE at every build since the
+open door… awaiting Paul's re-scope-or-retire ruling.* ⚠️ The gate's five rows are the earliest-tied best run per seat (all
+J0); the coverage its unit cannot express, from the transcripts — **FINAL run per seat × journey: 15 of 15 zero failed
+actions, zero pageerrors, each read by its own seat** (owner · mom · strict · wide-eyed · handover × J0 · J3 · J8;
+walk-integrity counts all 15, refuses the 8 superseded reruns).
+
+**ON THE TABLE FOR PAUL'S CLEAR:** the owner seat's J3/J8 verdict *SOMETHING HERE SHOULD STOP THE RELEASE* and
+content-steward's *SOMETHING HERE STOPS THE RELEASE ON CONTENT* — the same root: the receipt prints a schema id as the
+person's own words for the one durable fixture whose ranking is stored as bare ids; both real rows hold labelled objects;
+ruled RECORD, proceed (the fix rides lap 8). The other four seats: *nothing should stop* on every run. **Content-steward's
+three DRAFT slots, his:** the receipt resolves an id to its label or omits the row · the account page's "—" username becomes
+*"Not saved on this phone."* with the ask beneath · *"what grows there"* re-tensed to *"as your place fills in"*. **One live
+question under Paul-confirmed copy:** wide-eyed signed in successfully while the page still said Paul was resetting her
+password by hand — when does the recovery block leave the screen. **UX clause:** a human confirms in its place at the clear,
+or a two-pass sweep files at this sha.
+
+**Handover (plan §8·7):** candidate `87c7aae` · lab/qa deploys proved it loads (post-deploy clean, one sha, payload blob
+covered) · the battery evidence · the content artifact · beat 4 recorded (carried 14). Fixtures at qa tonight: candidate 3
+`est-1tfrzb · est-ftrtkj · est-kgjxry · est-c9pgvw` · candidate 2 `est-tfmxem · est-0qeqzs · est-uqjofw · est-pqob3d` ·
+candidate 1 `est-kxfhht · est-t3h0gl · est-puvevs · est-bvqzw3`. **Not verified, named:** the reset act itself (L13), any width
+but 414, L12's timing half, the UX two-pass at this candidate, row D's record check at `paul` (D7, after the deploy). **Beat 9
+is Paul's.**
