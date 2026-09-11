@@ -4003,7 +4003,7 @@ names the **beat-9 gate-kit edit (TIER 1 · 25) as the incoming window's**, deli
 from the brief, and PAUL GRADES ITS READBACK** — the writing window will not be live.
 
 ## Lap 8 — 2026-09-11 · 🔓 **OPEN at OPEN (1/12)** — ROW T ALONE: the testing architecture, the lap whose deliverable is the judge
-<!-- outcome:open -->
+<!-- outcome:closed at:2026-09-11T19:47:39Z -->
 
 Opened at `4011f9fe`, `main`, clean tree, **2026-09-11 10:47 EDT** (from `date`, never authored). Opened by the fresh
 coordination window the lap-7 close handed off to; **the writing window was not live and Paul graded the readback himself.**
@@ -5387,3 +5387,53 @@ by construction, so the silent case was never derivable from those three fields.
 ⛔ **DELIBERATELY NOT DONE: the nine Fernwood needles in shipping comments.** They touch **SERVED PAGES**, and
 row T's whole shape is that **not one of its 24 steps moved a candidate.** Fixing them would change what the gate
 has to certify. **Held for Paul to place — this lap or the next.**
+
+### ✅ CLOSED — 2026-09-11 15:47 EDT · ROW T DELIVERED, 24 of 24 · closed by the coordination window `[paul-ruled: "go ahead and close the lap"]`
+
+**What shipped:** the testing architecture, whole. The gate's unit is the **`(journey, lens)` cell**; journeys
+**declare** their routes, pages, event profile and arrival state; a re-sha re-runs **only what the change can
+reach** and prints the carried-forward pass **with byte proof a reader can re-derive**; cells nobody walked print
+**UNWALKED**; each reading's tier is **declared**. ⛔ **Not one of the 24 steps moved a candidate** — so the first
+battery row T meets is the door's, in a later lap, exactly as ruled.
+
+**The acceptance run (T21):** all five frozen shas **UNCHANGED** — `a3beb8d` · `d7d6c9f` · `12912b9` · `bfa3f23`
+🔴, `87c7aae` 🟡. **Zero changed verdicts ⇒ zero causes to name.** ⭐ **What moved is the legibility:** at
+`87c7aae` the old gate printed **5 seat rows and hid 17 runs**; it now prints **15 cells, accounts for all 22
+runs, and names 6 that passed only on retry.**
+
+**Nine suites green. Corpus frozen at 50 runs, byte-identical, across all 24 steps.**
+
+#### ⭐ PAUL'S CELL LIST — the exit condition stops being vacuous
+
+**Ten cells declared** (`cycle/release/cells/lap-8.json`, `declaredBy: paul`). ⛔ **7 of 10 read UNWALKED and the
+gate REFUSES — and that is the CORRECT closing state, not a debt this lap ducked.** Nothing behavioural was
+built to walk: the only served-page delta is **comment-only** (verified `rendered=0`, page-error guard clean)
+plus **lap 7's own release-note line**. ⭐ **The UNWALKED cells are the NEXT lap's opening condition.** ⚠️ **This
+must not become the precedent that a refusing gate may be closed over** — it is legitimate here *only* because
+nothing was built that needed walking.
+
+#### PRE-REGISTRATIONS DISPOSED — L8-P1…P7, honestly
+
+| | | |
+|---|---|---|
+| **P1** the two-person falsifier | ⏭ **CARRIED → L9-P1** | still no action list — but J6 is now **DECLARED** and prints UNWALKED with its blocker, which is better than absent |
+| **P2** a ranked household at lab | ⛔ **NOT DONE** | not attempted; no evidence filed |
+| **P3** a pilot walk before every battery | ✅ **YES** | landed as a **clause inside beat 8**, not a new beat `[paul-ruled]` |
+| **P4** the stop rule's two classes + a wait | ✅ **RULED** | and never fired — no battery ran |
+| **P5** row D's record check at `paul` | ⛔ **OUT OF SCOPE BY RULING** | the door rows were ruled off this lap |
+| **P6** J2 ruled before the cell list | ✅ **YES, AND IN THAT ORDER** | re-scoped 10:05; the list declared after |
+| **P7** the WebKit cell named | ⚠️ **PARTIAL** | **the engine is BUILT and walkable (T15 — a first in this project)**, but **no declared cell names it** |
+
+#### ⛔ THE WHOLE-AUDIT FALSIFIER — IT CANNOT FIRE, AND THAT IS THE HONEST READING
+
+Pre-registered: *"if lap 8's elapsed is less than half of lap 7's 9 h 20 m **and it takes ONE battery**, the
+ranking was wrong."* **Measured: 4 h 57 m — less than half — but ZERO batteries ran, not one.** ⛔ **Its predicate
+is not met, so it does not fire in either direction.** ⭐ **A falsifier written for a candidate-moving lap cannot
+grade a candidate-less one**, and saying so is the discharge. **Lap 9 should re-write it against the lap shape it
+will actually have.**
+
+**Lap 8 in numbers:** **4 h 57 m** · **23 row-T tool commits** · **0 batteries** · **0 walks** · **20 served lines
+changed, all comments** · against lap 7's **9 h 20 m / 1,365 served lines / 3 batteries.**
+
+**Windows at close:** the row-T build window (`tate-tracker-0b`) — **closing now**; coordination (this) remains.
+**Next:** the door, from a brief; the declared cells walked at its beat 8; the UNWALKED count is where it starts.

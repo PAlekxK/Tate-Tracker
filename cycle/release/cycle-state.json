@@ -1,6 +1,6 @@
 {
  "state": "ARMED",
- "generated_at": "2026-09-11T13:33:10-04:00",
+ "generated_at": "2026-09-11T15:47:40-04:00",
  "generated_by": "tools/release-state.py",
  "candidate_sha": "87c7aae",
  "beat": {
@@ -414,12 +414,12 @@
    }
   }
  },
- "lap_count": 7,
+ "lap_count": 8,
  "last_lap": {
   "lap": 8,
   "opened": "2026-09-11",
-  "outcome": "open",
-  "closed_at": null,
+  "outcome": "closed",
+  "closed_at": "2026-09-11T19:47:39Z",
   "cleared_sha": "87c7aae"
  },
  "lap_heading_anomalies": [],
