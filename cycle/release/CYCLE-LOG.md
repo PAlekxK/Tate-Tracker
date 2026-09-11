@@ -3506,3 +3506,19 @@ this as its first design constraint — the door is the account layer; founding 
 with sign-in (step 1b's marker); the door copy is content-steward's under this rule (*Set up my place* leaves the door). D7/B2
 (founding first on the bare door, ruled 09-10) is **superseded on this point**. Register carry queued: TIER 1 · 41/46 (the
 door), TIER 1 · 19 (founding from the shelf), the lap-8 plan's §10 design-closure list (the sign-in page · the shelf).
+
+**Paul's walk · step 2, tab two · 2026-09-11 09:27 EDT — FOUR findings at the sign-in screen, one a DEFECT:**
+1. 🔴 **"Never set one up? Create your account ›" LOOPS back to the sign-in screen.** Reproduced by coordination in Chrome:
+   the link (href="#", inside the recovery block) scrolls to the top of *Sign in to your place* and the *Create your
+   account* region stays hidden. The screen's own copy promises *"if you haven't yet, you can create your account in a
+   minute — no link needed"* and its only control for that fails. A person who has never set up, arriving at the sign-in
+   screen, has NO PATH to an account from it. Paul: *"it just takes me back to the same page."* Not walked by any seat
+   (J3/J8 arrive signed-up; J0 arrives via the door's *Set up my place*, which works) — a coverage hole the (journey, lens)
+   matrix would have printed. **Beat 10 candidate; Paul rules whether it holds the release** (the door's button is a
+   working path to the same screen; the sign-in screen's link is the failing one).
+2. ⚠️ The recovery form's button reads **"Sending…"** after the receipt has rendered — the label never returns (the request
+   succeeded; the button state did not).
+3. ⚠️ The masthead reads **"Homey"** on the signed-out sign-in screen — the torn-down PAK place's name survives sign-out in
+   local state (sign-out clears identity keys, not the place name). A stale-state leak of a dead household's name.
+4. ⚠️ The hidden *Create your account* region still carries **"You've been invited."** — invite-era copy under the open door.
+Also: *"How should Paul reach you?" → Please don't → "Then he won't…"* (B16) is present and reads as confirmed.
