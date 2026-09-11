@@ -2863,3 +2863,20 @@ read). ⚠️ **Not yet fired anywhere** — proven at the candidate's qa deploy
 has no `--env` (reads Fernwood's tracked build + the legacy Worker) — for the candidate at qa the reader of record for C
 is `read-glance-order.py --env qa`; `check-telemetry` covers EMIT only. Row B started (B0 → B1 … B6 built and held from qa
 → B6r → B7 → B8–B15).
+
+### Row B · the RECOVERY COPY — words CONFIRMED by Paul `[paul-confirmed 2026-09-11 ~1:35 AM ET]`
+
+`.content/2026-09-11-recovery-copy-DRAFT.md` (`1e37947`). Confirmed as drafted, four answers: **his name may appear** ·
+**the time is an escalation bound, "by tomorrow evening"** (never a promise) · **the second door is his Gmail, as drafted**
+(his ruling; a personal address on every household's sign-in page — noted for the register) · **the no-email case ("please
+don't" at setup) is routed to the build**: the honest fix is on the ask side — the setup flow tells a "please don't" chooser
+what recovery will mean; ux-expert + build lane own the shape, content-steward the words.
+
+**The ask** (above the field): *Forgotten username or password — Type the email address you set up with. Paul built this,
+and he does the resetting himself — he writes to the address your account already has. This page won't say whether it's
+on file, because that would tell anyone who typed it.* **The receipt** (one string, every outcome, 200 only): *That's
+written down where only Paul can read it, and he answers these by hand. If nothing's come back by tomorrow evening, email
+him at paul.kirschenbauer@gmail.com.* Rules riding with it: cut `onboarding:357` *"it only takes him a second"* (an
+unkeepable time claim) · a failed POST keeps *"That didn't go through…"* · never rendered into `#si-trouble` (row 31's
+refusal constant) · never reused on the signed-in twin (row 30). **B6 is cleared for the qa deploy once built.** Chain act
+12 for this slot is done: a human confirmed the words before they reach a person.
