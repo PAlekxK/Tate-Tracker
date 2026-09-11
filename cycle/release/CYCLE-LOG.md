@@ -2695,7 +2695,7 @@ account (`pkirsch`), **zero metrics batches** (consistent with the app having no
 approved to Paul with three changes — lap 8 · A's done-means carries the "synced" clauses · lap 8 · D is conditional
 on a G6 reading window with a slip rule · security-steward named on A and B.
 
-## Laps 8 and 9 — SCOPE COMMITTED BY RULING, ahead of their open `[paul-ruled 2026-09-11 ~12:10 AM ET: "Let's go on laps eight and nine… let's walk through it."]`
+### Ahead — laps 8 and 9, SCOPE COMMITTED BY RULING before their open (a lap-7 subsection; each lap gets its own heading at its open) `[paul-ruled 2026-09-11 ~12:10 AM ET: "Let's go on laps eight and nine… let's walk through it."]`
 <!-- pre-commitment: transcribed into each lap's beat-6 table at its open; the committed-by-ruling rung reads it from here -->
 
 Source: `.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md` (`0c4a983` + the three review changes). Walked question by question
