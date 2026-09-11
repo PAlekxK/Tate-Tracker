@@ -93,8 +93,18 @@ def invitee(role):
     return "p-inv-" + role
 
 
+MINT_OK = ("qa", "lab")  # ⛔ a synthetic may rotate a credential ONLY on our own environments — never a real household's
+
+
 def mint_invite(role, env):
     """Rotate this seat's invite and return the fresh, UNSPENT token.
+
+    ⛔⛔ ENVIRONMENT ALLOW-LIST FIRST, BEFORE ANY FILE OR NETWORK ACT (2026-09-11, security-steward via the
+    testing-revamp window, `.engineering/2026-09-11-testing-revamp-SECURITY.md`): `--rotate` REVOKES the prior
+    credential and deletes its grant and route rows, and `--origin` admitted `home` — so `--fresh --origin home`
+    would have rotated a credential at Mom's production deployment. Nobody ran it; nothing refused it. The
+    refusal mirrors `household-fixtures.py`'s TEARDOWN_OK doctrine: a tool that destroys should be safe before
+    it is useful.
 
     ⛔ IT MAY ONLY ROTATE, NEVER CREATE. Minting a new (person, estate) edge is an authority act with
     a consent gate on it (`grant-mint.py` G1/G2), and a harness that could satisfy its own consent
@@ -102,6 +112,10 @@ def mint_invite(role, env):
     comment names as the cheap outcome. So the edge is authored ONCE, by a human, and this replays
     the consent already on the row. A missing row REFUSES with the exact command to author it.
     """
+    if env not in MINT_OK:
+        raise SystemExit("journey-walk: REFUSED — a synthetic invite is rotated only on %s; %r is a real "
+                         "household's deployment and its credentials are never touched by a walk"
+                         % (" / ".join(MINT_OK), env))
     import importlib.util as _ilu
     _p = os.path.join(ROOT, "tools", "grant-mint.py")
     _s = _ilu.spec_from_file_location("grantmint", _p)
@@ -1097,6 +1111,15 @@ def selftest():
           "found %d signup(s) — every extra one is a real account and a real write" % len(signups))
 
     # 2 · arriving on a token must create none at all
+    # 0 · ⛔ THE ENVIRONMENT ALLOW-LIST BITES BEFORE ANY ACT (2026-09-11): a rotation aimed at a real
+    #     household's deployment is REFUSED by name, and the refusal fires before grant-mint is even imported.
+    for _env in ("home", "paul", "legacy"):
+        try:
+            mint_invite("owner", _env)
+            check("mint_invite refuses env %r" % _env, False, "returned instead of refusing")
+        except SystemExit as e:
+            check("mint_invite refuses env %r" % _env, "REFUSED" in str(e), "wrong refusal: %s" % e)
+
     tok = journey(fresh=False, answers=A, origin="https://x")
     check("a token arrival creates NO account",
           not [x for x in tok if x.startswith("type:#uname=")], "a signup leaked into the token path")
