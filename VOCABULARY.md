@@ -474,6 +474,43 @@ person's deployment an environment, is out of vocabulary — `check-vocabulary.p
 
 ---
 
+## 3j · ⭐ THE READERS — `journey` · `lens` · `cell` `[paul-ruled 2026-09-11: "put the reader names into the dictionary so the customer researcher can reference them"]`
+
+**Three words the testing architecture turns on. They are here so `user-researcher` can cite a reader by name
+instead of re-inventing one, and so a persona and a lens never get confused for each other.**
+
+| word | what it is | what it is NOT |
+|---|---|---|
+| **journey** | **a path a real person takes through the product**, from the state they arrive in to the thing they came to do | ⛔ not a test case, not a screen, not a feature |
+| **lens** | **the POSTURE a journey is read in** — a way of paying attention, not a person | ⛔ **not a persona.** A lens has no name, no household and no address |
+| **cell** | **one `(journey, lens)` pair** — the unit the release gate passes or refuses on | ⛔ not a run. Many runs may fill one cell; the cell is what we COMMITTED to walking |
+
+### The lenses, by what each one is listening for
+
+| lens | reads as | ⛔ the failure it is built to catch |
+|---|---|---|
+| **`mom`** | the resident steward — knows the place, fears getting it **wrong**, revises rather than abandons | copy that makes a revisable answer feel permanent |
+| **`wide-eyed`** | first-time eyes, no context, nothing learned yet | a screen that only makes sense to someone who already knows the product |
+| **`conformance`** *(today still named `strict`)* | does the thing do what it SAYS, exactly | a refusal that is vague where it should be specific, or specific where it should be vague |
+| **`successor`** *(ruled, NOT YET BUILT)* | someone inheriting the record from another person | a surface that assumes the reader authored what they are looking at |
+| **`other`** *(ruled IN, not yet walkable)* | ⭐ **somebody whose want is not on our list** | **the whole product, for a need we never anticipated.** `seat-portfolio` calls it the best cell on the board: nothing in the battery has ever walked it |
+
+⛔ **`owner` IS RETIRED AS A LENS** `[paul-ruled 2026-09-11, P1]` — **it names a PEOPLE-SHAPE, not a posture.**
+Ownership is a `relationship` on a grant (§3b), and a reader who is an owner is still reading *as* `mom` or
+`wide-eyed`. ⚠️ **`handover` is flagged by `seat-portfolio` as a JOURNEY WEARING A LENS'S CLOTHES** — a seat
+sharing a name with a rankable module names a path through the product, not a way of reading one.
+
+⭐ **FOR `user-researcher` SPECIFICALLY — the seam that matters:** a **persona** is a claim about a PERSON and
+carries evidence, a falsifier and a tag (`assumption` · `inferred` · `validated`). **A lens carries none of
+those and asserts nothing about anybody.** ⛔ **A lens may never be cited as evidence that a person like that
+exists**, and a persona may never be declared as a lens. Where a reading needs a person behind it, that is the
+persona's lane and the evidence rules bind.
+
+**Where they are declared:** the lens roster and each lens's read tier in `cycle/release/lenses.json`; the
+declared cells per lap in `cycle/release/cells/lap-<N>.json`, `declaredBy: paul` because the declaration is
+**his act at beat 6**. The journeys themselves are `journey-walk.JOURNEYS` — **read them there, never a roster
+typed into a document.**
+
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
 **This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets
