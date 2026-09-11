@@ -3303,3 +3303,15 @@ instrumented screen, so the gate's `instrumented` clause may refuse it for the p
 window before `release-gate` runs; for row T, a refusal journey needs its own expected-events profile (zero is the pass).
 Also: the 09-10 plan's line citations are stale (`JOURNEYS` sits at `:876`); no `.security/` exists — the seat files under
 `.engineering/` by tonight's convention. **Paul clears the window with his keystroke there.**
+
+### Ahead — ROW T MOVES TO LAP 9; lap 8 stays as committed `[paul-ruled 2026-09-11 ~9:10 AM ET]`
+
+*"Let's plan then to not move the testing plan up a lap. Lap 8 is next — let's keep that as it was planned in terms of the
+commitment, and then we'll move the testing lap implementation to lap nine so it can fully close out its audit of lap seven
+and also monitor lap eight."* → the ~7:00 AM placement is superseded: **lap 8's commitment is as ruled at ~12:10 AM** (A the
+door · C the email editor · E Midtown · F the fixture stamp · G the ribbon seam · riders; B its own gate; the glance design
+pass conditional). **Row T builds in LAP 9** beside the weather card — the small lap, which now has the room he kept in it.
+The eight rulings stand unchanged. The revamp window gains a third duty: **monitor lap 8's battery on the old unit** as a
+second data point, so row T is sized against two laps. Updated: the testing-architecture plan's `ready:` line, the lap-8
+plan's stage-note (superseded), the revamp brief §1. Register carry (queued): the row's lap moves 8 → 9; the 8/9 proposal's
+lap-9 table gains row T.

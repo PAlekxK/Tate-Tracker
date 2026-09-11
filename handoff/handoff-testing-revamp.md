@@ -1,10 +1,20 @@
-# Handoff: fernwood — TESTING REVAMP · scope and audit the testing cycle (lap 8 · row T), its own window
+# Handoff: fernwood — TESTING REVAMP · scope and audit the testing cycle (lap 9 · row T), its own window
 
 <!-- generated 2026-09-11 ~7:15 AM ET · source: Tate-Tracker@a95413d1 on LOCAL main · written by the coordination window (tate-tracker-ea)
      RECEIVER: verify the sha against HEAD. Cite symbols, stamp the sha. Written with a QUOTED heredoc — the previous brief tonight
      committed empty on a backtick; check this one is not zero bytes before you trust it. -->
 
 ## 1. Mission
+
+> ⭐ **PLACEMENT CHANGED at ~9:10 AM ET** `[paul-ruled 2026-09-11: "let's keep lap 8 as it was planned in terms of the commitment,
+> and then we'll move the testing lap implementation to lap nine so it can fully close out its audit of lap seven and also
+> monitor lap eight."]` **Row T builds in LAP 9, not lap 8.** This window therefore has THREE duties: (1) the AUDIT of lap 7
+> (as below); (2) **MONITOR lap 8's battery as a second data point** — the door's battery runs on the OLD unit, and you
+> read it the way the audit reads lap 7 (where the time went, what each stop bought), so row T's plan is sized against two
+> laps, not one; (3) the SCOPE — row T sized by symbol for LAP 9's build window (beside the weather card, the small lap),
+> not lap 8's. Wherever this brief says "lap 8" about row T's build or "before the door's battery", read "lap 9". The eight
+> rulings are unchanged; only the placement moved. The lap-8 plan's row-T stage-note is superseded.
+
 
 Paul, 2026-09-11 ~7:10 AM ET: **"launch a dedicated session to fully scope and audit the testing cycle revamp."** Earlier:
 *"our testing takes a long time and has a lot of the same journeys… it seems a little repetitive"* · *"move it up to the next
