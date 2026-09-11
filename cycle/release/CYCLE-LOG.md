@@ -3579,3 +3579,16 @@ W1–W11. **Beat 12 from this window:** Worker before pages at each household �
 --env paul --sha 87c7aae` (exports the COMMIT; release-gate --seats-only; post-deploy) → the same for `home` (its household
 export; `cleared_sha` read) → `check-canon-scope` at both → the record check for row D at `paul` after Paul's next load.
 Never `legacy`.
+
+### Lap 7 · BEAT 12 — DEPLOYED to both real households · 2026-09-11 09:39 EDT
+
+**`paul`:** `deploy-worker.sh --env paul` → health OK, env=paul · `pages-deploy.py --env paul --sha 87c7aae` → household export
+pruned to 1,059 files + 1,052 tombstones, **paul's own app built from `instance/paul.json`** (1.19 MB), neutral 311/0,
+headless load zero page errors, **`myhome-paul.pages.dev` serves `87c7aae`**. **`home`:** Worker → health OK, env=home ·
+Pages → gate ① read inside the deploy (*5 of 5 seats · content clause ✅ · UX clause UNCHECKABLE, confirmed by Paul in its
+place · Paul's clear 87c7aae ✅ from cycle-state.json*), neutral 311/0, headless clean, **`fernwood-home.pages.dev` serves
+`87c7aae`**. **post-deploy at both:** covered — served sha · `/qa-build.json` live · worker /health · worker estate
+(est-d93508 / est-e6696a) · **worker payload blob `5b56d946…` matched** · cleared_sha at home; **one 🔴 each: worker
+`build_sha 05bfb6d7`** (the HEAD the Worker was deployed from) **≠ 87c7aae — the row-32 stamp-vs-payload false red, exactly
+what H5's blob compare exists to tell apart; the caveat wording is queued for lap 8.** Never `legacy`. Coverage lines
+printed by the gate: *414 × 848 ONLY* · *J2 UNWALKABLE, awaiting Paul's re-scope-or-retire*.
