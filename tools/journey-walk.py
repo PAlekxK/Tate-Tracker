@@ -1682,7 +1682,7 @@ def selftest():
 
     # ⭐ M-elide-c — PARITY WITH `:1745`, not mere length-elision. That line already ruled a
     # password may not reach the record; a password's LENGTH is not wanted either.
-    _ans = {"username": "syn-x", "password": "s3cret-long-value", "line1": "282 Church Mountain Road",
+    _ans = {"username": "syn-x", "password": "NOT-A-SECRET-selftest-fixture", "line1": "282 Church Mountain Road",
             "place": "Somewhere", "city": "Jasper", "state": "GA", "zip": "30143"}
     _acts_fresh = ["type:#uname=" + _ans["username"], "type:#uword=" + _ans["password"],
                    "type:#a1=" + _ans["line1"], "type:#city=" + _ans["city"]]
