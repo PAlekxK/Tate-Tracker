@@ -65,7 +65,7 @@ STAGES = ["draft", "ready", "concept", "design", "journey", "build", "qa", "ship
 # of anything: no `-AUDIT` file tracks an item through build → shipped. The falsifier stated with the
 # ruling: if one ever legitimately does, it IS an item and option A was right.
 KINDS = {"audit", "process", "design", "state", "census", "charter", "practice",
-         "decisions", "scan", "requirement", "archaeology", "mine", "queue"}
+         "decisions", "scan", "requirement", "archaeology", "mine", "queue", "proposal"}
 # Only documents whose FILENAME declares a type are graded here. The 16 pre-convention files in
 # `.plans/` carry no suffix and are left alone — a control that is red on every legacy file is one
 # nobody reads, which this repo has ruled against.
@@ -93,11 +93,32 @@ DOC_SUFFIXES = ("-AUDIT", "-PROCESS", "-DESIGN", "-STATE", "-CENSUS", "-CHARTER"
 # belongs to whoever owns this tool.
 # ⚠️ DELIBERATE ABSENCES, each with its reason, so they stay quiet without hiding:
 UNGRADED_BY_DESIGN = {
-    "-PROPOSAL": "⭐ RULED 2026-09-10, NOT YET BUILT: neither document nor item — the FILE declares its intent in "
-                 "`row:` (none · proposed · <pointer>); the orphan flag is reserved for a file claiming a row that "
-                 "is not there. Until the parser reads that field (~45 lines + a scripted header pass over 21 "
-                 "proposals), this suffix stays ungraded. .plans/2026-09-10-link-syntax-and-proposal-intent-RECOMMENDATIONS.md §2",
+    # `-PROPOSAL` was here 2026-09-10 → 2026-09-10 (ruled, unbuilt). It is now graded through `row:`
+    # — see ROW_STATE below — so the entry is retired rather than left as a stale reason.
 }
+# ⭐ THE THREE `row:` STATES `[paul-ruled 2026-09-10 — ④ of the link-syntax packet, §2]`. A `-PROPOSAL`
+# is neither a document nor an item BY SUFFIX; the FILE declares its intent in `row:`:
+#   · `row: none`           — a document (a consumed record, a ruling packet). Graded on `kind:`, never
+#                             an orphan; a BACKLOG pointer AT one is a disagreement, not a row.
+#   · `row: proposed — …`   — an item somebody means to do, awaiting Paul. Printed under ONE AWAITING
+#                             header, named, never counted alone; never an orphan.
+#   · `row: <pointer>`      — the file claims a row. The orphan flag is RESERVED for this state: a
+#                             declared row that no BACKLOG.md link points back at.
+# ⚠️ Parsed GENEROUSLY — the sweep's own lesson: `none` after an em-dash read UNPLACED, and *an
+# instrument that only works when its users are precise measures its users, not the world.*
+# Decoration (backticks, bold, a leading `process ·`) is stripped; the keyword is the first word left.
+# Falsifiers (packet §2f): after the header pass, 14 AWAITING and 0 proposal-orphans; a `row: none`
+# file ever tracked build → shipped means its intent was mis-declared.
+ROW_STATE_PAT = re.compile(r"^[`*_\s]*(?:(?:process|document|doc)[`*_\s—–\-·:()]*)?[`*_\s]*(none|proposed)\b", re.I)
+GRADED_AS_ITEMS = ("-PLAN", "-PROPOSAL")   # graded by check() itself; never "graded by NOTHING"
+
+
+def row_state(value):
+    """'none' · 'proposed' · 'pointer' (declares a row) · 'absent' (no `row:` at all)."""
+    if value is None or not value.strip():
+        return "absent"
+    m = ROW_STATE_PAT.match(value.strip())
+    return m.group(1).lower() if m else "pointer"
 REPEATABLE = {"stage-note"}   # a dated LOG line, appended per event — many is the design, not a disagreement
 IN_FLIGHT = {"concept", "design", "journey", "build", "qa"}
 
@@ -271,12 +292,13 @@ def parse_plan(text):
 
 
 HEADERLESS = []
+AWAITING = []      # (rel, the prose after `proposed`) — one header, named, never counted alone
 
 
 def check(root):
     """Returns (findings, in_flight) — findings are (plan-or-row, message)."""
     findings, in_flight = [], []
-    del HEADERLESS[:]
+    del HEADERLESS[:]; del AWAITING[:]
     backlog = open(os.path.join(root, "BACKLOG.md"), encoding="utf-8").read() if os.path.exists(os.path.join(root, "BACKLOG.md")) else ""
     obj_text = open(os.path.join(root, "OBJECTIVES.md"), encoding="utf-8").read() if os.path.exists(os.path.join(root, "OBJECTIVES.md")) else ""
     objectives = set(OBJ_PAT.findall(obj_text))
@@ -354,7 +376,23 @@ def check(root):
             dd, pd = file_date(d, root), file_date(rel, root)
             if dd and pd and dd > pd:
                 findings.append((rel, f"depends on `{d}`, which is NEWER than this plan — re-read the dependency before acting"))
-        if rel not in pointers:
+        # ── ④ the three `row:` states `[paul-ruled 2026-09-10]` ─────────────────────────────
+        rs = row_state(keys.get("row"))
+        if rs == "none":
+            # a DOCUMENT wearing an item's suffix: graded as R4 grades documents, and nothing else
+            km = keys.get("kind", "").strip("`")
+            if not km:
+                findings.append((rel, "`row: none` says this is a document — it takes `kind:` (say what it IS) [R4]"))
+            elif km not in KINDS:
+                findings.append((rel, f"`kind: {km}` is not one of {'/'.join(sorted(KINDS))}"))
+            if keys.get("stage"):
+                findings.append((rel, f"`row: none` beside `stage: {keys['stage']}` — a document has a kind, an item has a stage; one of the two lines is wrong [R4]"))
+            if rel in pointers:
+                findings.append((rel, "BACKLOG.md links this file but its header says `row: none` — the file says document, the row says item; one of them is wrong"))
+            continue
+        if rs == "proposed":
+            AWAITING.append((rel, re.sub(r"^[`*_\s]*(?:process\s*)?proposed\b[\s—–\-·:]*", "", keys["row"].strip(), flags=re.I)))
+        elif rel not in pointers:
             findings.append((rel, "no BACKLOG.md row points at this plan (orphan)"))
         for k in ("row", "objective", "class", "seats", "stage"):
             if k != "seats" and not keys.get(k):
@@ -487,6 +525,7 @@ def main():
             bands.append(f"{mark} {band} {uncapped}/{limit}" + (f" (+{len(rows) - uncapped} excepted)" if len(rows) > uncapped else ""))
         n_concept = sum(1 for _, st, _ in in_flight if st == "concept")
         print("   🚦 WIP bands: " + " · ".join(bands) + f" · concept {n_concept} (uncapped by ruling)")
+    _awaiting_note()
     if not findings:
         _ungraded_suffix_note(os.path.join(ROOT, ".plans"))
         _headerless_note()
@@ -513,7 +552,7 @@ def _ungraded_suffix_note(plans_dir):
         if not tail.isupper() or len(tail) < 3:
             continue
         suffix = "-" + tail
-        if suffix in DOC_SUFFIXES:
+        if suffix in DOC_SUFFIXES or suffix in GRADED_AS_ITEMS:
             continue
         seen.setdefault(suffix, []).append(f)
     if not seen:
@@ -530,6 +569,14 @@ def _ungraded_suffix_note(plans_dir):
         print("      on 2026-09-07 and how four more were missed on 2026-09-10.")
     for suf, files in sorted(designed.items()):
         print("   · %-18s ungraded BY DESIGN — %s (%d file(s))" % (suf, UNGRADED_BY_DESIGN[suf], len(files)))
+
+
+def _awaiting_note():
+    if AWAITING:
+        print("   ⬜ %d proposal(s) AWAITING Paul (`row: proposed`) — named, never counted alone, never orphans:"
+              % len(AWAITING))
+        for rel, prose in AWAITING:
+            print("      · %s — %s" % (os.path.basename(rel), (prose[:90] + "…") if len(prose) > 90 else prose))
 
 
 def _headerless_note():
@@ -702,6 +749,31 @@ def selftest():
     with tempfile.TemporaryDirectory() as td:
         f, _ = check(make(td, pointer=False))
         ok("a plan no row points at is flagged (orphan)", any("orphan" in m for _, m in f))
+    # ── ④ the three `row:` states `[paul-ruled 2026-09-10]` ──────────────────────────────────
+    DOC = "# a ruling packet\n- row: none\n- kind: proposal\n\n## Body\n"
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=DOC, name="2026-09-10-demo-PROPOSAL.md", pointer=False))
+        ok("④ `row: none` + `kind:` is QUIET — a document is not an orphan and owes no item header", f == [])
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=DOC.replace("- kind: proposal\n", ""), name="2026-09-10-demo-PROPOSAL.md", pointer=False))
+        ok("④ `row: none` with no `kind:` is asked what it IS", any("takes `kind:`" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=DOC.replace("- kind: proposal\n", "- kind: proposal\n- stage: concept\n"), name="2026-09-10-demo-PROPOSAL.md", pointer=False))
+        ok("④ `row: none` beside a `stage:` is a disagreement", any("row: none` beside `stage" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        make(td, plan=DOC, name="2026-09-10-demo-PROPOSAL.md", pointer=False)
+        open(os.path.join(td, "BACKLOG.md"), "w").write("| row | → PLAN · .plans/2026-09-10-demo-PROPOSAL.md |\n")
+        f, _ = check(td)
+        ok("④ a BACKLOG pointer AT a `row: none` file is flagged (the row says item, the file says document)",
+           any("says `row: none`" in m for _, m in f))
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN.replace("- row: BACKLOG.md § TIER 1 · demo", "- row: proposed — § TIER 1 (this proposes one)"), pointer=False))
+        ok("④ `row: proposed` is AWAITING and is NOT an orphan", not any("orphan" in m for _, m in f) and len(AWAITING) == 1)
+    with tempfile.TemporaryDirectory() as td:
+        f, _ = check(make(td, plan=GOOD_PLAN.replace("- row: BACKLOG.md § TIER 1 · demo", "- row: `process` — **proposed** · same posture as the 09-05 proposals"), pointer=False))
+        ok("④ the parse is GENEROUS — backticks, bold and a `process —` prefix still read as proposed", len(AWAITING) == 1 and not any("orphan" in m for _, m in f))
+    ok("④ `row_state` reads a declared row as `pointer` and an empty one as `absent`",
+       row_state("BACKLOG.md § C3 · x") == "pointer" and row_state("") == "absent" and row_state("`none` — a packet") == "none")
     with tempfile.TemporaryDirectory() as td:
         make(td); open(os.path.join(td, "BACKLOG.md"), "a").write("| r2 | → READY · .plans/2026-09-03-ghost-PLAN.md |\n")
         f, _ = check(td); ok("a row pointing at a missing plan is flagged", any("does not exist" in m and "pointer" in m for _, m in f))
@@ -735,5 +807,72 @@ def selftest():
     return 0 if not failed else 1
 
 
+# ---------------------------------------------------------------------------------------------
+LADDER = ["draft", "concept", "design", "journey", "ready", "build", "qa", "shipped", "retro"]
+
+
+def ladder():
+    """⭐ THE DERIVED DEVELOPMENT VIEW — how far along is each item, READ from the plan headers,
+    never typed. `[paul-asked 2026-09-10: "get a good sense of how developed our various features and
+    backlog items are… a more or less systematic way of organizing them"]`. The audit's finding is that
+    the register is DUPLICATED, NOT DERIVED (one fact, a prose home and an instrumented home, nothing
+    computing one from the other); a queue typed at the top of BACKLOG.md would be a third home. This
+    prints the ladder from the same fields `check()` grades, so it cannot disagree with the grade.
+    ⛔ It RANKS NOTHING — order within a rung is alphabetical. The next-two-laps pick is Paul's (beat 6).
+    ⛔ It is a SNAPSHOT: the sha is printed because the reading expires when the tree moves."""
+    import subprocess
+    try:
+        sha = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, text=True).strip()
+    except Exception:
+        sha = "?"
+    findings, _ = check(ROOT)
+    fl = {}
+    for where, msg in findings:
+        fl.setdefault(where, []).append(msg)
+    backlog = open(os.path.join(ROOT, "BACKLOG.md"), encoding="utf-8").read()
+    kw = {}
+    for k, path in POINTER_KW_PAT.findall(backlog):
+        kw.setdefault(path, set()).add(k)
+    rows = []
+    for path in sorted(glob.glob(os.path.join(ROOT, ".plans", "*-PLAN.md")) + glob.glob(os.path.join(ROOT, ".plans", "*-PROPOSAL.md"))):
+        rel = os.path.relpath(path, ROOT)
+        keys, seats, deps, sections = parse_plan(open(path, encoding="utf-8").read())
+        rs = row_state(keys.get("row"))
+        if rs == "none":
+            continue                                   # a document has no rung
+        stage = keys.get("stage", "") or "—"
+        stamped = bool(re.search(r"\[paul-approved \d{4}-\d{2}-\d{2}\]", keys.get("ready", "")))
+        link = "/".join(sorted(kw.get(rel, []))) or "none"
+        owed = [m for m in fl.get(rel, []) if "→" in m or "cites" in m or "missing `seats" in m or "neither a trail" in m]
+        need = []
+        if stage == "—":
+            need.append("a header (stage · ready · seats)")
+        if not stamped and stage not in ("shipped", "retro"):
+            need.append("Paul's stamp")
+        if rs == "proposed":
+            need.append("a BACKLOG row (Paul rules the proposal)")
+        elif link == "none" and rs == "pointer":
+            need.append("a BACKLOG link back at it (orphan)")
+        if owed:
+            need.append("%d seat trail(s)" % len(owed))
+        if stamped and stage in ("build", "qa"):
+            need.append("gate ① at HEAD → Paul walks → Paul clears")
+        elif stamped and stage in ("design", "journey"):
+            need.append("the stage gate to build (a sha on QA)")
+        elif stamped and stage == "concept":
+            need.append("a design pass (concept → design)")
+        elif stamped and stage == "ready" and not need:
+            need.append("nothing — pick it up")
+        if stage in IN_FLIGHT and not stamped:
+            need.insert(0, "⚠️ in flight WITHOUT the gate")
+        rows.append((LADDER.index(stage) if stage in LADDER else -1, os.path.basename(path)[:-3], stage,
+                     "✅" if stamped else "·", link, rs, "; ".join(need) or "—"))
+    print(f"🪜 Ladder — derived from {len(rows)} plan header(s) at {sha} · a snapshot, ranks nothing")
+    print("   %-52s %-8s %-3s %-10s %-9s %s" % ("plan", "stage", "✓", "link", "row:", "what would make it READY / move it"))
+    for _, name, stage, st, link, rs, need in sorted(rows, key=lambda r: (r[0], r[1])):
+        print("   %-52s %-8s %-3s %-10s %-9s %s" % (name[:52], stage, st, link, rs, need))
+    return 0
+
+
 if __name__ == "__main__":
-    sys.exit(selftest() if "--selftest" in sys.argv else main())
+    sys.exit(selftest() if "--selftest" in sys.argv else ladder() if "--ladder" in sys.argv else main())
