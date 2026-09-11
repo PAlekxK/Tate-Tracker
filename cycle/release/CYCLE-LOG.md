@@ -3724,3 +3724,31 @@ production and is a gate at the act: a lane reading the SHAPE of the ranked reco
 
 **Coordinator of record from here: `tate-tracker-42`.** The lap-7 window closes. Next: the register queue to the backlog
 window (reopened from its brief §10) · the pickup block · the plan when its sha arrives.
+
+### ROW T'S PLAN IS READY — `.plans/2026-09-11-testing-revamp-PLAN.md` (`44413e87`) · 2026-09-11 10:08 EDT
+
+The revamp window (`tate-tracker-d8`) delivered one piece at `stage: ready`, `ready: agent-proposed — Paul reads before
+lap 8 reopens`. **21 steps T0–T21, ≈28 h, NO STRUCTURAL SPLIT** — the structural test applied to seven candidates, each
+resolving by declare-and-print-UNWALKED or by a Paul beat; **not one step moves the candidate**, so the first battery row T
+meets is the door's. Four seat trails behind it: SIZING (`13d93181`) · SECURITY · LENSES · MODEL-POLICY (`7fb3be32`) ·
+ANALYSIS (`394c18d4`) · the audit's §8/§8h (`bc41b919` `c0ca03d8`).
+
+**Four findings the rulings did not know:** three of the twenty items are ALREADY BUILT at HEAD (the transcript writes
+`journey`+`lens`; the per-run unspent invite ships; the personId) · the 09-10 backfill rule CANNOT be executed (220 of 224
+pre-`journey` transcripts carry no arrival — the honest backfill is four buckets) · **the plan's own primary falsifier fails
+at HEAD on a recorder bug** (`journey-walk.py:1721` writes the loaded fixture into `transcript.answers` regardless of what
+was typed → T9) · **the release STOP was found by a record SHAPE, not a posture** (`ranked` is bare strings on two accounts
+and label objects on three; `estate/index.html:430` prints ids on the bare-string ones; the conformance lens scored it a PASS).
+
+**Carried as RULED-by-relay** in its §13: P11 the stop rule (two classes + one-hour wait) · P3 J2 re-scoped. **Stage-note:**
+lap 8 opens on row T alone, door rows after the re-audit. **Row H FOLLOWS T and rebases on it** (§9; three rebase points —
+H1's second context from T14's factory, never a parallel `newContext` · H2's J9 carries T10's four `JOURNEYS` keys and sits
+in the declared cell list · the region-change stop for `href="#"` lands in H against A11's page). **§5 quotes the CYCLE-MAP
+beat-8 exit-condition edit and does NOT make it — T6 is Paul's**, and `check-release-docs.py` goes RED between T5 and that
+edit, which is the checker working.
+
+**⛔ OPEN FOR PAUL — §13 P1–P2, P4–P10, P12–P17**, each question · recommendation · alternatives. The starred ones gate the
+**cell list**, not the build: P1 the lens roster · P2 the `other` free-text cell · P6 may a lane read the SHAPE of `ranked`
+on Mom's production record (record only, no walk, no value printed — **the only one that touches production, and it is a gate
+at the act**). Then the model policy (P7–P10), the cadence (P4–P5, P12), and the housekeeping (P13–P17). **Lap 8 does not
+open until he has read the plan.**
