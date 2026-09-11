@@ -97,6 +97,13 @@ Paul: *"It will be a big build in the next lap."* D teardown (process row). ⛔ 
 design rulings are answered.**
 Groom beat, not ahead: rows 33–40, § ADDRESS VALIDATION, § INVITE & JOIN scoping.
 
+⭐ **COMMIT-PHASE RULE** `[paul-stated 2026-09-10]`: *"since this is such a big build… have at least our build expert
+audit the plan and make a distinct, detailed plan for the build window to execute."* So at beat 6, AFTER the commitment
+table: spawn **engineering-partner (path-evaluation)** to audit the design plan §4 apply list + the Worker-map fix (bug
+lane FINDINGS §3.1) + G6 (TIER 2 · 10/13) + account lifecycle (TIER 2 · 18, exhibit 3 as ruled) and write
+`.plans/2026-09-1x-lap7-build-PLAN.md` — ordered steps by symbol, seams, per-step check, what moves the candidate, what is
+out. **The build window's brief points at that plan.** Memory: `feedback_build_expert_audits_the_plan_before_the_build_window`.
+
 ## 6. Window map at pause
 
 coordination (this brief's author) · **backlog-refinement `tate-tracker-0d` — the ONE DOOR to `BACKLOG.md`
