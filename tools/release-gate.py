@@ -683,14 +683,33 @@ def report(sha, seats_only=False):
     # founding replaced granting, so the door reads J2's fixture as J0; no transcript at any build has ever
     # recorded a walked J2. A pass here says nothing about a resumed-unfinished person until Paul rules
     # the re-scope-or-retire (coordination's recommendation: re-scope as "returning, founded nothing").
-    print("  📐 coverage — J2 (returning-unfinished) is UNWALKABLE at every build since the open door: an unfinished "
-          "record cannot exist without an estate; founding replaced granting; no transcript at any build has ever "
-          "recorded a walked J2. Not covered here — awaiting Paul's re-scope-or-retire ruling.")
-    # ⛔⛔ THE PARAGRAPH ABOVE IS CARRIED VERBATIM (T3's instruction: a coverage line may not change
-    # its wording while its question is unruled) — AND ITS LAST CLAUSE IS CONTRADICTED BY THE RECORD.
-    # This gate will not print a measurably false claim unqualified, and it will not rewrite a line
-    # that is Paul's to rule. So it prints BOTH and lets him rule on the truth: FLAGS, NEVER RULES.
-    _j2 = []
+    # ═══ J2 — RULED, SO THE GATE STOPS ASKING ════════════════════════════════════════════════════
+    #
+    # ⛔ THIS LINE USED TO SOLICIT A DECISION THAT HAD ALREADY BEEN MADE. It read:
+    #   ~~"J2 is UNWALKABLE at every build since the open door … no transcript at any build has ever
+    #     recorded a walked J2. Not covered here — awaiting Paul's re-scope-or-retire ruling."~~
+    # TWO of its clauses were false by the time this step was written, and each failed differently:
+    #
+    # 1. ⛔ "no transcript at any build has ever recorded a walked J2" — FALSE, measured. Two runs
+    #    record journey=J2/journeyDeclared=J2/journeyEntered=J2 at build 196e146 (an ancestor of
+    #    HEAD), NINE STOPS ALL WALKED, ZERO PROBLEMS, with stop ids U01-arrive…U09-the-place —
+    #    `journey_resuming`'s OWN purpose-built list, end to end. The claim was filed as
+    #    "[measured, lap 7 battery]" and read the same way twice; BOTH readings were scoped to the
+    #    battery's candidate shas, and 196e146 is not one of them. A count correct about its own
+    #    scope, published as "at any build".
+    # 2. ⛔ "awaiting Paul's re-scope-or-retire ruling" — FALSE. He RULED it at 10:05 EDT on
+    #    2026-09-11, before this window opened: CYCLE-LOG.md § lap 8, "J2 (L8-P6) → re-scoped to
+    #    'returning, founded nothing', NOT retired; the cell list may name it".
+    #
+    # ⭐ THE RULING IS NOT REOPENED BY THE FIRST CORRECTION — IT IS BETTER SUPPORTED. Paul declined to
+    # retire J2 while believing it untestable; the record shows it walked clean, twice, through its
+    # own procedure. Same direction, stronger evidence.
+    # ⭐ AND THIS IS WHY THE LINE CHANGES NOW WHEN T3's INSTRUCTION SAID CARRY IT VERBATIM: that
+    # instruction was conditioned on the question being UNRULED. It is ruled. A RULED ITEM IS STRUCK
+    # WHERE IT WAS ASKED, NEVER ONLY WHERE IT WAS ANSWERED — otherwise the gate keeps asking Paul
+    # for a decision he has already given, which is the exact failure this project found in a seat's
+    # "what Paul must still rule" list three hours earlier.
+    _j2runs = []
     for _seat in seats():
         for _run in runs_for(_seat):
             try:
@@ -699,20 +718,20 @@ def report(sha, seats_only=False):
                 continue
             if _t.get("journey") == "J2":
                 _bad = [x for x in (_t.get("stops") or []) if x.get("status") not in ("walked", "skipped", "n/a")]
-                _j2.append((_seat, _run, (_t.get("buildBefore") or "")[:7],
-                            len(_t.get("stops") or []), len(_bad) + len(_t.get("failedActions") or [])))
-    if _j2:
-        print("  ⛔ CONTRADICTED BY THE RECORD — %d transcript(s) DO record a walked J2, and they are "
-              "clean:" % len(_j2))
-        for _seat, _run, _b, _n, _p in _j2:
-            print("       %s/%s at %s — %d stops, %d problems, journeyDeclared=J2, "
-                  "journeyEntered=J2 (\"an account exists; its record carries no name\")"
-                  % (_seat, _run, _b, _n, _p))
-        print("     ⚠️ The claim was filed [measured 2026-09-11, lap 7 battery] and read the same way "
-              "twice. Both readings were scoped to the BATTERY's candidate shas; these runs are at a "
-              "build outside it. A count correct about its own scope, stated as \"at any build\".")
-        print("     ⛔ THIS MATTERS BECAUSE THE PARAGRAPH IS THE PREMISE OF A PENDING RULING. Ruling "
-              "\"retire J2 as unwalkable\" on it would retire a journey the harness has walked clean.")
+                _j2runs.append((_seat, _run, (_t.get("buildBefore") or "")[:7],
+                                len(_t.get("stops") or []), len(_bad) + len(_t.get("failedActions") or [])))
+    print("  📐 coverage — J2 · RULED 2026-09-11: re-scoped to \"returning, founded nothing\", NOT "
+          "retired; the cell list may name it. [paul-ruled, CYCLE-LOG.md § lap 8]")
+    if _j2runs:
+        _clean = [r for r in _j2runs if r[4] == 0]
+        print("     ✅ and it HAS been walked — %d run(s) on record, %d clean: %s"
+              % (len(_j2runs), len(_clean),
+                 " · ".join("%s at %s (%d stops, %d problems)" % (r[1], r[2], r[3], r[4]) for r in _j2runs)))
+    else:
+        print("     ⬜ no run on record has walked it — UNWALKED, not unwalkable.")
+    print("     ⚠️ OPEN, and it is a MEASUREMENT rather than a judgement: is J2 walkable AT HEAD? "
+          "Its fixture is provisioned per run because the walk finishes the record it arrived on, so "
+          "\"was walked\" and \"can be walked\" are different claims. Beat 8's to take, not this gate's.")
     # H4 (lap 7) — the two per-sha clauses, each read from its artifact convention
     cst, cdet = content_clause(sha, ss)
     ust, udet = ux_clause(sha)
