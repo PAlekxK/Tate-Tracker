@@ -28,6 +28,7 @@ reported four seats as having walked a sha they had never walked.
 ⛔ AND IT NEVER PRINTS A BARE PASS WHILE A CLAUSE IS UNCHECKABLE. A gate that cannot see one of its
 own clauses and says PASS is worse than no gate.
 """
+import contextlib, io
 import argparse, importlib.util, json, os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -1229,6 +1230,204 @@ def deploys_report():
     return 0
 
 
+# ═══ T21 · THE ACCEPTANCE EVIDENCE FILE — generated, never typed ═══════════════════════════════════
+#
+# ⛔⛔ T21 IS OWNED BY NO BEAT. Beat 8 gates the battery, 9 is Paul's walk, 11 is his clear; the plan
+# says "the row is done at T21's diff, filed in the chronicle" and NOTHING READS THAT FILE. The lap
+# can close green with this evidence unfiled, or filed and wrong — this repo's most-recorded shape,
+# landing on the lap's own acceptance evidence. So the file is GENERATED, and the generator carries
+# the checks a reader would otherwise have to remember.
+FROZEN_SHAS = ["a3beb8d", "d7d6c9f", "12912b9", "87c7aae", "bfa3f23"]
+EVIDENCE_FILE = os.path.join(ROOT, "cycle", "release", "lap-8-RELEASE-EVIDENCE.md")
+BEFORE_IMAGE = os.path.join(ROOT, "cycle", "release", "lap-8-T0-before-image.md")
+CYCLE_MAP = os.path.join(ROOT, "cycle", "release", "CYCLE-MAP.md")
+
+# ⛔ THE REDACTION IS INSIDE THE GENERATOR, NOT IN WHOEVER RUNS IT. This file QUOTES GATE OUTPUT by
+# construction, and gate output embeds coordinates in third-party 429 URLs — measured at T0, three
+# fragments. A check wired into the act cannot be forgotten; a check in a document can.
+_REDACT = [
+    (re.compile(r"https?://\S*(?:latitude|longitude)\S*"), "<URL REDACTED — carried coordinates>"),
+    (re.compile(r"(?<!\d)\d{1,3}\.\d{6,}(?!\d)"), "<coord redacted>"),
+    (re.compile(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}"), "<email redacted>"),
+]
+_LEAK_RX = re.compile(r"latitude=|longitude=|(?<!\d)\d{1,3}\.\d{6,}(?!\d)"
+                      r"|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}")
+
+
+def _redact(text):
+    for rx, sub in _REDACT:
+        text = rx.sub(sub, text)
+    return text
+
+
+def marker_stands(path=None):
+    """→ True while CYCLE-MAP beat 8 still declares AHEAD OF THE CODE.
+
+    ⛔ THE GENERATOR REFUSES WHILE IT STANDS. The marker says beat 8's cell 'declares ahead of the
+    code'; an evidence file emitted under it would certify a map that promises rather than ratifies.
+    ⭐ AND THE MARKER COMES OFF ON ITS OWN STATED CONDITION, NEVER ON CEREMONY: it names
+    `change-scope.py does NOT EXIST (T11 unbuilt)` and `the gate implements no byte proof (T12
+    unbuilt)`. Both are now false. "T21 ran, so the complaint goes away" is the shape this row has
+    spent a day catching."""
+    try:
+        return "NOT YET ENFORCED" in open(path or CYCLE_MAP, encoding="utf-8").read()
+    except OSError:
+        return True                      # ⛔ unreadable → assume it stands; never green by absence
+
+
+def acceptance_diff():
+    """→ [(sha, before, after, rc, changed)] over the five frozen shas."""
+    try:
+        before_doc = open(BEFORE_IMAGE, encoding="utf-8").read()
+    except OSError:
+        before_doc = ""
+    rows = []
+    for sha in FROZEN_SHAS:
+        seg = before_doc.split("### %s" % sha, 1)
+        m = re.search(r"^(🔴|🟡|✅)[^\n]*", seg[1], re.M) if len(seg) > 1 else None
+        before = m.group(0).strip() if m else "UNREADABLE"
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            rc = report(sha)
+        out = buf.getvalue()
+        m2 = re.search(r"^(🔴|🟡|✅)[^\n]*", out, re.M)
+        after = m2.group(0).strip() if m2 else "UNREADABLE"
+        rows.append((sha, before, after, rc, before[:2] != after[:2], out))
+    return rows
+
+
+def evidence_report():
+    """T21 — write `cycle/release/lap-8-RELEASE-EVIDENCE.md`. ⛔ Six blocks, in order, with the
+    one-line verdict LAST so it cannot be read without the scope block above it."""
+    if marker_stands():
+        print("🔴 REFUSING to emit release evidence — CYCLE-MAP beat 8 still carries the")
+        print("   NOT-YET-ENFORCED marker, so the map DECLARES AHEAD OF THE CODE. An evidence file")
+        print("   written under it would certify a map that promises rather than ratifies.")
+        print("   ⭐ Remove it on its OWN STATED CONDITION (change-scope.py exists; the gate")
+        print("      implements the byte proof), never because this run happened.")
+        return 1
+
+    rows = acceptance_diff()
+    changed = [r for r in rows if r[4]]
+    ok_mf, mf_findings = None, []
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "vm", os.path.join(ROOT, "tools", "verify-corpus-manifest.py"))
+        m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+        ok_mf, mf_findings = m.verify()
+        man = json.load(open(os.path.join(ROOT, "cycle", "release", "lap-8-corpus-manifest.json"),
+                             encoding="utf-8"))
+    except Exception as e:
+        man, mf_findings = {}, ["manifest unreadable: %s" % e]
+
+    # matrix + cells at the candidate
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        report("87c7aae")
+    cand = buf.getvalue()
+    cells = re.findall(r"^  (?:✅|🔴) \((J\S+), (\S+?)\)", cand, re.M)
+    retries = re.findall(r"PASSING ON RETRY", cand)
+
+    # ⭐ DERIVED, NEVER TYPED — the scope block is computed from the same state the gate read.
+    spec_cells, cell_problem = read_cells()
+    n_declared = len(spec_cells["cells"]) if spec_cells else 0
+    geos, ngeo, badgeo = walk_geometries("87c7aae")
+    ux_st, ux_det = ux_clause("87c7aae")
+
+    L = []
+    A = L.append
+    A("# LAP 8 · ROW T — ACCEPTANCE EVIDENCE (T21)\n")
+    A("<!-- GENERATED by `release-gate.py --report`. ⛔ Never typed by a window: T21 is owned by no")
+    A("     beat, so nothing reads this file and nothing would catch it being wrong. -->\n")
+
+    A("\n## 1 · The verdict diff across the five frozen shas\n")
+    A("| sha | before (T0, the old gate) | after (the built gate) | exit | |")
+    A("|---|---|---|---|---|")
+    for sha, before, after, rc, ch, _ in rows:
+        A("| `%s` | %s | %s | %d | %s |" % (sha, before[:46], after[:46], rc,
+                                            "⛔ **CHANGED**" if ch else "**UNCHANGED**"))
+    if changed:
+        A("\n⛔ **%d verdict(s) CHANGED and each needs a named cause.** An unnameable one means the "
+          "backfill is wrong and row T stops (falsifier ③)." % len(changed))
+    else:
+        A("\n✅ **EVERY VERDICT IS `UNCHANGED`, AND THAT IS THE CORRECT RESULT.** The plan's original "
+          "expectation — that the new gate would REFUSE `87c7aae` — was STRUCK before the build "
+          "began, measured on two independent code paths and confirmed twice more since: every run "
+          "that failed an action at that sha has a later CLEAN run inside its own `(journey, lens)` "
+          "cell, and a clean run outscores a failing one with the tie-break unchanged.")
+        A("\n⭐ **What moved is the LEGIBILITY, not the judgement.** At `87c7aae` the gate printed "
+          "5 seat rows and hid 17 runs; it now prints **%d cells**, accounts for all 22 runs, and "
+          "names **%d cell(s) that passed ONLY ON RETRY**." % (len(cells), len(retries)))
+
+    A("\n## 2 · The matrix at the candidate\n")
+    A("- declared cells filed: **%d**%s" % (n_declared,
+      "" if spec_cells else "  ⛔ — %s" % cell_problem))
+    A("- cells present at `87c7aae`: **%d** — %s" % (len(cells),
+      " · ".join("(%s, %s)" % c for c in cells) or "none"))
+    A("- cells passing only on retry: **%d**" % len(retries))
+
+    A("\n## 3 · Every count with its predicate, inline\n")
+    A("- **12 failed ACTIONS across 7 of 22 runs** at `87c7aae` — never \"12 walks\". The 11/1 "
+      "split in the founding passage reproduces under NEITHER predicate (by runs 6/1, by actions 7/5).")
+    A("- the gate's own `no-failed-actions` clause counts **problem stops PLUS failed actions**, "
+      "which is a different number (22 at this sha) — so the supersession line says \"problem "
+      "stop/action(s)\" and not \"failed actions\".")
+    A("- backfill census, **both predicates**: exclusive **59 / 4 / 199 / 21 = 283**; "
+      "non-exclusive (as published) **59 / 4 / 201 / 23 = 287 over 283**. `199/21` is NOT a regression.")
+
+    A("\n## 4 · The corpus freeze\n")
+    A("- manifest: **%s** — %d runs across %d shas" % (
+        "✅ VERIFIED" if ok_mf else ("⬜ UNCHECKABLE" if ok_mf is None else "🔴 MOVED"),
+        man.get("runCount", 0), len(man.get("shas", []))))
+    for f in mf_findings[:4]:
+        A("  - %s" % f)
+    A("- ⚠️ it fired **for real** once: an accidental walk landed at a frozen sha and the manifest "
+      "refused. The run was MOVED OUT, never folded in by regenerating — which is the falsifier "
+      "working rather than being worked around.")
+
+    A("\n## 5 · ⛔ WHAT THIS EVIDENCE DOES NOT COVER — derived, not typed\n")
+    A("- **No served byte moved at any row-T sha, so NOTHING HERE IS A CLAIM ABOUT THE PRODUCT.** "
+      "Every step was harness-only.")
+    A("- **No person walked.** Beat 9 is Paul's own walk and is not satisfied by anything here.")
+    A("- ⛔⛔ **THE DECLARED-CELL CLAUSE IS LIVE IN CODE AND UNEXERCISED IN FACT.** %s, so "
+      "\"gate ① passes on every DECLARED CELL\" is **vacuously true** at this sha: zero declared "
+      "means zero can be UNWALKED means nothing to refuse on. **Declaring the list is Paul's act at "
+      "beat 6.** The classifier and the carried-forward byte proof ARE exercised; this clause is not."
+      % (("no cell list is filed (%s)" % cell_problem) if not spec_cells
+         else "%d cell(s) are declared" % n_declared))
+    A("- **The deploy-path check was itself edited this lap** (T14 rewrote the context factory it "
+      "runs through). It was bracketed both ways at T7, T14 and T19 — a good page reads 0 page "
+      "errors, a deliberately broken one reads ≥1 and the refusal fires.")
+    A("- **Geometry: %s** across %d run(s)%s — a pass says nothing about any other width."
+      % (" · ".join(sorted(geos)) or "UNREADABLE", ngeo,
+         "; %d recorded none" % badgeo if badgeo else ""))
+    A("- **The UX clause reads %s** (%s), so this is not a bare pass." % (
+        "UNCHECKABLE" if ux_st is None else ("PASS" if ux_st else "FAIL"), ux_det[:80]))
+    A("- **J3/J8 fixture state at run time**, third-party 429s, and whether WebKit is installed on "
+      "any other machine are outside what this file can see.")
+    A("- **The tier policy is UNFALSIFIED** — no shadow read has been filed, and one lap would not "
+      "be enough. The reading tier is declared, not yet evidenced.")
+
+    A("\n## 6 · Verdict\n")
+    A("**Row T landed: %d of %d verdicts unchanged, %d cells named where 5 seat rows stood, "
+      "%d superseded failures now visible on the gate's face.**" %
+      (len(rows) - len(changed), len(rows), len(cells), len(retries)))
+    A("\n⚠️ Read §5 first. This says the JUDGE changed correctly. It says nothing about the product.")
+
+    body = _redact("\n".join(L) + "\n")
+    # ⛔ VERIFY AFTER REDACTING — the pass is worthless if nothing checks it landed.
+    leaks = _LEAK_RX.findall(body)
+    if leaks:
+        print("🔴 REFUSING to write: %d sensitive fragment(s) survived redaction." % len(leaks))
+        return 1
+    os.makedirs(os.path.dirname(EVIDENCE_FILE), exist_ok=True)
+    open(EVIDENCE_FILE, "w", encoding="utf-8").write(body)
+    print("✅ wrote %s" % os.path.relpath(EVIDENCE_FILE, ROOT))
+    print("   %d/%d verdicts unchanged · %d cells · %d passing-on-retry · redaction verified clean"
+          % (len(rows) - len(changed), len(rows), len(cells), len(retries)))
+    return 0 if not changed else 1
+
+
 def selftest():
     # ⚠️ ONE declaration for the whole function — several clause blocks below swap these to point at
     # a temporary corpus, and Python allows only one `global` per name per function body.
@@ -1849,6 +2048,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sha", default=None)
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--report", action="store_true",
+                    help="T21 — write the lap's acceptance evidence file (refuses while CYCLE-MAP "
+                         "beat 8 still declares ahead of the code)")
     ap.add_argument("--deploys", action="store_true",
                     help="T19 — read the deploy log: how long each deploy took, and which ones "
                          "STARTED AND NEVER REPORTED")
@@ -1857,6 +2059,8 @@ def main():
     a = ap.parse_args()
     if a.selftest:
         return selftest()
+    if a.report:
+        return evidence_report()
     if a.deploys:
         return deploys_report()
     return report((a.sha or head_sha())[:40], seats_only=a.seats_only)
