@@ -3474,3 +3474,8 @@ Chrome still holds the grant of the PAK/Homey account torn down tonight; the doo
 is a sign-out (the stale-credential case rows 41/45 and B15 exist for: the app must show *refused*, not *signed in*, once whoami
 answers). Tab 2 → `/onboarding/`, the setup door. **Throwaway name: `pkirsch-onetimeuse`** (for teardown by name); durable:
 `pkirsch-qa`. What Paul reads at tab 1 after sign-out and cold reload is itself a finding for the register.
+
+**Paul's walk · step 1 · 2026-09-11 09:23 EDT** — sign-out at qa: **worked.** Feedback, his words, *not a fail, backlog*: *"it says 'sign out of
+this phone' and you don't know that someone's using a phone — it may not need to include 'this phone'."* The closure's rule
+was that the copy says what the act does to THIS device only; the noun is wrong on a laptop. **Register: a copy slot** — a
+device-neutral word for the sign-out control (content-steward's; e.g. *this device* / *here*), riding lap 8's copy pass.
