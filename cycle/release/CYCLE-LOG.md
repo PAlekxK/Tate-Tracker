@@ -3265,3 +3265,12 @@ never moved; the row's own verified observation — four of five walks are ONE p
 plan's re-audit at open sizes it by symbol (`release-gate.py` unit · `journey-walk.py` lens/journey split · the coverage
 print · the change classifier · `grant-mint --fixture-out` per run for J1); the plan's `ready:` takes his stamp on these
 rulings; the register carries the row from *captured* to *committed lap 8* when the backlog window reopens.
+
+### Ahead — THE TESTING REVAMP opened as its own window `[paul-stated 2026-09-11 ~7:10 AM ET: "launch a dedicated session to fully scope and audit the testing cycle revamp"]`
+
+Brief `handoff/handoff-testing-revamp.md` (`2962e9af`, 90 lines — verified non-empty this time). It owns the lap-7 testing-
+cycle AUDIT (practice-steward, already running → `.practice/2026-09-11-lap7-testing-cycle-AUDIT.md`; the window reads, not
+re-runs) and the SCOPE of lap 8 · row T sized by symbol → `.plans/2026-09-11-testing-revamp-PLAN.md`, superseding the 09-10
+plan's sequence under the eight rulings; engineering-partner leads the sizing, user-researcher names the lenses,
+security-steward the fixtures/credentials. Read-only on every tool while lap 7's battery runs; it specifies the CYCLE-MAP
+release-condition edit quoted, never made. Its readback is graded here; Paul clears it in its window.
