@@ -369,9 +369,10 @@
     rows.push({
       label: "Where it is",
       value: addr,                       // exactly as typed: no case-correction, no standardising
-      prov: boxy
-        ? "A box number is where your post goes, not where your place is — so I can't work out your weather or what grows there."
-        : "",
+      // A22 (lap 7, closure 41) — the PO-box sentence is said ONCE, at the gate; this row-level repeat
+      // was a second telling (and the place card's own copy explains a blank weather card — a different
+      // job, kept). The act stays: a box-only household still has a next move.
+      prov: "",
       act: boxy ? "Add where it is ›" : "That's not right ›"
     });
   }

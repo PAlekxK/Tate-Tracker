@@ -445,6 +445,10 @@
          Paul") stranded on the first and the comforting half ("he sorts it out by hand") on the
          second. ⛔ ux-expert had DEFERRED this as invisible to the reader until the routing question
          was ruled. Paul hit it within about ninety seconds of walking the screen. Deferral was wrong. -->
+    <!-- A20·7 (lap 7, TIER 2 · 19) — the one field with a STATED RULE never said when it was met; the
+         other two confirm. Fires at eight characters, silent below (never a scold while typing). -->
+    <p id="uwordstate" class="quiet" style="margin-top:4px" hidden></p>
+
     <label for="uword2" style="margin-top:16px">Password again</label>
     <div class="pwwrap">
       <input id="uword2" type="password" autocomplete="new-password" enterkeyhint="next">
@@ -799,7 +803,10 @@
            place" cannot, and that is the phrase already carrying the job. -->
       <p class="soft" style="margin-bottom:2px">What would you like to spend time on at your place?</p>
       <p class="quiet" style="margin-top:0">Tap them in the order they matter — tap again to remove.</p>
-      <p class="quiet" style="margin-top:7px">Your order tells me what to build next — nothing is switched off or hidden because you left it out.</p>
+      <!-- closure 43 (lap 7): "nothing is switched off or hidden because you left it out" was FALSE while
+           empty modules are hidden on a household [paul-stated 2026-09-07]; D6's reworded promise is not in
+           this build, so the sentence is WITHDRAWN rather than left standing. -->
+      <p class="quiet" style="margin-top:7px">Your order tells me what to build next.</p>
       <!-- ⛔⛔ REVERSIBILITY IS STATED ONLY AS FAR AS IT IS TRUE, and the first draft of this very
            line got it wrong. It said "you can change it any time" — which is the EXACT sentence the
            address screen was already burned by: the gate-1 walker "was promised 'you can change it
@@ -1100,7 +1107,7 @@
    "a1", "a2", "city", "state", "zip", "maplink", "mapnote", "pname", "trouble1",
    "confirm", "s4seam", "s4placeholder", "ok1", "ok2", "s4ask", "s4asktext", "s4note", "sendNote", "s4thanks",
    "s0", "uname", "uword", "uword2", "uemail", "uphone", "swatches", "trouble0", "go0",
-   "unamestate", "uword2state", "s0invite", "handoff", "gohome", "fb", "fbopen", "fbbox", "fbnote", "fbsend", "fbthanks", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
+   "unamestate", "uwordstate", "uword2state", "s0invite", "handoff", "gohome", "fb", "fbopen", "fbbox", "fbnote", "fbsend", "fbthanks", "contactpick", "contactnone", "emailrow", "phonerow", "emailopt", "phoneopt",
    "s5", "s5seam", "interests", "go5", "s5thanks", "otherbox", "othernote", "renameLink", "renameBox", "rename2", "renameGo"]
     .forEach(function (id) { el[id] = document.getElementById(id); });
 
@@ -1603,6 +1610,13 @@
   // it, so a check that fires on every keystroke shows "doesn't match" for the entire time she is
   // getting it right — which trains her to ignore the line by the moment it finally means something.
   // So: agreement is reported the instant it is true, and disagreement only after she pauses.
+  // A20·7 — the password confirms its own rule once met; says nothing while short
+  el.uword.addEventListener("input", function () {
+    var ok = el.uword.value.length >= 8;
+    el.uwordstate.hidden = !ok;
+    el.uwordstate.className = "quiet" + (ok ? " ok" : "");
+    el.uwordstate.textContent = ok ? "That\u2019s long enough." : "";
+  });
   var pwTimer = null;
   function sayMatch(cls, text) {
     el.uword2state.hidden = !text;

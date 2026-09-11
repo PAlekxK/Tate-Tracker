@@ -214,12 +214,18 @@ def main():
             print("  tombstoned %d removed path(s) — the origin cannot keep serving them" % made)
 
 
+            # ⭐ A1 (lap 7, closure row 1) — THE FRONT DOOR decides on LOCAL STATE ONLY: a credential on
+            # this device → the app; none → the door (onboarding/, which paints #s-door). No fetch, no
+            # validation, no round trip before first paint. It used to meta-refresh to estate/ — the
+            # receipt screen — so a cold visitor met "Open your invitation link" and a returning one
+            # met an intermediary. The <noscript> keeps a scriptless visitor at the door.
             with open(os.path.join(export, "index.html"), "w", encoding="utf-8") as f:
                 f.write('<!DOCTYPE html>\n<html><head><meta charset="UTF-8">'
                         '<meta name="robots" content="noindex, nofollow">'
-                        '<meta http-equiv="refresh" content="0; url=estate/">'
+                        '<noscript><meta http-equiv="refresh" content="0; url=onboarding/"></noscript>'
                         '<title>My Home</title></head><body>'
-                        '<script>window.location.replace("estate/");</script></body></html>\n')
+                        '<script>(function(){var g=null;try{g=localStorage.getItem("fw-grant");}catch(e){}'
+                        'window.location.replace(g?"viewer.html":"onboarding/");})();</script></body></html>\n')
             kept = sum(len(fs) for _, _, fs in os.walk(export))
             print("  household export — pruned to %d file(s): %s" % (kept, ", ".join(HOUSEHOLD_ALLOW)))
 

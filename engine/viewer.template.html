@@ -4233,9 +4233,15 @@
      height, which is what made the strip read as a strip. */
   /* WHAT YOU TOLD ME — a receipt reads as a record, not as a form: label quiet, value plain, the
      honest caveat beneath it in the same voice the receipt page used. */
+  .told-list { padding: 0 14px; }                                   /* A20·4 (lap 7) */
   .told-row { padding: 10px 0; border-bottom: 1px solid var(--edge-card, #e8f0e0); }
   .told-row:last-child { border-bottom: 0; }
-  .told-label { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #7a8a72; margin: 0 0 3px; }
+  /* A16 (lap 7, closure 20): sentence case AT THE SLOT — the uppercase transform is gone; caps stay for numeric meta */
+  .told-label { font-size: 12px; letter-spacing: .01em; color: #7a8a72; margin: 0 0 3px; }
+  .told-edit { font-size: 13px; margin: 4px 0 0; }
+  .told-edit a { color: var(--accent, #2f5d3a); text-decoration: underline; text-underline-offset: 3px; }
+  body.text-lg .told-label { font-size: 13px; }                       /* A20·5 */
+  body.text-lg .hh-utility { font-size: 16px; }                      /* A20·5 */
   .told-value { font-size: 14.5px; line-height: 1.45; color: #2f3b2c; margin: 0; white-space: pre-line; }
   .told-prov { font-size: 12.5px; line-height: 1.45; color: #6b7a64; margin: 4px 0 0; font-style: italic; }
   .jump-strip a .js-label { line-height: 1.15; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -6380,6 +6386,8 @@
   body.text-lg .bloom-window,
   body.text-lg .roster-name,
   body.text-lg .cel-event-meta { font-size: 15.5px; }
+  /* A20·15 (lap 7, pass-2 punch 15) — at A+ an event title may take two lines rather than an ellipsis */
+  body.text-lg .cel-event-name { white-space: normal; overflow: visible; text-overflow: clip; }
   body.text-lg .bloom-note,
   body.text-lg .roster-note { font-size: 14.5px; }
 
@@ -9767,10 +9775,12 @@ function renderWeather() {
   // the largest thing on the card. The SAME generator feeds the collapsed
   // header (renderWeatherSummary), so the two can never disagree.
   const insight = generateGardenerInsight();
-  if (insight) {
+  // A20·12 (lap 7, pass-2 punch 12) — the OBSERVATION is the card's subtitle already (renderWeatherSummary,
+  // the same generator); repeating it as the first line of the body put one number at two altitudes.
+  // The body keeps only the ACTION, which the subtitle does not carry.
+  if (insight && insight.action) {
     html += '<div class="weather-glance">';
-    html +=   '<div class="weather-glance-line">' + escapeHtml(insight.observation) + '</div>';
-    if (insight.action) html += '<div class="weather-glance-action">' + escapeHtml(insight.action) + '</div>';
+    html +=   '<div class="weather-glance-action">' + escapeHtml(insight.action) + '</div>';
     html += '</div>';
   }
 
@@ -17505,7 +17515,10 @@ async function fetchClimateNormals() {
         const panel = document.getElementById('prop-climate-panel');
         if (panel) panel.style.display = 'none';
       } else if (badge) {
-        badge.innerHTML = '<span style="color:#c08020;">\u26a0 ERA5 unavailable \u2014 showing ' + escapeHtml(siteStationId()) + ' estimates</span>';
+        // A20·11 (lap 7) — a STALL is not a failure: this used to print "ERA5 unavailable" on a timer
+        // while the fetch was merely slow, and the label then stayed wrong after the data landed. The
+        // unavailable label is written only by the fetch's own failure (the render event, below).
+        badge.innerHTML = '<span style="color:#8aa080;">Still loading ERA5 \u2014 showing ' + escapeHtml(siteStationId()) + ' estimates meanwhile</span>';
       }
     }
   }, WEATHER_STALL_MS);
@@ -18490,10 +18503,13 @@ function renderIdeaCards() {
     c.className = "main-card idea-card";
     c.setAttribute("data-idea", it.id || it.label);
     c.dataset.ideaKey = it.id || it.label;
-    const lab = /^(A|An|The) /.test(it.label) ? it.label.charAt(0).toLowerCase() + it.label.slice(1) : it.label;   // "You put a map you draw yourself…" (wide-eyed, round 9)
-    const src = i === 0 ? "You put " + lab + " first."
-              : (i <= 2 ? "You put " + lab + " near the top."
-                        : "You put " + lab + " on the list.");
+    // A16 (lap 7, TIER 2 · 25 / closure 20) — SENTENCE CASE AT THE SLOT, never by regex. The old line
+    // lowercased a label only when it began A/An/The, so four of five seed rows read "You put Keeping
+    // the paperwork straight first." The sentence now opens and the label keeps its own case; the
+    // labels themselves are HELD (TIER 1 · 36 stamps every ranking with its wording first — lap 8).
+    const src = i === 0 ? "First on your list: " + it.label + "."
+              : (i <= 2 ? "Near the top of your list: " + it.label + "."
+                        : "On your list: " + it.label + ".");
     // the same header shape as a real card — without the icon and meta wrapper the title column
     // squeezed to one word per line (wide-eyed seat, round 5)
     c.innerHTML = '<div class="main-card-header"><div class="main-card-icon" aria-hidden="true">💡</div><div class="main-card-meta">'
@@ -18786,6 +18802,8 @@ function renderHouseholdFirstScreen() {
   const lookBack = document.getElementById("ui-history-link");
   if (notes) notes.style.display = n ? "" : "none";
   if (lookBack) lookBack.style.display = n ? "" : "none";
+  // A20·6 (lap 7) — a jump chip to a hidden card is a tap that does nothing (C8); it hides with its card
+  document.querySelectorAll(".jump-strip a[data-jump='card-fieldnotes']").forEach(a => { a.style.display = n ? "" : "none"; });
   // C5 (G4) — cards created or reordered here need an exposure denominator, or their open rate is
   // uncomputable and reads as disinterest. observe() on an already-observed card is a no-op.
   if (typeof MetricsViewObserver !== "undefined") { try { MetricsViewObserver.observeCards(); } catch (e) {} }
@@ -19985,7 +20003,8 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
     if (pref) {
       rows.push({ label: "How to reach you",
         value: pref === "none" ? "You asked me not to." : pref === "phone" ? "By phone." : "By email.",
-        prov: pref === "none" ? "I'll keep to that. If you lose your password, email me."
+        // B16 (lap 7) — the "please don't" consequence, in the confirmed shape (content-steward, Paul-confirmed)
+        prov: pref === "none" ? "Then he won\u2019t. It also leaves Paul no address to write to, so if you ever forget your username or password, email him at paul.kirschenbauer@gmail.com."
                               : (rd("fw-onboard-contact-chosen") === "1" ? "" : "The default — change it whenever you like.") });
     }
     let ranked = null;
@@ -20011,7 +20030,11 @@ if (typeof window !== "undefined" && window.__HOUSEHOLD_NAME) {
     });
   })();
 
-  const jt = window.__HOUSEHOLD_NAME + " Almanac";
+  // ⭐ THE ONE WRITER of the Journal's display name into the DOM — and it must read JOURNAL_NAME, which
+  // already carries the household's OWN word (fw-journal-name, E1) over the engine default. It used to
+  // recompute `__HOUSEHOLD_NAME + " Almanac"` here, ignoring both the rename and the noun ruling.
+  // Almanac → Journal for every household that is not Fernwood [paul-ruled 2026-09-11].
+  const jt = JOURNAL_NAME;
   // the composer's who-sees-it line (strict seat, rounds 5–8: "the most prominent input says nothing about
   // where the words go"). True today: a member's notes stay on the device — see the notes card.
   const row = document.querySelector(".ui-input-row");
