@@ -102,3 +102,53 @@ file:line older than an hour.
 0. Verify the stamp; write `handoff/handoff-lap7-build.readback.md` (thread · state · what you will not touch until the
    teardown commit lands · the first three steps by symbol · what looks thin); tell Paul it is written; wait for the grade.
 1. On clear: greens P1–P3 → declare your pull to `tate-tracker-ea` → D1…
+
+## 8. State at close — written by the build lane, 2026-09-11 ~09:20 AM ET, at Tate-Tracker@d0e2026
+
+<!-- clearing-state: LIVE — lap 7 is at beat 10 (Paul's walk) on candidate 87c7aae; clear when gate ① exits on Paul's clear -->
+
+**Candidate: `87c7aae`** (third freeze; served at qa, Worker and pages one sha, payload blob covered, neutral 311/0,
+headless load clean, post-deploy CLEAN). Two earlier freezes fell to the battery: `d7d6c9f` (row C's emit ran inside
+`const MetricsCollector`'s temporal dead zone — `typeof` THROWS there; lab was green because Fernwood's build ranks
+nothing) and `12912b9` (B6's recover limiter of 5/window hit by the battery itself, and a THIN ACCOUNT ROW: `/api/session`
+answered no name for three seats whose place facts lived on the grant row, so a clean device after sign-out landed
+nameless). All three fixed on Paul's word; every other row walked clean at every candidate.
+
+**Rows, commits (each `--only`):** P c20417f · 5ad1bec · 742636b · 1302358 (+P4 paul.json ack/questions absent) · D bd74e76 · 8a2021b ·
+C 8574ddf · c38f231 · B e21d798 · 4b35664 · 9238b1f · e7c566f · cd24ca8 · A 5587b88 · 16ec3b5 · 35abb04 · 42edf9d (A7 WITH H1–H3,
+one commit) · a3beb8d · H5 f76a118 · candidate 2 12912b9 · candidate 3 87c7aae · harness-only after the freeze 754dc6d · d7d6c9f ·
+4be8571 · 8d93b2b · content read d0e2026. Beat 4 recorded at each freeze (carried 14 · already 0 · questions 3, unchanged).
+
+**Gate ① at 87c7aae:** 5 of 5 seats pass every seat clause; 15 of 15 final runs (5 seats × J0 · J3 · J8) zero failed actions,
+zero pageerrors, each read by its own seat; content clause ✅ (`.content/walks/87c7aae-walk-read.md`); UX clause ⬜ unfiled
+(L7-P2's owed two-pass at this candidate). Coverage: 414×848 only; **J2 UNWALKABLE at every build since the open door** (an
+unfinished record cannot exist without an estate; founding replaced granting; no transcript at any build has ever recorded a
+walked J2) — re-scope-or-retire is Paul's, queued by coordination. ⚠️ The gate's five rows are the earliest-tied best run per
+seat; the per-seat × per-journey table is in the chronicle (row T Q2 evidence, lap 9).
+
+**On the table at Paul's clear:** owner J3/J8 and content-steward both say STOP on one root — the receipt prints a schema id
+(`motor-pool`) for the one durable fixture whose ranking is stored as bare ids; both real households hold objects; the two-line
+renderer fix rides lap 8 `[paul-ruled: record it; proceed]`. Six cross-seat findings queued as rows: username "—" for token
+arrivals · "How to reach you" missing until a local sign-in · two wordings for one ranking (TIER 1 · 36) · mom's unit typed into
+the street line then offered the unit link · a box-only household's founding path (a ruling) · L13 unexercised, said not scored.
+
+**Named deviations, all accepted by coordination:** B9's signed-in request lands in the ADMIN-ONLY recovery channel (reader-bearing)
+rather than an account-scoped feedback key nothing reads · A14's ranking Edit STEP-RETURNS (an inline picker needs a second
+INTERESTS roster, the divergence TIER 1 · 36 holds against) · A16's sentence is authored around the label (no label changed).
+
+**Found on the way, fixed:** the Worker's onboarding-metrics ALLOW list DROPPED `found` (the owed reader would have read a store
+that never held it) · settings/account was a third copy of D3's reach collapse · the Journal DOM writer ignored `fw-journal-name`.
+
+**Fixtures founded at qa by the batteries (never real homes):** candidate 1 est-kxfhht · est-t3h0gl · est-puvevs · est-bvqzw3 ·
+candidate 2 est-tfmxem · est-0qeqzs · est-uqjofw · est-pqob3d · candidate 3 est-1tfrzb · est-ftrtkj · est-kgjxry · est-c9pgvw;
+lab est-as1bgb (shake-out) · est-geq5fz (owner@lab rebuilt by hand: every durable lab seat's rows were ABSENT from lab's store;
+`--complete-setup` cannot finish a seat that has founded nothing — it needs a found step first).
+
+**NOT verified, named:** the reset act itself (L13, out of harness by D1's design) · L12's timing half (UNCHECKED by ruling; the
+transport measurement is still unrun by anyone) · any width but 414 · row D's D7 (the record check at `paul` after his next load —
+his phone's outbox flushes on the next load of the condo app; not mine to run) · the UX two-pass at 87c7aae · post-deploy still
+prints a sha-stamp mismatch as a FINDING when the payload blob matches (should be a caveat; register note).
+
+**Owed to lap 8, in this lane's view:** the receipt's id→label fix · J2's re-scope · the username on the person's own account page
+· the email EDITOR (Q1) · D6/D9 · the recovery block's lifetime after a successful sign-in (wide-eyed) · `fernwood-token-lab` for
+walk-capture at lab · `walk-integrity`/gate: the per-journey unit (row T).
