@@ -49,13 +49,36 @@ vs `origin/main` (legacy, **never push**).
 | **Mom's household holds TWO places** (her Fernwood record + Paul's Grant Park records under est-e6696a) — `check-canon-scope --deep` for home never run since her signup (row 33) | ⚠️ read-only check owed | teardown lane, report only |
 | **UX sweep** — pass 1 was in the browser; **Paul paused it** | trail with pass 1 committed at `2a9c6df` (`.ux-reviews/2026-09-10-founding-flow.md`); unfinished by name in its brief §9: pass 2, the content-steward review (TIER 1 · 31), both exhibits, the account-lifecycle designs, the plan file | resumes on his word |
 
+## 4b. Landed after the pause — 2026-09-10 ~9:30 PM ET, all committed
+
+- **UX review complete** (`tate-tracker-8d`, closed `112894c`): two-pass sweep trail `.ux-reviews/2026-09-10-founding-flow.md`
+  (its house `est-gndlvf`), content read `.content/2026-09-10-founding-flow-copy-REVIEW.md`, plan
+  `.plans/2026-09-10-founding-flow-design-PLAN.md` (**§4 = the ONE-candidate apply list**), six exhibits at
+  `~/Desktop/design-options/` (durable `.private/ux-sweeps/2026-09-10-founding-flow/exhibits/`). **Eleven rulings
+  wait on Paul** (pass 2's five + six exhibits) — **the gate on the bundle's apply.**
+- **Bug lane complete** (`tate-tracker-21`, `cc7bb56`): `.plans/2026-09-10-cross-device-signin-FINDINGS.md` + four
+  seat trails. Headline, measured live: **the condo's app has NO Worker** — `viewer.html` `PAGES_WORKERS` maps only
+  qa/lab/home, fail-closed by design (09-04), never extended to `myhome-*`; every endpoint at `myhome-paul` is `""`;
+  Bob's origin serves a 252-byte stub. Paul's phone note sits in the phone's outbox behind a "Saved ✓" receipt
+  (recovery via the paired-device sync setting, **untested**). `[paul-ruled: "fold in — we are about to consolidate a
+  lot of feedback"]` → **the Worker map is FIRST in lap 7's build half**, not a hotfix. Also: the laptop was never
+  signed in at `fernwood-home` (14 refused presentations of a stale `fw-grant`, rendered as an outage); `deny()`
+  writes no door record; no page emits `door_opened`; `GET /api/account/available` already publishes username
+  existence unauthenticated, so the sign-in 404's oracle defence guards a secret a sibling route gives away.
+  §5 is the account-model question (destination already ruled: one origin, estate-as-row; preconditions added).
+- **Backlog close-out** (`tate-tracker-0d`, HEAD `3c11b76`, stays open): TIER 1 · 23–44 added tonight; uncommitted
+  for Paul only `tools/check-backlog-ready.py` + `handoff/patches/`.
+- **Rulings tonight:** `pkirsch` is production-only (its `qa` copy joins the teardown list) · Paul's phone had never
+  been at `fernwood-home` · his lost note relayed as rows 43–44.
+
 ## 5. Lap 7 as ruled — for the beat-6 table when he opens it
 
 **ONE candidate** — *"Let's try to do it as one candidate"*: sweep → exhibits → his rulings → **one apply** → deploy qa →
 **full battery once** → his walk (gate kit: two visible Chrome tabs, door link + `pkirsch`, one throwaway he names,
-state the 3–40 username rule) → production → close. Rows: A the founding-flow bundle (gate card + PO-box · colour
-noun · feedback bubble from account creation · the shelf) · B account lifecycle · C G6 telemetry (served order on
-session_start + card-face open events; the glance work is unmeasurable without it) · D teardown (process row).
+state the 3–40 username rule) → production → close. Build half, in order `[paul-ruled "fold in"]`: **the Worker map** (myhome-* origins) → G6 telemetry → account lifecycle
+→ the bundle's applied design (gate card + PO-box · colour noun · feedback bubble from account creation · the shelf).
+Paul: *"It will be a big build in the next lap."* D teardown (process row). ⛔ **Nothing applies until the eleven
+design rulings are answered.**
 Groom beat, not ahead: rows 33–40, § ADDRESS VALIDATION, § INVITE & JOIN scoping.
 
 ## 6. Window map at pause
