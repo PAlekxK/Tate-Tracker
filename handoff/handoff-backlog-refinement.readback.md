@@ -1,134 +1,94 @@
-# READBACK — backlog-refinement (the standing backlog session), second successor
+# Readback — the STANDING BACKLOG SESSION (backlog-refinement)
 
-- written: 2026-09-10 ~10:15 PM ET · by the incoming session `tate-tracker-2a` · at HEAD `5c66e38`, tree clean
-- brief read: `handoff/handoff-backlog-refinement.md` — two stamps: header `cf2a078` (5:45 PM) and §8 `7631c34` (10:05 PM, its own commit `06e3c7d`)
-- supersedes the 5:50 PM readback (`7e934b8`, preserved in git); its §3 ownership question is answered below
-- for: the coordination window `tate-tracker-ea`, which grades it (the outgoing backlog window has exited) · and Paul
+<!-- written 2026-09-11 ~10:1x AM ET · read at HEAD d0016beb → 670eec3a → de0bd282 (moved three times during the read)
+     Brief read: handoff/handoff-backlog-refinement.md, last touched at d0016beb (10:06), four vintages deep. -->
 
-## 0 · The stamp — verified, and the brief is two documents stapled
+## 0. Stamp verification — and the thing the protocol nearly missed
 
-HEAD moved **eight commits** past §8's `7631c34` while I read, and once more while I wrote (`b57ca71` → `5c66e38`).
-Every one of the eight is a handoff, chronicle or tool commit; none touched `BACKLOG.md`. In order: `06e3c7d` (§8
-itself) · `230e2e2` `6203700` `0ff98b4` `97e526f` (coordination-brief amendments) · **`ed3a943` ④ APPLIED** ·
-`b57ca71` lap 7 OPEN · `5c66e38` "go teardown" given + "synced" ruled. Tree clean; the two hook-generated files §5
-names are not dirty at this moment.
+The brief is **four documents in one file**, and its header stamp is the **oldest** thing in it:
 
-⚠️ **§1–7 were written at 5:45 PM and §8 at 10:05 PM, and §6's task list was never struck.** A reader following §6
-top-down starts on two tasks §8 already reports finished (④ and the queue). The "*Corrected after the readback*"
-notes fixed pointers, not the task list. That is the same class the prior readback flagged (*a task the brief does
-not know is done*), one layer up.
-
-## 1 · What I understand the thread to be
-
-A standing, live conversation with Paul over `BACKLOG.md` — refine rows with him, keep them honest, and keep a short
-derived queue for the next two build laps that a build window pulls from at its commit phase. **Since `d0cec6f` this
-window is the ONE DOOR to `BACKLOG.md`** `[paul-ruled "fold it in"]`: the registrar seat is absorbed, so I carry two
-voices — a lane's forwarded row transcribed verbatim and attributed (`Backlog-Register:` / `Backlog-Forwarded-By:`
-trailers in the final paragraph), and refinements made with Paul in my own voice stamped as his. The mom and fleet
-loops still write their own rows. The freeze is on the rows a build lane names at its pull, relayed by the coordinator;
-nothing is frozen tonight because no build window exists yet. I never push `origin/main`, never edit a lane's files.
-
-## 2 · Current state, measured at `5c66e38` — where it differs from the brief
-
-| brief says | I measured | so |
+| block | its own stamp | verified |
 |---|---|---|
-| §8: `check-backlog-ready.py` (④) + `handoff/patches/` **uncommitted, for Paul** | Committed at `ed3a943` 9:40 PM on his word (coordination brief §6; `tate-tracker-ea` confirms). `--ladder` runs at HEAD; selftest **41 pass / 1 fail**, the pre-existing *"two in flight"* case | **closed** — do not look for the diff |
-| §6·2: apply ④ | Header pass `326791c` 5:55 PM, tool `ed3a943`. Packet §2f's falsifier said *14 AWAITING / 0 proposal-orphans*; HEAD reads **15 AWAITING** (the 15th is `founding-flow-design-PLAN`, a PLAN carrying `row: proposed`) and **3 proposal orphans** — canon-ingestion · interests-as-activities · the 09-10 rationalization, exactly §8's "three unclassified" | ④ is done; the falsifier is met by name, not by number. **What remains is Paul's word on three files** |
-| §6·2: route **2** *"Not stamped."* stale-prose rows | **1** now: guru-retrieval, `BACKLOG.md:1674` (*"…ships now and pays regardless. Not stamped."* beside `[paul-approved 2026-09-03]`). C7's has changed shape: the checker now says the row links `→ PLAN ·` (`:3530`) while the header IS stamped (`ready: paul-approved 09-03`, `stage: build`) — **promote the link**. ⏭ line 98 records that C7's header was corrected 09-10 (stage, not stamp), so this flip is real and small | two mechanical edits owed: one link flip, one stale sentence in A6 |
-| §6·2 ⚠️: *"ownership seam, Paul's to rule … write nothing until he rules"* | **RULED.** `BACKLOG.md:5-14` `[paul-ruled "fold it in"]`; the registrar brief is archived in place; board ⑥ says the same; memory `project_fernwood_backlog_one_door_ruling` exists (under `~/.claude/projects/-Users-paulkirschenbauer/memory/`, not this repo's memory dir) | the caveat is superseded; I may write, with the trailer convention |
-| §6·3: draft *the queue for the next two laps* | **Exists**: `## ⏭ THE NEXT TWO LAPS` at `BACKLOG.md:85-108`, derived from `--ladder` at `326791c`. ⛔ **Its own falsifier fired on the first lap it met.** Paul's beat-6 pick (D Worker map TIER 1·45 → C G6 TIER 2·10/13 → B lifecycle TIER 2·18 → A the applied design 26/27 → E teardown) is **on none of the ladder's rungs**, because the ladder derives from `.plans` headers and none of those five has a plan file. And the section's *"Refinement window's recommendation"* (`:105`, lap 7 = capture-write-path + INVITE & JOIN) was **overruled** and still reads as current | the queue is the window's deliverable and it is stale on both halves; see §3 |
-| §8 blind spot: *"the coordinator (`paulkirschenbauer-96`) holds the map"* | Not in `ListAgents`. The live coordinator is **`tate-tracker-ea`**, which messaged me at ~10:10 PM with the eight-commit delta and four rulings | stale name; corrected here |
-| §8 row 33: *"two published places under her estate id at `home`"* | **Ran it**: `check-canon-scope.py --env home --deep` → **1 placed row, 1 distinct place name, canon 'Fernwood'**; 🔴 3 needles = a self-match. The lap-7 chronicle read the same at beat 1 and forwarded the reconciliation to this window; `tate-tracker-ea` repeats the ask | the row's premise is not what the store reads tonight; user-researcher's words stay verbatim, a dated reading goes beside them |
-| §8 "rulings not yet acted" 1–4 | **1 teardown: "go" GIVEN** `5c66e38`, a lane is running, report lands at `.plans/2026-09-10-teardown-REPORT.md` and names its row. **2 `--deep` at home: done** at beat 1. **3, 4:** carried into lap 7's beat-6 table; `.plans/2026-09-10-lap7-build-PLAN.md` does **not exist yet** (ux-expert's closure first, then engineering-partner) | 1 and 2 are register work for me; 3 and 4 are the build window's |
-| §8 "still Paul's": working model · three proposals · surname/pushed history · **the tool diff** | tool diff applied (closed). **"Synced" newly RULED** in `5c66e38` (no input is device-resident; scoped to household + account; owner and administrator see a member's contribution from any device) — to carry on rows 41/46. Working model put to him with `paul` recommended, unanswered | one closed, one new ruling to carry, two still open |
-| §4: QA synthetic lap **founding only**; Bob's invite unspent, its behaviour UNRULED | § INVITE & JOIN at `:748` says so; unchanged. ⚠️ Bob's *deployment* is now on the teardown list — the invite goes with it | consistent; the invite question may be moot after the teardown |
+| §1–§7 | header: `2026-09-10 ~5:45 PM ET · Tate-Tracker@cf2a078` | `cf2a078` is an ancestor; **~17 h and hundreds of commits stale** |
+| §8 | `2026-09-10 ~10:05 PM · 7631c34` | ancestor ✅ |
+| §9 | `2026-09-11 ~3:55 AM · 7450b9d` | ancestor ✅ |
+| §10 | written by the lap-8 coordination window | landed at `d0016beb`, 10:06 — **~1 minute before I read it** |
 
-Instruments, for the record: `check-backlog-ready.py` exit 1, **119 flags / 45 plans** (166/44 at the prior readback);
-27 `.plans` suffixes graded by nothing, 9 typed documents with no header. `registrar-sweep.py` 17/17; `--since 7631c34`
-lists the eight commits as unregistered — **none is a lane forward**, so nothing has arrived at this door since the
-stamp. `check-backlog-drift.py`: rationalization **OWED** — 70 commits to `BACKLOG.md` since the 09-08 marker, 4,733
-lines, the 09-10 draft unapplied and (per the brief) unread by Paul. `release-state.py`'s derived line still prints
-*ARMED · beat 11/12 · candidate 318416a* beside *"lap 7 (open)"* — the coordinator's instrument, noted not diagnosed.
-`.plans/2026-09-10-WORK-QUEUE.md` is a **second queue** outside `BACKLOG.md` ("what you can do independently"), graded
-by nothing; ⑥'s *shadow registers* finding applies to it.
+Every sha named (`cf2a078`, `7631c34`, `7450b9d`, `87c7aae`, `2010eee5`, `326791c`, `e5626b7`, `dcbc660`) is an ancestor of HEAD. Nothing is forked or orphaned. **So the brief is trustworthy — but a reader who verifies only the top stamp verifies the wrong block.** §9 says so explicitly (*"§6's task list is stale on its face; read §8 then this section, not §6"*), which is the correction working. I read §8 → §9 → §10 as authoritative and §1–§5 as standing mission text only.
 
-## 3 · The open decisions
+⚠️ **Commit density measured:** 69 commits in the 22:00 hour, 40 in 17:00, 39 in the 09:00 hour. **HEAD moved three times in the ~8 minutes I spent reading.** The brief's own "half-life of about an hour" for a `file:line` is, at this cadence, generous.
 
-**Paul's, on the board (①) and unchanged by me:** X-Estate sequencing · the interests-label scope (now with Mom's own
-ranking as evidence, row 35) · product-steward absorption · the condo's `adopt` · his address in `est-qa0001` ·
-`anchors.py` at Bob's · the security seat after G1 · which deployment is his working model · the three unclassified
-proposals (my reading, like my predecessor's: `proposed`) · the surname in two seat trails and the pushed staging history.
+## 1. What I understand this thread to be
 
-**The one this window is actually blocked on, and the brief does not name it:** ⭐ **what does the ⏭ queue derive
-FROM?** As built it reads plan headers, and Paul commits rows. His lap-7 pick was five `BACKLOG.md` rows with no plan
-file and one process row; his lap-8 pick (the single-origin door, rows 41/46) is the same shape. The section's own
-falsifier says *a pick not on this list means the ladder is missing a rung* — it is. Two honest shapes, his call:
-(a) add a **"committed by ruling"** rung that reads `CYCLE-LOG.md`'s beat-6 tables, so the queue shows what he
-actually picked and what would make it READY (a plan file, by the commit-phase rule); or (b) rule that a beat-6 pick
-needs a plan header *before* the pick, which the commit-phase rule already half-does *after* it. **I recommend (a)** —
-it records his practice rather than legislating it — and it is a tool edit, so it waits on a go.
+A **standing, continuing conversation with Paul over `BACKLOG.md`** — not a build lane, not the coordinator. Three jobs:
 
-**Smaller, mine to propose and his to accept:** how row 33 is reconciled. The row is user-researcher's verbatim
-(forwarded, attributed). I would add a dated `measured` line beside it, not rewrite it, and route the premise back to
-user-researcher: was the "two places" reading from a different store or era (`home` at her 12:24 PM signup vs tonight)?
+1. **Refine rows** with Paul in real time, in his words, transcribed not authored.
+2. **Keep the register honest** — carry forwards from the other live lanes into `BACKLOG.md`, with the `Backlog-Register:` / `Backlog-Forwarded-By:` trailer convention (verified: **231 commits** already use it).
+3. **Maintain the derived two-lap queue** (`BACKLOG.md` § ⏭ THE NEXT TWO LAPS, line 95) that a build session pulls from at its commit phase.
 
-## 4 · What has NOT been tested or verified
+The ownership seam §6 flagged is **resolved and I should not re-raise it**: §9 records `[paul-ruled "fold it in"]` — this window is the **ONE DOOR** to `BACKLOG.md`. The registrar lane's "sole scribe" reading was folded into this one.
 
-- Every KV count I cite except the one `--deep` read: the qa/lab account totals, the 411/90/2 divergent rows, the
-  invite ledger — the coordinator's beat-1 sweep, relayed.
-- The qa Pages dry-run under the changed route-row shape (brief §7). Any `file:line` older than an hour.
-- Whether `tate-tracker-ea` is the window that opened me — inferred from its message and the lap-7 brief §9·3.
-- The 09-10 rationalization PROPOSAL's body (57 KB): header only. I will not summarise it to Paul as current.
-- The three stale-prose rows that are not literal *"Not stamped."* (registrar's `:139` onboarding · `:248` zones ·
-  `:252` weather — lines have moved): I did not read the sentences, so I cannot say what is stale.
-- Whether the teardown lane's report will name a row this window must carry; it has not landed.
-- The build plan's existence and the freeze: nothing frozen tonight is an inference from *no build window*, not a
-  declared state. I will re-check `git status BACKLOG.md` and ask `tate-tracker-ea` before each write.
-- Nothing was written tonight except this file. No deploy, no KV write, no browser, no push.
+⛔ The freeze is on the **pull**, not the document. One writer per file. Never `git push origin main`. Never commit `cycle/release/cycle-state.json` or `worker/digest.json`.
 
-## 5 · What I would do next, in order — each behind Paul's word or the coordinator's clear
+## 2. Current state as I measure it, not as the brief asserts it
 
-1. **Carry tonight's three rulings onto the register** with the trailer convention: "go teardown" GIVEN → the row
-   the teardown report names (expected TIER 1 · 25 / the E process row); "synced" RULED → rows 41/46 verbatim by
-   pointer to `CYCLE-LOG.md` lap 7 beat 6; row 33 → a dated measured line beside user-researcher's words.
-2. **Two mechanical edits as one small diff:** flip C7's link at `:3530` to `→ READY ·` (checker-directed); strike the
-   *"Not stamped."* sentence at `:1674` **with Paul** (it is A6, this window's own territory, so deleting it is a
-   refinement, not authorship of a lane's status).
-3. **Regenerate ⏭** at HEAD: replace the `326791c` snapshot; replace the overruled recommendation with a pointer to
-   the beat-6 table; and put the *"committed by ruling"* rung to Paul (§3) — the tool change waits on his go.
-4. **The three unclassified proposals** — one line each, my reading `proposed`, his stamp or no.
-5. **Offer to walk the 09-10 rationalization draft** with him, section by section; drift says a pass is owed.
-6. **Stay open.** Watch for forwards (the door has been empty since the stamp — if it is still empty at the end of
-   the lap, say so rather than sweep it); hold rows 45 · 10 · 18 · 26 · 27 · 42 the moment the build window declares
-   its pull.
+- **Lap 7 CLOSED** at `87c7aae`, 09:51 EDT, production serving both real households. Confirmed in the chronicle at `:3618`.
+- **Lap 8 HOLDS** for `.plans/2026-09-11-testing-revamp-PLAN.md`; **row T lands whole and FIRST** `[paul-ruled 09:47]`. This **supersedes** the 09:10 lap-9 placement, and therefore supersedes `CYCLE-LOG.md:3316` in the §10.A queue. Verified at `:3605`.
+- `release-state.py` prints **ARMED · beat 11/12 · owner: paul · candidate `87c7aae`** — lap 7's residue, not lap 8. `check-backlog-ready.py --ladder` agrees: *"no lap is open — nothing is committed by ruling right now."* The two instruments are consistent.
+- `check-backlog-drift.py`: **rested**, last rationalization today (0 d), 178-line head gap. The third rationalization landed. No grooming owed.
+- `BACKLOG.md` is **4,899 lines**, 45 plan headers on the ladder, **20 proposals awaiting Paul's word**, 30 `.plans` suffixes graded by nothing.
+- **The revamp plan** was untracked when I started and is committed as of `670eec3a` (*"the plan is written (44413e87)"*). It carries `stage: ready`, `ready: agent-proposed` — **Paul reads it before lap 8 opens.**
 
-## 6 · What looks thin, said plainly
+## 3. The open decision
 
-- **The brief's task list is stale on its own face** (§6 vs §8). Not dangerous — §8 is right — but a fresh reader
-  without the coordinator's message would have started on ④ and re-drafted a queue that exists.
-- **The queue is the mandate and its derivation is wrong for how Paul actually commits.** That is the finding of
-  this readback. The prior readback recommended *derive, don't type* and was right; the thing it derives from was
-  the wrong source for a beat-6 pick, and the section noticed by falsifier, not by reader.
-- **Row 33 is 🔴 at the top of TIER 1 with a premise the store contradicts**, and §8 puts it *"before home's Guru
-  speaks for anyone."* Reconciled cheaply tonight; still needs the user-researcher's source, or it is a stale scare.
-- **The coordinator is named by a dead session name** in §8's blind spots.
-- **Two queues exist** (⏭ in `BACKLOG.md`, `WORK-QUEUE.md` in `.plans`) the same day the audit said the register is
-  duplicated, not derived. Not mine to merge; worth Paul knowing.
-- **`release-state.py` prints a lap-6 beat beside "lap 7 (open)".** Someone should say which is true; not this window.
+**Whose call lap 8's opening is, and it is not mine.** The sequence as I read it: Paul reads the revamp plan → the lap-8 coordination window opens the lap → row T lands first in its beat-6 table. My window contributes the **register carries** so that table is built on rows that are true, and nothing else.
 
-## 7 · Addendum, ~10:25 PM ET — the environment model, re-ruled (`6b00077`, VOCABULARY.md §3i)
+Beneath that, the decisions genuinely sitting with Paul (from §9, none blocking):
+the lap-8 build plan's Q0–Q8 · the ask-design plan's §13 (fifteen rows) · lap 10's Q-10·2 and Q-10·5 · the product-name plan's `ready:` stamp · the receipt-first reorder of the weather card · the small-lap-9 shape.
 
-Verified at HEAD: three environments only — `lab` · `qa` · **one `production`**, every household a ROW in it.
-`paul` / `home` / `bob` are DEPLOYMENTS (an interim being reversed); `legacy` is a data control. §3i says the labels
-retire when the deployments collapse, so `--env paul` stays a tool flag while register **prose** changes now.
+## 4. What is NOT tested or verified — plainly
 
-**Measured touch on `BACKLOG.md`, a grep that locates and does not establish:** 3 lines say *environment* beside a
-household deployment (TIER 1 · 41 · TIER 2 · 7 · the § FIFTH LENS ruling at `:559`) and ~8 call `home` *production*
-(TIER 1 · 19 · 41 · 46 · TIER 2 · 7 · 11 · 13 · `:1360`). Each needs the sentence read before it is called drift.
-⚠️ `:559` is **Paul's verbatim** *"sweep all the environments"* — a quote is not reworded; a bracketed gloss beside it
-is the honest form. OPEN-ITEMS ⓪'s header (*deployment | estate id*) is already right; the brief's §3 is not.
+**By the outgoing window, declared:** the 174 qa accounts and 7 lab households (no KV read). Whether deploying the new Pages build to qa affects existing accounts. Every `file:line` older than an hour.
 
-**Queued to carry once cleared, after §5's items:** (a) rows 41/46 — production collapses to one origin at lap 8;
-`fernwood-home`'s single row (`marguerite`) MIGRATES in with a verified copy, never a delete; (b) *environment* →
-*deployment* on the lines above, each read first; (c) the working-model question is **retired into** one open ruling
-of Paul's: which standing deployment becomes THE production origin (coordination recommends `myhome-paul`).
+**By me, this session:**
+- I ran **no** browser walk, **no** KV read, **no** deploy-adjacent check. Everything above is git, the chronicle, and four repo instruments.
+- I did **not** read the twelve chronicle lines in §10.A — I verified the grep returns exactly those twelve line numbers and read `:3498`, `:3605` and `:3618`. The other nine are unread.
+- I did **not** read the nine finding documents behind §10.C (`…-SECURITY.md`, `…-LENSES.md`, `…-SIZING.md`, `…-MODEL-POLICY.md`, the practice audit).
+- §10.C's claim that **three of TIER 2 · 22's four items are done** is unverified by me. The row exists (line 305); whether the J3 fixture, field notes and bare door are actually done I did not probe.
+- The teardown, row 33's collision, and the Worker-map state are all as the brief left them. I touched none of it.
+
+## 5. Four things the brief left thin, or that look wrong
+
+**① `W1–W11` is an ID COLLISION, and it is not cosmetic.** §10.B tells me to carry "Paul's walk W1–W11" as rows. `BACKLOG.md` **already uses `W0` through `W11`** as ids — the Track A zones/map series (`W2` = *Zones, Paul draws she reconciles*; `W9` = *Soil truth, test by zone*; `W2-SCHEMA`). Filing the walk findings under those labels would double-book twelve ids in the file whose whole job is to be the one true list. **`VOCABULARY.md` §4 doctrine says a double-booked key is exactly the failure to name before it lands.** I need a naming ruling before I carry §10.B — my recommendation is a distinct prefix (`PW1…PW11`, Paul's walk) and a one-line note at the series head saying why.
+
+**② The §9 row-freeze has no recorded lift.** §9 declares a freeze on the lap-7 rows (TIER 1 · 45 · 42 · 26 · 27 · 28 · 29 · 30 · 31 · 43 · 44 · 32 · 23; TIER 2 · 10 · 13 · 18 · 19 · 20 · 21 · 25) *"until the coordinator lifts it."* **Lap 7 has since closed.** Every "frozen" mention in the chronicle is a **candidate** freeze (a build sha), not this row freeze, so I can find no lift. Several §10 carries land on frozen rows (TIER 1 · 25, TIER 1 · 41/46, TIER 2 · 22). **Does a lap's close lift its row freeze automatically, or does it need an explicit word?** I will not write to those rows until the lap-8 coordinator says.
+
+**③ §10.C's "seat trails in a public repo" may be half-filed, and the halves are different claims.** `BACKLOG.md:1200` (the RULING REGISTER) closes *the surname* in two seat trails and pushed history as measured, no rewrite. SEC-R3-4 is a **different** claim: that seat artifacts as a class live in a public repo (.content 16 · .practice 3 · .engineering 83 · .user-research 48). The brief routes the standing rule to CLAUDE.md's AI-boundary section, with coordination editing CLAUDE.md and me filing the row. **I read those as two findings, not one already-closed one** — but the adjacency is close enough that I want it confirmed before I file a row next to a register line that looks like it.
+
+**④ SEC-R4-1 is genuinely unfiled.** `fw-grant` / WebKit / SEC-R4 return **zero hits** in `BACKLOG.md`. So that carry is real work, not an already-closed box. By contrast **TIER 1 · 59 is filed** (line 276) — what is owed there is *running* the distinct-`questionId` count, not filing it. The §9 owes are a mix of "file it" and "run it" and the brief does not separate them.
+
+**Thin, lower stakes:** §10.B cites *"the coordination brief §6"* without naming which file; three coordination briefs exist and I would be guessing (`handoff-fernwood-coordination-lap8.md` is my read). §10.C's nine findings are named by id only — each costs a document read I have not budgeted.
+
+## 6. One live signal nobody in this thread owns
+
+`read-mom-feedback.py --pickup`, run this session:
+- **2 undispositioned arrivals** (1 Guru, 1 cards) — and the standing rule is that a disposition is **per record**, never per batch.
+- **1 thing she told us that nothing has answered**: *(2026-09-06) "Vehicles"*.
+- Her last card answer was **2026-08-20, 22 days ago** — past the 21-day `answer-age` threshold.
+
+That is the mom-cycle's lane, not mine. I am naming it because the session-start block is run by whoever picks up this repo and this window is the one that ran it.
+
+## 7. What I would do next, in order
+
+1. **Put the two blockers to Paul as one short question each** — the `W1–W11` id collision (recommendation: `PW*`) and whether lap 7's close lifts its row freeze. Both are cheap and both gate writes.
+2. **Carry §10.A** — read the nine unread chronicle lines in context, carry each as a forward, `git commit --only BACKLOG.md`, register trailer, abort guard (`test "$(git rev-parse --short HEAD)" = "<expected>" || exit`) before anything history-touching.
+3. **Carry §10.C's unfiled findings**, starting with SEC-R4-1 (measured unfiled) and the UR-§5 two record shapes; probe each against the file before calling it open.
+4. **Correct TIER 2 · 22's row** to say which of its four items are done, once verified — the brief says three are and the row does not.
+5. **Regenerate § ⏭ THE NEXT TWO LAPS from `--ladder`**, never retype it, once lap 8's shape is known.
+6. **Then hold open** for Paul's refinements as they come.
+
+⛔ I will not touch `worker.js`, the HTML surfaces, the walk harness, or any `.plans/*-PLAN.md` a build lane owns. I will not rewrite another lane's status prose — flag and route only. I will not push.
+
+## 8. Blind spots I am carrying forward
+
+`git status BACKLOG.md` and a HEAD re-read before **every** write — three windows commit on this tree and HEAD moved three times during this readback. `registrar-sweep.py`'s matcher drops `§` and splits on `·`, so name a heading by its words. `.plans` `depends-on:` lines must be bare paths. A Bash heredoc of long quoted markdown can be refused by the auto-mode classifier — use Edit with anchored strings, or a Python line-range move for blocks. `wrangler kv key list` without `--remote` returns `[]` exit 0. `watch-feedback.py` prints a stale "checked Nh ago" line when it did not read.
