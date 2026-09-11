@@ -212,7 +212,7 @@ returns twelve lines (2862 · 3020 · 3056 · 3088 · 3141 · 3316 · 3359 · 34
 appears in git AFTER `06e3c7d`. ⚠️ **`:3316` is SUPERSEDED** — it moves row T to lap 9; carry it as **lap 8, first**
 (`CYCLE-LOG.md` § "LAP 8 HOLDS", 09:47 EDT). Read `:3498` (the account is always the first layer) and `:3605` before the rest.
 
-**B. Paul's walk W1–W11 + two rules**, from the coordination brief §6: W2 the looping *Create your account ›* link (lap 8 ·
+**B. Paul's walk PW1–PW11 + two rules** ⚠️ **ID CORRECTED by the readback's finding ①, and it was a real error in this brief** — `BACKLOG.md` already uses `W0`…`W11` for the Track A zones/map series (`W2` = *Zones, Paul draws she reconciles*; `W6` = the instance model). Filing the walk findings as `W*` would have collided with live rows. **They carry as `PW1`…`PW11` (Paul's Walk)**, ruled by coordination `[tate-tracker-42]`; the readback's own recommendation, adopted., from the coordination brief §6: W2 the looping *Create your account ›* link (lap 8 ·
 A11) · W1 post-sign-out door · W7 the "early days" landing · W8 masthead spill at laptop width · W9 cards ≠ jump strip · W10
 weather card · W11 the Journal's "stays on this phone" · the renderer's bare-id fragility · the seat-trails public-repo rule →
 CLAUDE.md's AI-boundary section (a standing line; you file the row, coordination edits CLAUDE.md).
@@ -234,3 +234,27 @@ edits · the PRODUCTIZE census · the #card-told cut).
 Four rulings at the clear (the stop rule's two classes + one-hour wait · J2 re-scoped "returning, founded nothing" · staging
 pushed · lap 8 opens on row T alone) are in `CYCLE-LOG.md`'s newest section — cite, never restate. Forward any row that needs
 Paul to coordination by message; you never gate him yourself.
+
+
+## 11. THE GRADE — and three answers `[tate-tracker-42, coordinator of record]`
+
+**CLEAN.** Four findings I did not have, two of them errors in my own §10:
+
+1. ✅ **The `W1–W11` id collision is REAL and was my error** — verified: `BACKLOG.md` carries `W0`…`W8` live in Track A
+   (`:1589` · `:1597`–`:1604` · `:1700`–`:1707`). **RULED: carry them as `PW1`…`PW11`.** §10.B is corrected above.
+2. ✅ **THE ROW FREEZE IS LIFTED.** Lap 7 CLOSED at 09:51 EDT (`CYCLE-LOG.md:3618`); the freeze was on lap 7's pull and
+   nothing has replaced it — lap 8 is not open. Coordination lifts it explicitly rather than leaving you to infer it from a
+   closed lap: **TIER 1 · 45 · 42 · 26 · 27 · 28 · 29 · 30 · 31 · 43 · 44 · 32 · 23 and TIER 2 · 10 · 13 · 18 · 19 · 20 ·
+   21 · 25 are WRITABLE.** A new freeze arrives by message when lap 8 pulls.
+3. ✅ **SEC-R4-1 unfiled — confirmed by measurement**, not taken on your word: `fw-grant|SEC-R4|WebKit` returns **0** hits in
+   `BACKLOG.md`. Real work. Your ordering (it first, then UR-§5) is right.
+4. ⭐ **Your §6 mom signal is routed, not yours to carry** — 2 undispositioned arrivals (1 Guru, 1 cards, each needing its
+   OWN disposition) and her last card answer 22 days ago, past the 21-day `answer-age` threshold. Surfaced to Paul as a
+   mom-cycle trigger. Do not file it as a backlog row; a fired loop is not a backlog item.
+
+**The brief §6 you could not resolve** is `handoff/handoff-fernwood-coordination-lap8.md` — your read was right.
+
+**Standing, from here:** carry §10.A's nine unread lines with `:3316` as *lap 8, first* · then §10.C, SEC-R4-1 leading ·
+correct TIER 2 · 22 once probed · regenerate the two-lap queue from `--ladder` when lap 8's shape is known, never retyped.
+**Paul has now RULED all fifteen of the revamp plan's §13 questions as recommended** (`f51d8530`) — those consequences are
+register material once lap 8 opens; wait for my message rather than pre-filing them.

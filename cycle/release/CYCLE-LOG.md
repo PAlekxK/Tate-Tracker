@@ -3752,3 +3752,39 @@ edit, which is the checker working.
 on Mom's production record (record only, no walk, no value printed — **the only one that touches production, and it is a gate
 at the act**). Then the model policy (P7–P10), the cadence (P4–P5, P12), and the housekeeping (P13–P17). **Lap 8 does not
 open until he has read the plan.**
+
+### ⭐ PAUL RULES ALL FIFTEEN of row T's open questions — and P6 FALSIFIES the STOP's reach to Mom · 2026-09-11 10:11 EDT
+
+`[paul-ruled 2026-09-11, in the revamp window]`: *"Double check the 15 questions and the recommendation and see if that still
+holds and if so, I accept all the recommendations."* The window re-checked each against its seat file: **fourteen hold as
+written; P14's third item** (the ~174 unmarked qa rows) carried two remedies in one cell and resolves to **a hand disposition
+per row first, rebuild-and-migrate only if the hand pass finds unclassifiable rows.** **All of P1–P17 are RULED as
+recommended** (plan `f51d8530`, §13 carries the consequence list): the lens roster is **`mom` · `wide-eyed` ·
+`conformance` · `successor`** (`owner` retired as a LENS — it names a people-shape, not a posture) · the `other` free-text
+cell is IN lap 8's list · cadence = **one pilot read per non-final candidate, lens named by Paul at beat 6**, the full list at
+the final sha · **READ tier declared Opus 5** · the shadow read and the frozen corpus are **unconditional** (T22/T23 promote
+from conditional) · the hybrid declaration site and **two new agent files in Paul's GLOBAL stack** (consolidator, frame-reader)
+may be minted · **DRIVE · CAPTURE · GATE are NONE by doctrine, not revisitable on cost** · the pilot walk (S8) and the ranked
+lab household (S9 · L8-P1) are IN · §5's release-condition wording adopted **as quoted** · per-run invites gain a TTL ·
+`--teardown` becomes **run-scoped with its refusal wording kept** · publication of walk readings is **intended and
+constrained** (the R3-4 rule) · the seeded desktop profile confirmed · WebKit installed · 429s declared in the coverage line ·
+cells at `cycle/release/cells/` · **T11 full and fail-closed.**
+
+⛔ **T6 now carries TWO edits Paul makes at the lap's open** — beat 8's exit condition (§5) **and** the pilot-walk beat (S8).
+
+**⭐⭐ P6 EXECUTED ON ACCEPTANCE, and it FALSIFIES the hypothesis** (record only, no walk, no value printed): the one account
+row at `home` carries `ranked` as a list of **`{id, label, soon}` objects — LABELLED, not bare ids.** **The STOP's render
+does not reach Mom's record today**; LENSES §7a's hypothesis is falsified for the current record and the bare-id shape is
+**confined to two qa fixtures.** Cell 3 of §4 stays — the shape can still arrive — but **its urgency for her drops.** ⭐ This
+is the cheapest act on the board answering the most alarming open question, and it answered it in the good direction; it is
+recorded as a FALSIFICATION, not as an all-clear for the render bug, which is still live for the fixtures.
+
+**The backlog window's readback GRADED CLEAN** (`handoff/handoff-backlog-refinement.readback.md`) with four findings, two of
+them errors in coordination's own §10: the **`W1–W11` id collision is REAL** (`BACKLOG.md` carries `W0`…`W8` live in Track
+A) → the walk findings carry as **`PW1`…`PW11`** · **lap 7's row freeze is LIFTED explicitly** by coordination rather than
+inferred from a closed lap · SEC-R4-1 confirmed unfiled by measurement (0 hits) · and it surfaced a signal no lane in this
+thread owns: **2 undispositioned arrivals (1 Guru, 1 cards) and Mom's last card answer 22 days ago — past the 21-day
+`answer-age` threshold.** Routed to Paul as a **mom-cycle trigger**, not filed as a backlog row.
+
+**Lap 8's gate is now one act: Paul's word to OPEN.** Every precondition his HOLDS ruling named is met — the plan is ready,
+he has ruled its fifteen, row T is whole and first, the door rows wait on the re-audit.
