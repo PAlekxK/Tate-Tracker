@@ -1,5 +1,13 @@
 # Multi-tenancy — an estate is a ROW, not a deployment
 
+- row: `BACKLOG.md` TIER 1 · 46 (the account model) · 41 — the single-origin door, LAP 8 · A on `.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md`
+- objective: O3
+- class: engine · must-not-diverge
+- stage: design
+- seats: engineering-partner → `.plans/2026-09-11-lap8-build-PLAN.md` (its A2 audits this file and finds it stale in three of four changes — read that before this) · security-steward → owed (the existence oracle at `/api/account/available`; no redirect door) · ux-expert → owed (the shelf after sign-in) · content-steward → owed (every word on a door) · user-researcher → owed (multi-household person, cold device) · ai-advisor → waived: no model on any path
+- ready: agent-proposed 2026-09-10 — Paul rules; ⚠️ in flight without the gate (its changes 1–2 shipped before this header existed)
+- stage-note: 2026-09-11 ~2:20 AM ET — header added by the backlog-refinement window on the coordinator's relay (the lap-8 build plan's P2 asks for exactly this). **Changes 1 and 2 are BUILT** (the router row + `grantFor()` + backfill; `POST /api/estate` — seven households founded through it at lab, `walk-founding.py`). **The `credential: → {estateId}` key in change 1 is SUPERSEDED by `route: → {personId}` plus the grant edge `grant:<personId>:<estateId>`** (M1+M2, ruled; OPEN-ITEMS ④·1 *"conforming to a ruling already made"*). Changes 3 (the call sites — a moving number; the lap-8 plan's A3 re-units it) and 4 are lap 8 · A. § *Down the road* is now lap 11's INVITE & JOIN. Body below untouched and predates this header.
+
 `[paul-ruled 2026-09-10]` — *"production as a clean slate other than what people
 established… all we really do is give them a grant owner token, owner member, and then that
 gives them the right to establish their own estates. I think the only estate truly in

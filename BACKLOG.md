@@ -729,9 +729,13 @@ helps us then decide what are the different sub-components of weather that we pr
 **Three threads, routed (PROPOSED shape, his words the only ruling):**
 1. **The legacy toolchain inventory** — what built Fernwood's content (harvest · promote · research · references ·
    digest · derive · the schema and its honesty markers) and what is portable to a household that is not Fernwood.
-   A read-only research pass → `.plans/2026-09-11-legacy-toolchain-INVENTORY.md` (being written at this write; engine
-   vs instance per tool, reading `ENGINE-MANIFEST.md`, `check-config-derivation.py`, `momlib.DOMAINS`). The build-out
-   starts from what exists, never re-derives it.
+   A read-only research pass → `.plans/2026-09-11-legacy-toolchain-INVENTORY.md` — ✅ **LANDED** (`80b41cd`,
+   engineering-partner, read-only; engine vs instance per tool, reading `ENGINE-MANIFEST.md`, `check-config-derivation.py`,
+   `momlib.DOMAINS`). **Its headline for this section:** *every tool that BUILDS is portable; every tool that AUTHORS or
+   ASKS is not.* Three expansions, ranked by it: **a per-estate canon writer** · **estate-parameterize the authoring
+   tools** · **the card-intro ask** — `renderAskNext()` exists and is **unreachable in both branches**; and UV and AQI
+   **derive from the address, so the ask is about interest, never value** (the elicitation rule, measured). The
+   build-out starts from what exists, never re-derives it.
 2. **The card-intro ask** — when a card first appears, ask what the person wants from it; the answers decide its
    sub-components and their highlighting. **Exemplar: the weather card, TIER 2 · 11's `ask` field** (lap 9 · A). ⚠️
    Bound by the elicitation-lens ruling `[paul-stated 2026-09-10]`: **not "ask more questions"** — one ask, many derived
@@ -1156,7 +1160,7 @@ same lap-5 slate.
 
 ### ✅ CLOSED AS MEASURED, 2026-09-11 `[paul-ruled ~1:45 AM ET, items 9 and 14 of the nine: "I'm good with your recommendations."]`
 
-- **The product-steward seat: absorption RATIFIED, with the grant made self-bounding** — practice-steward's method call, `.plans/2026-09-11-product-steward-absorption-RULING-PROPOSAL.md`. The trial's ledger reads INCONCLUSIVE after two confounded rounds, so reversing would dispose of the seat on evidence its own clause says cannot be read. ⭐ The finding beside it: **lap 6 skipped beats 4 and 5 entirely and closed green** (`release-state.py` observes beats 8/9/11 only). The ratifying edit adds an **artifact floor** (a round recorded, or a skip recorded) and a grant-level falsifier — *two consecutive laps with readable reports and no consolidation ⇒ the beats revert and the seat becomes a check*. ⛔ The `CYCLE-MAP.md` edit is the coordinator's/practice-steward's, lines quoted in the proposal; this register records the ruling. Any sentence in this file still calling the seat *a one-lap trial* is superseded by this line.
+- **The product-steward seat: absorption RATIFIED, with the grant made self-bounding** — practice-steward's method call, `.plans/2026-09-11-product-steward-absorption-RULING-PROPOSAL.md`. The trial's ledger reads INCONCLUSIVE after two confounded rounds, so reversing would dispose of the seat on evidence its own clause says cannot be read. ⭐ The finding beside it: **lap 6 skipped beats 4 and 5 entirely and closed green** (`release-state.py` observes beats 8/9/11 only). The ratifying edit adds an **artifact floor** (a round recorded, or a skip recorded) and a grant-level falsifier — *two consecutive laps with readable reports and no consolidation ⇒ the beats revert and the seat becomes a check*. ✅ The `CYCLE-MAP.md` edit is APPLIED by the coordinator at `a292af8` — *beats 4 and 5 RATIFIED to product-steward with a self-bounding grant; beat 4's exit now requires a round recorded or a skip named*; for lap 7, beat 4 is recorded (`product-steward.py --record`) or its skip named before close. Any sentence in this file still calling the seat *a one-lap trial* is superseded by this line.
 - **The surname in two seat trails and pushed history — no rewrite, closed as measured.** `measured 2026-09-11`: *Kirschenbauer* is in **106 tracked files** of a public repo and in pushed history since long before this week, by Paul's own choice (the station name in `CLAUDE.md`, the repo path, the 09-03 `kirschenbauer.myhome.place` ruling); the two seat trails are under `.private/` (gitignored, never pushed). A history rewrite would be outward and pointless. **The privacy line that matters is a person other than Paul beside an address in a tracked file** — a different check, and a finding if ever true.
 
 ### 🔪 TWO KILLS, RECORDED HERE BECAUSE THEY WERE IN NO RANKED ROW `[paul-ruled 2026-09-10; written 2026-09-11 by the third rationalization §1.8]`
