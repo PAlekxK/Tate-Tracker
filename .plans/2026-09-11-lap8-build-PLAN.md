@@ -1,9 +1,18 @@
 # Lap 8 — THE BUILD PLAN (DRAFT). The door and what it makes possible, by symbol
 
-- **stage:** `draft`
-- **ready:** `agent-proposed — draft against lap 7's outcomes; re-audited at lap 8's open before the build window reads it`
-- **row:** `cycle/release/CYCLE-LOG.md` § *Laps 8 and 9 — SCOPE COMMITTED BY RULING* (`767242c`) · `.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md` §1
-- **objective:** O3 · **class:** engine
+- row: `BACKLOG.md` § 🚪 THE DOOR — lap 8's door rows · committed by ruling at `cycle/release/CYCLE-LOG.md` § *Laps 8 and 9 — SCOPE COMMITTED BY RULING* (`767242c`) · `.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md` §1
+- objective: O3
+- class: engine · must-not-diverge · one account model, one door, one estate resolver — the rows below all write the same seam
+- stage: draft
+- ready: agent-proposed — draft against lap 7's outcomes; **re-audited at lap 8's open before the build window reads it**
+- seats: engineering-partner → authored: this file IS its path-evaluation return; the re-audit is the second pass
+         ux-expert → owed: §10's four surfaces (the sign-in page · the shelf after sign-in · the email editor + re-auth · the ribbon's empty state) under the account-first ruling, before the re-audit
+         security-steward → owed: A9's email-editor write path and the recovery route are one security object; A8's existence oracle is two routes
+         content-steward → owed: the door's copy, after ux-expert closes the four surfaces
+         user-researcher → waived: no new person-facing ask in the door rows; the asks land with the surfaces
+         ai-advisor → waived: no model on any path in these rows
+         practice-steward → cited, not commissioned: its lap-7 testing audit is why row T precedes every row here; read as input, not owed to this plan
+
 - **Author:** engineering-partner, mode **path-evaluation**, second enactment of the COMMIT-PHASE RULE
   `[paul-stated 2026-09-10]`, commissioned early `[paul-stated 2026-09-11: "have the build expert audit those two
   commitments as well and produce the build plan like we did in the most recent lap… once we get to a point where
@@ -1039,3 +1048,92 @@ python3 tools/falsifier-tenancy.py --selftest
 python3 tools/journey-walk.py --selftest
 python3 tools/check-backlog-ready.py --ladder   # the multi-tenancy plan's header (P2)
 ```
+
+---
+
+## Files touched
+
+⛔ **Cited, never restated** — the authority is each ROW's own step table above, which names the symbol it
+edits. This section exists so the checker's question (*does this plan say what it will touch?*) has an answer
+in one place; it is an INDEX of the rows, not a second inventory that can drift from them.
+
+| row | what it touches | authority |
+|---|---|---|
+| **P** | preconditions — nothing here is optional | § ROW **P** |
+| **A** | the door (16 steps) — the sign-in page, the estate resolver, `/api/account/available` | § ROW **A** |
+| **C** | the email editor (5 steps) — shares a security object with the recovery route (A9) | § ROW **C** |
+| **E** | the Midtown repoint (3 steps) | § ROW **E** |
+| **F** | the fixture stamp — **`qa`/`lab` only** (4 steps) | § ROW **F** |
+| **G** | the ribbon seam (4 steps) — ⚠️ crosses A10's two live traps | § ROW **G** |
+| **H** | the harness (3 steps) — ⛔ without H1 the lap's own done-means cannot be read | § ROW **H** |
+| **B** | the migration — ⛔ **its own gate, on Paul's word at the act** (7 steps) | § ROW **B** |
+| riders | 3 steps — *an event with no reader is not instrumentation* | § RIDERS |
+
+⚠️ **Every measured line in the row tables was written against `06c2a16` and has NOT been re-audited** since
+row T became first, since the account-first ruling, or since the apex-domain ruling. Treat each as stale until
+the re-audit named in `ready:` has run.
+
+## Sequence
+
+**Row T lands WHOLE and FIRST, and nothing in this file starts before it.** `[paul-ruled 2026-09-11]` —
+no split without a STRUCTURAL reason a seat names (a ruling not given · a dependency on a lap-8 row · a
+falsifier that cannot run before the door exists); **never hours.** `.engineering/2026-09-11-testing-revamp-SIZING.md`
+§D already applied that test to seven candidates and found none.
+
+Then, in order:
+
+1. **ux-expert closure** of §10's four surfaces under the **account-first** ruling.
+2. **engineering-partner RE-AUDIT** of this file — row T sized by symbol, the door rows re-sequenced behind it,
+   the seams with row H named.
+3. **The build window opens from its own brief, pointed at the RE-AUDITED plan** — never at this draft.
+4. Rows in the order their own tables declare, with **B last and behind its own gate**.
+
+⛔ **Row H FOLLOWS T and rebases on it** (§9): H1's second browser context is built by **T14's context factory**,
+never a parallel `newContext` · H2's J9 carries **T10's four `JOURNEYS` keys** and sits in the declared cell list
+or the gate prints it UNWALKED · the region-change stop for `href="#"` controls lands in H against **A11's** page,
+not the screen it replaces.
+
+⭐ **And T owes A a duty:** every journey's routes/pages declaration is re-derived in row A's own commits as
+A11/A13/A7/A9 move the routes — **T10's subset selftest is what makes a stale declaration fail loudly.**
+
+## Falsifier
+
+**The commitment is falsified if any of these is true at the lap's close:**
+
+- A journey's declared routes/pages no longer match the routes row A actually shipped, and **T10's subset
+  selftest did not fail** — the declaration is decorative.
+- A cell nobody walked **does not print UNWALKED** — absence is again indistinguishable from a pass, which is
+  the precise defect row T exists to remove.
+- **`A7`'s ruled invariant** — the second-estate refusal — is reachable in a state row A introduced. Lap 9
+  reverses it deliberately; **lap 8 must not break it quietly.**
+- The existence oracle (**A8**) is closed on one route and open on the other.
+- A row **B** step runs without Paul's word **at the act**.
+- Any step in row **F** writes a fixture stamp outside `qa`/`lab`.
+
+⛔ **A9's own falsifier stands separately and is already half-ruled:** if the email editor's write path and the
+recovery route can be changed independently of one another, they were never one security object and the plan's
+§A9 is wrong.
+
+## QA
+
+⛔ **This plan does not define its own QA — row T does, and that is the point of the ordering.** The gate these
+rows are certified by is the one row T builds: the unit is the **`(journey, lens)` cell**, a re-sha re-runs only
+what the change can reach, carried-forward passes print with byte proof, and unwalked cells print **UNWALKED**.
+
+Consequences, stated so this section cannot be read as broader than it is:
+
+- **No row in this file may be certified by the pre-T gate.** That gate certified `87c7aae` green while twelve
+  walks at that sha had failed an action, because it kept one run per seat and broke ties to the earliest.
+- **`build-viewer.py --check` green is reproducible BYTES, never a running page** — it does not parse
+  JavaScript. The deploy catches a parse error (`pages-deploy.py` serves the export on loopback and refuses on
+  any PAGEERROR); the bare check does not.
+- **`check-estate-neutral.py` green covers five static pages** and says nothing about `viewer.html` or the
+  model's prompt. Row A changes the door, not those pages — so a green here is evidence about names and about
+  nothing else.
+- ⛔ **J3 is REFUSED for all five seats** (`walk-fixtures`) and sits in the proposed cell list three times.
+  **The cell list cannot be walked until that is repaired** — size the repair as part of row T, or declare
+  those cells UNWALKED with the blocker named. **Do not write a cell list whose cells cannot run.**
+
+⚠️ **What this QA section does NOT cover, on its own face:** row **B**'s migration. Its precondition —
+establishing **deterministically that the migrating account can get through the door** — is not a test this
+plan runs, and migrating a row whose credential the store may not hold moves a lockout, not a household.

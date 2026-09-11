@@ -1,10 +1,21 @@
 # Row T — THE TESTING REVAMP, as one executable piece. Lap 8 holds for it; it lands whole and first
 
 - row: `BACKLOG.md` § 🧪 SPLIT THE JOURNEY FROM THE READER — the TESTING-ARCHITECTURE row · **lap 8 · row T** `[paul-ruled 2026-09-11: "hold lap eight until all this is determined and we have a clear plan… I'd rather not split it up unless there's a really good reason — that's not just time and effort"]`
-- objective: O5 (the loop itself)
-- class: engine · must-not-diverge (one definition of *"this candidate was tested"*; one context factory; one gate unit)
-- seats: engineering-partner → **led the sizing** (`.engineering/2026-09-11-testing-revamp-SIZING.md`, 21 steps by symbol) · user-researcher → **the READER axis ruled** (`.user-research/2026-09-11-testing-revamp-LENSES.md`) · security-steward → **fixtures, credentials, arrival state, what a record may hold** (`.engineering/2026-09-11-testing-revamp-SECURITY.md`) · ai-advisor → **the model policy** (`.engineering/2026-09-11-testing-revamp-MODEL-POLICY.md`) · practice-steward → **the audit, cited** (`.practice/2026-09-11-lap7-testing-cycle-AUDIT.md` §0–§8h) · content-steward → **waived** for the plan; **owed one sentence** (the legibility line in the seat brief, SECURITY § ③) · ux-expert → waived (no person-facing surface)
-- depends-on: `.practice/2026-09-11-lap7-testing-ANALYSIS.md` (the full analysis of lap 7's testing) · `.plans/2026-09-10-testing-architecture-PLAN.md` (§1–§5 stand; its **Sequence P0–P6 is SUPERSEDED by §3 below**; its line citations are stale at `d661815`) · `handoff/handoff-testing-revamp.md` §1b–§1e and §2
+- objective: O5
+- class: engine · must-not-diverge · one definition of *"this candidate was tested"*; one context factory; one gate unit
+- seats: engineering-partner → `.engineering/2026-09-11-testing-revamp-SIZING.md`
+         user-researcher → `.user-research/2026-09-11-testing-revamp-LENSES.md`
+         security-steward → `.engineering/2026-09-11-testing-revamp-SECURITY.md`
+         ai-advisor → `.engineering/2026-09-11-testing-revamp-MODEL-POLICY.md`
+         practice-steward → `.practice/2026-09-11-lap7-testing-cycle-AUDIT.md`
+         content-steward → waived: for the plan; owed one sentence — the legibility line in the seat brief, SECURITY § ③
+         ux-expert → waived: no person-facing surface in row T; not one of the 21 steps moves the candidate
+
+- depends-on: `.practice/2026-09-11-lap7-testing-ANALYSIS.md`
+- depends-on: `.plans/2026-09-10-testing-architecture-PLAN.md`
+- depends-on: `handoff/handoff-testing-revamp.md`
+- depends-on-note: §1–§5 of the testing-architecture plan STAND; its **Sequence P0–P6 is SUPERSEDED by §3 below** and its
+  line citations are stale at `d661815`. From the handoff brief: §1b–§1e and §2. The analysis is lap 7's testing, in full.
 - ready: **agent-proposed** — Paul reads before lap 8 reopens. Every ruling below is cited, never re-opened; every open question is in §13 with a recommendation and alternatives
 - stage: ready
 - stage-note: 2026-09-11 10:06:52 -0400 · HEAD d0016beb — written by the testing-revamp window (tate-tracker-d8) after all four seats returned. **Read-only on every tool**: nothing under `tools/`, `cycle/` or a served page was edited. Every line citation is at the sha the seat read (SIZING: `1e6f6b9a`; the others `394c18d4`–`c2d43a0e`); **the build window re-cites at its own HEAD** — no tool code moved between those shas except `journey-walk.py` at `2010eee5` (the `MINT_OK` refusal, cited as done in §11)
@@ -228,3 +239,100 @@ Grouped so they can be put once. **Row T does not stall on any of them** (SIZING
 # 14 · WHAT THIS PLAN DID NOT READ, and where the record is thin
 
 Lap 8's battery (not run; a stage-note when it is) · the 30 unwritten reports (nothing to read) · `worker.js`'s route table in full (the security seat read it by grep; T11's dispatch citations are the sizing seat's) · `synthetic-identity.py`'s store and `release-gate.py`'s printed face for a leak (the security seat's named blind spots) · whether lap 8's pre-registrations L8-P1…P7 are in `cycle-state.json` yet (they were not at `1e6f6b9a`; cited by coordination's ids). The security seat had no shell: its stamp is the filing window's, its line numbers are as read, and its R1-A finding was **verified here** (`--origin` accepted `home`; no allow-list existed) before it was relayed and fixed.
+
+---
+
+## Files touched
+
+⛔ **`.engineering/2026-09-11-testing-revamp-SIZING.md` §A is the BUILD AUTHORITY** — it sizes all 21 steps **by
+symbol**, and it, not this section, is what the build window executes against. This section exists so the
+readiness checker's question (*does this plan say what it touches?*) is answered in one place. **It is an index
+of §A, never a second inventory** — a second inventory is the thing this repo pays for repeatedly.
+
+| surface | what row T does to it |
+|---|---|
+| `tools/journey-walk.py` | the `JOURNEYS` library gains per-journey **declarations** — routes, pages, whether the journey should emit app events, and the **arrival state** it must be entered in (T10) · the context factory (T14) · the recorder bug at the plan's own primary falsifier (T9) |
+| the gate | the unit moves from a **folder name** to the **`(journey, lens)` cell** (T3) · carried-forward cells print with byte proof (T12) · a round carrying a MUST-RE-RUN cell is refused (T13) |
+| the route classifier | T11 — **full and fail-closed** by ruling; judged on history, needing no door and no new route |
+| `cycle/release/cells/` | where the cells live, by ruling |
+| the coverage line | a **per-run** read (T16); geometry printed, or **UNREADABLE** |
+| the harness's honesty | **SUSPECT HARNESS** (T17) · the deploy ledger `.private/deploy-log.jsonl` (T19) |
+| ⛔ `cycle/release/CYCLE-MAP.md` | **T6 — PAUL'S, and TWO edits**: beat 8's exit condition (§5, quoted here and deliberately NOT made) **and** the pilot-walk beat (S8) |
+
+⭐ **NOT ONE OF THE 21 STEPS MOVES THE CANDIDATE.** No served page, no engine file, no instance file. The first
+battery row T meets is the **door's**, in a later lap. This is the single most load-bearing fact about the row's
+shape, and every reading of its risk should start from it.
+
+## Sequence
+
+**T lands WHOLE and FIRST** `[paul-ruled 2026-09-11]`, and **pre-authorized as one commitment**
+`[paul-ruled 2026-09-11: "I'm pre-authorizing the commitment to be the whole testing package so you don't need
+my gate there"]`. No split without a **STRUCTURAL** reason a seat names — a ruling not given · a dependency on a
+lap-8 row · a falsifier that cannot run before the door exists — **never hours.** SIZING §D applied exactly that
+test to **seven** candidates and found **none**.
+
+**The order is SIZING §A's, quoted:**
+
+> **T0 → (T1+T2 as ONE commit) → T3 → T4 → T5 → T7 → T8 → T9 → T20 → T17 → T10 → T11 → T12 → T13 → T14 → T15 →
+> T16 → T18 → T19 → [T6 = Paul] → T21 (the acceptance run).**
+
+⚠️ **§3's table in this plan is the ORDER, not the spec.** Where the two disagree, **SIZING §A wins.**
+
+⛔ **`check-release-docs.py` goes RED between T5 and T6 — that is the checker working.** The gate carries the new
+unit before the map's wording catches up; **the edit ratifies what landed.** Do not quiet it.
+
+## Falsifier
+
+**Per step, the falsifier table is SIZING §A's** (T0…T19, cited never restated). The row's own, at the level of
+the commitment:
+
+- ⭐⭐ **THE ACCEPTANCE RUN IS T21, AND IT IS A KNOWN-ANSWER TEST.** The gate row T replaces certified `87c7aae`
+  **green while twelve walks at that sha had failed an action** — it kept one run per seat and broke ties to the
+  earliest. **So the new gate is run against that same sha, and it must print the failures the old one hid.**
+  T21's before/after diff is the baseline. ⛔ **If the new gate prints green on `87c7aae`, row T has failed —
+  however many of the 21 steps landed.**
+- **T11 re-judges lap 7:** J0 **MAY CARRY** at `87c7aae` and **MUST RE-RUN** at `12912b9`. *"If it carries at
+  both, it is reading files, not routes."*
+- **A cell nobody walked prints UNWALKED** — never absent (T3, T15). Absence indistinguishable from a pass is
+  the defect the row exists to remove.
+- **A journey whose action list names a route absent from its declaration fails `--selftest`** (T10) — this is
+  what makes a stale declaration fail loudly as row A moves the routes.
+- **T18's stated shortfall IS its falsifier:** the W2 mutation leaves it green and the tool's own output says
+  why. ⚠️ If someone later "fixes" it to go red on W2 without a browser, **check what it now also goes red on.**
+- **A failed deploy and an unmeasured one must not read the same** (T19): a deploy that raises mid-leg writes
+  `finishedAt: null`.
+
+## QA
+
+**This row's QA is the thing it builds**, which is why the acceptance run is a step (T21) and not a ceremony.
+
+- **`watched` means VISIBLE, not ATTENDED** `[paul-ruled 2026-09-11]`. An unattended `--watch` battery is a
+  **legitimate pass**; only the print's wording changes — say **"visible"**, never *"watched by a person"*.
+  ⭐ A print claiming a human watched is a claim about a person that no instrument can make.
+- **The human cell H1 is a person walking with an observer** — Claude in Chrome, the session observing the same
+  tab — ⛔ **never the harness driving Paul's profile.** Everything the observer records goes to `.private/`
+  under R3-4; his real profile is on that screen.
+- **Cadence:** one **pilot read** per non-final candidate, **lens named by Paul at beat 6**; the full list at the
+  final sha. **READ tier declared Opus 5.** Shadow read and frozen corpus **unconditional**.
+- **Lens roster:** `mom` · `wide-eyed` · `conformance` · `successor`. **`owner` is retired AS A LENS** — it names
+  a people-shape, not a posture. The **`other` free-text cell is IN**, and it is the best cell on the board:
+  nothing in the battery has ever walked the product as somebody whose want is not on the list.
+- **The stop rule** `[paul-ruled]`: **two classes + a one-hour wait.** A defect the candidate INTRODUCED stops
+  and holds for Paul. A **PRE-EXISTING** defect the battery surfaced, with a proposed fix and no real household's
+  data touched, proceeds on coordination's ruling with Paul informed, overrulable at his clear.
+
+### ⛔ WHAT THIS QA DOES NOT COVER, on its own face
+
+- ⛔ **J3 is REFUSED for all five seats** (`walk-fixtures`, re-measured at lap 8's open: `handover` · `mom` ·
+  `owner` · `strict` · `wide-eyed`, each *"the record refuses it"*), and **J3 sits in the proposed cell list
+  three times.** Also blocked: **J5** (no seat has an account to sign back in as), **J6** (no procedure — it
+  needs a second estate holding a real credential at the same env, plus a ruling on whether a hostile fixture
+  may be minted at all), **J8** (needs its own credential). **8 journey-or-seat gaps in total.**
+  **The cell list cannot be walked until this is repaired** — size the repair inside row T, or **declare those
+  cells UNWALKED with the blocker named.** ⛔ **Do not write a cell list whose cells cannot run.**
+- **`build-viewer.py --check` green is reproducible BYTES, never a running page.** It does not parse JavaScript.
+- **`check-estate-neutral.py` green covers five static pages** and says nothing about `viewer.html` or the
+  model's prompt — and **9 Fernwood needles sit in comments that ship** on five pages at HEAD.
+- **Nothing here tests the door**, because nothing here builds one. Row T's output is the instrument the door
+  will later be certified by; **the instrument certifying its own construction is the residual risk**, and T21's
+  known-answer run against `87c7aae` is the answer to it.
