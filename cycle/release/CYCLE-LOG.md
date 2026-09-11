@@ -4305,3 +4305,74 @@ door_reached`, which is the normal state at every env measured. ⭐ **The readin
 that silent case** — *"someone arrived and neither got in nor reported a failure"* — so **its headline number is
 unusable at four of five environments and has been since it was built.** Not fixed here (row T owns the harness
 this lap); **recorded so it is not read as evidence.** ⛔ **A count that can go negative is not a count.**
+
+### ux-expert CLOSES THE FOUR DOOR SURFACES — the gate on engineering-partner's re-audit · 2026-09-11
+
+`.ux-reviews/2026-09-11-lap8-door-surfaces.md` (38.6 KB), read at `fc3d644a`. **Not lap 8's build** — the door
+rows join the beat-6 table only after the re-audit, and this is the closure that re-audit was waiting on.
+
+⚠️ **Read its §0 before its findings.** Four of the surfaces it was asked to review **do not exist yet**: A11's
+single-origin door, the 2+ shelf (no fixture), the email editor (no form at all), and the empty ribbon (no build
+renders it; `MOM_ACK_DATA` is still a literal). **It loaded no page, took no screenshot and measured no
+geometry**, so every prominence claim is marked `[declared, not measured]` with the check that would settle it at
+414 × 848 × A+. ⚠️ **It also had no shell** — its sha came from reading `.git/refs/heads/main` directly, and its
+stamp is the session date rather than `date` output. **Both limits are on its own face**, which is the behaviour
+wanted; neither is a reason to discount the findings that rest on source it did read.
+
+#### ⭐ F1 VERIFIED HERE, AND THE MECHANISM IS NOT THE ONE REPORTED — which changes the fix
+
+**Its claim:** the door branches on `/api/session.estates` while the shelf it routes to asks
+`/api/grant/whoami`, whose literal carries **no `estates` key**, so `told` is false for exactly the population
+the shelf exists for and it **"falls back to building an array of one."**
+
+**Measured in this window rather than relayed:**
+
+- ✅ **The first half is TRUE.** The grant-resolved return literal carries **18 keys** — `personId` · `estateId` ·
+  `capability` · `email` · `phone` · `contactRead` · `relationship` · `entry` · `vault` · `name` · `accent` ·
+  `address` · `addressParts` · `ranked` · `contactPref` · `profileAccent` · `coordinates` · `hasAccount` — **and
+  no `estates`.** `estates:` appears on the signup branch and on the two person-resolved ZERO-estate branches,
+  **never on the grant-resolved one.** So `told = Array.isArray(d.estates)` is **false for every grant-resolved
+  caller**, and the `estates: []` fix — built precisely for *"you are known and you have founded nothing"* — is
+  **INERT on the path a person with a grant actually takes.**
+- ⛔ **The second half is WRONG as stated, and the real defect is narrower and sharper.** The shelf does **not**
+  default to an array of one. Its fallback is
+  `empty = told ? d.estates.length === 0 : !(merged.name || merged.addressParts)`, so on a **clean browser** an
+  estate-less account renders the **empty shelf correctly** by inference. ⭐ **The defect is that the inference is
+  fed by localStorage:** `merged.name = d.name || read(K_NAME)`, and `read()` is `localStorage.getItem`
+  (`fw-onboard-name`). **So an estate-less account whose browser still holds a cached place name renders a home
+  it does not have** — a phantom row, on the exact surface whose job is to say *you are holding nothing yet.*
+- ⭐ **And the code already knows the shape of its own trap.** Its comment states the fallback is deliberate —
+  *"an older Worker returns neither field … absence of the field is a fact about the Worker, never about whether
+  someone has a home"* — and it says the change *"changes behaviour only for the estate-less account that
+  `[paul-ruled 2026-09-10]` creates."* **It cannot**, because the whoami it calls omits the field. ⚠️ **The
+  degradation is safe, so nothing fails loudly** — which is why this survived: *a control correct about its own
+  question, trusted for a different one.*
+
+**The consequence for the re-audit stands and is strengthened: A9 must land in TWO literals in one commit.**
+ux-expert records this as the **fourth occurrence of "One engine, one verdict"**, whose own instruction at a
+fourth is that the two should have been one.
+
+#### The rest of the punch list, carried not restated
+
+🔴 **F2 · the account/household seam, sharpest instance.** Everything *behind* the door is already account-first
+and correct (signup returns `estates: []` and calls it *the truth*; the shelf's empty branch opens with a thing
+achieved). **The FRONT still says "My Home" and "Your place, on any phone"** — a place named, singular and
+possessive, **before a credential resolves.** ⭐ **This is what Q0 actually blocks**, and the plan points the
+name-block at B6c while **A11 is the surface that cannot ship nameless.**
+🔴 **F3 · the re-auth has nowhere to stand** — one Save writing three concerns; the challenge lands **after** the
+commit (a gate before the edit charges a person who tapped Edit *to read*); ⛔ **the door's refusal constant must
+not be reused** — the account is already resolved there, so its vagueness protects nothing and reads as a bug.
+🟠 **F4** the address renders as `.quiet` grey prose under three tappable radios, on a page whose own head
+comment says that field leads · 🟠 **F5 · the ribbon's empty state, ANSWERED: absent, not empty** — and absent
+*until the first entry, then standing forever*, which reconciles the founding case with the 07-30 always-renders
+ruling · 🟠 **F6** both account surfaces route feedback through the place page, contradicting R30 at the
+destination · 🟡 **F7** two reach states give an instruction with no control · 🟡 **F8** the username oracle is
+live one tap from the email non-oracle.
+
+**Handed on rather than answered** — the seat naming its own lane, which is the behaviour wanted: all copy →
+content-steward · whether *"wrong password"* may be said at re-auth, and A13's disclosure posture →
+security-steward · whether A9 lands in two literals, and what `render()` does at an instance declaring
+`questions` absent → **engineering-partner's re-audit** · **the product name → Paul.**
+
+**Three principles PROPOSED, none filed:** absent-before-first-entry attribution surfaces · a sharpening clause
+recording the fourth occurrence of *One engine, one verdict* · *a security regime is a card boundary.*
