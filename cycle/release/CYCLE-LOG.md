@@ -2625,3 +2625,14 @@ already ships (`grant-mint --fixture-out` → `worker.js:803`) but never reaches
 ⚠️ The lane's return carried the harness's classifier warning (a wrangler act blocked mid-run). Coordination read the report
 against the ruled list: only the three ruled deletions happened, each verified after the act; nothing on KEEP or in an
 unnamed env was touched. **SEAM-9 is clear** — the teardown commit is landed; the build window rebases on `6889d0d`.
+
+### Groom ahead — laps 8 and 9 `[paul-asked 2026-09-10 ~11:20 PM ET]`
+
+*"Start, at the next convenient moment, setting the scope for laps eight and nine — the commitment."* The moment is the
+build window's build. Commissioned from the backlog window: `.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md` — a PROPOSED
+beat-6 table per lap for his pick (he commits at each lap's beat 6; nothing here commits). Lap 8's anchors are already
+ruled (the single-origin door · `home`'s row migrates into production · the email editor · D9 after G6 · the Midtown
+repoint · the fixture-stamp gaps); lap 9's are candidates, none ruled. Coordination reviews it against the loop's
+dependencies before it reaches him. **L2 for lap 7 is complete** on the frozen rows (backlog window, one commit after
+`8267764`), with three gaps named in the fills rather than papered: D's refused/unreachable split has no event and no
+reader · A ships no new event and its channel's reader is TIER 1 · 37 (open) · the interests-wording stamp (36) is out.
