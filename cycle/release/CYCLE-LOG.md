@@ -2569,3 +2569,23 @@ only**, and the lane cites `dcbc660` in its report. The same shape the concurren
 STAGED its deletion in the **shared index**, and `git commit` takes the whole index. Naming paths at add time cannot
 exclude what another window staged. **Rule for any window committing on a tree another lane is mid-act on:
 `git commit --only <paths>`.** Adopted by all three windows tonight; belongs in the next coordination brief.
+
+### The build-description chain, lap 7 — status at the commit phase `[paul-restated 2026-09-10 ~10:50 PM ET]`
+
+*"We should have a very clear slate of what we're building, how we describe that, how we test that, and how it
+ultimately gets put into the release notes for the website. We need to still be monitoring and supporting that
+process."* Lap 6 ran the chain once, with the act-8 relay carried by hand. Lap 7:
+
+| link | carrier | state |
+|---|---|---|
+| **L1** the commitment | beat-6 table above, in his words | ✅ written before any build |
+| **L2** the four fields per committed row (ask · telemetry + reader · ribbon line · release note) | backlog window, act 6 | ⏳ commissioned 10:52 PM on rows 45 · 10/13 · 18 · 26/27 · FIFTH LENS |
+| **L3** the commitment INTO the walk | build plan §5 (the battery: J0 · J2 · J3 · **J8 lifecycle, new**; content-steward reads every walk, L7-P3); seat briefs cite the beat-6 table **by hand again this lap** | ⏳ the plan is written (`0c5be6b`); ⚠️ **second lap carried by hand → DESIGN §2d says build P3 edit 1 now** — put to Paul with the plan |
+| **L4** the release note | content-steward, HELD OUT until each item's walk passes at the deploy sha, then Paul confirms (act 12) | ⏳ draft commissioned 10:52 PM → `.content/2026-09-10-lap7-release-note-HELD-OUT.md` |
+
+**The commit-phase rule ran end to end for the first time:** ux-expert closure (`49c7187`, 44 of 45 closed) →
+engineering-partner build plan (`0c5be6b`, 58 steps, order D→C→B→A holds; **two preconditions RED at HEAD**:
+`build-viewer.py --check` — the tracked app is one release note behind `RELEASE_NOTES.md` — and
+`check-storage-keys.py` — `fw-journal-name` undeclared). Five recommended amendments to the commitment and seven
+questions are in the plan's §9; **the commitment is Paul's, so the amendments are put to him, not applied.** The
+build window does not open until he has read the plan.
