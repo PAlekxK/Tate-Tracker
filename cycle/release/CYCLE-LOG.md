@@ -3826,3 +3826,29 @@ when said and were answered by measurement — she was already on A+, so serving
 (*a preference shown as chosen that nobody chose*) — content-steward's, legibility not defect. And the harness's *"no walk
 has ever run at A+"* was **wrong for the app screens, right for the setup screens** — the exact class row T's `arrivalState`
 declaration (T10) exists to stop.
+
+### Two rulings on HOW THE TESTING IS WATCHED `[paul-ruled 2026-09-11 10:16 EDT, in the revamp window]` — plan `19a3c98d`
+
+1. **`watched` means VISIBLE, not ATTENDED.** *"I think the visible browser is what I want because then I can actually watch
+   the testing when I'm there. I don't necessarily need to watch it all the time, but I'm able to provide some input live."*
+   → the gate clause is **honest as it stands**; an **unattended `--watch` battery is a legitimate pass**; only the print's
+   wording changes — say **"visible"**, never *"watched by a person"*. Closes the audit's *"worth telling him once"* item.
+   ⭐ The distinction matters because a print claiming a human watched is a claim about a person that no instrument can make.
+2. **The HUMAN CELL H1 is walked through Claude in Chrome, with the session observing the same tab.** *"When I'm doing
+   testing, it should be via Claude and Chrome, so you can see what I'm seeing and experiencing immediately and directly."*
+   → his beat-9 gate walk gains a **record** (the page read, the frames, his words per stop). ⛔ **This is NOT the harness
+   driving his profile** — security R2-C stands: *a person walking, with an observer, gated by his presence.* Everything the
+   observer records goes to `.private/` under the R3-4 rule (**his real profile is on that screen**), never a tracked frame,
+   never quoted. **The gate kit for beat 9 (TIER 1 · 25) must say so** — that edit is coordination's / the map's, and it is
+   carried into the next lap's brief rather than made here.
+
+**And the CLAUDE.md question the revamp window was holding is already CLOSED** — Paul ruled it in the coordination window and
+the stale paragraph is struck at `eea77381`. Recorded so two windows do not put one question to him twice.
+
+### WINDOWS WIND DOWN; THE NEXT LAP OPENS IN A FRESH WINDOW `[paul-ruled 2026-09-11 10:16 EDT]`
+
+*"Coordinate with all the others, close all the windows out when they're done with their work, and this window as well, and
+give me a handoff to launch the next lap focusing on testing in a fresh window to manage context — do that as work actually
+concludes, don't force it."* → **Lap 8 does NOT open here.** Every window finishes the work in flight, records its state at
+close, and closes; a fresh window opens lap 8 on **row T alone** from a brief written at this window's hot context. ⛔ **No
+window is cut off mid-task** — the instruction is explicit that work concludes first.
