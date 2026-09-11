@@ -435,8 +435,10 @@
   var fetching = false;
   // whether this household has coordinates — read by BOTH the door copy and the rows empty state
   var placed = false;
-  // set when the record could not be asked at all — distinct from an empty answer
-  var reachUnknown = false;
+  // ⭐ D3 — the record's answer, as a STATE: "ok" we heard · "unknown" we could not ask (the fetch
+  // threw, or a transient non-2xx) · "refused" it answered and does not know this credential (404) ·
+  // "broken" it answered 5xx. Was one boolean, `reachUnknown`, which rendered a refusal as an outage.
+  var reach = "ok";
 
   function render() {
     var host = el("rows");
@@ -472,7 +474,18 @@
       p.textContent = !grant
         ? "Open your invitation link and your place will be here."
         : (fetching ? "Fetching your place…"
-                    : (reachUnknown ? "We couldn’t reach your place just now — nothing is lost."
+      // ⭐ D3 (lap 7 row D) — THREE STATES, NOT ONE. A response that ARRIVED and said no (404 — the
+      // credential is not known here; durable; the remedy is a person or the door, and it must never
+      // suggest retrying) · a fetch that THREW (no network — transient; the remedy is location, and it
+      // must never suggest the credential is bad) · a response that arrived BROKEN (5xx — Paul's).
+      // On this property "we couldn't reach your place" is frequently TRUE, which made it the most
+      // believable possible cover for a refusal. SECURITY L2's falsifier: an unknown grant with the
+      // network up and a known grant with it down must render DIFFERENT screens.
+      // 429 and anything else non-2xx stays "unknown": transient, retry-shaped, not a verdict.
+                    // ⚠️ DRAFT SLOTS — content-steward's, human-confirmed before they reach a person.
+                    : (reach === "unknown" ? "We couldn’t reach your place just now — nothing is lost."
+                    : reach === "refused" ? "This sign-in isn’t working here. Sign in again and your place will be back — nothing on it has gone anywhere."
+                    : reach === "broken"  ? "Something’s wrong on my side, not yours — nothing is lost."
                                     // ⛔⛔ THE THIRD STRING. On 2026-09-07 this card was fixed so
                                     // `#doorstate` and `#doorlede` could not contradict each other —
                                     // "both sentences or neither", in that fix's own words. THIS one
@@ -507,7 +520,11 @@
     if (!grant) return;
     if (!rows.length) { fetching = true; render(); }
     fetch(WORKER + "/api/grant/whoami", { headers: { "X-Grant": grant } })
-      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (r) {
+        if (r.ok) return r.json();
+        reach = r.status >= 500 ? "broken" : (r.status === 404 || r.status === 401 || r.status === 403) ? "refused" : "unknown";
+        return null;
+      })
       .then(function (d) {
         // ⛔ EVERY EXIT CLEARS THE SPINNER `[F4, 2026-09-07]`. `fetching` was set at :485 and NEVER
         // set back — the only exit was `location.reload()`, which fires only when something changed.
@@ -515,7 +532,8 @@
         // "Fetching your place…" on screen forever. Three different truths, one dead screen.
         // a non-2xx says nothing about her place — and now the screen says that rather than
         // presenting silence as an inventory
-        if (!d) { fetching = false; reachUnknown = true; render(); return; }
+        if (!d) { fetching = false; if (reach === "ok") reach = "unknown"; render(); return; }
+        reach = "ok";
         var changed = false;
         function put(k, v) {
           if (v == null || v === "") return;
@@ -562,7 +580,7 @@
         // ⛔ AND IT MUST NOT FALL BACK TO "Nothing here yet", which is a claim about her place made
         // by a request that never arrived. A rejection and a refusal are the same claim: we did not
         // learn anything.
-        fetching = false; reachUnknown = true; render();
+        fetching = false; reach = "unknown"; render();
       });
   })();
 
