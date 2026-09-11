@@ -3239,3 +3239,29 @@ handover → *"The Home Place"*, each with address and ranked present, estates 1
 15 recovery calls inside the window; every one must answer 200). Beat 8: J0 × 5 → J3 × 5 → J8 × 5 at `87c7aae`; a THIRD
 product defect stops and holds. Reports written once at this sha; content read `.content/walks/87c7aae-walk-read.md`;
 `release-gate --sha 87c7aae`.
+
+### Ahead — LAP 8 GAINS A ROW: THE TESTING ARCHITECTURE, one piece, gate change first `[paul-ruled 2026-09-11 ~7:00 AM ET]`
+
+*"Move it up to the next lap — I think it'll help speed up and improve our testing cycles and the feedback we get from
+them… ideally walk me through the questions and we can figure it all out and do it in one piece."* Tonight's evidence:
+three full batteries for one candidate, ~40 walk runs, page journeys re-driven twice on Worker-only shas whose page bytes
+never moved; the row's own verified observation — four of five walks are ONE path with four fixtures. The plan
+(`.plans/2026-09-10-testing-architecture-PLAN.md`) was at draft, captured-not-ranked; its questions, walked:
+
+| q | ruling |
+|---|---|
+| Q2 gate unit | **gate ① changes its unit from `seat` to `(journey, lens)`** — a change to the release condition; falsifier ③ gates the change itself |
+| Q3 lens | **a lens is a reading posture only, no inputs of its own** — lenses read identical artifacts; fixture data lives with the journey |
+| Q4 journeys | **first cut: J0 · J3 · J8 built; J1 · J5 · J7 named-unbuilt** so the matrix prints them unwalked every lap; J2 re-scoped ("returning, founded nothing") or retired per tonight's finding; **J7 is on the critical path** because the roster is five owners including Paul (Q6, ruled tonight on fernwood-20) |
+| Q5 properties | **cap at 3**; a fourth only for a named code branch |
+| Q7 the ratio | **a declared cell list per lap at beat 6**; the gate prints the cells longest unwalked; **no scheduler** |
+| Q1 credential | **unbundle and ship first** — the per-run unspent invite for J1 as a property of the arrival, never a new role |
+| Q6 roster | already RULED tonight: **five owners including Paul** |
+| Q8 pointer | **add the `→ PLAN ·` pointer now** — the row is ruled, so the readiness claim is true |
+| **re-run rule** (coordination's, from tonight) | **impact-scoped re-runs**: a re-sha re-runs the journeys that touch what changed and carries the untouched journeys' evidence forward with the byte proof named; a change classifier in `release-gate` |
+| **placement** | **lap 8, one piece, gate change FIRST** — the gate unit, the lens split, the cell list and the re-run rule land at lap 8's start, before the door's battery, so the door is certified on the new unit; the two touch different files. *"We can make it two laps if we really need to break it up"* — the fallback if the re-audit finds it does not fit |
+
+**Consequences:** lap 8's beat-6 table gains **row T** (the testing architecture) ahead of A in build order; the lap-8 build
+plan's re-audit at open sizes it by symbol (`release-gate.py` unit · `journey-walk.py` lens/journey split · the coverage
+print · the change classifier · `grant-mint --fixture-out` per run for J1); the plan's `ready:` takes his stamp on these
+rulings; the register carries the row from *captured* to *committed lap 8* when the backlog window reopens.

@@ -10,8 +10,8 @@
          ai-advisor → waived: capture stays deterministic and AI-free; the reading half already runs under the existing boundary (`walk-brief.py:24-30`) and this plan does not move it
 - depends-on: `.plans/2026-09-08-setup-journey-PLAN.md`
 - depends-on: `.plans/2026-09-03-qa-test-vs-ux-review-PROPOSAL.md`
-- ready: **agent-proposed 2026-09-10 — Paul rules.** ⛔ NOTHING IN § Sequence STARTS. The row it scopes is marked *"CAPTURED TO EXPLORE LATER, NOT RANKED AND NOT RULED"* and this file does not change that.
-- stage: draft
+- ready: **paul-ruled 2026-09-11 ~7:00 AM ET** — the eight questions answered in the coordination window (Q2 journey×lens · Q3 posture only · Q4 J0·J3·J8 built, J1·J5·J7 named-unbuilt · Q5 cap 3 · Q7 a declared cell list · Q1 unbundle and ship first · Q6 five owners incl. Paul · Q8 add the pointer), plus an impact-scoped re-run rule; **COMMITTED TO LAP 8 as row T, one piece, gate change first** — `cycle/release/CYCLE-LOG.md` § "LAP 8 GAINS A ROW". Sizing by symbol is the lap-8 build plan's re-audit at open.
+- stage: ready
 - stage-note: 2026-09-10 — written **read-only** in an isolated worktree while a live build session works the main tree. No tool was edited, nothing deployed, no network call to any origin. Every file cited was read at `main` (`d661815`).
 - stage-note: 2026-09-10 — ⚠️ `check-backlog-ready.py` will read this file as an **orphan** (no `→ READY · …` pointer in `BACKLOG.md`). That is correct and is left alone: a `READY` pointer is a readiness claim, and this row is explicitly not ruled. See Q8.
 
