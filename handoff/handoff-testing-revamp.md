@@ -34,6 +34,21 @@ thoroughness paid for; time re-driving unchanged paths, harness self-testing (F2
 is shape · **recommend no ceiling on testing volume** — recommend where a walk's cost buys nothing. The plan's steps are
 judged by cost-per-finding and re-work avoided, never by fewer walks for their own sake.
 
+## 1c. A MODEL POLICY per role — a required section of the plan `[paul-stated 2026-09-11 ~7:25 AM ET]`
+
+*"One thing we should definitely have within this is some sense of what's the right model to use for everything, so that we
+control that. Can we use a slightly dumber model for just a walk-through, but more powerful models for the reading? That
+would be a good layer to lay in here."* So the plan carries a **MODEL POLICY** table: for every act in the cycle — the DRIVE
+(the walk), the CAPTURE (transcript, shots, frame reads), the READ (each lens), the CONTENT READ (L7-P3), the SYNTHESIS (the
+walk report / consolidation), the GATE — which model tier, or **none**. ⭐ **Measure first, do not assume:** `journey-walk.py`
+drives the browser from an action list and may invoke no model at all; the frame reads and the "unprimed reader" seats are
+where the spend sits; find every model call in the cycle by symbol (grep the harness and the seat spawns; the agents'
+`model:` frontmatter under `~/.claude/agents/*.md` is where a seat's tier is set today). Then: which acts want the cheapest
+tier (a deterministic drive wants no model; a frame read that asks "is the button filled" wants the cheapest that answers
+it), which want the strongest (a lens reading for coherence; the synthesis), and the **falsifier for each downgrade** —
+the same artifact read by both tiers, do the findings differ? A tier change is never ruled on cost alone. **Seat:
+ai-advisor** (consult mode) owns the tiering recommendation; engineering-partner wires where the tier is set; Paul rules.
+
 ## 2. Paul's rulings — in force, cite never re-open (`cycle/release/CYCLE-LOG.md` § "LAP 8 GAINS A ROW", 2026-09-11 ~7:00 AM ET)
 
 Q2 gate ① changes its unit from `seat` to **(journey, lens)** — a change to the release condition; its own falsifier gates it ·
@@ -70,7 +85,7 @@ one piece, gate change FIRST**, before the door's battery, so the door is certif
 
 ## 4. Seats
 
-practice-steward (audit — running; read it) · **engineering-partner LEADS the sizing** (path-evaluation: the gate unit, the
+practice-steward (audit — running; read it) · **ai-advisor (consult: the MODEL POLICY per role, §1c)** · **engineering-partner LEADS the sizing** (path-evaluation: the gate unit, the
 lens/journey split, the change classifier, the cell-list print, the per-run invite — by symbol, with checks) ·
 user-researcher (the READER axis is its ruling per the 09-10 plan: what a lens IS, named lenses with their falsifiers —
 never a persona presented as fact) · security-steward (fixtures and credentials per env; the per-run invite; what a

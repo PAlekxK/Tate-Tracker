@@ -3282,3 +3282,10 @@ and the revamp plan normalize cost against build size (lap 7: 59 steps, five row
 rulings), separate THOROUGH (real defects found: F1, B) from MIS-SHAPED (unchanged paths re-driven, harness self-tests, the
 battery testing its own cadence), and recommend no ceiling — only where a walk's cost buys nothing. Written into the
 revamp brief §1b and relayed to the running audit.
+
+**A MODEL POLICY per role joins the revamp** `[paul-stated 2026-09-11 ~7:25 AM ET]`: *"some sense of what's the right model to
+use for everything, so that we control that — a slightly dumber model for just a walk-through, more powerful models for the
+reading."* Brief §1c: a table per act (drive · capture · read · content read · synthesis · gate) → tier or NONE; measure
+first (the walk drives from an action list and may invoke no model; the spend sits in frame reads and reader seats); a
+falsifier per downgrade (same artifact, both tiers, do the findings differ); ai-advisor owns the tiering recommendation,
+Paul rules.
