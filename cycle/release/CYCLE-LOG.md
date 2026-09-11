@@ -5253,3 +5253,29 @@ mkContext'` returned nothing and coordination briefly flagged it — **because t
 in a Python file as a NODEJS string.** The grep assumed the wrong language. ⛔ **Third mis-patterned grep of the
 day producing a false absence, all three coordination's** — the carries file's own rule earning itself again:
 *grep output read for an ABSENCE claim is on the distrust list.*
+
+### T15 + T16 LAND TOGETHER — **20 of 24** — and T14's factory is what made T16's fix POSSIBLE
+
+`35da21d1` + `f2925110`. `journey-view` **9/9**, `journey-walk` **93/93**, release-gate ✅, corpus frozen, five
+verdicts unchanged.
+
+⭐⭐ **T15 — MOM'S BROWSER ENGINE IS WALKED FOR THE FIRST TIME IN THIS PROJECT'S HISTORY.** `[paul-ruled, P17:
+WebKit is installed]`. **Zero walks had ever used it.** `--engine webkit` opens the QA origin and records
+`ranIn.engine: "webkit"`, so **a walk can now say which browser it ran in** rather than leaving it inferred.
+⛔ **SECURITY R4 honoured: no new tier, no new trust root.**
+⭐ **`M22b` is the guard worth naming:** the playwright tree is **the NEWEST, not an arbitrary glob hit** — *an
+engine installed into another tree would read as unavailable*, which is the honest answer rather than a
+confident wrong one.
+
+⭐⭐ **T16's TRAP IS CLOSED, AND CLOSED BY T14 — the steps compounded rather than merely sequencing.** The trap
+named at the lap's open was that **T16 as specified swaps a regex for a hand-typed literal**: `geometry`
+duplicated the viewport ten lines above it. **Because T14 made the factory OWN the constant, T16 could DERIVE
+it** — `geometry: made.ranIn.viewport`, with **`M21c` asserting it is derived and never a second literal** and
+**`M21c2` asserting the run records the state it ACTUALLY ran in.** The source says it plainly: *"a geometry
+would describe a walk that never happened. It is DERIVED."*
+
+⭐ **And `journey-view`'s selftest states its own boundary on its face** — *"refusals and cfg shape only; no
+browser launched"* — which is the posture this whole row exists to install: **a control that says what it does
+NOT cover.**
+
+**Remaining: T18 · T19 · T21 (the acceptance run) · T22 · T23.**
