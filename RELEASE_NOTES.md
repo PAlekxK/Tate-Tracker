@@ -14,6 +14,52 @@ product's log, which is the same collision the two-changelog split exists to end
 
 ---
 
+## 2026-09-11 — Signing out, signing back in, and changing what you said at setup
+
+- **You can sign out of this phone.** A new control at the foot of your account page, with
+  a second tap to confirm, because signing back in is not always a thirty-second job. It
+  clears who you are on this device and leaves the device otherwise alone — if you read at
+  the larger text size, it is still larger when you come back.
+- **If you cannot get in, there is one door for it.** **Can't get in?** sits under the
+  sign-in button, opens where you are standing, and asks for one thing: your email address.
+  It covers a forgotten username and a forgotten password together, because from outside a
+  locked door those feel the same. Signed in, the same request lives on your account page.
+- **Your email address is shown back to you.** On your account page, under How to reach you
+  — the address on file, or that there is none, or that it could not be read just now. It is
+  shown there; it is not changed there.
+- **Opening the app with nobody signed in gives you two named doors** — **Set up my place**
+  and **I've been here before** — instead of a screen that assumed you were holding an
+  invitation link. Signing in takes you straight to your place.
+- **The address you type is read back to you before anything is written.** The same card
+  turns around and shows you what it heard, and nothing is made until you say that is it.
+- **What you told me has a way back to each of its lines.** Where it is, How to reach you,
+  and What I'll build first each carry an **Edit** now, on the card itself.
+- **The card your notes live on now carries your place's name.** It is your place's name
+  followed by **Journal** — on the card, in the strip at the top, and on the button that
+  saves what you write. Where a place already has a word of its own for it, that word stays.
+- **A sign-in that does not work says one thing now.** The same sentence whether the
+  username is unknown, the password is wrong, or the two belong to a different home: it
+  tells you the door did not open, and points at the way back in, instead of asking you to
+  work out which half you got wrong.
+- **A post-office box is turned down at the address step, before a place is made.** It says
+  so on the screen you are standing on, with nothing written and your other answers intact —
+  and the feedback button on that same screen is there if a box is genuinely the only
+  address the place has.
+- **What you write on this phone now has somewhere to send.** A note, a question, an answer
+  to a card — all of it goes to one place, and on this phone that place was not connected,
+  so anything written here has been waiting. It goes the next time you open the app, dated
+  the day you wrote it rather than the day it arrives. Nothing is asked of you; opening it
+  is the whole of it.
+- **The Create your account link on the sign-in screen does not work yet.** Tapping it
+  returns you to the top of the same screen. If you have never set one up, open the app
+  fresh and choose **Set up my place**, which does. The link itself is a fix for next time.
+- **Not in this build:** changing your email address here, one sign-in that reaches every
+  home you are part of, inviting anyone, or joining a home somebody else set up. None of the
+  four are here yet.
+- **Not settled yet: a section you left out of your ranking is not shown at all, rather than
+  shown empty and waiting.** Which of those is right has not been decided, and it is being
+  decided before it is built rather than after.
+
 ## 2026-09-10 — An account first, your home when you're ready
 
 - **Signing up creates an account, and nothing else.** No home is waiting for you when

@@ -23,6 +23,71 @@
 
 ---
 
+## ✅ APPLIED 2026-09-11 — §4 run against `87c7aae`, CLEARED and DEPLOYED (`paul` · `home`)
+
+`RELEASE_NOTES.md` now carries `## 2026-09-11 — Signing out, signing back in, and changing what you
+said at setup`. **That file is the only one edited** — `viewer.html`, `engine/viewer.template.html`
+and the ribbon were not touched; coordination rebuilds the viewer. Below, per §4a, what each gate
+returned. Evidence: `cycle/release/CYCLE-LOG.md` § GATE ① RUN at `87c7aae` (5/5 seats, 15 of 15
+journey-runs zero failed actions, zero pageerrors), § BEAT 11 — PAUL CLEARED, § BEAT 12 — DEPLOYED,
+and `.content/walks/87c7aae-walk-read.md`.
+
+- **Bullet 4 — J2 dropped from its gate:** J0 (the cold door) and J3 (the landing) cover the shelf at
+  `87c7aae`; **J2 is UNWALKABLE by model** (an unfinished record cannot exist without an estate),
+  ruled tonight, and the gate's own coverage line prints it — so the bullet is gated J0 + J3.
+- **Bullet 4 — one clause CUT:** *"one home, straight into it; more than one, to the list."* No seat
+  holds two homes and the 09-10 entry says a second home on one account is **not in the build**, so
+  the branch is unreachable and cannot be described. Shipped as *"Signing in takes you straight to
+  your place."*
+- **Bullet 5 — one sentence CUT:** *Not quite* is **not a walked stop**. `journey-walk.journey_founding`
+  goes `click:#go2 → F08-read-back → click:#ok1 → F09`; nothing clicks *Not quite*. The read-back half
+  (F08/F09, four seats founded, strict refused) ships; the restore claim does not.
+- **Bullet 6 — reduced to what L15 proves.** L15 asserts the three rows exist and each carries an
+  `Edit`; it never follows one. The round-trip sentences (*"where it takes you differs… ends back on
+  this card with that line rewritten"*, *"says what moved with it"*) were **cut, not softened**.
+- **Bullet 7 (row D) — the DO bullet is CUT; a not-yet replaces it, and here is why the replacement is
+  true of the deployed build.** The rescue claim (*"your note went through"*) has no record behind it:
+  D7 runs after Paul's next load. What **is** verified is the destination — beat 12 deployed
+  `deploy-worker.sh --env paul` (health OK, env=paul) and `myhome-paul` serves `87c7aae` with
+  post-deploy covered (served sha · worker /health · worker estate `est-d93508` · payload blob
+  matched). D8 traces the flush end to end in source (`flushOutbox` first in `MomQueue.start()`; the
+  note's own `ts` stamped before `outboxAdd`; `outboxRemove` only after a verified 2xx). So *"has
+  somewhere to send… goes the next time you open the app"* describes the build that is live, and its
+  failure mode **keeps the words** rather than losing them. No past-tense claim about his note is made.
+- **Bullet 2 — shipped with the timing half unverified, disclosed.** L12's byte-identity half is
+  walked; its **timing** half is unchecked by ruling (a browser round trip cannot measure it). The
+  bullet makes no timing claim, so the unverified half backs no sentence in it. Flagged, not hidden.
+- **Bullet 11 (ranked-but-empty) — §4c resolved to SHIP.** `onboarding/index.html:822–825` shows the
+  promise **withdrawn** in this build, which is the branch that says ship as drafted. Re-tensed from
+  *"not in this build"* to *"not settled yet"*, which is what it actually is.
+- **Added, per the chain act:** the **Almanac → Journal** engine default (ruled 2026-09-11, TIER 2 · 20;
+  `build-viewer.py:109–112`), worded so it is **true at Fernwood too** — the note is identical at every
+  household, and *"a place that already has a word of its own for it keeps that word"* covers the
+  instance that declares `journalTile`. And the **looping *Create your account ›*** link (W2,
+  `onboarding/index.html:384–385`), which a person absolutely notices: from the sign-in screen there is
+  no path to an account at all. Named with the path that does work.
+- **Row C still has no bullet** (§1) and the **ribbon line stays here, out of the note** — `instance/paul.json`
+  now declares `ack` **and** `questions` absent (lines 39–40), so the §3b leak is closed and the ribbon
+  renders nowhere; the per-household seam is lap 8. ⭐ §3b's *"paul.json does NOT declare ack absent"*
+  was true when written and is **no longer true at `87c7aae`** — corrected here rather than left standing.
+
+### ⛔ ONE FINDING FOUND WHILE APPLYING, and it would have shipped to every household
+
+**`renderNoteMarkdown` (`engine/viewer.template.html:15775–15778`) handles `**bold**` and NOTHING
+ELSE.** Single-asterisk italics render as **literal asterisks** on the card. The draft in §1 italicised
+nine control names — *Can't get in?*, *Set up my place*, *Not quite*, *Where it is* … — every one of
+which would have printed with visible `*` characters. All converted to **bold** (the 2026-09-01 entry's
+own precedent) or to plain text. **The entry title is `escapeHtml`'d with no markdown at all** — no
+emphasis of any kind may appear in a title.
+
+### Counts as shipped
+
+**7 do · 2 no-longer · 4 not-yet = 13 bullets** (the sibling runs 6). If Paul wants it shorter, the two
+I would still cut first are the **email-shown-back** bullet and the **one-refusal-sentence** bullet, in
+that order — **not** the row-D one, which is the one a reader most needs.
+
+---
+
 ## 0 · The one thing the shape asks for that the commitment cannot supply
 
 The proposal's §1a says the **title is derived** — from the committed row's `note:` field — and only the
