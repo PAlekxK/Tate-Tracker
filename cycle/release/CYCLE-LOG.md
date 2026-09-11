@@ -4002,7 +4002,7 @@ names the **beat-9 gate-kit edit (TIER 1 · 25) as the incoming window's**, deli
 `e73d5098`; the backlog window at `1e2498c7`; build and the lap-7 coordinator closed earlier. **The next window is opened
 from the brief, and PAUL GRADES ITS READBACK** — the writing window will not be live.
 
-## Lap 8 — 2026-09-11 · 🔓 **OPEN at OPEN (1/12)** — ROW T ALONE: the testing architecture, the lap whose deliverable is the judge
+## Lap 8 — 2026-09-11 · ✅ **CLOSED 2026-09-11 15:46 EDT — row T delivered 24 of 24, NOTHING DEPLOYED, no candidate moved, closed by Paul's word** — ROW T ALONE: the testing architecture, the lap whose deliverable is the judge
 <!-- outcome:closed at:2026-09-11T19:47:39Z -->
 
 Opened at `4011f9fe`, `main`, clean tree, **2026-09-11 10:47 EDT** (from `date`, never authored). Opened by the fresh
