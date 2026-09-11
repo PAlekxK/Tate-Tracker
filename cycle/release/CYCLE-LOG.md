@@ -2749,3 +2749,40 @@ detailed work plan"]`. Lap 8 is defined enough (twelve rulings) → engineering-
 `.plans/2026-09-11-lap8-build-PLAN.md` at `stage: draft` (re-audited at lap 8's open; §10 names where ux-expert's design
 closure is still owed, per the commit-phase rule's order). Lap 9 is not → `.plans/2026-09-11-lap9-READINESS.md`, a
 readiness ranking naming when each row is "defined enough" to plan.
+
+### Row B · the RECOVERY ROUTE — security read filed, four rulings `[paul-ruled 2026-09-11 ~12:45 AM ET]`
+
+`.engineering/2026-09-10-recovery-route-SECURITY.md` (`06c2a16`, verbatim). Its load-bearing finding: as specified, a
+locked-out caller has no grant, so B6's `account-recovery` record routes to the **deployment's estate feedback key —
+member-readable via `GET /api/feedback` (MEMBER_OK), and swept by the mom cycle as an ARRIVAL that can fire a lap.**
+Also: no email lookup path exists (accounts resolve by username); a plaintext `email:` KV key is refused (keys are
+listable); the copy *"if that address is on file, it has been sent"* is false three ways (nothing sends, nothing was
+checked, a human reads it on sweep time); `/api/account/available` spends the household's CAPTURE rate bucket
+(20 / IP / 300 s, one egress IP at the property); B10 cannot be built from `whoami` today and the tempting fix would put a
+contact value on every grant row and into the register.
+
+| ruling | |
+|---|---|
+| **B6 destination** | **its own admin-only key + its own reader** in the pickup block — amends Q4's "no new channel" by one key; members never read it; it never enters the mom cycle's arrival record |
+| **B6 lookup** | **none this lap** — the request is recorded unconditionally; the administrator resolves by hand from the account row; the copy may not claim a check |
+| **recovery copy** | **one honest constant sentence naming a person** (content-steward drafts under security's six constraints; Paul confirms the words) — not a send path, not dropping the route |
+| **the reset rule** | **written: `VOCABULARY.md` §3e·R** — the credential goes to the address on the account row, never the request's |
+Engineering follows for the build: B6 writes its own KV row (handleFeedback rejects a note-less record); field list = id · ts ·
+env · context.type only, personId/estateId null by construction, no sessionId/deviceId/note/address/outcome; B5 stays out
+of `DOOR_EVENTS` with `waitUntil` on both branches; B10 reads the account row inside the whoami branch, mints no storage
+key; the probe bucket splits from the capture bucket; L12's timing half is marked UNCHECKED in the walk.
+
+### The fourteen open items — Paul's answers `[paul-ruled 2026-09-11 ~12:48 AM ET]`
+
+*"For one, we'll do some product-name deep diving later. I'm good with your recommendations on two through five. Six
+through fourteen: go ahead and verify what the best approach is, make a recommendation, and I agree through
+recommendation."*
+
+| # | disposition |
+|---|---|
+| 1 product name | **deferred to a deep-dive session with Paul** — still the lap-8 · B prerequisite; the lap-8 build plan carries it as a gate |
+| 2 the condo's return via `adopt` | **CLOSED** — overtaken by Q7 |
+| 3 X-Estate sequencing | **CLOSED as a separate ruling** — M1→M4 belongs to lap 8's build plan |
+| 4 `anchors.py` at Bob's address | **DROPPED** (coordination's reading of "your recommendation": the deployment is gone and Bob founds his own at production; his data arrives with him) |
+| 5 the rationalization set | **GO** — the backlog window applies the six moves as one diff |
+| 6–14 | **the backlog window verifies each and recommends; Paul pre-agrees to the recommendation.** ⚠️ Pre-agreement is to a recommendation he has not yet seen: each is SHOWN to him in his window before it is acted on, and nothing outward or irreversible is among them |

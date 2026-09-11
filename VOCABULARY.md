@@ -250,6 +250,16 @@ capability-only act the activation rule forbids — while remaining perfectly we
 undetectable.** Manual execution is safe *only* because the consent record can tell executing from
 authoring.
 
+### 3e·R · THE RESET RULE `[paul-ruled 2026-09-11 ~12:45 AM ET]`
+
+**A recovered credential is delivered to the contact value ON THE ACCOUNT ROW, never to the value in the request, and
+never to a reply-to.** Email here is self-asserted, unverified, non-unique, and freely settable by any signed-in person
+(`/api/profile`), so a request naming an address is not an identity claim — it is a doorbell. The administrator is the
+reset path (setup-journey D1); this sentence is the whole security of that path, and until tonight it lived only in a
+human's head (security-steward, `.engineering/2026-09-10-recovery-route-SECURITY.md` R-E). Cited by the recovery card,
+the lap-7 build plan (B6) and every future reset act. **Falsifier:** a credential sent to an address that appears in a
+recovery request and not on the account row.
+
 ## 3f · TWO ADMINISTRATORS, AND ONLY ONE OF THEM IS IN THE APP `[paul-ruled 2026-09-06]`
 
 > *"There needs to be an overall application administrator, and that's the estate manager master
