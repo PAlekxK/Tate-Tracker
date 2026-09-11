@@ -3468,3 +3468,9 @@ tab 2 the setup door (`/onboarding/`) with one throwaway he names (the new-accou
 signup no longer grants. Tonight tab 2 creates `pkirsch-qa` itself (its first founding IS the new-account walk) and tab 1
 signs in to it after sign-out. Register carry queued: TIER 1 · 25 amended; the KEEP list; TIER 1 · 48's fixture-stamp row
 must never stamp this account.
+
+**Beat 9 walk, opened · 2026-09-11 09:20 EDT.** Tab 1 → `https://fernwood-qa.pages.dev/` **routed straight to `/viewer` titled "Homey"** — this
+Chrome still holds the grant of the PAK/Homey account torn down tonight; the door routes on LOCAL STATE (A1), so the first act
+is a sign-out (the stale-credential case rows 41/45 and B15 exist for: the app must show *refused*, not *signed in*, once whoami
+answers). Tab 2 → `/onboarding/`, the setup door. **Throwaway name: `pkirsch-onetimeuse`** (for teardown by name); durable:
+`pkirsch-qa`. What Paul reads at tab 1 after sign-out and cold reload is itself a finding for the register.
