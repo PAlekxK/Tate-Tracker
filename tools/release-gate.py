@@ -88,6 +88,131 @@ def runs_for(seat):
     return sorted(r for r in os.listdir(d) if os.path.isdir(os.path.join(d, r)))
 
 
+# ═══ T1 · THE UNIT BECOMES THE CELL — `(journey, lens)` ═══════════════════════════════════════════
+#
+# ⛔ THE DEFECT THIS REPLACES, measured and on the record (cycle/release/lap-8-T0-before-image.md):
+# `seats()` listed DIRECTORY NAMES, and `report()` kept one best run per seat. At `87c7aae` that
+# printed five rows — every one `no-failed-actions` ✅ — while SEVENTEEN other runs at that sha were
+# not shown at all, holding 12 failed actions across 7 runs. The verdict was a function of which
+# journey the battery happened to walk first. A run folder's name is the STORAGE LAYOUT; it is not a
+# decision anyone made.
+#
+# ⭐ WHICH FIELD DEFINES A CELL, AND WHY — the choice this function makes, stated because the two
+# candidates DISAGREE on 68% of the recorded corpus and the disagreement is systematic, not noise.
+# `measured` at lap 8's open: 283 transcripts · 59 carry BOTH `journey` and `journeyEntered` · 40 of
+# those 59 DISAGREE — walked=J0/door=J5 ×23, walked=J8/door=J3 ×17.
+#
+#   `journey`        = what the harness SET OUT TO WALK   ← ⭐ this one defines the cell
+#   `journeyEntered` = what the DOOR SAID the record was on arrival
+#
+# It is not a tie-break between two near-equal readings. It is a choice between the test and the
+# fixture's state, and three things settle it:
+#   1. A CELL IS A UNIT OF TEST COVERAGE. A declared cell list (T3) says "we will walk J8 under the
+#      successor lens." What is committed to is the WALK. The door's answer is an INPUT to that walk.
+#   2. THE ENTRY STATE ALREADY HAS A HOME, and it is not this one — T10 gives every journey a
+#      declared `arrivalState` and T14 records the state the run actually ran in. Keying the cell on
+#      the door would put entry state in two places and make neither authoritative.
+#   3. ⛔ KEYING ON THE DOOR COLLAPSES DISTINCT TESTS. At `87c7aae` all 17 J8 walks entered J3, so
+#      grouping on `journeyEntered` makes lifecycle and returning indistinguishable and the matrix
+#      could never show that J8 was walked at all. That is this row's own defect one level up: a cell
+#      that hides what was actually tested.
+# ⭐ And the door's answer is NOT discarded — it is recorded beside the cell and a disagreement is
+# PRINTED (`report()`), because a walk whose arrival contradicts its own premise is a finding, not a
+# grouping detail to be resolved silently.
+
+J1_LEGACY = "J1-legacy"
+JRET_LEGACY = "J-returning-legacy"
+
+
+def journey_of(t):
+    """→ (journey, source) where source is `recorded` | `door-measured` | `backfilled`.
+
+    ⛔ NEVER RETURNS A BARE `J2` OR `J4` BY INFERENCE. The 09-10 plan's backfill rule keyed the
+    returning population on a token suffixed `-neverminted` — a property of a CREDENTIAL THE
+    TRANSCRIPT NEVER RECORDED. `measured`: of 224 transcripts with no `journey`, 220 carry no
+    `arrival`, no `entryState` and no token at all, and the non-fresh population spans the re-point
+    of `journey_returning` from J2 to J3 at `7496196`. So J2, J3 and J4 are INDISTINGUISHABLE on this
+    corpus and a rule that picked one would mint exactly the fiction the CREDENTIAL ruling exposed.
+    The honest bucket is `J-returning-legacy` and it is never counted toward a declared cell.
+    """
+    j = t.get("journey")
+    if j:
+        return j, "recorded"
+    for k in ("journeyEntered", "arrival", "entryState"):
+        v = t.get(k)
+        if isinstance(v, str) and v:
+            return v, "door-measured"          # the door's own measured answer, taken exactly
+    return (J1_LEGACY if t.get("fresh") is True else JRET_LEGACY), "backfilled"
+
+
+def is_legacy(journey):
+    """A backfilled cell can satisfy NO declared cell — it is evidence, never coverage (T3/M10c)."""
+    return journey in (J1_LEGACY, JRET_LEGACY)
+
+
+def unit_of(run_dir):
+    """→ (journey, lens). `lens` is the transcript's own when present, else the DIRECTORY NAME —
+    which is what it has always been, so nothing that predates the split loses its identity."""
+    seat = os.path.basename(os.path.dirname(run_dir))
+    tpath = os.path.join(run_dir, "transcript.json")
+    if not os.path.exists(tpath):
+        return None
+    try:
+        t = json.load(open(tpath, encoding="utf-8"))
+    except Exception:
+        return None
+    j, _src = journey_of(t)
+    return (j, t.get("lens") or seat)
+
+
+def units(sha):
+    """⭐ DERIVED from the runs that exist AT THIS SHA, never a typed roster — `seats()`'s own
+    discipline, carried over deliberately. T3 unions this with the DECLARED cell list so a declared
+    cell with no run prints UNWALKED instead of vanishing."""
+    out = set()
+    for seat in seats():
+        for run in runs_for(seat):
+            d = os.path.join(WALKS, seat, run)
+            u = unit_of(d)
+            if u and judge(d, sha).get("at-sha", (False,))[0]:
+                out.add(u)
+    return sorted(out)
+
+
+# ═══ T2 · `instrumented` RE-KEYED TO THE JOURNEY ══════════════════════════════════════════════════
+#
+# ⛔ THE DEFECT: `instrumented` passed on `n > 0` for every run alike. `strict`'s J0 is the REFUSAL
+# walk, and a refused founder never reaches the app — so its `instrumented` was 🔴 FOREVER BY
+# CONSTRUCTION. A permanent red that is CORRECT BEHAVIOUR and a real instrumentation failure printed
+# identically, which is the same `cannot-prove == failed` equivalence this gate has spent the whole
+# lap removing from itself.
+# ⚠️ `instrumented` STAYS OUT OF `CLAUSES` — advisory, not gating. Promoting it is a change to the
+# release condition and is not in the eight rulings. Re-keying what it SAYS is in lane; changing what
+# it BLOCKS is not.
+
+def expects_app_events(journey):
+    """→ True | False | None. Read from the journey's own declaration in `journey-walk.JOURNEYS`.
+
+    ⛔ NONE UNTIL T10 LANDS, AND THAT IS DELIBERATE. T10 is the step that adds `expectsAppEvents` to
+    every `JOURNEYS` entry; this step lands before it. Until then a journey declares no profile and
+    the clause reads ⬜ UNCHECKABLE **with the reason named** — which already removes the false red,
+    because a permanent 🔴 and a real failure no longer print the same. It is never guessed: a
+    profile inferred from a journey id would be exactly the typed roster `units()` refuses to be.
+    """
+    if not journey:
+        return None
+    try:
+        spec = importlib.util.spec_from_file_location("jw", os.path.join(ROOT, "tools", "journey-walk.py"))
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        entry = (getattr(m, "JOURNEYS", {}) or {}).get(journey)
+    except Exception:
+        return None
+    if not isinstance(entry, dict) or "expectsAppEvents" not in entry:
+        return None
+    return bool(entry["expectsAppEvents"])
+
+
 def judge(run_dir, sha):
     """→ dict of clause -> (state, detail). state is True / False / None(=uncheckable)."""
     out = {}
@@ -142,6 +267,9 @@ def judge(run_dir, sha):
     else:
         n = len(bad) + (len(failed) if isinstance(failed, list) else 0)
         out["no-failed-actions"] = (n == 0, "%d problem stop/action(s)" % n)
+        # ⛔ RAW COUNT, so the supersession line does NOT re-derive it or parse it back out of the
+        # detail string. One definition of "how many problems", used by both readers.
+        out["_problems"] = (n, "raw count — not a clause, never printed as one")
 
     if t.get("contaminated"):
         out["uncontaminated"] = (False, "run marked contaminated")
@@ -189,12 +317,26 @@ def judge(run_dir, sha):
     # our side, on the capture side." Read from capture.json, written by journey-walk at walk time.
     # ⚠️ REPORTED THIS LAP, COUNTED FROM LAP 2 (pre-registered in CYCLE-LOG.md): the grant-carried flush
     # first ships at the lap-1 candidate, so a run before it reads ⬜, never a false red or a false green.
+    # ⭐ T2 — re-keyed to the JOURNEY's own declared profile. See `expects_app_events()` above for why
+    # a missing profile reads UNCHECKABLE rather than being guessed.
     cpath = os.path.join(run_dir, "capture.json")
+    _journey, _jsrc = journey_of(t)
+    _expects = expects_app_events(_journey)
     if os.path.exists(cpath):
         try:
             c = json.load(open(cpath, encoding="utf-8"))
             n = int(((c.get("app") or {}).get("events")) or 0)
-            out["instrumented"] = (n > 0, "%d app event(s) landed for this run" % n)
+            if _expects is True:
+                out["instrumented"] = (n > 0, "%d app event(s) landed — %s expects app events" % (n, _journey))
+            elif _expects is False:
+                # ⛔ THE REFUSAL CASE. A journey that declares it reaches no app is CORRECT with zero
+                # events, and must stop printing as a failure.
+                out["instrumented"] = (n == 0, "%d app event(s) — %s expects NONE (a refusal walk "
+                                               "never reaches the app)" % (n, _journey))
+            else:
+                out["instrumented"] = (None, "%d app event(s) landed, but %s declares no "
+                                             "expectsAppEvents profile (T10 not yet landed) — "
+                                             "UNCHECKABLE, not a failure" % (n, _journey))
         except Exception as e:
             out["instrumented"] = (None, "unreadable capture.json: %s" % e)
     else:
@@ -265,30 +407,79 @@ def report(sha, seats_only=False):
         print("🔴 UNCHECKABLE: no seats found on disk — refusing to report on an empty roster.")
         return 2
 
-    passing_seats, rows = [], []
+    # ⭐ T1 — THE ROSTER IS NOW CELLS, NOT DIRECTORIES. Every run at this sha is placed in its
+    # `(journey, lens)` cell; the best run wins the cell's row, exactly as it used to win the seat's.
+    # ⛔ THE TIE-BREAK IS UNCHANGED — `score > best[0]`, so ties keep the EARLIEST run — and that is
+    # correct once the key is right. `[paul-ruled 2026-09-11]` a clean retry SUPERSEDES a failing run
+    # at the same sha: within one cell, two runs are genuinely a retry, and a retry is how "run it
+    # until it no longer fails" exits. The defect was never the comparison; it was the key.
+    # ⭐ AND THE SUPERSESSION IS PRINTED ON THE GATE'S FACE — his ruling's second half, and a BUILD
+    # REQUIREMENT, not merely a falsifier: a cell that needed a retry may never render like a cell
+    # that passed first time. Without that print, T1 moves the unit without moving the legibility and
+    # the failed actions are merely hidden in a new place.
+    cells = {}
     for seat in ss:
-        best = None
         for run in runs_for(seat):
-            v = judge(os.path.join(WALKS, seat, run), sha)
-            if v.get("at-sha", (False, ""))[0]:
-                # among runs at this sha, keep the best (most clauses true)
-                score = sum(1 for k, _ in CLAUSES if v.get(k, (None,))[0] is True)
-                if best is None or score > best[0]:
-                    best = (score, run, v)
-        rows.append((seat, best))
-        if best and all(best[2].get(k, (None,))[0] is True for k, _ in CLAUSES):
-            passing_seats.append(seat)
+            d = os.path.join(WALKS, seat, run)
+            v = judge(d, sha)
+            if not v.get("at-sha", (False, ""))[0]:
+                continue
+            u = unit_of(d)
+            if u is None:
+                continue
+            cells.setdefault(u, []).append((run, seat, v))
 
-    for seat, best in rows:
+    passing_cells, rows = [], []
+    for u in sorted(cells):
+        entries = sorted(cells[u], key=lambda e: e[0])        # chronological, so "retry" means later
+        best = None
+        for run, seat, v in entries:
+            score = sum(1 for k, _ in CLAUSES if v.get(k, (None,))[0] is True)
+            if best is None or score > best[0]:               # ⛔ UNCHANGED tie-break
+                best = (score, run, v, seat)
+        n_runs = len(entries)
+        problems = sum((e[2].get("_problems", (0,))[0] or 0) for e in entries)
+        superseded = bool(best) and (best[2].get("_problems", (0,))[0] or 0) == 0 and problems > 0
+        rows.append((u, best, n_runs, problems, superseded))
+        if best and all(best[2].get(k, (None,))[0] is True for k, _ in CLAUSES):
+            passing_cells.append(u)
+
+    for u, best, n_runs, problems, superseded in rows:
+        label = "(%s, %s)" % u
         if not best:
-            print("  🔴 %-11s no run at this build" % seat)
+            print("  🔴 %-26s no run at this build" % label)
             continue
-        _, run, v = best
+        _, run, v, seat = best
+        allgreen = all(v.get(k, (None,))[0] is True for k, _ in CLAUSES)
+        # ⭐ THE SUPERSESSION LINE — Paul's ruling, on the face.
+        tail = "%d run%s" % (n_runs, "" if n_runs == 1 else "s")
+        # ⛔ THE NOUN FOLLOWS THE CLAUSE. `no-failed-actions` counts NON-WALKED STOPS **plus**
+        # `failedActions[]` entries, so this quantity is "problem stop/action(s)", not "failed
+        # actions" — the two differ (at `87c7aae`, 12 failed actions but 22 problems). Paul's
+        # illustrative wording said "failed action"; the gate prints what it actually counted,
+        # because a count without its predicate is this repo's most-repeated defect and it would be
+        # absurd to re-commit it inside the line that exists to make a failure legible.
+        if superseded:
+            tail += " · %d problem stop/action%s, PASSING ON RETRY" % (problems, "" if problems == 1 else "s")
+        elif problems:
+            tail += " · %d problem stop/action%s" % (problems, "" if problems == 1 else "s")
+        print("  %s %-26s %s  ·  %s%s" % ("✅" if allgreen else "🔴", label, run, tail,
+                                          "" if is_legacy(u[0]) else ""))
+        if is_legacy(u[0]):
+            print("       ⬜ BACKFILLED cell — satisfies no declared cell; evidence, never coverage.")
+        # ⚠️ the door's own answer, kept beside the cell and printed only when it DISAGREES.
+        try:
+            _t = json.load(open(os.path.join(WALKS, seat, run, "transcript.json"), encoding="utf-8"))
+            _door = _t.get("journeyEntered")
+            if _door and _t.get("journey") and _door != _t.get("journey"):
+                print("       ⚠️ the door said %s; this walk walked %s — recorded, not resolved."
+                      % (_door, _t.get("journey")))
+        except Exception:
+            pass
         marks = []
         for key, _label in CLAUSES:
             st, detail = v.get(key, (None, "not evaluated"))
             marks.append("%s %s" % ("✅" if st is True else ("🔴" if st is False else "⬜"), key))
-        print("  %-11s %s" % (seat, run))
         print("     " + "  ".join(marks))
         for key, label in CLAUSES:
             st, detail = v.get(key, (None, "not evaluated"))
@@ -300,7 +491,20 @@ def report(sha, seats_only=False):
         st, detail = v.get("instrumented", (None, "not evaluated"))
         print("        %s instrumented (reported, counted from lap 2) — %s" % ("✅" if st is True else ("🔴" if st is False else "⬜"), detail))
 
-    print("\n  seats passing every clause: %d of %d" % (len(passing_seats), len(ss)))
+    # ⭐ THE UNIT IS NAMED IN THE COUNT. "seats passing" was the sentence that made the 87c7aae
+    # verdict readable as five clean walks; the count now says what it actually counted.
+    _declared = [u for u in sorted(cells) if not is_legacy(u[0])]
+    _legacy_n = len(cells) - len(_declared)
+    print("\n  CELLS passing every clause: %d of %d   (a cell is a (journey, lens) pair)"
+          % (len(passing_cells), len(cells)))
+    if _legacy_n:
+        print("  ⬜ %d of the %d cells %s BACKFILLED legacy — evidence, never coverage."
+              % (_legacy_n, len(cells), "is" if _legacy_n == 1 else "are"))
+    _retries = [u for u, b, n, pr, sup in rows if sup]
+    if _retries:
+        print("  ⚠️ %d cell(s) passed ONLY ON RETRY: %s — a retry exits the loop, and this line is "
+              "why it can never look like a clean first pass." % (len(_retries),
+              " · ".join("(%s, %s)" % u for u in _retries)))
     # ⛔ COUNTED, NEVER GRADED — this line states what the battery did not reach. It refuses nothing
     # and it must never gain a pass/fail, or it becomes a second gate nobody ruled on.
     vp = walk_viewport()
@@ -325,11 +529,11 @@ def report(sha, seats_only=False):
     print("  %s content read for this build (L7-P3: every walk read by the voice's owner) — %s" % (mark(cst), cdet))
     print("  %s UX sweep for this build (L7-P2: the two-pass sweep at this candidate) — %s" % (mark(ust), udet))
 
-    if len(passing_seats) == len(ss) and ss:
+    if len(passing_cells) == len(cells) and cells:
         if cst is True and ust is True:
-            print("\n✅ every seat passes, the content read is filed and the sweep is filed — gate ① PASSED at %s." % sha[:7])
+            print("\n✅ every CELL passes, the content read is filed and the sweep is filed — gate ① PASSED at %s." % sha[:7])
             return 0
-        print("\n🟡 every seat passes — but %s, so this is NOT a bare pass." % (
+        print("\n🟡 every CELL passes — but %s, so this is NOT a bare pass." % (
               "the content clause is %s and the UX clause is %s" % (
                   "unfiled" if cst is None else ("red" if cst is False else "green"),
                   "unfiled" if ust is None else ("red" if ust is False else "green"))))
@@ -473,6 +677,80 @@ def selftest():
         st, _ = ux_clause("a" * 40, udir)
         bit = st is True
         print("  %s M9b a sweep filed at this sha → green" % ("✅" if bit else "🔴")); ok &= bit
+
+    # ═══ T1 · M10a/b/c — THE UNIT, THE BACKFILL, AND WHAT A BACKFILLED CELL MAY NOT DO ═══════════
+    with tempfile.TemporaryDirectory() as tmp:
+        W = os.path.join(tmp, "walks"); os.makedirs(W)
+        global WALKS
+        _saved = WALKS
+        try:
+            WALKS = W
+
+            def mkrun(seat, run, **over):
+                d = os.path.join(W, seat, run); os.makedirs(d, exist_ok=True)
+                json.dump(dict(base, **over), open(os.path.join(d, "transcript.json"), "w"))
+                open(os.path.join(d, "REPORT.md"), "w").write("all good")
+                return d
+
+            # M10a — ONE SEAT, TWO JOURNEYS, ONE SHA. The `87c7aae` SHAPE, synthesised.
+            # ⚠️ The shape is real; the LABEL "(the 87c7aae shape)" in the plan is wrong and struck —
+            # at `87c7aae` every failure has a later clean run in its own cell, so the real corpus
+            # PASSES. Here the failing J8 has NO retry, which is what makes it able to go red.
+            mkrun("mom", "R1", journey="J0", lens="mom")
+            mkrun("mom", "R2", journey="J8", lens="mom", failedActions=["click:#x"])
+            cs = {}
+            for seat in seats():
+                for run in runs_for(seat):
+                    d = os.path.join(W, seat, run)
+                    u = unit_of(d)
+                    if u:
+                        cs.setdefault(u, []).append(judge(d, "a" * 7))
+            bit = len(cs) == 2 and ("J0", "mom") in cs and ("J8", "mom") in cs
+            print("  %s M10a one seat walking two journeys at one sha → TWO cells, not one"
+                  % ("✅" if bit else "🔴")); ok &= bit
+            bit = cs[("J8", "mom")][0]["no-failed-actions"][0] is False and \
+                  cs[("J0", "mom")][0]["no-failed-actions"][0] is True
+            print("  %s M10a' … and the failing journey goes RED while the clean one stays green "
+                  "(under the old seat key the clean run hid it)" % ("✅" if bit else "🔴")); ok &= bit
+
+            # M10b — THE BACKFILL. ⛔ A bare `J1` or `J2` must FAIL this clause.
+            j, src = journey_of(dict(base, fresh=True))
+            b1 = (j == "J1-legacy" and src == "backfilled")
+            j, src = journey_of(dict(base, fresh=False))
+            b2 = (j == "J-returning-legacy" and src == "backfilled")
+            j, src = journey_of(dict(base, fresh=False, journeyEntered="J3"))
+            b3 = (j == "J3" and src == "door-measured")
+            j, src = journey_of(dict(base, journey="J8", journeyEntered="J3"))
+            b4 = (j == "J8" and src == "recorded")
+            print("  %s M10b backfill: fresh→J1-legacy · not-fresh→J-returning-legacy · door→its own "
+                  "answer · recorded wins" % ("✅" if (b1 and b2 and b3 and b4) else "🔴"))
+            ok &= (b1 and b2 and b3 and b4)
+            bit = journey_of(dict(base, fresh=False))[0] not in ("J2", "J4")
+            print("  %s M10b' a bare J2/J4 is NEVER inferred — three journeys collapse into one "
+                  "unreadable bucket and the record must not pretend otherwise" % ("✅" if bit else "🔴"))
+            ok &= bit
+
+            # M10c — a backfilled cell can satisfy NO declared cell.
+            bit = is_legacy("J1-legacy") and is_legacy("J-returning-legacy") and not is_legacy("J3")
+            print("  %s M10c a BACKFILLED cell is excluded from declared-cell coverage"
+                  % ("✅" if bit else "🔴")); ok &= bit
+
+            # ═══ T2 · M11a/b — `instrumented` RE-KEYED ════════════════════════════════════════════
+            d = mkrun("strict", "R1", journey="J0", lens="strict")
+            json.dump({"app": {"events": 0}}, open(os.path.join(d, "capture.json"), "w"))
+            st, det = judge(d, "a" * 7)["instrumented"]
+            bit = st is None and "UNCHECKABLE" in det and "T10" in det
+            print("  %s M11a with NO declared profile, zero events reads ⬜ UNCHECKABLE naming the "
+                  "reason — never the 🔴-forever it used to print" % ("✅" if bit else "🔴")); ok &= bit
+
+            d2 = mkrun("strict", "R2", journey="J0", lens="strict")
+            open(os.path.join(d2, "capture.json"), "w").write("{not json")
+            st, _ = judge(d2, "a" * 7)["instrumented"]
+            bit = st is None
+            print("  %s M11b an unreadable capture.json still reads ⬜ on any profile"
+                  % ("✅" if bit else "🔴")); ok &= bit
+        finally:
+            WALKS = _saved
 
     print("\n%s selftest" % ("✅" if ok else "🔴"))
     return 0 if ok else 1
