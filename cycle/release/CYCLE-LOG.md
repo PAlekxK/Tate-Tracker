@@ -5073,3 +5073,60 @@ single-lens run would have fired SUSPECT HARNESS on one ordinary failure — **t
 thing it exists to catch.** ⭐ **M23g is `walk-notes`' M14g again** — no sentinel for unreadable input, so two
 unknowns cannot compare equal and be reported as a shared cause — and **M23f carries T9's privacy discipline into
 a different reader**, which is what *must-not-diverge* looks like when it is working.
+
+### ⛔⛔ T11's RULED FALSIFIER IS HALF-STRUCK — and PAUL'S OWN RULING DECIDES IT, so nothing goes to him
+
+**T10 landed** (`7e498a82`, journey-walk **93/93**, all suites green, five verdicts unchanged, corpus frozen —
+**14 of 24**). Before building T11 the build window raised that its ruled falsifier cannot be met honestly.
+**Verified here on an independent count, and it is right.**
+
+**The falsifier says:** `--from 12912b9 --to 87c7aae` → **J0 MAY CARRY**, because *"J0's 36 actions contain
+neither `/api/session` nor `/api/recover`."*
+
+| measured | |
+|---|---|
+| `/api/` literals in **J0's** entry | **0** |
+| `/api/` literals across **all seven** journeys | **0** |
+| any transcript key naming requests / routes / network | **NONE** — only `httpFailures`, and only **failures** |
+
+⛔ **So *"its actions contain neither route"* is TRUE OF EVERY JOURNEY BY CONSTRUCTION and discriminates
+nothing.** A T11 keyed on it would let **J0, J3 and J8 all carry on ANY Worker change** — **fail-OPEN**, in the
+step whose whole job is deciding **what NOT to test.** ⛔ **And journey→routes cannot be derived at all:** the
+action lists name no routes and **the record logs only FAILED requests, never the set a walk actually made.** A
+routes list today would be **a guess wearing a declaration's clothes** — which is why T10 correctly left them
+`None`.
+
+#### ⚖️ THE RULING, AND IT IS PAUL'S ALREADY — DEEP-CHECK #3 IN ITS MOST USEFUL FORM
+
+**P17 ruled: *T11 ships FULL and FAIL-CLOSED.*** The falsifier's *MAY CARRY* on a Worker change **requires
+fail-OPEN behaviour.** ⛔ **They are in direct contradiction, and a RULING outranks a seat's expectation** — the
+precedence rule written into `SIZING` this morning: *§A is the authority on HOW a step is built; §13's RULINGS
+are the authority on WHETHER.* **So the first half is STRUCK on Paul's own word, and nothing is put to him.**
+
+✅ **AND THE FALSIFIER'S PURPOSE SURVIVES INTACT, which is the test that matters.** Its discriminating clause is
+*"if J0 carries at BOTH, it is reading files, not routes."* Measured:
+
+- `12912b9..87c7aae` touches `CYCLE-LOG.md` · `cycle-state.json` · `release-gate.py` · `worker/worker.js` —
+  **no served page, one Worker change** → **UNSCOPED** (fail-closed).
+- `d7d6c9f..12912b9` moves **`viewer.html` AND `engine/viewer.template.html`**, and J0 declares `/viewer` →
+  **MUST RE-RUN.**
+
+⭐ **J0 does not carry at EITHER, so the files-vs-routes discrimination is preserved and demonstrated.** What is
+lost is **the word "CARRY" at one sha** — and producing it would require asserting that J0 does not touch
+`/api/session`, **which nothing in the record supports and which is probably FALSE**, since J0 is the founding
+journey and signing up almost certainly hits the session route.
+
+⛔ **The build window refused to build toward an expectation meetable only by guessing — and named it as the T21
+strike arriving at T11.** That is the right reading: **a known-answer test corrupting the build it certifies**,
+and here the guess would be in the **fail-OPEN** direction. **Recorded as PARTIALLY MET with both halves named.**
+
+#### TWO MORE FROM T10, both already fixed in its commit
+
+- ⛔ **THE PLAN'S STATED JUSTIFICATION FOR T2 IS FALSE.** It reads *"strict's J0 is the refusal walk, its
+  `instrumented` is 🔴 forever BY CONSTRUCTION."* **Measured: J0's zero-event runs span FOUR lenses, and `strict`
+  has both zero and non-zero J0 runs.** ⭐ **T2's implementation stands; its reason does not** — and declaring
+  `expectsAppEvents: False` on that basis **would have made four other lenses' honest zeros read GREEN.**
+- ⭐ **A COERCION BUG IN ITS OWN T2 CODE:** `bool(entry["expectsAppEvents"])` turned a declared **`None`
+  (UNKNOWN)** into **`False` (MUST land no events)** — **the opposite claim.** It surfaced the moment a journey
+  declared `None`. **Left in, a future J4 run landing zero events would have printed ✅** — *a false green
+  produced by a type coercion, inside the clause built to remove that exact equivalence.*
