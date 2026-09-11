@@ -258,3 +258,69 @@ Paul to coordination by message; you never gate him yourself.
 correct TIER 2 · 22 once probed · regenerate the two-lap queue from `--ladder` when lap 8's shape is known, never retyped.
 **Paul has now RULED all fifteen of the revamp plan's §13 questions as recommended** (`f51d8530`) — those consequences are
 register material once lap 8 opens; wait for my message rather than pre-filing them.
+
+
+---
+
+## 12. STATE AT CLOSE — 2026-09-11 · the standing backlog window `[closed on Paul's word: "close all the windows out when they're done with their work… do that as work actually concludes, don't force it"]`
+
+**Two commits, `BACKLOG.md` only, `--only` both times, nothing pushed.**
+
+### What I carried
+
+**`31f806c6` — TIER 1 · 60–69, the lap-7 register carries.** §10.A's twelve chronicle lines read in context and filed as
+rows rather than restated: `60` `check-telemetry.py` has no `--env` (EMIT side only; `read-glance-order.py --env qa` is the
+reader of record at a candidate) · `61` the three named A/H deviations · `62` two lab-fixture facts for `walk-fixtures.py`'s
+row · `63` six cross-seat findings, with the box-only founding path flagged as needing a **ruling** · `64` two record shapes
+for `ranked` and the renderer's bare-id fragility · `65` the device-noun copy slot + the post-sign-out marker · `66` lap 7's
+qa fixture estates named, the KEEP list, and the three things lap 7 left explicitly not done · `67` **Mom's feedback PARKED**
+· `68` the UR-§7c legibility row.
+
+**`09661e38` — § PW · PAUL'S WALK (PW1–PW11), TIER 1 · 70, and TIER 1 · 69 struck.**
+
+### ⛔ Three things a successor must NOT assume
+
+1. **`PW3`–`PW6`'s ids are MINE, not the lane's.** The chronicle numbers `W1`, `W2` and `W7`–`W11` and then says *"W1–W6,
+   the six base-level findings"* without numbering the middle four. The content is transcribed exactly; **the labels are an
+   inference and the section says so on its face.** If the lane meant a different order, move the labels, not the content.
+   The `PW*` prefix itself **is** ruled (coordination, on this window's collision finding) — `W0`…`W11` are live Track A ids.
+2. ⛔⛔ **TIER 1 · 67 DOES NOT CLEAR MOM'S CHANNEL, and must never be read as though it does.** Parking is a decision about
+   **when**, not a disposition. `check-arrival-dispositions.py` keys on **(channel, record id)** and nothing but opening the
+   record supplies one; **neither record has been opened by anyone.** The watermark has not moved and **the checker will keep
+   flagging both arrivals — that is it working, not a fault to repair.** The cost is on the row's face: she gets no return leg
+   while the stability work runs, and Paul chose that knowingly. Her words stay in `.private/`; the row carries counts, ids
+   and dates only.
+3. **TIER 1 · 69 is CLOSED, and it is kept struck for its lesson, not its content.** I verified a live `CLAUDE.md`
+   self-contradiction, wrote the row, and `eea77381` struck the offending paragraph **in the gap between my verification and
+   my commit** — so the row shipped at `31f806c6` describing a defect that was already fixed. **The brief's "half-life of
+   about an hour" for a `file:line` measured under ten minutes** with three windows committing on one tree. ⭐ **Re-read the
+   file you are citing immediately before the commit, not only before the edit.** I applied it to the second commit.
+
+### Queued, deliberately NOT started `[coordination's call; I agree with it]`
+
+- **The rest of §10.C's nine findings** — UR-§5 is folded into TIER 1 · 64 and SEC-R3-4's standing rule is recorded in the PW
+  section, but **UR-§7a** (Mom's protected phrase in two vintages on one account), **SIZ-0c** (the recorder writes
+  `transcript.answers` from the fixture regardless of typing → row T · T9), **SIZ-T18** (W2's handler registered only inside
+  `showFrontDoor()`) and **MP-0** (the reading tier is inherited from the global settings file; no Fernwood check reads it)
+  are **unfiled**.
+- **TIER 2 · 22's correction** — §10.C says three of its four items are done (the J3 fixture, field notes, the bare door) and
+  only `urlBefore` is open, which is T7. ⚠️ **I did not verify the three.** Probe before editing the row.
+- **The two-lap queue regeneration** — ⛔ **correctly blocked: lap 8's shape is not known.** Regenerating now would bake in a
+  guess, and the section's own rule is *derive it from `--ladder`, never retype it.*
+- **My §9 owes, still standing:** the distinct-`questionId` count (TIER 1 · 59, filed — what is owed is *running* it, after
+  the lap-8 window closes) · the zones window's four register edits to TIER 2 · 7 · the PRODUCTIZE census · the `#card-told`
+  cut, routed to content.
+
+### Measured this session, for whoever picks up
+
+- `check-backlog-ready.py` exits **1**, and **not because of anything in `BACKLOG.md`** — every complaint is a `.plans/`
+  header on two files other lanes landed mid-session (`2026-09-11-lap8-build-PLAN.md`, `2026-09-11-testing-revamp-PLAN.md`:
+  missing `row:`/`objective:`/`class:`/`stage:`/`seats:` and the four required sections; the revamp plan's `depends-on:` is an
+  annotated path, which the checker reads as a path that does not exist — the brief's blind spot 5, live).
+- `check-backlog-drift.py`: **rested**, 0 d. The third rationalization is applied; no grooming is owed.
+- **Escape `|` inside code spans in table cells** — `(r && r.label) \|\| r` and `stored \|\| DEFAULT_SIZE` silently split
+  their rows into seven cells until escaped. Nothing in the repo checks table integrity; I checked by script.
+- **HEAD moved at least eight times** during this window (`d0016be` → `670eec3` → `de0bd28` → `ed39af4` → `da7e770` →
+  `eea7738` → `31f806c` → `e73d509` → `09661e3`). Both commits used the abort guard and `--only`; neither swept another
+  lane's staged work.
+
