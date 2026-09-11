@@ -4599,3 +4599,32 @@ vocabulary. The re-audit and ux-expert both argued Q0 **in step ids**. ⭐ **His
 every gate is question · recommendation · alternatives — and a question he cannot parse is not a question.**
 The same applies to Q9/Q10/Q11: each is a real engineering choice stated in the vocabulary of the seat that
 raised it. **They are re-asked when they can be asked in his terms, or they are not asked.**
+
+### ⭐⭐ A STANDING INSTRUCTION FOR EVERY GATE FROM HERE: THE DEEP RUN `[paul-stated 2026-09-11]`
+
+> *"You just keep nudging it along and, whenever we get back to a place where you need to run things by me, do a
+> deep run and see if the recommendations have shifted or anything like that."*
+
+⛔ **A recommendation is not carried to a gate. It is RE-EARNED at the gate.** Between a seat writing one and
+Paul reading it, the tree moves, rulings land, and the thing it was measured against changes — **and every one
+of those happened today, more than once.**
+
+**The deep run is six checks, and each one exists because it FIRED on 2026-09-11. It is pre-registered here,
+before the next gate's subject is known, so it cannot be shaped to its answer.**
+
+| # | check | the instance that earned it |
+|---|---|---|
+| **1** | ⭐ **RE-MEASURE every number in the recommendation.** Not re-read — re-run | **Q6 was DISCHARGED by measurement** and withdrawn from his list without his word; B1/B2/B3 had already landed |
+| **2** | ⛔ **Test the recommendation's own premise, and test it by a path the author did not use** | T21's *"the gate must refuse `87c7aae`"* was **arithmetically false**; three passes at F1 each corrected the last, and **the two wrong answers both came from reading a branch and reasoning forward** |
+| **3** | ⛔ **Check whether it has ALREADY BEEN RULED** | SIZING §G put **all six** of its *"what Paul must still rule"* items to a man who had ruled every one of them |
+| **4** | ⭐ **Check whether it is still the RIGHT QUESTION** | the door rows' eleven questions were live at 11:15 and **ruled off the lap by 12:00** — *"let's not add anything to the lap"* |
+| **5** | ⛔⛔ **Check it is in PAUL'S VOCABULARY, not the seat's** | *"I don't know what A11 is"* · *"I don't know what the new ones really mean."* **A question he cannot parse is not a question** |
+| **6** | ⚠️ **Re-cite every `file:line` at the CURRENT HEAD, immediately before presenting** | a `file:line` half-life measured **under ten minutes** with three windows on one tree |
+
+⭐ **And the falsifier for the deep run itself, so it does not become ceremony:** *if three consecutive deep runs
+change nothing about the recommendations they check, it is over-built and should collapse to checks 3 and 5* —
+the two that caught real waste today at essentially zero cost. ⛔ **Read that from the record at the third run,
+not by argument.**
+
+⚠️ **What it is NOT:** a re-commissioning of the seats. The artifacts stand; the deep run re-verifies **their
+conclusions against the world at the moment of the gate**, and it is coordination's own work, not a new round.
