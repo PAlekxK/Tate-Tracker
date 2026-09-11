@@ -8197,7 +8197,7 @@ document.querySelectorAll(".main-card-header").forEach(h => {
     syncCardHeaderState(card);
     releaseCardBodyCap(card);
     if (card.classList.contains("expanded") && typeof MetricsCollector !== "undefined") {
-      MetricsCollector.track("card_expanded", { cardId: card.id || "", via: "header" });
+      MetricsCollector.track("card_expanded", { cardId: card.id || "", via: "header", pos: cardPos(card), orderSource: cardOrderSource() });
     }
   }
 
@@ -15009,7 +15009,13 @@ function renderPlantList() {
   if (activeFilter !== "all") plantsToShow = plantsNeedingCare(activeFilter);
   { const el = document.getElementById("plant-list"); if (el) el.innerHTML = plantsToShow.map(renderPlantCard).join(""); }  // C7 0a
   document.querySelectorAll(".plant-head").forEach(head => {
-    head.addEventListener("click", () => head.parentElement.classList.toggle("expanded"));
+    head.addEventListener("click", () => {
+      const plantEl = head.parentElement;
+      const opened = plantEl.classList.toggle("expanded");
+      // C3 — a DEPTH-2 open (a plant inside the Plants card), so it is NOT card_expanded: pooling it into
+      // the .main-card denominator would corrupt the one number G1–G6 exist to compute (§2 A3).
+      if (opened && typeof MetricsCollector !== "undefined") MetricsCollector.track("plant_expanded", { plantId: plantEl.dataset.id || "", via: "plant-head" });
+    });
   });
 }
 
@@ -18023,7 +18029,7 @@ function expandCard(id, source, subtab) {
   // Only a real closed→open transition counts, so a caller landing on an
   // already-open card cannot inflate the count.
   if (!wasExpanded && typeof MetricsCollector !== "undefined") {
-    MetricsCollector.track("card_expanded", { cardId: card.id || "", via: source || "programmatic" });
+    MetricsCollector.track("card_expanded", { cardId: card.id || "", via: source || "programmatic", pos: cardPos(card), orderSource: cardOrderSource() });
   }
   // Land on the named room, not just the building. Clicks the real tab control
   // rather than re-implementing the switch, so whatever that control does —
@@ -18570,6 +18576,9 @@ function renderEmptyCards() {
     const top = document.querySelector('.main-card[data-module="' + READER_RANKING[0] + '"]');
     if (top && moduleState(READER_RANKING[0]) === "empty" && !document.body.dataset.rankedOpened) {
       top.classList.add("expanded"); document.body.dataset.rankedOpened = "1";
+      // C2 — an AUTO open, named as one: the reading is `opens where via ∉ auto-*`. Pooling this with a
+      // human tap would make every new household look engaged on arrival.
+      if (typeof MetricsCollector !== "undefined") MetricsCollector.track("card_expanded", { cardId: top.id || "", via: "auto-ranked-empty", pos: cardPos(top), orderSource: cardOrderSource() });
       top.querySelectorAll(".main-card-summary").forEach(s => { s.textContent = ""; });   // "Nothing here yet." twice (wide-eyed, round 9)
     }
   }
@@ -18760,6 +18769,9 @@ function renderHouseholdFirstScreen() {
         ? 'A box number is where your post goes, not where your place is \u2014 so there\u2019s no weather, and nothing about what grows there, to work out yet. Add where it is when you can, and it lands here.'
         : 'We\u2019re working out your weather and what grows here from this address \u2014 it lands on this card as it comes in.';
       body.innerHTML = '<div class="prop-lead">' + line + '</div>';
+      if (!prop.classList.contains("expanded") && typeof MetricsCollector !== "undefined") {
+        MetricsCollector.track("card_expanded", { cardId: prop.id || "", via: "auto-unplaced", pos: cardPos(prop), orderSource: cardOrderSource() });   // C2
+      }
       prop.classList.add("expanded");
     }
     prop.style.display = "";
@@ -18774,6 +18786,11 @@ function renderHouseholdFirstScreen() {
   const lookBack = document.getElementById("ui-history-link");
   if (notes) notes.style.display = n ? "" : "none";
   if (lookBack) lookBack.style.display = n ? "" : "none";
+  // C5 (G4) — cards created or reordered here need an exposure denominator, or their open rate is
+  // uncomputable and reads as disinterest. observe() on an already-observed card is a no-op.
+  if (typeof MetricsViewObserver !== "undefined") { try { MetricsViewObserver.observeCards(); } catch (e) {} }
+  // C1 (G6) — the order is final here (orderCardsByRanking ran at the top of renderEmptyCards).
+  try { emitCardOrderServed(); } catch (e) {}
 }
 
 function renderDashboardStrip() {
@@ -20342,6 +20359,39 @@ const MetricsCollector = (function () {
 // IntersectionObserver-based "did the user actually see this?" signals.
 // Throttled to one event per (cardId|entryId) per session.
 
+// ⭐ G6 / G2 (lap 7 row C, 2026-09-10) — THE SERVED ORDER ENTERS THE RECORD, and every open and every
+// exposure carries its POSITION. `.plans/2026-09-07-glance-measurement-procedure.md` §5.1: without `pos`
+// the position confound is not merely unresolved, it is not reconstructable after the fact, because the
+// order is dynamic. One helper, called where the code already emits.
+function cardPos(el) {
+  // ordinal of this card among every .main-card in DOM order AT THIS INSTANT — null when it is not one
+  if (!el) return null;
+  const all = Array.from(document.querySelectorAll(".main-card"));
+  const i = all.indexOf(el);
+  return i < 0 ? null : i;
+}
+function cardOrderSource() {
+  // "declared" — the person ranked modules at onboarding and orderCardsByRanking() applied it ·
+  // "default" — no ranking, the authored order · "dynamic" — an adaptive order (D9), NOT SHIPPED;
+  // the value is pre-registered so records from that lap pool with these. [Q2/Q3, paul-ruled 2026-09-10]
+  return (typeof READER_RANKING !== "undefined" && READER_RANKING.length) ? "declared" : "default";
+}
+// ⛔ ONCE PER SESSION, AT RENDER — NOT ON session_start [Q2]. `session_start` fires at script-evaluation
+// time before any .main-card exists; moving it into INIT would delete the signal that a build which
+// throws at INIT still reports a session (the 09-06 corpse). So this is a SECOND event on the same
+// sessionId, and a session carrying `session_start` with no `card_order_served` IS the corpse signal —
+// visible in the record instead of absent from it. Emitted from renderEmptyCards() once the ranking
+// has been applied (the order is final there); the observer-wiring site is the fallback only for a
+// household with NO ranking, whose order never moves.
+let cardOrderServedEmitted = false;
+function emitCardOrderServed() {
+  if (cardOrderServedEmitted || typeof MetricsCollector === "undefined") return;
+  const order = Array.from(document.querySelectorAll(".main-card")).map(c => c.id || c.dataset.module || "?");
+  if (!order.length) return;
+  cardOrderServedEmitted = true;
+  MetricsCollector.track("card_order_served", { order, orderSource: cardOrderSource() });
+}
+
 const MetricsViewObserver = (function () {
   const viewedCards = new Set();
   const viewedEntries = new Set();
@@ -20353,7 +20403,12 @@ const MetricsViewObserver = (function () {
       if (!cardId || viewedCards.has(cardId)) return;
       viewedCards.add(cardId);
       if (typeof MetricsCollector !== "undefined") {
-        MetricsCollector.track("card_section_viewed", { cardId });
+        // `openAtFirstExposure`: the card was ALREADY OPEN when first seen (born open — renderAskNext —
+        // or auto-expanded before it scrolled in). A born-open card never transitions, so it emits no
+        // card_expanded; faking one would be a lie in the record. This flag is how the reader tells
+        // "opened by a person" from "was open when they got there".
+        MetricsCollector.track("card_section_viewed", { cardId, pos: cardPos(entry.target),
+          orderSource: cardOrderSource(), openAtFirstExposure: entry.target.classList.contains("expanded") });
       }
     });
   }, { threshold: 0.5 });
@@ -21230,6 +21285,7 @@ async function fnSaveInlineEntry(text, opts) {
   const card = document.getElementById("card-fieldnotes");
   if (card && !card.classList.contains("expanded")) {
     card.classList.add("expanded");
+    if (typeof MetricsCollector !== "undefined") MetricsCollector.track("card_expanded", { cardId: card.id, via: "auto-after-save", pos: cardPos(card), orderSource: cardOrderSource() });   // C2
     if (typeof syncCardHeaderState === "function") syncCardHeaderState(card);
   }
   renderFieldNotes();
@@ -21275,6 +21331,7 @@ async function fnSaveObservationOnPlant(text, speciesId, speciesName) {
   const card = document.getElementById("card-fieldnotes");
   if (card && !card.classList.contains("expanded")) {
     card.classList.add("expanded");
+    if (typeof MetricsCollector !== "undefined") MetricsCollector.track("card_expanded", { cardId: card.id, via: "auto-after-guru-save", pos: cardPos(card), orderSource: cardOrderSource() });   // C2
     if (typeof syncCardHeaderState === "function") syncCardHeaderState(card);
   }
   renderFieldNotes();
@@ -23244,6 +23301,9 @@ UnifiedInput.init();
 if (typeof MetricsViewObserver !== "undefined") {
   MetricsViewObserver.observeCards();
   MetricsViewObserver.observeSections();
+  // C1 fallback — a household with NO ranking has an order that never moves, so it is final here too.
+  // With a ranking, the emit waits for renderEmptyCards(); if that never runs the absence is the signal.
+  if (typeof READER_RANKING === "undefined" || !READER_RANKING.length) { try { emitCardOrderServed(); } catch (e) {} }
 }
 
 // Render the Today at Fernwood glance last — after MetricsCollector is defined —
@@ -23273,7 +23333,7 @@ function toggleMpMaster(forceOpen, source) {
   if (word) word.textContent = collapse ? "Open" : "Close";
   var head = m.querySelector(".mp-head-toggle");
   if (head) head.setAttribute("aria-expanded", String(!collapse));
-  if (changed) mpTrack("mp_envelope_toggled", { collapsed: collapse, source: source || "header" });
+  if (changed) mpTrack("mp_envelope_toggled", { collapsed: collapse, source: source || "header", pos: cardPos(m), orderSource: cardOrderSource() });
 }
 (function () {
   // ⭐ ONE ENGINE, ONE VERDICT (2026-08-04). This handler used to COPY expandCard's
