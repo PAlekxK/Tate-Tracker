@@ -2589,3 +2589,19 @@ engineering-partner build plan (`0c5be6b`, 58 steps, order D→C→B→A holds; 
 `check-storage-keys.py` — `fw-journal-name` undeclared). Five recommended amendments to the commitment and seven
 questions are in the plan's §9; **the commitment is Paul's, so the amendments are put to him, not applied.** The
 build window does not open until he has read the plan.
+
+### Beat 6 · AMENDED — the build plan's eight questions, ruled `[paul-ruled 2026-09-10 ~10:58 PM ET: "yes to all"]`
+
+| # | ruling |
+|---|---|
+| Q1 | email **display-only** this lap; the editor is lap 8, named *not in this build* on the release note |
+| Q2 | row C's wording is *recorded once per session*; the build emits **`card_order_served` at render time**, not on `session_start` — a session with `session_start` and no order is the 09-06 corpse signal and stays visible |
+| Q3 | **G2 (`pos` + `orderSource`) joins row C** — unretrofittable once a dynamic order ships |
+| Q4 | a recovery request is written as a **`feedback`-class record labelled `account-recovery`, outcome only**; `watch-feedback.py` is its reader; no new channel |
+| Q5 | **L7-P4 (post-deploy compares the `worker.js` blob) is IN this lap** — supersedes TIER 1 · 32's *"not this lap"*, because lap 7 deploys a Worker change |
+| Q6 | the UX-sweep artifact convention (L7-P2) and the gate's content clause (L7-P3) land as **one step** |
+| Q7 | **`myhome-paul` becomes THE production origin.** `fernwood-home`'s one account row migrates into it at lap 8 — a MIGRATION with a verified copy, never a delete; the release note promises nothing about `home` |
+| Q8 | **P3 edit 1 (the brief carries L1 into the walk) is built in this window** — the design's own two-lap rule fired |
+
+The build plan `.plans/2026-09-10-lap7-build-PLAN.md` is now the ratified plan for the build window; its brief is
+`handoff/handoff-lap7-build.md`. Rows frozen at the pull: TIER 1 · 45 · 42 · 26 · 27 · 28 · 29 · 30 · 43 · 44 · 32 · 23 · TIER 2 · 10 · 13 · 18.
