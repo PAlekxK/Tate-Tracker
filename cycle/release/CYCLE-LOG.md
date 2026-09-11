@@ -3522,3 +3522,18 @@ door), TIER 1 · 19 (founding from the shelf), the lap-8 plan's §10 design-clos
    local state (sign-out clears identity keys, not the place name). A stale-state leak of a dead household's name.
 4. ⚠️ The hidden *Create your account* region still carries **"You've been invited."** — invite-era copy under the open door.
 Also: *"How should Paul reach you?" → Please don't → "Then he won't…"* (B16) is present and reads as confirmed.
+
+### Paul at the walk, on the testing itself `[paul-stated 2026-09-11 09:30 EDT, in the revamp window]`
+
+*"The testing that I'm doing right now is a good indicator that we're not testing the right things… I'm finding pretty
+base-level issues… it's important that we try to simulate the user journey as well — do we open it in a Chrome that's signed
+into a profile, rather than just these sterile Chromes… let's make sure we're testing the actual user journeys that we're
+building out and also trying to simulate what the user's actual experience is going to be rather than making it too
+sterile so it's not realistic."* **Measured (revamp window):** `journey-view.py:54-73` launches a fresh Playwright Chromium
+context per run at 414×848@3x — no persistent profile, no saved credentials, nothing sets the stored text size (hers is lg),
+and **no WebKit is installed — Mom's actual Safari has never been walked once.** **Reading, agreed by coordination:** "not too
+sterile" is a property of the ARRIVAL on the credential axis (profile: clean · returning-device · signed-in-desktop; engine:
+chromium · webkit; text size: default · A+), declared per cell at beat 6 — not a fourth fixture, not a second harness.
+**Evidence in one row:** W1–W6 (the six base-level findings above) were found by a real person on a non-sterile Chrome — a
+profile carrying a dead grant and a dead place name — within twenty minutes; the sterile battery's 15 of 15 clean could not
+see any of them. Routed to the revamp window by id for the audit's §2 and the plan.
