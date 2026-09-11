@@ -3021,3 +3021,7 @@ small-lap-9 shape is the window's recommendation for his confirmation at lap 9's
 8's critical path** — `GET /api/feedback` and the zones read use `dateKey(scopeOf(env))`, the deployment's scope; `scopeFor()`
 exists and is unused there — into the lap-8 plan's call-site conversion by symbol at the re-audit. The plan's §12·12 asks
 beat 3's exit condition to gain two ask lines — a CYCLE-MAP edit and **Paul's**, queued with §13.
+
+**The deviceId-beside-personId write → LAP 8** `[paul-ruled 2026-09-11 ~3:35 AM ET: "folded in with lap eight, just to be
+clear"]` — not lap 7. It rides with the call-site conversion (lap 8 · A2) and TIER 1 · 54's two deployment-scope reads as
+one feedback-path pass; the build lane verifies the write site before the fix. Lap 7's candidate is unchanged.
