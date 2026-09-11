@@ -569,6 +569,16 @@ noun in prose — `viewer.html` carries **115 mentions of vehicle engines**. *(T
 meanings, one key, one repo. **Not fixed by promoting the vocabulary**; it awaits a migration
 decision, and `module` will need to name sets across both, which is exactly that seam.
 
+## 🌐 THE ENVIRONMENT MODEL → `VOCABULARY.md` §3i `[paul-ruled 2026-09-10 — "we keep saying this"]`
+
+**Three environments: `lab` (dev) · `qa` (testing) · `production` — ONE, with every household a ROW
+inside it.** Mom's, Paul's, Bob's: all in production. `paul` / `home` / `bob` in `wrangler.toml` and
+`pages-deploy.py --env` are **deployments**, an interim of the deployment-per-household model that
+is being reversed (nigel, aida, bob torn down) — **never call one an environment.** `legacy` is the
+frozen first Fernwood, a data control. Paul has ruled this more than once because the tooling's
+`--env <person>` flag re-teaches the wrong model at every deploy; read §3i before writing "production"
+or "environment" anywhere, and before scoping anything that touches where a household lives.
+
 ## 📋 Canonical backlog → `BACKLOG.md`
 
 **Live status for every Fernwood thread lives in `BACKLOG.md` (repo root) — read status there, not from the dated "Pickup point" log below (that log is historical, not current status).**

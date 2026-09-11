@@ -2545,3 +2545,13 @@ precondition. **Forwarded to the backlog window** to carry on rows 41/46 — the
 
 **Still his:** which deployment is his working model (`paul` vs `home`) — the environments walkthrough was
 put to him at this open, with a recommendation.
+
+### Beat 6 · THE ENVIRONMENT MODEL, restated by Paul with emphasis `[paul-ruled 2026-09-10 ~10:15 PM ET]`
+
+*"We keep saying this… we should have lab, which is dev; QA for testing; and production — and everyone's house is
+within production."* Written to **`VOCABULARY.md` §3i** (supersedes §3h's table where it put `home` in the
+environment column) with a pointer in `CLAUDE.md`. Consequences for this lap: row D is worded as *production's
+app reaches production's Worker at the deployment that exists*, and the build plan must say what `home`'s one
+account row becomes when production collapses to one origin at lap 8 (a MIGRATION, never a delete). **The one
+decision left his:** which standing deployment becomes THE production origin — recommendation `myhome-paul`.
+The working-model question is the same question and is retired in its favour.

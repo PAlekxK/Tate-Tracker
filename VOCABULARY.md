@@ -411,6 +411,59 @@ and timestamp intact), never re-disposed. **Any future env rename must sweep tha
 
 ---
 
+## 3i · THE ENVIRONMENT MODEL — THREE, AND HOUSEHOLDS ARE NOT AMONG THEM `[paul-ruled 2026-09-10, restated with emphasis]`
+
+⛔ **§3h above is SUPERSEDED where its table puts a HOUSEHOLD in the environment column.** Its `prod`
+row named `home` (`est-e6696a`) as *the product being built*; three days later `paul` (`est-d93508`)
+and `bob` (`est-9a74df`) had been minted as sibling deployments, and every session since has read the
+five labels in `wrangler.toml` as five environments. **They are not.** Paul, 2026-09-10, after being
+asked the same question again:
+
+> *"We keep saying this, right? We should have lab, which is dev; QA for testing; and production — and
+> everyone's house is within production. Mom's is in production, Paul's is in production, Bob is in
+> production. That's how it will be. I'm the only one that's actually set up in production. We've
+> talked about this multiple times, so I really want to make sure that we close out this
+> environments misunderstanding."*
+
+| environment | what it is | today's deployment(s) that stand in for it |
+|---|---|---|
+| **`lab`** (= dev) | where a build is made and first exercised; the harness and the security lab | `fernwood-lab` · `est-lab0001` |
+| **`qa`** | testing — the candidate the seats walk and Paul reviews before release | `fernwood-qa` · `est-qa0001` |
+| **`production`** | **ONE.** Every household is a **row** inside it — Mom's, Paul's, Bob's, the next person's | ⚠️ **two deployments today**, each holding one household: `myhome-paul` (`est-d93508`, Paul set up) and `fernwood-home` (`est-e6696a`, Mom's account, no house founded). `myhome-bob` torn down 2026-09-10 |
+| *(`legacy`)* | 🧊 the frozen first Fernwood, Mom's live app until she moves — a **data control**, not an environment of the product | top-level `fernwood` · `est-3c9f1a` |
+
+⭐ **Why it keeps being re-asked, and the fix is in the tooling, not in another paragraph.**
+`tools/pages-deploy.py` takes `--env paul|home|bob|qa|lab` and keeps a set literally named
+`HOUSEHOLD = {"bob","paul","home","qa"}`; `wrangler.toml` has one `[env.*]` block per household. **A
+tool whose flag is `--env` and whose values are people's names teaches every reader that a household
+is an environment.** That is the leak: the record can say the right thing and the command line
+re-teaches the wrong one at every deploy. *A name a human reads and a value a machine stores are
+renamed on two clocks* (§3h) — so the labels retire when the deployments collapse, not before.
+
+**What follows, in order:**
+1. **Vocabulary, now:** *environment* names exactly `lab` · `qa` · `production`. A `paul`/`home`/`bob`
+   label is a **deployment**, an interim artifact of deployment-per-household, and is never called an
+   environment in prose. `legacy` is a data control.
+2. **Lap 7 (this lap):** row D — production's app must reach production's Worker. It is fixed at the
+   deployments that exist (`myhome-paul`), and the build plan says so in these words, not as "extend
+   the per-household map".
+3. **Lap 8:** the single-origin sign-in door (TIER 1 · 46) is the act that makes production ONE:
+   estate-as-row, `scopeFor(request)` at every call site, one sign-in routing to every house held. **At
+   that point `fernwood-home`'s single account row migrates into production as a row and the
+   deployment retires** — the same class of act as the `bob` teardown, with one real credential
+   inside it, so it is a MIGRATION with a verified copy, never a delete.
+4. ⚠️ **One decision is his and is not yet made:** *which of the two standing deployments becomes THE
+   production origin* (the other migrates into it). Coordination's recommendation: `myhome-paul` — he
+   is set up there, it is the one real household with a founded house, and `home` holds one account
+   with no house yet. The name `myhome-paul` is wrong for a production origin and follows the unruled
+   product-name plan; the name is a label and moves on its own clock.
+
+**Falsifier:** a session or a tool that lists more than three environments of the product, or calls a
+person's deployment an environment, is out of vocabulary — `check-vocabulary.py` should flag
+`--env <person>` the day the labels retire.
+
+---
+
 ## 4 · ⭐⭐ WORDS WE ARE NOT USING, AND WHY
 
 **This is the most valuable section in the document, and it is ratified with the rest.** A glossary that only says what words mean gets
