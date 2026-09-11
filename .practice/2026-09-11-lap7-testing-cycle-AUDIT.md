@@ -525,3 +525,44 @@ filed sweep reads green in the state file without a hand edit.
   set nowhere a file could record it.
 - **§1a's clock** — untouched. Coordination has since recorded the rule (memory
   `feedback_stamp_the_record_from_the_machine_clock`); this section is stamped from `date` for that reason.
+
+### 8h · ⭐⭐ PAUL'S OWN WALK AT `87c7aae` — §2's column answered by a real person in twenty minutes `[appended 2026-09-11 09:31:53 -0400 from `date` · HEAD 180e6f97]`
+
+§2 asked of every stop *"could a cheaper instrument have found it?"* Beat 9 answered it from the other
+direction: **six base-level findings in ~7 minutes of a real person's walk (09:23–09:30 by git,
+`d216e044` → `180e6f97`), on a build the sterile battery had just passed 15 of 15 clean.** Source:
+`CYCLE-LOG.md` § "Paul's walk" (steps 1 · 1b · 2 · tab two), ids W1–W6 as coordination numbered them.
+
+| id | finding | class | why no seat could see it | the cheaper instrument |
+|---|---|---|---|---|
+| **W1** | reload after sign-out lands on the COLD door, not sign-in; B13's signed-out lede never renders | design → **RULED** *"the account is always the first layer"* `[paul-ruled 09:24]`; D7/B2 superseded | no journey walks *sign-out → reload*; J8 signs out then goes to a cold door **by its own action list**, so the behaviour scored as expected | a design rule, now ruled; then a single returning-device walk asserting the lede |
+| **W2** | 🔴 *"Never set one up? Create your account ›"* on the sign-in screen **loops to the top of the same screen** (`href="#"`, region stays hidden) — a never-set-up person arriving at sign-in has **no path to an account** | **product defect**; beat-10 candidate, Paul rules | **no journey reaches the link**: J3/J8 arrive signed-up, J0 enters via the door's button, which works | ⭐ **a static check**: every `href="#"` control must change the visible region — no browser needed |
+| **W3** | the recovery button reads *"Sending…"* after the receipt rendered | state-after-action | the walk asserts the receipt, not the button's label after it | a post-action assertion in one J8 stop |
+| **W4** | the masthead shows the torn-down household's name (*"Homey"*) on the signed-out sign-in screen — place name survives sign-out in local state | stale-state leak | **a sterile context has no stale state to leak** — this is unfindable by construction in a fresh profile | a *returning-device* arrival (§ brief 1e) — one walk |
+| **W5** | the hidden create-account region still says *"You've been invited."* | invite-era copy | the region is never revealed on any journey (W2 is why) | the same static check as W2, then the content read |
+| **W6** | *"Sign out of this phone"* / *"on any phone"* — the device noun on a laptop | copy | every walk emulates a phone, so the noun was true for every seat | a desktop-profile arrival, or content read with the device axis declared |
+
+**What this settles for §2 and §5:**
+- ⭐ **Four of six (W1, W3, W4, W5) are one class: state the walk was never in.** W4 is the sharpest — a
+  sterile browser *cannot* carry a dead place name, so no number of sterile walks would ever find it. This
+  is the measured case for the *arrival-state* axis (profile · engine · text size) coordination and this
+  window agreed today, and it is not a fixture and not a second harness: it is one more declared property
+  of a journey's entry, exactly where Q1 put the credential.
+- ⭐ **W2 is a static check that costs zero browser minutes**, and it would have found W5 for free.
+  §5's table gains it: **M7 — every `href="#"` control changes the visible region**, mutation-proven
+  (point one at a hidden region and the check must go red). Not ruled; engineering-partner sizes it.
+- ⛔ **The 15/15 clean at `87c7aae` is not contradicted by W1–W6 — it is scoped by them.** The battery
+  certified the journeys it declared, in the state it declared, and did so correctly. What it could not
+  say was *which states it had not entered*, which is the (journey, lens) matrix's coverage print (Q7)
+  extended by one axis. §7's verdict stands; its *"do not cap testing volume"* is strengthened, because
+  the missing walks are ones nobody ran, not ones run too often.
+- ⚠️ **Paul's first claim — *"we're not testing the right things"* — is now evidenced, not asserted**, and
+  the evidence points at **which states**, not which journeys: five of the six were on journeys the
+  battery walks (sign-out, sign-in, recovery), entered from a state it never holds.
+
+**Rider, in this file's own lane (§1a applied to its extender):** while writing §8 the revamp window
+authored *"~9:40"*, *"~10:00"*, *"~10:05"* stamps into its readback from a running estimate; `date`
+read **09:30:42** at the moment the text said *~10:05* — **35 minutes ahead, the same signature as
+§1a, in the window that had just read §1a.** Corrected from git in the readback; every stamp in §8 was
+already from `date`. The finding is not that agents estimate badly; it is that **an agent without a
+clock will write a time anyway**, and the only defence is a rule with a command in it.
