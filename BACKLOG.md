@@ -87,7 +87,7 @@ most of Mom's machinery IS engine (the ask → fold → acknowledge path is shar
 **Paul:** *"line up a couple of different things for the next few builds to just take from the backlog… what
 we're close on, what questions we need to answer, what we need to explore."* **This section is a POINTER
 LIST derived from `python3 tools/check-backlog-ready.py --ladder`** (④, applied at `ed3a943` on Paul's
-word) **at `4766cc3` — regenerate it, never retype it.** The audit's finding is that the register is
+word) **at `0c5be6b` — regenerate it, never retype it.** The audit's finding is that the register is
 duplicated, not derived; a queue typed here by hand would be a third home for the same facts. The pick is
 **beat 6, Paul's, and no instrument is built for it.** Order within a rung is alphabetical.
 
@@ -96,6 +96,7 @@ duplicated, not derived; a queue typed here by hand would be a third home for th
 | rung | items | what moves them |
 |---|---|---|
 | **READY, stamped, nothing owed** | *(none)* — ⚠️ **the ladder first put C7 condo paper model here and was wrong**: its header said `ready` while its own stage-notes record the falsifier build held 09-03, the 414×A+ read passed, and Paul's 09-04 read fixes shipped to staging; the `paul` deployment IS that condo. A derived view is only as honest as the field it reads — header corrected 2026-09-10. What C7 still owes is Paul's: Midtown elevation source · the condo's estate id · the Guru prompt's owner · the AI-boundary third path (ai-advisor) · a retro | — |
+| ⭐ **COMMITTED BY RULING** — the top rung, read from the chronicle's beat-6 tables of OPEN laps `[paul-ruled 2026-09-10 ~11:00 PM ET, on the refinement window's recommendation]` | **lap 7:** D the Worker map (TIER 1 · 45/42) · C G6 telemetry (TIER 2 · 10) · B the account lifecycle (TIER 2 · 18) · A the applied founding-flow design (no row cited on the table; TIER 1 · 26/27 by the log's prose) · E the teardown (process) | the lap's build plan — **`.plans/2026-09-10-lap7-build-PLAN.md` exists**, the build window pulls it; E waits on its report, not a plan |
 | **in flight behind gate ①** | C4 environments · C6 door for Paul · C7 condo paper model (link promoted → READY 2026-09-10 on the checker's read) · Guru retrieval (`build`) · onboarding (`qa`) | they exit by being WALKED and cleared, not by being picked |
 | **stamped at `concept`, a design pass owed** | capture write path (TIER 2 · 8, zones' co-requisite) · derived first draft (TIER 2 · 9) · weather card | concept → design; each a session with its declared seats |
 | **`design`, stamped for the stage** | zones (TIER 2 · 7) | its own window (`handoff/handoff-zones-session.md`); the stage gate to build is a sha on QA, and G1 holds features until met |
@@ -104,7 +105,7 @@ duplicated, not derived; a queue typed here by hand would be a third home for th
 
 *The refinement window's afternoon recommendation (lap 7 = the capture-write-path design pass + INVITE & JOIN scoping; lap 8 = the derived-first-draft pass, or zones v1) was **OVERRULED at beat 6.*** **Paul's pick is in his own words in `cycle/release/CYCLE-LOG.md` § Lap 7 · Beat 6 (`b57ca71`, `5c66e38`) — cited, never restated here:** **lap 7** = D the Worker map (TIER 1 · 45) → C G6 telemetry (TIER 2 · 10/13) → B the account lifecycle (TIER 2 · 18) → A the applied founding-flow design (TIER 1 · 26/27), with E the teardown as a process row · **lap 8** = the single-origin sign-in door (TIER 1 · 41/46). Zones' design work runs beside both in its own window and is not a lap slot.
 
-⛔ **The falsifier below FIRED on the first lap it met** `[measured 2026-09-10 by the refinement window at `4766cc3`]`: every one of those picks is a `BACKLOG.md` row with **no plan file**, so none sits on a rung above — the ladder derives from `.plans` headers, and Paul commits rows. The missing rung is *committed by ruling*, read from the chronicle's beat-6 tables. Adding it is a tool edit **put to Paul** (his call; recommendation: add it), not typed here — a rung typed by hand would be the third home for the same facts that the audit warned of.
+⛔ **The falsifier below FIRED on the first lap it met** `[measured 2026-09-10 by the refinement window at `4766cc3`]`: every one of those picks is a `BACKLOG.md` row with **no plan file**, so none sits on a rung above — the ladder derives from `.plans` headers, and Paul commits rows. The missing rung was *committed by ruling*, read from the chronicle's beat-6 tables. ✅ **ADDED on his go the same night** (`check-backlog-ready.py` `committed_rung()`, seven selftest clauses; a lap is open by its `<!-- outcome:open -->` marker, never its heading — lap 5's heading still says OPEN). The table's first row above is that rung's snapshot; the chronicle stays the source and nothing here is typed from memory.
 
 **Falsifier:** a beat-6 pick that is not on this list means the ladder is missing a rung or this snapshot is
 stale — regenerate before arguing.
@@ -286,7 +287,7 @@ Paul's read** (the AI boundary: anything reaching her is human-confirmed).*
 | **32** | 🧪 **`post-deploy.py` MATCHES THE CONTAINER, NOT THE PAYLOAD** — the coordinator's finding, measured at the condo deploy 2026-09-10, verbatim: *"`post-deploy.py` reads 🔴 'worker build_sha d7b642e is not the sha this deploy expected (318416a)' while the deployed `worker.js` is byte-identical to `318416a`. `deploy-worker.sh` stamps `BUILD_SHA` from HEAD at deploy time, not from the candidate; `post-deploy.py` compares the two strings. So a register-only commit between candidate and deploy turns the check red with nothing wrong, and (worse) a Worker deployed from a HEAD whose `worker.js` differs from the candidate would read GREEN if the stamps happened to match."* **Both failure directions in one instrument** — a false red on register churn (this evening: 40+ register commits between candidate and deploy) and a false green on the case it exists for. **Fix shape (coordinator's):** stamp the `worker.js` blob hash (`git hash-object worker/worker.js`) beside `BUILD_SHA` and have `post-deploy.py` compare blobs. ⛔ **Not this lap — the next candidate's tooling.** The board's ⑤ class: a control correct about its own question and wrong about the one it is trusted for. | `tools/deploy-worker.sh` · `tools/post-deploy.py` | *(placed as forwarded; a finding, not a status)* |
 | **33** | 🔴 **`est-e6696a` now holds TWO published places — run `check-canon-scope.py --deep` before any digest for it.** user-researcher, verbatim: *"Her Fernwood record and Paul's Grant Park records share one estateId, the rank-election collision that tool names, and at most one of them can be right."* ⛔ A real estate, Mom's. The tool that names this class (`check-canon-scope.py`) exists; nothing has run it for `home` since her signup. **↳ measured 2026-09-10 ~10:05 PM ET at `5c66e38` (lap 7 beat 1 by the coordination window; re-run by the refinement window):** `check-canon-scope.py --env home --deep` reads **1 placed row, 1 distinct place name, canon 'Fernwood'**; the 🔴 3 needles (Fernwood · Jasper · Church Mountain) are a self-match, not a leak. **The premise above — two published places under `est-e6696a` — is not what the store reads tonight.** user-researcher's words stand as forwarded; the premise is ROUTED BACK to that seat with one question: which store or moment produced the two-places reading (`home` at her 12:24 PM signup vs tonight)? Until it answers, this row is a question to the seat, not a 🔴 on the estate. ⚠️ Not quietly fixed past: `check-canon-scope.py --deep` at `home` before any digest there stays the rule. | `home` · `tools/check-canon-scope.py` · `tools/publish-digest.py` | *(forwarded from `.plans/2026-09-10-mom-onboarding-answers-FINDINGS.md` §4; Paul's to look at — it decides whose place `home`'s Guru speaks for)* |
 | **34** | 🟠 **Confirm the 09-10 `home` arrival was geocoded (`verified: false` at capture).** *"`read-geocodes` / `watch-accounts` for `p-nezjzeaotlk`; an address with no coordinates SHOUTS, and she is the one household that must be placed."* | `tools/read-geocodes.py` · `tools/watch-accounts.py` | *(forwarded from `.plans/2026-09-10-mom-onboarding-answers-FINDINGS.md` §4)* |
-| **35** | 🧭 **Rule the `garden` label with her ranking on the record.** *"Gardening vs Growing things now has the make-or-break user ranking it first under the current wording."* ⛔ **Paul's ruling** — the interests-label scope (board ①) now has her evidence. | `onboarding/index.html` INTERESTS · `.plans/2026-09-10-interests-as-activities-PROPOSAL.md` | *(forwarded from `.plans/2026-09-10-mom-onboarding-answers-FINDINGS.md` §4)* |
+| **35** | 🧭 **Rule the `garden` label with her ranking on the record.** *"Gardening vs Growing things now has the make-or-break user ranking it first under the current wording."* ⛔ **Paul's ruling** — the interests-label scope (board ①) now has her evidence. **§7's product question ANSWERED** `[paul-stated 2026-09-10 ~11:00 PM ET]`: houseplants is **not** absorbed into the garden module by widening the label — it is its own module-with-overlap, research owed: § 🪴 HOUSEPLANTS (THEMES). *"Gardening"* stays. | `onboarding/index.html` INTERESTS · → PLAN · .plans/2026-09-10-interests-as-activities-PROPOSAL.md | *(forwarded from `.plans/2026-09-10-mom-onboarding-answers-FINDINGS.md` §4)* |
 | **36** | 🏷 **Stamp every ranking with the wording it was captured under.** *"Rewording s5 changes what a ranking means; hers becomes incomparable to every later one unless the wording rides with the record."* | `onboarding/index.html` s5 · the feedback record's `context` | *(forwarded from `.plans/2026-09-10-mom-onboarding-answers-FINDINGS.md` §4; engine, small)* |
 | **37** | 📡 **`/api/onboarding-metrics` has no GET, so the position-vs-preference series has no reader.** *"The code records each item's position; nothing reads it back, and the sweep carries only tapped ids."* Same class as TIER 1 · 19's *found* event with no reader — an event with no reader is not instrumentation. | `worker/worker.js` · `tools/watch-door.py` | *(forwarded from `.plans/2026-09-10-mom-onboarding-answers-FINDINGS.md` §4; joins TIER 2 · 13 the telemetry census)* |
 | **38** | 👁 **Record what a person was SHOWN at s5, not only what they tapped.** *"Six ranked ids cannot distinguish six of six from six of eleven, so no declined-interest reading is possible today."* | `onboarding/index.html` s5 | *(forwarded from `.plans/2026-09-10-mom-onboarding-answers-FINDINGS.md` §4; pairs with 36 and 37)* |
@@ -747,6 +748,39 @@ because it is *easiest for the person*, not because it collects more — a VIN p
 does not add one. Any design here that increases total asking has failed the lens.
 
 ---
+
+## 🪴 HOUSEPLANTS — a module with OVERLAP, not a label; deep research owed `[paul-stated 2026-09-10 ~11:00 PM ET]` ⚙️ engine
+
+**Answers the one product question in `.plans/2026-09-10-interests-as-activities-PROPOSAL.md` §7** — *does
+"Houseplants!" fold into the garden module?* — **No.** It is not absorbed by widening a label; *"Gardening"* stays
+(board ①, ruled). His words, voice-dictated, verbatim:
+
+> *"houseplants will be a lot like gardening, but there's probably… that's an item in the backlog that we need to do
+> some research on. But with indoor plants, it's gonna be more about remembering to water them because there's no
+> rain. It's gonna be about identifying the plants and helping determine how much light they want. And, ideally,
+> based on the direction of the windows of the house, I'll identify which positions should work for it. And obviously
+> identifying the plant and then taking in what kind of soil materials and additives that someone has to propose
+> potting mixes. Reminders for watering, support for pests. There is definitely gonna be a lot of overlap with
+> gardening, but also some specifics that are probably worth a little deep research on."*
+>
+> *"To me, with houseplants, they're not native generally, and it's always helpful to know kind of what's their native
+> environment, where do they thrive. I find that very interesting. What's a jungle plant versus a desert plant, and I
+> think that helps make the care make more sense as well."*
+
+**The shape he named, as a list and nothing more** (a research brief's inputs, not a design): watering reminders,
+because there is no rain · identification · how much light a plant wants · **positions derived from the house's
+window directions** · soil materials and additives a person has → proposed potting mixes · pests · ⭐ **native
+environment as the lens** — jungle plant versus desert plant — *"helps make the care make more sense."*
+
+**Status: a RESEARCH item, not a build, and no seat is assigned yet.** ⚠️ The evidence base is **n=1 and the 1 is
+Paul** — `onboard-interests-other-atz6kh` is his own condo account's *"Houseplants!"* (the proposal's own §7
+correction), and `feedback-dispositions.json` ruled that record *a twelfth interest, not a module request*. His word
+tonight amends that: still not a build, but a named research ask. **What the research must settle before this earns a
+row with a plan pointer:** which of the specifics above the garden module's care calendar cannot express (light ·
+position · potting mix · native environment), and what a Fernwood-at-a-condo would ask its person on day one.
+**Falsifier:** if the research finds nothing houseplant-specific beyond the garden module's calendar, it folds into
+gardening after all and this section closes as a label question. *(Filed under THEMES from the start, per the 09-08
+rule; written by the refinement window in its own voice, his words marked.)*
 
 ## 🤝 INVITE & JOIN — a second person in an existing house `[paul-stated 2026-09-10]` ⚙️ engine
 
