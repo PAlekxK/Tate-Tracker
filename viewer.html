@@ -7307,32 +7307,38 @@
 // custom domain, a local file — talks to production. One predicate, three
 // endpoints below derive from it, and a visible title marker so a QA tab can
 // never be mistaken for the live one. Plan: .plans/2026-09-03-c4-environments-PLAN.md § 3b.
-// ⛔ NAMED HOSTS, NOT A SUFFIX TEST (2026-09-04). This was `/\.pages\.dev$/` — a BINARY
-// predicate — so the day a second preview project existed, every one of its page loads would
-// have talked to the QA Worker and written under QA's estate id. With QA becoming the estate
-// Mom sets up, that is her data. A new preview host must FAIL CLOSED, never inherit a
-// neighbour's Worker. Non-preview origins (GitHub Pages, a custom domain, a local file) are
-// untouched and still resolve to production.
-const PAGES_WORKERS = {
-  "fernwood-qa":   "https://fernwood-qa.paul-kirschenbauer.workers.dev",
-  "fernwood-lab":  "https://fernwood-lab.paul-kirschenbauer.workers.dev",
-  "fernwood-home": "https://fernwood-home.paul-kirschenbauer.workers.dev",
-};
-// ⚠️ `fernwood-home` is MAPPED BUT NOT YET SERVED THIS FILE (2026-09-05). The home origin carries the
-// onboarding page only; this viewer is NOT in its deploy. The row is here because the map failing
-// closed on a declared environment is a latent defect, not a safety feature — but read the hazard it
-// arms before you put this file on that origin: every *_DATA const in this build is FERNWOOD's canon,
-// while WORKER_BASE would resolve to the home Worker, whose binding is `est-e6696a`. That renders
-// another place's plants, elevation and fleet to a reader at her own address, and writes her
-// observations into her silo under Fernwood's frame. **The viewer must read its instance from the
-// deployment before it is served here** (C4 5b's shrink target is exactly this work).
+// ⛔ DERIVED, NOT ENUMERATED (lap 7 row D, 2026-09-10) — and that is a tenancy decision, not a
+// tidiness one. This block was an enumerated map `{ "fernwood-qa": …, "fernwood-lab": …,
+// "fernwood-home": … }` whose KEYS spelled household names in the bytes every household was served,
+// and whose ROWS had to be added by hand per deployment — so the condo's app (`myhome-paul`) had no
+// row, resolved WORKER_BASE to "", and printed "Saved ✓" against a relative URL that 404'd on the
+// Pages origin (TIER 1 · 45; Paul's own note sat in the outbox). The other four household pages
+// (estate/ · homes/ · onboarding/ · settings/) already derive the Worker from the host label; this
+// brings the fifth surface into line.
+//
+// THE 09-04 FAIL-CLOSED RULE SURVIVES — "a new preview host must FAIL CLOSED, never inherit a
+// neighbour's Worker." Its threat is INHERITANCE: one household's page writing into another's store.
+// Derivation is injective: label X resolves to Worker X and to nothing else, so it cannot produce a
+// neighbour's Worker under any input. An unknown label resolves to a hostname that does not exist →
+// the fetch throws → `res.ok` is false → the outbox keeps the words. Same end state the empty string
+// produced, minus the 405 against the Pages origin. A Pages BRANCH ALIAS host is
+// `<branch>.<project>.pages.dev`, so its label is the branch, which has no Worker — branch previews
+// have no backend. True of the other four pages today; written down so it stops being surprising.
+// Non-preview origins (GitHub Pages, a custom domain, a local file) are untouched: Mom's Fernwood.
+//
+// WHICH APP IS SERVED AT A HOUSEHOLD ORIGIN — this used to be the hazard note here, and it has been
+// false since 2026-09-06: `tools/pages-deploy.py` builds each household's viewer.html from
+// `instance/<env>.json` and REFUSES a household origin that has none ("Falling back to the tracked
+// viewer.html would ship another household's app"). The tracked viewer.html is Fernwood's build and
+// is never served to a household. So a household origin reaching its own Worker renders its own
+// instance, not Fernwood's canon.
 const PAGES_LABEL = /\.pages\.dev$/.test(location.hostname) ? location.hostname.split(".")[0] : null;
 const IS_PREVIEW_ORIGIN = PAGES_LABEL !== null;
-const PREVIEW_KNOWN = IS_PREVIEW_ORIGIN && Object.hasOwn(PAGES_WORKERS, PAGES_LABEL);
-// An unrecognised preview host gets "" — every API call then resolves RELATIVE to the Pages
-// origin and 404s. It cannot reach any Worker, so it cannot write into any estate.
+// PREVIEW_KNOWN now means "the label is well-formed", not "the label is in a list" — the name is
+// kept because the operator tab marker below reads it.
+const PREVIEW_KNOWN = IS_PREVIEW_ORIGIN && /^[a-z0-9-]{2,40}$/.test(PAGES_LABEL);
 const WORKER_BASE = IS_PREVIEW_ORIGIN
-  ? (PREVIEW_KNOWN ? PAGES_WORKERS[PAGES_LABEL] : "")
+  ? (PREVIEW_KNOWN ? "https://" + PAGES_LABEL + ".paul-kirschenbauer.workers.dev" : "")
   : "https://fernwood.paul-kirschenbauer.workers.dev";
 
 // ⛔ AN ENVIRONMENT NAME NEVER REACHES A READER (content-steward, 2026-09-04 — the same rule
