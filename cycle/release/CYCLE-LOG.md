@@ -3339,3 +3339,28 @@ from sha-to-sha to the ROUND: first battery = full coverage (the declared cell l
 to one run-through, carried-forward cells and their proof named. **Coverage is the invariant; battery size is not.** Brief
 §1d; the revamp window's monitoring trail files beside the audit under `.practice/`; read-only on the harness tools runs to
 lap 8's close.
+
+### Lap 7 · the reading seats — one STOP verdict, ruled `[paul-ruled 2026-09-11 ~9:35 AM ET: "Record it; proceed at 87c7aae."]`
+
+Four of five seats read (handover writing); twelve reports at `87c7aae`, superseded instrument-failed runs left with their
+marker; `walk-integrity` counts the read runs and refuses the duplicates. **Verdicts:** mom 3/3 · strict 3/3 · wide-eyed 3/3
+*nothing should stop* · owner J0 *nothing should stop* · **owner J3 and J8: "SOMETHING SHOULD STOP THE RELEASE"** — a
+returning owner's ranking renders as raw keys (*1. garden 2. motor-pool 3. equipment*) on the estate page and in the app's
+*What you told me* card, where the fresh founding walk on the same build renders labels; the seat's bar: *nothing I typed
+comes back altered.* **Measured:** `/api/session` for owner@qa returns `ranked: ["garden","motor-pool","equipment"]` — bare
+ids, the shape an older fixture path wrote; mom@qa and handover@qa return `[{id,label,soon}…]`; **BOTH real households'
+account rows hold ranked as OBJECTS** (home: marguerite · paul: pkirsch — read from the store, outcome only). So no real
+person today would meet the raw keys; the durable owner fixture is a pre-lap-6 record shape. The renderer does
+`(r && r.label) || r` — a two-line fix (map a bare id to its module label; same on `estate/index.html`), but served bytes →
+candidate 4 → a fourth battery. **Ruled: RECORD it, proceed at `87c7aae`** — a register row (the older record shape + the
+renderer's bare-id fragility; the fix rides lap 8's feedback-path pass); Paul's walk founds a throwaway tonight, which writes
+objects; **the seat's stop verdict stays on the table at his clear, printed in the gate's own output.**
+
+**Six cross-seat findings, none a stop, QUEUED FOR THE REGISTER:** the account page shows USERNAME "—" for every returning
+seat (three seats independently) — a token arrival never stores `fw-username` and `whoami` returns none by its own
+minimal-disclosure rule, so the person's own page cannot say who they are · *How to reach you* missing from the receipt rows
+until a sign-in stores the preference locally · the same ranked choices carry two wordings on two screens (TIER 1 · 36) ·
+mom typed her unit into the street line and was then offered *Add an apartment or unit number ›* (the closure's rule keys on
+the unit field being empty — reads as "you missed a box") · strict: a box-only household has no founding path while the app
+holds a box place with *Add where it is* — **a ruling** · every seat notes L13's reset is unexercised and says so rather than
+scoring it.
