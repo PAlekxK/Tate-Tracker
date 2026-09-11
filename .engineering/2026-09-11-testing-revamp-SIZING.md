@@ -255,6 +255,18 @@ Two ordering constraints are hard; everything else is convenience.
 - **change** — when **N of N lenses on one journey** fail the **same** assertion, with **zero page errors**, print `⛔ SUSPECT HARNESS — <journey> failed <assertion> on <n>/<n> lenses; zero page errors. Fix the action list, not the product.` Computable only once T1 lands; that is why it sits here.
 - **why** — `[audit §3b, §2]` `expect:.hh-utility` failed **5 of 5** J8 walks, one action each, zero page errors — **and nothing in the loop reads that signature**. It cost **11 of battery C's 22 walks** for a fault one walk showed.
 - ⚠️ **It PRINTS; it does not stop the battery.** M4 proposes stopping at seat 2 — that is a change to how the battery runs and belongs to the pilot-walk question (S8) which is unruled and Paul's. The gate may name the signature without acquiring the authority to halt. ⭐ **Naming it is most of the value**: the 11 wasted walks were not wasted because nothing stopped them, they were wasted because nobody read the pattern.
+- ⛔⛔ **READ `failedActions[]`, AND THE FIELD PATH IS NAMED HERE BECAUSE ITS ABSENCE ALREADY COST A DERIVATION.**
+  `[measured 2026-09-11, build window + coordination]` This step described a BEHAVIOUR and named no field, and the
+  build window's first derivation reached for **`steps[].ok`** — which **does not exist**: **0 of 283 transcripts
+  carry a `steps` key**, `journey-walk.py` contains the string zero times, and no stop has an `ok`. The record's
+  action list is **`stops[]`** (3,551 entries) and failures are **`failedActions[]`, a list of STRINGS** — which is
+  what `release-gate.py:139` already reads, so **the corrected predicate is the gate's own.**
+  ⭐ **Why this belongs in the spec rather than being left to the implementer: T17 is a detector whose whole job
+  is catching a harness that is lying.** Built against an absent field it finds zero identical failures **forever**
+  and prints silence — **a permanent false-green in the control that exists to catch false greens.** ⭐ The
+  normalisation needs no change: it already operates on strings, which is what `failedActions[]` holds.
+  ⚠️ **NOT a strike — this step never specified the wrong field, it specified none.** An under-specified detector
+  and a wrongly-specified one fail the same way.
 - **CHECK** — `M23a` a synthetic corpus with 5 lenses failing one identical assertion and zero page errors prints SUSPECT HARNESS. `M23b` the same 5 failing **different** assertions does not. `M23c` 5 identical failures **with** page errors does not (that is a product fault).
 - **MOVES CANDIDATE:** no. · **lands:** S10 (M4, T-d). · **size: 1 h**
 
@@ -303,7 +315,7 @@ Two ordering constraints are hard; everything else is convenience.
 | arrival state | T14 · T15 · T16 | **5.0** |
 | independents | T17 · T18 · T19 · T20 | **4.5** |
 | acceptance | T21 | **1.0** |
-| **ROW T, WHOLE** | **21 steps** | **≈ 28 h** |
+| **ROW T, WHOLE** | ⛔ ~~**21 steps**~~ **24 steps** — T0–T23 **incl. T3b**; T22/T23 are **UNCONDITIONAL** (`PLAN` §13 **P8**) | **≈ 28 h** + **1 h** (T22/T23) |
 
 Plus **0.25 h** to draft the CYCLE-MAP edit (§B), which Paul makes. **⛔ Hours are for planning, not for cutting** — `[paul-ruled 2026-09-11]` *"I'd rather not split it up unless there's a really good reason to do it — that's not just time and effort."* Section D answers the split question on structure, not on this number.
 
