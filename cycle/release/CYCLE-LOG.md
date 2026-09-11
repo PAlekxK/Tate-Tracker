@@ -2880,3 +2880,20 @@ him at paul.kirschenbauer@gmail.com.* Rules riding with it: cut `onboarding:357`
 unkeepable time claim) · a failed POST keeps *"That didn't go through…"* · never rendered into `#si-trouble` (row 31's
 refusal constant) · never reused on the signed-in twin (row 30). **B6 is cleared for the qa deploy once built.** Chain act
 12 for this slot is done: a human confirmed the words before they reach a person.
+
+### Ahead — THE ASK DESIGN opened as its own window; the ask ledger is a lap-8 rider `[paul-ruled 2026-09-11 ~1:50 AM ET: "I say go on both."]`
+
+Coordination's recommendation on *how we handle asking for their feedback*: an owner seat (user-researcher leads; content ·
+ux · security · ai-advisor), a derived ASK LEDGER (every ask the product has made: served · answered as counts · folded into
+what · linked to which feature row — a reader, no model), the A-ASK design pass as its own window producing the ask
+PLAYBOOK with the weather card's intro ask as first template, personalization = the fold of an answer into the household's
+own record attributed by the ribbon, and the per-release reading in the beats that already exist (6 commit · 1 sweep · 2
+dispose · 3 read). Paul: go on both. Window opened from `handoff/handoff-ask-design.md` (⚠️ first written EMPTY at
+`209bf4d` — a heredoc aborted on a backtick — real brief at `ef84c20`; the window was told to re-read). The ledger reader
+is placed on the lap-8 proposal and in the lap-8 build plan as a rider.
+
+**Row B · B16 words landed** (`.content/2026-09-11-recovery-copy-DRAFT.md` §6b): *"Then he won't. It also leaves Paul no
+address to write to, so if you ever forget your username or password, email him at paul.kirschenbauer@gmail.com."* — inline
+on selection into `#contactnone`. ⚠️ **Its falsifier fires today:** onboarding posts `email` regardless of `contactPref`, so
+a typed-then-withdrawn address ships to the row; one-line fix added to B16. `settings/account:104` promises a reply a
+no-contact row cannot receive — fixed under B10. **Open for Paul:** what §3e·R permits when the row holds NO contact value.
