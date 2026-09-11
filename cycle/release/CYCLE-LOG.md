@@ -5309,3 +5309,47 @@ commit.** That is the row's controls catching the row's own work, which is the s
 they are load-bearing rather than decorative.
 
 **Remaining: T22 · T23, then ⛔ STOP before T21 (the acceptance run).**
+
+### ⭐⭐⭐ ROW T IS COMPLETE — 24 of 24 — EVERY VERDICT UNCHANGED, AND THAT IS THE CORRECT RESULT
+
+`d16f8907`. **The acceptance run, verified independently by coordination rather than read from a report.**
+
+| sha | before-image (old gate) | re-run now |
+|---|---|---|
+| `a3beb8d` · `d7d6c9f` · `12912b9` · `bfa3f23` | 🔴 | 🔴 exit 1 |
+| `87c7aae` | 🟡 | 🟡 exit 1 |
+
+⭐ **ZERO changed verdicts means ZERO causes to name — falsifier ③ SATISFIED rather than dodged.**
+
+⭐⭐ **WHAT MOVED IS THE LEGIBILITY, NOT THE JUDGEMENT — and this is the number the whole row exists for:**
+at `87c7aae` the old gate printed **5 seat rows and HID 17 RUNS.** It now prints **15 CELLS, accounts for ALL 22
+RUNS, and names 6 CELLS THAT PASSED ONLY ON RETRY.** ⛔ **The struck expectation was right to strike:** the gate
+does **not** refuse a sha Paul cleared, and building toward a refusal would have meant editing the retry
+semantics T1 preserves on purpose.
+
+**The ruled sequence executed exactly:** acceptance diff → every verdict accounted for → marker removed →
+evidence emitted. ⭐ **And the marker came off because ITS OWN STATED CONDITION WAS DISCHARGED** — it named
+`change-scope.py` not existing and no byte proof, and **both are now false** — **not because a run happened.**
+
+#### ⛔⛔ THE VACUOUS CLAUSE IS RECORDED IN BOTH PLACES, and it was coordination's catch at the gate
+
+**Verified present in the CYCLE-MAP cell AND in the evidence file's §5**, derived from the empty-list state
+rather than typed: **the declared-cell clause is LIVE IN CODE and UNEXERCISED IN FACT.** Zero cell lists filed ⇒
+*"passes on every DECLARED CELL"* is **vacuously satisfied.** ⛔ **Without it the marker's removal would have
+made the map read as FULLY ENFORCED — the exact failure the scope block exists to prevent, landing on the file
+itself.**
+
+#### THE GENERATOR'S THREE CHECKS, PROVEN NOT ASSERTED
+
+- **It REFUSED while the marker stood** (run first, deliberately) — and **the refusal names the condition to
+  discharge** rather than telling anyone to delete a line.
+- **The "does not cover" block is DERIVED** from the same state the gate read.
+- **Redact-then-verify is INSIDE it:** it redacts, **re-scans what it is about to write**, and refuses if
+  anything survived. ✅ **Coordination confirms 0 leak fragments in the written file.**
+
+**NINE SUITES GREEN:** journey-walk 93/93 · journey-view 9/9 · release-gate · walk-integrity 11/11 ·
+release-state 7/7 · walk-notes 19/19 · change-scope 12/12 · check-href-controls 10/10 · tier-ab 9/9.
+**Corpus frozen at 50 runs, byte-identical, UNBROKEN ACROSS ALL 24 STEPS.** `check-release-docs` exit 0.
+
+⛔ **NOT ONE OF THE 24 STEPS MOVED A SERVED PAGE, AN ENGINE FILE OR AN INSTANCE FILE** — so **the first battery
+row T meets is the door's**, exactly as the ruling asked.
