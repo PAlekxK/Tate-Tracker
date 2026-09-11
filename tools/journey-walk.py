@@ -17,6 +17,7 @@ in the same run folder and are joined by the run id, never blended.
 Runs land in `.private/synthetic-walks/<role>/<timestamp>/` — private, because a walk carries the
 walker's invented address and the account's credentials are one file away.
 """
+import hashlib
 import re, time, urllib.request, urllib.error, argparse, datetime as dt, glob, json, os, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -94,6 +95,23 @@ def invitee(role):
 
 
 MINT_OK = ("qa", "lab")  # ⛔ a synthetic may rotate a credential ONLY on our own environments — never a real household's
+
+
+def _shot_digest(path):
+    """→ md5 of a checkpoint's screenshot, or None when it cannot be read.
+
+    ⛔ NONE, NEVER A SENTINEL STRING. Two unreadable shots must not compare EQUAL and so be reported
+    as the same screen — that would manufacture a finding out of a missing file, and the `same-screen`
+    read is only honest when both sides are actually known.
+    ⚠️ md5 is used as a CONTENT ADDRESS here, never as a security primitive: the question is "are
+    these the identical pixels", and a collision is not an adversarial concern for a local PNG."""
+    if not path:
+        return None
+    try:
+        with open(path, "rb") as fh:
+            return hashlib.md5(fh.read()).hexdigest()
+    except OSError:
+        return None
 
 
 def mint_invite(role, env):
@@ -1462,6 +1480,39 @@ def selftest():
     check("a fresh walk spends few enough writes to stay under the limiter", writes <= 6,
           "%d submit clicks — the cap is 20 writes per IP per 5 min, shared by 4 seats" % writes)
 
+    # ═══ T7 · M14 — `same-screen`, AND THE THREE WAYS IT MUST NOT FIRE ═══════════════════════════
+    # ⛔ Proven on the DIGEST helper and the flag's own predicate. The finding is "this tap did not
+    # move the page"; the failure mode is manufacturing that finding out of a missing file.
+    import tempfile as _tf
+    with _tf.TemporaryDirectory() as _td:
+        _a = os.path.join(_td, "a.png"); open(_a, "wb").write(b"PIXELS-A")
+        _b = os.path.join(_td, "b.png"); open(_b, "wb").write(b"PIXELS-A")   # identical content
+        _c = os.path.join(_td, "c.png"); open(_c, "wb").write(b"PIXELS-C")
+        _missing = os.path.join(_td, "nope.png")
+
+        check("T7/M14a identical pixels digest identically",
+              _shot_digest(_a) is not None and _shot_digest(_a) == _shot_digest(_b),
+              "two byte-identical PNGs must share a digest")
+        check("T7/M14b different pixels digest differently", _shot_digest(_a) != _shot_digest(_c),
+              "different bytes must not collide")
+        check("T7/M14c an unreadable shot digests to None, never a sentinel string",
+              _shot_digest(_missing) is None, "a missing file must not become a comparable value")
+
+        def _same(url_before, url, md5, prev):
+            return (bool(url_before) and url_before == url and md5 is not None and md5 == prev)
+
+        check("T7/M14d same URL + identical pixels → same-screen FIRES",
+              _same("/homes/", "/homes/", _shot_digest(_a), _shot_digest(_b)) is True, "the tap did not move the page")
+        check("T7/M14e same URL + DIFFERENT pixels → does not fire (the page changed in place)",
+              _same("/homes/", "/homes/", _shot_digest(_c), _shot_digest(_a)) is False, "the page changed in place")
+        check("T7/M14f different URL + identical pixels → does not fire (it navigated)",
+              _same("/homes/", "/place/", _shot_digest(_a), _shot_digest(_b)) is False, "it navigated")
+        # ⛔ THE ONE THAT MATTERS MOST: two MISSING shots must not read as "the same screen".
+        check("T7/M14g two UNREADABLE shots do NOT fire — a missing file is not evidence of sameness",
+              _same("/homes/", "/homes/", _shot_digest(_missing), _shot_digest(_missing)) is False, "None must never equal None here")
+        check("T7/M14h a null urlBefore (no prior stop) does not fire",
+              _same(None, None, _shot_digest(_a), _shot_digest(_b)) is False, "no prior screen to compare against")
+
     # ⛔ DERIVED, NEVER TYPED `[2026-09-07]`. This read `10 - len(fails), 10` — a HARDCODED total,
     # and it printed "10/10" on the run that added three more checks. A count typed beside the tool
     # that computes it is this repo's most-repeated instrument defect, and here it was inside the
@@ -1782,6 +1833,7 @@ def main():
         failed_all = list(failed_all) + ["pageerror — " + e[len("PAGEERROR:"):].strip()[:160] for e in page_errors]
     seen = {c["stop"]: c for c in got.get("checkpoints") or []}
 
+    _prev_shot_md5 = None       # ⭐ T7 — the previous WALKED stop's pixels, for the same-screen read
     for name in stop_roster:
         if name == "02-account" and not creates_account:
             record["stops"].append({"stop": name, "status": "not-reachable",
@@ -1806,15 +1858,30 @@ def main():
         # transcript and the readers refuse on them there. ⛔ Do not read this literal as a
         # derivation; it was mistaken for one, and a refusal keyed on `"rate-limited"` sat green and
         # unfirable for the life of the harness because of it.
+        # ⭐ T7 — WHERE THE STOP STARTED, AND WHETHER IT MOVED. TIER 2 · 22 ①: `14-shelf-to-place`
+        # was unreadable because two checkpoints carried identical screenshots and nothing recorded
+        # the URL the tap began at. The transcript now carries `urlBefore`, the shot's digest, and a
+        # derived `same-screen` flag when BOTH the URL and the pixels are unchanged.
+        # ⛔ A FACT, NOT A VERDICT. A stop that does not move is often correct — a same-page
+        # disclosure, an inline validation — so this FLAGS and never refuses. It exists so a reader
+        # given only the run folder can say which screen the tap started from.
+        _shot_md5 = _shot_digest(cp.get("shot"))
+        _url_before = cp.get("urlBefore")
+        _same = (bool(_url_before) and _url_before == cp.get("url")
+                 and _shot_md5 is not None and _shot_md5 == _prev_shot_md5)
         record["stops"].append({"stop": name, "status": "walked", "screenId": cp.get("screen"),
                                 "title": cp.get("title"), "shot": cp.get("shot"),
-                                "url": cp.get("url"),
+                                "url": cp.get("url"), "urlBefore": _url_before,
+                                "shotMd5": _shot_md5,
+                                **({"sameScreen": True} if _same else {}),
                                 # the full screen, kept per stop — this is what a later reader
                                 # re-reads with a new question in mind, and what the integrity
                                 # check scans for a stop that reports success over a failure.
                                 "screen": cp.get("text") or [], "fields": cp.get("fields") or [],
                                 "buttons": cp.get("buttons") or []})
-        print("  %-14s  screen=%-4s %s" % (name, cp.get("screen") or "-", cp.get("title") or ""))
+        _prev_shot_md5 = _shot_md5
+        print("  %-14s  screen=%-4s %s%s" % (name, cp.get("screen") or "-", cp.get("title") or "",
+                                             "  ⬜ same-screen" if _same else ""))
 
     # ⭐⭐ THE FIRST SENTENCE, LIFTED TO THE TOP OF THE RECORD. Both real failures at this door were
     # SENTENCES — "This link isn't valid any more" to Mom, "This link isn't working" to Paul — and

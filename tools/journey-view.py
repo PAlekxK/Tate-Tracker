@@ -69,6 +69,8 @@ const cfg = JSON.parse(process.argv[2]);
   const page = await ctx.newPage();
   // A screenshot's entire meaning is its geometry. Recording it here means a later reader can tell
   // what the image is EVIDENCE OF, instead of assuming the standard it was supposed to meet.
+  // ⭐ T7 — the URL as of the last checkpoint, so each checkpoint can record where it STARTED.
+  let lastUrl = null;
   const out = { steps: [], console: [], checkpoints: [], httpFailures: [],
                 geometry: { width: 414, height: 848, deviceScaleFactor: 3, isMobile: true } };
   // A walk that cannot say WHY a write failed cannot attribute it later. Errors only —
@@ -139,6 +141,10 @@ const cfg = JSON.parse(process.argv[2]);
       return { title: document.title, url: location.href, text, fields, buttons,
                screenId: openSection ? openSection.id : null };
     });
+    // ⭐ T7 — seed from the real landing URL, so the FIRST checkpoint's `urlBefore` is the page the
+    // journey arrived on rather than null. A null here would read as "no prior screen", which is
+    // true of the first stop but useless to the reader who wants to know where the walk began.
+    if (lastUrl === null) { try { lastUrl = page.url(); } catch (e) {} }
     for (const act of cfg.actions) {
       try {
         // ⭐ `goto:` CROSSES THE HANDOFF. Every stop until now ended at the last onboarding screen, so
@@ -156,7 +162,15 @@ const cfg = JSON.parse(process.argv[2]);
           const base = cfg.shotDir + '/' + nm;
           await page.screenshot({ path: base + '.png', fullPage: true });
           await page.screenshot({ path: base + '.fold.png', fullPage: false });
-          out.checkpoints.push({ name: nm, screen: sc, shot: base + '.png' });
+          // ⭐ T7 — WHERE THIS STOP STARTED FROM. TIER 2 · 22 ①: `14-shelf-to-place` was unreadable
+          // because two consecutive checkpoints held IDENTICAL screenshots and nothing recorded the
+          // URL the tap began at, so a reader could not tell whether the click had done anything at
+          // all. `urlBefore` is the URL as of the PREVIOUS checkpoint — i.e. before the actions that
+          // led here — so the pair (urlBefore, url) says whether this stop moved.
+          // ⛔ It is the cell's EVIDENCE, not its verdict: a stop that did not move may be perfectly
+          // correct (a same-page disclosure), and this records the fact without judging it.
+          out.checkpoints.push({ name: nm, screen: sc, shot: base + '.png', urlBefore: lastUrl });
+          lastUrl = (sc && sc.url) || lastUrl;
         }
         else if (act.startsWith('goto:')) { await page.goto(act.slice(5), { waitUntil: 'load', timeout: 45000 }); await page.waitForTimeout(1200); }
         else if (act.startsWith('click:')) { await page.click(act.slice(6)); }
