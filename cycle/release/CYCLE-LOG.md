@@ -5176,3 +5176,45 @@ a pass.** Without it, a failing cell plus a *MAY CARRY* verdict would have produ
 disappearing because the code it was in did not move.** ⭐ **And the byte proof is genuinely re-derivable:** the
 printed proof matches `git diff --stat` run by hand over the declared pages, so it is **evidence a reader can
 check rather than a sentence the gate typed.**
+
+### T13 CLOSES THE SCOPE CLUSTER — 17 of 24 — and ⛔ A CORRECTION TO WHAT THE EMPTY CELL LIST ACTUALLY BLOCKS
+
+`587b0ca6` — *rounds: a later battery may be SMALLER, never NARROWER.* T10 → T11 → T12 → T13 complete.
+Invariants green, five verdicts unchanged, corpus frozen.
+
+⭐ **The line the step turns on:** **a smaller round that cannot name its carried cells is A CUT, NOT A ROUND.**
+*"We only re-walked three"* is **a budget decision wearing a coverage claim's clothes** unless every cell not
+re-walked is named **and** carries a machine-derived proof. ⛔ **And a bad carry refuses SEPARATELY from an
+unwalked cell** — different faults (*a coverage claim nobody can honour* vs *a gap*), and collapsing them would
+hide which happened. **It does not quietly demote a bad carry to UNWALKED.**
+
+⭐ **M20b2 is the T11 hole caught before it existed:** `cells: "all"` must mean **the FULL declared list, not an
+empty one.** The difference between *walk everything* and *walk nothing* is **one falsy default** — precisely
+what would have let a journey carry at T11.
+
+#### ⛔ CORRECTION — coordination told Paul the empty cell list BLOCKS THE LAP'S CLOSE. It does not
+
+**Measured:** beat 12's close condition is **undisposed records on a real estate**, not cells. And with **zero
+cells declared** the gate reports **15 of 15 cells passing**, `cells pass: True`. **Nothing mechanically blocks.**
+
+⭐⭐ **THE TRUE VERSION IS STRONGER: AN EMPTY DECLARED LIST MAKES THE RATIFIED EXIT CONDITION VACUOUSLY
+SATISFIED.** It reads *"passes on every DECLARED CELL; a cell with no run is UNWALKED and the gate REFUSES."*
+**Zero declared ⇒ zero can be UNWALKED ⇒ nothing to refuse on.** The matrix prints **UNCHECKABLE with the path
+named** — honest — but **the gate cannot refuse for the reason it was ratified to refuse.**
+
+⭐ **The build window's framing, better than coordination's and adopted:** *the declared list is not paperwork; it
+is the thing that turns "every cell passes" from a statement about whatever happened to run into a statement
+about what we said we would walk.*
+
+#### WHAT GOES TO PAUL WITH THE CELL LIST — three measured inputs, held for the gate
+
+1. ⭐ **Declare `rounds` EXPLICITLY**, even if round 1 is `{"n": 1, "cells": "all"}`. A list with no `rounds` key
+   works and defaults — **but declaring it makes the FIRST round an ACT rather than a default**, and round 2's
+   shape is visible before anyone proposes a smaller battery. *The cheapest moment to establish that a round
+   names its carried cells is before anyone wants a smaller one.*
+2. ⚠️ **A journey declaring `pages=None` CAN NEVER CARRY** — UNSCOPED at T11 by design, so it **re-runs every
+   round forever.** One journey is in that state today. **That may be exactly right; it should be a choice, not a
+   surprise.**
+3. ✅ **DECLARE THE THREE UNENTERABLE CELLS ANYWAY.** J3 and J8 refused for all five seats means they print
+   **UNWALKED and the gate refuses** — **the matrix doing its job**, and strictly better than the pre-T3 state
+   where they were simply **absent**. ⛔ **The fixture repair is what clears them, not a shorter list.**
