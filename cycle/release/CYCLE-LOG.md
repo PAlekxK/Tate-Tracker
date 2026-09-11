@@ -5218,3 +5218,38 @@ about what we said we would walk.*
 3. ✅ **DECLARE THE THREE UNENTERABLE CELLS ANYWAY.** J3 and J8 refused for all five seats means they print
    **UNWALKED and the gate refuses** — **the matrix doing its job**, and strictly better than the pre-T3 state
    where they were simply **absent**. ⛔ **The fixture repair is what clears them, not a shorter list.**
+
+### ⭐ T14 LANDS — THE ONE CONTEXT FACTORY, and the T↔H seam is closed with a clause that keeps it closed
+
+`77630b74`, `journey-view.py` +164. **18 of 24.** Invariants green, five verdicts unchanged, corpus frozen.
+
+**The factory is real and it is GUARDED, not merely extracted:**
+
+- `async function mkContext(browser, cfg, label)` — called as `mkContext(b, cfg, 'primary')`.
+- ⭐⭐ **`M21a` asserts EXACTLY ONE `.newContext(` exists in the file AND that it is inside `mkContext`.** So **a
+  bare `newContext` reappearing anywhere IS the divergence returning, and the selftest catches it** — the guard
+  is wired into the act rather than written in a document.
+- The intent is stated at the point of use: *"Row H needs a SECOND browser context in the same run… H1's second
+  context is built by THIS function."* ⛔ **That was the seam flagged at the lap's open** — *a grown argument
+  object is not a factory*, so H1 would otherwise have to duplicate it, **the parallel path the ruling forbids by
+  name.** Closed.
+
+#### ⭐ THE SEAM'S OTHER HALF — VERIFIED BY RUNNING IT BOTH WAYS, HERE
+
+T14 rewrites the code the **pre-deploy PAGEERROR guard** runs through — the control that stopped a broken build
+reaching an origin after the 09-06 *"four seats walked a corpse"* incident. Coordination ran it directly rather
+than reading the report:
+
+| | |
+|---|---|
+| tracked page | **0 PAGEERRORs** — the preflight runs and returns a number |
+| a page with a deliberate top-level `throw` | **1 PAGEERROR** — ⭐ **THE REFUSAL PATH STILL FIRES** |
+
+⭐ **A control seen only to pass has proven nothing.** The guard survives the rewrite of the function it depends
+on, proven on both legs.
+
+⚪ **A false-absence signal from coordination's own check, named so it is not read as a gap:** `grep 'def
+mkContext'` returned nothing and coordination briefly flagged it — **because the factory is JAVASCRIPT embedded
+in a Python file as a NODEJS string.** The grep assumed the wrong language. ⛔ **Third mis-patterned grep of the
+day producing a false absence, all three coordination's** — the carries file's own rule earning itself again:
+*grep output read for an ABSENCE claim is on the distrust list.*
