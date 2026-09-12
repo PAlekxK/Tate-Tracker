@@ -25,7 +25,78 @@
     "sha": "dbb5262c",
     "sites": 58,
     "functions": 32,
-    "note": "the A0 inventory; `converted` is measured against this number"
+    "note": "the A0 inventory; `converted` is measured against this number",
+    "declared_at": {
+      "sha": "32f7fb71",
+      "date": "2026-09-12",
+      "step": "A4"
+    }
   },
-  "declared": {}
+  "declared": {
+    "doorRateLimitOk": {
+      "count": 1,
+      "reason": "ratelimit · A rate limit is an ABUSE control on the ORIGIN, not a household fact. Scoped per estate it would multiply: one attacker gets N x the budget by naming N households, and under one origin naming a household is free. Correct as the deployment's forever."
+    },
+    "feedbackRateLimitOk": {
+      "count": 1,
+      "reason": "ratelimit · as doorRateLimitOk. ⚠️ It also guards the CREDENTIAL-FREE capture POST, which has no household to scope to even in principle."
+    },
+    "probeRateLimitOk": {
+      "count": 1,
+      "reason": "ratelimit · as doorRateLimitOk. Guards /api/account/available, which is pre-account by construction — there is no estate at the moment it runs."
+    },
+    "recoverRateLimitOk": {
+      "count": 1,
+      "reason": "ratelimit · as doorRateLimitOk. Guards the recovery route, whose whole premise is a person who cannot reach their household; scoping its limiter to that household would be circular."
+    },
+    "storeDoorRecord": {
+      "count": 1,
+      "reason": "door · ⛔ A DOOR RECORD PRECEDES ANY HOUSEHOLD BY CONSTRUCTION. watch-door.py's own rule is that it reports what happened AT a door, never who was standing at it; records carry personId:null and a deviceId is a browser bucket. The reading it exists for is the SILENT case — someone arrived and neither got in nor reported a failure — and that person has no estate to file under by definition."
+    },
+    "handleDoor": {
+      "count": 1,
+      "reason": "door · the read side of storeDoorRecord; same scope or the channel cannot be read back."
+    },
+    "grantFor": {
+      "count": 1,
+      "reason": "grant (LEGACY FALLBACK) · ⛔⛔ THIS ONE IS NOT PERMANENT AND MUST NOT BE READ AS SETTLED. It looks a grant up at keyFor(scopeOf(env),'grant',hash) and then rejects row.estateId !== env.ESTATE_ID, so a foreign grant fails TWICE — wrong namespace, and rejected if it were not. Both halves must change for one deployment to serve many estates, and the LOOKUP is the harder half: a token must resolve WITHOUT already knowing which estate to look in. It is declared here as the CURRENT state with its reason, not as a decision that it stays. It is step A6's object (the grant:<personId>:<estateId> edge), and it is why A3's check cannot pass before the conversion."
+    },
+    "handleChat": {
+      "count": 1,
+      "reason": "chat-budget · a daily model-spend CEILING is a deployment-wide control. Per-estate budget keys would give every household its own ceiling, so the origin's total spend would become unbounded in the number of households — the opposite of what a ceiling is for."
+    }
+  },
+  "_declared_note": [
+    "⛔ DECLARED means: this site STAYS on scopeOf(env) BY DESIGN. It does NOT mean 'not yet converted'.",
+    "A site awaiting a later slice must stay UNCLASSIFIED — declaring it would launder PENDING into",
+    "BY DESIGN, the instrument would read green, and the pass that owed the work would skip it because",
+    "the tool said it was handled. That is 'an unchecked box is not open work' inverted into its more",
+    "dangerous direction: marking open work CLOSED.",
+    "⚠️ `grantFor` is the one row here that is NOT permanent, and it says so in its own reason."
+  ],
+  "_unclassified_note": [
+    "⛔ WHY 24 SITES ARE STILL UNCLASSIFIED, AND WHY THAT IS THE CORRECT READING RATHER THAN UNFINISHED WORK.",
+    "",
+    "B-CACHE — handleAmbient · handleAirNow · handleDrought · handleTodayLine (4). They CONVERT, at step",
+    "A3. Unclassified is right: they are pending, and A3's own check cannot run until the grant lookup",
+    "converts (see the plan's A3 clause).",
+    "",
+    "THE PRE-AUTH CAPTURE PAIR — handleFeedback (2) · handleZoneAudio (4) · handleEstateFound (1). These",
+    "run BEFORE a grant exists by construction, so there is nothing to thread. They are NOT 'deployment-",
+    "scoped by design' — they are UNATTRIBUTABLE BY CONSTRUCTION, which is a different reason and would be",
+    "lost if collapsed into a B-DEPLOY declaration. Measured 2026-09-12: credential-free capture is a",
+    "LEGACY-ONLY affordance (legacy 11/11 credential-free; home 0/17), and legacy keeps its own deployment,",
+    "so nothing is stranded today. It becomes live when Mom moves.",
+    "",
+    "⚠️ fetch(dispatcher) — 13 SITES OF MIXED CLASS IN ONE 'FUNCTION', AND THE REGISTER CANNOT EXPRESS",
+    "THAT. Keyed by enclosing function with a count, a single declaration would cover all thirteen with one",
+    "reason, and they do not share one. Most are the ACCOUNT/SESSION/GRANT layer that steps A6 (the grant",
+    "edge), A9 (the estates array), A11 (the sign-in page) and A13 (/api/account/available) REWRITE — so",
+    "they are PENDING, and declaring them would launder pending into by-design exactly as the note above",
+    "forbids. Three of the thirteen do look genuinely deployment-wide (chat-budget :4241, the obmetrics",
+    "ratelimit :4486, accountFor :4547); they are deliberately NOT declared yet, because classifying a site",
+    "inside a block the door steps are about to rewrite is a guess about code that does not exist.",
+    "⭐ A4 RE-RUNS AFTER THE DOOR STEPS LAND. That is the honest sequence, and the count dropping from 13",
+    "is how anyone will know it happened."
+  ]
 }
