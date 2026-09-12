@@ -33,6 +33,17 @@ REGISTER = os.path.join(ROOT, "worker", "scope-sites.json")
 
 SCOPE_OF = re.compile(r'\bscopeOf\s*\(\s*env\s*\)')
 FN_DEF = re.compile(r'^(?:async\s+)?function\s+(\w+)')
+# ⛔⛔ THE DISPATCHER IS NOT A `function` DECLARATION, AND MISSING THAT MISATTRIBUTED 13 SITES.
+# worker.js ends with `export default { async fetch(request, env, ctx) { … } }`. `enclosing()` walks
+# BACK to the nearest `^function`, so every site inside that fetch block was credited to whichever
+# ordinary function happened to be declared above it — in practice `handleFeedback` (:4104), which
+# actually ends at :4200. It was reported as holding FIFTEEN sites; it holds TWO.
+# ⚠️ The SITE TOTAL was always right; only the GROUPING was wrong. That is the dangerous shape,
+# because the total is what looks like the answer and the grouping is what A4's register is KEYED BY —
+# declaring `handleFeedback` with count 15 would have declared 13 sites that are not in it, including
+# the account, session and grant writes. Found by reading the function rather than trusting the tool,
+# which is the same lesson this lap keeps re-teaching about every other control.
+FETCH_DEF = re.compile(r'^\s*async\s+fetch\s*\(')
 # A scope-shaped argument handed to a key builder.
 KEY_BUILDER = re.compile(r'\b(?:keyFor|dateKey|blobKey|accountKey)\s*\(\s*([A-Za-z_$][\w$.]*)')
 
@@ -42,8 +53,15 @@ def strip_comments(line):
 
 
 def enclosing(lines, idx):
-    """The nearest preceding top-level `function NAME(`. Stable under insertions above a site."""
+    """The nearest preceding top-level `function NAME(` — or the dispatcher, which is not one.
+
+    Stable under insertions above a site (identity is the NAME, never the line). The dispatcher is
+    matched FIRST because it is nearer: a site inside `async fetch(...)` must not be credited to the
+    last ordinary function declared above the `export default`.
+    """
     for j in range(idx, -1, -1):
+        if FETCH_DEF.match(lines[j]):
+            return "fetch(dispatcher)"
         m = FN_DEF.match(lines[j])
         if m:
             return m.group(1)
