@@ -568,46 +568,37 @@ renamed on two clocks* (§3h) — so the labels retire when the deployments coll
    that point `fernwood-home`'s single account row migrates into production as a row and the
    deployment retires** — the same class of act as the `bob` teardown, with one real credential
    inside it, so it is a MIGRATION with a verified copy, never a delete.
-4. ✅ **RULED 2026-09-12 — THE PRODUCTION ORIGIN IS `myhome.place`, AND IT IS NEITHER STANDING DEPLOYMENT.**
-   Paul, verbatim: *"If it's a real production origin that contains all user accounts it shouldn't have my
-   name in it."* → *"I want myhome.place to be our central page or at least the target. People should be
-   able to sign up and login from that page and access their individual accounts and estates through that
-   in one shared production environment."*
+4. ✅✅ **RULED 2026-09-12 — THE PRODUCTION DEPLOYMENT IS A NEW ONE: `myhome-prod`** `[paul-stated:
+   "myhome-prod is good"]`. **Neither standing deployment survives as production.** `fernwood-home`
+   (`est-e6696a`, Mom) and `myhome-paul` (`est-d93508`, Paul) BOTH migrate into it as rows, and both
+   retire once their migration is verified. `myhome.place` attaches to `myhome-prod`.
+   ⭐ **Why a third thing rather than either candidate:** both existing names are household-specific — one
+   carries a person's name, one an estate's — and production holds everyone. Pages project names are
+   IMMUTABLE, so a name neither of those could only be reached by creating one. It costs a second
+   migration and buys a front door nobody has to explain.
 
-   ⛔ **This SUPERSEDES the two-way choice this item used to pose** (*"which of the two standing deployments
-   becomes THE production origin"*, recommendation `myhome-paul`). The question was malformed: **both
-   candidate names are household-specific** — `myhome-paul` carries a person's name, `fernwood-home` carries
-   an estate's — and production holds everyone, so either would ship a private name as the shared front door.
-   ⭐ **The answer is a third thing neither option offered.**
+   ### ⛔⛔ AND THE CONSEQUENCE THAT CHANGES THE ORDER OF WORK, measured rather than assumed
 
-   **What the ruling fixes:**
-   | | |
-   |---|---|
-   | **the address** | `myhome.place` — the central page. Already implied by the product-name ruling `[paul-ruled 2026-09-11: "that'll make everything coherent when we move to my home dot place"]`; this makes it the origin, not just the wordmark |
-   | **what happens there** | **sign up AND sign in, both from that page** — one door, not a per-household link |
-   | **what it reaches** | a person's own **accounts and estates**, through that one page |
-   | **how many productions** | **ONE shared production environment.** `person → account → estate` inside it |
+   **One deployment holding two estates IS multi-tenancy — so this ruling makes the door work a
+   PREREQUISITE, not a follow-on.** `measured 2026-09-12` at `b40799bb`: `scopeOf(env)` — *which estate
+   am I? the one my deployment is bound to* — has **71 call sites**. `scopeFor(request, env, grant)` —
+   *which estate is this REQUEST for?* — has **4**. ⛔ **Migrate two households into one deployment before
+   converting those 71 and the Worker serves the wrong household's record at most of them.**
 
-   ⭐ **The decision it DISSOLVES, and this is why it is cheap:** the address people load and the Cloudflare
-   project name are **separable**. Measured 2026-09-12: neither Pages project has a custom domain (`Project
-   Domains` shows only `*.pages.dev`), which is the only reason the project name is currently *also* the
-   address. Attach the domain and the project name becomes invisible plumbing — so *which deployment holds
-   the bytes* stops being a naming question and becomes a migration question.
-   ⚠️ **Pages project names are IMMUTABLE** — `myhome-paul` cannot be renamed, only replaced. A custom
-   domain avoids needing to.
+   ⭐ **This resolves the lap-9 sequencing question rather than competing with it.** The conversion is
+   exactly `.plans/2026-09-11-lap8-build-PLAN.md` § ROW A · the door (A0–A15: the scope classifier, the
+   B-CALLER conversion, `X-Estate`, the `grant:<personId>:<estateId>` edge, `estates[]`, the single
+   sign-in page) — a build plan that is written, audited, and never executed. **The cutover and the door
+   lap are the same body of work under two names.** `[paul-stated 2026-09-12: "We will get to lap 9 after
+   cleaning all this environment work done."]`
 
-   ⚠️ **`myhome.place` does not resolve today** (no answer at apex or `www`, probed 2026-09-12) — registered
-   or not is UNKNOWN and unchecked. **That is the first open question, and it is Paul's**, not an agent's:
-   registering a domain is an outward, paid act.
+   ⚠️ **What is STILL not ruled, and none of it should be inferred from the above:** the migration ORDER
+   (who moves first), whether either estate id survives the move, and what the new KV namespace is called.
+   ⛔ And `legacy` is untouched by all of it — it is separate from the three and stays the control.
 
-   ⛔ **NOT ruled by this, and none of it should be inferred:** which deployment's bytes survive underneath ·
-   whether Mom's `est-e6696a` migrates into `est-d93508`'s deployment or both move to a fresh one · the
-   migration order · what happens to `legacy` (unchanged — it stays the data control until she moves).
-   ⭐ **And the mechanism is already specified elsewhere:** one door reaching every house a person holds *is*
-   the door lap — `X-Estate`, `estates[]`, the `grant:<personId>:<estateId>` edge, the single sign-in page
-   (lap 8's unbuilt row A, `.plans/2026-09-11-lap8-build-PLAN.md` A0–A15). **This ruling names the
-   destination; that plan is the road.** `[paul-stated 2026-09-12: "We will get to lap 9 after cleaning all
-   this environment work done."]`
+   ~~SUPERSEDED 2026-09-12 — the earlier form of this item posed a TWO-WAY CHOICE between the standing
+   deployments (recommendation `myhome-paul`, and a 09-10 "yes to all" against that framing). The question
+   was malformed; recorded as a supersession rather than replaced silently.~~
 
 **Falsifier:** a session or a tool that lists more than three environments of the product, or calls a
 person's deployment an environment, is out of vocabulary — `check-vocabulary.py` should flag
