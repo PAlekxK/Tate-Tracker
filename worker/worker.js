@@ -2613,7 +2613,7 @@ function generateRecordingId() {
   return "r-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
 }
 
-async function handleAudioUpload(request, env) {
+async function handleAudioUpload(request, env, scope) {
   if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
   const lenHdr = request.headers.get("content-length");
   if (lenHdr && parseInt(lenHdr, 10) > 5_000_000) {
@@ -2633,7 +2633,7 @@ async function handleAudioUpload(request, env) {
   const recordingId = generateRecordingId();
   // KV TTL 1 hour — long enough for record + Garden Guru turn + two-step
   // confirm + promote, short enough that orphans get garbage-collected.
-  await env.OBSERVATIONS.put(blobKey(scopeOf(env), "audio-blob", recordingId), JSON.stringify({
+  await env.OBSERVATIONS.put(blobKey(scope, "audio-blob", recordingId), JSON.stringify({
     mediaType,
     base64,
     uploadedAt: new Date().toISOString(),
@@ -3354,7 +3354,7 @@ function generateSuggestionId(dateStr) {
   return `${dateStr}:${Date.now()}-${rand}`;
 }
 
-async function handleSuggestSpecies(request, env, url) {
+async function handleSuggestSpecies(request, env, url, scope) {
   if (request.method === "POST") {
     // 5MB body ceiling — same as /api/chat, since thumbnail+metadata can be ~1MB
     const lenHdr = request.headers.get("content-length");
@@ -3394,7 +3394,7 @@ async function handleSuggestSpecies(request, env, url) {
       status: "pending",
     };
 
-    const key = dateKey(scopeOf(env), "pending-species", today);
+    const key = dateKey(scope, "pending-species", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -3426,7 +3426,7 @@ async function handleSuggestSpecies(request, env, url) {
 
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "pending-species", date));
+      const raw = await env.OBSERVATIONS.get(dateKey(scope, "pending-species", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -3443,7 +3443,7 @@ async function handleSuggestSpecies(request, env, url) {
       return json({ error: "bad-or-missing-id" }, 400);
     }
     const date = id.split(":")[0];
-    const key = dateKey(scopeOf(env), "pending-species", date);
+    const key = dateKey(scope, "pending-species", date);
     const raw = await env.OBSERVATIONS.get(key);
     if (!raw) return json({ error: "not-found", id }, 404);
     let arr;
@@ -3842,7 +3842,7 @@ async function handleRemoveSpecies(request, env) {
 // Never accepts observation bodies or conversation content; the client is the
 // source of truth for what it sends. Keys mirror the cost-log:YYYY-MM-DD shape.
 
-async function handleMetrics(request, env, url, auth) {
+async function handleMetrics(request, env, url, auth, scope) {
   if (request.method === "POST") {
     let body;
     try { body = await request.json(); }
@@ -3853,7 +3853,7 @@ async function handleMetrics(request, env, url, auth) {
     if (events.length > 200) return json({ error: "too-many-events", limit: 200 }, 400);
 
     const today = new Date().toISOString().slice(0, 10);
-    const key = dateKey(scopeOf(env), "metrics", today);
+    const key = dateKey(scope, "metrics", today);
     const batch = {
       receivedAt: new Date().toISOString(),
       via: (auth && auth.via) || "master",   // C6 6a — which credential carried the batch; her phone reads `master`
@@ -3890,7 +3890,7 @@ async function handleMetrics(request, env, url, auth) {
     if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "metrics", date));
+      const raw = await env.OBSERVATIONS.get(dateKey(scope, "metrics", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -4909,7 +4909,7 @@ export default {
     if (url.pathname === "/api/today-line") return handleTodayLine(request, env, requestScope);
     if (url.pathname === "/api/classify")   return handleClassify(request, env, requestScope);
     if (url.pathname === "/api/chat")       return handleChat(request, env, auth, requestScope);
-    if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url, auth);
+    if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url, auth, requestScope);
     if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url, requestScope);
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url, requestScope);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
@@ -4917,13 +4917,13 @@ export default {
     if (url.pathname === "/api/recovery")   return handleRecoveryRead(request, env, url, requestScope);   // B6r · ADMIN_ONLY
     // ⛔ BELOW the auth gate, unlike its own POST at :3480 — write open, read closed.
     if (url.pathname === "/api/onboarding-metrics") return handleOnboardingMetrics(request, env, url, requestScope);
-    if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
+    if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url, requestScope);
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env, requestScope);
     if (url.pathname === "/api/remove-species") return handleRemoveSpecies(request, env);
-    if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env);
+    if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env, requestScope);
     if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env, requestScope);
-    if (url.pathname === "/api/zone-save") return handleZoneSave(request, env);
-    if (url.pathname === "/api/zone-feedback") return handleZoneFeedback(request, env, url);
+    if (url.pathname === "/api/zone-save") return handleZoneSave(request, env, requestScope);
+    if (url.pathname === "/api/zone-feedback") return handleZoneFeedback(request, env, url, requestScope);
     if (url.pathname === "/api/zone-audio") return handleZoneAudio(request, env, url);
     if (url.pathname === "/api/zones") return handleZonesGet(request, env, url, requestScope);
     if (url.pathname === "/api/zones-sync-status") return handleZonesSyncStatus(request, env, url, requestScope);
@@ -5076,7 +5076,7 @@ function sanitizeTombstone(t) {
   };
 }
 
-async function handleZoneSave(request, env) {
+async function handleZoneSave(request, env, scope) {
   if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
   if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) {
     return json({ error: "github-not-configured" }, 503);
@@ -5160,7 +5160,7 @@ async function handleZoneSave(request, env) {
   // inlined ZONES_DATA in viewer.html). Writing KV first because it's the
   // freshness path; if git commits fail later, KV still has the new data.
   try {
-    await env.OBSERVATIONS.put(keyFor(scopeOf(env), "zones", "all"), JSON.stringify(fullData));
+    await env.OBSERVATIONS.put(keyFor(scope, "zones", "all"), JSON.stringify(fullData));
   } catch (e) {
     // KV write failure is non-fatal — git is still canon. Log for diagnostics.
     console.warn("[zone-save] KV write failed:", e && e.message);
@@ -5173,7 +5173,7 @@ async function handleZoneSave(request, env) {
   if (editingDeviceId && /^[a-z0-9.\-_]{1,80}$/i.test(editingDeviceId)) {
     try {
       await env.OBSERVATIONS.put(
-        keyFor(scopeOf(env), "zones-last-seen", editingDeviceId),
+        keyFor(scope, "zones-last-seen", editingDeviceId),
         JSON.stringify({ version: nowIso, at: nowIso }),
         { expirationTtl: 30 * 24 * 60 * 60 }
       );
@@ -5210,7 +5210,7 @@ async function handleZoneSave(request, env) {
   });
 }
 
-async function handleZoneFeedback(request, env, url) {
+async function handleZoneFeedback(request, env, url, scope) {
   const _g = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;
   if (request.method === "POST") {
     let body;
@@ -5231,7 +5231,7 @@ async function handleZoneFeedback(request, env, url) {
       status: "pending",
     });
 
-    const key = dateKey(scopeOf(env), "zone-feedback", today);
+    const key = dateKey(scope, "zone-feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -5257,7 +5257,7 @@ async function handleZoneFeedback(request, env, url) {
     }
     const all = [];
     for (const day of days) {
-      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "zone-feedback", day));
+      const raw = await env.OBSERVATIONS.get(dateKey(scope, "zone-feedback", day));
       if (!raw) continue;
       try {
         const arr = JSON.parse(raw);
