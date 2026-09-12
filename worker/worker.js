@@ -1818,8 +1818,12 @@ async function feedbackRateLimitOk(request, env) {
 
 // ---- Observations ----
 
-async function loadObservations(env) {
-  const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), OBS_KEY));   // copied from the legacy key at cutover (6c)
+// ⭐ A2 (lap 8/9) · B-CALLER — the observations pair is a HOUSEHOLD's field notes. Converted as ONE
+// UNIT with saveObservations and both callers: a read and a write of the same key that disagree about
+// scope do not error, they make the record go SILENT — the write lands under one prefix and the read
+// looks under another.
+async function loadObservations(env, scope) {
+  const raw = await env.OBSERVATIONS.get(keyFor(scope, OBS_KEY));   // copied from the legacy key at cutover (6c)
   if (!raw) return [];
   try {
     const arr = JSON.parse(raw);
@@ -1829,8 +1833,8 @@ async function loadObservations(env) {
   }
 }
 
-async function saveObservations(env, arr) {
-  await env.OBSERVATIONS.put(keyFor(scopeOf(env), OBS_KEY), JSON.stringify(arr));
+async function saveObservations(env, scope, arr) {
+  await env.OBSERVATIONS.put(keyFor(scope, OBS_KEY), JSON.stringify(arr));
 }
 
 // One-time cleanup endpoint: walks observations:all and strips base64
@@ -1865,9 +1869,9 @@ function sanitizeEntryForKV(entry) {
   };
 }
 
-async function handleAdminCleanObservations(request, env) {
+async function handleAdminCleanObservations(request, env, scope) {
   if (request.method !== "POST") return json({ error: "method-not-allowed" }, 405);
-  const arr = await loadObservations(env);
+  const arr = await loadObservations(env, scope);
   const beforeBytes = JSON.stringify(arr).length;
   let touchedCount = 0;
   const cleaned = arr.map(e => {
@@ -1875,7 +1879,7 @@ async function handleAdminCleanObservations(request, env) {
     if (sanitized !== e) touchedCount++;
     return sanitized;
   });
-  await saveObservations(env, cleaned);
+  await saveObservations(env, scope, cleaned);
   const afterBytes = JSON.stringify(cleaned).length;
   return json({
     total: arr.length,
@@ -1886,12 +1890,12 @@ async function handleAdminCleanObservations(request, env) {
   });
 }
 
-async function handleObservations(request, env, url) {
+async function handleObservations(request, env, url, scope) {
   const segments = url.pathname.split("/").filter(Boolean);
   const id = segments[2] || null;
 
   if (request.method === "GET") {
-    const arr = await loadObservations(env);
+    const arr = await loadObservations(env, scope);
     return json({ observations: arr });
   }
   if (request.method === "POST") {
@@ -1901,17 +1905,17 @@ async function handleObservations(request, env, url) {
     if (!entry || typeof entry !== "object" || !entry.id || !entry.body) {
       return json({ error: "missing-required-fields" }, 400);
     }
-    const all = await loadObservations(env);
+    const all = await loadObservations(env, scope);
     const idx = all.findIndex(o => o.id === entry.id);
     if (idx >= 0) all[idx] = entry; else all.push(entry);
-    await saveObservations(env, all);
+    await saveObservations(env, scope, all);
     return json({ observation: entry, total: all.length });
   }
   if (request.method === "DELETE") {
     if (!id) return json({ error: "missing-id" }, 400);
-    const all = await loadObservations(env);
+    const all = await loadObservations(env, scope);
     const remaining = all.filter(o => o.id !== id);
-    await saveObservations(env, remaining);
+    await saveObservations(env, scope, remaining);
     return json({ removed: all.length - remaining.length, total: remaining.length });
   }
   return json({ error: "method-not-allowed" }, 405);
@@ -4899,7 +4903,7 @@ export default {
       if (!hits(MEMBER_OK)) return json({ error: "unclassified-route", path: url.pathname, capability: auth.capability }, 403);
     }
 
-    if (url.pathname.startsWith("/api/observations")) return handleObservations(request, env, url);
+    if (url.pathname.startsWith("/api/observations")) return handleObservations(request, env, url, requestScope);
     if (url.pathname === "/api/airnow")     return handleAirNow(request, env, url);
     if (url.pathname === "/api/drought")    return handleDrought(request, env, url);
     if (url.pathname === "/api/today-line") return handleTodayLine(request, env, requestScope);
@@ -4917,7 +4921,7 @@ export default {
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env, requestScope);
     if (url.pathname === "/api/remove-species") return handleRemoveSpecies(request, env);
     if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env);
-    if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env);
+    if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env, requestScope);
     if (url.pathname === "/api/zone-save") return handleZoneSave(request, env);
     if (url.pathname === "/api/zone-feedback") return handleZoneFeedback(request, env, url);
     if (url.pathname === "/api/zone-audio") return handleZoneAudio(request, env, url);
