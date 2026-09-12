@@ -1161,9 +1161,13 @@ function blobKey(scope, kind, id) {
 }
 // LIST both eras (6c): a listing is a union of what exists, not a lookup that
 // could mask a miss — so legacy keys stay visible until the separate deletion.
-async function listBothEras(env, kind) {
+// ⭐ A2 (lap 8/9) · B-CALLER — the SHARED read path for `conversation` AND `zones-last-seen`, so it
+// takes the caller's scope rather than resolving one. ⛔ It is why "batch by kind" is not the real
+// unit: converting either kind's WRITE without this READ would send the write to the household
+// prefix while the read still looked at the deployment's — the record goes SILENT, not broken.
+async function listBothEras(env, scope, kind) {
   const names = [];
-  for (const prefix of [keyFor(scopeOf(env), kind) + ":", kind + ":"]) {
+  for (const prefix of [keyFor(scope, kind) + ":", kind + ":"]) {
     let cursor = undefined;
     while (true) {
       const result = await env.OBSERVATIONS.list({ prefix, cursor });
@@ -3898,7 +3902,7 @@ async function handleMetrics(request, env, url, auth) {
 // GET /api/cost-log?start=YYYY-MM-DD&end=YYYY-MM-DD — read cost entries in range.
 // Writes happen inside handleChat via logChatCost(); no POST endpoint.
 
-async function handleCostLog(request, env, url) {
+async function handleCostLog(request, env, url, scope) {
   if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
   const start = url.searchParams.get("start");
   const end = url.searchParams.get("end");
@@ -3918,7 +3922,7 @@ async function handleCostLog(request, env, url) {
   if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
   const days = {};
   for (const date of dates) {
-    const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "cost-log", date));
+    const raw = await env.OBSERVATIONS.get(dateKey(scope, "cost-log", date));
     if (raw) {
       try { days[date] = JSON.parse(raw); }
       catch (e) { /* skip malformed */ }
@@ -3938,7 +3942,7 @@ async function handleCostLog(request, env, url) {
 // Excludes non-`app` origins (our probes) by default — see CONVERSATION_ORIGINS.
 // Pass `origin=all` to include them; `excludedNonApp` always reports the count.
 
-async function handleConversations(request, env, url) {
+async function handleConversations(request, env, url, scope) {
   if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
   const start = url.searchParams.get("start");
   const end = url.searchParams.get("end");
@@ -3957,7 +3961,7 @@ async function handleConversations(request, env, url) {
 
   // Paginated inside listBothEras (KV contract: 1000 keys per call). Both eras
   // are listed (6c) until the legacy keys are deleted in their own later act.
-  const keys = await listBothEras(env, "conversation");
+  const keys = await listBothEras(env, scope, "conversation");
 
   const conversations = [];
   for (const key of keys) {
@@ -4902,8 +4906,8 @@ export default {
     if (url.pathname === "/api/classify")   return handleClassify(request, env, requestScope);
     if (url.pathname === "/api/chat")       return handleChat(request, env, auth, requestScope);
     if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url, auth);
-    if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url);
-    if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
+    if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url, requestScope);
+    if (url.pathname === "/api/conversations") return handleConversations(request, env, url, requestScope);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
     if (url.pathname === "/api/door")       return handleDoor(request, env, url);
     if (url.pathname === "/api/recovery")   return handleRecoveryRead(request, env, url);   // B6r · ADMIN_ONLY
@@ -4917,8 +4921,8 @@ export default {
     if (url.pathname === "/api/zone-save") return handleZoneSave(request, env);
     if (url.pathname === "/api/zone-feedback") return handleZoneFeedback(request, env, url);
     if (url.pathname === "/api/zone-audio") return handleZoneAudio(request, env, url);
-    if (url.pathname === "/api/zones") return handleZonesGet(request, env, url);
-    if (url.pathname === "/api/zones-sync-status") return handleZonesSyncStatus(request, env, url);
+    if (url.pathname === "/api/zones") return handleZonesGet(request, env, url, requestScope);
+    if (url.pathname === "/api/zones-sync-status") return handleZonesSyncStatus(request, env, url, requestScope);
 
     return json({ error: "not-found", path: url.pathname }, 404);
   },
@@ -5267,12 +5271,12 @@ async function handleZoneFeedback(request, env, url) {
 // device as having seen the current canon version, so /api/zones-sync-status
 // can report whether known devices have all caught up. Falls back to the
 // git copy of zones.json if KV is empty (Worker just deployed, no edits yet).
-async function handleZonesGet(request, env, url) {
+async function handleZonesGet(request, env, url, scope) {
   if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
 
   let data = null;
   try {
-    const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "zones", "all"));   // copied from the legacy key at cutover (6c)
+    const raw = await env.OBSERVATIONS.get(keyFor(scope, "zones", "all"));   // copied from the legacy key at cutover (6c)
     if (raw) data = JSON.parse(raw);
   } catch (e) { /* fall through to git fallback */ }
 
@@ -5296,7 +5300,7 @@ async function handleZonesGet(request, env, url) {
   if (deviceId && /^[a-z0-9.\-_]{1,80}$/i.test(deviceId) && canonVersion) {
     try {
       await env.OBSERVATIONS.put(
-        keyFor(scopeOf(env), "zones-last-seen", deviceId),
+        keyFor(scope, "zones-last-seen", deviceId),
         JSON.stringify({ version: canonVersion, at: new Date().toISOString() }),
         { expirationTtl: 30 * 24 * 60 * 60 }
       );
@@ -5310,12 +5314,12 @@ async function handleZonesGet(request, env, url) {
 // have caught up to it. Editing device polls this after a save to update the
 // chip from "saved to cloud" → "live everywhere" (path-eval §3). Devices age
 // out after 30 days of inactivity.
-async function handleZonesSyncStatus(request, env, url) {
+async function handleZonesSyncStatus(request, env, url, scope) {
   if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
 
   let canonVersion = null;
   try {
-    const raw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "zones", "all"));   // copied from the legacy key at cutover (6c)
+    const raw = await env.OBSERVATIONS.get(keyFor(scope, "zones", "all"));   // copied from the legacy key at cutover (6c)
     if (raw) {
       const data = JSON.parse(raw);
       canonVersion = (data._meta && data._meta.lastBuiltAt) || (data._meta && data._meta.lastBuilt) || null;
@@ -5324,7 +5328,7 @@ async function handleZonesSyncStatus(request, env, url) {
 
   const devices = [];
   try {
-    const names = await listBothEras(env, "zones-last-seen");   // 6c: both eras until the legacy keys are deleted
+    const names = await listBothEras(env, scope, "zones-last-seen");   // 6c: both eras until the legacy keys are deleted
     for (const name of names) {
       const did = name.slice(name.lastIndexOf("zones-last-seen:") + "zones-last-seen:".length);
       const k = { name };
