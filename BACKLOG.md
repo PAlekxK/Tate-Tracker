@@ -110,6 +110,26 @@ most of Mom's machinery IS engine (the ask → fold → acknowledge path is shar
 
 ✅✅ **ADOPTED AS THE PRIORITY ORDERING** `[paul-ruled 2026-09-12: "let's adopt this chain as our priority"]`. ⭐ **It was proposed as a derived view and is now the ordering the backlog is prioritised against** — so a row's position is read as **reachability first, readiness second.** ⛔⛔ **WHAT THIS RULING DOES *NOT* DO, stated so it is not over-read: it does NOT open a lap, it does NOT pick lap 9, and it does NOT commit any row.** The pick remains **beat 6, Paul's.** This ruling orders the board; it does not take work off it. ⚠️ **AND IT DOES NOT CONVERT A LAYER INTO A COMMITMENT:** layer 1 being the root means work above it cannot *ship*, not that layer 1 is hereby scheduled. 
 
+⭐⭐ **WHAT IT IS, AND WHAT IT IS NOT** `[paul-stated 2026-09-12]`, verbatim: *"The logic chain is a
+mechanism to sequence the backlog, not meant to replace or duplicate it. This logic chaining exercise is
+an important part of all backlog rationalization efforts."*
+
+⛔ **So it is a MECHANISM, not a tracker.** It sequences the one row set; it is **not** a second home for
+their facts. **Status lives in the row it points to, always** — if anything here ever restates a row's
+status, that is the defect and the fix is to delete the restatement, not to reconcile two copies.
+
+⭐⭐ **AND IT IS A STEP, NOT A STANDING ARTIFACT — this is the load-bearing half.** Logic chaining belongs
+to **every rationalization**, which means the chain is **RE-DERIVED each time the backlog is
+rationalized**, not maintained continuously between runs. ⛔ *That is what stops it going stale: the same
+act that reorders the file regenerates the chain, so the two cannot drift apart.* A chain that is merely
+*edited* when someone remembers is the failure mode this design avoids.
+
+⚠️ **OPEN, and named rather than assumed solved: there is NO canonical rationalization METHOD document.**
+`measured 2026-09-12` — each run (07-17, 07-29, 09-02, 09-10, 09-12) defines its own scope in its own
+proposal, and no file states the procedure. ⛔ **So the "chaining is part of every rationalization" rule
+currently has no home that a fifth run would read**, which is precisely the shape that loses a rule.
+Where it should live is an open question routed to practice-steward, not settled here.
+
 ⛔ **STILL A DERIVED VIEW OVER EXISTING ROWS — it ranks rows, it does not RESTATE them, and it commits nothing.** `⏭ THE NEXT TWO LAPS`
 stays the queue and `--ladder` stays its source; this answers a different question: **not *what is ready*
 but *what is UNREACHABLE until something else lands*.** A thing can be perfectly ready and still be the

@@ -55,6 +55,27 @@ reading top-to-bottom will pick a ready item that cannot ship.
   an unbuilt root). ⭐ **That is a live question for Paul and a rationalization may not settle a ruling
   by reordering the document around it.**
 
+## ⭐⭐ THE RULE THIS RUN ADDED TO THE PRACTICE `[paul-stated 2026-09-12]`
+
+> *"The logic chain is a mechanism to sequence the backlog, not meant to replace or duplicate it.
+> **This logic chaining exercise is an important part of all backlog rationalization efforts.**"*
+
+⛔ **This is a statement about the PRACTICE, not about this run.** Logic chaining — deriving what gates
+what, from the code where it is mechanically provable — is **a step in every rationalization**, and the
+chain is therefore **re-derived per run, never maintained between runs.**
+
+⭐ **Why that matters more than it sounds:** it converts the chain from a standing document (which decays
+and needs an owner) into an **output of a recurring act** (which cannot decay faster than the act
+recurs). The same run that reorders the file regenerates the ordering.
+
+⚠️⚠️ **AND THE GAP IT EXPOSES, recorded because this proposal is currently the only place the rule
+exists: THERE IS NO CANONICAL RATIONALIZATION METHOD DOCUMENT.** `measured` — the five runs (2026-07-17,
+07-29, 09-02, 09-10, 09-12) each define scope in their own proposal and **no file states the procedure.**
+⛔ So a fifth reader looking for *"how do we rationalize"* finds five precedents and no method, and this
+rule would not be found at all. **A rule that lives only in the newest proposal is a rule with a
+one-run half-life.** Routed to practice-steward; ⛔ **not solved here, and this proposal is not the
+right home for it.**
+
 ## Falsifier
 
 If a lane reads the reordered head and still picks a layer-2+ item while layer 1 is unbuilt, the move
