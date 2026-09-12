@@ -5437,3 +5437,72 @@ changed, all comments** · against lap 7's **9 h 20 m / 1,365 served lines / 3 b
 
 **Windows at close:** the row-T build window (`tate-tracker-0b`) — **closing now**; coordination (this) remains.
 **Next:** the door, from a brief; the declared cells walked at its beat 8; the UNWALKED count is where it starts.
+
+---
+
+## BETWEEN LAPS 8 AND 9 — rulings recorded while no lap is open `[coordination window, 2026-09-12]`
+
+⛔ **No lap is open.** These are recorded here because a ruling that lives only in a backlog row or a
+window's transcript is re-decided later at full cost — this corpus's most-repeated failure. **None of the
+below opens a lap, picks lap 9's scope, or commits a row. The pick stays beat 6.**
+
+### ⛓ THE DEPENDENCY CHAIN IS THE PRIORITY ORDERING `[paul-ruled 2026-09-12: "let's adopt this chain as our priority"]`
+
+Adopted in the standing backlog window; recorded in `BACKLOG.md` § ⛓ THE DEPENDENCY CHAIN at `3a206ba1`
+and routed here per that window's brief.
+
+```
+0 · canon resolves per estate            ✅ shipped a263ed3c
+1 · ⛔ the per-estate canon STORE         TIER 2 · 12 — concept, unbuilt
+2 · the journal ANSWERS                  § THE JOURNAL · TIER 2 · 15/16/20
+3 · the ENTRY path                       § MODULE ONBOARDING ⑤ · TIER 2 · 8 · TIER 1 · 77/78
+4 · module RELEASE                       MODULE ONBOARDING ①–④
+```
+
+⭐⭐ **THE ROOT IS TIER 2 · 12, and it is the only item appearing twice** — it gates layer 2 (a journal
+cannot answer from a record with nowhere to live) *and* layer 3 (promotion has nowhere to land).
+**Everything Paul wants to release sits on one unbuilt store, at `concept`, with no design pass owned by
+any beat.**
+
+✅ **VERIFIED HERE rather than carried** (coordination, at `a78c94a2`): **four model routes share ONE
+guard** — `foreignCanon(env, scope)` at `worker.js:2115` (`handleTodayLine`) · `:2188` (`handleClassify`)
+· `:2967` (`handleChat`) · `:3478` (`handlePromoteSpecies`), defined `:148`. ⭐ **So the journal's ASKING
+and a module's ADDING fail at the same line of code**, which is what makes the chain mechanically
+provable rather than an ordering argument.
+
+### ⛔⛔ AND IT CONFLICTS WITH A STANDING RULING — PAUL RULES WHICH GOVERNS
+
+**The ruled 8·3 / 9·2 ordering puts the WEATHER CARD FIRST.** The chain places the weather card **above an
+unbuilt root** (it reads canon it cannot yet resolve per estate). ⛔ **Both cannot be followed.**
+
+⭐ **Recorded as an OPEN QUESTION, deliberately, rather than letting the newer ruling silently kill the
+older one** — *a ruling adopted in one window must not be read as superseding one made in another by
+inference.* ⚠️ **The live risk until he rules: a lane follows whichever document it opens first.**
+
+### ⭐ THE CUTOVER IS A SECOND AXIS, NOT A LAYER — and it does NOT cover layer 1
+
+The chain says **what is REACHABLE**; the cutover (`myhome-prod`, §3i item 4) says **what is CORRECT once
+one deployment holds two estates.** ⛔ **A thing can be reachable and wrong.** Worked instance, verified
+here: `/api/pending-species` builds every key from `scopeOf(env)` — `worker.js:3378 · :3410 · :3427` — so
+layer 3's staging lands in **the wrong household's queue** the day `myhome-prod` holds two.
+
+⚠️⚠️ **AND THE MIGRATION IS EASY TO MISTAKE FOR COVERING BOTH. IT DOES NOT.** `measured 2026-09-12` against
+`.plans/2026-09-11-lap8-build-PLAN.md`: *"canon store"* **0** hits · *"per-estate canon"* **0** ·
+*"publish-digest"* **0**. **The cutover converts WHOSE RECORD A REQUEST MEANS; it does not create A PLACE
+FOR A HOUSEHOLD'S RECORD TO LIVE.** After the migration, layer 1 is still unbuilt — **the migration makes
+it correct to build, not built.**
+
+### Also recorded between laps
+
+- ✅ **The environment model is settled and enforced** — three environments `dev` · `qa` · `production`,
+  plus `legacy`, **separate from the three** and kept as a previous state and a control. Production is a
+  NEW deployment `myhome-prod`; addresses `myhome.place` · `qa.myhome.place` · `dev.myhome.place`; four
+  wrangler labels. Full rulings in `VOCABULARY.md` §3i. Enforced by `check-vocabulary.py` V6.
+- ✅ **Legacy does not port** — Mom founds FRESH in production; the 435-session record stays put, because a
+  control is only a control while it is unchanged.
+- ⛔ **The legacy Worker's deploy path is ungated and that is the open risk** — 55 commits touch `worker/`
+  since its last deploy (2026-09-08), nothing stands between a routine deploy and shipping them to Mom's
+  live app, and legacy's value depends on not changing. Three doors; the current state is the worst.
+- ⚠️ **A backlog re-rationalization is drafting** at Paul's ask — `check-backlog-drift.py` reads **rested**
+  (exit 0), so this is his ask overriding the trigger, not a detector firing. Proposed as a diff, never
+  applied.
