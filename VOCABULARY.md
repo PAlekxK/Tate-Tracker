@@ -625,7 +625,10 @@ renamed on two clocks* (§3h) — so the labels retire when the deployments coll
    **One deployment holding two estates IS multi-tenancy — so this ruling makes the door work a
    PREREQUISITE, not a follow-on.** `measured 2026-09-12` at `b40799bb`: `scopeOf(env)` — *which estate
    am I? the one my deployment is bound to* — has **71 call sites**. `scopeFor(request, env, grant)` —
-   *which estate is this REQUEST for?* — has **4**. ⛔ **Migrate two households into one deployment before
+   *which estate is this REQUEST for?* — has **ONE live consuming call** (`worker.js:4877`).
+   ⚠️ **CORRECTED 2026-09-12 from "4", which was a grep count and not a predicate**: the other
+   occurrences are the definition, three comments, and a `requestScope` computed with
+   `eslint-disable no-unused-vars` and deliberately unused. **71 to ONE.** ⛔ **Migrate two households into one deployment before
    converting those 71 and the Worker serves the wrong household's record at most of them.**
 
    ⭐ **This resolves the lap-9 sequencing question rather than competing with it.** The conversion is
