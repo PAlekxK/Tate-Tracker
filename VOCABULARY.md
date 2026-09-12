@@ -621,6 +621,30 @@ Three doors, and the current state is the worst of them: deploy deliberately · 
 undeployable (which *raises* the migration's priority, since no fix could ever reach her there) · or leave
 it ambient, where the next deploy is an accident. **We are in the third.**
 
+### ✅ WORKER NAMES AND KV TITLES ARE RULED `[paul-stated 2026-09-12: "I'm good with your recommendations on the worker names and kv namespace"]`
+
+| | today | becomes | when |
+|---|---|---|---|
+| **Workers** | `fernwood-qa` · `fernwood-lab` | **`myhome-qa`** · **`myhome-dev`** | at the cutover |
+| | `myhome-paul` · `fernwood-home` | retire into **`myhome-prod`** | at the migration |
+| | `fernwood` (legacy) | ⭐ **KEEPS ITS NAME** | never |
+| **KV titles** | `OBSERVATIONS` · `qa-OBSERVATIONS` · `OBSERVATIONS_LAB/_HOME/_PAUL` | **`OBSERVATIONS_{PROD,QA,DEV,LEGACY}`** | any time |
+
+⭐ **`fernwood` keeping its name is not an exception — it is the only ACCURATE name in the list.** That
+Worker really does serve Fernwood, and only Fernwood. Every other `fernwood-*` names the product after one
+estate, which is the thing being corrected.
+
+⭐ **The KV rename is COSMETIC and that is the useful half: the BINDING is uniformly `OBSERVATIONS` in
+every environment**, so the code never sees the three conventions — they are dashboard labels, and
+renaming a namespace moves no data. Lowest-stakes item on the board; worth doing, never worth blocking on.
+
+⛔⛔ **THE WORKER RENAME IS CUTOVER WORK, AND ONE LINE MUST MOVE WITH IT.** `[env.dev]` currently pins
+`name = "fernwood-lab"` precisely so the label could move without the deployment moving. **Renaming the
+Worker means changing that pin in the same commit** — otherwise the pin silently keeps deploying to the
+old name. ⚠️ And a Worker "rename" is a NEW Worker plus a delete of the old, which carries its KV binding
+and its live data: at `dev` that is **54 grants and 7 founded estates**. Rehearse it there first — it is
+what `dev` is for — and it is the same act A14 already specifies for the estate migration.
+
 ⭐ **Why it keeps being re-asked, and the fix is in the tooling, not in another paragraph.**
 `tools/pages-deploy.py` takes `--env paul|home|bob|qa|lab` and keeps a set literally named
 `HOUSEHOLD = {"bob","paul","home","qa"}`; `wrangler.toml` has one `[env.*]` block per household. **A
