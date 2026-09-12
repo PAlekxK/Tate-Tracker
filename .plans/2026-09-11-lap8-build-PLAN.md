@@ -3,8 +3,19 @@
 - row: `BACKLOG.md` § 🚪 THE DOOR — lap 8's door rows · committed by ruling at `cycle/release/CYCLE-LOG.md` § *Laps 8 and 9 — SCOPE COMMITTED BY RULING* (`767242c`) · `.plans/2026-09-10-lap8-9-SCOPE-PROPOSAL.md` §1
 - objective: O3
 - class: engine · must-not-diverge · one account model, one door, one estate resolver — the rows below all write the same seam
-- stage: draft
-- ready: agent-proposed — draft against lap 7's outcomes; **re-audited at lap 8's open before the build window reads it**
+- stage: build
+- ready: [paul-approved 2026-09-12] — his explicit go (*"Go on the stamp"*), recorded on his go per this
+  gate's own spec (`check-backlog-ready.py:19` — *"written by Paul or on his explicit go"*). ⛔ **G1 was held
+  through the pre-lap beat and cleared only here**; nothing was built against this plan while it read `draft`.
+  **His condition, met before the stamp** `[paul-ruled 2026-09-12]`: the two small-half rows whose named tests
+  could not observe their own defects were fixed FIRST — row 89's (`check-storage-keys.py` was green with the
+  defect live; classification leg added, 8/8 by mutation, `05a7ef7d`) and row 92's (its prescribed `curl` returns
+  a shaped 400 and would have FALSELY CLEARED it; `tools/check-error-oracle.py` added, 5/5 by mutation,
+  `129a75df`). ⚠️ Both instruments then found a CLASS where the row named an INSTANCE — 6 unclassified storage
+  keys against row 89's 2, and 3 unauthenticated unguarded routes against row 92's 1 (including `/api/session`,
+  the sign-in path). Those are routed to the backlog window, not written here.
+  ⛔ **This stamp covers ROW A (steps A0–A15) as written.** It is not a stamp on the two classes above, which
+  are unruled, and not on anything the re-audit has yet to touch.
 - seats: engineering-partner → authored: this file IS its path-evaluation return; the re-audit is the second pass
          ux-expert → owed: §10's four surfaces (the sign-in page · the shelf after sign-in · the email editor + re-auth · the ribbon's empty state) under the account-first ruling, before the re-audit
          security-steward → owed: A9's email-editor write path and the recovery route are one security object; A8's existence oracle is two routes
