@@ -178,9 +178,21 @@ KV safe here is one the roadmap removes.**
 > **Add an application-level compare-and-swap, reusing the `stale-client` 409 that already exists
 > (`:5107`–`:5117`).** That block already refuses a write whose `body._meta.schemaVersion` disagrees
 > with the server's — *"A stale client is a rejected write, not a silent downgrade."* **Extend the
-> same guard to `_meta.lastBuiltAt`**: the client already receives it (the save response and
-> `GET /api/zones` both return it) and already sends `_meta`, so **the round trip exists and needs no
-> new field, no new state and no new store.** A save built on a stale read is refused with a named
+> same guard to `_meta.lastBuiltAt`.**
+>
+> ⛔⛔ **CORRECTED 2026-09-12 by the build audit — I claimed the round trip already existed. IT DOES
+> NOT, and the error mattered.** Measured: `syncZonesNow`'s payload is exactly
+> `{zones, _deleted, deviceId}` (`engine/viewer.template.html:14253`) and **`_meta` appears ZERO
+> times** in the whole sync region (13900–14450). The client RECEIVES `lastBuiltAt` and never sends
+> anything back. So the CAS needs a **client change**, shipped **client-first with a deploy between**,
+> or it 409s every save in the field — including at the frozen Fernwood. **Sizing was understated and
+> the recommendation stands only with that sequencing.**
+>
+> ⭐ **And the same measurement reveals a live defect worth more than the correction:** because
+> `body._meta` is never sent, `clientSchema` at `:5108` is always `undefined`, so the `stale-client`
+> 409 guard **has never fired once.** It was written to police the v2→v3 schema move and was inert
+> for all of it. ⛔ A guard nobody can trip is not a guard — and this plan came within one step of
+> building a durability control on top of it. A save built on a stale read is refused with a named
 > error instead of overwriting somebody. ⛔ Without this, KV-only is safe **only while exactly one
 > person edits zones**, and that is a promise this plan's own step 6 breaks.
 
