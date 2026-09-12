@@ -688,6 +688,43 @@ surface outranks anything that adds an ask** — the second is unmeasurable unti
 
 ## ⭐⭐ EVERY ITEM SHIPS WITH AN ASK, A CHECK AND AN ATTRIBUTION `[paul-ruled 2026-09-07]`
 
+### ⭐⭐ AMENDMENT 2026-09-12 — THE TEST IS DECIDED AT DECISION TIME, AND ENGINE WORK HAS NO WALK
+
+**`[paul-stated 2026-09-12]`, two lines, and the second is the binding one:**
+
+> *"A key question for each of these should also be how it's tested **(some of it is not user facing that
+> I can walk through)**."*
+> *"While we're looking at it in detail — **I don't want to guess on testing when we get to the laps we
+> build these in.**"*
+
+⛔⛔ **THE FOUR FIELDS ABOVE ARE WRITTEN FOR PERSON-FACING WORK.** An ask, a ribbon line and a telemetry
+event all presume somebody looking at a screen. ⭐ **A growing share of the board has no screen at all** —
+a canon store · a digest publish path · a `scopeOf` → `scopeFor` conversion across 69 call sites · a
+naming convention · the decision not to deploy a Worker. **None of those can be walked, and gate ①'s unit
+is the `(journey, lens)` cell, which assumes one.**
+
+⭐ **So every item — engine items especially — names its test AT DECISION TIME, in these terms:**
+
+| | |
+|---|---|
+| **WALK** | a seat, a screen, a sha. Gate ①'s unit. ⛔ Unavailable to engine work |
+| **CHECK** | deterministic, runnable at any sha, and it states **what it does NOT cover on its own face** |
+| **PROOF** | a property argued from code. ⚠️ **A property is not a test** — say so when it is all there is |
+
+⛔⛔ **AND THE FALSIFIER MUST BE RUNNABLE.** `measured 2026-09-12` by practice-steward: **91 falsifier
+statements, 25 name an instrument, 6 of those cannot be run** — and **two name tools that never existed**
+(`check-color-axes.py`, `audit-public-reach.py`; no file, zero git history), one of them cited as a
+*"pattern"* to copy from a tool with no body. ⭐ *A falsifier naming an unbuilt instrument is worse than
+none: it reads as a discharged obligation to every audit that greps for one.*
+
+⭐⭐ **WHY "AT DECISION TIME" AND NOT "AT THE BUILD COMMIT" — two independent routes to one rule.** Paul
+reached it from the front (*don't guess on testing when we get to the lap*); practice-steward reached it
+from measurement — **the median gap between a ruling and its instrument, across 44 tools, is ZERO DAYS.**
+⛔ **An instrument is built by the session that hears the ruling, or never. There is no "late" state.**
+The four fields stay verifiable at the build commit; **what this adds is that the test is CHOSEN before
+the lap opens, not discovered inside it.**
+
+
 *(Moved here from the pointer-head region at lap 5's GROOM & BUCKET, 2026-09-08 — reading order only;
 no row deleted, no status changed. Proposal: `.plans/2026-09-08-lap5-BOARD.md` §1.2 · applied `[paul-approved]`.)*
 
