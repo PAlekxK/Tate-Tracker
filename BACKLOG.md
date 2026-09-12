@@ -1103,6 +1103,80 @@ retrieval; recognition is what happens without my asking."*
 ---
 
 
+## 📖 THE JOURNAL — can each estate ASK ITS OWN RECORD AND BE ANSWERED `[paul-stated 2026-09-12: "consolidate all this journal work into one big package to research… and design and plan"]` ⚙️ engine · must-not-diverge
+
+⛔ **A THEME, NOT A ROW — a grouping over existing rows, and it mints NOTHING that duplicates them.**
+Filed the day Paul asked for the consolidation, deliberately unscoped: it names the subject, the rows,
+the gap and the three phases, and it decides nothing.
+
+⭐ **The subject in one line:** *a household asks its journal a question about its own place, and gets an
+answer built from its own record.* Today the first half works and the second half is **guaranteed not to
+answer wrongly**, which is not the same as answering.
+
+### ⛔ THE SPLIT THAT MAKES THIS ONE SUBJECT — a REFUSAL is not a CAPABILITY
+
+**Row 14 shipped a refusal. Row 15 is the capability.** `canonIsThisEstate()` compares the digest's
+`_meta.estateId` to the deployment's `ESTATE_ID` and **every model route refuses on a mismatch** — an
+unstamped digest is foreign to everyone, so *cannot prove* fails closed. ⭐ **That is correct and it is
+not the feature.** Row 15 says it in its own words: ***"A refusal is not a capability."***
+
+`measured 2026-09-08` across the five model prompts: **60 hardcoded place literals against 43 derived
+`${FACTS.*}` interpolations** — the routes are **~42% parameterised and 58% written for one property.**
+
+### The rows this groups — read them there, never restated here
+
+| row | what it owns | state |
+|---|---|---|
+| **TIER 2 · 12** · the per-estate canon store | the record a query reads **from**; four consumers converge on one seam. ⭐ Fires **W6** (species vs instance, deferred since July) | ⬜ `concept` |
+| **TIER 2 · 14** · one digest, N estates | the **refusal** — a route may not answer from another estate's record | ✅ floor **SHIPPED** `25d6634` |
+| **TIER 2 · 15** · the model routes are not modular | ⭐ **the capability** — a route able to answer for **any** estate | ⬜ open |
+| **TIER 2 · 20** · what the Almanac is | naming and role — *define the thing before asking someone to name it* | ⬜ content-steward's |
+| **TIER 2 · 16** · the ask surface | the **asking** half, a standing epic Paul ruled monitored-and-improved | ⬜ standing |
+| **A6** → `.plans/2026-09-03-guru-retrieval-PLAN.md` | how Guru's capability evolves — the worked question | 🔵 `build`, behind gate ① |
+
+### ⭐⭐ THE GAP THIS THEME SURFACES — NOTHING VERIFIES THAT AN ESTATE'S JOURNAL ANSWERS CORRECTLY
+
+`measured 2026-09-12 by the backlog window.` Two readers exist and **neither closes this**:
+
+- `check-canon-scope.py` reads the **digest** — the *input* to the prompt. It answers *whose place is in
+  this household's model prompt*, and says nothing about what comes back out.
+- `guru-probe.py` **does** grade real answers, and grades them well (inverted — a row is red when the
+  answer carries a must-NOT, even if the right number is also there). ⛔ **But it is QA-WORKER-ONLY by
+  construction and has NO `--env`**: it reads `/health` and **refuses unless `env=="qa"`**.
+
+⛔ **So the one instrument that reads a journal's RESPONSE can only ever look at one deployment.** This is
+the shape `CLAUDE.md` already records for `read-mom-engagement.py` — *"the capability existed for one
+person on one estate and nobody else."* ⚠️ **Rows 12, 14 and 15 all build the capability; not one of them
+verifies it per estate.** A `--env` plus a per-estate expectation set is the cheap half and is unfiled.
+
+### The three phases Paul asked for — research · design · plan
+
+1. **RESEARCH** — what retrieval shape serves N estates: a per-estate digest, a per-estate store, or the
+   prose library index (Guru 6a, **7,330 chunks in KV**)? ⭐ **And the sharper question underneath the 60
+   literals: which are DERIVABLE from a household's record, and which are authored content that is
+   genuinely Fernwood's and must not travel?** Those are different problems and the count conflates them.
+2. **DESIGN** — the seam (how a route gets the right estate's facts), and **what the journal IS to a
+   household**: its role, what it may be asked, what it says when it does not know.
+3. **PLAN** — the build sequence, its falsifiers, and the per-estate verification above.
+
+### ⛔ Constraints that bind before anything is designed — cited, not re-argued
+
+- ⭐ **This is the ASK path, and it is where a model legitimately lives.** Standing doctrine: *AI on the
+  ask path; capture stays AI-free.* ⛔ Nothing here licenses a model on a capture path.
+- ⛔ **THE AI BOUNDARY** — *the **administrator's** eyes sit between the model and the estate's people,
+  both directions* `[paul-ratified 2026-09-02, the gate is a ROLE not a person]`.
+- ⛔ **Allow-list, never an exclude-list** (row 14's own rule): a new environment refuses by default.
+- 🔤 **`Almanac` is REJECTED as a portable noun** (`VOCABULARY.md` §4); **JOURNAL is the engine default for
+  every household that is not Fernwood** (`5587b884`). ⛔ And `estate` never reaches a user-facing surface.
+- ⚠️ **The history that sizes the risk:** before the fail-closed guard, `worker.js` imported ONE
+  `digest.json` statically, so **every deployment carried Fernwood's whole record into five model routes'
+  system prompts** — a one-turn probe on `est-qa0001` gave up the street address, the lidar elevation,
+  three plants and a vehicle. ⛔ **No page check could see it; the leak was never on a page.**
+
+**Falsifier for this theme:** if a lane can finish the journal work by reading rows 12 · 14 · 15 · 16 · 20
+independently, without needing this grouping, the theme was unnecessary and should be deleted.
+
+
 ## 🧪 SPLIT THE JOURNEY FROM THE READER — the TESTING-ARCHITECTURE row `[paul-proposed 2026-09-08]`
 
 > ⭐ **THREE axes are now bundled here: the journey/reader split · PROPERTIES · and CREDENTIAL (added 2026-09-08).** ⛔ **This stopped being a testing-tidiness row and became the testing-**architecture** row** — each axis was routed here because patching it first would harden the unit the redesign replaces.
