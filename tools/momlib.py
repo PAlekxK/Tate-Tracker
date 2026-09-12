@@ -102,13 +102,16 @@ DEPLOYMENT_ENV = {
     "paul":   "production",   # myhome-paul  · est-d93508
 }
 
-# ⚠️⚠️ `ENV_NAME` AT `legacy` IS THE STRING "production", AND THAT IS DELIBERATE — DO NOT "FIX" IT.
+# ✅ `ENV_NAME` AT `legacy` WAS "production" AND IS NOW "legacy" `[paul-stated 2026-09-12]`.
+# ⛔ THE PARAGRAPH BELOW IS THE COST, AND IT WAS PAID RATHER THAN AVOIDED — keep reading it as
+# the reason the change was a MIGRATION (toml + the KV canary + a Worker deploy, together),
+# never a one-line rename:
 # It is a RUNTIME var: `/health` reports it, every new feedback and zone-audio record is STAMPED
 # with it, and `check_destination` matches it against a live `env-canary` key in KV. Changing it
 # would make new records disagree with every historical one AND break the canary until KV is
 # rewritten on Mom's live estate. ⛔ That is a MIGRATION, not a rename, and it is not done as a side
 # effect. `deployment_env()` below is how a reader gets the TRUTH without touching the stamp.
-ENV_NAME_IS_MISLEADING_AT = ("legacy",)
+ENV_NAME_IS_MISLEADING_AT = ()   # ✅ emptied 2026-09-12 — legacy now stamps "legacy"
 
 
 def deployments(wrangler_path=None):

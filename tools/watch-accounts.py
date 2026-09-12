@@ -96,7 +96,8 @@ def now_iso():
 # ⛔ THIS IS A LABEL ONLY — no Cloudflare env is renamed and no data moves. `legacy` is the sentinel
 # for the toml's TOP LEVEL, which takes no `--env` flag; the wrangler envs (qa · lab · home · bob ·
 # paul) are untouched.
-# ⚠️ AND `ENV_NAME` IS DELIBERATELY STILL "production" — see wrangler.toml:25. That value is a
+# ✅ `ENV_NAME` WAS "production" AND IS NOW "legacy" `[paul-stated 2026-09-12]` — see wrangler.toml.
+# The paragraph below is kept because it states the COST, which was paid, not avoided: That value is a
 # RUNTIME var: `/health` reports it, every new feedback and zone-audio record is STAMPED with it,
 # and `check_destination` matches it against a live `env-canary` key in KV. Changing it would make
 # new records disagree with every historical one AND break the canary until KV is rewritten on
@@ -202,7 +203,7 @@ def destination_agrees(env):
     """
     # ⚠️ The fallback still says "production" for `legacy` ON PURPOSE: the canary living in KV
     # holds ENV_NAME, which is unchanged. The LABEL moved; the stored value did not.
-    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or ("production" if env == "legacy" else env)
+    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or env
     got = (kv(env, "get", "env-canary") or "").strip().splitlines()
     got = got[-1].strip() if got else ""
     if not got:

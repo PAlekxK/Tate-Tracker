@@ -22,7 +22,18 @@ id = "100f2b95e4be4c088a0000f917cf987b"
 # record (`env`), so a reader can tell a QA write from Mom's. The KV canary is the
 # second proof: `/health.kv_canary` is READ FROM THE BOUND NAMESPACE, never re-typed.
 [vars]
-ENV_NAME = "production"
+# ⭐ CORRECTED 2026-09-12 `[paul-stated: "Env_name at legacy can be corrected to not include
+# production"]` — was "production", which named the FROZEN first Fernwood as the product's production
+# while the product being built ships elsewhere. Two things read as "production" and the wrong one had
+# the name; it misled this project on the record 2026-09-07, coming within one check of attributing
+# MOM's input to Paul.
+# ⚠️ THIS VALUE IS STAMPED ON RECORDS, so the change leaves a DATA SEAM: every record written before
+# this deploy carries `env: "production"`, every one after carries `env: "legacy"`, and BOTH are this
+# same estate (est-3c9f1a). A reader counting by `env` must span both. The seam is the deploy, not a
+# date — read it from git.
+# ⛔ AND IT IS COUPLED TO THE KV `env-canary` KEY, which grant-mint's G3b matches against: a mismatch
+# REFUSES every mint. Both were changed together; neither is a standalone edit.
+ENV_NAME = "legacy"
 # C5 6a/6b (2026-09-03): every KV key is `<ESTATE_ID>:<kind>:<suffix>`; dates before
 # LEGACY_BEFORE read the unprefixed keys written before the cutover. Both are
 # per-environment and NON-INHERITABLE — a forgotten one makes the Worker throw.

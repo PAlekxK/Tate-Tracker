@@ -339,7 +339,7 @@ def env_agrees(env, dry=False):
     of the actual destination rather than a restatement of the roster. A fixture must assert its own
     destination; so must a credential.
     """
-    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or ("production" if env == "legacy" else env)
+    declared = (ENVIRONMENTS.get(env) or {}).get("envName") or env
     if dry or KV_OFFLINE:
         return                      # nothing is written, so there is no destination to confirm
     # cwd MATTERS: `--binding` resolves through worker/wrangler.toml, exactly as run_kv does. Without
