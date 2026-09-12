@@ -1,0 +1,238 @@
+{
+  "review_id": "review-2026-09-12-environment-model-instrument",
+  "project": "fernwood",
+  "subject": "commit eef7dd2e — momlib environment model + check-vocabulary V6 + watch-accounts/grant-mint delegation",
+  "review_date": "2026-09-12",
+  "reviewer_mode": "review",
+  "user_context": {
+    "primary_user": "Paul (operator/maintainer) — this is developer-facing instrumentation, not a Mom-facing surface",
+    "core_jobs_to_be_done": [
+      "Say the environment model once and have every tool and doc agree with it",
+      "Refuse the next 'five environments' error mechanically rather than by re-ruling it",
+      "Notice a new or retired deployment before it silently becomes a fourth environment"
+    ],
+    "context_of_use": "terminal, run as part of session-start / cycle checks",
+    "sources": [],
+    "assumptions_made": [
+      "No .user-research artifact governs tooling surfaces; the customer here is future-Paul-with-Claude",
+      "Mom never sees any output from these tools"
+    ],
+    "user_context_confidence": "high"
+  },
+  "code_context": {
+    "purpose": "Turn VOCABULARY.md §3i (three environments; legacy is a data control) from prose into a derived, checkable instrument",
+    "stack": "Python 3.11+ stdlib (tomllib, re, glob, argparse), no deps; Cloudflare Workers/Pages/KV as the deployed substrate",
+    "conventions_observed": [
+      "One source, N readers — derived values over restated ones",
+      "Every check has a selftest whose clauses have been SEEN TO FAIL (S3)",
+      "Docstrings carry the why and the ruling citation; comments are canon-grade",
+      "sys.path.insert(0, HERE); import momlib  # noqa: E402 is the established shared-module idiom (12+ tools)",
+      "Deferred in-function `import momlib` also established (analyze-fernwood, build-digest, build-viewer, check-condo-falsifier, check-engine-manifest)"
+    ],
+    "deployment_context": "internal-only",
+    "robustness_level": "shippable",
+    "assumptions_made": [],
+    "code_context_confidence": "high"
+  },
+  "tooling_signals": {
+    "type_check": "n/a",
+    "linter": "not-run",
+    "tests": "pass",
+    "notes": "Verified from disk at eef7dd2e: check-vocabulary.py --selftest PASS 0 failures (22 clauses, not the 23 the message claims); grant-mint.py --selftest green; watch-accounts.py --selftest PASS. Live run: 141 live surfaces graded, 0 findings, 11 exemptions counted. Manual end-to-end probe: appended a synthetic [env.bob] to a copy of worker/wrangler.toml — momlib.undeclared_deployments() returned ['bob'] and the row carried environment: None. Fail-closed holds in fact."
+  },
+  "principles_applied": [
+    "One source, N readers / derive-don't-restate (fernwood.md — 'Generate the derivable; drift-lint the rest')",
+    "A check that has never been seen to fail has proven nothing (repo S3)",
+    "Match the PAYLOAD, not the container (cross-project) — applied to the 3i-cite count and the V6c regex",
+    "Ask what a control is a control OVER (cross-project) — applied to V6b's glob coverage"
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "intent": "praise",
+      "area": "safety-to-deploy",
+      "severity": "nice-to-have",
+      "location": "tools/watch-accounts.py:104-121, tools/grant-mint.py:47-63",
+      "observation": "The delegation is safe, verified rather than assumed. Every caller reads the dict per-key with .get() (watch-accounts.py:205,331,743,749; grant-mint.py:154,342,370), so the added `environment` key cannot break anyone. grant-mint's selftest monkeypatch (grant-mint.py:537-541, restored at 623) still works because ENVIRONMENTS is read through the module global at call time, and every consumer of the fixture dicts uses .get() with a fallback — `(ENVIRONMENTS.get(env) or {}).get('envName') or (...)` at grant-mint.py:342 degrades correctly for the keyless envA/envB fixtures. Both selftests are green.",
+      "risk_or_impact": "None. This is the finding Paul most needed answered and the answer is clean.",
+      "principle_invoked": "additive-key refactor with per-key access",
+      "the_why": "A superset refactor is only safe when no consumer does whole-dict equality, **splat, len(), or round-trip serialization comparison. Grepping for those three shapes is the actual check, and none appear.",
+      "recommendation": "No change.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "intent": "issue",
+      "area": "testing",
+      "severity": "important",
+      "location": "tools/check-vocabulary.py:216-232 (check_environment_model signature) and :371-393 (V6a clauses)",
+      "observation": "V6a's fail-closed property is proven only against an injected dict. `check_environment_model` takes root/deployment_env/declared_envs/files but NO `wrangler_path`, so when the selftest injects `deployment_env=GOOD` the function sets `toml_labels = set(deployment_env.keys())` and never reads a toml at all. The V6a clause therefore asserts 'given a dict containing a None value, do I report it' — near-tautological. The half that touches the world (does a new `[env.*]` block actually arrive with environment: None?) is untested by anything.",
+      "risk_or_impact": "The incident this instrument exists to prevent — nigel/aida/bob — happens in the PARSER's territory, not the checker's. I confirmed by hand that the parser does fail closed, but nothing in the repo re-confirms it, so a future edit to momlib.deployments() (e.g. defaulting `environment` to the label) would leave all 12 V6 clauses green.",
+      "principle_invoked": "A check that has never been SEEN TO FAIL has proven nothing (S3) — applied to the derivation, not just the grader",
+      "the_why": "S3 is about mutation coverage: for each clause, mutate the world and watch the verdict flip. Injecting the dict skips the mutation surface that matters. The fix is small because the seam already exists one layer down — momlib.deployments() takes wrangler_path.",
+      "recommendation": "Add `wrangler_path=None` to check_environment_model and pass it through to momlib.deployments(). Then one clause: write a temp toml that is the real one plus an unplaced `[env.bob]` block, call with wrangler_path=that, assert V6a fires. That converts the tautology into a real end-to-end mutation. (I ran exactly this by hand and it passes today — so the clause will be green on arrival, which is fine: its value is that it stays green.)",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "intent": "issue",
+      "area": "safety-to-deploy",
+      "severity": "important",
+      "location": "tools/check-vocabulary.py:169-171 (V6_LIVE_GLOBS) and :262-268 (V6b loop)",
+      "observation": "V6b grades 141 surfaces, of which exactly TWO are markdown: CLAUDE.md and VOCABULARY.md. The repo holds 213 other non-chronicle .md files that V6b never opens. Two of them carry live, uncited §3i violations right now: BACKLOG.md:113 — 'widens its scope from one household to four environments' — and MOM-CYCLE-LOG.md:2088 — 'shipped to all five environments plus the frozen instance'. BACKLOG.md is the file that drives the next lap.",
+      "risk_or_impact": "The error the instrument was built to refuse is sitting, unrefused, in the planning surface Paul reads most. A control that reports CLEAN while the violation is one directory over is the costly-control signature inverted: not an alarm nobody reads, but a green light nobody should trust. And the original error Paul names in the commit message — reporting '5 environments' in a session — happened in prose, which is precisely the surface class V6b does not cover.",
+      "principle_invoked": "Ask what a control is a control OVER (cross-project, measured 2026-09-10)",
+      "the_why": "Coverage here was set by a glob list written for tools, then the finding count (18 -> 0) was reported as if it covered the vocabulary problem. The scope decision and the claim drifted apart. Widening the globs is cheap because V6b's regex already has a tested near-miss ('three environments' stays sayable) and the 3i-cite hatch already exists for canon that must quote the error.",
+      "recommendation": "Widen V6_LIVE_GLOBS to include top-level and nested .md outside V6_CHRONICLE_DIRS (e.g. walk the tree and skip chronicle roots, the way the V6_CHRONICLE_DIRS constant already anticipates). Expect exactly the two findings above on first run; both are genuine and both are one-word fixes ('deployments'). Note that this also makes F4's chronicle guard do real work instead of none.",
+      "effort": "low"
+    },
+    {
+      "id": "F4",
+      "intent": "issue",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "tools/check-vocabulary.py:172-174 (V6_CHRONICLE_DIRS), :256-258 (the skip), :470-487 (the printed claim)",
+      "observation": "The chronicle guard is unreachable in real runs. V6_LIVE_GLOBS can only ever yield paths under tools/, worker/, CLAUDE.md and VOCABULARY.md — I measured 0 of 141 live files hitting the `rel.startswith(V6_CHRONICLE_DIRS)` branch. The guard is exercised only by the selftest, which hands it an explicit `files=['.plans/old.md']`. The tool nonetheless prints 'chronicles counted, never graded' — they are neither counted nor graded; nothing counts them, and `v6ChronicleDirsUngraded` is a static echo of the constant.",
+      "risk_or_impact": "Low on its own — the property (chronicles aren't graded) is true, just guaranteed by the glob list rather than by the guard. The cost is that the printed line reads as a measurement and is not one, which is the exact failure mode this repo keeps re-finding.",
+      "principle_invoked": "Match the PAYLOAD, not the container — a printed claim must be derived from the run, not restated from a constant",
+      "the_why": "Two mechanisms claiming to enforce the same property, where only one is live, is how a later editor removes the live one (the glob) believing the other (the guard) is holding. Either the guard becomes load-bearing or the line stops claiming coverage it doesn't have.",
+      "recommendation": "Best fix is F3: widen the globs, at which point the guard becomes load-bearing and the count becomes real — count chronicle files skipped and print that number. If F3 is declined, change the printed line to state the scope honestly ('141 live surfaces graded: tools/, worker/, CLAUDE.md, VOCABULARY.md — prose surfaces are not graded').",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "intent": "issue",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "tools/check-vocabulary.py:271-277 (V6c regex)",
+      "observation": "The V6c pattern `[\"']--env[\"']\\s*,[^)]*?help\\s*=\\s*([\"'])(.*?)\\1` cannot cross a closing paren, so any --env declaration whose earlier kwargs contain a call is structurally invisible. Verified: `ap.add_argument(\"--env\", choices=tuple(sorted(E)), help=\"one environment\")` returns CLEAN. Six live declarations are in that shape — grant-mint.py:635, pages-deploy.py:220, post-deploy.py:242, read-onboarding.py:393, walk-capture.py:107, household-export.py:128. Separately, implicit string concatenation across lines is only half-read: `help=\"one deployment \" \"(every environment)\"` returns CLEAN.",
+      "risk_or_impact": "None today — all six of those lines happen to carry no help text at all, which is why the live run is clean. But V6c's whole job is to catch the help string someone adds later, and for those six it will not. The miss is silent: no finding, no 'not checked' note.",
+      "principle_invoked": "A gap that reports CLEAN is worse than one that reports UNKNOWN",
+      "the_why": "Regex over source is fine at this stake level; the bug is the `[^)]*?` guard-rail, which was presumably there to stop the match running into the NEXT add_argument call. Splitting the source on `add_argument(` and scanning each chunk gets the same containment without banning parens.",
+      "recommendation": "Replace the single regex with: split body on 'add_argument(', keep chunks whose first token is a --env literal, then search that chunk (up to its first newline-plus-`ap.` or a fixed char budget) for `help\\s*=` followed anywhere by `\\benvironments?\\b`. Or, cheaper and honest: keep the regex and add a second pass that flags any --env declaration the regex could not parse as 'V6c? not checked' — matching this file's own 'a toml we cannot read is UNKNOWN, never clean' posture at line 227.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "intent": "question",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "tools/check-vocabulary.py:180-186 (_CITE), :488-490 (the printed enumeration hint)",
+      "observation": "The 3i-cite hatch is NOT a silent bypass — it is per-line, per-match, counted, and its use is overwhelmingly self-referential (15 of 18 tokens are in check-vocabulary.py's own fixtures and VOCABULARY.md's own canon; only tools/momlib.py carries one outside that). But the two numbers disagree: the tool prints '11 line(s) exempt' and in the same breath tells you to run `grep -rn '3i-cite'`, which returns 18. The tool counts SUPPRESSED MATCHES; grep counts TOKEN-BEARING LINES. Nothing reconciles them and nothing says where the 11 are.",
+      "risk_or_impact": "Auditability is real but two-step and lossy. An auditor running the printed command gets a superset with no way to tell which 11 of the 18 actually suppressed something, so the cheap audit is 'trust the count.'",
+      "principle_invoked": "The instrument should print the enumeration, not a pointer to a different instrument that answers a different question",
+      "the_why": "You already compute the file and line of every suppressed match inside the loop — you throw it away and increment a counter instead. Printing `rel:line` per suppression makes the tool self-auditing and removes the possibility of the two numbers drifting, which is the same fix as F4.",
+      "recommendation": "Collect `f'{rel}:{line}'` into the `cited` list instead of `cited += 1`, and print them under a '--verbose' or just inline (11 lines is readable). Then drop the grep hint or keep it as a cross-check. Consider also requiring a reason after the token (`3i-cite: §3i quotes the error`) — free to enforce, and it keeps a hatch from being pasted reflexively.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "intent": "suggestion",
+      "area": "testing",
+      "severity": "nice-to-have",
+      "location": "repo-wide — tools/pages-deploy.py:30-35, post-deploy.py:33, read-onboarding.py:33-38, walk-capture.py:27-30",
+      "observation": "Asked whether a cheap structural check for restated rosters exists, I measured two variants across tools/*.py. Threshold >=2 known deployment labels in one literal collection: 11 tools, and MOST are false positives — TEARDOWN_OK=('qa','lab'), MINT_OK, GATING_ENVS={'home','legacy'}, HOUSEHOLD, LIVE_ENVS. Those are POLICY SUBSETS, not rosters; repointing them at momlib would erase the policy. Threshold >=4: exactly TWO hits across 141 surfaces — check-vocabulary.py:374 (the checker's own fixture) and pages-deploy.py:32 (BRANCH, a genuine near-full roster, sibling to PROJECT and ORIGIN above it, all three omitting legacy and all three carrying a hand-written tombstone comment for nigel/aida/bob).",
+      "risk_or_impact": "The 'one at a time' plan is right for the policy subsets and unnecessary for the rosters — there are far fewer of the dangerous shape than the ~28 estimate suggests.",
+      "principle_invoked": "Derive the exhaustive; hardcode the selective",
+      "the_why": "The distinction that makes a structural check possible is: a collection that must name EVERY deployment goes stale when one lands or retires; a collection that names a CHOSEN FEW does not — a new deployment correctly stays out of TEARDOWN_OK. So the check should not ask 'does this mention deployment labels' but 'does this claim to be complete', and >=4-of-5 is a serviceable proxy for that at this repo's size.",
+      "recommendation": "If you want the check, add it as V6d at the >=4 threshold, not >=2 — it is near-zero false positive today and would have caught pages-deploy's roster. The tombstone comments in pages-deploy.py:36-40 are the evidence that this shape costs manual maintenance. Two honest alternatives: (a) skip V6d and just repoint the four true rosters (pages-deploy PROJECT/BRANCH/ORIGIN, post-deploy ORIGIN, read-onboarding WORKERS, walk-capture WORKERS/TOKENS) since there are six sites, not 28; (b) do both. I'd do (a) first and let V6d follow if a seventh appears — a check for a six-item list you can just fix is over-instrumentation.",
+      "effort": "medium"
+    },
+    {
+      "id": "F8",
+      "intent": "nit",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "tools/grant-mint.py:60-62",
+      "observation": "The in-function `import sys, os as _os; sys.path.insert(...); import momlib` block is dead weight in grant-mint specifically: lines 39-41 already do `HERE = ...; sys.path.insert(0, HERE); import momlib` at module scope. Three lines that repeat work already done. In watch-accounts the block does real work (no module-level momlib there), so only grant-mint is redundant.",
+      "risk_or_impact": "None functionally. It is a copy-paste artifact of applying one patch shape to two different files.",
+      "principle_invoked": "code-as-reading-material",
+      "the_why": "Answering Paul's direct question: the deferred import is NOT a problem in this codebase — `import momlib` inside a function is established idiom (analyze-fernwood.py:163, build-control.py:312, build-digest.py:553/650/795, build-viewer.py:287, check-condo-falsifier.py:59, check-engine-manifest.py:58). What is off-idiom is the `import sys, os as _os` line: every other site uses the module-level sys/os and the module-level HERE. The `_os` alias signals a shadowing worry that does not exist here, and the function-local `import sys` makes `sys` a local for the whole function — harmless in a 2-line function, but it is the shape that produces UnboundLocalError when the function later grows a `sys` reference above the import.",
+      "recommendation": "grant-mint: delete lines 60-62, leave `return momlib.deployments(WRANGLER)`. watch-accounts: move to the repo idiom — `sys.path.insert(0, HERE)` + `import momlib  # noqa: E402` beside the other imports (it already has HERE at line 56 and sys at 54), and leave the function body as one line.",
+      "effort": "low"
+    },
+    {
+      "id": "F9",
+      "intent": "nit",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "tools/grant-mint.py:37 and tools/watch-accounts.py:54",
+      "observation": "`tomllib` is still imported in both files and is now unreferenced anywhere else (grep count is 1 in each file — the import line itself). Dead import left by the delegation.",
+      "risk_or_impact": "None beyond noise; in a repo where imports are read as a statement of what a tool touches, a stale tomllib says 'this tool parses the toml' when the point of the change is that it no longer does.",
+      "principle_invoked": "Dead code is a false claim about what the code does",
+      "the_why": "The import line is now the only place either file mentions the toml parser. Removing it makes the delegation legible at a glance.",
+      "recommendation": "Drop `tomllib` from both import lines.",
+      "effort": "low"
+    },
+    {
+      "id": "F10",
+      "intent": "nit",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "tools/grant-mint.py:48-58",
+      "observation": "The consolidation docstring was pasted verbatim into both files and is factually wrong in grant-mint. Inside grant-mint.py it reads 'This function used to parse wrangler.toml itself, and so did grant-mint.py' and 'the docstring here named the fix' — but the quoted docstring was watch-accounts', not this one. The text is correct in watch-accounts.py and self-contradictory here.",
+      "risk_or_impact": "Low, but this repo treats docstrings as canon and future-Paul reads them as the record of why. A wrong attribution in the record is the kind of thing that gets quoted forward.",
+      "principle_invoked": "code-as-reading-material",
+      "the_why": "The failure mode a correction must sweep is quoting files; the same applies at authoring time. A shared paragraph that names a specific file cannot be shared verbatim.",
+      "recommendation": "In grant-mint, change to 'This function used to parse wrangler.toml itself, and so did watch-accounts.py — whose docstring named the fix.'",
+      "effort": "low"
+    },
+    {
+      "id": "F11",
+      "intent": "nit",
+      "area": "code-quality",
+      "severity": "nice-to-have",
+      "location": "tools/momlib.py:132-156",
+      "observation": "Five of the eight new momlib exports have zero callers anywhere in the repo: `deployment_env()`, `undeclared_deployments()`, `environments_of()`, `HIERARCHY`, `ENV_NAME_IS_MISLEADING_AT`. Notably check-vocabulary re-implements V6a's undeclared scan inline (:235-240) rather than calling `undeclared_deployments()`, and deployments()' own docstring says undeclared blocks are 'reported by undeclared_deployments()' — true of the function, but nothing calls it. momlib itself has no selftest, so none of the five is exercised.",
+      "risk_or_impact": "Mild speculative generality. Not harmful — `HIERARCHY` and `ENV_NAME_IS_MISLEADING_AT` are arguably documentation-as-data and earn their place. But an uncalled, untested helper whose docstring is cited as the mechanism ('is reported by undeclared_deployments()') overstates what exists.",
+      "principle_invoked": "AHA — write the abstraction when the second caller shows up",
+      "the_why": "The cheapest repair is to make the one that is cited real: have V6a call momlib.undeclared_deployments() when it is reading the real toml. That collapses the duplication, gives the function a caller, and gets it tested for free by F2's proposed clause.",
+      "recommendation": "Point V6a at momlib.undeclared_deployments() for the non-injected path. Leave HIERARCHY and ENV_NAME_IS_MISLEADING_AT as declared documentation. Consider dropping environments_of() until something needs it, or give momlib a --selftest that exercises it.",
+      "effort": "low"
+    },
+    {
+      "id": "F12",
+      "intent": "nit",
+      "area": "error-handling",
+      "severity": "nice-to-have",
+      "location": "tools/check-vocabulary.py:221-231, :455-457",
+      "observation": "Two small asymmetries. (1) `sys.path.insert(0, os.path.join(root, 'tools'))` at :222 is never popped, so repeated calls grow sys.path — invisible in a one-shot CLI, visible if this ever runs in a loop or is imported by another tool. (2) `import momlib` is outside the try; a toml that will not parse is correctly downgraded to a V6a? finding, but a momlib that will not import raises through main()'s `except Unknown` and exits with a traceback rather than the file's own 'UNKNOWN, treated as a finding' posture.",
+      "risk_or_impact": "Both are low. The second is the one worth a line: the file goes to some trouble to never report clean when it could not look, and the import is the one path that bypasses that.",
+      "principle_invoked": "A control that cannot look must say so, never crash and never report clean",
+      "the_why": "A traceback and an UNKNOWN finding both exit non-zero, so nothing breaks — but the traceback loses the framing this file has otherwise been careful about, and in a session-start ritual a traceback reads as 'the tool is broken' rather than 'the model could not be checked'.",
+      "recommendation": "Wrap the momlib import in the same try and emit ('V6a?', f'momlib unreadable, environment model NOT checked: {e}'). Optionally restore sys.path in a finally.",
+      "effort": "low"
+    },
+    {
+      "id": "F13",
+      "intent": "nit",
+      "area": "other",
+      "severity": "nice-to-have",
+      "location": "commit message eef7dd2e, V6 paragraph",
+      "observation": "Two counts in the message do not match the artifact. It says '23 selftests pass'; the run prints 22 (10 pre-existing + 12 new V6 clauses). It says '11 today' for the 3i-cite exemptions and in the same paragraph gives `grep -rn '3i-cite'` as the enumeration; that grep returns 18 (see F6). The 141-surface and 18-findings-to-0 numbers check out.",
+      "risk_or_impact": "Negligible operationally, but this repo's commit messages are read later as measurements, and the 11-vs-18 pair is the one that will confuse a future auditor because the message supplies both the number and a command that disagrees with it.",
+      "principle_invoked": "A number in a chronicle is read later as a measurement",
+      "the_why": "Not worth amending history for. Worth knowing so the next message quoting these does not propagate them.",
+      "recommendation": "No action on the commit. Fix the source of the ambiguity via F6 (print the enumeration) so the next message can cite one number.",
+      "effort": "low"
+    }
+  ],
+  "open_questions_for_user": [
+    "F3 is the one I would act on first — do you want V6b widened to prose surfaces this lap, or is BACKLOG.md deliberately out of scope because it is refined live in the standing session?",
+    "F7: would you rather add V6d at the >=4 threshold, or just repoint the six true rosters (pages-deploy x3, post-deploy, read-onboarding, walk-capture) and skip the check? There are six, not ~28.",
+    "Should `3i-cite` require a trailing reason? Free to enforce, keeps the hatch from being reflexive."
+  ],
+  "follow_up_research_suggested": [],
+  "principles_to_propose": [
+    {
+      "principle": "Derive the exhaustive; hardcode the selective",
+      "scope": "fernwood",
+      "rationale": "The measurement in F7 separated 11 tools holding deployment labels into two classes with opposite correct treatments — rosters that must name every deployment (stale-prone, must derive) and policy subsets that name a chosen few (correct as literals, must NOT derive). Without that distinction a 'repoint everything at momlib' sweep would erase real policy. This is the rule that makes a restated-roster check possible at all."
+    },
+    {
+      "principle": "A check's coverage must be derived from the run, not asserted beside it",
+      "scope": "cross-project",
+      "rationale": "F3 and F4 are the same failure twice in one file: the scope was set by a glob list, then the output claimed coverage the globs do not provide ('chronicles counted, never graded' — they are neither), and 141 clean surfaces read as 'the vocabulary problem is clean' while two live violations sat in BACKLOG.md. A checker should print what it opened and what it skipped, both counted from the run."
+    }
+  ]
+}
