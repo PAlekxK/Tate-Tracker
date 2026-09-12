@@ -460,8 +460,31 @@ read; the window must confirm. `[not verified]` = I did not check; the window mu
   see it.
 - ⚠️ **Cost, stated honestly:** per-estate cache keys reduce the hit rate (two households in one county no longer
   share an airnow row). **That is the correct trade and it should be a comment, not a surprise.**
-- **check** — a KV key listing at lab after two households fetch weather contains **no coordinate outside its own
-  estate prefix**.
+- **check** — a KV key listing at **dev** (⚠️ the plan says `lab`; the label moved 2026-09-12) after two households
+  fetch weather contains **no coordinate outside its own estate prefix**.
+- ⛔⛔ **THIS CHECK IS POST-CONVERSION AND CANNOT PASS BEFORE IT — IT IS NOT WAITING ON A FIXTURE.**
+  `measured 2026-09-12 at HEAD`: `worker.js:1683` still reads
+  `if (!row || row.estateId !== env.ESTATE_ID || row.revokedAt) return null;`, and `[env.dev]` binds ONE
+  `ESTATE_ID` (`est-lab0001`). **So a second estate at dev cannot authenticate at all.** "Two households
+  fetch weather" is not a precondition somebody forgot to build — **it is the state THIS LAP CREATES.**
+  ⭐ Running the check early returns the verdict `falsifier-tenancy.py`'s own docstring exists to refuse:
+  *estate B holds no foreign coordinate because estate B holds nothing.* **Green by absence.** Order it
+  beside A14/A15, never ahead of them.
+- ⚠️ **And `falsifier-tenancy.py --setup` does NOT serve this check** — the name similarity is the trap. It
+  mints **grant rows only** (`personId`/`estateId`/`relationship`/`capability`/`entry`/`vault`): two estates
+  that can be ADDRESSED, neither PLACED. A3 needs a **place** — name, address, coordinates — which is
+  `synthetic-identity.py --complete-setup <role>`, a different object. **A14's fixture and A3's fixture are
+  not the same fixture.**
+- ⛔ **AND THE FIXTURE TOOL IS ITSELF ON THE RENAME FAULT LINE — fix before use, do not detour now.**
+  `measured`: `.private/synthetic-identities.json` holds **13 rows — 4 at `lab`, 5 at `qa`, 4 at `home`,
+  ZERO at `dev`** — while `synthetic-identity.py:192` defaults `--env` to **`dev`**. Every
+  `--complete-setup --env dev` will exit *"no identity 'X@dev'"* while the accounts it wants are live in
+  that same deployment's KV under the old key. ⛔ **RE-KEY the four, never create fresh dev identities** —
+  creating fresh ones writes real rows and orphans the existing four in one namespace, which is the
+  *"households become unwieldy"* defect `household-fixtures.py` exists to fight. ⚠️ Re-keying ASSERTS that
+  `[env.dev]` is the deployment those four live in: **verify that against the binding, never infer it from
+  the rename.** (Docstring drift rides along: `falsifier-tenancy.py` and `synthetic-identity.py` say `lab`
+  in prose while their code says `dev`.)
 - **MOVES CANDIDATE:** yes. **serves:** A.
 
 ### A4 · **Declare** B-DEPLOY (~13 sites) — annotate, do not convert
