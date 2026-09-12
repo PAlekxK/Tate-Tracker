@@ -567,6 +567,30 @@ is the honest reading, because today they *are* what stands in for production. R
 make the roster describe an intention rather than the world, which is the failure this section exists to
 prevent.
 
+### ✅ MIGRATION ORDER — the BASIS is ruled; the order falls out of it `[paul-acknowledged 2026-09-12]`
+
+⛔ **NOT the release cascade.** `[paul-stated 2026-09-12: "That release cadence was conceptual and more
+related to user facing features, not an environment/backend overhaul like this"]` — the persona → Paul →
+Mom ladder asks *has a real person seen this work*, which a backend migration does not fail on. ⚠️ The
+mis-application was a session's, in conversation; swept and confirmed absent from the record.
+
+**The basis is three things, in order:**
+1. **Rehearsal before any real row moves** — already specified as lap 8 · **A14**, at `dev`. `est-lab0001`
+   holds 54 grants and 7 founded estates, so it is a substantive rehearsal, not a smoke test.
+2. **Diagnosability** — if a migration lands wrong, who can say *what* went wrong? The owner who can
+   describe the failure goes first.
+3. **Blast radius and reversibility** — and §3i already fixes the shape: **a migration with a verified
+   copy, never a delete.** The source survives either way; what differs is who waits while a fault is found.
+
+⭐ **Applied, that yields: rehearse at `dev` → `est-d93508` (Paul's) → `est-e6696a` (Mom's).** Recorded as
+**DERIVED from the basis, not separately ruled** — if the basis changes, re-derive rather than cite this.
+⚠️ **Mom's is the careful one for a reason that is not seniority:** hers is the only estate with a live
+user who cannot diagnose a failure, and would experience one as *the app is broken*.
+
+⛔ **STILL NOT RULED:** whether either estate id survives the move, and the new KV namespace's name.
+⚠️ **And the whole question sits AFTER the door** — nothing migrates until `scopeOf(env)`'s 71 call sites
+are converted, so this is a row-A-completion question, never a now question.
+
 ⭐ **Why it keeps being re-asked, and the fix is in the tooling, not in another paragraph.**
 `tools/pages-deploy.py` takes `--env paul|home|bob|qa|lab` and keeps a set literally named
 `HOUSEHOLD = {"bob","paul","home","qa"}`; `wrangler.toml` has one `[env.*]` block per household. **A
