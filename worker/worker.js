@@ -4651,7 +4651,21 @@ export default {
     // this deployment's namespace, and it would be rejected if it were. Both must change for one
     // deployment to serve many estates, and the LOOKUP is the harder half — a grant token would
     // have to resolve without already knowing which estate to look in.
-    const requestScope = scopeFor(request, env, grant);   // eslint-disable-line no-unused-vars
+    // ⭐⭐ THE SINGLE RESOLUTION FOR THIS REQUEST, and it is sited here because THIS POINT DOMINATES
+    // EVERY ROUTE. `measured 2026-09-12`: of 24 route dispatches that return, 0 sit above this line.
+    // ⛔ A SECOND RESOLUTION USED TO SIT ~230 LINES BELOW and covered only 20 of the 24 —
+    // `/api/ambient`, `/api/observations`, `/api/airnow` and `/api/drought` all dispatch and RETURN
+    // above it. Those four are not arbitrary: THREE ARE B-CACHE, whose key SUFFIX is household-
+    // identifying data (a station MAC, a pair of coordinates), and the fourth is the observations
+    // pair. Threading the conversion from the lower one would have silently stranded exactly the
+    // keys whose key-space is a directory of where everyone lives.
+    // ⚠️ The two were the IDENTICAL expression — `grant` is bound once above and never reassigned
+    // between them — so nothing semantic was lost by collapsing them. Two resolutions of one value
+    // in one dispatcher is only ever a thing that drifts.
+    // ⛔ THE SEQUENCING RULE THIS SERVES (see /api/grant/whoami below): read-only handlers move onto
+    // scopeFor FIRST and writers LAST, because `assertScope` catches a FORGOTTEN conversion and
+    // never a WRONG one.
+    const requestScope = scopeFor(request, env, grant);
     if (request.headers.get(GRANT_HEADER)) {
       // ⭐⭐ A PERSON WHO HAS NOT FOUNDED YET IS NOT A FAILED DOOR. Before `found` existed, every
         // credential resolved to a grant or to nothing, so "no grant" meant a bad credential and a
@@ -4884,11 +4898,9 @@ export default {
     if (url.pathname.startsWith("/api/observations")) return handleObservations(request, env, url);
     if (url.pathname === "/api/airnow")     return handleAirNow(request, env, url);
     if (url.pathname === "/api/drought")    return handleDrought(request, env, url);
-    // ⭐ the CALLER's scope, not the deployment's — `scopeFor` answers from the resolved grant
-    const canonScope = scopeFor(request, env, grant);
-    if (url.pathname === "/api/today-line") return handleTodayLine(request, env, canonScope);
-    if (url.pathname === "/api/classify")   return handleClassify(request, env, canonScope);
-    if (url.pathname === "/api/chat")       return handleChat(request, env, auth, canonScope);
+    if (url.pathname === "/api/today-line") return handleTodayLine(request, env, requestScope);
+    if (url.pathname === "/api/classify")   return handleClassify(request, env, requestScope);
+    if (url.pathname === "/api/chat")       return handleChat(request, env, auth, requestScope);
     if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url, auth);
     if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url);
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url);
@@ -4898,7 +4910,7 @@ export default {
     // ⛔ BELOW the auth gate, unlike its own POST at :3480 — write open, read closed.
     if (url.pathname === "/api/onboarding-metrics") return handleOnboardingMetrics(request, env, url);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
-    if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env, canonScope);
+    if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env, requestScope);
     if (url.pathname === "/api/remove-species") return handleRemoveSpecies(request, env);
     if (url.pathname === "/api/audio-upload") return handleAudioUpload(request, env);
     if (url.pathname === "/api/admin/clean-observations") return handleAdminCleanObservations(request, env);
