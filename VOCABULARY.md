@@ -548,6 +548,25 @@ from a real house** — including indoor temperature and humidity — to anyone,
 was removed from `qa`; verified by use (qa → **503**, legacy → **200**, which is where Mom reads her own
 conditions).
 
+### ✅ THE `wrangler.toml` LABELS ARE RULED — FOUR `[paul-stated 2026-09-12: "I'm good with your wrangler labels"]`
+
+**`legacy` · `qa` · `dev` · `prod`.** The person-named labels retire WITH their deployments, not before.
+
+| label | state today | when it changes |
+|---|---|---|
+| `legacy` | ✅ live — top-level `fernwood` · `est-3c9f1a` | never; it is the control |
+| `qa` | ✅ live — `fernwood-qa` · `est-qa0001` | — |
+| `dev` | ✅ live as of `89c47401` — pinned to Worker `fernwood-lab` · `est-lab0001` | at the cutover, if the Worker is renamed |
+| `prod` | ⛔ **does not exist yet** | when `myhome-prod` and its KV namespace are created |
+| ~~`home`~~ · ~~`paul`~~ | ⚠️ **live and serving real households** | they RETIRE after their estate migrates into `myhome-prod` and the copy is verified |
+
+⛔ **`[env.prod]` is NOT declared ahead of its namespace.** A wrangler env block with no KV id is a
+foot-gun: it parses, it deploys, and it binds nothing. The label lands when the deployment does.
+⚠️ **And `home`/`paul` stay mapped to `production` in `momlib.DEPLOYMENT_ENV` until they retire** — that
+is the honest reading, because today they *are* what stands in for production. Removing them early would
+make the roster describe an intention rather than the world, which is the failure this section exists to
+prevent.
+
 ⭐ **Why it keeps being re-asked, and the fix is in the tooling, not in another paragraph.**
 `tools/pages-deploy.py` takes `--env paul|home|bob|qa|lab` and keeps a set literally named
 `HOUSEHOLD = {"bob","paul","home","qa"}`; `wrangler.toml` has one `[env.*]` block per household. **A
