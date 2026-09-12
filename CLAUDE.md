@@ -11,6 +11,7 @@ python3 tools/check-domains.py             # does every domain still conform to 
 python3 tools/check-data-inline.py         # viewer.html inlines vs source JSON
 python3 tools/check-config-derivation.py  # canon values TYPED into engine code (C5 4b) — 34.5496 · 2,873 · 10, 17
 python3 tools/instance-recipe.py --check   # INSTANCE-RECIPE.md still says what the code says (generated; the log inside is hand-kept)
+python3 tools/check-push-history.py --range origin/main..HEAD  # ⭐ does the COMMIT RANGE carry a declared private value? (the line above scans the WORKING TREE and PASSES on a scrubbed file while an earlier commit still holds the blob — wired into the pre-push hook, which is where it enforces)
 python3 tools/check-public-build.py        # private-tier values in the PUBLIC build + the supplied-names NEEDLE row (exit 3 = UNCHECKABLE: the sibling is absent — never green by absence)
 python3 tools/build-library-index.py --check  # Guru 6a: the prose library index (7,330 chunks in KV) still matches its sources; says where it is LOADED (a fresh manifest with a stale KV is still possible)
 python3 tools/place-claims.py --check      # shared engine prose that claims a PLACE (engine/place-claims.json): red while any row is unclassified or the condo count grows [paul-stated 2026-09-04: track it systematically]
