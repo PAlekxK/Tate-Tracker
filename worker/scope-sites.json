@@ -1,0 +1,31 @@
+{
+  "_comment": [
+    "STEP A0's REGISTER — read by tools/check-scope-sites.py. Every `scopeOf(env)` call site in",
+    "worker.js must be either CONVERTED (gone) or DECLARED here with a reason. An unclassified site",
+    "is red. scopeOf() is the ONLY function that reads ESTATE_ID, so this list IS the inventory of",
+    "places that still take the household from config — converting them is the multi-tenancy flip.",
+    "",
+    "KEYED BY ENCLOSING FUNCTION, NEVER BY LINE — deliberately. Three file:line citations went stale",
+    "inside single afternoons on 2026-09-12, every one from a concurrent insertion rather than a",
+    "change to the thing cited. `count` is load-bearing: it stops a declaration written today from",
+    "silently covering a site added tomorrow.",
+    "",
+    "A REASON IS NOT AN AUDIT. The tool records that a human gave one; it cannot judge whether it is",
+    "good. And it reads SOURCE, NOT BEHAVIOUR — whether a converted site resolves the RIGHT grant is",
+    "step A15's falsifier at dev, and neither covers the other.",
+    "",
+    "⛔ EMPTY ON PURPOSE AT A0. The plan runs the classifier BEFORE any conversion, so a full-red",
+    "first run is the intended reading: 58 sites, none yet examined. A2 converts B-CALLER, A3",
+    "converts B-CACHE, A4 DECLARES B-DEPLOY here rather than converting it.",
+    "",
+    "FORMAT:  \"declared\": { \"<enclosingFunction>\": { \"count\": <n>, \"reason\": \"<why>\" } }"
+  ],
+  "baseline": {
+    "capturedAt": "2026-09-12",
+    "sha": "dbb5262c",
+    "sites": 58,
+    "functions": 32,
+    "note": "the A0 inventory; `converted` is measured against this number"
+  },
+  "declared": {}
+}
