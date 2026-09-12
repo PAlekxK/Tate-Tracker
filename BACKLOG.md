@@ -134,7 +134,9 @@ stale — regenerate before arguing.
 
 ## ⛓ THE DEPENDENCY CHAIN — what gates what, for sequencing `[paul-stated 2026-09-12: "I think there's a dependency chain we can develop to sequence our backlog prioritization"]`
 
-⛔ **A DERIVED VIEW OVER EXISTING ROWS — it ranks nothing and commits nothing.** `⏭ THE NEXT TWO LAPS`
+✅✅ **ADOPTED AS THE PRIORITY ORDERING** `[paul-ruled 2026-09-12: "let's adopt this chain as our priority"]`. ⭐ **It was proposed as a derived view and is now the ordering the backlog is prioritised against** — so a row's position is read as **reachability first, readiness second.** ⛔⛔ **WHAT THIS RULING DOES *NOT* DO, stated so it is not over-read: it does NOT open a lap, it does NOT pick lap 9, and it does NOT commit any row.** The pick remains **beat 6, Paul's.** This ruling orders the board; it does not take work off it. ⚠️ **AND IT DOES NOT CONVERT A LAYER INTO A COMMITMENT:** layer 1 being the root means work above it cannot *ship*, not that layer 1 is hereby scheduled. 
+
+⛔ **STILL A DERIVED VIEW OVER EXISTING ROWS — it ranks rows, it does not RESTATE them, and it commits nothing.** `⏭ THE NEXT TWO LAPS`
 stays the queue and `--ladder` stays its source; this answers a different question: **not *what is ready*
 but *what is UNREACHABLE until something else lands*.** A thing can be perfectly ready and still be the
 wrong thing to build.
@@ -167,6 +169,19 @@ against the capture write path.
 
 ⭐ *The cheap consequence, stated plainly: work at layers 2, 3 or 4 that does not first land layer 1 is
 work that cannot be finished.* It can be designed; it cannot ship.
+
+### ⚠️ WHAT ADOPTING THE CHAIN CHANGED — the consequences, named rather than left to be discovered
+
+⭐ **A ruling that reorders a board silently demotes things somebody was counting on.** These are the moves it makes, so nobody rediscovers them as a surprise:
+
+| what moves | from → to | why |
+|---|---|---|
+| **TIER 2 · 12** — the per-estate canon store | *a `concept` row nobody's beat owned* → ⭐ **the ROOT of the ordering** | it is the only item gating two layers |
+| **the weather card** (TIER 2 · 11) | *"stamped, a design pass owed"* → ⚠️ **layer 2+, sitting above an unbuilt layer 1** | ⛔ **this interacts with the ruled 8·3 / 9·2 ordering that puts the weather card FIRST** — see below |
+| **the derived first draft** (TIER 2 · 9) | same | same |
+| **the door / cutover** (TIER 1 · 79) | *a model opinion about lap 9* → **an ORTHOGONAL precondition**, correctness at two estates | it crosses the chain rather than sitting in it |
+
+⛔⛔ **THE ONE THING THIS RULING MAY HAVE SUPERSEDED, AND PAUL HAS NOT SAID SO EXPLICITLY:** the **8·3 / 9·2 ordering puts the weather card first**, and the chain places it above an unbuilt root. **Those cannot both be followed.** ⭐ *Recorded as a QUESTION, not resolved by inference* — a ruling adopted in one window must not be read as silently killing a ruling made in another. **Paul rules which governs; until he does, the conflict is live and is named here rather than quietly decided by whichever document a lane happens to open.**
 
 ### ⚠️ THE ORTHOGONAL TRACK — it crosses the chain rather than sitting in it
 
