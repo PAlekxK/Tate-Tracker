@@ -5506,3 +5506,58 @@ it correct to build, not built.**
 - ⚠️ **A backlog re-rationalization is drafting** at Paul's ask — `check-backlog-drift.py` reads **rested**
   (exit 0), so this is his ask overriding the trigger, not a detector firing. Proposed as a diff, never
   applied.
+
+### ⭐⭐ LAP 9 IS THE DOOR, AND THE 8·3 / 9·2 ORDERING IS RELEASED `[paul-ruled 2026-09-12: "I'm good with your recommendation on all of these"]`
+
+**Ruled on the backlog window's ten-item list; carried here by coordination because this is where the
+SUPERSEDED ruling lives.** ⛔ Recording it only in `BACKLOG.md` would leave `767242c`'s lap-9 table — *the
+weather card first* — as the newest statement in the chronicle, and **`check-backlog-ready.committed_rung()`
+reads THIS file**, not the backlog.
+
+| | |
+|---|---|
+| **lap 9** | ⭐ **THE DOOR** — row A of `.plans/2026-09-11-lap8-build-PLAN.md` (A0–A15), written, audited, never executed |
+| **its small half** | the four maintenance fixes |
+| **8·3 / 9·2 — the weather card first** | ⛔ **RELEASED.** It is no longer the committed ordering |
+
+⭐ **WHY the release rather than an override:** the weather card sat **above an unbuilt root**. The
+dependency chain's layer 1 — the per-estate canon store, TIER 2 · 12 — gates everything, and *separately*
+the cutover makes the door a structural prerequisite (`scopeOf(env)` **71** call sites against `scopeFor`'s
+**ONE** live consuming call). **Two independent axes reached the same conclusion**, which is what made this
+cheap: Paul got there from the environment work, not from an ordering argument.
+
+⚠️ **WHAT THIS DOES NOT DO:** it does not open lap 9. **The pick is still beat 6** — this says what the
+committed rows will be when the lap opens, not that it has.
+⛔ **AND WHEN LAP 9'S HEADING IS WRITTEN, ITS BEAT-6 TABLE MUST COMMIT THE DOOR.** `committed_rung()` only
+parses laps whose outcome is `open`, so nothing reads the stale table today — **the error surfaces the
+moment a lap opens carrying the old rows.** That is the one place this can still go wrong.
+
+### Four more rulings from the same list, recorded here so they are not re-decided
+
+- ⛔ **THE LEGACY WORKER — a FOURTH door, and it retires the three I gave Paul.** Not "deploy all 55" (that
+  contaminates the data control) and not "declare it undeployable" (there is nothing to attach the rule to).
+  ✅ **Branch at the last-deployed sha, carry `ENV_NAME` and nothing else.** ⭐ **And build
+  `tools/deploy-worker.py` FIRST** — otherwise the first act under the new rule is the act that bypasses it.
+  *(Found by engineering-partner; my own three-door framing was incomplete.)*
+- ✅ **ESTATE IDS: NEW FOR BOTH, with a `migratedFrom` pointer.** This **RETIRES** `BACKLOG.md` TIER 1 · 88
+  rather than answering it.
+- ✅ **The DEV-ONLY error oracle (row 92): fix now.**
+- ✅ **`refused by` + `over`: deferred past the cutover.**
+- ✅ **The tiered content shape is ruled** — *"foundationally true"* vs *"very unique"*, cross-domain in his
+  own naming: *"vehicles, supplies, plants."* ⚠️ **`supplies` is NOT a domain today** (eleven exist; it is
+  not among them) — flagged, never invented. ⛔ And *"that's going to take time to get right"* is **part of
+  the ruling, not a caveat on it**: this is a shape, not a schedule.
+
+### ⭐ And one falsifier RAN and did not fire — carried with its limit
+
+`measured` over `plants.json`: **61 of 64 `peakWindow` strings (95%) are stated relative to a phenological
+PREDICATE** (41 in the string, 20 in its description); **three are genuinely bare.** The pre-registered bar
+was *"a fiction if more than half need authored local observation."* ⭐ **So the tier-2 extraction is a
+CLASSIFICATION pass, not an authoring project.**
+⛔ **The limit belongs with the number:** it proves a window is stated relative to an OBSERVABLE; it does
+**not** prove the observable is COMPUTABLE elsewhere. *"Before bud break"* names the anchor — deriving bud
+break at 2,873 ft is the untested part.
+⚠️⚠️ **And weight it knowing it MOVED: three passes gave 53% → 17% → 4% un-anchored** — first the wrong
+vocabulary, then a regex bug (`\bemergen\b` cannot match *"emergence"*: a trailing word boundary kills every
+prefix term), then the wrong predicate. **Same family as this session's `| tail`, `$(basename)` and
+`grep -c`-counts-comments errors: the instrument returns a plausible number and never an error.**

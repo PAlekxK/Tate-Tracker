@@ -692,8 +692,21 @@ renamed on two clocks* (§3h) — so the labels retire when the deployments coll
    lap are the same body of work under two names.** `[paul-stated 2026-09-12: "We will get to lap 9 after
    cleaning all this environment work done."]`
 
-   ⚠️ **What is STILL not ruled, and none of it should be inferred from the above:** the migration ORDER
-   (who moves first), whether either estate id survives the move, and what the new KV namespace is called.
+   ⚠️⚠️ **THIS PARAGRAPH LISTED THREE THINGS AS UNRULED AND ALL THREE WERE ANSWERED THE SAME DAY.**
+   Struck in place rather than deleted, because the failure is the useful part: it contradicted
+   § *MIGRATION ORDER* above it **inside this one file** — one section reading *"the basis is ruled"* while
+   this one read *"the order is STILL not ruled"* — and it was caught by the backlog window reading the
+   file, not by any instrument. ⛔ **Two hours after `.practice/2026-09-12-ruling-to-instrument-AUDIT.md`
+   was filed about exactly this shape.** Stale in the expensive direction: a reader would have re-opened
+   three settled questions.
+   | was listed as unruled | actually |
+   |---|---|
+   | the migration ORDER | ✅ **RULED** — the BASIS, with the order DERIVED from it; see § *MIGRATION ORDER* above |
+   | whether either estate id survives | ✅ **RULED 2026-09-12** — **new ids for BOTH**, with a `migratedFrom` pointer. This RETIRES `BACKLOG.md` TIER 1 · 88 rather than answering it |
+   | what the new KV namespace is called | ✅ **RULED** — `OBSERVATIONS_PROD`, by the KV-title axis above |
+
+   ⛔ **STILL genuinely unruled:** nothing on this list. The open cutover items are the ones in
+   `BACKLOG.md`, not here.
    ⛔ And `legacy` is untouched by all of it — it is separate from the three and stays the control.
 
    ~~SUPERSEDED 2026-09-12 — the earlier form of this item posed a TWO-WAY CHOICE between the standing

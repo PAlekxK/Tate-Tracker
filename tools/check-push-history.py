@@ -57,6 +57,17 @@ DECLARED_PRIVATE_FILES = (
     "condo-location.md",      # the 2026-09-12 case: a location named in a build plan committed to a
                               # git-tracked directory in a repo whose origin is public
 )
+# ⭐⭐ RULED ACCEPTABLE — the tool's own third option, exercised. Its refusal message offers
+# "push a different range · rewrite those commits deliberately · **or rule it acceptable**", and on
+# 2026-09-12 Paul took the third: `[paul-ruled: "If you mean midtown condo I'm not worried about that as
+# a privacy breach. It's not enough to identify anything."]` — no scrub, no history rewrite, the six
+# tracked files stand.
+# ⛔⛔ HE RULED ON ONE VALUE, NOT ON LOCATION DATA. The guard stays armed and every other needle stays.
+# An entry here is a RULING with its quote, never a convenience — and each is PRINTED on every run, so
+# the exemption can never become a silent blind spot. `grep -n RULED_ACCEPTABLE` enumerates all of them.
+RULED_ACCEPTABLE = {
+    "Midtown Atlanta": 'paul-ruled 2026-09-12 — "not enough to identify anything"',
+}
 EXIT_UNCHECKABLE = 3
 
 # A phrase shorter than this is a word, not an identifier, and would fire on ordinary prose.
@@ -104,6 +115,8 @@ def needles(private_dir=PRIVATE_DIR, names_file=SUPPLIED_NAMES):
             sources.append(names_file)
         except (OSError, ValueError):
             pass
+    # a ruled-acceptable value is not a needle: it was adjudicated, not overlooked
+    found = {f for f in found if f not in RULED_ACCEPTABLE}
     return found, sources
 
 
@@ -182,6 +195,19 @@ def _selftest():
                         text="+ see Cabbagetowns2 which is a different token\n")
         chk("  and a needle inside a larger token does NOT fire (word-boundary)", hits == [])
 
+        # ⭐ a RULED value is exempt — and an UNRULED one in the same file still fires
+        open(os.path.join(pd, DECLARED_PRIVATE_FILES[0]), "w").write(
+            "The condo is in Midtown Atlanta, and also near Oakhurst.\n")
+        n2, _ = needles(pd, os.path.join(td, "absent.json"))
+        chk("a RULED_ACCEPTABLE value is NOT a needle", "Midtown Atlanta" not in n2)
+        chk("  and an UNRULED value in the same file STILL is", "Oakhurst" in n2)
+        hits, _ = check("x..y", pd, os.path.join(td, "absent.json"),
+                        text="+ mentions Midtown Atlanta only\n")
+        chk("  so a range carrying ONLY the ruled value does NOT block", hits == [])
+        hits, _ = check("x..y", pd, os.path.join(td, "absent.json"),
+                        text="+ mentions Midtown Atlanta and Oakhurst\n")
+        chk("  and the unruled one still blocks alongside it", hits == ["Oakhurst"])
+
         empty = os.path.join(td, "nothing")
         hits, f = check("x..y", empty, os.path.join(td, "absent.json"), text="+ anything\n")
         chk("NO private source -> UNCHECKABLE, never clean", hits is None and f["uncheckable"])
@@ -229,6 +255,11 @@ def main():
         return 1
     print("✅ push-history clean — %d needle(s) from %d private source(s), %d bytes of range scanned."
           % (facts["needles"], len(facts["sources"]), facts["rangeBytes"]))
+    if RULED_ACCEPTABLE:
+        print("   · %d value(s) RULED ACCEPTABLE and therefore not needles — a ruling, not a gap:"
+              % len(RULED_ACCEPTABLE))
+        for k, why in sorted(RULED_ACCEPTABLE.items()):
+            print("       %s  [%s]" % (k, why))
     if facts.get("alreadyPublic"):
         print("   · %d of %d matched needle(s) are ALREADY in the tracked public build, so they are "
               "counted and not blocking — refusing a push cannot retract what is already published."
