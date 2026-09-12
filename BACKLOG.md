@@ -44,6 +44,16 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 > proposed to *split* (riders vs narrative) were moved **whole** instead — splitting is a judgment
 > edit, not a move. The old order is preserved in git.
 >
+> **Fourth rationalization — proposed AND applied 2026-09-12** `[paul-approved: "Yes"]`. ⛔ **Trigger was
+> PAUL, not the detector** — `check-backlog-drift.py` read **RESTED** (260 lines against a 400 threshold,
+> 1 day since the third run), so **size was explicitly not the thesis.** The defect was that the priority
+> ORDERING changed that day and the document still read in its old order: readiness (⏭) sat above
+> reachability (⛓). **Three moves, reading order ONLY, every move a MOVE** — the chain block relocated
+> whole and unedited above ⏭; a pointer head on ⏭; this marker and the reading-order line. ⛔ **No row
+> deleted, no status changed, nothing restated.** Proposal + what it deliberately declined (moving the 25
+> struck rows · splitting TIER 1 at 127 rows · re-ranking · resolving the 8·3/9·2 conflict):
+> `.plans/2026-09-12-rationalization-PROPOSAL.md`. The old order is preserved in git.
+>
 > **Third rationalization — proposed 2026-09-10, applied 2026-09-11** `[paul-approved 2026-09-11 ~12:48 AM ET: "GO"]`.
 > Trigger: thirteen rulings that changed what rows MEAN without moving a byte (the detector is structural
 > and read rested). Six moves, one diff: § 🧊 FOCUS FREEZE (68 lines of dated, superseded rulings) moved
@@ -54,7 +64,11 @@ The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026
 > ⚠️ Its §1.4 (C4's three levels vs one origin) is carried on the custom-domain row and awaits his word;
 > §1.6's measurements are stamped to a sha that has moved — re-run before citing.
 >
-> **Reading order now:** 🧊 FOCUS FREEZE (the scope gate for everything below it) → WAITING ON PAUL →
+> ⛓ **READ § THE DEPENDENCY CHAIN FIRST — it is the ADOPTED PRIORITY ORDERING** `[paul-ruled 2026-09-12:
+> "let's adopt this chain as our priority"]`. ⛔ **Reachability outranks readiness**, so it is read before
+> ⏭ THE NEXT TWO LAPS, which it governs. A row can be ready and still be unshippable.
+>
+> **Reading order now:** ⛓ THE DEPENDENCY CHAIN → ⏭ THE NEXT TWO LAPS → 🧊 FOCUS FREEZE (the scope gate for everything below it) → WAITING ON PAUL →
 > open decision cards → Tier 1 / 2 / 3 → the **four** lenses (orienting principle · engagement guard ·
 > Track A vs B · **every item ships with an ask, a check and an attribution**) → **🗂 THEMES** →
 > **📜 THE RULING REGISTER** → the tracks → 🌱 SEEDS.
@@ -89,46 +103,6 @@ the priority cut laid over it.
 ⛔ *Engine* is not a synonym for *important* — Mom's adoption is answered by **instance** work. And
 most of Mom's machinery IS engine (the ask → fold → acknowledge path is shared), so the axis does
 **not** cut along Track A / Track B.
-
----
-
-## ⏭ THE NEXT TWO LAPS — a DERIVED queue; Paul ranks at beat 6 `[paul-asked 2026-09-10]`
-
-**Paul:** *"line up a couple of different things for the next few builds to just take from the backlog… what
-we're close on, what questions we need to answer, what we need to explore."* **This section is a POINTER
-LIST derived from `python3 tools/check-backlog-ready.py --ladder`** (④, applied at `ed3a943` on Paul's
-word) **at `8bb74c5b`, REGENERATED 2026-09-12 by the backlog window — regenerate it, never retype it.** The audit's finding is that the register is
-duplicated, not derived; a queue typed here by hand would be a third home for the same facts. The pick is
-**beat 6, Paul's, and no instrument is built for it.** Order within a rung is alphabetical.
-
-**⚠️ Lap 7's build half gained a FIRST item on 2026-09-10 ~9:45 PM ET: the pages' Worker map** (TIER 1 · 42 — the condo has no backend; `[paul-ruled: "fold in"]`, not a hotfix); the build half is now **the Worker map → G6 telemetry → account lifecycle → the bundle's applied design.** **LAP 6 CLOSED at `aaefc56`** (paul + home Pages at `318416a`, Workers byte-identical; L4 written to `RELEASE_NOTES.md` — *"An account first, your home when you're ready"*; L7-P1…P5 pre-registered: two-person falsifier · UX sweep filed WITH an artifact convention · content clause on gate ① · post-deploy compares the blob · the gate ruling honoured by the apply). ~~**LAP 8 = the single-origin sign-in door** (TIER 1 · 41/46) `[paul-ruled 2026-09-10]`.~~ ⛔⛔ **SUPERSEDED — AND STRUCK RATHER THAN DELETED, because it is stale in the direction that reads as current.** `[paul-ruled 2026-09-11 ~9:10 AM ET, CYCLE-LOG `:3307`, superseded at `:3695` to "lap 8, first"]`: **lap 8 ran ROW T — the testing architecture — ALONE.** The door was **never built**: `tools/check-scope-sites.py` has no git history at all, `grantsFor` returns 0 hits in `worker.js`, `X-Estate` is designed and not built, and there is no `signin/` directory. ⭐ **So the door is not lap 9's DEPENDENCY — it is a lap 9 CANDIDATE**, and lap 8's own close nominates it: *"Next: the door, from a brief."* **Lap 7 opens on Paul's word with beat 1's sweeps; its beat-6 shape is already ruled — ONE candidate: sweep → exhibits → his rulings → one apply → full battery once → his walk; build half = G6 instrumentation + account lifecycle + the bundle's applied design.** Lap 6 was: **row A** = J0 the founding owner (TIER 1 · 19) · **row B** = the build-description chain run once (TIER 1 · 23) — L1–L4 each exist as artifacts at close and the note contains no line the walk did not reach. Pre-registered: L6-P1 two-person falsifier · L6-P2 note derived not typed · L6-P3 UX sweep ran. Not ranked here.
-
-| rung | items | what moves them |
-|---|---|---|
-| ⭐ **COMMITTED BY RULING** — the top rung, read from the chronicle's beat-6 tables of OPEN laps | ⛔ ***(none — NO LAP IS OPEN.)*** **Lap 8 closed 2026-09-11 15:47 EDT**: row T alone, 24 of 24, **nothing deployed, no candidate moved**, 7 of 10 declared cells UNWALKED with the gate refusing **by design**. The ladder prints this on its own face — *"no lap is open — nothing is committed by ruling right now."* | Paul opens lap 9 at beat 6. ⛔ **Lap 9's content is UNRULED — see the note below this table.** |
-| **`retro` — nothing owed** | c5 record prep | — |
-| **in flight behind gate ①** | c4 environments · c6 door for Paul · c7 condo paper model · Guru retrieval (all `build`) · onboarding (`qa`) | they exit by being WALKED and cleared, not by being picked |
-| **`design`, stamped for the stage** | zones (TIER 2 · 7) | its own window (`handoff/handoff-zones-session.md`); the stage gate to build is a sha on QA, and G1 holds features until met |
-| **`design`, but IN FLIGHT WITHOUT THE GATE** | multi-tenancy | Paul's stamp — it sits at `design` carrying no `ready: [paul-approved …]` |
-| **stamped at `concept`, a design pass owed** | capture write path (TIER 2 · 8, zones' co-requisite — ⚠️ **and now TIER 1 · 71, which widens its scope from one household to four of the five deployments**) · derived first draft (TIER 2 · 9) · weather card (TIER 2 · 11) | concept → design; each a session with its declared seats |
-| **`ready`, but ORPHANED — no `BACKLOG.md` row points at them** | c3 trace-query · product-name · testing-architecture · testing-revamp | Paul's stamp **and** a row that links back. ⛔ An orphan at `ready` is invisible to every reader that walks from the backlog down |
-| **`draft` — Paul's word, not work** | 13 proposals the checker names by name, incl. lap8-9 SCOPE · lap10 SCOPE · backlog-registrar · canon-ingestion · rationalization · product-steward-absorption | a stamp or a no |
-| **no header at all — graded by NOTHING, which is not the same as clean** | map-region-smoothing · three-environments · production-promotion · lap7-build · c3-trace-query-PROPOSAL | a header (stage · ready · seats) before they can be ranked at all |
-
-
-### ⛔ LAP 9 IS UNRULED — and the strongest candidate is an ORPHAN `[filed 2026-09-12 by the backlog window]`
-
-⭐ **The coordinating window's recommendation is that lap 9 should be THE DOOR** (`.plans/2026-09-11-lap8-build-PLAN.md` § ROW A, steps A0–A15) — **overruling the ruled 8·3 / 9·2 ordering that puts the weather card first** — because rows C, D and F are all waiting on the door, it already carries an **audited build plan that was never executed**, and lap 8's own close nominates it.
-
-⭐⭐ **UPDATE 2026-09-12 — THE DOOR IS NOW A STRUCTURAL PREREQUISITE, NOT A PREFERENCE** `[from the `myhome-prod` ruling, `27661f4c`; see TIER 1 · 79]`. Production becomes **one deployment holding two estates**, and that **IS multi-tenancy** — so the cutover cannot precede the conversion that the door lap performs (A0–A15: the scope classifier, the caller conversion, `X-Estate`, the grant edge, `estates[]`, the sign-in page). ⭐ **The cutover and the door lap are the same body of work under two names.** ⛔ **This does NOT convert the model opinion below into a ruling.** It removes the *ordering* argument against the door — it does not open lap 9, and Paul has still not picked. What changed is that "door first" is now the **cheap** order rather than a contested one. ⛔⛔ **PAUL HAS NOT RULED THIS. It is a MODEL OPINION and it is recorded here as one.** It is written into `.plans/2026-09-11-lap9-READINESS.md` §8 as a ranking with its alternative beside it, so it is not lost — **but lap 9 is not queued as the door until he says so.** If he rules it, the ruling belongs in `cycle/release/CYCLE-LOG.md` via the coordinating window, **not only in a backlog row.**
-
-⚠️ **And the mechanical finding underneath it, which is this window's and is not an opinion:** that build plan is at stage `draft` and **`check-backlog-ready.py` reads it as an ORPHAN — no `BACKLOG.md` row points at it.** So the repo's strongest queue candidate is invisible to every reader that walks from the backlog down, and it would not appear on any rung above `draft` however it is ranked. ⭐ **Whatever Paul rules about lap 9, the orphan is worth closing on its own.**
-*The refinement window's afternoon recommendation (lap 7 = the capture-write-path design pass + INVITE & JOIN scoping; lap 8 = the derived-first-draft pass, or zones v1) was **OVERRULED at beat 6.*** **Paul's pick is in his own words in `cycle/release/CYCLE-LOG.md` § Lap 7 · Beat 6 (`b57ca71`, `5c66e38`) — cited, never restated here:** **lap 7** = D the Worker map (TIER 1 · 45) → C G6 telemetry (TIER 2 · 10/13) → B the account lifecycle (TIER 2 · 18) → A the applied founding-flow design (TIER 1 · 26/27), with E the teardown as a process row · ~~**lap 8** = the single-origin sign-in door (TIER 1 · 41/46)~~ ⛔ **SUPERSEDED — lap 8 ran row T alone; see the strike above.** Zones' design work runs beside both in its own window and is not a lap slot.
-
-⛔ **The falsifier below FIRED on the first lap it met** `[measured 2026-09-10 by the refinement window at `4766cc3`]`: every one of those picks is a `BACKLOG.md` row with **no plan file**, so none sits on a rung above — the ladder derives from `.plans` headers, and Paul commits rows. The missing rung was *committed by ruling*, read from the chronicle's beat-6 tables. ✅ **ADDED on his go the same night** (`check-backlog-ready.py` `committed_rung()`, seven selftest clauses; a lap is open by its `<!-- outcome:open -->` marker, never its heading — lap 5's heading still says OPEN). The table's first row above is that rung's snapshot; the chronicle stays the source and nothing here is typed from memory.
-
-**Falsifier:** a beat-6 pick that is not on this list means the ladder is missing a rung or this snapshot is
-stale — regenerate before arguing.
 
 ---
 
@@ -203,6 +177,51 @@ stop sharing `foreignCanon()`, the mechanical claim lapses and the chain returns
 
 ---
 
+
+## ⏭ THE NEXT TWO LAPS — a DERIVED queue; Paul ranks at beat 6 `[paul-asked 2026-09-10]`
+
+> ⛓ **READ § THE DEPENDENCY CHAIN FIRST — it sits directly above and it now OUTRANKS this table**
+> `[paul-ruled 2026-09-12]`. ⛔ **A rung here is READINESS. The chain is REACHABILITY, and reachability
+> is the first question.** A row can be stamped, seat-complete and top-of-rung here and still be
+> unshippable because a layer beneath it does not exist. **This is a pointer, never a restatement.**
+
+**Paul:** *"line up a couple of different things for the next few builds to just take from the backlog… what
+we're close on, what questions we need to answer, what we need to explore."* **This section is a POINTER
+LIST derived from `python3 tools/check-backlog-ready.py --ladder`** (④, applied at `ed3a943` on Paul's
+word) **at `8bb74c5b`, REGENERATED 2026-09-12 by the backlog window — regenerate it, never retype it.** The audit's finding is that the register is
+duplicated, not derived; a queue typed here by hand would be a third home for the same facts. The pick is
+**beat 6, Paul's, and no instrument is built for it.** Order within a rung is alphabetical.
+
+**⚠️ Lap 7's build half gained a FIRST item on 2026-09-10 ~9:45 PM ET: the pages' Worker map** (TIER 1 · 42 — the condo has no backend; `[paul-ruled: "fold in"]`, not a hotfix); the build half is now **the Worker map → G6 telemetry → account lifecycle → the bundle's applied design.** **LAP 6 CLOSED at `aaefc56`** (paul + home Pages at `318416a`, Workers byte-identical; L4 written to `RELEASE_NOTES.md` — *"An account first, your home when you're ready"*; L7-P1…P5 pre-registered: two-person falsifier · UX sweep filed WITH an artifact convention · content clause on gate ① · post-deploy compares the blob · the gate ruling honoured by the apply). ~~**LAP 8 = the single-origin sign-in door** (TIER 1 · 41/46) `[paul-ruled 2026-09-10]`.~~ ⛔⛔ **SUPERSEDED — AND STRUCK RATHER THAN DELETED, because it is stale in the direction that reads as current.** `[paul-ruled 2026-09-11 ~9:10 AM ET, CYCLE-LOG `:3307`, superseded at `:3695` to "lap 8, first"]`: **lap 8 ran ROW T — the testing architecture — ALONE.** The door was **never built**: `tools/check-scope-sites.py` has no git history at all, `grantsFor` returns 0 hits in `worker.js`, `X-Estate` is designed and not built, and there is no `signin/` directory. ⭐ **So the door is not lap 9's DEPENDENCY — it is a lap 9 CANDIDATE**, and lap 8's own close nominates it: *"Next: the door, from a brief."* **Lap 7 opens on Paul's word with beat 1's sweeps; its beat-6 shape is already ruled — ONE candidate: sweep → exhibits → his rulings → one apply → full battery once → his walk; build half = G6 instrumentation + account lifecycle + the bundle's applied design.** Lap 6 was: **row A** = J0 the founding owner (TIER 1 · 19) · **row B** = the build-description chain run once (TIER 1 · 23) — L1–L4 each exist as artifacts at close and the note contains no line the walk did not reach. Pre-registered: L6-P1 two-person falsifier · L6-P2 note derived not typed · L6-P3 UX sweep ran. Not ranked here.
+
+| rung | items | what moves them |
+|---|---|---|
+| ⭐ **COMMITTED BY RULING** — the top rung, read from the chronicle's beat-6 tables of OPEN laps | ⛔ ***(none — NO LAP IS OPEN.)*** **Lap 8 closed 2026-09-11 15:47 EDT**: row T alone, 24 of 24, **nothing deployed, no candidate moved**, 7 of 10 declared cells UNWALKED with the gate refusing **by design**. The ladder prints this on its own face — *"no lap is open — nothing is committed by ruling right now."* | Paul opens lap 9 at beat 6. ⛔ **Lap 9's content is UNRULED — see the note below this table.** |
+| **`retro` — nothing owed** | c5 record prep | — |
+| **in flight behind gate ①** | c4 environments · c6 door for Paul · c7 condo paper model · Guru retrieval (all `build`) · onboarding (`qa`) | they exit by being WALKED and cleared, not by being picked |
+| **`design`, stamped for the stage** | zones (TIER 2 · 7) | its own window (`handoff/handoff-zones-session.md`); the stage gate to build is a sha on QA, and G1 holds features until met |
+| **`design`, but IN FLIGHT WITHOUT THE GATE** | multi-tenancy | Paul's stamp — it sits at `design` carrying no `ready: [paul-approved …]` |
+| **stamped at `concept`, a design pass owed** | capture write path (TIER 2 · 8, zones' co-requisite — ⚠️ **and now TIER 1 · 71, which widens its scope from one household to four of the five deployments**) · derived first draft (TIER 2 · 9) · weather card (TIER 2 · 11) | concept → design; each a session with its declared seats |
+| **`ready`, but ORPHANED — no `BACKLOG.md` row points at them** | c3 trace-query · product-name · testing-architecture · testing-revamp | Paul's stamp **and** a row that links back. ⛔ An orphan at `ready` is invisible to every reader that walks from the backlog down |
+| **`draft` — Paul's word, not work** | 13 proposals the checker names by name, incl. lap8-9 SCOPE · lap10 SCOPE · backlog-registrar · canon-ingestion · rationalization · product-steward-absorption | a stamp or a no |
+| **no header at all — graded by NOTHING, which is not the same as clean** | map-region-smoothing · three-environments · production-promotion · lap7-build · c3-trace-query-PROPOSAL | a header (stage · ready · seats) before they can be ranked at all |
+
+
+### ⛔ LAP 9 IS UNRULED — and the strongest candidate is an ORPHAN `[filed 2026-09-12 by the backlog window]`
+
+⭐ **The coordinating window's recommendation is that lap 9 should be THE DOOR** (`.plans/2026-09-11-lap8-build-PLAN.md` § ROW A, steps A0–A15) — **overruling the ruled 8·3 / 9·2 ordering that puts the weather card first** — because rows C, D and F are all waiting on the door, it already carries an **audited build plan that was never executed**, and lap 8's own close nominates it.
+
+⭐⭐ **UPDATE 2026-09-12 — THE DOOR IS NOW A STRUCTURAL PREREQUISITE, NOT A PREFERENCE** `[from the `myhome-prod` ruling, `27661f4c`; see TIER 1 · 79]`. Production becomes **one deployment holding two estates**, and that **IS multi-tenancy** — so the cutover cannot precede the conversion that the door lap performs (A0–A15: the scope classifier, the caller conversion, `X-Estate`, the grant edge, `estates[]`, the sign-in page). ⭐ **The cutover and the door lap are the same body of work under two names.** ⛔ **This does NOT convert the model opinion below into a ruling.** It removes the *ordering* argument against the door — it does not open lap 9, and Paul has still not picked. What changed is that "door first" is now the **cheap** order rather than a contested one. ⛔⛔ **PAUL HAS NOT RULED THIS. It is a MODEL OPINION and it is recorded here as one.** It is written into `.plans/2026-09-11-lap9-READINESS.md` §8 as a ranking with its alternative beside it, so it is not lost — **but lap 9 is not queued as the door until he says so.** If he rules it, the ruling belongs in `cycle/release/CYCLE-LOG.md` via the coordinating window, **not only in a backlog row.**
+
+⚠️ **And the mechanical finding underneath it, which is this window's and is not an opinion:** that build plan is at stage `draft` and **`check-backlog-ready.py` reads it as an ORPHAN — no `BACKLOG.md` row points at it.** So the repo's strongest queue candidate is invisible to every reader that walks from the backlog down, and it would not appear on any rung above `draft` however it is ranked. ⭐ **Whatever Paul rules about lap 9, the orphan is worth closing on its own.**
+*The refinement window's afternoon recommendation (lap 7 = the capture-write-path design pass + INVITE & JOIN scoping; lap 8 = the derived-first-draft pass, or zones v1) was **OVERRULED at beat 6.*** **Paul's pick is in his own words in `cycle/release/CYCLE-LOG.md` § Lap 7 · Beat 6 (`b57ca71`, `5c66e38`) — cited, never restated here:** **lap 7** = D the Worker map (TIER 1 · 45) → C G6 telemetry (TIER 2 · 10/13) → B the account lifecycle (TIER 2 · 18) → A the applied founding-flow design (TIER 1 · 26/27), with E the teardown as a process row · ~~**lap 8** = the single-origin sign-in door (TIER 1 · 41/46)~~ ⛔ **SUPERSEDED — lap 8 ran row T alone; see the strike above.** Zones' design work runs beside both in its own window and is not a lap slot.
+
+⛔ **The falsifier below FIRED on the first lap it met** `[measured 2026-09-10 by the refinement window at `4766cc3`]`: every one of those picks is a `BACKLOG.md` row with **no plan file**, so none sits on a rung above — the ladder derives from `.plans` headers, and Paul commits rows. The missing rung was *committed by ruling*, read from the chronicle's beat-6 tables. ✅ **ADDED on his go the same night** (`check-backlog-ready.py` `committed_rung()`, seven selftest clauses; a lap is open by its `<!-- outcome:open -->` marker, never its heading — lap 5's heading still says OPEN). The table's first row above is that rung's snapshot; the chronicle stays the source and nothing here is typed from memory.
+
+**Falsifier:** a beat-6 pick that is not on this list means the ladder is missing a rung or this snapshot is
+stale — regenerate before arguing.
+
+---
 
 ## 🧭 THE SCOPE GATE → `OBJECTIVES.md` § THE CURRENT GOAL
 
