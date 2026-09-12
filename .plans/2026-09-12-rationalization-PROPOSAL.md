@@ -1,9 +1,13 @@
-# The FOURTH backlog rationalization — PROPOSED, not applied
+# The FOURTH backlog rationalization — ✅ APPLIED 2026-09-12 `[paul-approved: "Yes"]`
 
 - row: `BACKLOG.md` § ▶️ NEXT (process; the rationalization is applied as a diff Paul approves, never as a row of its own)
 - objective: O3 · class: engine · declared
 - stage: `concept`
-- ready: ⛔ **agent-proposed — Paul rules.** No `ready:` stamp is written by an agent.
+- ready: [paul-approved 2026-09-12] — *"Yes"*, given on this proposal the hour it was written.
+- stage-note: 2026-09-12 — ✅ **APPLIED at `2e9b37c4`.** All three moves landed; a sorted line-level
+  diff against the pre-move file showed **zero content lost**. ⚠️ The head marker was stamped
+  `(rationalized 2026-09-12)` in a follow-up — **`check-backlog-drift.py` correctly flagged the
+  apply as un-stamped until it was**, which is the clock working as designed.
 - seats: practice-steward waived (this is reading order, not process design) · every other seat waived (no surface, no model, no person studied)
 - Author: the standing backlog window, 2026-09-12, at `3a206ba1`
 

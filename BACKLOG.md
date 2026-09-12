@@ -28,7 +28,7 @@ gloss is the coordinator's, read back to it.)* First consolidated 2026-07-13; **
 The dated **"Pickup point"** trail was archived to `PICKUP-LOG-ARCHIVE.md` (2026-07-17) — it's history, not status. Read status here.
 
 ---
-# ▶️ NEXT — the one true list (rationalized 2026-09-11)
+# ▶️ NEXT — the one true list (rationalized 2026-09-12)
 
 > **This replaces the old TOP ITEM block and the two colliding `▶️ NEXT` tables.** The rationalization
 > Paul commissioned on 2026-07-28 **ran on 2026-07-29**: five expert seats (ux · user-research ·
