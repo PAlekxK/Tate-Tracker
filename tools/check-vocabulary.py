@@ -179,10 +179,20 @@ def check(vocab_text, root=ROOT, surfaces=None):
 # are CHRONICLES: they record what was believed at a date, and rewriting them would be falsifying
 # history to satisfy a checker. They are counted as coverage and never graded.
 # --------------------------------------------------------------------------
-V6_LIVE_GLOBS = ("tools/*.py", "tools/*.sh", "worker/*.js", "worker/wrangler.toml",
-                 "CLAUDE.md", "VOCABULARY.md")
+# ⛔⛔ WIDENED 2026-09-12 AFTER AN AUDIT FOUND THIS CONTROL BLIND. It was a GLOB LIST that reached
+# exactly two markdown files (CLAUDE.md, VOCABULARY.md) out of 58 non-chronicle `.md` in the repo —
+# so it printed "141 live surface(s) graded · 0 findings" while `BACKLOG.md:113` said "four
+# environments" and `MOM-CYCLE-LOG.md:2088` said "five environments", both uncited, both live.  3i-cite
+# ⭐ THE SHAPE OF THE MISS IS THE LESSON: the error this check exists to catch happened in PROSE —
+# a session saying "five environments" — and prose was the one surface class the glob list could not  3i-cite
+# see. A control one directory away from its own defect reports CLEAN.
+# ⭐ AND THE CHRONICLE GUARD WAS UNREACHABLE: no glob could yield a `.plans/` path, so 0 of 141 files
+# ever hit it. "Chronicles counted, never graded" was false in BOTH halves — nothing counted them.
+# ✅ Now DERIVED FROM A WALK: coverage is a fact about the run, never a claim beside it.
+V6_LIVE_EXTS = (".py", ".sh", ".js", ".toml", ".md")
 V6_CHRONICLE_DIRS = (".plans", ".engineering", ".practice", ".ux-reviews", "handoff", "cycle",
-                     ".user-research", ".private", "PICKUP-LOG-ARCHIVE.md")
+                     ".user-research", ".private", "PICKUP-LOG-ARCHIVE.md",
+                     "MOM-CYCLE-LOG.md", "CYCLE-LOG.md", "RELEASE_NOTES.md")
 # "four environments" and up. THREE is the ruling, so 1-3 are sayable and 4+ never is.  3i-cite
 _OVERCOUNT = re.compile(r'\b(four|five|six|seven|[4-9]|[1-9][0-9]+)\s+environments?\b', re.I)
 
@@ -203,14 +213,33 @@ def _line_at(body, pos):
     return body[s:e if e != -1 else len(body)]
 
 
+def _v6_walk(root):
+    """Every live file, and every chronicle file, as TWO lists — so both halves are derived.
+
+    ⛔ `.git` and `node_modules` are skipped as noise, not as policy. A CHRONICLE is skipped as
+    POLICY and is counted, because rewriting a dated record to satisfy a checker would be
+    falsifying history — this repo's own rule.
+    """
+    live, chron = [], []
+    for dirpath, dirnames, filenames in os.walk(root):
+        dirnames[:] = [d for d in dirnames
+                       if d not in (".git", "node_modules", "__pycache__", ".claude")]
+        for fn in filenames:
+            if not fn.endswith(V6_LIVE_EXTS):
+                continue
+            full = os.path.join(dirpath, fn)
+            rel = os.path.relpath(full, root)
+            top = rel.split(os.sep)[0]
+            (chron if (top in V6_CHRONICLE_DIRS or rel in V6_CHRONICLE_DIRS) else live).append(full)
+    return sorted(live), sorted(chron)
+
+
 def _v6_live_files(root):
-    out = []
-    for g in V6_LIVE_GLOBS:
-        out.extend(sorted(glob.glob(os.path.join(root, g))))
-    return [p for p in out if os.path.isfile(p)]
+    return _v6_walk(root)[0]
 
 
-def check_environment_model(root=ROOT, deployment_env=None, declared_envs=None, files=None):
+def check_environment_model(root=ROOT, deployment_env=None, declared_envs=None, files=None,
+                            wrangler_path=None):
     """V6a undeclared deployment · V6b >3 environments claimed · V6c `--env` help calls it an environment.
 
     `deployment_env` / `declared_envs` are injectable so the selftest can mutate them. In real use
@@ -224,10 +253,16 @@ def check_environment_model(root=ROOT, deployment_env=None, declared_envs=None, 
         deployment_env = deployment_env or dict(momlib.DEPLOYMENT_ENV)
         declared_envs = declared_envs or tuple(momlib.ENVIRONMENTS)
         try:
-            toml_labels = set(momlib.deployments().keys())
+            toml_labels = set(momlib.deployments(wrangler_path).keys())
         except Exception as e:                      # a toml we cannot read is UNKNOWN, never clean
             findings.append(("V6a?", f"wrangler.toml unreadable, so deployments NOT checked: {e}"))
             toml_labels = set()
+    elif wrangler_path:
+        # ⭐ THE HALF THAT TOUCHES THE WORLD. Injecting a dict tested "given a None, do I report it";
+        # it never opened a toml, so "does a NEW [env.*] block arrive unplaced" was unproven.
+        sys.path.insert(0, os.path.join(root, "tools"))
+        import momlib
+        toml_labels = set(momlib.deployments(wrangler_path).keys())
     else:
         toml_labels = set(deployment_env.keys())
 
@@ -244,8 +279,12 @@ def check_environment_model(root=ROOT, deployment_env=None, declared_envs=None, 
                                 f"§3i rules THREE (lab · qa · production). legacy is a DATA "
                                 f"CONTROL and is never counted among them"))
 
-    files = _v6_live_files(root) if files is None else [os.path.join(root, f) for f in files]
-    graded, over, envflag, cited = 0, [], [], 0
+    if files is None:
+        files, chronicles = _v6_walk(root)
+        facts["v6ChroniclesCountedNotGraded"] = len(chronicles)
+    else:
+        files = [os.path.join(root, f) for f in files]
+    graded, over, envflag, cited_at = 0, [], [], []
     for p in files:
         rel = os.path.relpath(p, root)
         if rel.startswith(V6_CHRONICLE_DIRS) or rel in V6_CHRONICLE_DIRS:
@@ -259,7 +298,7 @@ def check_environment_model(root=ROOT, deployment_env=None, declared_envs=None, 
         # V6b — a live surface claiming more than three environments of the product.
         for m in _OVERCOUNT.finditer(body):
             if _CITE.search(_line_at(body, m.start())):
-                cited += 1
+                cited_at.append(f"{rel}:{body[:m.start()].count(chr(10)) + 1}")
                 continue
             line = body[:m.start()].count("\n") + 1
             over.append(f"{rel}:{line} says '{m.group(0)}'")
@@ -269,7 +308,7 @@ def check_environment_model(root=ROOT, deployment_env=None, declared_envs=None, 
         for m in re.finditer(r'["\']--env["\']\s*,[^)]*?help\s*=\s*(["\'])(.*?)\1', body, re.S):
             if re.search(r'\benvironments?\b', m.group(2), re.I):
                 if _CITE.search(_line_at(body, m.start())):
-                    cited += 1
+                    cited_at.append(f"{rel}:{body[:m.start()].count(chr(10)) + 1}")
                     continue
                 line = body[:m.start()].count("\n") + 1
                 envflag.append(f"{rel}:{line}")
@@ -284,8 +323,8 @@ def check_environment_model(root=ROOT, deployment_env=None, declared_envs=None, 
     facts["v6DeploymentsPlaced"] = {l: deployment_env.get(l) for l in sorted(toml_labels)}
     facts["v6Environments"] = list(declared_envs)
     facts["v6LiveSurfacesGraded"] = graded
-    facts["v6DeliberateCitations"] = cited
-    facts["v6ChronicleDirsUngraded"] = list(V6_CHRONICLE_DIRS)
+    facts["v6DeliberateCitations"] = sorted(set(cited_at))
+    facts.setdefault("v6ChroniclesCountedNotGraded", 0)
     return findings, facts
 
 # --------------------------------------------------------------------------
@@ -430,7 +469,9 @@ def _selftest():
                                           files=[cit])
         chk("  and a `3i-cite` line is EXEMPT (the escape hatch works)",
             not any(c == "V6b" for c, _ in f))
-        chk("  and the exemption is COUNTED, never silent", facts["v6DeliberateCitations"] == 1)
+        chk("  and the exemption is ENUMERATED, never merely counted",
+            len(facts["v6DeliberateCitations"]) == 1
+            and facts["v6DeliberateCitations"][0].endswith(":1"))
 
         uncit = os.path.join("tools", "uncited.py")
         open(os.path.join(tdv, uncit), "w").write(
@@ -439,6 +480,19 @@ def _selftest():
                                       files=[uncit])
         chk("  and the SAME line without the token still FIRES (hatch is not a blanket)",
             any(c == "V6b" for c, _ in f))
+
+        # ⭐ THE HALF THAT TOUCHES THE WORLD (audit F2). Injecting a dict only proved "given a None,
+        # do I report it" — it never opened a toml, so a NEW `[env.*]` block arriving UNPLACED was
+        # untested by anything. This writes a real toml with an undeclared deployment.
+        toml_p = os.path.join(tdv, "fake-wrangler.toml")
+        open(toml_p, "w").write(
+            'name = "fernwood"\n[vars]\nESTATE_ID = "est-3c9f1a"\n'
+            '[[kv_namespaces]]\nbinding = "OBSERVATIONS"\nid = "aaa"\n'
+            '[env.bob]\n[env.bob.vars]\nESTATE_ID = "est-9a74df"\nENV_NAME = "bob"\n')
+        f, facts = check_environment_model(root=tdv, deployment_env=GOOD, declared_envs=THREE,
+                                           files=[], wrangler_path=toml_p)
+        chk("V6a FIRES on an UNPLACED [env.*] read from a REAL toml (not an injected dict)",
+            any(c == "V6a" and "bob" in w for c, w in f))
 
     print(f"\n{'PASS' if not fails else 'FAIL'} — {len(fails)} failure(s)")
     return 1 if fails else 0
@@ -484,10 +538,12 @@ def main():
             tag = "data control" if env == "legacy" else "\u2192 " + str(env)
             print(f"        {lab:<8} {tag}")
         print("        production is ONE \u00b7 person \u2192 account \u2192 estate inside it")
-        print(f"        {facts.get('v6LiveSurfacesGraded', 0)} live surface(s) graded; "
-              "chronicles counted, never graded")
-        print(f"        {facts.get('v6DeliberateCitations', 0)} line(s) exempt as deliberate "
-              "citations \u2014 list them: grep -rn '3i-cite'")
+        print(f"        {facts.get('v6LiveSurfacesGraded', 0)} live surface(s) graded \u00b7 "
+              f"{facts.get('v6ChroniclesCountedNotGraded', 0)} chronicle file(s) counted, never graded")
+        cites = facts.get("v6DeliberateCitations") or []
+        print(f"        {len(cites)} line(s) exempt as deliberate citations"
+              + (": " + ", ".join(cites) if len(cites) <= 6 else
+                 f" across {len({c.rsplit(':', 1)[0] for c in cites})} file(s)"))
     absent = facts.get("canonicalTermsAbsentFromSchemaSurfaces") or []
     if absent:
         print(f"   · counted, never graded — canonical terms not yet in any schema surface: "
