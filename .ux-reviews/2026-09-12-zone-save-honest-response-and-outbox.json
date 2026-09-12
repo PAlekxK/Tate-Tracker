@@ -1,0 +1,209 @@
+{
+  "review_id": "ux-2026-09-12-zone-save-honest-response-and-outbox",
+  "project": "fernwood",
+  "subject": "Step 5 of .plans/2026-09-07-capture-write-path-PLAN.md — the honest zone-save response (kv / kv+git) and the proposed ZonePanel offline outbox, as they reach the map's sync chip. DESIGN-STAGE ONLY; no code proposed for this session.",
+  "review_date": "2026-09-12",
+  "reviewer_mode": "review",
+  "review_level": "screen-component / interaction — one control (the sync chip) and the save moment around it. Deliberately NOT a zoom-out: a single-seat consult on one surface does not reset the /ux-sweep clock (CLAUDE.md).",
+  "repo_head_at_review": "9915126b",
+
+  "verification_i_performed_myself": {
+    "runtime_health_probes": [
+      "GET https://fernwood.paul-kirschenbauer.workers.dev/health → env \"production\" (the frozen legacy Fernwood) · configured.github = TRUE",
+      "GET https://fernwood-home.paul-kirschenbauer.workers.dev/health → env \"home\" · configured.github = FALSE",
+      "GET https://myhome-paul.paul-kirschenbauer.workers.dev/health → env \"paul\" · configured.github = FALSE",
+      "GET https://fernwood-lab.paul-kirschenbauer.workers.dev/health → env \"lab\" · configured.github = FALSE"
+    ],
+    "code_confirmations": [
+      "worker/wrangler.toml:66 (lab) and :146 (home) carry the verbatim ⛔ NO GITHUB_TOKEN rulings. The env blocks for qa (:42), paul (:202) declare no GITHUB_TOKEN at all.",
+      "worker/worker.js:4231 — configured.github = !!(env.GITHUB_TOKEN && env.GITHUB_REPO). The /health field I probed is exactly the predicate handleZoneSave gates on at :5050.",
+      "instance/home.json:22 `absent` includes \"zones\" at :31 — a household cannot reach the map surface at all today."
+    ],
+    "verdict": "⭐ THE BRIEF'S MEASURED FACT HOLDS, INDEPENDENTLY CONFIRMED. kv+git will never occur at a household. I designed against it.",
+    "could_not_verify": [
+      "qa /health — the QA origin is behind Cloudflare Access and I hold no token from this seat. wrangler.toml's qa block (:42–:62) declares no GITHUB_TOKEN, so the structural claim stands; the runtime reading is 4 of 5, not 5 of 5.",
+      "I did not exercise an offline save. Every claim about what happens at the pond is read from engine/viewer.template.html, not walked.",
+      "I did not read tools/check-storage-keys.py's full selftest; I read its ROSTER_RE (:66) and the roster it targets (viewer.template.html:7425–7445)."
+    ]
+  },
+
+  "user_context": {
+    "primary_user": "Mom, standing on the property away from the house — today at legacy Fernwood (where the map is live and git IS configured), and in the near future as the first resident of a household deployment (where it never will be). Secondary: Paul, who is the only reader of the chip's detail panel.",
+    "core_jobs_to_be_done": [
+      "Name or confirm a place on her own land while standing in it — the one input only someone on the property can give (CLAUDE.md, 'the loop').",
+      "Know, without having to wonder later, that what she just gave was kept. This is the JTBD the chip actually serves; the geometry JTBD is served by the map."
+    ],
+    "context_of_use": "414 × 848, A+ text, one-handed, half-engagement. Out at the pond or in the plantings: NO cell reception, Wi-Fi radiating from the house only, coverage falling off with distance, heavy canopy (CLAUDE.md § THE SITE'S PHYSICAL PREMISE, paul-stated 2026-08-31, PERMANENT). ⭐ The places worth walking to ARE the places with no network — so for zone work specifically, out-of-range is the MODAL condition, not the edge case.",
+    "assumptions_made": [
+      "The household reader is a hypothesis, not an observation: instance/home.json:31 lists zones as absent, so no household resident has ever seen this chip. Findings scoped to the household are forward-looking by construction.",
+      "Mom is in quiet audience mode (the default, viewer.template.html:14135). Nothing in the record says she has ever opened Sync settings, and the maintenance help text at :7300 describes the verbose toggle in diagnostic language she has no reason to read.",
+      "Behavioural baseline borrowed from CLAUDE.md's measured lap-8 split: she taps affordances that MOVE her (5/5) and taps nothing that ASKS her (0/35). A chip is neither — it is a statement. Nothing in the record measures whether she reads it."
+    ],
+    "user_context_confidence": "medium"
+  },
+
+  "principles_applied": [
+    "Caution as noticing, not warning (design-principles/fernwood.md, paul-stated 2026-07-30)",
+    "Glyphs follow the journal voice, not the dashboard voice (design-principles/fernwood.md)",
+    "Make every surface read at half-engagement (design-principles/fernwood.md)",
+    "Save-success at the surface, not at the destination (cross-project/interaction-and-friction.md — 2 occurrences, canon)",
+    "A correct 'no' still owes a next move (cross-project/interaction-and-friction.md)",
+    "A CTA's label must promise what the destination actually delivers (cross-project/interaction-and-friction.md)",
+    "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md)",
+    "An artifact must carry its own status in its pixels / a render's own age is part of its denominator (cross-project/honest-surfaces.md)",
+    "Reuse the vocabulary before adding a STATE (auto-memory feedback_reuse_vocabulary_before_adding_state, paul-stated 2026-09-01)",
+    "Ask what a control is a control OVER (auto-memory reference_ask_what_a_control_is_a_control_over, measured 2026-09-10)",
+    "Capture must not lie / capture is not a loop — every channel needs a LIFECYCLE (Tate-Tracker/CLAUDE.md, paul-stated 2026-07-26)",
+    "Nielsen #1 visibility of system status · #2 match between system and the real world · #9 help users recognize and recover from errors",
+    "Norman — signifiers and feedback; a status that cannot be false is not feedback"
+  ],
+
+  "answers_to_the_four_questions": {
+    "Q1_does_the_chip_need_a_new_state": "⭐ NO — and the plan's assumption is wrong for a reason nobody has stated yet. I traced what 'live everywhere' actually means: handleZonesSyncStatus (worker.js:5290–5323) computes allCaughtUp from KV ONLY — the canon version is `_meta.lastBuiltAt` written by the KV put at :5132, and the per-device stamps are `zones-last-seen:<deviceId>` written by GET /api/zones at :5275. ⛔ GIT APPEARS NOWHERE IN THAT COMPUTATION. So the three states already mean, correctly and today: saving → the Worker has it → every device the Worker knows about has fetched it. All three are reachable at a household the moment step 1 lands. The plan (and the brief) read 'saved to cloud → live everywhere' as 'KV → git'; it is actually 'the Worker → your other phones'. Adding a fourth state would be adding a state to express a distinction the chip was never expressing. ⛔ THE THING THAT IS ACTUALLY FALSE IS A CODE COMMENT, NOT A LABEL: viewer.template.html:14054–14055 says `\"synced\" — Worker accepted the write (commits live on git + KV)`. That sentence becomes false at every household and it is the sentence the next implementer will read to decide what the chip may say. Fix the comment in the same commit as step 1; leave the labels alone.",
+    "Q2_is_permanent_kv_a_something_went_wrong_condition": "⛔ NO, and this is the load-bearing answer. A household with no GitHub token is in its designed, permanent, correct terminal state — the plan's own §1 establishes that a household has no shipped canon to edit, so the git half is 'a capability with nothing to act on,' not a capability withheld. Three consequences: (a) the chip stays hidden in quiet mode exactly as it does today — nothing about a household changes the hidden/shown rule; (b) no household-facing surface may ever name git, tokens, commits, or configuration, because naming a mechanism a resident cannot influence converts a correct terminal state into an unfixable-looking fault ('Caution as noticing, not warning' — the register itself is the harm, before any word is read); (c) ⭐ the inverse test, which is the one that matters: if a household reader could not tell this state from a fault, we have taught them to wait for something that is never coming. Today they CAN'T tell, because of F3 — the only chip state quiet mode ever renders is the alarm one.",
+    "Q3_the_offline_case": "See F3, F4, F5. Short form: her edit is ALREADY safe (persistAndRerender writes localStorage at :14017–14024 BEFORE scheduling the sync, and the 1500ms resume check at :14405–14419 re-fires it on the next in-range load). ⭐ So what is missing at the pond is not storage and not a queue — it is a SENTENCE. Reuse ZoneAudioOutbox's WORDS, not its QUEUE: zones are a whole-document, single-writer, last-write-wins object, and audio is a per-item append stream. A per-item IndexedDB queue for zones would hold N copies of the same file, mint an unrostered storage key, and introduce a merge question the current design does not have.",
+    "Q4_what_would_make_the_chip_dishonest": "Six named modes, F3/F6/F7/F9 below plus two the plan could introduce: (1) an outbox that acks optimistically — setting 'synced' on a local queue write rather than a real 2xx would make '✓ saved to cloud' a claim about the cloud that the cloud has not made. ZoneAudioOutbox already refuses this (uploadZoneAudio:11466 returns ok only on `stored === 1`, and ZONE_AUDIO_HELD deliberately names the LOCATION, 'on your phone', rather than reusing the landed sentence). Any zone outbox inherits that rule or it inherits nothing. (2) A `kv` vs `kv+git` field rendered to a resident at all — it is a fact about our infrastructure, not about her place, and putting it on her surface would spend her attention on a distinction that is constant for her forever."
+  },
+
+  "findings": [
+    {
+      "id": "F1",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "The plan's step 5 assumes the honest-response field (`kv` / `kv+git`) 'changes what the sync chip can say.' It does not. The chip's three non-idle informational states are computed entirely off KV: `synced` is set on a 2xx from zone-save (:14272, passing `result.lastBuiltAt`), and `live` is set only when /api/zones-sync-status returns allCaughtUp — which worker.js:5320–5321 derives from the KV canon version versus KV per-device stamps. Git is not an input to any chip state. The one artifact that asserts otherwise is the comment block at viewer.template.html:14054–14055: '\"synced\" — Worker accepted the write (commits live on git + KV).'",
+      "user_impact": "For Mom, zero today — the claim she reads is already true of KV. The impact is one step removed and real: the false comment is the specification the next implementer reads. It is the thing that would cause someone to invent a fourth state to 'fix' a lie the labels are not telling. This is the 'a render's own age is part of its denominator' failure applied to a code comment — the doc froze at authoring time and still reads exactly as it did when true.",
+      "principle_invoked": "Reuse the vocabulary before adding a STATE (paul-stated 2026-09-01 — 'demonstrated need, not scarcity'); A render's own age is part of its denominator (cross-project/honest-surfaces.md)",
+      "recommendation": "Do NOT add a chip state. In the same commit as step 1, rewrite :14054–14055 to say what is true at every deployment: '\"synced\" — the Worker accepted the write and holds it (KV, the primary read path). Git commits, where a deployment has a token, are long-term canon and are NOT what this state reports.' Then leave `synced: \"✓ saved to cloud\"` and `live: \"✓ live everywhere\"` (:14141–14142) byte-identical. ⭐ The strongest version of step 5 changes no Mom-facing word at all.",
+      "effort": "low"
+    },
+    {
+      "id": "F2",
+      "area": "state-communication",
+      "severity": "important",
+      "observation": "The quiet-mode rule at :14135 — `hidden = state === \"idle\" || (audience === \"quiet\" && state !== \"failed\")` — encodes a claim: that the only condition worth interrupting a resident for is a failure. That claim was authored for legacy Fernwood, where the network is the house. It is not re-examined against the site premise, and the maintenance help at :7300 ('By default the map's sync chip stays hidden unless something goes wrong') states it as settled doctrine.",
+      "user_impact": "The default is correct and should survive step 5 unchanged for the permanent-`kv` case — a household's terminal state is not an event and must produce no chrome. But the same rule means the one thing Mom can ever be shown is the alarm. A progressive-disclosure default is a bet about which condition is exceptional, and on this property that bet is inverted for zones specifically (see F3).",
+      "principle_invoked": "Ask what a control is a control OVER (measured 2026-09-10 — a control can be entirely correct and still not cover what you rely on it for); Caution as noticing, not warning (fernwood.md)",
+      "recommendation": "Keep quiet-mode hidden-by-default. Ratify explicitly, in the comment block at :14060–14062, that a permanent-`kv` deployment is an IDLE-equivalent world and renders nothing — so a later reader cannot mistake the household case for an unhandled state. Separately, do not treat the existing help text at :7300 as evidence the rule was checked against the pond case; it was not.",
+      "effort": "low"
+    },
+    {
+      "id": "F3",
+      "area": "feedback",
+      "severity": "critical",
+      "observation": "⭐ THE ONE THAT MATTERS. In quiet mode the ONLY chip state Mom can ever see is `failed: \"⚠ sync failed\"` (:14143, gated by :14135). And on this property the most likely cause of that state is not a failure at all: she confirmed or renamed a zone out of Wi-Fi range. The path is traceable end to end — ZonePanel.confirmZone (:11671–11679) calls persistAndRerender (which writes localStorage at :14019–14023) and then `close()`, so the panel is already gone; 2.5s later scheduleZoneSync fires, syncZonesNow's fetch throws, and :14279 sets `failed` with the raw exception message. The chip then never fades (scheduleFadeToIdle is only reachable from `synced`/`live`), so a ⚠ sits on her map. A second path is worse: if the device is unpaired, :14224 sets failed with 'Sync isn't configured on this device — open Sync settings.'",
+      "user_impact": "Her words were kept — they are in localStorage and the resume check at :14405–14419 will send them on her next in-range load. The app tells her the opposite, in warning chrome, with a ⚠ glyph, on a field-journal surface, with no next move she can take while standing where she is standing. This is the exact inversion of the project's founding rule for her surfaces: 'A capture path that can lose her words while appearing to succeed would break the one rule her surfaces are built on: capture must not lie' (CLAUDE.md § THE SITE'S PHYSICAL PREMISE). Here it lies in the other direction — it reports loss where there was none — and that is not a lesser lie. She is the person whose ground-truth the whole project depends on; teaching her that walking out to the pond costs her the thing she just said is how she stops walking out to the pond. I am scoring this critical rather than important because on this project trust IS the completion criterion: a resident who cannot tell whether her contribution survived has not completed the job, whatever the record holds.",
+      "principle_invoked": "Caution as noticing, not warning (fernwood.md, paul-stated 2026-07-30 — 'red/⚠ teaches her that opening the app is risky/effortful, and she stops opening it'); Glyphs follow the journal voice, not the dashboard voice; A correct 'no' still owes a next move (cross-project); Nielsen #9 (recognize, diagnose, recover); capture must not lie",
+      "recommendation": "Split `failed` into two states that differ on the only axis a status line should care about — whether anything makes this stop happening. ⭐ The vocabulary is already ratified on this surface and must be borrowed verbatim rather than re-invented: (a) OUT OF RANGE (the fetch threw / no route) → the ZONE_AUDIO_HELD register, quiet, in-palette, NO ⚠: 'Saved on your phone — it'll reach the record next time you're back on Wi-Fi. ✓'. Keep the ✓: its ratified meaning here is 'we have your words', which is true. (b) GENUINELY BROKEN (a 4xx/5xx the Worker returned — a real refusal, e.g. stale-client 409 or invalid-zones 400) → keep a visible state, but still drop the ⚠ glyph and let the word carry it, per the glyph rule. ⛔ And 'Sync isn't configured on this device — open Sync settings' must never reach a resident: it is an administrator's sentence, and at a household it names a mechanism they do not have. ⚠️ Copy is content-steward's, not mine — this recommendation names the STATE SPLIT and the register; the words above are lifted from :11416–11417 to show the split is expressible in vocabulary Mom has already met, not to author new copy.",
+      "effort": "medium"
+    },
+    {
+      "id": "F4",
+      "area": "affordance",
+      "severity": "important",
+      "observation": "The plan says `ZonePanel` should 'reuse ZoneAudioOutbox's queue and its sentence.' I traced both. The QUEUE is the wrong half to reuse: ZoneAudioOutbox (:11327–11396) is a bounded IndexedDB store of independent per-item records, flushed one at a time, breaking on the first failure and keeping the rest (:11389) — correct for recordings, because every clip is a distinct thing she said and losing one loses words. Zone state is the opposite shape: a single whole-document object, single-writer, last-write-wins, already persisted in full on every edit (:14019–14023) and already re-sent on the next in-range load (:14405–14419). Queuing it would store N copies of the same file and invent a merge question the design does not currently have. The SENTENCE is the half that is missing and is the half worth reusing.",
+      "user_impact": "Building the queue spends real effort and buys her nothing she does not already have; it also mints a new browser-storage key. ⚠️ Note the roster boundary: viewer.template.html:7425–7445 rosters localStorage keys, and `zones` (:7442) and `zonesLastSyncedAt` (:7443) are ALREADY on it — while `tateTrackerAudio`/`pendingZoneAudio` (IndexedDB) appear nowhere in it. So an IndexedDB zone outbox would be a store the origin-move migration does not know about, which is a key she loses at the move (C4 2b). The existing localStorage path is already covered.",
+      "principle_invoked": "Prefer the platform's / the system's existing control over a reimplementation (cross-project/interaction-and-friction.md); Reuse the vocabulary before adding a STATE (paul-stated 2026-09-01)",
+      "recommendation": "⭐ REUSE THE SENTENCE, NOT THE QUEUE. Keep localStorage + the existing resume check as the zone 'outbox' — it is one already, it is rostered, and it has the right shape for a whole-document object. Take from ZoneAudioOutbox exactly three things: (1) its WORDS and their one consistent world — *your phone · the record · Wi-Fi*; (2) its rule that a ✓ is only spent on a state where something landed (:11420–11423); (3) its opportunistic flush triggers at :11438–11443 (the `online` event AND `visibilitychange`), with the comment's own warning intact — navigator.onLine is not a route test. Today a zone resume only fires 1500ms after a full page load (:14405), so she must reopen the app; audio flushes the moment she brings the phone back. Bringing zones to parity on the TRIGGER is the cheap half of step 5 and is the part that actually shortens the window in which her edit is only on her phone.",
+      "effort": "low"
+    },
+    {
+      "id": "F5",
+      "area": "flow",
+      "severity": "important",
+      "observation": "The save-outcome surface and the save-input surface are different objects, and the input one closes first. confirmZone (:11671–11679) and the other three actions end with `close()`, which runs before any sync has been attempted (the debounce is 2500ms, :14039). The chip lives on the map (`#pmap-sync`), not in the panel. So the sequence at the pond is: she taps '✓ Looks right' → the sheet slides away → nothing → 2.5s later a ⚠ appears somewhere on the map behind where the sheet was.",
+      "user_impact": "She gets no confirmation at the place she acted, and then a contradiction at a place she is not looking. At half-engagement, one-handed, outdoors, the chip is small chrome on a map — the read she actually takes from 'the sheet closed' is 'done'. ⭐ And note the panel ALREADY knows how to speak in this exact situation: ZonePanel.open() reports outbox state in prose via setGrowStatus (:11615–11623), naming the location in words she reads. The capability is in the same closure, forty lines up, and the save path does not use it.",
+      "principle_invoked": "Save-success at the surface, not at the destination (cross-project canon, 2 occurrences — 'Confirmations that only render at the destination, not at the input'); Meet the user at the action",
+      "recommendation": "Have the save actions report at the panel, not only at the chip — the mechanism exists (setGrowStatus) and the register is already ratified there. Two shapes worth Paul's pick: (A) hold the panel open ~1.2s on a successful local persist with a one-line status, then close; (B) close immediately as today, but on an out-of-range outcome re-surface the held sentence at the panel's own next open — which ZonePanel.open() already does for audio at :11615–11619 and could do for zones with no new surface at all. ⭐ I recommend B: it adds no delay to the tap she takes 30 times while drawing, it reuses a sentence and a slot she has already met, and it puts the news where she will be when she next cares. ⚠️ B's honest cost, stated rather than discovered: the reassurance arrives late. That is acceptable here only because nothing was actually lost; it would not be acceptable if it ever were.",
+      "effort": "medium"
+    },
+    {
+      "id": "F6",
+      "area": "state-communication",
+      "severity": "nice-to-have",
+      "observation": "`live: \"✓ live everywhere\"` is computed by allCaughtUp (worker.js:5320–5321), which requires `devices.length > 0` and every tracked device matching canon. handleZoneSave stamps the EDITING device itself at :5141–5150. So on a deployment with exactly one device — the realistic first state of every household, and of the condo — the condition is satisfied by the editing phone alone, roughly 4s after the save (:14107). 'Everywhere' is then a claim about a set of one, and it is a claim that can never be false. Separately, the device stamps carry a 30-day TTL (:5147, :5278), so 'everywhere' silently narrows to 'every device that has opened this app in the last 30 days' — a family member who was away for five weeks is not in the set and is not counted as behind.",
+      "user_impact": "Low today, because quiet mode hides it. It becomes real if step 5 ever makes the chip more visible, or if verbose mode is ever a household default. A status that cannot be false is not feedback (Norman); a reader who learns the phrase in the one-device case will carry the wrong model of it into the multi-device case, which is the case it was built for.",
+      "principle_invoked": "A value's provenance and freshness must be shown as honestly as the value itself (cross-project/honest-surfaces.md); Norman — feedback must be capable of reporting the negative case",
+      "recommendation": "Leave the label alone for now — 'everywhere' is defensible and the state is hidden from her. But record the boundary where a reader meets it: add to the comment block at :14056–14057 that allCaughtUp is trivially true at one tracked device and that the device set has a 30-day horizon. If the chip is ever promoted to a resident-visible default, revisit: the honest form of this claim names the set ('on both your phones') rather than the universe.",
+      "effort": "low"
+    },
+    {
+      "id": "F7",
+      "area": "discoverability",
+      "severity": "important",
+      "observation": "The honest-response field is genuinely worth shipping — it is the first time the write path can state what it actually did rather than asserting `{ok:true}` over two possible worlds. But there is no resident-facing consumer for it, by construction: at a household it is the constant `kv` forever, and at legacy it is the constant `kv+git` forever. A field whose value is constant per deployment cannot inform a decision a resident makes. There IS a consumer: renderDetails() (:14151–14196) is already an unapologetically diagnostic surface — it prints the raw state word, the localStorage key length, a redacted token preview, and `isConfigured()`. It is Paul's panel, reached only by tapping the chip, and quiet mode never shows Mom the chip that opens it.",
+      "user_impact": "Putting the field in the chip label would spend Mom's scarcest surface on a fact about our infrastructure. Putting it in renderDetails() gives Paul the one reading he actually lacks — 'did this write reach canon, or only the read path?' — on a surface whose register already matches, at zero cost to her.",
+      "principle_invoked": "Register is carried by chrome, not just words (fernwood.md candidate — legitimately different content earns legitimately different chrome); Freshness/attention sets altitude — match the affordance's altitude to the reader who needs it",
+      "recommendation": "Ship the `persisted: \"kv\" | \"kv+git\"` field on the response (plan step 5, first half) and consume it in ONE place: a row in renderDetails()'s existing `.pmap-sync-diag` block, in that block's existing plain vocabulary. ⛔ It does not reach the chip label, the panel, or any resident-facing string. ⚠️ And write the row so it reads as a STATEMENT OF DESIGN, not a shortfall — at a household `kv` is the complete and correct answer, and a diagnostic panel that renders the terminal state as a missing half will train its only reader to chase it.",
+      "effort": "low"
+    },
+    {
+      "id": "F8",
+      "area": "consistency",
+      "severity": "important",
+      "observation": "⚠️ CROSS-SEAT FLAG, surfaced because step 5 is the moment someone opens this code. `ZONE_STORE_KEY = \"tateTracker.zones.v1\"` (:11476) and `ZONE_LAST_SYNCED_KEY = \"tateTracker.zones.lastSyncedAt.v1\"` (:14040) are rostered at :7442–7443 but are NOT in `STORAGE_KEYS_PER_ESTATE` (:7450), and both are used as bare literals rather than through `estateKey()`. The comment at :7446–7449 states the rule this violates in its own words: on a family origin serving two estates, an unsegmented key 'would show her at the condo as having answered Fernwood's questions.'",
+      "user_impact": "On the C8 condo case — Paul's Grant Park condo and Fernwood on one origin — her locally-held zone overrides and her last-synced watermark would be shared across two places. The visible failure is a zone edit made at one place appearing at, or being re-synced to, the other, and a `savedAt <= lastSynced` comparison at :14410 silently skipping a real pending sync because the OTHER estate's sync advanced the watermark. That last one is a silent-loss path, not a cosmetic one.",
+      "principle_invoked": "C4 2b per-estate storage segmentation (the repo's own rule, stated at :7446–7449); Ask what a control is a control OVER — check-storage-keys.py correctly verifies these keys are ROSTERED and says nothing about whether they are SEGMENTED",
+      "recommendation": "Out of my scope to fix and NOT part of step 5 — routing to engineering-partner. But rule on it before the zone-save path is reopened, because the two-estate case is already live in the plan's own dependency chain. The question for Paul is one line: are zone overrides per-estate state? I read them as obviously yes.",
+      "effort": "medium"
+    },
+    {
+      "id": "F9",
+      "area": "error-handling",
+      "severity": "nice-to-have",
+      "observation": "When the chip does render `failed`, tapping it opens renderDetails(), which shows a raw exception string (:14156), the state word verbatim ('Sync: failed'), a localStorage byte count, a redacted token, and a 'Sync now' button (:14184). The plan's step 4 already rules that handlePromoteSpecies/handleRemoveSpecies should reword their 503 hint away from 'set GITHUB_TOKEN and GITHUB_REPO worker secrets' because it 'reads as a misconfiguration a household admin should fix.' The same judgement applies here and is not currently in the plan.",
+      "user_impact": "If a household resident ever reaches this panel — which requires only that they tap the one chip the app ever shows them — they meet a diagnostic surface addressed to an administrator, naming mechanisms they cannot influence, with a 'Sync now' button that will fail again where they are standing. That is a correct 'no' with no next move.",
+      "principle_invoked": "A correct 'no' still owes a next move (cross-project); Tone-coherence across all chrome (fernwood.md)",
+      "recommendation": "Once F3 splits the out-of-range case out, the remaining `failed` panel is genuinely rare and genuinely administrator-shaped — so the cheapest correct fix is to make the OUT-OF-RANGE chip non-tappable (it has nothing to disclose: her words are on the phone and the app will handle it). Leave the diagnostic panel exactly as it is for the real-failure state, where its audience is the right one. ⭐ Better to not display something than to display something that needs an administrator to read it.",
+      "effort": "low"
+    }
+  ],
+
+  "what_i_would_cut_from_step_5": [
+    "The IndexedDB zone-save outbox (F4). The storage already exists and is already rostered; the queue shape is wrong for a whole-document object.",
+    "Any new chip state (F1). The existing three already mean the right things at a household, because 'live everywhere' was never a git claim.",
+    "Any resident-facing rendering of kv / kv+git (F7)."
+  ],
+  "what_i_would_add_to_step_5": [
+    "The failed-state split — out-of-range vs. genuinely refused (F3). This is the whole of the Mom-facing value in step 5 and the plan does not currently name it.",
+    "Parity on the flush TRIGGER — `online` + `visibilitychange`, not a 1500ms post-load check (F4).",
+    "Correcting the git+KV comment at :14054–14055 (F1) — one sentence, and it is the specification the next reader inherits."
+  ],
+
+  "open_questions_for_user": [
+    "F5 shape A or B — hold the panel ~1.2s with a status line, or close immediately and re-surface the held sentence at the panel's next open (which is what audio already does)? I recommend B. Your call because it trades her immediate reassurance against a tap she takes many times in a drawing session.",
+    "F3 depends on distinguishing 'the fetch threw / no route' from 'the Worker refused'. Today syncZonesNow catches both into one message at :14279. Is separating them acceptable inside step 5's S-sized budget, or does it want its own row?",
+    "F8 — are zone overrides per-estate state? If yes this is an engineering-partner item before the condo case goes live, not a step-5 item.",
+    "⭐ The question I could not answer from the record, and which bears on all of the above: has Mom ever asked about this? CLAUDE.md's own standing rule is that before any finding about her behaviour becomes an organising claim, ask Paul what she has asked him for lately. Zones are absent at `home` (instance/home.json:31) and no household has ever drawn one — so every household-scoped finding here is a hypothesis with a falsifier, not an observation."
+  ],
+
+  "follow_up_research_suggested": [
+    "Falsifier 5 in the plan ('a zone saved out of Wi-Fi range is not lost') is the right test and should be walked with a HUMAN READING, not just a record check: the question is not only whether it lands, but what the person saw at each of the three moments — at the tap, while out of range, and on return. My F3 predicts she currently sees ⚠ sync failed. That prediction is cheap to falsify and I could not run it from this seat.",
+    "user-researcher: is the chip read at all? Lap 8's measured split (5/5 on affordances that move her, 0/35 on affordances that ask her) says nothing about a passive status element. If she never reads it, F3's remedy is still right — but its urgency drops and F5's panel-level reassurance becomes the whole of the fix.",
+    "content-steward is OWED here per the plan and their input is narrower than the plan assumes: no new chip state means no new chip copy. What they actually owe is the out-of-range sentence in F3 and the diagnostic row in F7."
+  ],
+
+  "principles_to_propose": [
+    {
+      "principle": "A TERMINAL state is not a DEGRADED state — never let a status imply a step that cannot arrive. When a deployment, tier, or configuration makes a further step permanently impossible, the surface must render that as complete, not as partial. The tell: a status whose wording, glyph, or progression only makes sense if something else is still coming.",
+      "scope": "cross-project",
+      "rationale": "One occurrence — file as a CANDIDATE. Fernwood's households will never reach kv+git by ruling, so a chip implying a further sync step would teach a resident to wait forever. The general form is broader than this app: free-tier features rendered as locked, an offline-first app showing a permanent 'pending sync', an unpurchasable upgrade rendered as a next step. ⭐ The interesting half is that it is NOT the same as 'don't lie' — every individual word can be true while the SHAPE of the status (a progression, a chevron, a spinner) carries the false claim. Watch for a second occurrence on Bolo Boys or the financial dashboard before promoting."
+    },
+    {
+      "principle": "When a surface hides itself by default, the ONE state it still shows is a bet about which condition is exceptional — and that bet must be re-checked against the environment's physics, not the developer's. If the place makes the 'exceptional' condition the modal one, the default is inverted and the only message the user ever receives is the wrong one.",
+      "scope": "fernwood",
+      "rationale": "One occurrence — CANDIDATE. The sync chip is hidden in quiet mode in every state except `failed` (:14135), which is correct for a house with Wi-Fi and inverted for a property whose founding premise is that coverage falls off with distance from the house. So the only sentence Mom can ever receive from this control is an alarm about the thing most likely to happen to her. ⭐ This is a sharpening of 'Make every surface read at half-engagement' in a direction that rule does not reach: that rule governs what the surface says when shown; this one governs whether the shown/hidden split was set against the right world. The check costs one question — 'which state is modal HERE?' — and nothing in this repo currently asks it. Likely second occurrence: any future Fernwood control that suppresses itself until an error."
+    },
+    {
+      "principle": "Reuse the SENTENCE, not the MECHANISM. When an existing pattern is proposed for a new content type, ask which half made it right — the storage shape or the words. It is usually the words, and they transfer for free; the storage shape is fitted to its content's cardinality and usually does not.",
+      "scope": "cross-project",
+      "rationale": "One occurrence — CANDIDATE. The plan proposed reusing ZoneAudioOutbox's queue AND its sentence for zone saves. The sentence transfers perfectly (one consistent world: your phone · the record · Wi-Fi) and is the entire user-visible value. The queue does not: audio is a per-item append stream where losing one item loses words; a zone record is a whole-document last-write-wins object that is already fully persisted on every edit. ⭐ This sharpens Paul's own 'reuse the vocabulary before adding a state' (2026-09-01) by naming the failure mode on the other side: a reuse instinct that is right about the WORDS can smuggle in a data structure that fits the old content and not the new. Both are 'reuse' and only one of them is free."
+    }
+  ],
+
+  "scope_compliance": {
+    "backlog_md": "NOT edited — a standing window is its sole writer and is live.",
+    "plan_file": "NOT edited.",
+    "code": "NOT edited. Design-stage pass; findings only.",
+    "files_written": [".ux-reviews/2026-09-12-zone-save-honest-response-and-outbox.json"]
+  }
+}
