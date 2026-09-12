@@ -347,8 +347,10 @@ list is valid: a named place that has no boundary drawn yet… It must round-tri
 that box *"the property's neighbourhood, generously padded"*, which §3 already flags as a single-estate
 sentence in a multi-estate function.
 
-The household on `est-e6696a` is **a Midtown Atlanta condo**. Its latitude is roughly 0.8° south of
-that band. Concretely: **every vertex from that place fails `validVertex` → `sanitizeZone` returns
+The household on `est-e6696a` **sits well outside that band** — by roughly a degree of latitude.
+⛔ **Its location is deliberately not named here: this repo is PUBLIC and that estate's location
+lives in `.private/` (gitignored).** The engineering fact is the distance, not the place, and the
+distance is all this ruling needs. Concretely: **every vertex from that place fails `validVertex` → `sanitizeZone` returns
 `null` → the all-or-nothing check refuses the ENTIRE save with `400 invalid-zones`** and a hint reading
 *"within the property envelope"* — a sentence that cannot be acted on, because the envelope named is
 not that estate's.
