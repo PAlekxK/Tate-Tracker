@@ -81,9 +81,25 @@ else
     exit 2
   fi
   WRANGLER_ARGS=(--env "$ENV")
+  # ⛔ DERIVE THE HEALTH HOST FROM THE PINNED WORKER `name`, NEVER FROM THE ENV LABEL.
+  # Measured 2026-09-12: the `lab` -> `dev` rename moved the LABEL while `[env.dev]` deliberately pins
+  # `name = "fernwood-lab"` (renaming the Worker would orphan its KV, its grants and its founded
+  # estates). This case arm still built the host from "$ENV", so a dev deploy checked
+  # `fernwood-dev.…workers.dev` — a host that does not exist — got a 404, and printed
+  # "couldn't fetch /health — verify manually". ⚠️ THE DEPLOY ITSELF SUCCEEDED, so the only thing that
+  # failed was the step whose whole job is proving the deploy landed, and it failed SOFTLY.
+  # ⭐ Same class as the trap `wrangler.toml` already documents one level down: wrangler derives the
+  # Worker name from the env label unless pinned. The toml was fixed; this script was not.
+  WNAME="$(awk -v env="$ENV" '
+      $0 ~ "^\\[env\\." env "\\]$" { inenv = 1; next }
+      /^\[/ { inenv = 0 }
+      inenv && /^[[:space:]]*name[[:space:]]*=/ {
+        gsub(/^[^=]*=[[:space:]]*"?/, ""); gsub(/".*$/, ""); print; exit
+      }' worker/wrangler.toml)"
+  [[ -z "$WNAME" ]] && WNAME="fernwood-${ENV}"   # no pin under [env.X] -> wrangler's own derivation
   case "$ENV" in
     paul) HEALTH="https://myhome-paul.paul-kirschenbauer.workers.dev" ;;
-    *)    HEALTH="https://fernwood-${ENV}.paul-kirschenbauer.workers.dev" ;;
+    *)    HEALTH="https://${WNAME}.paul-kirschenbauer.workers.dev" ;;
   esac
 fi
 
