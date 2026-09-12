@@ -442,6 +442,26 @@ asked the same question again:
 | **`production`** | **ONE.** Every household is a **row** inside it — Mom's, Paul's, Bob's, the next person's | ⚠️ **two deployments today**, each holding one household: `myhome-paul` (`est-d93508`, Paul set up) and `fernwood-home` (`est-e6696a`, Mom's account, no house founded). `myhome-bob` torn down 2026-09-10 |
 | *(`legacy`)* | 🧊 the frozen first Fernwood, Mom's live app until she moves — a **data control**, not an environment of the product | top-level `fernwood` · `est-3c9f1a` |
 
+⭐⭐ **AND LEGACY IS SEPARATE FROM THE OTHER THREE** `[paul-stated 2026-09-12: "legacy is separate from
+the other three" · "legacy we keep as a previous state/control"]`. ⭐ **Its purpose, in his words: a PREVIOUS
+STATE and a CONTROL** — kept deliberately, not merely not-yet-retired. A control in the experimental sense:
+an unchanged baseline the new thing can be read against, which is only worth anything for as long as nobody
+changes it. **The pipeline is `lab (dev) → qa → production`. `legacy` is not a fourth stage at the
+end of it, and nothing flows to it from the line.** ⛔ This is the half the row above did not say: it ruled
+legacy out of the word *environment* and left it readable as the last stop in the sequence, which is how a
+reader gets to "we ship to legacy last."
+
+⚠️ **AND IT IS NOT A REFERENCE COPY EITHER — it is a RUNNING SYSTEM, and both halves matter.** `measured
+2026-09-12`: local `main` is **1,148 commits ahead** of `origin/main`, which is what GitHub Pages serves to
+Mom — so no product work reaches her app. But `origin/main` took a push **that same day** (`weather-history:
+rollup update 15:06Z`), because the recorder Action writes her weather every six hours, and local `main` is
+**31 commits BEHIND** on exactly those rollups. ⭐ **So: FROZEN FOR PRODUCT · LIVE FOR DATA · and the thing
+she actually opens.** A session that reads "frozen" as "inert" will mis-handle a live feed and a real user.
+
+✅ **The code already encodes the separation** — `momlib.ENVIRONMENTS` holds three and `legacy` lives in
+`DATA_CONTROL`, so it can never be counted among them (`check-vocabulary.py` V6a refuses a roster of four).
+**What was missing was the sentence, not the mechanism.**
+
 ### ⭐⭐ THE HIERARCHY INSIDE PRODUCTION `[paul-stated 2026-09-12: "with production, people set up accounts that set up estates"]`
 
 **Re-affirmed the same day, on the target:** *"the target should be: 3 environments that are dev/qa/prod
