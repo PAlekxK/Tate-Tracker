@@ -111,7 +111,32 @@ DEPLOYMENT_ENV = {
 # would make new records disagree with every historical one AND break the canary until KV is
 # rewritten on Mom's live estate. ⛔ That is a MIGRATION, not a rename, and it is not done as a side
 # effect. `deployment_env()` below is how a reader gets the TRUTH without touching the stamp.
-ENV_NAME_IS_MISLEADING_AT = ()   # ✅ emptied 2026-09-12 — legacy now stamps "legacy"
+# ⚠️⚠️ A DECLARED, EXPECTED DIVERGENCE — legacy's LIVE var still says "production" and that is FINE.
+# `wrangler.toml` says "legacy", the KV `env-canary` says "legacy", this roster says "legacy" — but the
+# RUNNING Worker was last deployed 2026-09-08 and still carries the old var, so `/health` at legacy reads
+# `env: "production", kv_canary: "legacy"`. ⛔ DO NOT "FIX" THIS BY DEPLOYING: 55 commits touch `worker/`
+# since that deploy, and legacy is the CONTROL — its value is that it does not change `[paul-ruled
+# 2026-09-12]`. It corrects itself at whatever deliberate deploy happens next, because the toml already
+# says "legacy".
+#
+# ⭐ WHY IT IS SAFE TO LEAVE, MEASURED 2026-09-12 rather than assumed — all three failure modes checked:
+#   ① CODE: **no live reader branches on a record's stamped `env`.** Every `env` read in `tools/` is a
+#      DEPLOYMENT LABEL taken from local config/state (synthetic-identity, watch-accounts, watch-recovery,
+#      pages-deploy, read-geocodes) or a display string. Nothing compares a stamped `env` to "production"
+#      to decide anything, and the two fallbacks that did were removed in `c0fba088`.
+#   ② AMBIGUITY: **legacy holds exactly ONE estate (`est-3c9f1a`)**, so `estateId` disambiguates every
+#      record regardless of what `env` says. The field is descriptive here, never load-bearing.
+#   ③ THE DATA SEAM IS CONDITIONAL, not present: records only split into "production"-stamped and
+#      "legacy"-stamped IF a deploy happens. Until then every legacy record is uniformly "production".
+#      ⚠️ If legacy IS ever deployed, the seam is that deploy — read it from `wrangler deployments list`,
+#      never from a date.
+#
+# ⛔⛔ THE ONE REAL RISK IS A READER, NOT A TOOL, AND IT HAS HAPPENED ONCE. On 2026-09-07 a session read a
+# `prod`-stamped feedback row as *"the live product, therefore Paul's — he is the only account there"* and
+# came within one check of attributing MOM's input to him. **If you are reading an `env: "production"`
+# record, check its `estateId` first: `est-3c9f1a` is LEGACY — Mom's frozen first Fernwood — and is NOT
+# the product's production.** That sentence is the whole mitigation.
+ENV_NAME_IS_MISLEADING_AT = ("legacy",)   # live var only; toml/canon/canary all say "legacy"
 
 
 def deployments(wrangler_path=None):
