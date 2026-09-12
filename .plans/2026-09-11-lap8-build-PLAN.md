@@ -418,7 +418,24 @@ read; the window must confirm. `[not verified]` = I did not check; the window mu
   `worker.js` `estateId(env)` (`:1044`) **[read]**.
 - **change** — on the sentinel ruling: mint `est-<6hex>` the same way founding does, set it as the production
   origin's binding, and **retire `est-d93508` as a deployment binding while keeping it as Paul's estate row**.
-- ⛔ **Blocked on §9 Q1.** Everything downstream builds keys under whatever this says.
+- ✅✅ **Q1 RULED `[paul-approved 2026-09-12]` — THE SENTINEL, and it is minted: `est-hmqec0`.** Minted the way founding
+  mints one (`worker.js:1483`), verified unused (0 keys under its prefix at dev and qa), recorded in
+  **`VOCABULARY.md` §3i**, which is the authority — never this line.
+- ⛔⛔ **THIS STEP'S OWN file:symbol IS STALE AND MUST NOT BE EXECUTED AS WRITTEN.** It says to set the
+  sentinel on `[env.paul.vars]` and *"retire `est-d93508` as a deployment binding"*. **That predates
+  ruling 4 in `VOCABULARY.md` §3i by 29 hours** — this plan was last touched at `e14162c2` (09-11 10:44)
+  and `myhome-prod` was ruled at `27661f4c` (09-12 16:04). Under that ruling **neither standing deployment
+  survives as production**: `myhome-prod` is a NEW deployment, and `fernwood-home` and `myhome-paul` both
+  migrate into it as ROWS and retire only once the copy is verified.
+  ⛔ `[env.paul]` is **live and serving a real household**, and an estate id is a **KV key prefix** — so
+  re-pointing it would orphan every row the condo holds, which is the precise failure the `est-lab0001`
+  note in `wrangler.toml` already exists to prevent. **A1 therefore mints and records; it binds nothing.**
+- ⛔ **The sentinel binds when `myhome-prod` is created** — `VOCABULARY.md` §3i: *"`[env.prod]` is NOT
+  declared ahead of its namespace. A wrangler env block with no KV id is a foot-gun: it parses, it
+  deploys, and it binds nothing."* No `[env.prod]` was added and no `ESTATE_ID` was changed.
+- ⭐ **A2 was never blocked by this.** B-CALLER conversion replaces `scopeOf(env)` with
+  `scopeFor(request, env, grant)`, which reads no binding at all; the sentinel governs the **B-DEPLOY**
+  sites A4 declares. The dependency ran the other way round in the reading, not in the code.
 - **check** — `/health` reports the new id; `falsifier-tenancy.py --setup` runs at lab under the same shape.
 - **MOVES CANDIDATE:** yes. **serves:** A.
 

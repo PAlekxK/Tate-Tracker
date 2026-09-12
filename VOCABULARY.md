@@ -557,8 +557,32 @@ conditions).
 | `legacy` | ✅ live — top-level `fernwood` · `est-3c9f1a` | never; it is the control |
 | `qa` | ✅ live — `fernwood-qa` · `est-qa0001` | — |
 | `dev` | ✅ live as of `89c47401` — pinned to Worker `fernwood-lab` · `est-lab0001` | at the cutover, if the Worker is renamed |
-| `prod` | ⛔ **does not exist yet** | when `myhome-prod` and its KV namespace are created |
+| `prod` | ⛔ **does not exist yet** — ✅ but its `ESTATE_ID` is RULED: the **sentinel `est-hmqec0`** | when `myhome-prod` and its KV namespace are created |
 | ~~`home`~~ · ~~`paul`~~ | ⚠️ **live and serving real households** | they RETIRE after their estate migrates into `myhome-prod` and the copy is verified |
+
+✅✅ **RULED 2026-09-12 — PRODUCTION'S `ESTATE_ID` IS A SENTINEL OWNED BY NOBODY: `est-hmqec0`**
+`[paul-approved 2026-09-12, the lap 8/9 build plan's Q1 recommendation]`. Under one origin for everyone
+the binding either names a household — and every deployment-scoped key lands in that household's prefix —
+or it names something that is not a household. It names something that is not a household.
+
+⭐ **The reason is FINDABILITY, and it is the whole argument.** A missed conversion has to land somewhere
+a person will recognise as wrong. Into a namespace nobody owns it is discoverable junk; into a real
+person's estate it is **camouflage** — it looks like their data and reads as their data. `scopeOf(env)`
+has **58 live call sites across 32 functions** (`tools/check-scope-sites.py`, step A0), so at the start of
+the conversion a missed site is the expected case, not the edge one.
+
+⭐ **Minted the way founding mints one** — `worker.js:1483`, `"est-" + b64(6 random bytes)`, lowered,
+six characters — **so that nothing special-cases it.** That is deliberate and it costs the one thing a
+reader would want: it is not recognisable at a glance in a KV listing. The recommendation chose it
+anyway, because an id shaped like a keyword invites exactly the special-casing that would make it a
+second kind of estate. ⛔ Verified unused before minting: 0 keys under `est-hmqec0:` at dev and qa.
+
+⛔⛔ **IT IS NOT BOUND ANYWHERE YET, AND `est-d93508` IS NOT RETIRED.** The build plan's step A1 says to
+set this on `[env.paul.vars]` and retire `est-d93508`; **that instruction predates ruling 4 below by 29
+hours** (plan `e14162c2`, 09-11 10:44 · ruling `27661f4c`, 09-12 16:04) and is stale. `[env.paul]` is a
+LIVE DEPLOYMENT SERVING A REAL HOUSEHOLD, and an estate id is a KV key prefix — re-pointing it orphans
+every row Paul's condo holds. The sentinel binds when `myhome-prod` is created, per the rule below;
+`est-d93508` retires after its migration is verified, which is ruling 4's act and not A1's.
 
 ⛔ **`[env.prod]` is NOT declared ahead of its namespace.** A wrangler env block with no KV id is a
 foot-gun: it parses, it deploys, and it binds nothing. The label lands when the deployment does.
