@@ -1703,7 +1703,7 @@ function hostAgrees(request, env) {
 // B6r (lap 7) — the administrator's read of the recovery channel. Records carry no person and no
 // address by construction (see POST /api/recover), so this returns doorbells: when, at which
 // deployment, how many. `tools/watch-recovery.py` is the reader in the pickup block.
-async function handleRecoveryRead(request, env, url) {
+async function handleRecoveryRead(request, env, url, scope) {
   if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
   const start = url.searchParams.get("start"), end = url.searchParams.get("end");
   if (!start || !end) return json({ error: "missing-start-or-end" }, 400);
@@ -1712,7 +1712,7 @@ async function handleRecoveryRead(request, env, url) {
   const stop = new Date(end + "T00:00:00Z");
   for (let i = 0; d <= stop && i < 400; i++, d = new Date(d.getTime() + 86400000)) {
     const day = d.toISOString().slice(0, 10);
-    const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "recovery", day));
+    const raw = await env.OBSERVATIONS.get(dateKey(scope, "recovery", day));
     if (raw) { try { const arr = JSON.parse(raw); if (Array.isArray(arr) && arr.length) days[day] = arr; } catch (e) {} }
   }
   return json({ days, total: Object.values(days).reduce((n, a) => n + a.length, 0) });
@@ -3738,7 +3738,7 @@ This plant was just added by the reader and has NOT been observed here across a 
   let audioCommitted = false;
   if (body.audioRecordingId) {
     try {
-      const blobJson = await env.OBSERVATIONS.get(blobKey(scopeOf(env), "audio-blob", body.audioRecordingId));
+      const blobJson = await env.OBSERVATIONS.get(blobKey(scope, "audio-blob", body.audioRecordingId));
       if (blobJson) {
         const blobData = JSON.parse(blobJson);
         const audioExtMap = {
@@ -4036,7 +4036,7 @@ async function handleConversations(request, env, url, scope) {
 // ⛔ NO NEW SHAPE. Mirrors `/api/feedback`'s GET exactly — same params, same validation, same 90-day
 // ceiling, same `{range, days}` envelope, same skip-malformed posture. A second date-range dialect in
 // one Worker is how a reader ends up written twice.
-async function handleOnboardingMetrics(request, env, url) {
+async function handleOnboardingMetrics(request, env, url, scope) {
   if (request.method !== "GET") return json({ error: "method-not-allowed" }, 405);
   const start = url.searchParams.get("start");
   const end = url.searchParams.get("end");
@@ -4056,7 +4056,7 @@ async function handleOnboardingMetrics(request, env, url) {
   if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
   const days = {};
   for (const date of dates) {
-    const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "onboarding-metrics", date));
+    const raw = await env.OBSERVATIONS.get(dateKey(scope, "onboarding-metrics", date));
     if (raw) {
       try { days[date] = JSON.parse(raw); }
       catch (e) { /* skip malformed — a day we cannot parse is absent, never an empty day */ }
@@ -4910,9 +4910,9 @@ export default {
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url, requestScope);
     if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
     if (url.pathname === "/api/door")       return handleDoor(request, env, url);
-    if (url.pathname === "/api/recovery")   return handleRecoveryRead(request, env, url);   // B6r · ADMIN_ONLY
+    if (url.pathname === "/api/recovery")   return handleRecoveryRead(request, env, url, requestScope);   // B6r · ADMIN_ONLY
     // ⛔ BELOW the auth gate, unlike its own POST at :3480 — write open, read closed.
-    if (url.pathname === "/api/onboarding-metrics") return handleOnboardingMetrics(request, env, url);
+    if (url.pathname === "/api/onboarding-metrics") return handleOnboardingMetrics(request, env, url, requestScope);
     if (url.pathname.startsWith("/api/pending-species")) return handleSuggestSpecies(request, env, url);
     if (url.pathname === "/api/promote-species") return handlePromoteSpecies(request, env, requestScope);
     if (url.pathname === "/api/remove-species") return handleRemoveSpecies(request, env);
