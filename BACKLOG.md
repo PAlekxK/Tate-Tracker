@@ -108,7 +108,18 @@ most of Mom's machinery IS engine (the ask → fold → acknowledge path is shar
 
 ## ⛓ THE DEPENDENCY CHAIN — what gates what, for sequencing `[paul-stated 2026-09-12: "I think there's a dependency chain we can develop to sequence our backlog prioritization"]`
 
-✅✅ **ADOPTED AS THE PRIORITY ORDERING** `[paul-ruled 2026-09-12: "let's adopt this chain as our priority"]`. ⭐ **It was proposed as a derived view and is now the ordering the backlog is prioritised against** — so a row's position is read as **reachability first, readiness second.** ⛔⛔ **WHAT THIS RULING DOES *NOT* DO, stated so it is not over-read: it does NOT open a lap, it does NOT pick lap 9, and it does NOT commit any row.** The pick remains **beat 6, Paul's.** This ruling orders the board; it does not take work off it. ⚠️ **AND IT DOES NOT CONVERT A LAYER INTO A COMMITMENT:** layer 1 being the root means work above it cannot *ship*, not that layer 1 is hereby scheduled. 
+✅✅ **ADOPTED AS THE PRIORITY ORDERING** `[paul-ruled 2026-09-12: "let's adopt this chain as our priority"]`. ⭐ **It was proposed as a derived view and is now the ordering the backlog is prioritised against** — so a row's position is read as **reachability first, readiness second.** ⭐⭐ **AND HOW IT RANKS — AMENDED** `[paul-approved 2026-09-12, on engineering-partner's proposed wording]`:
+> ### **Reachability filters the candidate set; VALUE ranks what is left.**
+
+⛔⛔ **THIS AMENDMENT EXISTS BECAUSE THE CHAIN ALONE WOULD HAVE BEEN A TRAP.** A dependency graph
+structurally places engine work beneath anything a person can see — so adopting reachability as *the*
+priority would have **silently demoted every user-visible item, permanently**, and no single decision
+would ever have looked wrong. ⭐ *The weather card was instance one of many, not a one-off conflict.*
+
+⭐ **So the chain answers "may this be built yet", never "is this worth building".** A row it filters out
+is **blocked, not deprioritised**; a row it admits is **eligible, not chosen.** Value, and Paul, still rank.
+
+⛔⛔ **WHAT THIS RULING DOES *NOT* DO, stated so it is not over-read: it does NOT open a lap, it does NOT pick lap 9, and it does NOT commit any row.** The pick remains **beat 6, Paul's.** This ruling orders the board; it does not take work off it. ⚠️ **AND IT DOES NOT CONVERT A LAYER INTO A COMMITMENT:** layer 1 being the root means work above it cannot *ship*, not that layer 1 is hereby scheduled. 
 
 ⭐⭐ **WHAT IT IS, AND WHAT IT IS NOT** `[paul-stated 2026-09-12]`, verbatim: *"The logic chain is a
 mechanism to sequence the backlog, not meant to replace or duplicate it. This logic chaining exercise is
