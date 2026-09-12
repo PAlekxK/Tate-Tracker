@@ -808,6 +808,70 @@ standing lens says the metric is fewer, richer questions. These reconcile only i
 because it is *easiest for the person*, not because it collects more — a VIN photo replaces a form, it
 does not add one. Any design here that increases total asking has failed the lens.
 
+### ⭐⭐ ⑤ HOW AN ENTRY GETS IN — and it GATES releasing the modules `[paul-stated 2026-09-12]`
+
+**His words:** *"for all the modules/data sets (plants, vehicles, etc.) is there a clear sense of how
+the user can add entries?"* · *"user just adds information into journal and the AI recognizes it as a new
+entry request according to domain, clarifies, gets details, then I update everything on the back end in
+terminal"* · *"uploading a picture of a plant, a VIN number, a model number"* · ⛔ ***"it kind of gates us
+adding those modules"*** · *"obviously a big part of the overall feedback capture and confirmation system
+we are building."*
+
+⭐ **THE FRAMING THAT MAKES THIS A GATE AND NOT A FEATURE: a module is not releasable to a household until
+that household can put something INTO it.** Shipping plants to someone who cannot add a plant ships a
+brochure. ⚠️ Longer-term he wants it **instantaneous**; the terminal-in-the-loop version is explicitly the
+near-term shape, not the destination.
+
+#### ⭐ MEASURED 2026-09-12 — MORE OF THIS EXISTS THAN THE THREAD ASSUMES, AND THE WALL IS IN ONE PLACE
+
+| leg | state |
+|---|---|
+| **the door** — a photo, audio, a typed note | ✅ **exists**: `identifyAudioViaOpenAI`, and `/api/classify` (`handleClassify`) already classifies a field-journal observation |
+| **AI recognises the domain** | ✅ **exists, and is ALREADY ESTATE-SCOPED** — `handleClassify` opens `canonFor(env, scope)` and refuses on a foreign record |
+| **staging** — the proposal lands somewhere | ✅ **exists and WORKS AT A HOUSEHOLD**: `/api/pending-species` writes **KV** (`OBSERVATIONS.put`), no git, no token |
+| ⛔ **promotion into canon** | 🔴 **THE WALL.** `handlePromoteSpecies` opens `if (!env.GITHUB_TOKEN \|\| !env.GITHUB_REPO) → 503` — and per **TIER 1 · 71** those bindings are **forbidden at every household, permanently, by design** |
+
+⛔⛔ **SO THE SEAM IS EXACTLY AND ONLY AT PROMOTION.** A person at a household can already submit a
+photo, have it identified, and have the suggestion stored **in their own estate's KV** — and then it
+stops, forever, because canon *is* `plants.json` in this repo and re-inlining `viewer.html` is part of
+the write. **That is TIER 2 · 12 (the per-estate canon store), and it is the actual gate under this
+whole thread.** ⭐ *The blocker is not the AI and not the door. It is that a confirmed entry has nowhere
+to land.*
+
+⚠️ **And one defect on the path, filed here because it is invisible until production holds two estates:**
+`pending-species` keys on **`scopeOf(env)`** — the DEPLOYMENT's estate, not the caller's. It is one of
+the 71 call sites the door lap converts (TIER 1 · 79). Correct today, wrong the day `myhome-prod` holds
+two households: one person's suggestion lands in the other's queue.
+
+#### ⭐⭐ THE TERMINAL STEP IS TWO THINGS, AND "INSTANTANEOUS" MUST REPLACE BOTH
+
+Paul's *"then I update everything on the back end in terminal"* is simultaneously:
+
+1. **THE WRITE PATH** — the only route a household's entry has into canon. Replacing it is engineering:
+   TIER 2 · 12.
+2. ⛔ **THE GATE** — *the administrator's eyes sit between the model and the estate's people, both
+   directions.* Replacing it is **doctrine, not code.**
+
+⛔ **Optimising the friction away without noticing it was also the gate puts a model's output directly
+into someone's record.** The two must be replaced separately and deliberately. ⭐ *"Instantaneous" is
+therefore a question about the GATE, not about latency* — what stands in for the administrator when the
+administrator is not in the loop, and does it scale past the number of households one person can read?
+
+#### ✅ THE DOCTRINE ALREADY PERMITS HIS FLOW — checked, not assumed
+
+Forbidden creep mode **(1)** is *"AI cleaning/classifying her note at capture — store verbatim."* At a
+glance that forbids *"the AI recognises it as a new entry request."* ⭐ **It does not**, and this theme's
+own table already says why: **the model PROPOSES on the ask path, the human confirms, and the CONFIRMED
+value is what is captured — the ingestion never writes.** So the ordering is load-bearing and is the
+whole compliance argument: **store the note verbatim first; classify it afterwards as a proposal; never
+let the classifier be the writer.**
+
+⚠️ **The one clause that does bite is ③'s "clarifies, gets details."** If clarification reaches the
+person as model-authored words, that is creep mode **(3)** — AI phrasing reaching them un-gated. ⛔ It is
+legitimate on the **ask path** (they opened the Guru and asked) and is **not** legitimate as an unprompted
+follow-up the system sends them. **Which of those two this is has not been ruled.**
+
+
 ---
 
 ## 🃏 CONTENT · CARDS — the build-out of what a household SEES, and the ask that meets a card's first appearance `[paul-stated 2026-09-11 ~1:15 AM ET]` ⚙️ engine · CAPTURE
