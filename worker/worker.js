@@ -223,19 +223,26 @@ function bm25Rank(terms, shards, stats, limit) {
   const n = Math.max(1, Math.min(10, parseInt(limit, 10) || 5));
   return { total: ranked.length, top: ranked.slice(0, n).map(([id, score]) => ({ id, score: Math.round(score * 1000) / 1000 })) };
 }
-async function searchLibrary(env, q, limit) {
+// ⭐ A2 (lap 8/9) · B-CALLER — THE LIBRARY IS A HOUSEHOLD'S OWN PROSE, so it keys by the CALLER's
+// scope, never the deployment's. Left on scopeOf(env) under one origin, every estate would search
+// (and be answered from) whichever household the deployment happened to name — the retrieval layer
+// of the same defect `canonIsThisEstate` guards on the digest.
+// ⛔ `scope` is REQUIRED, not defaulted. A default would reintroduce "pass scopeOf(env) for now",
+// which the plan names as the silent-wrong-key case assertScope cannot catch: a wrong-but-valid
+// scope reads as an empty library, not as an error.
+async function searchLibrary(env, scope, q, limit) {
   const terms = libTokens(q);
   if (!terms.length) return { found: false, reason: LOOKUP_STRINGS.NO_SOURCE };
-  const statsRaw = await env.OBSERVATIONS.get(keyFor(scopeOf(env), "library", "stats"));
+  const statsRaw = await env.OBSERVATIONS.get(keyFor(scope, "library", "stats"));
   if (!statsRaw) return { found: false, reason: LOOKUP_STRINGS.NO_LIBRARY };
   const stats = JSON.parse(statsRaw);
   const prefixes = [...new Set(terms.map(w => w.slice(0, 2)))];
-  const shardRows = await Promise.all(prefixes.map(p => env.OBSERVATIONS.get(keyFor(scopeOf(env), "library", "shard", p))));
+  const shardRows = await Promise.all(prefixes.map(p => env.OBSERVATIONS.get(keyFor(scope, "library", "shard", p))));
   const shards = {};
   for (const raw of shardRows) if (raw) { const o = JSON.parse(raw); for (const w of terms) if (o[w]) shards[w] = o[w]; }
   const r = bm25Rank(terms, shards, stats, limit);
   if (!r.total) return { found: false, reason: LOOKUP_STRINGS.NO_SOURCE };
-  const docs = await Promise.all(r.top.map(t => env.OBSERVATIONS.get(keyFor(scopeOf(env), "library", "chunk", t.id))));
+  const docs = await Promise.all(r.top.map(t => env.OBSERVATIONS.get(keyFor(scope, "library", "chunk", t.id))));
   const results = r.top.map((t, i) => { const d = docs[i] ? JSON.parse(docs[i]) : null; return d ? { id: t.id, score: t.score, source: d.source, span: d.span, text: d.text } : { id: t.id, score: t.score, missing: true }; });
   return { found: true, total: r.total, shown: results.length, results };
 }
@@ -261,7 +268,9 @@ function _truncate(rows, limit) {
   return { total: rows.length, shown: Math.min(n, rows.length), rows: rows.slice(0, n) };
 }
 
-/** Pure: (toolName, input, ctx) → a JSON-able result. ctx = { digest, vaultOpen }. Exported for tools/guru-replay.mjs. */
+/** Pure: (toolName, input, ctx) → a JSON-able result. ctx = { digest, vaultOpen, env?, scope? }.
+ *  `env` + `scope` are the retrieval pair — present from a request, absent in a replay fixture, and
+ *  search_library degrades to NO_LIBRARY without BOTH. Exported for tools/guru-replay.mjs. */
 async function dispatchTool(name, input, ctx) {
   const D = ctx.digest || propertyDigest; const inp = input || {};
   const speciesKinds = ["birds", "mammals", "amphibians", "snakes", "lizards", "insects"];
@@ -330,8 +339,10 @@ async function dispatchTool(name, input, ctx) {
       return rows.length ? { found: true, total: rows.length, shown: rows.length, species: rows } : { found: false, reason: LOOKUP_STRINGS.NONE_RECORDED };
     }
     case "search_library": {
-      if (!ctx.env) return { found: false, reason: LOOKUP_STRINGS.NO_LIBRARY };
-      return searchLibrary(ctx.env, inp.q, inp.limit);
+      // ⛔ BOTH, not just env: guru-replay.mjs builds a ctx with neither, and a ctx carrying env but
+      // no scope must degrade the same way rather than key a household's library off the deployment.
+      if (!ctx.env || !ctx.scope) return { found: false, reason: LOOKUP_STRINGS.NO_LIBRARY };
+      return searchLibrary(ctx.env, ctx.scope, inp.q, inp.limit);
     }
     default:
       return { found: false, error: "no such tool" };   // an `error`, never a `reason`: nothing here is fit to relay to the reader
@@ -3132,7 +3143,7 @@ async function handleChat(request, env, auth, scope) {
     if (!useTools || apiData.stop_reason !== "tool_use" || !uses.length || roundTrips >= GG_MAX_ROUND_TRIPS) break;
     const results = [];
     for (const u of uses) {
-      const result = await dispatchTool(u.name, u.input, { digest: canon, vaultOpen, env });
+      const result = await dispatchTool(u.name, u.input, { digest: canon, vaultOpen, env, scope });
       toolCalls.push({ name: u.name, input: u.input, found: !!result.found, total: result.total, shown: result.shown, reason: result.reason });
       results.push({ type: "tool_result", tool_use_id: u.id, content: JSON.stringify(result) });
     }
