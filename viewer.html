@@ -7448,6 +7448,31 @@ const STORAGE_KEYS = Object.freeze({
 // would show her at the condo as having answered Fernwood's questions. Their usage sites wrap the literal in
 // estateKey(), which inserts ESTATE_ID after the prefix; check-storage-keys.py fails on a bare use of one of these.
 const STORAGE_KEYS_PER_ESTATE = Object.freeze(["momQueueAnswered", "momQueueSnoozed", "momQueueOffered", "momQueueGeneral"]);
+// ⭐⭐ THE SIBLING ROSTER — keys that are DEVICE-level and legitimately span estates. Declared so that
+// every key is CLASSIFIED: a key in neither roster is UNCLASSIFIED, and check-storage-keys.py names it.
+// ⛔ WHY THIS EXISTS. The per-estate roster above could only ever answer "are the keys we DECLARED
+// per-estate wrapped in estateKey()?" — and they are, so the check printed ✅ while zone edits sat
+// under a bare key. A roster of what IS scoped cannot see a key that SHOULD BE scoped and is not.
+// The check's own reason for existing is "a key the origin-move migration does not know about is a key
+// she loses"; an unclassified key is exactly that key, and nothing could name one until now.
+const STORAGE_KEYS_ESTATE_NEUTRAL = Object.freeze([
+  "deviceId",        // a browser bucket, never a person — and never a household
+  "sync",            // the paired Worker url + token: a property of THIS DEVICE's pairing
+  "syncAudience",    // quiet/verbose chip preference, per device
+  "lastSync",        // when this device last synced, whatever it was syncing
+  "maintainer",      // is this device an administrator's
+  "textSize",        // an accessibility preference of the person holding the phone
+  "metrics",         // the outbound telemetry buffer — batches carry no personId by construction
+  "metricsExclude",  // "don't count this device" — a device-level opt-out
+  "doorOutbox",      // door events buffered offline; the door is ahead of any estate resolution
+]);
+// ⬜ DELIBERATELY IN NEITHER ROSTER, and that is the POINT — these hold a HOUSEHOLD's content or a
+// household-specific state and are not estate-scoped today. Whether each becomes per-estate is a
+// ruling, not an agent's call, so they are left UNCLASSIFIED and the checker names them every run:
+//   zones · zonesLastSyncedAt       — BACKLOG TIER 1 · 89 (the 1500 ms boot sync across estates)
+//   observations · feedbackOutbox   — a field note and a queued answer are ABOUT a place
+//   ackSeen · zoneLauncherDismissed — "seen"/"dismissed" state for a household's own surface
+// ⚠️ Row 89 names the first two. The other four are the SAME CLASS and were never filed.
 function estateKey(k) { return k.replace(/^tateTracker\./, "tateTracker." + ESTATE_ID + "."); }
 // One-time carry-over: a device that holds the OLD unsegmented key and not yet the segmented one copies it forward
 // (never deleted — the frozen page that wrote it may still run on this device). Deterministic, no network.
