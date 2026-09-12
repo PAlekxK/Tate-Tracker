@@ -426,7 +426,7 @@ and timestamp intact), never re-disposed. **Any future env rename must sweep tha
 ⛔ **§3h above is SUPERSEDED where its table puts a HOUSEHOLD in the environment column.** Its `prod`
 row named `home` (`est-e6696a`) as *the product being built*; three days later `paul` (`est-d93508`)
 and `bob` (`est-9a74df`) had been minted as sibling deployments, and every session since has read the
-five labels in `wrangler.toml` as five environments. **They are not.** Paul, 2026-09-10, after being
+five labels in `wrangler.toml` as five environments <!-- 3i-cite -->. **They are not.** Paul, 2026-09-10, after being
 asked the same question again:
 
 > *"We keep saying this, right? We should have lab, which is dev; QA for testing; and production — and
@@ -441,6 +441,56 @@ asked the same question again:
 | **`qa`** | testing — the candidate the seats walk and Paul reviews before release | `fernwood-qa` · `est-qa0001` |
 | **`production`** | **ONE.** Every household is a **row** inside it — Mom's, Paul's, Bob's, the next person's | ⚠️ **two deployments today**, each holding one household: `myhome-paul` (`est-d93508`, Paul set up) and `fernwood-home` (`est-e6696a`, Mom's account, no house founded). `myhome-bob` torn down 2026-09-10 |
 | *(`legacy`)* | 🧊 the frozen first Fernwood, Mom's live app until she moves — a **data control**, not an environment of the product | top-level `fernwood` · `est-3c9f1a` |
+
+### ⭐⭐ THE HIERARCHY INSIDE PRODUCTION `[paul-stated 2026-09-12: "with production, people set up accounts that set up estates"]`
+
+**Re-affirmed the same day, on the target:** *"the target should be: 3 environments that are dev/qa/prod
+and 1 that is legacy."* ⭐ That is this section, unchanged — stated a third time, which is why the
+instrument below now exists instead of a fourth paragraph.
+
+```
+environment            lab (dev) · qa · production          THREE. `legacy` is a data control.
+  └── production       ONE. Every household is a ROW inside it.
+        └── person     a human. ⛔ Never "user," never "account" (§3)
+              └── account    what a person sets up to get in  (`handleAccountCreate`)
+                    └── estate    ONE PROPERTY. ⭐ Multiple estates per person (§3)
+```
+
+⛔ **`account → estate` is the SETUP direction, never a containment claim.** The person↔estate edge is a
+**grant**, held *outside* the estate's own database — **an estate never knows who owns it** (§3). So one
+estate may be held by more than one person (INVITE & JOIN), and one person may hold several (Bob's two
+houses, Mom's condo beside Fernwood). ⚠️ **Today `POST /api/estate` refuses the second with 409
+`already-has-an-estate`** — a ruled invariant the door lap reverses deliberately, never by accident.
+
+### ✅ THE FALSIFIER'S INSTRUMENT NOW EXISTS `[built 2026-09-12]`
+
+This section's falsifier named `check-vocabulary.py` as the enforcer and **that file implemented none of
+it** — measured 2026-09-12, which is exactly why the ruling had to be made three times. It is built now:
+
+| clause | what it refuses |
+|---|---|
+| **V6a** | a deployment in `wrangler.toml` that no environment claims (the nigel/aida/bob shape), **and** a roster that grows past THREE |
+| **V6b** | any live surface claiming four or more environments of the product |
+| **V6c** | an `--env` flag whose **help text** calls its values environments — §3i's own diagnosis, *"the command line re-teaches the wrong model at every deploy"* |
+
+⭐ **One source, N readers:** the roster lives in `momlib` (`ENVIRONMENTS`, `DATA_CONTROL`,
+`DEPLOYMENT_ENV`, `deployments()`), derived from `wrangler.toml` and **fail-closed** — an undeclared
+deployment is reported, never filed under a guess. `watch-accounts.py` and `grant-mint.py` each carried a
+private copy and now delegate.
+
+⚠️ **A line may declare itself a deliberate citation with `3i-cite`** — canon quoting the error, and the
+checker's own fixtures, must be able to say the wrong thing in order to explain it. **Every exemption is
+counted on each run and listed by `grep -rn '3i-cite'`**; an exemption that cannot be enumerated is a hole.
+
+⛔ **NOT DONE BY THIS SWEEP, and each is named so it is not mistaken for finished:**
+1. **`ENV_NAME` at `legacy` is still the string `"production"`** — deliberately. It is stamped on every new
+   feedback and zone-audio record and matched against a live `env-canary` key. Changing it makes new
+   records disagree with every historical one and breaks the canary until KV is rewritten on Mom's live
+   estate. **That is a migration, not a rename.**
+2. **Which of the two production deployments becomes THE production origin** — still item 4 below, still
+   unmade.
+3. **~28 tools still hold their own hardcoded rosters.** V6 now catches the *vocabulary*; it does not yet
+   catch a restated roster. Those repoint one at a time, each behind its own selftest.
 
 ⭐ **Why it keeps being re-asked, and the fix is in the tooling, not in another paragraph.**
 `tools/pages-deploy.py` takes `--env paul|home|bob|qa|lab` and keeps a set literally named

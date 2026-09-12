@@ -44,6 +44,117 @@ WORKER_URL = os.environ.get("FERNWOOD_WORKER_URL", DEFAULT_WORKER_URL).rstrip("/
 HTTP_TIMEOUT_SEC = 30
 USER_AGENT = "FernwoodMomLib/1.0 (+tools/momlib.py)"
 
+# ══════════════════════════════════════════════════════════════════════════════════════════════
+# THE ENVIRONMENT MODEL — THREE, AND HOUSEHOLDS ARE NOT AMONG THEM
+# Canon: `VOCABULARY.md` §3i `[paul-ruled 2026-09-10, restated 2026-09-12: "the target should be:
+# 3 environments that are dev/qa/prod and 1 that is legacy"]`
+#
+# ⭐⭐ WHY THIS LIVES HERE AND NOT IN EACH TOOL. §3i diagnosed its own recurrence: *"the fix is in
+# the tooling, not in another paragraph… A tool whose flag is `--env` and whose values are people's
+# names teaches every reader that a household is an environment."* Paul has ruled this THREE times.
+# `watch-accounts.py` and `grant-mint.py` each grew a private `environments()` over the same
+# `wrangler.toml`, and watch-accounts' own docstring names the fix: *"the honest consolidation is to
+# lift it into `momlib` once."* This is that lift. ⛔ One source, N readers — a tool that restates
+# the roster goes stale the moment a deployment lands or retires, which is exactly what happened at
+# the nigel/aida teardown and again at bob's.
+#
+# ⛔ AN ENVIRONMENT IS NOT A DEPLOYMENT, AND `wrangler.toml` CANNOT TELL YOU WHICH IS WHICH.
+# The toml declares DEPLOYMENTS (one `[env.*]` block each, plus its top level). The ENVIRONMENT a
+# deployment stands in for is a product fact, declared below and nowhere else.
+ENVIRONMENTS = ("lab", "qa", "production")
+
+# ⛔ `legacy` is NOT an environment of the product — it is the frozen first Fernwood, Mom's live app
+# until she moves, kept as a DATA CONTROL. It is listed beside the three, never among them.
+DATA_CONTROL = "legacy"
+
+# ⭐ THE HIERARCHY INSIDE PRODUCTION `[paul-stated 2026-09-12: "with production, people set up
+# accounts that set up estates"]`. Nouns are §3's, not new ones:
+#
+#     environment            lab · qa · production        (THREE. `legacy` is a data control.)
+#       └── production       ONE. Every household is a ROW inside it.
+#             └── person     a human. ⛔ Never "user," never "account" (§3)
+#                   └── account    what a person sets up to get in (`handleAccountCreate`)
+#                         └── estate    ONE PROPERTY. ⭐ Multiple estates per person (§3)
+#
+# ⭐ The person↔estate edge is a GRANT, held OUTSIDE the estate's own database — an estate never
+# knows who owns it (§3). So "account → estate" is the SETUP direction, never a containment claim:
+# an estate is reached through a grant, and one estate may be held by more than one person.
+HIERARCHY = ("environment", "person", "account", "estate")
+
+# deployment label (as `wrangler.toml` spells it) → the environment it stands in for.
+# ⚠️ TWO DEPLOYMENTS STAND IN FOR ONE PRODUCTION TODAY, and that is an interim being reversed, not
+# the model. §3i: *"the single-origin sign-in door is the act that makes production ONE… at that
+# point `fernwood-home`'s single account row migrates into production as a row and the deployment
+# retires — a MIGRATION with a verified copy, never a delete."*
+# ⛔ WHICH of the two becomes THE production origin is PAUL'S UNMADE DECISION (§3i item 4).
+DEPLOYMENT_ENV = {
+    "legacy": DATA_CONTROL,   # top-level `fernwood` · est-3c9f1a · Mom's live app, frozen
+    "qa":     "qa",           # fernwood-qa · est-qa0001
+    "lab":    "lab",          # fernwood-lab · est-lab0001 — `lab` IS the dev environment
+    "home":   "production",   # fernwood-home · est-e6696a
+    "paul":   "production",   # myhome-paul  · est-d93508
+}
+
+# ⚠️⚠️ `ENV_NAME` AT `legacy` IS THE STRING "production", AND THAT IS DELIBERATE — DO NOT "FIX" IT.
+# It is a RUNTIME var: `/health` reports it, every new feedback and zone-audio record is STAMPED
+# with it, and `check_destination` matches it against a live `env-canary` key in KV. Changing it
+# would make new records disagree with every historical one AND break the canary until KV is
+# rewritten on Mom's live estate. ⛔ That is a MIGRATION, not a rename, and it is not done as a side
+# effect. `deployment_env()` below is how a reader gets the TRUTH without touching the stamp.
+ENV_NAME_IS_MISLEADING_AT = ("legacy",)
+
+
+def deployments(wrangler_path=None):
+    """deployment label → {estate, kv, envName, environment}, READ FROM `worker/wrangler.toml`.
+
+    ⛔ FAILS CLOSED. A deployment in the toml with no `DEPLOYMENT_ENV` row gets
+    `environment: None` and is reported by `undeclared_deployments()` — never silently filed under
+    a guess. That is the whole point: the NEXT deployment someone adds must be declared or it shows
+    up as a finding, which is what nothing did at nigel/aida or bob.
+    """
+    import tomllib
+    path = wrangler_path or os.path.join(ROOT, "worker", "wrangler.toml")
+    with open(path, "rb") as f:
+        doc = tomllib.load(f)
+
+    def one(node, label):
+        kvs = node.get("kv_namespaces") or [{}]
+        v = node.get("vars") or {}
+        return {"estate": v.get("ESTATE_ID"), "kv": kvs[0].get("id"),
+                "envName": v.get("ENV_NAME"), "environment": DEPLOYMENT_ENV.get(label)}
+
+    out = {DATA_CONTROL: one(doc, DATA_CONTROL)}
+    for name, node in (doc.get("env") or {}).items():
+        out[name] = one(node, name)
+    return out
+
+
+def deployment_env(label, wrangler_path=None):
+    """The environment a deployment stands in for — or None if undeclared. Never guesses."""
+    return (deployments(wrangler_path).get(label) or {}).get("environment")
+
+
+def undeclared_deployments(wrangler_path=None):
+    """Deployments the toml declares that `DEPLOYMENT_ENV` does not place. A finding, not a gap."""
+    return sorted(k for k, v in deployments(wrangler_path).items() if v.get("environment") is None)
+
+
+def environments_of(labels):
+    """The DISTINCT environments a set of deployment labels covers — the count §3i's falsifier reads.
+
+    ⭐ This is the function that makes "five environments" unsayable (3i-cite): `home` and `paul` collapse to
+    one `production`, and `legacy` reports as the data control rather than a fourth environment.
+    """
+    seen, control = [], False
+    for lab in labels:
+        e = DEPLOYMENT_ENV.get(lab)
+        if e == DATA_CONTROL:
+            control = True
+        elif e and e not in seen:
+            seen.append(e)
+    return {"environments": [e for e in ENVIRONMENTS if e in seen],
+            "data_control": control}
+
 # Display mapping: storage keeps the reused landed/so_so/missed enum; a confirm
 # reads Yes / No / Not sure to a person.
 CONFIRM_LABEL = {"landed": "Yes", "missed": "No", "so_so": "Not sure", None: "—"}

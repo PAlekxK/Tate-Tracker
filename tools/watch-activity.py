@@ -117,7 +117,7 @@ def summarise(rows):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--env", action="append", help="one declared environment (repeatable); default: all")
+    ap.add_argument("--env", action="append", help="one declared deployment label (repeatable); default: all")
     ap.add_argument("--pickup", action="store_true", help="one line, for the session-start block")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()

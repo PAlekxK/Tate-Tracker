@@ -102,28 +102,22 @@ def now_iso():
 # new records disagree with every historical one AND break the canary until KV is rewritten on
 # Mom's live estate. That is a migration, not a rename, and it is not being done as a side effect.
 def environments():
-    """env name → {estate, kv, envName}, READ FROM `worker/wrangler.toml`, never restated here.
+    """deployment label → {estate, kv, envName, environment} — DELEGATES to `momlib.deployments()`.
 
-    ⚠️ This repeats `grant-mint.py:environments()` by construction, not by copying a value: both
-    read the SAME file, which is the one-source-N-readers rule this repo runs on. It is duplicated
-    rather than shared because `tools/grant-mint.py` is another lane's territory this lap; the
-    honest consolidation is to lift it into `momlib` once, and that is a `tools/` change to make
-    deliberately rather than reach across for.
+    ⭐ CONSOLIDATED 2026-09-12 `[paul-asked: "a full sweep so that our latest structure is reflected
+    everywhere and these discrepancies don't keep coming up"]`. This function used to parse
+    `wrangler.toml` itself, and so did `grant-mint.py` — the docstring here named the fix:
+    *"the honest consolidation is to lift it into `momlib` once."* This is the lift. ⛔ One source,
+    N readers: a tool that restates the roster goes stale the moment a deployment lands or retires,
+    which is what happened at the nigel/aida teardown and again at bob's.
+
+    ⚠️ SUPERSET, NOT A CHANGE: every key this returned before is still here. `environment` is added
+    — the ENVIRONMENT a deployment stands in for (§3i), which `wrangler.toml` cannot tell you.
     """
-    with open(WRANGLER, "rb") as f:
-        doc = tomllib.load(f)
-
-    def one(node):
-        kvs = node.get("kv_namespaces") or [{}]
-        v = node.get("vars") or {}
-        return {"estate": v.get("ESTATE_ID"), "kv": kvs[0].get("id"), "envName": v.get("ENV_NAME")}
-
-    envs = {"legacy": one(doc)}
-    for name, node in (doc.get("env") or {}).items():
-        envs[name] = one(node)
-    # An environment that declares no estate cannot be keyed, so it cannot be watched. Say so
-    # rather than skipping it silently — a deployment we cannot watch is a finding, not a gap.
-    return envs
+    import sys, os as _os
+    sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+    import momlib
+    return momlib.deployments(WRANGLER)
 
 
 # ---- the store -------------------------------------------------------------------------------
@@ -912,7 +906,7 @@ ENVIRONMENTS = environments()
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--env", action="append", help="one declared environment (repeatable); default: all")
+    ap.add_argument("--env", action="append", help="one declared deployment label (repeatable); default: all")
     ap.add_argument("--ack", action="append", help="acknowledge a record key printed by a run "
                                                    "(repeatable — each --ack needs its own --as)")
     ap.add_argument("--as", dest="why", action="append",

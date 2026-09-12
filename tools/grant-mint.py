@@ -45,25 +45,22 @@ WRANGLER = os.path.join(ROOT, "worker", "wrangler.toml")
 
 
 def environments():
-    """env name → {estate, kv} READ FROM `worker/wrangler.toml`, never restated here.
+    """deployment label → {estate, kv, envName, environment} — DELEGATES to `momlib.deployments()`.
 
-    ⭐ WHY THIS IS DERIVED (2026-09-05). `--env` was a hardcoded `("qa","prod")` and `kv_cmd` appended
-    `--env qa` for exactly one name, so this tool could not mint into `lab` or `home` — the two
-    environments that had been declared in the toml for a day. A tool that restates the deployment
-    roster goes stale the moment a fifth environment lands; reading the toml is the same
-    one-source-N-readers rule the domain manifest and the health canary already run on.
-    `prod` is the toml's TOP LEVEL and takes no `--env` flag — that asymmetry is wrangler's, not ours.
+    ⭐ CONSOLIDATED 2026-09-12 `[paul-asked: "a full sweep so that our latest structure is reflected
+    everywhere and these discrepancies don't keep coming up"]`. This function used to parse
+    `wrangler.toml` itself, and so did `grant-mint.py` — the docstring here named the fix:
+    *"the honest consolidation is to lift it into `momlib` once."* This is the lift. ⛔ One source,
+    N readers: a tool that restates the roster goes stale the moment a deployment lands or retires,
+    which is what happened at the nigel/aida teardown and again at bob's.
+
+    ⚠️ SUPERSET, NOT A CHANGE: every key this returned before is still here. `environment` is added
+    — the ENVIRONMENT a deployment stands in for (§3i), which `wrangler.toml` cannot tell you.
     """
-    with open(WRANGLER, "rb") as f:
-        doc = tomllib.load(f)
-    def one(node):
-        kvs = node.get("kv_namespaces") or [{}]
-        v = node.get("vars") or {}
-        return {"estate": v.get("ESTATE_ID"), "kv": kvs[0].get("id"), "envName": v.get("ENV_NAME")}
-    envs = {"legacy": one(doc)}
-    for name, node in (doc.get("env") or {}).items():
-        envs[name] = one(node)
-    return envs
+    import sys, os as _os
+    sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__)))
+    import momlib
+    return momlib.deployments(WRANGLER)
 
 
 ENVIRONMENTS = environments()

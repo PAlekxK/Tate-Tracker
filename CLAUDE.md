@@ -573,7 +573,13 @@ decision, and `module` will need to name sets across both, which is exactly that
 ## 🌐 THE ENVIRONMENT MODEL → `VOCABULARY.md` §3i `[paul-ruled 2026-09-10 — "we keep saying this"]`
 
 **Three environments: `lab` (dev) · `qa` (testing) · `production` — ONE, with every household a ROW
-inside it.** Mom's, Paul's, Bob's: all in production. `paul` / `home` / `bob` in `wrangler.toml` and
+inside it.** ⭐ **And inside production the hierarchy is `person → account → estate`**
+`[paul-stated 2026-09-12: "with production, people set up accounts that set up estates"]` — a person
+sets up an **account**, an account founds an **estate** (one property; several per person), and the
+person↔estate edge is a **grant** held outside the estate's own database. ✅ **ENFORCED since
+2026-09-12:** `check-vocabulary.py` V6 refuses an undeclared deployment, a roster past three, a live
+surface claiming 4+ environments, and an `--env` help string that calls its values environments; the
+roster itself is `momlib.DEPLOYMENT_ENV`, derived from `wrangler.toml` and fail-closed. Mom's, Paul's, Bob's: all in production. `paul` / `home` / `bob` in `wrangler.toml` and
 `pages-deploy.py --env` are **deployments**, an interim of the deployment-per-household model that
 is being reversed (nigel, aida, bob torn down) — **never call one an environment.** `legacy` is the
 frozen first Fernwood, a data control. Paul has ruled this more than once because the tooling's

@@ -166,7 +166,7 @@ def selftest():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--env", action="append", help="one declared environment (repeatable)")
+    ap.add_argument("--env", action="append", help="one declared deployment label (repeatable)")
     ap.add_argument("--estate", help="limit to one estate id")
     ap.add_argument("--since", help="YYYY-MM-DD — sessions on or after this day")
     ap.add_argument("--json", action="store_true")

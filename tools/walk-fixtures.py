@@ -226,7 +226,7 @@ def selftest():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--env", default="qa", help="which environment's fixtures (default qa — gate ①)")
+    ap.add_argument("--env", default="qa", help="which deployment's fixtures (default qa — gate ①)")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     return selftest() if a.selftest else report(a.env)

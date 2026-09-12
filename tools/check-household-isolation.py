@@ -11,7 +11,7 @@ BEFORE the conversion's blind stretch — because until the grant lookup moves, 
 and an unconverted one behave identically on every walk, so nothing else can tell them apart.
 
 ⛔ IT DOES NOT TEST `bob` vs `paul`, AND THAT WAS THE FIRST DESIGN. Those two deployments hold
-DIFFERENT KV NAMESPACES (verified: six environments, six distinct ids), so a diff across them is
+DIFFERENT KV NAMESPACES (verified at the time: six deployments, six distinct ids), so a diff across them is
 guaranteed by the boundary this tool exists to stop relying on. It would have passed on day one and
 proved nothing. The subject is always TWO ESTATE PREFIXES INSIDE ONE NAMESPACE.
 

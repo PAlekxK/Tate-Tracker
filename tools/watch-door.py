@@ -104,7 +104,7 @@ def silent_case(row):
 
     ⛔⛔ THIS WAS ARITHMETICALLY BROKEN SINCE THE TOOL WAS BUILT, in the one reading it exists for.
     It was derived as `reached − opened − failed` over EVENT COUNTS, and went NEGATIVE wherever
-    `door_failed > door_reached` — which is the NORMAL state at four of five environments (measured
+    `door_failed > door_reached` — which is the NORMAL state at four of five deployments (measured
     2026-09-11: −41 at home, −226 at legacy, −58 at qa). A COUNT THAT CAN GO NEGATIVE IS NOT A COUNT.
     ⭐ The counts were never subtractable: the three events are not emitted in matched pairs — one
     arrival can produce several failures, and a failure can be written on a path that never wrote an
@@ -139,7 +139,7 @@ def silent_case(row):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--env", action="append", help="one declared environment (repeatable); default: all")
+    ap.add_argument("--env", action="append", help="one declared deployment label (repeatable); default: all")
     ap.add_argument("--all", action="store_true", help="print every record, not just the summary")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--selftest", action="store_true")
@@ -236,7 +236,7 @@ def selftest():
        silent_case(r) == ("COUNT", 1, " (device buckets, never people)"))
 
     # ⛔⛔ THE REGRESSION GUARD. `reached − opened − failed` went NEGATIVE wherever door_failed >
-    # door_reached — the NORMAL state at four of five environments (measured: −41 home, −226 legacy,
+    # door_reached — the NORMAL state at four of five deployments (measured: −41 home, −226 legacy,
     # −58 qa). A COUNT THAT CAN GO NEGATIVE IS NOT A COUNT.
     K2 = "est-y:door:2026-09-07"
     wire([K2], {K2: json.dumps([{"event": "door_reached", "deviceId": "d-1"}] +

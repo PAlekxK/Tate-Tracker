@@ -77,7 +77,7 @@ def summarise(env, estate):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--env", action="append", help="one declared environment (repeatable); default: all")
+    ap.add_argument("--env", action="append", help="one declared deployment label (repeatable); default: all")
     ap.add_argument("--all", action="store_true", help="print every record (they carry no person)")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--selftest", action="store_true")

@@ -149,7 +149,7 @@ def write_routes(w, env, todo):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--env", help="one environment; default every environment in wrangler.toml")
+    ap.add_argument("--env", help="one deployment label; default every deployment in wrangler.toml")
     ap.add_argument("--apply", action="store_true", help="WRITE the routes (default is a dry run)")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
