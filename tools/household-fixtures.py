@@ -64,7 +64,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # ⚠️ Accounts created BEFORE the stamp carry no marker and stay unclassifiable, deliberately — a
 # teardown that refuses them is correct; one that guesses from a name is the failure it prevents.
 FIXTURE_STAMP = "fixture"
-TEARDOWN_OK = ("qa", "lab")
+TEARDOWN_OK = ("qa", "dev")
 
 
 def _mod(name):
@@ -176,7 +176,7 @@ def mint(role, env, relationship, out=print):
         out("    AUTHORED edge, not of this call. Re-author the edge with grant-mint to change it —")
         out("    a tool that could widen a credential's authority on request is not a fixture tool.")
     inv = jw.mint_invite(role, env)
-    pages = {"qa": "https://fernwood-qa.pages.dev", "lab": "https://fernwood-lab.pages.dev"}.get(env)
+    pages = {"qa": "https://fernwood-qa.pages.dev", "dev": "https://fernwood-lab.pages.dev"}.get(env)
     st = jw.entry_state(env, inv["token"])
     jid, why = jw.journey_entered(True, False, st)
     out("  minted for %s at %s · credential %s…" % (inv["invitee"], inv["estate"], inv["hash"]))

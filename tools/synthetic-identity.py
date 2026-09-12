@@ -37,9 +37,9 @@ MEMO_DIR = os.path.join(ROOT, ".private", "synthetic-memos")
 # production is reset before her invite. ⛔ Do not widen this map further without the same explicit
 # authorisation, and never leave a production identity behind unrecorded.
 WORKERS = {"home": "https://fernwood-home.paul-kirschenbauer.workers.dev",
-           "lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+           "dev": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
            "qa": "https://fernwood-qa.paul-kirschenbauer.workers.dev"}
-PAGES = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
+PAGES = {"dev": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
          "home": "https://fernwood-home.pages.dev"}
 # ═══ T20 · A LENS IS A READING POSTURE, AND EVERY POSTURE DECLARES WHAT IT RESTS ON ═══════════════
 #
@@ -189,7 +189,7 @@ def main():
                          "taken through setup, so it could exercise the RESUME path and never the "
                          "finished-setup redirect. CARRY had predicted that redirect was unwalked by any "
                          "seat at any build; this is the fixture that lets it be walked.")
-    ap.add_argument("--env", default="lab")
+    ap.add_argument("--env", default="dev")
     a = ap.parse_args()
     d = load()
 

@@ -40,7 +40,7 @@ import argparse, hashlib, importlib.util, json, os, secrets, sys, tempfile, urll
 import datetime as dt
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ENV = "lab"
+ENV = "dev"
 WORKER = "https://fernwood-lab.paul-kirschenbauer.workers.dev"
 ESTATE_A = "est-lab0001"          # the deployment's own binding
 ESTATE_B = "est-lab0002"          # a SECOND estate living in the SAME namespace

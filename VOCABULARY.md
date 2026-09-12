@@ -437,7 +437,7 @@ asked the same question again:
 
 | environment | what it is | today's deployment(s) that stand in for it |
 |---|---|---|
-| **`lab`** (= dev) | where a build is made and first exercised; the harness and the security lab | `fernwood-lab` · `est-lab0001` |
+| **`dev`** | where a build is made and first exercised; the harness and the security lab | `fernwood-lab` · `est-lab0001` ⚠️ names unchanged — see the rename note |
 | **`qa`** | testing — the candidate the seats walk and Paul reviews before release | `fernwood-qa` · `est-qa0001` |
 | **`production`** | **ONE.** Every household is a **row** inside it — Mom's, Paul's, Bob's, the next person's | ⚠️ **two deployments today**, each holding one household: `myhome-paul` (`est-d93508`, Paul set up) and `fernwood-home` (`est-e6696a`, Mom's account, no house founded). `myhome-bob` torn down 2026-09-10 |
 | *(`legacy`)* | 🧊 the frozen first Fernwood, Mom's live app until she moves — a **data control**, not an environment of the product | top-level `fernwood` · `est-3c9f1a` |
@@ -511,6 +511,42 @@ counted on each run and listed by `grep -rn '3i-cite'`**; an exemption that cann
    unmade.
 3. **~28 tools still hold their own hardcoded rosters.** V6 now catches the *vocabulary*; it does not yet
    catch a restated roster. Those repoint one at a time, each behind its own selftest.
+
+### ⭐ `lab` IS NOW `dev`, AND THE ADDRESSES ARE RULED `[paul-stated 2026-09-12]`
+
+> *"let's have a standard naming and just get rid of 'lab' and say 'dev' everywhere. I think that better
+> reflects best practices"*  ·  *"dev.myhome.place"*  ·  *"qa.myhome.place"*
+
+**The three environments now read `dev` · `qa` · `production`**, and each non-production one gets its own
+subdomain of the product origin:
+
+| environment | address | deployment underneath |
+|---|---|---|
+| **`dev`** | `dev.myhome.place` | Worker `fernwood-lab` · `est-lab0001` |
+| **`qa`** | `qa.myhome.place` | Worker `fernwood-qa` · `est-qa0001` |
+| **`production`** | `myhome.place` (apex; `www` redirects) | ⚠️ not yet ONE — see item 4 |
+
+⛔⛔ **WHAT MOVED IS THE WORD. THREE THINGS DELIBERATELY DID NOT, and each for its own reason:**
+1. **The Worker and Pages names stay `fernwood-lab`.** `wrangler.toml`'s `[env.dev]` now carries an
+   explicit `name = "fernwood-lab"`, because **wrangler derives the Worker name from the env label** — so
+   without that pin, `--env dev` would deploy to a NEW Worker `fernwood-dev` and ORPHAN the live one, its
+   KV, its 54 grants and its 7 founded estates. Renaming the infrastructure is a **cutover act**.
+2. ⛔ **`est-lab0001` does not change, ever, for this reason.** An estate id is a **KV KEY PREFIX**
+   (`<ESTATE_ID>:<kind>:<suffix>`), so renaming it orphans every row at that deployment. It is a
+   MIGRATION wearing a rename's clothes, for zero benefit — the `lab` inside it is incidental to an
+   opaque id. Same class as `ENV_NAME` at legacy.
+3. **`fernwood-token-lab` stays** — it is a real file on disk.
+
+⚠️ **AND A SUBDOMAIN ON A PUBLIC DOMAIN CANNOT BE QUIET.** Certificate Transparency publishes every
+certificate issued to a public, searchable ledger, so `dev.myhome.place` and `qa.myhome.place` become
+enumerable the moment a cert issues — independent of anyone guessing. ⭐ **That is a forcing function, not
+a risk**: it removes an obscurity the project was relying on without having decided to. The 2026-09-07
+ruling that dropped Access from QA already reasoned this way — the repo is public, so the hostname was
+obscurity over bytes already published. **The remedy is to fix what is exposed, never to keep an obscure
+hostname.** First instance, fixed the same day: `/api/ambient` at `qa` served **138 KB of live readings
+from a real house** — including indoor temperature and humidity — to anyone, unauthenticated. `AMBIENT_MAC`
+was removed from `qa`; verified by use (qa → **503**, legacy → **200**, which is where Mom reads her own
+conditions).
 
 ⭐ **Why it keeps being re-asked, and the fix is in the tooling, not in another paragraph.**
 `tools/pages-deploy.py` takes `--env paul|home|bob|qa|lab` and keeps a set literally named

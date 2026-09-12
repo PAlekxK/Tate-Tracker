@@ -61,7 +61,7 @@ USER_AGENT = "FernwoodMomLib/1.0 (+tools/momlib.py)"
 # ⛔ AN ENVIRONMENT IS NOT A DEPLOYMENT, AND `wrangler.toml` CANNOT TELL YOU WHICH IS WHICH.
 # The toml declares DEPLOYMENTS (one `[env.*]` block each, plus its top level). The ENVIRONMENT a
 # deployment stands in for is a product fact, declared below and nowhere else.
-ENVIRONMENTS = ("lab", "qa", "production")
+ENVIRONMENTS = ("dev", "qa", "production")
 
 # ⛔ `legacy` is NOT an environment of the product — it is the frozen first Fernwood, Mom's live app
 # until she moves, kept as a DATA CONTROL. It is listed beside the three, never among them.
@@ -70,7 +70,7 @@ DATA_CONTROL = "legacy"
 # ⭐ THE HIERARCHY INSIDE PRODUCTION `[paul-stated 2026-09-12: "with production, people set up
 # accounts that set up estates"]`. Nouns are §3's, not new ones:
 #
-#     environment            lab · qa · production        (THREE. `legacy` is a data control.)
+#     environment            dev · qa · production        (THREE. `legacy` is a data control.)
 #       └── production       ONE. Every household is a ROW inside it.
 #             └── person     a human. ⛔ Never "user," never "account" (§3)
 #                   └── account    what a person sets up to get in (`handleAccountCreate`)
@@ -90,7 +90,14 @@ HIERARCHY = ("environment", "person", "account", "estate")
 DEPLOYMENT_ENV = {
     "legacy": DATA_CONTROL,   # top-level `fernwood` · est-3c9f1a · Mom's live app, frozen
     "qa":     "qa",           # fernwood-qa · est-qa0001
-    "lab":    "lab",          # fernwood-lab · est-lab0001 — `lab` IS the dev environment
+    "dev":    "dev",          # est-lab0001 · Worker STILL NAMED `fernwood-lab`, pinned explicitly
+                              # in wrangler.toml. ⭐ RENAMED `lab` -> `dev` 2026-09-12
+                              # `[paul-stated: "get rid of 'lab' and say 'dev' everywhere…
+                              # better reflects best practices"]`.
+                              # ⛔ THE ESTATE ID DID NOT MOVE, and must not: an estate id is a
+                              # KV KEY PREFIX (`<ESTATE_ID>:<kind>:<suffix>`), so renaming it
+                              # orphans every row at that deployment — a migration wearing a
+                              # rename's clothes, for zero benefit. The `lab` in it is incidental.
     "home":   "production",   # fernwood-home · est-e6696a
     "paul":   "production",   # myhome-paul  · est-d93508
 }

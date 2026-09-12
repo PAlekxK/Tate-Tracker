@@ -25,9 +25,9 @@ import argparse, datetime as dt, json, os, sys, urllib.error, urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PRIVATE = os.path.join(ROOT, ".private")
 WORKERS = {"qa": "https://fernwood-qa.paul-kirschenbauer.workers.dev",
-           "lab": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+           "dev": "https://fernwood-lab.paul-kirschenbauer.workers.dev",
            "home": "https://fernwood-home.paul-kirschenbauer.workers.dev"}
-TOKENS = {"qa": "fernwood-token-qa", "lab": "fernwood-token-lab", "home": "fernwood-token-home"}
+TOKENS = {"qa": "fernwood-token-qa", "dev": "fernwood-token-lab", "home": "fernwood-token-home"}
 
 
 def token_for(env):

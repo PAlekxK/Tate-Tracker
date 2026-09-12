@@ -572,8 +572,12 @@ decision, and `module` will need to name sets across both, which is exactly that
 
 ## 🌐 THE ENVIRONMENT MODEL → `VOCABULARY.md` §3i `[paul-ruled 2026-09-10 — "we keep saying this"]`
 
-**Three environments: `lab` (dev) · `qa` (testing) · `production` — ONE, with every household a ROW
-inside it.** ⭐ **And inside production the hierarchy is `person → account → estate`**
+**Three environments: `dev` · `qa` · `production` — ONE, with every household a ROW
+inside it.** ⭐ **`lab` was renamed to `dev` 2026-09-12** `[paul-stated: "better reflects best
+practices"]`, with addresses `dev.myhome.place` · `qa.myhome.place` · `myhome.place`. ⛔ **The Worker
+and Pages names stay `fernwood-lab` and `est-lab0001` NEVER moves** — an estate id is a KV key prefix,
+so renaming it orphans every row. ⛔ **`legacy` is SEPARATE from the three, not a fourth stage** — a
+previous state kept as a control. ⭐ **And inside production the hierarchy is `person → account → estate`**
 `[paul-stated 2026-09-12: "with production, people set up accounts that set up estates"]` — a person
 sets up an **account**, an account founds an **estate** (one property; several per person), and the
 person↔estate edge is a **grant** held outside the estate's own database. ✅ **ENFORCED since

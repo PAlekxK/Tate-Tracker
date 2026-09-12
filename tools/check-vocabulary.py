@@ -410,8 +410,8 @@ def _selftest():
 
     # ── V6 · the environment model. Every clause paired with a mutation that MUST flip it. ──
     print("  -- V6 environment model --")
-    GOOD = {"legacy": "legacy", "qa": "qa", "lab": "lab", "home": "production", "paul": "production"}
-    THREE = ("lab", "qa", "production")
+    GOOD = {"legacy": "legacy", "qa": "qa", "dev": "dev", "home": "production", "paul": "production"}
+    THREE = ("dev", "qa", "production")
 
     f, facts = check_environment_model(deployment_env=GOOD, declared_envs=THREE, files=[])
     chk("the real 5 deployments over 3 environments is CLEAN", not f)
@@ -425,7 +425,7 @@ def _selftest():
     chk("V6a FIRES on a deployment no environment claims", any(c == "V6a" for c, _ in f))
 
     f, _ = check_environment_model(deployment_env=GOOD,
-                                   declared_envs=("lab", "qa", "production", "legacy"), files=[])
+                                   declared_envs=("dev", "qa", "production", "legacy"), files=[])
     chk("V6a FIRES when the roster grows to four (legacy is NOT an environment)",
         any(c == "V6a" and "THREE" in w for c, w in f))
 

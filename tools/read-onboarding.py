@@ -32,13 +32,13 @@ PRIVATE = os.path.join(ROOT, ".private")
 
 WORKERS = {
     "qa":     "https://fernwood-qa.paul-kirschenbauer.workers.dev",
-    "lab":    "https://fernwood-lab.paul-kirschenbauer.workers.dev",
+    "dev":    "https://fernwood-lab.paul-kirschenbauer.workers.dev",
     "home":   "https://fernwood-home.paul-kirschenbauer.workers.dev",
     "legacy": "https://fernwood.paul-kirschenbauer.workers.dev",
 }
 # The token that opens each env's read gate. Absence is REPORTED, never worked around.
 TOKENS = {"qa": "fernwood-token-qa", "legacy": "fernwood-token",
-          "lab": "fernwood-token-lab", "home": "fernwood-token-home"}
+          "dev": "fernwood-token-lab", "home": "fernwood-token-home"}
 
 
 # ⛔ TWO CREDENTIAL CLASSES, TWO HEADERS, AND THIS TOOL USED TO KNOW ONLY ONE.

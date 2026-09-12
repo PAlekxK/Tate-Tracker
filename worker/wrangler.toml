@@ -100,9 +100,17 @@ id = "a0cf82b615c648ff972961c46ce42661"
 #
 # ⚠️ The DEPLOYMENT is still named lab (URL, worker name, gate-2 link, tools). Renaming it to dev is
 # separate churn and is not what makes this Fernwood dev; the estate is.
-[env.lab]
-[env.lab.vars]
-ENV_NAME = "lab"
+[env.dev]
+# ⭐ LABEL RENAMED `lab` -> `dev` 2026-09-12 `[paul-stated: "let's have a standard naming and just get
+# rid of 'lab' and say 'dev' everywhere. I think that better reflects best practices"]`.
+# ⛔⛔ THE `name` LINE BELOW IS LOAD-BEARING AND MUST NOT BE DELETED. Without it wrangler derives the
+# Worker name from the env label, so `--env dev` would deploy to a NEW Worker `fernwood-dev` and
+# ORPHAN the live `fernwood-lab` (its KV, its 54 grants, its 7 founded estates). Pinning the name
+# decouples the VOCABULARY from the INFRASTRUCTURE: the word is `dev` today; renaming the Worker and
+# its Pages project is a cutover act, not a vocabulary act. `[env.paul]` already uses this pattern.
+name = "fernwood-lab"
+[env.dev.vars]
+ENV_NAME = "dev"
 # ⛔ LAB MUST NOT SHARE PRODUCTION'S ESTATE ID. It was "est-3c9f1a" — byte-identical to prod's — and
 # every KV key is `<estateId>:<kind>:<suffix>`, so the estate id is the ONLY tenant separator inside a
 # namespace. With them equal, lab and prod records were told apart ONLY by living in different KV
@@ -129,10 +137,10 @@ CANON_FOREIGN_OK = "true"
 # PBKDF2 at a real iteration count exceeds the default CPU ceiling and the isolate is KILLED — which
 # surfaces as a 1101 that `try/catch` cannot catch, because the isolate is gone rather than throwing.
 # Measured 2026-09-05: 2,000 iterations succeeds, 210,000 does not.
-[env.lab.limits]
+[env.dev.limits]
 cpu_ms = 5000
 
-[[env.lab.kv_namespaces]]
+[[env.dev.kv_namespaces]]
 binding = "OBSERVATIONS"
 id = "1e0bd883e9824388af66563775c96d56"
 

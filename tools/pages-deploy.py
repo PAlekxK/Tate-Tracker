@@ -27,10 +27,10 @@ import datetime as dt
 import argparse, json, os, shutil, subprocess, sys, tempfile, time, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
-PROJECT = {"lab": "fernwood-lab", "qa": "fernwood-qa", "home": "fernwood-home",
+PROJECT = {"dev": "fernwood-lab", "qa": "fernwood-qa", "home": "fernwood-home",
            "paul": "myhome-paul"}
-BRANCH  = {"lab": "lab", "qa": "staging", "home": "home", "paul": "paul"}
-ORIGIN  = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
+BRANCH  = {"dev": "lab", "qa": "staging", "home": "home", "paul": "paul"}
+ORIGIN  = {"dev": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
            "home": "https://fernwood-home.pages.dev",
            "paul": "https://myhome-paul.pages.dev"}
 # ⚰️ `nigel` and `aida` were here and were destroyed 2026-09-10 (see worker/wrangler.toml's

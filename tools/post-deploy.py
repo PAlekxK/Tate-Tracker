@@ -30,7 +30,7 @@ A check that never fires after its cause is repaired is ceremony.
 import argparse, json, os, re, subprocess, sys, time, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ORIGIN = {"lab": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
+ORIGIN = {"dev": "https://fernwood-lab.pages.dev", "qa": "https://fernwood-qa.pages.dev",
           "home": "https://fernwood-home.pages.dev",
           "paul": "https://myhome-paul.pages.dev"}   # ⚰️ bob destroyed 2026-09-10 (wrangler.toml tombstone)
 # ⛔ DERIVED, NEVER TYPED. A hardcoded list of "the paths the app fetches" is a second source that
@@ -291,8 +291,8 @@ def selftest():
         return g
 
     APP = '<script>fetch("questions.json?_="+Date.now()); fetch("./weather-bias.json");</script>'
-    LAB_ESTATE = declared_estate("lab")
-    HEALTH_OK = json.dumps({"ok": True, "env": "lab", "kv_canary": "lab",
+    LAB_ESTATE = declared_estate("dev")
+    HEALTH_OK = json.dumps({"ok": True, "env": "dev", "kv_canary": "dev",
                             "estateId": LAB_ESTATE, "sha": "a" * 40})
     GOOD = {"qa-build.json": (200, json.dumps({"sha": "a" * 40})),
             "viewer.html": (200, APP),
@@ -301,55 +301,55 @@ def selftest():
             "/health": (200, HEALTH_OK)}
 
     mod.get = fake(GOOD)
-    f, c, u = check("lab", "a" * 40, out=lambda *_: None)
+    f, c, u = check("dev", "a" * 40, out=lambda *_: None)
     ck("M0 a matching origin with live paths reports no finding", not f)
 
     mod.get = fake(dict(GOOD, **{"qa-build.json": (200, json.dumps({"sha": "b" * 40}))}))
-    f, _, _ = check("lab", "a" * 40, out=lambda *_: None)
+    f, _, _ = check("dev", "a" * 40, out=lambda *_: None)
     ck("M1 a sha mismatch is a FINDING", any("SHA MISMATCH" in x for x in f))
 
     mod.get = fake(dict(GOOD, **{"questions.json": (200, '{"tombstone":true}')}))
-    f, c, _ = check("lab", "a" * 40, out=lambda *_: None)
+    f, c, _ = check("dev", "a" * 40, out=lambda *_: None)
     ck("M2 a tombstone is reported as inert, not as a defect",
        not f and any("tombstone" in x for x in c))
 
     mod.get = fake(dict(GOOD, **{"questions.json": (200, "<html>not json</html>")}))
-    f, _, _ = check("lab", "a" * 40, out=lambda *_: None)
+    f, _, _ = check("dev", "a" * 40, out=lambda *_: None)
     ck("M3 a 200 that is NOT JSON is a FINDING (the app would throw)",
        any("NOT JSON" in x for x in f))
 
     mod.get = fake(dict(GOOD, **{"questions.json": (503, "")}))
-    f, _, _ = check("lab", "a" * 40, out=lambda *_: None)
+    f, _, _ = check("dev", "a" * 40, out=lambda *_: None)
     ck("M4 a 5xx on a fetched path is a FINDING", any("503" in x for x in f))
 
     mod.get = fake(dict(GOOD, **{"/health": (200, json.dumps(
-        {"ok": True, "env": "lab", "kv_canary": "lab", "estateId": LAB_ESTATE}))}))
-    f, _, u = check("lab", "a" * 40, out=lambda *_: None)
+        {"ok": True, "env": "dev", "kv_canary": "dev", "estateId": LAB_ESTATE}))}))
+    f, _, u = check("dev", "a" * 40, out=lambda *_: None)
     ck("M5 a /health with no sha is UNCOVERED, never a pass",
        any("BUILD IDENTITY" in x for x in u))
 
     # ⭐ The two checks that only became possible once the Worker's REAL host was reached.
     mod.get = fake(dict(GOOD, **{"/health": (200, json.dumps(
-        {"ok": True, "env": "lab", "kv_canary": "lab", "estateId": "est-SOMEONE-ELSE"}))}))
-    f, _, _ = check("lab", "a" * 40, out=lambda *_: None)
+        {"ok": True, "env": "dev", "kv_canary": "dev", "estateId": "est-SOMEONE-ELSE"}))}))
+    f, _, _ = check("dev", "a" * 40, out=lambda *_: None)
     ck("M8 a Worker serving an estate wrangler did NOT declare is a FINDING",
        any("WRONG ESTATE" in x for x in f))
 
     mod.get = fake(dict(GOOD, **{"/health": (200, json.dumps(
-        {"ok": True, "env": "lab", "kv_canary": "qa", "estateId": LAB_ESTATE}))}))
-    f, _, _ = check("lab", "a" * 40, out=lambda *_: None)
+        {"ok": True, "env": "dev", "kv_canary": "qa", "estateId": LAB_ESTATE}))}))
+    f, _, _ = check("dev", "a" * 40, out=lambda *_: None)
     ck("M9 a kv_canary that disagrees with env is a FINDING",
        any("kv_canary" in x for x in f))
 
     mod.get = fake({"qa-build.json": Unreadable("pretend outage")})
     try:
-        check("lab", "a" * 40, out=lambda *_: None); ok = False
+        check("dev", "a" * 40, out=lambda *_: None); ok = False
     except Unreadable:
         ok = True
     ck("M6 an origin we cannot reach RAISES — never a clean report", ok)
 
     mod.get = fake(dict(GOOD, **{"viewer.html": (200, "<script>/* no fetches */</script>")}))
-    f, _, u = check("lab", "a" * 40, out=lambda *_: None)
+    f, _, u = check("dev", "a" * 40, out=lambda *_: None)
     ck("M7 zero derived paths is UNCOVERED (the regex may have gone stale), not clean",
        any("stale" in x for x in u))
 

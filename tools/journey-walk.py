@@ -94,7 +94,7 @@ def invitee(role):
     return "p-inv-" + role
 
 
-MINT_OK = ("qa", "lab")  # ⛔ a synthetic may rotate a credential ONLY on our own environments — never a real household's
+MINT_OK = ("qa", "dev")  # ⛔ a synthetic may rotate a credential ONLY on our own environments — never a real household's
 
 
 # ═══ T9 · THE RECORD HOLDS WHAT THE WALK TYPED, NOT WHAT THE FIXTURE LOADED ═══════════════════════
@@ -507,7 +507,7 @@ def journey_entered(fresh, dead, st, account_no_estate=False):
 # RE-READ AT THE END, and a walk that straddled a deploy says so in its own transcript rather than
 # being quietly believed.
 def served_sha(env):
-    url = {"qa": "https://fernwood-qa.pages.dev", "lab": "https://fernwood-lab.pages.dev",
+    url = {"qa": "https://fernwood-qa.pages.dev", "dev": "https://fernwood-lab.pages.dev",
            "home": "https://fernwood-home.pages.dev"}[env]
     h = {"User-Agent": "Mozilla/5.0"}          # a UA-less request is 403'd at the edge, not by the Worker
     try:
@@ -1800,7 +1800,7 @@ def main():
     # it is the only origin with its own estate (est-qa0001) AND a CI-maintained build stamp; lab is
     # hand-deployed and cannot say which build it is serving. Lab stays REACHABLE (Paul walks it at
     # gate 2) but you have to ask for it, and the transcript records which you asked for.
-    ap.add_argument("--origin", choices=["qa", "lab", "home"], default="qa",
+    ap.add_argument("--origin", choices=["qa", "dev", "home"], default="qa",
                     help="which origin to walk (default qa — gate 1). lab is gate 2. "
                          "⚠️ home is PRODUCTION and writes real rows into Mom's estate.")
     # ⛔⛔ THE FAILURE BRANCH, WHICH NOTHING HAS EVER WALKED (spine step 10, 2026-09-08).
@@ -1850,7 +1850,7 @@ def main():
     # fixture. That half was always right and is kept verbatim in intent.
     run = dt.datetime.now().strftime("%Y-%m-%dT%H%M%S")
     base = {"qa":   "https://fernwood-qa.pages.dev/onboarding/",
-            "lab":  "https://fernwood-lab.pages.dev/onboarding/",
+            "dev":  "https://fernwood-lab.pages.dev/onboarding/",
             "home": "https://fernwood-home.pages.dev/onboarding/"}[a.origin]
     # ⛔ FRESH MUST ARRIVE ON AN INVITE TOO. This read `base if a.fresh`, i.e. no grant at all —
     # and since c111417 (2026-09-05 23:31) /api/account answers `invite-required` 403 without one:
