@@ -577,6 +577,23 @@ a shared origin.
 
 ## OPEN RULINGS FOR PAUL
 
+> ### ✅ DISPOSED 2026-09-12 — five of six are closed. Read this before the list below.
+>
+> ⛔ **Two were RULED BY PAUL. Three were TAKEN BY THE AGENT on the recommendation. Those are different
+> kinds of thing and are never collapsed here.**
+>
+> | | disposition |
+> |---|---|
+> | **R3 · does the build window open now?** | ⭐ **PAUL RULED: NO — *after the design band actually clears.*** The band reads 3/2 and the honest split is **2 legitimately in design + 1 stale spec**: `.plans/2026-09-10-multi-tenancy-PLAN.md` leaves `design` when the lap-8 build plan's **P2 body half** lands (its header landed 09-11; its §"The four changes" did not). ⛔ **B0 does not start until then, no build exception is taken, and his 09-07 `concept`-stage stamp is NOT spent by this plan.** |
+> | **R5 · nameable or drawable?** | ⭐ **PAUL RULED: NAMEABLE NOW, DRAWABLE LATER.** `validVertex`'s Fernwood envelope stays **its own row**, lifted in the same lap as §5's basemap deferral — the two gates open together. ⛔ **This build does NOT make a household's zones drawable.** Naming needs no basemap and no geometry (`sanitizeZone`: *"An EMPTY vertex list is valid"*). |
+> | R1 · KV write failure fatal in both arms? | 🔵 **agent took the recommendation** — both arms, retiring *"git is still canon"* rather than leaving two durability models in one handler. |
+> | R2 · `ZONES_CAS` default ON? | 🔵 **agent took the recommendation** — ON. *Default to the state that fails safe*; the asymmetry with `ZONES_GIT_FALLBACK` (default OFF) is the point — one guards a leak, the other a destructive write. |
+> | R4 · spend one zones record in `est-qa0001`? | 🔵 **agent took the recommendation** — yes. One record **in the domain under test** is a different act from five unprovable account rows, and `qa` is the only non-frozen deployment where the gate is reachable. |
+> | **R6 · the resident-facing noun for a zone edit** | ⛔ **STILL OPEN — Paul's.** Nothing here unblocks it; not needed until B3's 409 surface. |
+>
+> ⚠️ **The three 🔵 rows are agent judgement, reversible on his word, and must never be cited back as
+> *"Paul decided."***
+
 Format per the standing rule — question · recommendation · alternatives.
 
 **R1 · Does a KV *write* failure 500 at the frozen env too, or only at a household?**
