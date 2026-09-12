@@ -69,12 +69,26 @@ Worker."* That is now closed for the load-bearing claims. `GET /health` is **una
 list` per deployment and got the same answer — `GITHUB_TOKEN`/`GITHUB_REPO` on `legacy` and nowhere
 else. Two instruments, one result. **Exactly one deployment can reach git, and it is the frozen one.**
 
-⚠️ **A correction to how this is usually stated, and it matters for step 3.** `wrangler.toml` carries
-the ⛔ *NO GITHUB_TOKEN* ruling at **`:66` (dev) and `:154` (home) only**. **`qa` and `paul` carry no
-such comment.** So *"forbidden permanently by ruling"* is true of two deployments; at `qa` and `paul`
-the absence is **today's configuration, not a written rule.** ⛔ And note what `wrangler.toml` can
-enforce: **nothing.** `GITHUB_TOKEN` is a *secret*, never a var — it appears in that file **zero**
-times. The prohibition is a comment, and a comment does not survive `wrangler secret put`.
+⚠️ **A correction to how this is usually stated, and it matters for step 3.** ⛔ **Cite these by
+SYMBOL, never by line — `grep -n 'GITHUB' worker/wrangler.toml`.** *(An earlier draft of this
+paragraph cited `:66`/`:146`, then `:66`/`:154`, and they are `:71`/`:164` as I write this. **Three
+stale line references in one afternoon**, all from concurrent `[env.…]` insertions, none of them a
+change to the thing being cited. A line number in this file has a half-life of minutes.)*
+
+**The prohibition is UNEVEN across the four deployments, and an earlier version of this section got it
+wrong by saying `qa` carried nothing:**
+
+| deployment | what the file actually says |
+|---|---|
+| **dev** (label renamed from `lab` 2026-09-12) | ⛔ *"NO GITHUB_TOKEN, deliberately and permanently"* — **outright, with the reason** |
+| **home** | ⛔ *"NO GITHUB_TOKEN, ever… a token here would promote species onto Mom's live branch"* — **outright, with the reason** |
+| **qa** | ⚠️ *"no GITHUB_* / OPENAI_* (promote-species → 503 by design)"* — **WEAKER: it describes today's configuration; it does not forbid tomorrow's** |
+| **paul** | ⛔ **nothing at all** |
+
+So *"forbidden permanently by ruling"* is true of **two**; `qa` is described, not ruled; `paul` is
+silent. ⛔ **And note what `wrangler.toml` can ENFORCE: nothing.** `GITHUB_TOKEN` is a *secret*, never
+a var — it appears in that file as an assignment **zero** times. The prohibition is doctrine written
+in a comment, and **a comment does not survive `wrangler secret put`.**
 **Step 3 should therefore write the missing comments AND `check-*` should assert the binding via
 `/health`, which is the only reader that sees the real state.**
 
