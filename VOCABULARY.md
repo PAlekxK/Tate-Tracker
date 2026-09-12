@@ -591,6 +591,36 @@ user who cannot diagnose a failure, and would experience one as *the app is brok
 ⚠️ **And the whole question sits AFTER the door** — nothing migrates until `scopeOf(env)`'s 71 call sites
 are converted, so this is a row-A-completion question, never a now question.
 
+### ✅ LEGACY DOES NOT PORT — she founds FRESH in production `[paul-ruled 2026-09-12]`
+
+> *"My intention is to use legacy as a control. We will not automatically port all legacy data into
+> production when mom created a production fernwood in her production account."*
+
+**This answers the open question** raised when the migration was ruled: `legacy` holds **435 sessions**
+against `home`'s **13**, so a reader could reasonably ask whether Mom's *real* Fernwood travels. **It does
+not.** When she founds her production Fernwood, she founds **fresh**; `est-3c9f1a` stays exactly where it
+is and exactly as it is.
+
+⭐ **AND THAT IS WHAT MAKES IT A CONTROL, not a leftover.** A control is only a control while it is
+**unchanged** — the moment its data moves or is merged, it stops being a baseline the new thing can be
+read against. So "we do not port" is not a shrug about old data; it is the thing that gives the control
+its value.
+
+⚠️ **WHAT THIS DOES *NOT* SAY, and the distinction is load-bearing.** He ruled out the **automatic bulk
+port**, not every deliberate carry. One curated carry is ALREADY RULED in the other direction: **Z-13's
+cleaned 23 zones preload into her production estate** when she founds (*"preload the zones into mom's
+estate when she sets it up in production and you have her confirm them"*). ⛔ So the test is not *did data
+come from Fernwood* — it is **automatic and bulk vs. deliberate and curated, with her confirming it.**
+
+⛔⛔ **AND IT RAISES THE STAKES ON THE LEGACY WORKER HAZARD, which is now more than hygiene.** `measured
+2026-09-12`: **108 commits touch `worker/` since `origin/main`**, so any deploy to legacy is a 108-commit
+release — and legacy is *"protected by INACTION, and inaction is not a control"* (backlog window's
+framing, and it is the right one). **If a control's value comes from being unchanged, then an ambient,
+ungated path that could change it is a defect in the control itself**, not merely a risk to Mom's app.
+Three doors, and the current state is the worst of them: deploy deliberately · declare it permanently
+undeployable (which *raises* the migration's priority, since no fix could ever reach her there) · or leave
+it ambient, where the next deploy is an accident. **We are in the third.**
+
 ⭐ **Why it keeps being re-asked, and the fix is in the tooling, not in another paragraph.**
 `tools/pages-deploy.py` takes `--env paul|home|bob|qa|lab` and keeps a set literally named
 `HOUSEHOLD = {"bob","paul","home","qa"}`; `wrangler.toml` has one `[env.*]` block per household. **A
