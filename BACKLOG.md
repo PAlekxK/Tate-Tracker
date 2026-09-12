@@ -132,6 +132,63 @@ stale — regenerate before arguing.
 
 ---
 
+## ⛓ THE DEPENDENCY CHAIN — what gates what, for sequencing `[paul-stated 2026-09-12: "I think there's a dependency chain we can develop to sequence our backlog prioritization"]`
+
+⛔ **A DERIVED VIEW OVER EXISTING ROWS — it ranks nothing and commits nothing.** `⏭ THE NEXT TWO LAPS`
+stays the queue and `--ladder` stays its source; this answers a different question: **not *what is ready*
+but *what is UNREACHABLE until something else lands*.** A thing can be perfectly ready and still be the
+wrong thing to build.
+
+### ⭐⭐ THE CHAIN, and it is MECHANICALLY PROVABLE — not a conceptual ordering
+
+`measured 2026-09-12`: **four model routes share ONE guard.** `canonFor(env, scope)` resolves the
+caller's estate's canon; `foreignCanon()` 503s when it cannot — at `handleTodayLine` (`:2115`),
+**`handleClassify` (`:2188`)**, `handleChat` (`:2967`) and **`handlePromoteSpecies` (`:3478`)**.
+
+⭐ **So the journal's ASKING and the module's ADDING are gated by the same line of code.** A household
+whose journal cannot resolve its canon also **cannot classify an entry and cannot promote one**. The
+chain below is not an argument about priorities; it is what the Worker already does.
+
+| # | layer | the rows | gated by |
+|---|---|---|---|
+| **0** | **canon resolves per estate** — a household's own record reaches its own routes | ✅ per-request resolution SHIPPED `a263ed3c` | — |
+| **1** | ⛔ **the per-estate canon STORE** — somewhere a household's record can BE | **TIER 2 · 12** *(`concept`; nearest artifact `.plans/2026-09-10-canon-ingestion-PROPOSAL.md`, `row: proposed`)* | layer 0 |
+| **2** | **THE JOURNAL answers** — asking works for any estate | § 📖 THE JOURNAL · **TIER 2 · 15** (60 hardcoded literals) · **20** (what it IS) · **16** (the ask surface) | layer 1 |
+| **3** | **THE ENTRY PATH** — a household can put something in | § 🧩 MODULE ONBOARDING ⑤ · **TIER 2 · 8** + **TIER 1 · 77/78** (the write path) | layers 1 **and** 2 |
+| **4** | **MODULE RELEASE** — plants · vehicles · equipment reach people's instances | § 🧩 MODULE ONBOARDING ①–④ | layer 3 |
+
+### ⭐⭐ THE ROOT IS TIER 2 · 12, AND IT IS THE ONLY ITEM THAT APPEARS TWICE
+
+**Layer 1 gates layer 2 (the journal cannot answer from a record that has nowhere to live) and layer 1
+gates layer 3 (promotion has nowhere to land — `handlePromoteSpecies` 503s permanently at every
+household, TIER 1 · 71).** ⛔ **Everything Paul wants to release sits on one unbuilt store**, and the row
+is at `concept` with **no design pass owned by any beat** — the same finding the readiness doc records
+against the capture write path.
+
+⭐ *The cheap consequence, stated plainly: work at layers 2, 3 or 4 that does not first land layer 1 is
+work that cannot be finished.* It can be designed; it cannot ship.
+
+### ⚠️ THE ORTHOGONAL TRACK — it crosses the chain rather than sitting in it
+
+**The door lap / cutover (A0–A15, TIER 1 · 79)** converts `scopeOf(env)` → `scopeFor(request, env, grant)`
+across **70 lines against one live consuming call.** It does not sit *above* or *below* the chain — ⛔ **it
+is the precondition for any layer being correct once a deployment holds TWO estates**, which is what
+`myhome-prod` is. **Concretely: `/api/pending-species` keys on `scopeOf(env)`, so layer 3's staging lands
+in the wrong household's queue the day production holds two.**
+
+⭐ **So the honest reading is TWO axes, not one line:** the chain says *what is reachable*; the cutover
+says *what is correct at more than one estate*. **A thing can be reachable and wrong.**
+
+### Falsifier
+
+⛔ **If a lane completes a layer-3 or layer-4 item and ships it to a household without TIER 2 · 12
+existing, this chain is wrong and should be deleted** — not amended. ⚠️ And if the four routes above
+stop sharing `foreignCanon()`, the mechanical claim lapses and the chain returns to being an opinion:
+**re-run `grep -n foreignCanon worker/worker.js` before citing it.**
+
+---
+
+
 ## 🧭 THE SCOPE GATE → `OBJECTIVES.md` § THE CURRENT GOAL
 
 The current goal — the milestone **READY TO INVITE** — and what it puts out of scope live in `OBJECTIVES.md`, as a band
