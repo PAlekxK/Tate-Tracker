@@ -449,6 +449,39 @@ read; the window must confirm. `[not verified]` = I did not check; the window mu
   scoped (move it to B-DEPLOY with a reason) or the route is unauthenticated and must not write household data at
   all. **A third answer — "pass `scopeOf(env)` for now" — is the silent-wrong-key case `assertScope` cannot catch.**
 - **check** — `check-scope-sites.py` after each batch; `node --check worker/worker.js`.
+- ⛔⛔ **SEVEN HANDLER DISPATCHES SIT ABOVE THE RESOLUTION AND CANNOT BE THREADED** `measured 2026-09-12`.
+  They are the PRE-AUTH-GATE routes — `handleFeedback` · `handleAccountCreate` · `handleEstateFound` ·
+  `handleUsernameChange` · `handleSession` · `handleDoor` · `handleZoneAudio` — and they run before a grant
+  exists **by construction** (creating an account cannot require a credential). Two of them WRITE HOUSEHOLD
+  DATA: `handleFeedback` (2 sites) and `handleZoneAudio` (4).
+  ⚠️ **An earlier measurement in this lap said "0 routes above the resolution" and was WRONG** — it matched
+  only single-line `url.pathname … return` dispatches and missed every multi-line short-circuit. Recorded
+  because it is the lap's own recurring shape: a reading correct about its narrow question, trusted for a
+  broader one.
+- ⛔ **AND A7 DOES NOT RESCUE THEM.** `X-Estate` *"verifies the caller holds a grant at that estate"* — it
+  needs exactly the thing these routes do not have. So this is A2's own third case by name: *the route is
+  unauthenticated and must not write household data at all.*
+- ✅✅ **RESOLVED BY MEASUREMENT, NOT BY RULING — credential-free capture is a LEGACY-ONLY affordance.**
+  `feedbackDestination()` sends a record with no `personId` to `{kind:"estate"}`, i.e.
+  `dateKey(scopeOf(env), …)` — the DEPLOYMENT's estate. Today that is harmless because the deployment IS the
+  household; ⛔ **the Q1 sentinel breaks that identity**, so after the cutover a credential-free capture would
+  land in a namespace nobody owns. `measured 2026-09-12`:
+
+  | environment | feedback records | carrying a personId | credential-free |
+  |---|---|---|---|
+  | `legacy` — Mom's live app | 11 sampled | **0** | **11** |
+  | `home` — the new product household | 17 | **17** | **0** |
+
+  ⭐ **A total split.** Every capture under the new product presents a credential; every capture at legacy
+  does not. And `legacy` **keeps its own deployment** — *"separate from the other three… a previous
+  state/control"* `[paul-stated 2026-09-12, VOCABULARY.md §3i]` — where `scopeOf(env)` remains Mom's own
+  estate. **So the sentinel strands nobody, and this is NOT a blocker for this lap.**
+- ⚠️ **What that does NOT settle, stated rather than glossed:** the measurement is about what HAS happened,
+  not what the code PERMITS. The credential-free branch still exists at the new origin, and a device that
+  loses its grant (cleared storage, a fresh browser) takes it. And VOCABULARY calls legacy *"Mom's live app
+  **until she moves**"* — **when she moves, this becomes live.** So the write path needs its behaviour STATED
+  where it happens, and the question re-asked at the migration. ⛔ It is a comment and a migration note, not
+  a Paul ruling — but it stops being either the day a second household captures without a credential.
 - **MOVES CANDIDATE:** yes. **serves:** A · s1 · s2.
 
 ### A3 · Convert **B-CACHE** (4 sites) — and say in the code why the key shape matters
