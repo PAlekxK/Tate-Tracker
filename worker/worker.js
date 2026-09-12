@@ -2883,9 +2883,9 @@ OUTPUT FORMAT
 - If you're given a photo, use it to constrain the schema where it helps (e.g., observed coloration in 'appearance', species-specific habitat clues). If no photo, draft from species knowledge.`; }
 const SCHEMA_DRAFTER_SYSTEM = schemaDrafterSystem(FACTS);
 
-async function logChatCost(env, conversationId, apiData, extra) {
+async function logChatCost(env, scope, conversationId, apiData, extra) {
   const date = new Date().toISOString().slice(0, 10);
-  const key = dateKey(scopeOf(env), "cost-log", date);
+  const key = dateKey(scope, "cost-log", date);
   const usage = apiData.usage || {};
   const entry = {
     ts: new Date().toISOString(),
@@ -2946,8 +2946,8 @@ function leanTurnContent(content) {
 const CONVERSATION_ORIGINS = ["app", "probe", "test"];
 const REAL_CONVERSATION = o => o == null || o === "app";
 
-async function persistConversation(env, conversationId, turns, origin, deviceId) {
-  const key = keyFor(scopeOf(env), "conversation", conversationId);
+async function persistConversation(env, scope, conversationId, turns, origin, deviceId) {
+  const key = keyFor(scope, "conversation", conversationId);
   const existing = await env.OBSERVATIONS.get(key);
   let session;
   if (existing) {
@@ -3042,7 +3042,7 @@ async function handleChat(request, env, auth, scope) {
     const audioBlock = latestTurn.content.find(b => b && b.type === "audio_ref" && b.recordingId);
     if (audioBlock) {
       // Fetch the audio blob from KV
-      const kvKey = blobKey(scopeOf(env), "audio-blob", audioBlock.recordingId);
+      const kvKey = blobKey(scope, "audio-blob", audioBlock.recordingId);
       const blobJson = await env.OBSERVATIONS.get(kvKey);
       if (!blobJson) {
         return json({ error: "audio-blob-expired-or-missing", recordingId: audioBlock.recordingId }, 410);
@@ -3164,9 +3164,9 @@ async function handleChat(request, env, auth, scope) {
 
   // Append assistant turn to the conversation, then persist + log cost.
   const updatedTurns = [...turns, { role: "assistant", content: reply, ts: new Date().toISOString() }];
-  try { await persistConversation(env, conversationId, updatedTurns, reqOrigin, reqDeviceId); }
+  try { await persistConversation(env, scope, conversationId, updatedTurns, reqOrigin, reqDeviceId); }
   catch (e) { console.warn("conversation persist failed:", e); }
-  try { await logChatCost(env, conversationId, apiData, { latency_ms: latencyMs, round_trips: 1 }); }
+  try { await logChatCost(env, scope, conversationId, apiData, { latency_ms: latencyMs, round_trips: 1 }); }
   catch (e) { console.warn("cost log failed:", e); }
   if (ceilingUsd) {   // Guru 3b — bill this turn, in dollars, against today's QA budget
     try {
@@ -3594,7 +3594,7 @@ This plant was just added by the reader and has NOT been observed here across a 
   }
 
   // Log cost for this drafter call (mirrors logChatCost pattern)
-  try { await logChatCost(env, "promote-" + (body.conversationId || "anon"), drafterData); }
+  try { await logChatCost(env, scope, "promote-" + (body.conversationId || "anon"), drafterData); }
   catch (e) { console.warn("drafter cost log failed:", e); }
 
   // ---- Step 2: Apply Fernwood-canonical fields (slug, attribution, photo path)
