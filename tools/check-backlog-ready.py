@@ -132,7 +132,22 @@ IN_FLIGHT = {"concept", "design", "journey", "build", "qa"}
 # numbers are wrong. Read it at the close, not by argument.
 WIP_BANDS = [
     ("design", {"design", "journey"}, 2),   # these consume Paul's attention in a discussion
-    ("build",  {"build", "qa"},       1),   # unchanged — the pre-existing one-at-a-time default
+    # ⭐⭐ THE BUILD BAND NO LONGER CAPS ON COUNT `[paul-ruled 2026-09-12]` — *"we should be able to put
+    # together as many items of varying sizes as make sense logically and are ready to be built."*
+    # ⛔ A COUNT IS THE WRONG UNIT: it treats a 15-step door and a one-line copy fix as one object each,
+    # so it measures how many FILES sit in a stage and never the size of the commitment. The real
+    # constraints are already enforced and neither is a count — `ready:` (the stage gate, which is what
+    # G1 is) says an item MAY be built, and logical coherence is the lap's own scope ruling.
+    # ⚠️ WHAT THE OLD NUMBER ACTUALLY WAS: `1`, self-described one line up as *"the pre-existing
+    # one-at-a-time default"* — never argued. A-3 argued only the DESIGN number, from a measured
+    # bottleneck. Three things were true of the build cap when it was dropped, all measurable:
+    # its own falsifier (*"if lap 3 closes and no band ever blocked anything the numbers are wrong —
+    # read it at the close"*) was never read through lap 8; it stood at `1/1 (+4 excepted)`, i.e.
+    # overridden four times more often than honoured; and its selftest clause was RED at HEAD, having
+    # gone stale when `concept` became uncapped by ruling.
+    # `None` = REPORT the occupancy, never flag it. The occupancy line stays for A-3's own reason:
+    # a limit whose only output is an alarm is a limit nobody can calibrate (lap-2 retro, finding #2).
+    ("build",  {"build", "qa"},    None),
 ]
 REQUIRED_SECTIONS = ["## Files touched", "## Sequence", "## Falsifier", "## QA"]
 # ⭐ TWO LINK KEYWORDS `[paul-ruled 2026-09-10]` — `→ READY ·` means the plan is STAMPED; `→ PLAN ·`
@@ -497,7 +512,7 @@ def check(root):
     for band, stages, limit in WIP_BANDS:
         rows = [(n, exc) for n, st, exc in in_flight if st in stages]
         uncapped = [n for n, exc in rows if not exc]
-        if len(uncapped) > limit:
+        if limit is not None and len(uncapped) > limit:
             findings.append(("WIP", f"band `{band}` ({'/'.join(sorted(stages))}): {len(uncapped)} items "
                                     f"without a `wip-exception:` against a limit of {limit} — "
                                     f"{', '.join(sorted(uncapped))}"))
@@ -521,8 +536,16 @@ def main():
         for band, stages, limit in WIP_BANDS:
             rows = [(n, e) for n, st, e in in_flight if st in stages]
             uncapped = sum(1 for _, e in rows if not e)
-            mark = "⚠️" if uncapped > limit else "·"
-            bands.append(f"{mark} {band} {uncapped}/{limit}" + (f" (+{len(rows) - uncapped} excepted)" if len(rows) > uncapped else ""))
+            mark = "⚠️" if (limit is not None and uncapped > limit) else "·"
+            if limit is None:
+                # ⭐ An UNCAPPED band prints its OCCUPANCY, not "n/limit (+m excepted)". With no cap
+                # there is nothing to be excepted FROM, so splitting the count into capped-vs-excepted
+                # would keep reporting a distinction the ruling just dissolved — and the `+4 excepted`
+                # it used to print is exactly the paperwork that made the old cap look load-bearing.
+                bands.append(f"· {band} {len(rows)}")
+            else:
+                bands.append(f"{mark} {band} {uncapped}/{limit}"
+                             + (f" (+{len(rows) - uncapped} excepted)" if len(rows) > uncapped else ""))
         n_concept = sum(1 for _, st, _ in in_flight if st == "concept")
         print("   🚦 WIP bands: " + " · ".join(bands) + f" · concept {n_concept} (uncapped by ruling)")
     _awaiting_note()
@@ -777,16 +800,32 @@ def selftest():
     with tempfile.TemporaryDirectory() as td:
         make(td); open(os.path.join(td, "BACKLOG.md"), "a").write("| r2 | → READY · .plans/2026-09-03-ghost-PLAN.md |\n")
         f, _ = check(td); ok("a row pointing at a missing plan is flagged", any("does not exist" in m and "pointer" in m for _, m in f))
+    # ── WIP · the DESIGN band still caps; the BUILD band no longer does `[paul-ruled 2026-09-12]` ──
+    # ⛔ THE CLAUSE THIS REPLACES WAS RED AT HEAD AND HAD BEEN FOR LAPS. It put one plan at `build` and
+    # one at `concept` and asserted a flag; when `concept` became uncapped by ruling it could no longer
+    # fire, and nothing re-read it — so the band printed an occupancy into the pickup block every run
+    # while its own proof that the cap WORKS was failing. The cap is now exercised where a cap still
+    # exists (design), and the build band gets an explicit clause for its new contract.
+    with tempfile.TemporaryDirectory() as td:
+        make(td, plan=GOOD_PLAN.replace("stage: ready", "stage: design"))
+        for i, nm in enumerate(("two", "three")):
+            pp = os.path.join(td, ".plans", "2026-09-03-%s-PLAN.md" % nm)
+            open(pp, "w").write(GOOD_PLAN.replace("stage: ready", "stage: design").replace("demo", nm))
+            open(os.path.join(td, "BACKLOG.md"), "a").write("| r%d | → READY · .plans/2026-09-03-%s-PLAN.md |\n" % (i + 2, nm))
+        f, fl = check(td); ok("three in the DESIGN band with no exception is flagged",
+                              any(w == "WIP" for w, _ in f) and len(fl) == 3)
+        p3 = os.path.join(td, ".plans", "2026-09-03-three-PLAN.md")
+        open(p3, "w").write(GOOD_PLAN.replace("stage: ready", "stage: design\n- wip-exception: priority shift, Paul 2026-09-03").replace("demo", "three"))
+        f, fl = check(td); ok("  and a DECLARED exception clears it",
+                              not any(w == "WIP" for w, _ in f) and len(fl) == 3)
     with tempfile.TemporaryDirectory() as td:
         make(td, plan=GOOD_PLAN.replace("stage: ready", "stage: build"))
-        p2 = os.path.join(td, ".plans", "2026-09-03-two-PLAN.md")
-        open(p2, "w").write(GOOD_PLAN.replace("stage: ready", "stage: concept").replace("demo", "two"))
-        open(os.path.join(td, "BACKLOG.md"), "a").write("| r2 | → READY · .plans/2026-09-03-two-PLAN.md |\n")
-        f, fl = check(td); ok("two in flight with no exception is flagged", any(w == "WIP" for w, _ in f) and len(fl) == 2)
-        open(p2, "a").write("- wip-exception: priority shift, Paul 2026-09-03\n")
-        # the key must sit in the header: rewrite with the exception in place
-        open(p2, "w").write(GOOD_PLAN.replace("stage: ready", "stage: concept\n- wip-exception: priority shift, Paul 2026-09-03").replace("demo", "two"))
-        f, fl = check(td); ok("  and a DECLARED exception clears it", not any(w == "WIP" for w, _ in f) and len(fl) == 2)
+        for i, nm in enumerate(("btwo", "bthree", "bfour")):
+            pp = os.path.join(td, ".plans", "2026-09-03-%s-PLAN.md" % nm)
+            open(pp, "w").write(GOOD_PLAN.replace("stage: ready", "stage: build").replace("demo", nm))
+            open(os.path.join(td, "BACKLOG.md"), "a").write("| c%d | → READY · .plans/2026-09-03-%s-PLAN.md |\n" % (i + 2, nm))
+        f, fl = check(td); ok("four in the BUILD band do NOT flag — a count is not the unit (paul-ruled 2026-09-12)",
+                              not any(w == "WIP" for w, _ in f) and len(fl) == 4)
     with tempfile.TemporaryDirectory() as td:
         f, _ = check(make(td, plan=GOOD_PLAN.replace("class: engine · declared", "class: engine")))
         ok("an engine item without a divergence tier is flagged", any("divergence tier" in m for _, m in f))
