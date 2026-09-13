@@ -256,9 +256,17 @@ def report(envs_wanted, out=print):
     out("       ⛔ so this clause is UNPROVABLE UNTIL AN ESTATE IS FOUNDED: with 0 founded estates a")
     out("          pass would only mean the case never arose. That is green-by-absence, refused here.")
 
-    # B · a second founding is a NAMED refusal.
-    out("   B · a person who ALREADY owns an estate founding a second → a NAMED REFUSAL")
+    # B · a second founding is a NAMED refusal. ⭐ REWORDED WITH A7/A10 (2026-09-12): the clause is
+    #     unchanged, but WHY the refusal stands has changed and the old wording would now mislead.
+    out("   B · a person who ALREADY owns an estate founding a second → a NAMED REFUSAL (409)")
     out("       ⛔ not a 400 on every later request — the failure must say which rule it is.")
+    out("       ⭐ SINCE A7 THIS IS A PRODUCT DECISION, NOT A TECHNICAL LIMIT. `X-Estate` exists and is")
+    out("          verified against the person→estate edge, so a second house is ADDRESSABLE; what is")
+    out("          missing is the SURFACE for founding one (lap 9 · C). The refusal is kept on purpose.")
+    out("       ⛔ AND IT IS LOAD-BEARING TODAY: a second founding would key a second live grant to the")
+    out("          SAME credential hash, which `resolveByEdge` refuses (it will not pick a house nobody")
+    out("          named) — so until a client sends `X-Estate`, removing the 409 turns a clean refusal")
+    out("          into a 404 on every later request. A PASS HERE IS THE CORRECT BEHAVIOUR, not a gap.")
     owners = {}
     for env in envs:
         who = set()

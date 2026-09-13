@@ -1489,14 +1489,30 @@ async function handleEstateFound(request, env) {
                   hint: "adopt is designed and not built — it waits on the X-Estate ruling" }, 501);
   }
 
-  // ⛔ ONE ESTATE PER PERSON, FOR NOW, AND THE REFUSAL IS THE POINT. A person with a grant already
-  // has an estate their credential resolves to; a second one cannot be reached until a request can
-  // say WHICH — and that is the unruled question. Refusing here is visible; letting them found a
-  // second and 400 on every later request is not.
+  // ⛔⛔ A10 — THE 409 STAYS, AND IT IS NOW A PRODUCT DECISION RATHER THAN A TECHNICAL LIMIT.
+  // The old comment said a second estate "cannot be reached until a request can say WHICH — and that
+  // is the unruled question." ⭐ A7 ANSWERED THE TECHNICAL HALF: `X-Estate` exists, verified against
+  // the A6 edge (path 0 of `grantFor`), so a second house IS addressable now. What does not exist is
+  // the FOUNDING SURFACE for a second place — that is lap 9 · C — so the refusal is kept deliberately
+  // while the mechanism sits ready behind it.
+  // ⛔ IT IS ALSO THE ONLY THING STANDING BETWEEN A FOUNDER AND A SELF-BREAKING CREDENTIAL, which the
+  // old comment predicted and A7 has now made concrete. `handleEstateFound` keys the new grant by the
+  // CURRENT credential's hash, so founding a second estate would give one hash a live grant at TWO
+  // estates. `resolveByEdge` refuses that (it cannot choose a house nobody named), and no client
+  // sends `X-Estate` yet — so the founder would 404 on every later request. **Exactly the failure the
+  // original comment named: "letting them found a second and 400 on every later request."**
+  // ⚠️ SO THE ORDER IS: the array (A9) → a client that names its house → lap 9 · C's surface → then
+  // this refusal can go. Removing it first converts a clean, named 409 into a silent 404 on
+  // everything, which is strictly worse.
+  // ⛔ AND IT IS A RULED INVARIANT, reversed deliberately and never by accident — `VOCABULARY.md`
+  // :483, `BACKLOG.md` :1185. (`.plans/2026-09-10-OPEN-ITEMS.md` ①·2 reads the other way, calling the
+  // workaround "dead" with a `C2 retired by name` in its sequence. It is SUPERSEDED by the 09-11 plan
+  // row A10 and the 09-11 re-audit, which both keep it; and its `C2` label is defined nowhere in the
+  // corpus. Recorded here because the next reader will find that line and wonder.)
   const existing = await grantFor(request, env);
   if (existing && existing.estateId) {
     return json({ error: "already-has-an-estate", estateId: existing.estateId,
-                  hint: "a second estate needs a way for a request to name which one — not yet ruled" }, 409);
+                  hint: "naming a second estate now works (X-Estate); the surface for FOUNDING one is lap 9 · C" }, 409);
   }
 
   const address = typeof body.address === "string" ? body.address.trim().slice(0, 300) : "";
@@ -1632,6 +1648,21 @@ async function handleEstateFound(request, env) {
                 digest: "not-composed" }, 201);
 }
 const GRANT_HEADER = "X-Grant";
+// ⭐⭐ A7 · M4 — A REQUEST NAMES WHICH HOUSE. The credential says WHO (A5); this says WHICH, and the
+// A6 edge is what makes the claim checkable: a caller may name only an estate they provably hold.
+// ⛔⛔ IT IS READ INSIDE `grantFor`, NOT INSIDE `scopeFor`, AND THE PLAN'S ROW NAMES THE WRONG SITE.
+// `scopeFor(request, env, grant)` (:1119) already takes `request` and ignores it, so it looks like
+// the natural home — but it runs AFTER the grant is resolved and only swaps the estate a KEY is
+// built under. The capability gate (:5081) reads `auth.capability` off THAT grant, and capability is
+// PER-ESTATE. So a header honoured in `scopeFor` would apply estate A's capability to estate B's
+// data: hold `administrator` at your own house, name someone else's, and act as an administrator
+// there. Resolving the header where the GRANT is resolved makes the row, the capability, the scope
+// and the person all come from the same estate — which is the property `grantFor`'s own guard exists
+// to protect ("a grant's personId and estateId come from the SAME resolved row").
+// ⚠️ An unauthenticated request naming an estate is ignored, not refused: there is no grant to
+// resolve, `scopeFor(request, env, null)` falls to the deployment as before, and a header from a
+// caller with no credential has never been allowed to mean anything.
+const GRANT_ESTATE_HEADER = "X-Estate";
 // ⭐ THE ROUTER ROW — deployment-scoped, because it is not estate data. `route:<sha256(token)>`
 // holds `{estateId}` and nothing else. Written by `tools/grant-route-backfill.py` for every grant
 // that already existed, and by `grant-mint.py` for every grant minted from now on.
@@ -1737,20 +1768,44 @@ async function resolveByEdge(env, personId, hash) {
   }
   if (live.length === 1) return { estateId: live[0].estateId, row: live[0].row, via: "edge", candidates: 1 };
   if (!live.length) return null;
-  // ⛔⛔ TWO LIVE GRANTS UNDER ONE CREDENTIAL — UNREACHED TODAY (0 of 318 hashes, above) and handled
-  // anyway, because "unreachable" is a statement about today's data and this branch is where a wrong
-  // answer would be invisible. The request has not named a house, so the only honest answers are a
-  // row the caller provably holds HERE, or none.
-  // ⛔ IT IS NOT C1'S FORBIDDEN FALLBACK, and the predicates are what separate them: C1 refuses to
-  // hand back the deployment's estate for A ROUTE WITH NO GRANT BEHIND IT — inventing an
-  // authorisation. This fires only where two grants EXIST and belong to the caller, and it returns
-  // one of them.
-  // ⛔⛔ REMOVAL CONDITION, NOT A DESCRIPTION: **A7 deletes this branch.** Once `X-Estate` lets a
-  // request name its house, two live grants is a NAMED REFUSAL and never a tie-break. If A7 has
-  // shipped and this is still here, that is the bug — not a leftover.
-  const own = live.find(c => c.estateId === env.ESTATE_ID);
-  return own ? { estateId: own.estateId, row: own.row, via: "deployment-tie-break", candidates: live.length }
-             : { estateId: null, row: null, via: "ambiguous-refused", candidates: live.length };
+  // ⭐⭐ THE REMOVAL CONDITION FROM `6e68f3de` FIRING ON SCHEDULE. That commit shipped an interim
+  // deployment tie-break here — two live grants, no way for a request to say which — and wrote its
+  // own deletion into the source: *"A7 deletes this branch; if A7 has shipped and this is still
+  // here, that is the bug."* A7 has shipped. It is deleted.
+  // ⛔ TWO LIVE GRANTS AND NO NAMED HOUSE IS A REFUSAL. The caller can now say which one they mean
+  // (`X-Estate`), so choosing for them is no longer the lesser evil — it is answering from a
+  // household nobody named, which is this lap's whole subject.
+  // ⚠️ STILL UNREACHED, AND THE REASON IS WORTH KEEPING: a grant row is keyed by (estate, token
+  // hash) and every writer writes ONE row per grant, so a hash resolves to exactly one estate —
+  // measured across both populated namespaces, 0 of 318 hashes have rows at two. A person with two
+  // houses holds them through two credentials. This branch guards a shape the data does not have,
+  // which is why refusing costs nothing today.
+  // ⛔ WHAT THE REFUSAL SHOULD SAY IS UNRULED (`OPEN-ITEMS` ①·2, the 400 collision). It fails CLOSED
+  // — null, which the dispatcher answers as the router's own 404 — and RECORDS itself, rather than
+  // inventing a response shape a ruling will have to undo.
+  return { estateId: null, row: null, via: "ambiguous-refused", candidates: live.length };
+}
+
+// ⭐ A7 — RESOLVE AN ESTATE THE REQUEST NAMED. One direct `get` of the edge, never a listing: the
+// caller supplied the estate, so there is nothing to enumerate. ⛔ This also closes the latency seam
+// A6 opened — `grantsFor`'s list is now needed only when no header arrives.
+// ⛔⛔ THE EDGE IS THE AUTHORISATION AND THE ROW IS THE PROOF, and BOTH are required. An edge alone
+// would let a person name a house they once held under a credential that no longer has a row there;
+// a row alone (get `<named>:grant:<hash>` and trust it) would skip the person entirely and make the
+// header self-authorising. Two reads, both must agree with the caller.
+async function resolveNamed(env, personId, named, hash) {
+  if (!personId || !named) return null;
+  let edge;
+  try { edge = await env.OBSERVATIONS.get(grantEdgeKey(personId, named)); }
+  catch (e) { return null; }
+  if (!edge) return null;                       // ⛔ 404. Naming a house you do not hold is not an error message.
+  let raw;
+  try { raw = await env.OBSERVATIONS.get(keyFor(scopeOfRoute(named, env), "grant", hash)); }
+  catch (e) { return null; }
+  if (!raw) return null;
+  let row; try { row = JSON.parse(raw); } catch (e) { return null; }
+  if (!row || row.revokedAt || row.estateId !== named) return null;
+  return { estateId: named, row, via: "named", candidates: 1 };
 }
 
 // ⛔ AN EVENT WITH NO READER IS NOT INSTRUMENTATION (CLAUDE.md, ruled). The reader is
@@ -1821,6 +1876,34 @@ async function grantFor(request, env) {
       if (parsed && typeof parsed.personId === "string" && parsed.personId) whom = parsed.personId;
     }
   } catch (e) { /* a malformed router row is a miss, never an outage — fall through to the legacy read */ }
+
+  // ---- PATH 0 · A7 · THE REQUEST NAMED A HOUSE ----
+  // ⭐ IT OUTRANKS EVERY PATH BELOW, because those answer "which house does this credential belong
+  // to" and this answers "which house is this REQUEST about" — the question that only exists once a
+  // person can hold two. ⛔ It never WIDENS access: `resolveNamed` demands the A6 edge AND a grant
+  // row for this very credential at that estate, so the set it can reach is a subset of what the
+  // paths below could reach anyway. What it adds is the ability to CHOOSE within that set.
+  const namedRaw = request.headers.get(GRANT_ESTATE_HEADER);
+  if (namedRaw) {
+    // ⛔ SHAPE-CHECKED BEFORE IT REACHES A KEY BUILDER. An estate id is `est-` + lowercase base36;
+    // anything else is refused here rather than concatenated into a KV key. A caller-supplied string
+    // that reaches `keyFor()` is how a prefix becomes forgeable (`est-x:grant:…` inside a longer
+    // value), and the cheapest place to stop that is before the first read.
+    const named = String(namedRaw).trim();
+    if (!/^est-[a-z0-9]{4,24}$/.test(named)) return null;
+    // ⚠️ A ROUTE THAT NAMES ONLY AN ESTATE CANNOT SUPPORT A HEADER, and that is not a gap. Three
+    // rows at dev carry an estate and no person (pre-personId routes). With no person there is no
+    // edge to check, so the only honest answer is the route's own estate — naming any other is a
+    // 404. Attribution must come from the credential, never from the request.
+    if (!whom) {
+      if (routed && named === routed) { /* consistent with its own route — fall through to path 1 */ }
+      else return null;
+    } else {
+      const byName = await resolveNamed(env, whom, named, hash);
+      if (!byName) return null;                 // ⛔ 404, byte-identical to any other miss.
+      return byName.row;
+    }
+  }
 
   // ---- PATH 1 · THE ROUTE NAMES AN ESTATE (every row written before A5) ----
   // ⛔ TERMINAL ON PURPOSE, AND C1 IS WHY. A route naming a house with no grant behind it MUST 404;

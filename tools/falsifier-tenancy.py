@@ -99,7 +99,14 @@ def setup():
                "relationship": ["owner"], "capability": "member", "entry": True, "vault": False,
                "issuedAt": now, "issuedBy": "falsifier-tenancy", MARK: True}
         kv_put(w, "%s:grant:%s" % (estate, h), row)
-        kv_put(w, "route:%s" % h, {"estateId": estate, MARK: True, "createdAt": now})
+        # ⭐⭐ H3 — THE ROUTE CARRIES THE PERSON AND THE A6 EDGE EXISTS. Before this the fixture wrote
+        # `{estateId}` only, so every clause below resolved through `grantFor` PATH 1 and **the whole
+        # of A5/A6/A7 was untested by the one instrument whose job is tenancy.** A clause list that
+        # does not grow with the mechanism silently shrinks its own denominator.
+        kv_put(w, "route:%s" % h, {"estateId": estate, "personId": row["personId"],
+                                   MARK: True, "createdAt": now})
+        kv_put(w, "grant:%s:%s" % (row["personId"], estate),
+               {"personId": row["personId"], "estateId": estate, MARK: True})
         fx["estates"][label] = {"estate": estate, "token": token, "hash": h, "personId": row["personId"]}
 
     # ⭐ A ROUTE WITH NO GRANT BEHIND IT. The plan is explicit that this is a 404 and "never a
@@ -138,7 +145,12 @@ def teardown():
     fx = json.load(open(FIXTURE))
     n = 0
     for label, e in (fx.get("estates") or {}).items():
-        for key in ("%s:grant:%s" % (e["estate"], e["hash"]), "route:%s" % e["hash"]):
+        # ⚠️ THE A6 EDGE IS REMOVED TOO, and it is keyed by PERSON rather than by hash — so a
+        # teardown that only swept `<estate>:grant:<hash>` and `route:<hash>` would leave a fixture
+        # person holding a house forever, which `grant-edge-backfill.py --check` would later report
+        # as a real edge pointing at a real estate. A fixture that survives teardown is not a fixture.
+        for key in ("%s:grant:%s" % (e["estate"], e["hash"]), "route:%s" % e["hash"],
+                    "grant:%s:%s" % (e.get("personId"), e["estate"])):
             try: w.kv(ENV, "delete", key); n += 1
             except Exception as ex: print("   ⚠️ could not delete %s — %s" % (key[:28], str(ex)[:60]))
     if fx.get("foreignAdminInvite"):
@@ -203,6 +215,24 @@ def run():
     results.append(("C2", c2, "A cannot NAME B — %d surface(s) probed%s" %
                     (len(probes), (", LEAKED via: " + ", ".join(named)) if named else ", none answered as B")))
     if not c2: fails.append("C2")
+
+    # ⭐⭐ C2b — THE POSITIVE CONTROL, AND IT IS THE CLAUSE C2 CANNOT BE TRUSTED WITHOUT.
+    # ⛔ MEASURED 2026-09-12, BEFORE A7 SHIPPED: C2 already probed `X-Estate` — and it passed against
+    # a Worker that IGNORED THE HEADER ENTIRELY. A control that a no-op satisfies is evidence about
+    # nothing. Now that A7 honours the header, "A cannot name B" is only meaningful beside "A CAN
+    # name A": together they say the header is read AND bounded. Apart, C2 is green for a correct
+    # implementation and for a broken one alike.
+    # ⚠️ It asserts the HEADER path specifically — same credential, same route, same everything, with
+    # the estate the caller provably holds named explicitly.
+    try:
+        sA2, bA2 = get("/api/grant/whoami", A["token"], {"X-Estate": ESTATE_A})
+    except RuntimeError as e:
+        print("⛔ UNREADABLE during C2b — %s" % e); return 3
+    c2b = isinstance(bA2, dict) and bA2.get("estateId") == ESTATE_A
+    results.append(("C2b", c2b, "A CAN name its OWN house — X-Estate=%s → %s%s"
+                    % (ESTATE_A, sA2,
+                       "" if c2b else " ⛔ the header was not honoured; C2 above is then a no-op's pass")))
+    if not c2b: fails.append("C2b")
 
     # C3 — only meaningful once B can authenticate: B must answer as B and never as A.
     if pB:
