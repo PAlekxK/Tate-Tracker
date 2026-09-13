@@ -63,11 +63,19 @@
     },
     "handleAmbient": {
       "count": 1,
-      "reason": "cache (B-DEPLOY, DECLARED NOT CONVERTED) · stays on scopeOf because AMBIENT_MAC is a per-deployment Worker secret - the key correctly reflects deployment-wide data. \u26d4 This is BY CONSTRUCTION, not by design forever: the day a household can declare its own station credential this site must be reconverted. [paul-ruled 2026-09-13, with that risk stated to him].  \u2b50 THE MEASUREMENT BEHIND THE RULING, so nobody re-derives it: handleAmbient reads the station MAC at `const mac = (env.AMBIENT_MAC || \"\").trim()` \u2014 a per-deployment Worker SECRET since 2026-09-04 (`wrangler.toml:45`), never caller-supplied. ⚠️ worker.js's own comment above the handler still says `[vars] AMBIENT_MAC` from C5 7c (2026-09-03) — that is one day stale and the binding moved to a secret; the RULING rests on per-deployment, which both eras satisfy. The cache key's household-identifying suffix is therefore the DEPLOYMENT's own station, so the key is already exactly as specific as the data behind it. Gating the route would not change that, and converting it would make the key ASSERT a per-household scoping the data does not have \u2014 a key that claims more than it knows. \u26a0\ufe0f It is the one site in this register whose reason is about the DATA rather than about the caller: the other three B-CACHE sites (airnow \u00b7 drought \u00b7 today-line) converted at A3 because their suffix is the CALLER's coordinates, county and canon. \u26d4 The separate question \u2014 SHOULD /api/ambient be gated at all (it is deliberately ungated since 2026-08-02 so Mom's unpaired devices keep working) \u2014 is untouched by this ruling and stays open."
+      "reason": "cache (B-DEPLOY, DECLARED NOT CONVERTED) · stays on scopeOf because AMBIENT_MAC is a per-deployment Worker secret - the key correctly reflects deployment-wide data. ⛔ This is BY CONSTRUCTION, not by design forever: the day a household can declare its own station credential this site must be reconverted. [paul-ruled 2026-09-13, with that risk stated to him].  ⭐ THE MEASUREMENT BEHIND THE RULING, so nobody re-derives it: handleAmbient reads the station MAC at `const mac = (env.AMBIENT_MAC || \"\").trim()` — a per-deployment Worker SECRET since 2026-09-04 (`wrangler.toml:45`), never caller-supplied. ⚠️ worker.js's own comment above the handler still says `[vars] AMBIENT_MAC` from C5 7c (2026-09-03) — that is one day stale and the binding moved to a secret; the RULING rests on per-deployment, which both eras satisfy. The cache key's household-identifying suffix is therefore the DEPLOYMENT's own station, so the key is already exactly as specific as the data behind it. Gating the route would not change that, and converting it would make the key ASSERT a per-household scoping the data does not have — a key that claims more than it knows. ⚠️ It is the one site in this register whose reason is about the DATA rather than about the caller: the other three B-CACHE sites (airnow · drought · today-line) converted at A3 because their suffix is the CALLER's coordinates, county and canon. ⛔ The separate question — SHOULD /api/ambient be gated at all (it is deliberately ungated since 2026-08-02 so Mom's unpaired devices keep working) — is untouched by this ruling and stays open."
     },
     "handleChat": {
       "count": 1,
       "reason": "chat-budget · a daily model-spend CEILING is a deployment-wide control. Per-estate budget keys would give every household its own ceiling, so the origin's total spend would become unbounded in the number of households — the opposite of what a ceiling is for."
+    },
+    "handleEstateFound": {
+      "count": 1,
+      "reason": "account (LEGACY SHAPE) · putAccount(env, scopeOf(env), …) — the scope reaches ONLY accountKey(scope, username), the username-keyed legacy row. The AUTHORITATIVE account row is account:<personId> and takes no scope at all. ⭐ C7 [paul-ruled 2026-09-10]: AN ACCOUNT BELONGS TO A PERSON, NOT TO A HOUSEHOLD — 'we shouldn't be pre-seeding estates earlier in the process'. The hierarchy is person → account → estate, so an account key carrying an estate prefix cannot express the thing it is keying. Scoping this to the founded estate would be the DEFECT, not the fix. ⚠️ This is the register's one row that is deployment-scoped because the DATA IS NOT A HOUSEHOLD'S, as distinct from the ratelimit rows (a control on the origin) and handleAmbient (data that is the deployment's). Three different reasons that look alike from a distance."
+    },
+    "fetch(dispatcher)": {
+      "count": 11,
+      "reason": "⛔⛔ ELEVEN SITES IN FOUR CLASSES, ENUMERATED — NOT ONE REASON STRETCHED OVER ELEVEN. The register's own note warned that a single declaration here would cover sites that 'do not share one' reason; the answer is a reason that ENUMERATES rather than one that generalises. Sites are named by their ROUTE, never by line — three file:line citations went stale inside single afternoons on 2026-09-12. Classified 2026-09-13, AFTER the door steps (A6/A9/A11/A13) landed, which is the sequence the note demanded: classifying a site inside a block those steps were about to rewrite would have been a guess about code that did not exist.  ① ACCOUNT / SESSION — THE LEGACY USERNAME-KEYED SHAPE (7): POST /api/account (handleAccountCreate) · POST /api/profile's `sc` · GET /api/account/available (accountFor) · /api/account/username (handleUsernameChange) · /api/session (handleSession) · and /api/grant/whoami's TWO accountKey(scopeOf(env), grant.username) reads. Every one reaches only accountKey/accountFor/putAccount. ⭐ C7 [paul-ruled 2026-09-10] — an account belongs to a PERSON, not a household; the authoritative row is account:<personId> and takes no scope. VERIFIED BY READING EACH: handleAccountCreate uses scope at exactly two lines (accountKey, accountFor); handleUsernameChange at one (fromKey/toKey); handleSession at one (accountFor), deriving the ESTATE separately from the route via scopeOfRoute. ⚠️ POST /api/profile's `sc` was MIXED until 2026-09-13 — it also fed applyGeocode, which is a household fact — and was SPLIT rather than declared over. A declaration that had covered it would have been false about half of what the site did.  ② ABUSE CONTROLS ON THE ORIGIN (2): /health's chat-budget read (dateKey · chat-budget) and /api/onboarding-metrics' obmetrics ratelimit bucket. Same reasons already carried by handleChat and doorRateLimitOk: a per-estate ceiling makes the origin's total spend unbounded in the number of households, and a per-estate limiter hands an attacker N× the budget for naming N houses.  ③ THE RECOVERY RECORD (1): /api/recovery's dateKey(scopeOf(env), 'recovery', …). ⭐ The channel's whole premise is A PERSON WHO CANNOT REACH THEIR HOUSEHOLD, so filing their request under the household they cannot reach is circular — the same reasoning recoverRateLimitOk already carries, applied to the record rather than the limiter. B6r [paul-ruled 2026-09-11]: its own key, its own ADMIN-ONLY reader. ⚠️ A signed-in caller's request IS attributable and this still files it at the deployment; that is deliberate (one channel, one reader) and is the weakest reason in this row.  ④ ONBOARDING TELEMETRY (1): /api/onboarding-metrics' dateKey. It records what happened AT A DOOR before any household exists — the same construction as storeDoorRecord, already declared: records carry no personId and a deviceId is a browser bucket.  ⛔ WHAT THIS DECLARATION CANNOT DO, on its own face: the `count` clause catches a NEW site appearing in the dispatcher (12 found against 11 declared is red), but nothing catches an EXISTING site CHANGING CLASS. If a route in ① ever keys a household fact from this scope, this register will still read green. That is the same blind spot as `assertScope`'s — it sees a missing conversion, never a wrong one — and it is why A15's falsifier at two estates is not optional."
     }
   },
   "_declared_note": [
@@ -79,33 +87,39 @@
     "⚠️ `grantFor` is the one row here that is NOT permanent, and it says so in its own reason."
   ],
   "_unclassified_note": [
-    "⛔ WHY 20 SITES ARE STILL UNCLASSIFIED (24 before A3), AND WHY THAT IS THE CORRECT READING RATHER THAN UNFINISHED WORK.",
+    "✅ ZERO UNCLASSIFIED as of 2026-09-13 (the writers' slice). This note described 24, then 20, and is",
+    "kept — rewritten — rather than deleted, because WHAT MOVED is the useful part.",
     "",
-    "✅ B-CACHE IS DONE (A3, 2026-09-13) — this paragraph used to say all four were pending. handleAirNow",
-    "· handleDrought · handleTodayLine are CONVERTED: each dispatches BELOW the capability gate and is named",
-    "in MEMBER_OK, so every caller carries a resolved grant and the key is now the CALLER's estate.",
-    "⭐ handleTodayLine is the one worth knowing about — it ALREADY HELD the resolved scope (canonFor(env,",
-    "scope) reads the caller's canon two lines up) and still keyed by the deployment, so the line was",
-    "written ABOUT one household and filed UNDER another. A parameter arriving is not a parameter used.",
-    "handleAmbient is DECLARED above rather than converted, [paul-ruled 2026-09-13] — read the reason there,",
-    "and note it is NOT permanent.",
+    "⭐ THE WRITERS' SLICE `[paul-ruled 2026-09-13]`. A14's gate demands 0 unclassified and row A could not",
+    "reach it: four sites carried a forward reference to 'the writers' slice' and THE BUILD PLAN NEVER",
+    "CONTAINED ONE (measured: the word 'writers' appears zero times in it). Paul ruled the GATE right and",
+    "the ROW's scope incomplete — writes must convert before row B opens regardless of which row they are",
+    "filed under, because at the production origin a write from any household would land under the",
+    "deployment's own estate while READS resolved per household. Silent, and in the dangerous direction.",
     "",
-    "THE PRE-AUTH CAPTURE PAIR — handleFeedback (2) · handleZoneAudio (4) · handleEstateFound (1). These",
-    "run BEFORE a grant exists by construction, so there is nothing to thread. They are NOT 'deployment-",
-    "scoped by design' — they are UNATTRIBUTABLE BY CONSTRUCTION, which is a different reason and would be",
-    "lost if collapsed into a B-DEPLOY declaration. Measured 2026-09-12: credential-free capture is a",
-    "LEGACY-ONLY affordance (legacy 11/11 credential-free; home 0/17), and legacy keeps its own deployment,",
-    "so nothing is stranded today. It becomes live when Mom moves.",
+    "CONVERTED HERE (8): handleZoneAudio (4) · handleFeedback (2) · /api/grant/whoami's geocode retry and",
+    "its grant-row write (2). Plus one site SPLIT rather than declared: POST /api/profile's account-branch",
+    "geocode, which shared a `scopeOf(env)` with the legacy account key and needed a different answer.",
     "",
-    "⚠️ fetch(dispatcher) — 13 SITES OF MIXED CLASS IN ONE 'FUNCTION', AND THE REGISTER CANNOT EXPRESS",
-    "THAT. Keyed by enclosing function with a count, a single declaration would cover all thirteen with one",
-    "reason, and they do not share one. Most are the ACCOUNT/SESSION/GRANT layer that steps A6 (the grant",
-    "edge), A9 (the estates array), A11 (the sign-in page) and A13 (/api/account/available) REWRITE — so",
-    "they are PENDING, and declaring them would launder pending into by-design exactly as the note above",
-    "forbids. Three of the thirteen do look genuinely deployment-wide (chat-budget :4241, the obmetrics",
-    "ratelimit :4486, accountFor :4547); they are deliberately NOT declared yet, because classifying a site",
-    "inside a block the door steps are about to rewrite is a guess about code that does not exist.",
-    "⭐ A4 RE-RUNS AFTER THE DOOR STEPS LAND. That is the honest sequence, and the count dropping from 13",
-    "is how anyone will know it happened."
+    "⛔⛔ THE PRE-AUTH CAPTURE PARAGRAPH THAT USED TO SIT HERE WAS WRONG ABOUT SIX OF ITS SEVEN SITES, and",
+    "that is worth more than the correction. It recorded handleFeedback (2) and handleZoneAudio (4) as",
+    "'UNATTRIBUTABLE BY CONSTRUCTION — they run BEFORE a grant exists'. Both functions RESOLVE A GRANT:",
+    "handleZoneAudio does it on its own first line; handleFeedback is handed one by the dispatcher and",
+    "`feedbackDestination(grant, …)` reads it to decide the destination. So the claim was checkable and",
+    "false, and it had already been CAUGHT ONCE: the 2026-09-11 stage-note in the build plan (line 127)",
+    "says GET /api/feedback 'use[s] dateKey(scopeOf(env)) not scopeFor(request) (TIER 1 · 54)' and folds",
+    "it into A2 `[paul-ruled]`. A2 closed without it, and this register then re-recorded the same site as",
+    "correct-by-construction. ⭐ A WRONG REASON IS WORSE THAN NO REASON: an unclassified site gets looked",
+    "at again, and a declared one does not.",
+    "",
+    "⚠️ WHAT REMAINS TRUE OF CREDENTIAL-FREE CAPTURE, and it is a real residue rather than a fixed thing:",
+    "a capture arriving with NO credential still falls back to the deployment's estate, so at a deployment",
+    "holding several households no household can read it back as theirs. `scopeFor` makes the credentialled",
+    "case right and leaves that one exactly as honest as it was. Measured 2026-09-12: credential-free",
+    "capture is a LEGACY-ONLY affordance (legacy 11/11; home 0/17), so nothing is stranded today.",
+    "",
+    "⛔ AND THE STANDING WARNING, unchanged: a site awaiting a later slice must stay UNCLASSIFIED.",
+    "Declaring it launders PENDING into BY DESIGN, the instrument reads green, and the pass that owed the",
+    "work skips it because the tool said it was handled."
   ]
 }

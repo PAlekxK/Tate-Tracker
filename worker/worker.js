@@ -3010,6 +3010,16 @@ const ZONE_AUDIO_MAX_B64 = 2_000_000;  // ~2 MB of base64; a 30s note @24kbps is
 
 async function handleZoneAudio(request, env, url) {
   const _g = request.headers.get(GRANT_HEADER) ? await grantFor(request, env) : null;
+  // ⭐ THE WRITERS' SLICE (2026-09-13) — her recording belongs to the house SHE holds, not to the
+  // house this deployment was configured with. `scopeFor` is exactly the right instrument here and
+  // nothing else is: a credentialled capture resolves to the caller's own estate, and a
+  // CREDENTIAL-FREE capture — which this route must keep accepting, because that is how Mom's
+  // unpaired devices reach it — falls back to the deployment, which is the honest answer when
+  // nobody could say whose it is. ⛔ That residual asymmetry is NOT fixed here and must not be
+  // read as fixed: at a deployment holding several households, an anonymous recording still lands
+  // under the deployment's own prefix and no household can read it back as theirs. It is
+  // UNATTRIBUTABLE BY CONSTRUCTION, not a conversion anybody forgot.
+  const _zsc = scopeFor(request, env, _g);
   if (request.method === "POST") {
     let body;
     try { body = await request.json(); }
@@ -3050,7 +3060,7 @@ async function handleZoneAudio(request, env, url) {
       }
     }
     // Durable blob — NO expirationTtl. This is the whole point.
-    await env.OBSERVATIONS.put(blobKey(scopeOf(env), "zone-audio-blob", id), JSON.stringify({
+    await env.OBSERVATIONS.put(blobKey(_zsc, "zone-audio-blob", id), JSON.stringify({
       id, zoneId, mediaType, base64, uploadedAt: nowIso, sizeBytes: base64.length,
       recordedAt, heldMs,
     }));
@@ -3062,7 +3072,7 @@ async function handleZoneAudio(request, env, url) {
     // failure class. So: file by arrival so nothing is missed, carry recordedAt as a
     // field so nothing is misdated, and let the reader sort by it.
     const today = nowIso.slice(0, 10);
-    const key = dateKey(scopeOf(env), "zone-audio", today);
+    const key = dateKey(_zsc, "zone-audio", today);
     const meta = declarePerson({
       id, zoneId, uploadedAt: nowIso, mediaType, sizeBytes: base64.length,
       durationMs: Number.isFinite(body.durationMs) ? Math.round(body.durationMs) : null,
@@ -3084,7 +3094,7 @@ async function handleZoneAudio(request, env, url) {
     // Reached only past the global auth gate (token required).
     const id = url.searchParams.get("id");
     if (id) {
-      const raw = await env.OBSERVATIONS.get(blobKey(scopeOf(env), "zone-audio-blob", id));
+      const raw = await env.OBSERVATIONS.get(blobKey(_zsc, "zone-audio-blob", id));
       if (!raw) return json({ error: "not-found" }, 404);
       return new Response(raw, { status: 200, headers: { "Content-Type": "application/json", ...CORS_HEADERS } });
     }
@@ -3097,7 +3107,7 @@ async function handleZoneAudio(request, env, url) {
     const out = [];
     let days = 0;
     for (let d = new Date(d0); d <= d1 && days < 90; d.setUTCDate(d.getUTCDate() + 1), days++) {
-      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "zone-audio", d.toISOString().slice(0, 10)));
+      const raw = await env.OBSERVATIONS.get(dateKey(_zsc, "zone-audio", d.toISOString().slice(0, 10)));
       if (raw) { try { const a = JSON.parse(raw); if (Array.isArray(a)) out.push(...a); } catch (e) {} }
     }
     out.sort((a, b) => (a.uploadedAt || "").localeCompare(b.uploadedAt || ""));
@@ -4451,6 +4461,17 @@ function feedbackDestination(grant, context) {
 function accountFeedbackKey(personId, date) { return ACCOUNT_PREFIX + personId + ":feedback:" + date; }
 
 async function handleFeedback(request, env, url, grant) {
+  // ⭐ THE WRITERS' SLICE (2026-09-13) — one resolved scope for both branches.
+  // ⛔ THE READ HALF WAS RULED A YEAR-SHORT AGO AND NEVER LANDED: the 2026-09-11 stage-note in the
+  // build plan (line 127) says `GET /api/feedback` "use[s] dateKey(scopeOf(env)) not
+  // scopeFor(request) (TIER 1 · 54)" and files it into the A2 conversion `[paul-ruled: "folded in
+  // with lap eight"]`. A2 closed without it, and the register then recorded BOTH of this function's
+  // sites as pre-auth capture, "unattributable by construction" — which is true of a
+  // credential-free POST and was never true of an authenticated GET.
+  // ⚠️ The POST's place-branch is the writer: `feedbackDestination` decides "this record is about a
+  // PLACE" from the RESOLVED GRANT, and then the key named the DEPLOYMENT's place instead of that
+  // grant's. A credentialled note about one household was filed under another.
+  const scope = scopeFor(request, env, grant);
   if (request.method === "POST") {
     let body;
     // Privacy seat 2026-09-03 (finding 12): Content-Length is advisory — measure the body we actually read.
@@ -4497,7 +4518,7 @@ async function handleFeedback(request, env, url, grant) {
     // the body alone. A record about a place stays with the place; a record about the person travels.
     const _dest = feedbackDestination(grant, record.context);
     const key = _dest.kind === "account" ? accountFeedbackKey(_dest.personId, today)
-                                         : dateKey(scopeOf(env), "feedback", today);
+                                         : dateKey(scope, "feedback", today);
     const existing = await env.OBSERVATIONS.get(key);
     let arr = [];
     if (existing) {
@@ -4536,7 +4557,7 @@ async function handleFeedback(request, env, url, grant) {
     if (dates.length > 90) return json({ error: "range-too-wide", limit: 90 }, 400);
     const days = {};
     for (const date of dates) {
-      const raw = await env.OBSERVATIONS.get(dateKey(scopeOf(env), "feedback", date));
+      const raw = await env.OBSERVATIONS.get(dateKey(scope, "feedback", date));
       if (raw) {
         try { days[date] = JSON.parse(raw); }
         catch (e) { /* skip malformed */ }
@@ -4775,7 +4796,18 @@ export default {
         // Now the slow part, on an already-durable row. If this is cancelled, killed or throws, the
         // address survives and /api/grant/whoami's retry places the household on the next load.
         try {
-          if (await applyGeocode(env, sc, acct)) {
+          // ⭐ THE GEOCODE TAKES THE GRANT'S HOUSE, NOT THE DEPLOYMENT'S (writers' slice, 2026-09-13).
+          // `sc` is the LEGACY ACCOUNT SHAPE and is correct for `putAccount` on the next line — an
+          // account belongs to a PERSON, not a household `[paul-ruled 2026-09-10, C7]`. It was never
+          // correct for the geocode, which writes a cache keyed by a hash of THIS HOUSEHOLD'S
+          // address and an outcome row `read-geocodes.py` reports PER ESTATE.
+          // ⛔ One `scopeOf(env)` was serving two purposes with two different right answers, which is
+          // why this site could not be honestly declared until it was split. Its sibling twelve lines
+          // up (`:4721`, the grant branch) already passed `gscope`; this branch did not, and the two
+          // wrote the same kind of row to different places.
+          // `scopeFor` falls back to the deployment when the grant carries no estateId — an account
+          // with no household yet, where the deployment is the only scope that exists.
+          if (await applyGeocode(env, scopeFor(request, env, g), acct)) {
             await putAccount(env, sc, uname || g.username || acct.username || "", g.personId, acct);
           }
         } catch (e) {}
@@ -5105,17 +5137,35 @@ export default {
         // geocode missed while the provider was down — is placed on its next load, once, here.
         // Without this, every account created before today stays permanently unplaced and only a
         // profile re-save would ever fix it.
-        //   ⚠️ scopeOf(env), NOT the `requestScope` resolved above, and deliberately. That line's
-        //   own comment sequences the conversion: read-only handlers move onto scopeFor FIRST, and
-        //   writers LAST, because `assertScope` catches a forgotten conversion and never a wrong
-        //   one. This branch WRITES, so it stays on the binding until the writers' slice.
+        //   ⭐⭐ THE WRITERS' SLICE, LANDED 2026-09-13 `[paul-ruled]`. This comment used to say
+        //   "it stays on the binding until the writers' slice" — a forward reference to a slice the
+        //   BUILD PLAN NEVER CONTAINED (measured: the word "writers" appears zero times in it). It
+        //   is converted now, and the shape is not invented here: `:4687` already does exactly this
+        //   on the profile route — `g.estateId ? scopeOfRoute(g.estateId, env) : sc` — so these two
+        //   writes and that one were writing THE SAME TWO ROWS to DIFFERENT PLACES.
+        //   ⛔ MEASURED at qa, which is what turns this from an argument into a defect: 32 geocode
+        //   rows, 19 under foreign estates (the profile path, correct) and 13 under the deployment
+        //   (this path). 39 grant rows there already sit at 21 estates that are NOT the deployment's,
+        //   so a caller whose grant resolves elsewhere had their placement filed under qa's own
+        //   house. ⚠️ `assertScope` could never have caught it: it sees a MISSING scope, never a
+        //   WRONG one, which is why this slice had to be verified against two estates rather than
+        //   trusted to a throw.
         //   ⚠️ Failure is silent BY DESIGN: whoami is the door. A provider outage must never be the
         //   reason someone cannot read who they are.
         try {
           if (grant.address && !(grant.coordinates && grant.coordinates.latitude)) {
-            const placed = await applyGeocode(env, scopeOf(env), grant);
+            // ⭐ `requestScope` — the value the dispatcher already resolved at :5042, which is
+            // precisely what the struck comment above contrasted itself against ("scopeOf(env), NOT
+            // the requestScope resolved above"). It is `scopeFor(request, env, grant)`: the
+            // credential's own house, or the deployment when a grant carries no estateId (an account
+            // with no household yet), which is the only scope that exists for that case.
+            // ⚠️ My first version of this line wrote the ternary out by hand to mirror `:4687` — and
+            // that INTRODUCED A NEW `scopeOf(env)` SITE, which `check-scope-sites.py` counted
+            // immediately. Same key, one more place taking the household from config. The instrument
+            // caught a regression inside the commit that was removing them.
+            const placed = await applyGeocode(env, requestScope, grant);
             if (placed === "placed") {
-              await env.OBSERVATIONS.put(keyFor(scopeOf(env), "grant", await sha256Hex(request.headers.get(GRANT_HEADER))),
+              await env.OBSERVATIONS.put(keyFor(requestScope, "grant", await sha256Hex(request.headers.get(GRANT_HEADER))),
                                          JSON.stringify(grant));
               // ⛔⛔ AND THE ACCOUNT, WHICH THIS BRANCH USED TO SKIP — the third instance of
               // write-landed-binding-didn't, after `hydrate` and the `reviewed` field with no writer.
@@ -5322,7 +5372,10 @@ export default {
     if (url.pathname === "/api/metrics")    return handleMetrics(request, env, url, auth, requestScope);
     if (url.pathname === "/api/cost-log")   return handleCostLog(request, env, url, requestScope);
     if (url.pathname === "/api/conversations") return handleConversations(request, env, url, requestScope);
-    if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url);
+    // ⛔ THE GRANT IS HANDED OVER (2026-09-13). This dispatch dropped it while the ABOVE-gate one
+    // at :4621 passed it, so the GET read keyed by the deployment no matter who asked — the
+    // TIER 1 · 54 defect. `grant` is already resolved here; withholding it was the whole bug.
+    if (url.pathname === "/api/feedback")   return handleFeedback(request, env, url, grant);
     if (url.pathname === "/api/door")       return handleDoor(request, env, url);
     if (url.pathname === "/api/recovery")   return handleRecoveryRead(request, env, url, requestScope);   // B6r · ADMIN_ONLY
     // ⛔ BELOW the auth gate, unlike its own POST at :3480 — write open, read closed.
