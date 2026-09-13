@@ -61,6 +61,10 @@
       "count": 2,
       "reason": "grant (LEGACY FALLBACK) · ⛔⛔ THIS ONE IS NOT PERMANENT AND MUST NOT BE READ AS SETTLED. It looks a grant up at keyFor(scopeOf(env),'grant',hash) and then rejects row.estateId !== env.ESTATE_ID, so a foreign grant fails TWICE — wrong namespace, and rejected if it were not. Both halves must change for one deployment to serve many estates, and the LOOKUP is the harder half: a token must resolve WITHOUT already knowing which estate to look in. It is declared here as the CURRENT state with its reason, not as a decision that it stays. It is step A6's object (the grant:<personId>:<estateId> edge), and it is why A3's check cannot pass before the conversion.  ⭐ SITE 2, ADDED WITH A6 (2026-09-12): storeResolveRecord(env, scopeOf(env), …) — the instrumentation for resolveByEdge()'s two non-lookup branches. It is the DEPLOYMENT's record on purpose and not the household's: the thing being counted is that this deployment could not tell WHICH of a person's houses a request meant, which is a fact about the deployment's resolver and not about either house. Filing it under one of the candidate estates would attribute an ambiguity to whichever house happened to win. ⚠️ It carries an outcome and a COUNT of candidates — never a personId, never an estateId — so nothing household-shaped is in the row to misfile. ⛔ A7 deletes the branch this records; the site goes with it."
     },
+    "handleAmbient": {
+      "count": 1,
+      "reason": "cache (B-DEPLOY, DECLARED NOT CONVERTED) · stays on scopeOf because AMBIENT_MAC is a per-deployment Worker secret - the key correctly reflects deployment-wide data. \u26d4 This is BY CONSTRUCTION, not by design forever: the day a household can declare its own station credential this site must be reconverted. [paul-ruled 2026-09-13, with that risk stated to him].  \u2b50 THE MEASUREMENT BEHIND THE RULING, so nobody re-derives it: handleAmbient reads the station MAC at `const mac = (env.AMBIENT_MAC || \"\").trim()` \u2014 a per-deployment Worker SECRET since 2026-09-04 (`wrangler.toml:45`), never caller-supplied. ⚠️ worker.js's own comment above the handler still says `[vars] AMBIENT_MAC` from C5 7c (2026-09-03) — that is one day stale and the binding moved to a secret; the RULING rests on per-deployment, which both eras satisfy. The cache key's household-identifying suffix is therefore the DEPLOYMENT's own station, so the key is already exactly as specific as the data behind it. Gating the route would not change that, and converting it would make the key ASSERT a per-household scoping the data does not have \u2014 a key that claims more than it knows. \u26a0\ufe0f It is the one site in this register whose reason is about the DATA rather than about the caller: the other three B-CACHE sites (airnow \u00b7 drought \u00b7 today-line) converted at A3 because their suffix is the CALLER's coordinates, county and canon. \u26d4 The separate question \u2014 SHOULD /api/ambient be gated at all (it is deliberately ungated since 2026-08-02 so Mom's unpaired devices keep working) \u2014 is untouched by this ruling and stays open."
+    },
     "handleChat": {
       "count": 1,
       "reason": "chat-budget · a daily model-spend CEILING is a deployment-wide control. Per-estate budget keys would give every household its own ceiling, so the origin's total spend would become unbounded in the number of households — the opposite of what a ceiling is for."
@@ -75,11 +79,16 @@
     "⚠️ `grantFor` is the one row here that is NOT permanent, and it says so in its own reason."
   ],
   "_unclassified_note": [
-    "⛔ WHY 24 SITES ARE STILL UNCLASSIFIED, AND WHY THAT IS THE CORRECT READING RATHER THAN UNFINISHED WORK.",
+    "⛔ WHY 20 SITES ARE STILL UNCLASSIFIED (24 before A3), AND WHY THAT IS THE CORRECT READING RATHER THAN UNFINISHED WORK.",
     "",
-    "B-CACHE — handleAmbient · handleAirNow · handleDrought · handleTodayLine (4). They CONVERT, at step",
-    "A3. Unclassified is right: they are pending, and A3's own check cannot run until the grant lookup",
-    "converts (see the plan's A3 clause).",
+    "✅ B-CACHE IS DONE (A3, 2026-09-13) — this paragraph used to say all four were pending. handleAirNow",
+    "· handleDrought · handleTodayLine are CONVERTED: each dispatches BELOW the capability gate and is named",
+    "in MEMBER_OK, so every caller carries a resolved grant and the key is now the CALLER's estate.",
+    "⭐ handleTodayLine is the one worth knowing about — it ALREADY HELD the resolved scope (canonFor(env,",
+    "scope) reads the caller's canon two lines up) and still keyed by the deployment, so the line was",
+    "written ABOUT one household and filed UNDER another. A parameter arriving is not a parameter used.",
+    "handleAmbient is DECLARED above rather than converted, [paul-ruled 2026-09-13] — read the reason there,",
+    "and note it is NOT permanent.",
     "",
     "THE PRE-AUTH CAPTURE PAIR — handleFeedback (2) · handleZoneAudio (4) · handleEstateFound (1). These",
     "run BEFORE a grant exists by construction, so there is nothing to thread. They are NOT 'deployment-",

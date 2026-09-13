@@ -2381,12 +2381,19 @@ async function handleAmbient(request, env, url) {
 
 // ---- AirNow proxy ----
 
-async function handleAirNow(request, env, url) {
+async function handleAirNow(request, env, url, scope) {
   if (!env.AIRNOW_API_KEY) return json({ error: "airnow-not-configured" }, 503);
   const lat = url.searchParams.get("lat");
   const lon = url.searchParams.get("lon");
   if (!lat || !lon) return json({ error: "missing-lat-lon" }, 400);
-  const key = keyFor(scopeOf(env), "cache", "airnow", lat, lon);
+  // A3 (2026-09-13) — the cache key is the CALLER'S household, never the deployment's. This route
+  // dispatches BELOW the capability gate and is named in MEMBER_OK, so every caller here has a
+  // resolved grant and `scope` is that grant's estate. The lat/lon suffix is the household's own
+  // coordinates, so under one deployment serving several households the old key put one house's
+  // location under another house's prefix — and a second household would read the FIRST one's
+  // cached answer for its own coordinates only by collision, but would file its coordinates under
+  // the deployment forever. Scoped, the key says whose reading it is.
+  const key = keyFor(scope, "cache", "airnow", lat, lon);
   try {
     const data = await withCache(env, key, 900 /* 15 min */, async () => {
       const apiKey = (env.AIRNOW_API_KEY || "").trim();
@@ -2425,9 +2432,12 @@ function parseUSDMCsv(csv) {
   });
 }
 
-async function handleDrought(request, env, url) {
+async function handleDrought(request, env, url, scope) {
   const fips = url.searchParams.get("fips") || "13227";
-  const key = keyFor(scopeOf(env), "cache", "drought", fips);
+  // A3 (2026-09-13) — as handleAirNow: below the gate, in MEMBER_OK, so `scope` is the caller's
+  // own estate. The FIPS suffix is a county, which is coarser than a coordinate but is still a
+  // fact about WHERE THIS HOUSEHOLD IS.
+  const key = keyFor(scope, "cache", "drought", fips);
   try {
     const data = await withCache(env, key, 6 * 3600 /* 6 hr */, async () => {
       const upstream = `https://usdmdataservices.unl.edu/api/CountyStatistics/GetDroughtSeverityStatisticsByAreaPercent?aoi=${fips}&startdate=1/1/2024&enddate=12/31/2099&statisticsType=1`;
@@ -2473,7 +2483,12 @@ async function handleTodayLine(request, env, scope) {
   catch (e) { return json({ error: "bad-json" }, 400); }
   const date = (body && body.date) || new Date().toISOString().slice(0, 10);
   const state = (body && body.state) || {};
-  const key = keyFor(scopeOf(env), "cache", "today-line", date);
+  // A3 (2026-09-13) — ⛔ THIS ONE ALREADY HELD THE RESOLVED SCOPE AND STILL KEYED BY THE
+  // DEPLOYMENT, which is the failure the conversion exists to catch: `canonFor(env, scope)` two
+  // lines up reads the CALLER'S canon, so the cached line is written ABOUT one household and was
+  // filed UNDER another. Two households sharing a deployment would have served each other the
+  // same day's line — a model sentence about someone else's plants, birds and lake.
+  const key = keyFor(scope, "cache", "today-line", date);
   const cached = await env.OBSERVATIONS.get(key);
   if (cached) {
     try { return json({ ...JSON.parse(cached), cached: true }); }
@@ -5299,8 +5314,8 @@ export default {
     }
 
     if (url.pathname.startsWith("/api/observations")) return handleObservations(request, env, url, requestScope);
-    if (url.pathname === "/api/airnow")     return handleAirNow(request, env, url);
-    if (url.pathname === "/api/drought")    return handleDrought(request, env, url);
+    if (url.pathname === "/api/airnow")     return handleAirNow(request, env, url, requestScope);
+    if (url.pathname === "/api/drought")    return handleDrought(request, env, url, requestScope);
     if (url.pathname === "/api/today-line") return handleTodayLine(request, env, requestScope);
     if (url.pathname === "/api/classify")   return handleClassify(request, env, requestScope);
     if (url.pathname === "/api/chat")       return handleChat(request, env, auth, requestScope);
