@@ -5009,7 +5009,23 @@ export default {
         if (!grant && url.pathname === "/api/grant/whoami" && hostAgrees(request, env)) {
           const who = await personFor(request, env);
           if (who) {
-            return json({ personId: who.personId, estateId: null, estates: [], hasEstate: false,
+            // ⭐⭐ A9 — THE SHELF IS READ HERE, AND THIS IS THE BRANCH THAT ACTUALLY FIRES. Found by
+            // `falsifier-tenancy.py`'s C2c note: a credential holding TWO houses that names neither
+            // resolves no grant and lands exactly here, and this line answered `estates: [],
+            // hasEstate: false` — true of the REQUEST, false about the PERSON. It is the shape that
+            // once rendered for `p-paul` and read as being locked out of his own product:
+            // misinformation in the SAFE-LOOKING direction.
+            // ⛔⛔ AND IT IS THE SECOND OF TWO IDENTICAL BRANCHES. The other one is below, outside the
+            // credential gate, and is UNREACHABLE — proven by control flow, not by reading: every
+            // path inside this gate returns (a resolved grant answers, an unresolved one 404s), and
+            // outside it `personFor` requires the `X-Grant` header it was reached without. I repaired
+            // that one first and it would have changed nothing. Two readers of one state, one live.
+            // ⛔ The 404-identical discipline is untouched: an unknown credential still gets the same
+            // 404, and the list is built from THIS caller's own edges. `estateId` stays null because
+            // no house was named — naming one here is the choosing this lap exists to stop.
+            const shelf = await estatesFor(env, who.personId, null);
+            return json({ personId: who.personId, estateId: null, estates: shelf,
+                          hasEstate: shelf.length > 0,
                           capability: null, relationship: [], entry: false, vault: false,
                           name: null, address: null, coordinates: null, ranked: null, hasAccount: true });
           }
@@ -5146,26 +5162,25 @@ export default {
     // ⚠️ This is the state a real invited person is in between signing up and founding — the gap the
     // product has to carry them across. A 404 is a fine API answer and a terrible thing to build an
     // empty state on: "who are you" has an answer here, and it is "you, holding nothing yet".
+    // ⛔⛔ UNREACHABLE, MEASURED 2026-09-12 — AND LEFT IN PLACE RATHER THAN DELETED AT 2AM.
+    // This is the SECOND copy of the empty-shelf answer. The live one is inside the credential gate
+    // above (`if (!grant && … whoami && hostAgrees)`), and nothing can arrive here with a credential:
+    // every path inside that gate RETURNS — a resolved grant is answered, an unresolved one gets the
+    // 404 — so reaching this line means no `X-Grant` header at all, and `personFor()` requires that
+    // header. The `if (p)` below therefore cannot be true, and the 404 is the only live statement.
+    // ⚠️ HOW IT WAS FOUND, because the lesson is worth more than the dead code: A9's repair was
+    // written HERE first, committed, deployed, and then verified against a real seat — which is the
+    // only reason it was caught. It changed nothing, because the branch that answers is the other
+    // one. Two copies of one state, one reachable; the repo's own most-repeated failure, in a place
+    // nobody had looked.
+    // ⛔ A HUMAN DECIDES WHETHER IT GOES. Deleting a route branch is a behaviour change, and the
+    // evidence above is a control-flow argument rather than a walked observation.
     if (url.pathname === "/api/grant/whoami") {
       const p = await personFor(request, env);
-      if (p) {
-        // ⭐⭐ A9 — AND THE SHELF IS READ HERE TOO, BECAUSE THIS BRANCH WAS TELLING PEOPLE THEY HAD NO
-        // HOUSES WHEN THEY HAD SOME. Found by `falsifier-tenancy.py`'s C2c note on 2026-09-12: a
-        // credential holding TWO houses that names neither reaches this line (no grant resolved) and
-        // was answered `estates: [], hasEstate: false`. True of the REQUEST, false about the PERSON —
-        // and it is the same shape that once rendered for `p-paul` and read as being locked out of
-        // his own product. Misinformation in the SAFE-LOOKING direction.
-        // ⛔ IT STILL REVEALS NOTHING ABOUT ANY ESTATE THE CALLER DOES NOT HOLD. The 404-identical
-        // discipline is untouched: an unknown credential gets the same 404 as a missing route, and
-        // the list is built from THIS person's own edges. `estateId` stays null on purpose — no house
-        // was named, so naming one here would be the choosing this lap exists to stop.
-        const shelf = await estatesFor(env, p.personId, null);
-        return json({ personId: p.personId, estateId: null, estates: shelf,
-                      hasEstate: shelf.length > 0,
-                      capability: null, relationship: [], entry: false, vault: false,
-                      name: null, address: null, coordinates: null, ranked: null,
-                      hasAccount: true });
-      }
+      if (p) return json({ personId: p.personId, estateId: null, estates: [], hasEstate: false,
+                           capability: null, relationship: [], entry: false, vault: false,
+                           name: null, address: null, coordinates: null, ranked: null,
+                           hasAccount: true });
       return json({ error: "not-found", path: url.pathname }, 404);   // unknown credential → the same 404
     }
 
