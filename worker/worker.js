@@ -1060,6 +1060,11 @@ async function handleSession(request, env, scope, ctx) {
   if (acct.personId) await putAccount(env, scope, username, acct.personId, Object.assign({}, acct, { tokenHash }));
   else await env.OBSERVATIONS.put(accountKey(scope, username), JSON.stringify(Object.assign({}, acct, { tokenHash })));
 
+  // ⭐ A9 — the shelf, read AFTER every write above so it sees the grant and edge this sign-in just
+  // landed. Reading it earlier would answer from the state the request arrived in, which for a
+  // FOUNDER is the state before they had a house at all.
+  const shelf = acct.personId ? await estatesFor(env, acct.personId, tokenHash) : [];
+
   // ⭐ AND THE THINGS THAT MAKE IT HERS COME BACK TOO. The place's name and the accent used to live
   // only in localStorage, so clearing a browser reset her to "My Home" in Stone — durable data, and
   // an identity that evaporated. They are stored on the account and returned on every session.
@@ -1093,8 +1098,23 @@ async function handleSession(request, env, scope, ctx) {
                 // who has founded nothing gets `[]`: the EMPTY SHELF, normal, not an error. The
                 // landing branch (A3: 0 → /homes/, 1 → /viewer, 2+ → /homes/) reads this length,
                 // and it is the only honest home count in the product.
-                estates: grantRow.estateId ? [{ estateId: grantRow.estateId, relationship: grantRow.relationship,
-                                                capability: grantRow.capability }] : [] });
+                // ⭐⭐ A9 · M3 — THE WHOLE SHELF, NOT THE ONE HOUSE THIS SIGN-IN RESOLVED. This was
+                // `grantRow.estateId ? [one] : []`, which is correct for a person with one house and
+                // silently short for anyone with two: the array is built from the credential's own
+                // grant, and a credential belongs to ONE estate. The A6 edge is the only thing that
+                // can answer "what does this person hold", so it answers it here.
+                // ⛔ A3's landing branch reads this LENGTH (0 → /homes/, 1 → /viewer, 2+ → /homes/),
+                // so a short array does not merely under-report — it routes a two-house person
+                // straight into one house as though they had no choice.
+                // ⚠️ FALLS BACK TO THE OLD SHAPE rather than to `[]` if the edge listing comes back
+                // empty while this sign-in did resolve a grant: an unreadable index must never be
+                // able to tell somebody they have no homes. Absence under a prefix is a fact about
+                // the prefix (`watch-activity.py`'s own rule), not about the world.
+                estates: (shelf.length ? shelf
+                          : (grantRow.estateId ? [{ estateId: grantRow.estateId,
+                                                    relationship: grantRow.relationship,
+                                                    capability: grantRow.capability,
+                                                    placeName: acct.placeName || null }] : [])) });
 }
 
 // ---- Every KV key carries the ESTATE (C5 6a/6b/6c, 2026-09-03) ----
@@ -1806,6 +1826,45 @@ async function resolveNamed(env, personId, named, hash) {
   let row; try { row = JSON.parse(raw); } catch (e) { return null; }
   if (!row || row.revokedAt || row.estateId !== named) return null;
   return { estateId: named, row, via: "named", candidates: 1 };
+}
+
+// ⭐⭐ A9 · M3 — THE SHELF. Every house a person holds, from the A6 edges, with the name each house
+// calls itself. ⛔ THE EDGE IS THE AUTHORITY ON *WHICH*, and it has to be: a grant row is keyed by
+// (estate, credential hash), so asking "what does this person hold" of the grant rows can only ever
+// see the house the credential in your hand belongs to. That is how `/api/session` came to answer a
+// one-element array for everyone.
+// ⭐ THE NAME COMES FROM THE ESTATE'S OWN `place` ROW, not from a member's grant. "This estate is at
+// this place" and "a member has an address" are DIFFERENT FACTS, and the coordination window's trap 2
+// is that conflating them is how a real home address reached a live model prompt. A house names
+// itself; a person does not name it for everyone.
+// ⚠️ relationship/capability are reported ONLY where THIS credential can see them — i.e. where a
+// grant row for this hash exists at that estate — and `null` otherwise. That is not a gap being
+// papered over: what you may DO at a house is a property of a grant AT that house, and the honest
+// answer from a credential that holds no row there is "not from here". A request that names the house
+// (`X-Estate`) resolves it properly.
+async function estatesFor(env, personId, hash) {
+  const out = [];
+  for (const estateId of await grantsFor(env, personId)) {
+    let placeName = null, relationship = null, capability = null;
+    try {
+      const praw = await env.OBSERVATIONS.get(keyFor(scopeOfRoute(estateId, env), "place"));
+      if (praw) { const prow = JSON.parse(praw); placeName = (prow && prow.placeName) || null; }
+    } catch (e) { /* an unreadable place row means an unnamed house, never a missing house */ }
+    if (hash) {
+      try {
+        const graw = await env.OBSERVATIONS.get(keyFor(scopeOfRoute(estateId, env), "grant", hash));
+        if (graw) {
+          const grow = JSON.parse(graw);
+          if (grow && !grow.revokedAt && grow.estateId === estateId) {
+            relationship = grow.relationship || null;
+            capability = grow.capability || null;
+          }
+        }
+      } catch (e) { /* same rule: unreadable tells us nothing about the house */ }
+    }
+    out.push({ estateId, relationship, capability, placeName });
+  }
+  return out;
 }
 
 // ⛔ AN EVENT WITH NO READER IS NOT INSTRUMENTATION (CLAUDE.md, ruled). The reader is
@@ -5089,10 +5148,24 @@ export default {
     // empty state on: "who are you" has an answer here, and it is "you, holding nothing yet".
     if (url.pathname === "/api/grant/whoami") {
       const p = await personFor(request, env);
-      if (p) return json({ personId: p.personId, estateId: null, estates: [], hasEstate: false,
-                           capability: null, relationship: [], entry: false, vault: false,
-                           name: null, address: null, coordinates: null, ranked: null,
-                           hasAccount: true });
+      if (p) {
+        // ⭐⭐ A9 — AND THE SHELF IS READ HERE TOO, BECAUSE THIS BRANCH WAS TELLING PEOPLE THEY HAD NO
+        // HOUSES WHEN THEY HAD SOME. Found by `falsifier-tenancy.py`'s C2c note on 2026-09-12: a
+        // credential holding TWO houses that names neither reaches this line (no grant resolved) and
+        // was answered `estates: [], hasEstate: false`. True of the REQUEST, false about the PERSON —
+        // and it is the same shape that once rendered for `p-paul` and read as being locked out of
+        // his own product. Misinformation in the SAFE-LOOKING direction.
+        // ⛔ IT STILL REVEALS NOTHING ABOUT ANY ESTATE THE CALLER DOES NOT HOLD. The 404-identical
+        // discipline is untouched: an unknown credential gets the same 404 as a missing route, and
+        // the list is built from THIS person's own edges. `estateId` stays null on purpose — no house
+        // was named, so naming one here would be the choosing this lap exists to stop.
+        const shelf = await estatesFor(env, p.personId, null);
+        return json({ personId: p.personId, estateId: null, estates: shelf,
+                      hasEstate: shelf.length > 0,
+                      capability: null, relationship: [], entry: false, vault: false,
+                      name: null, address: null, coordinates: null, ranked: null,
+                      hasAccount: true });
+      }
       return json({ error: "not-found", path: url.pathname }, 404);   // unknown credential → the same 404
     }
 
