@@ -2008,10 +2008,23 @@ async function grantFor(request, env) {
   if (!row || row.estateId !== env.ESTATE_ID || row.revokedAt) return null;
   return row;
 }
-// The credential decides; the hostname must AGREE. Under P1 the page is served by Pages, so the
-// claim is the request's Origin; a request with no Origin (curl, tools) makes no claim and agrees
-// vacuously (the seat confirmed this — it is a routing check, not access control). FAMILY_HOSTS
-// is a per-env var; the tracked toml carries only hostnames that are already public.
+// ⭐⭐ A8 — THIS IS AN ORDINARY CSRF CONTROL NOW, AND NOTHING MORE. It is kept, deliberately, and
+// what it MEANS has changed: it no longer carries any part of tenancy.
+// ⛔ WHAT IT USED TO BE DOING, and why the comment had to be rewritten rather than left alone: when a
+// deployment served one household, the hostname was a second opinion about WHICH HOUSEHOLD a request
+// belonged to — "the credential decides; the hostname must AGREE" was a statement about tenancy. One
+// origin serving many households makes that reading FALSE, and a stale comment claiming a control
+// enforces isolation is worse than no comment: the next reader trusts it and stops looking for the
+// thing that actually does the work. ⭐ Tenancy is now decided by the credential (A5's route → person)
+// and by what the request NAMES (A7's `X-Estate`, verified against the A6 edge). Not by a hostname.
+// ⛔ DO NOT DELETE IT. It is still the only thing refusing a cross-site POST — a page on another
+// origin that has somehow obtained a token cannot use it from a browser through this Worker. That is
+// a real and separate job from isolation, and it is the job this function has always actually done.
+// ⚠️ A request with no Origin (curl, the tools, the walk harness) makes no claim and agrees
+// vacuously — which is correct for a routing check and would be indefensible for access control. The
+// distinction is the whole of why this comment matters: read as access control, that early `return
+// true` looks like a hole; read as CSRF, it is the specification.
+// `FAMILY_HOSTS` is a per-env var; the tracked toml carries only hostnames that are already public.
 function hostAgrees(request, env) {
   const origin = request.headers.get("Origin");
   if (!origin) return true;
