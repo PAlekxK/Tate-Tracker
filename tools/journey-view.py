@@ -128,7 +128,25 @@ const cfg = JSON.parse(process.argv[2]);
   // identically (same font stack, same h1 width, same height).
   const made = await mkContext(b, cfg, 'primary');
   const ctx = made.ctx;
-  const page = await ctx.newPage();
+  // ═══ H1 · TWO BROWSER CONTEXTS IN ONE RUN ═══════════════════════════════════════════════════
+  // ⭐ WHY A REGISTER AND A REASSIGNABLE `page`: the alternative is threading a page argument
+  // through every action, which would touch fifty lines and change how the primary walk works to
+  // serve a capability most walks never use. A walk that declares no `ctx:` action runs EXACTLY the
+  // code it ran before — `contexts` holds one entry and `page` is never reassigned.
+  // ⛔ THE SECOND CONTEXT IS BUILT BY mkContext, and the factory remains the file's ONLY
+  // context-creation call. T14/M21a pins that by counting them, and it is the clause that makes
+  // this addition safe: two creation paths would be two definitions of "the conditions this walk
+  // ran in". ⚠️ IT FIRED ON THIS VERY COMMIT — the first draft of this comment QUOTED the call
+  // literally and the clause counted the quotation, going red on a file whose code was correct.
+  // A string-counting guard cannot tell code from prose about code. It cost one minute and it
+  // caught a real class of change, so the clause stays as it is and the comment does not name it.
+  // ⛔ IT STARTS CLEAN — `storageState: null`, deliberately. The capability exists to model a
+  // SECOND DEVICE for the same account (s1/s2/s4), and a second device that inherited the first
+  // one's storage would be the same device wearing a label. The one thing it must not do is make
+  // "signed in over there" true by construction.
+  const contexts = {};
+  let activeLabel = 'primary';
+  let page = await ctx.newPage();
   // A screenshot's entire meaning is its geometry. Recording it here means a later reader can tell
   // what the image is EVIDENCE OF, instead of assuming the standard it was supposed to meet.
   // ⭐ T7 — the URL as of the last checkpoint, so each checkpoint can record where it STARTED.
@@ -155,6 +173,22 @@ const cfg = JSON.parse(process.argv[2]);
     try { if (r.status() >= 400) out.httpFailures.push({ status: r.status(), url: String(r.url()).slice(0, 300) }); }
     catch (e) { /* a response that cannot report itself is not worth failing the walk over */ }
   });
+  // ⛔⛔ H1 — THE SECOND CONTEXT GETS THE SAME EARS, and this is the whole risk of the feature.
+  // The listeners above are attached to the PRIMARY page. A second context without them would run
+  // a real browser whose console errors, page errors and 4xx responses land NOWHERE — the walk
+  // would report a clean run because the instrument was deaf on that side, which is this repo's
+  // most expensive failure shape and the reason `.trouble` and `div` had to be added to `describe`.
+  // Every context therefore goes through `wire()`, and the records carry WHICH context spoke.
+  const wire = (pg, label) => {
+    pg.on('console', (m) => { if (m.type() === 'error') out.console.push((label === 'primary' ? '' : '[' + label + '] ') + m.text().slice(0, 300)); });
+    pg.on('pageerror', (e) => out.console.push((label === 'primary' ? '' : '[' + label + '] ') + 'PAGEERROR: ' + String(e).slice(0, 300)));
+    pg.on('response', (r) => {
+      try { if (r.status() >= 400) out.httpFailures.push({ status: r.status(), url: String(r.url()).slice(0, 300), ctx: label }); }
+      catch (e) {}
+    });
+  };
+  contexts.primary = { ctx, page, ranIn: made.ranIn };
+  out.ranInByContext = { primary: made.ranIn };
   try {
     await page.goto(cfg.url, { waitUntil: 'load', timeout: 45000 });
     await page.waitForTimeout(1200);
@@ -236,8 +270,27 @@ const cfg = JSON.parse(process.argv[2]);
           // led here — so the pair (urlBefore, url) says whether this stop moved.
           // ⛔ It is the cell's EVIDENCE, not its verdict: a stop that did not move may be perfectly
           // correct (a same-page disclosure), and this records the fact without judging it.
-          out.checkpoints.push({ name: nm, screen: sc, shot: base + '.png', urlBefore: lastUrl });
+          out.checkpoints.push({ name: nm, screen: sc, shot: base + '.png', urlBefore: lastUrl, ctx: activeLabel });
           lastUrl = (sc && sc.url) || lastUrl;
+        }
+        // ⭐ H1 — `ctx:<label>` SWITCHES THE ACTIVE CONTEXT, creating it on first use. `ctx:primary`
+        // returns to the original browser. Everything after it acts in that context until the next
+        // switch, which is what lets one walk say: sign in over there, act over here, read over there.
+        else if (act.startsWith('ctx:')) {
+          const label = act.slice(4).trim();
+          if (!label) throw new Error('ctx: needs a label');
+          if (!contexts[label]) {
+            // ⛔ THROUGH THE FACTORY. `storageState: null` — a second DEVICE, not a second window.
+            const m2 = await mkContext(b, Object.assign({}, cfg, { storageState: null }), label);
+            const pg = await m2.ctx.newPage();
+            wire(pg, label);
+            contexts[label] = { ctx: m2.ctx, page: pg, ranIn: m2.ranIn };
+            out.ranInByContext[label] = m2.ranIn;
+            await pg.goto(cfg.url, { waitUntil: 'load', timeout: 45000 });
+            await pg.waitForTimeout(1200);
+          }
+          activeLabel = label;
+          page = contexts[label].page;
         }
         else if (act.startsWith('goto:')) { await page.goto(act.slice(5), { waitUntil: 'load', timeout: 45000 }); await page.waitForTimeout(1200); }
         else if (act.startsWith('click:')) { await page.click(act.slice(6)); }
@@ -265,8 +318,11 @@ const cfg = JSON.parse(process.argv[2]);
           await page.fill(rest.slice(0, i), rest.slice(i + 1));
         }
         await page.waitForTimeout(700);
-        out.steps.push({ action: act, ok: true });
-      } catch (e) { out.steps.push({ action: act, ok: false, error: String(e.message).split('\n')[0] }); }
+        // ⛔ THE CONTEXT IS PART OF THE RECORD. A transcript that says an action passed without
+        // saying WHERE it ran cannot be read once two browsers are in play — and the B2 assertion
+        // is precisely a claim about which browser something failed in.
+        out.steps.push({ action: act, ok: true, ctx: activeLabel });
+      } catch (e) { out.steps.push({ action: act, ok: false, error: String(e.message).split('\n')[0], ctx: activeLabel }); }
     }
     out.screen = await describe();
     // ⛔ TWO FRAMES, AND THE SECOND IS THE ONE THAT CAN JUDGE THE FOLD. A full-page capture is
@@ -288,13 +344,22 @@ const cfg = JSON.parse(process.argv[2]);
   // an exit inside a second, and a CDP close does not reliably fire pagehide. So the walk LOOKS at the
   // last screen for a moment, as a person would, then leaves the way a person does — pagehide, then
   // the tab closes — and gives the keepalive post a beat to leave the machine.
-  try {
-    await page.waitForTimeout(6500);
-    await page.evaluate(() => { try { window.dispatchEvent(new Event("pagehide")); } catch (e) {} });
-    await page.waitForTimeout(1500);
-    await page.close({ runBeforeUnload: true });
-    await new Promise(r => setTimeout(r, 800));
-  } catch (e) {}
+  // ⛔ EVERY CONTEXT LEAVES THE WAY A PERSON LEAVES, not just the active one. Closing only the
+  // active page would lose the session-end flush for the other browser — the same defect this
+  // sequence was written to fix, reintroduced by the second context. The primary goes LAST so the
+  // existing single-context timing is unchanged for a walk that never switched.
+  const _leaving = Object.keys(contexts).filter(k => k !== 'primary').concat(['primary']);
+  for (const label of _leaving) {
+    const pg = contexts[label] && contexts[label].page;
+    if (!pg) continue;
+    try {
+      await pg.waitForTimeout(label === 'primary' ? 6500 : 1500);
+      await pg.evaluate(() => { try { window.dispatchEvent(new Event("pagehide")); } catch (e) {} });
+      await pg.waitForTimeout(1500);
+      await pg.close({ runBeforeUnload: true });
+      await new Promise(r => setTimeout(r, 800));
+    } catch (e) {}
+  }
   await b.close();
   console.log(JSON.stringify(out, null, 2));
 })();
@@ -361,7 +426,39 @@ def _selftest():
     with _tf.TemporaryDirectory() as td:
         missing = os.path.join(td, "nope.json")
         src = open(os.path.abspath(__file__), encoding="utf-8").read()
-        ck("T14/M21e a declared profile that does not exist refuses, naming how to mint one",
+        # ═══ H1 · TWO BROWSER CONTEXTS IN ONE RUN — the clauses, each proven by mutation ═══════════
+    # ⛔ These test the NODE SOURCE, like every clause above, and that is a real limit stated rather
+    # than hidden: they prove the capability is WIRED, never that two browsers behaved. The second
+    # half is proven by running a walk that switches, and is recorded in H1's commit.
+    ck("H1/M1 a second context is reachable — `ctx:<label>` is an action",
+       "act.startsWith('ctx:')" in NODEJS)
+    ck("H1/M2 the second context is built by the FACTORY, not a second creation path",
+       "await mkContext(b, Object.assign({}, cfg, { storageState: null }), label)" in NODEJS)
+    # ⭐ THE CLAUSE THAT MATTERS MOST. A second device that inherited the first one's storage would
+    # make "signed in over there" true by construction — the walk would pass without the product
+    # having done anything. `storageState: null` is what makes the sign-in real.
+    ck("H1/M3 the second context starts CLEAN — a second device, not a second window",
+       "{ storageState: null }" in NODEJS)
+    # ⛔ A DEAF INSTRUMENT REPORTS A CLEAN RUN. The primary's listeners do not extend to a context
+    # created later; without `wire()` the second browser's console errors, page errors and 4xx
+    # responses would land nowhere and the walk would read green because nothing was listening.
+    ck("H1/M4 every context gets the same ears, and `wire` is applied to the new one",
+       "const wire = (pg, label)" in NODEJS and "wire(pg, label);" in NODEJS)
+    ck("H1/M5 the record says WHICH context each step and checkpoint ran in",
+       "ok: true, ctx: activeLabel" in NODEJS and "urlBefore: lastUrl, ctx: activeLabel" in NODEJS)
+    # ⚠️ THIS CLAUSE WAS TOO WEAK ON ITS FIRST DRAFT AND THE MUTATION RUN CAUGHT IT. It tested for
+    # `out.ranInByContext` alone — a string that appears TWICE in the node source — so deleting the
+    # per-label write left it GREEN while the record had lost half its content. A clause that
+    # survives the removal of half its subject is not a clause. Both writes are named now.
+    ck("H1/M6 each context records the state it ACTUALLY ran in — the primary AND every later one",
+       "out.ranInByContext = { primary: made.ranIn }" in NODEJS
+       and "out.ranInByContext[label] = m2.ranIn" in NODEJS)
+    # ⛔ THE CLOSE SEQUENCE EXISTS BECAUSE A WALK THAT ENDS ABRUPTLY LOSES THE APP'S SESSION FLUSH.
+    # Closing only the active page would lose it for the other browser — the same defect the
+    # sequence was written to fix, reintroduced by the feature that adds the second browser.
+    ck("H1/M7 EVERY context leaves the way a person leaves, not only the active one",
+       "const _leaving = Object.keys(contexts)" in NODEJS and "for (const label of _leaving)" in NODEJS)
+    ck("T14/M21e a declared profile that does not exist refuses, naming how to mint one",
            "REFUSING" in src and "MINTED BY WALKING" in src and not os.path.exists(missing))
 
     print("\n%s journey-view selftest (%d/%d)  ⚠️ refusals and cfg shape only; no browser launched"

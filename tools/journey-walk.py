@@ -1576,6 +1576,31 @@ def selftest():
     check("screenshot path is not a shared constant", "/tmp/journey-view.png" not in out,
           "a fixed default path lets parallel walkers overwrite each other")
 
+    # ═══ H1 · TWO BROWSER CONTEXTS — reached from HERE, which is the check the plan names ══════
+    # ⛔⛔ WHY THESE CLAUSES LIVE IN THIS FILE AND NOT ONLY IN journey-view's. H1's stated check is
+    # `journey-walk.py --selftest`, and this selftest could not see the capability at all: the code
+    # lives in journey-view.py, whose own selftest is a separate command nobody in the loop runs.
+    # A check that does not cover the thing it is named for is this lap's most repeated defect, and
+    # shipping H1 that way would have added one more. The capability's OWN clauses stay where the
+    # code is; this RUNS them, so the named gate actually gates.
+    _jv = sp.run([sys.executable, os.path.join(ROOT, "tools", "journey-view.py"), "--selftest"],
+                 capture_output=True, text=True)
+    check("H1 journey-view's own clauses pass, run from the gate that is named for them",
+          _jv.returncode == 0 and "🔴" not in _jv.stdout,
+          "journey-view --selftest is red; its output is the detail")
+    check("H1 the second-context clauses are actually PRESENT in that run (not a green by absence)",
+          _jv.stdout.count("H1/M") >= 7,
+          "found %d H1 clauses — a passing selftest that tests nothing is worse than a red one"
+          % _jv.stdout.count("H1/M"))
+    # ⭐ AND THE PASS-THROUGH, which is what makes a `ctx:` action usable from a JOURNEYS action list
+    # rather than only from a hand-typed command. `view()` forwards every action verbatim as `--do`;
+    # if it ever filters or rewrites them, a journey could declare a context switch that silently
+    # never happened — an action that reads as walked and did nothing.
+    _src = open(os.path.abspath(__file__), encoding="utf-8").read()
+    check("H1 view() forwards every action verbatim, so a journey may declare `ctx:`",
+          'for a in actions:' in _src and 'cmd += ["--do", a]' in _src,
+          "actions are filtered or rewritten on the way to journey-view")
+
     # 7 · the cost of a walk, asserted rather than assumed
     writes = len([x for x in fresh if x.startswith("click:#go")])
     check("a fresh walk spends few enough writes to stay under the limiter", writes <= 6,
