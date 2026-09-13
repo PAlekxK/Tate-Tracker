@@ -590,7 +590,7 @@ row below is **the coordinator's proposal, pending Paul's in-context review.**
 | gap (§A6) | placeholder | whose |
 |---|---|---|
 | **1 · signed in, estate has no name** | show **the USERNAME** — it falls out of Paul's own ruling (*"until people have their own estate name **or account name** to display there"*), so the chain is estate name → account name → My Home Place and this case lands on the middle rung | coordinator |
-| **2 · truncation** | if truncating a place name would produce exactly `My Home Place`, truncate **one character shorter**. So *"My Home Place on the Lake"* renders `My Home Plac…` rather than manufacturing a false product name. **Ugly on purpose** — a placeholder that is ugly-and-correct is reviewable; pretty-and-wrong is not. The real shape is ux-expert's | coordinator |
+| **2 · truncation** | ⛔⛔ **WITHDRAWN BY THE COORDINATOR, 2026-09-12** — struck in place, not deleted, because a withdrawn proposal that vanishes gets re-proposed. ~~if truncating a place name would produce exactly `My Home Place`, truncate **one character shorter**, so *"My Home Place on the Lake"* renders `My Home Plac…` rather than manufacturing a false product name~~. ⛔ **TWO THINGS WRONG WITH IT, found by the build lane 2026-09-12:** (1) **there is no truncation mechanism anywhere to attach it to** — the rule guards a code path that does not exist; and (2) **`estate/index.html:91` deliberately takes the OPPOSITE position** — *"a masthead that ellipsises has edited her word."* So the placeholder would have contradicted a shipped design stance in order to solve a problem that cannot occur. ⭐ The coordinator's own note on it: *"I invented a guard for a mechanism I never checked existed."* ⚠️ **§A6·2's underlying observation is NOT withdrawn** — truncation *could* manufacture the one name the ruling exists to keep unique. It is a live question **if** truncation is ever introduced, and it is ux-expert's shape to design then. ⛔ Nothing to rule on tonight. | coordinator (withdrawn) |
 | **3 · the PLACE slot for an unnamed place** (`estate/index.html:7`·`:173` · `settings/place:90` · `homes/index.html:277`·`:343`) | **"Your place"** — it can never collide with the product name (the point of the ruling), it matches the door's existing second-person register (*Your username · Your password · Your email address*), and it reads as a SLOT rather than a name, which is honest because the place genuinely has no name yet. ⛔ Not *My Home Place* (makes a house read as the product) and ⛔ not leaving *My Home* (the near-identical string the ruling exists to remove) | coordinator |
 
 ⚠️ **The steward DISAGREES with placeholder 1 in this very file** (§A6·1: inside the founding flow the
@@ -598,6 +598,6 @@ bar should read **My Home Place**, because *"a person naming a place wants to se
 named, not their own username echoed back"*). **That disagreement is live and is not resolved here.**
 Implement the placeholder, carry the disagreement, let Paul see both in context.
 
-**Release condition for all three, and it is concrete rather than "later":** ⭐ **Paul reads them in
+**Release condition for the TWO that stand (#1 and #3 — #2 is withdrawn above), and it is concrete rather than "later":** ⭐ **Paul reads them in
 the running app and either confirms or revises.** A hold with no release condition is abandonment
 with manners.
