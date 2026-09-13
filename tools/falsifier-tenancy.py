@@ -124,6 +124,31 @@ def setup():
     kv_put(w, "route:%s" % ah, {"estateId": ESTATE_B, MARK: True, "createdAt": now})
     fx["foreignAdminInvite"] = {"token": atok, "hash": ah, "estate": ESTATE_B}
 
+    # ⭐⭐ FIXTURE M — ONE CREDENTIAL HOLDING TWO HOUSES, and it is the only shape that can tell an
+    # HONOURED `X-Estate` from an IGNORED one. Naming your OWN single house returns the same estate
+    # either way, so a clause built on that passes against a Worker that never reads the header —
+    # which is exactly how C2 came to be green for the wrong reason for two laps. With two houses the
+    # answers DIVERGE: honoured → the named estate (200); ignored → `resolveByEdge` cannot choose and
+    # refuses (404).
+    # ⚠️ THE DATA DOES NOT CONTAIN THIS SHAPE — 0 of 318 credential hashes at dev and qa hold grants
+    # at two estates, because every writer writes one row per grant. That is precisely why it is a
+    # FIXTURE: a branch the world has not produced yet is still a branch that must be proven, and it
+    # IS the shape founding a second estate would create (see `handleEstateFound`'s A10 comment).
+    # ⛔ Its route carries `{personId}` and NO estateId — the post-A5 shape — so it exercises paths 0
+    # and 2 rather than the legacy path 1 every other fixture here takes.
+    mtok = secrets.token_urlsafe(32)[:43]
+    mh = sha256(mtok)
+    mperson = "p-fx-m-%s" % secrets.token_hex(3)
+    for estate in (ESTATE_A, ESTATE_B):
+        kv_put(w, "%s:grant:%s" % (estate, mh),
+               {"personId": mperson, "estateId": estate, "relationship": ["member"],
+                "capability": "member", "entry": True, "vault": False,
+                "issuedAt": now, "issuedBy": "falsifier-tenancy", MARK: True})
+        kv_put(w, "grant:%s:%s" % (mperson, estate), {"personId": mperson, "estateId": estate, MARK: True})
+    kv_put(w, "route:%s" % mh, {"personId": mperson, MARK: True, "createdAt": now})
+    fx["multi"] = {"token": mtok, "hash": mh, "personId": mperson,
+                   "estates": [ESTATE_A, ESTATE_B]}
+
     dtok = secrets.token_urlsafe(32)[:43]
     dh = sha256(dtok)
     kv_put(w, "route:%s" % dh, {"estateId": ESTATE_B, MARK: True, "createdAt": now, "note": "no grant behind this"})
@@ -158,6 +183,14 @@ def teardown():
         for key in ("%s:grant:%s" % (fa["estate"], fa["hash"]), "route:%s" % fa["hash"]):
             try: w.kv(ENV, "delete", key); n += 1
             except Exception: pass
+    if fx.get("multi"):
+        m = fx["multi"]
+        keys = ["route:%s" % m["hash"]]
+        for estate in m.get("estates", []):
+            keys += ["%s:grant:%s" % (estate, m["hash"]), "grant:%s:%s" % (m["personId"], estate)]
+        for key in keys:
+            try: w.kv(ENV, "delete", key); n += 1
+            except Exception as ex: print("   ⚠️ could not delete %s — %s" % (key[:28], str(ex)[:60]))
     if fx.get("dangling"):
         try: w.kv(ENV, "delete", "route:%s" % fx["dangling"]["hash"]); n += 1
         except Exception: pass
@@ -216,23 +249,63 @@ def run():
                     (len(probes), (", LEAKED via: " + ", ".join(named)) if named else ", none answered as B")))
     if not c2: fails.append("C2")
 
-    # ⭐⭐ C2b — THE POSITIVE CONTROL, AND IT IS THE CLAUSE C2 CANNOT BE TRUSTED WITHOUT.
+    # ⭐⭐ C2b/C2c/C2d — THE POSITIVE CONTROL C2 CANNOT BE TRUSTED WITHOUT, AND IT TOOK TWO TRIES.
     # ⛔ MEASURED 2026-09-12, BEFORE A7 SHIPPED: C2 already probed `X-Estate` — and it passed against
-    # a Worker that IGNORED THE HEADER ENTIRELY. A control that a no-op satisfies is evidence about
-    # nothing. Now that A7 honours the header, "A cannot name B" is only meaningful beside "A CAN
-    # name A": together they say the header is read AND bounded. Apart, C2 is green for a correct
-    # implementation and for a broken one alike.
-    # ⚠️ It asserts the HEADER path specifically — same credential, same route, same everything, with
-    # the estate the caller provably holds named explicitly.
-    try:
-        sA2, bA2 = get("/api/grant/whoami", A["token"], {"X-Estate": ESTATE_A})
-    except RuntimeError as e:
-        print("⛔ UNREADABLE during C2b — %s" % e); return 3
-    c2b = isinstance(bA2, dict) and bA2.get("estateId") == ESTATE_A
-    results.append(("C2b", c2b, "A CAN name its OWN house — X-Estate=%s → %s%s"
-                    % (ESTATE_A, sA2,
-                       "" if c2b else " ⛔ the header was not honoured; C2 above is then a no-op's pass")))
-    if not c2b: fails.append("C2b")
+    # a Worker that IGNORED THE HEADER ENTIRELY. A control a no-op satisfies is evidence about
+    # nothing.
+    # ⛔⛔ AND THE FIRST FIX WAS THE SAME MISTAKE AGAIN: "A can name its OWN house" also passes when
+    # the header is ignored, because a single-house credential resolves to that house either way. A
+    # positive control is only a control where the two hypotheses PREDICT DIFFERENT ANSWERS.
+    # ⭐ Fixture M is that case — one credential, two houses, a post-A5 person-only route:
+    #     honoured → the NAMED estate, 200        ignored → cannot choose, 404
+    M = fx.get("multi")
+    if not M:
+        results.append(("C2b", None, "no multi-estate fixture — re-run `--setup` (it is UNCHECKABLE, "
+                                     "never a pass: this clause cannot be judged without it)"))
+    else:
+        try:
+            sM, bM = get("/api/grant/whoami", M["token"], {"X-Estate": ESTATE_B})
+            sMn, bMn = get("/api/grant/whoami", M["token"])
+            sMx, bMx = get("/api/grant/whoami", M["token"], {"X-Estate": "est-nosuch9"})
+        except RuntimeError as e:
+            print("⛔ UNREADABLE during C2b — %s" % e); return 3
+        # C2b · the header is HONOURED and picks the house it NAMES
+        c2b = isinstance(bM, dict) and bM.get("estateId") == ESTATE_B
+        results.append(("C2b", c2b, "a two-house credential naming B is answered as B — %s%s"
+                        % (sM, "" if c2b else " ⛔ header not honoured, or it chose for the caller")))
+        if not c2b: fails.append("C2b")
+        # C2c · naming NOTHING must not CHOOSE — the tie-break A7 retired.
+        # ⛔⛔ THE INVARIANT IS "IT NAMES NO HOUSE", NOT "IT RETURNS 404", AND MY FIRST VERSION OF
+        # THIS CLAUSE ASSERTED THE WRONG ONE. It failed on a 200 and called it "a real cross-estate
+        # leak"; the 200 is `/api/grant/whoami`'s deliberate EMPTY-SHELF branch — `personFor()`
+        # resolves the caller to themselves, `grantFor()` returned nothing, and the answer carries
+        # `estateId: null, estates: []`. Nothing leaked. A falsifier that cries leak at correct
+        # behaviour gets muted, and then it is worth nothing on the day it is right.
+        # ⚠️ So both shapes PASS — 404, or an authenticated answer naming no estate — and the clause
+        # fails only if an estate the caller did not name comes back.
+        named_back = (bMn or {}).get("estateId") if isinstance(bMn, dict) else None
+        c2c = not named_back
+        results.append(("C2c", c2c, "the SAME credential naming no house → %s%s"
+                        % (sMn, " and it named no estate" if c2c else
+                           " ⛔ it CHOSE a house nobody named (estateId=%s)" % named_back)))
+        if not c2c: fails.append("C2c")
+        # ⚠️ NOT A FAILURE, AND WORTH MORE THAN MOST PASSES: what that answer TELLS a person who
+        # holds two houses. `hasEstate:false, estates:[]` reads as "you have no homes" to someone who
+        # has two — the same shape that once rendered for `p-paul` and read as being locked out.
+        # It is misinformation in the SAFE-LOOKING direction, which is the kind that survives.
+        # ⭐ A9's array (`estates: grantsFor(personId)`) is the repair, and this is why the ruled
+        # sequence puts the array BEFORE the header.
+        if isinstance(bMn, dict) and bMn.get("hasAccount") and not bMn.get("estates"):
+            results.append(("C2c·note", None,
+                            "⚠️ a TWO-HOUSE credential that names none is answered `estates: [], "
+                            "hasEstate: false` — true of the request, FALSE about the person (A9)"))
+        # C2d · naming a house you do NOT hold must not answer as any house.
+        named_x = (bMx or {}).get("estateId") if isinstance(bMx, dict) else None
+        c2d = not named_x
+        results.append(("C2d", c2d, "naming an estate it does not hold → %s%s"
+                        % (sMx, " and it named no estate" if c2d else
+                           " ⛔ answered as %s anyway" % named_x)))
+        if not c2d: fails.append("C2d")
 
     # C3 — only meaningful once B can authenticate: B must answer as B and never as A.
     if pB:
