@@ -4796,12 +4796,6 @@ export default {
                       contactPref: acct.contactPref || "email" });
       } catch (e) { return json({ error: "bad-json" }, 400); }
     }
-    // ⚠️ A USERNAME ORACLE, KNOWINGLY. This Worker deliberately avoids being one elsewhere — the
-    // sign-in 404 is byte-identical to a missing route for exactly this reason. It is accepted here
-    // because account creation ALREADY answers the same question with its 409, so this exposes
-    // nothing new; it only stops the answer costing her a bounced form. Rate-limited on the feedback
-    // bucket. If the oracle ever becomes a real concern this is the first thing to delete, and the
-    // client degrades to silence rather than blocking her. `paul-asked 2026-09-05`.
     // ⭐ ONBOARDING BEHAVIOUR, WRITE-ONLY AND UNAUTHENTICATED — the /api/door doctrine, for the same
     // reason. /api/metrics needs a grant, and a person who taps the invite and gives up at the
     // account screen HAS no grant: the one reader we most need to learn from is the one that gate
@@ -4871,6 +4865,44 @@ export default {
       catch (e) { return json({ error: "estate-found-failed", detail: String(e && e.message || e).slice(0, 200) }, 500); }
     }
 
+    // ⚠️ A USERNAME ORACLE, KNOWINGLY. This Worker deliberately avoids being one elsewhere — the
+    // sign-in 404 is byte-identical to a missing route for exactly this reason. It is accepted here
+    // because the SAME FACT is already published by account creation's 409, so this exposes nothing
+    // new; it only stops the answer costing her a bounced form. If the oracle ever becomes a real
+    // concern this is the first thing to delete, and the client degrades to silence rather than
+    // blocking her. `paul-asked 2026-09-05`.
+    // ⭐ A13 (lap 9) — THIS COMMENT WAS STRANDED 74 LINES ABOVE ITS OWN ROUTE, over
+    // `/api/onboarding-metrics`, and it carried two false claims while sitting there. Both corrected
+    // here, and it is moved to the thing it describes. The route drifted; the note did not follow.
+    // ⛔ 1 · THE DENOMINATOR IS THREE SITES, NOT ONE (`2f85f3a3`, security-steward amendment 3). The
+    //   old wording named account creation alone. Username existence is published by:
+    //     · `handleAccountCreate` :732 — 409 `username-taken`, UNAUTHENTICATED
+    //     · this probe             — 200 `{available:false}`, UNAUTHENTICATED
+    //     · `handleUsernameChange` :874 — 409 `username-taken`, MEMBER-TIER (behind `grantFor`, and
+    //       the grant must own the row) — a smaller aperture, still in the denominator
+    //   ⛔ So deleting THIS route protects nothing on its own: the 409 at :732 answers the same
+    //   question to the same unauthenticated caller. Hardening means the class or nothing.
+    // ⛔ 2 · IT IS NO LONGER ON THE FEEDBACK BUCKET. The old note said "Rate-limited on the feedback
+    //   bucket" — false since lap 7 · B0; it spends `probeRateLimitOk`, its own key. That B0 change
+    //   IS A13's clause (ii), already done before A13 was reached, and the stale note read as though
+    //   it were not. ⛔ And tightening this bucket does NET HARM: the property has ONE egress IP, so
+    //   it lands on a household of three signing up before it lands on anyone with several addresses.
+    // ⭐ 3 · WHAT THE DOOR MAY SAY ABOUT THIS — CITE, NEVER RE-MINT (`2f85f3a3` amendments 1 and 2).
+    //   The true sentence ALREADY SHIPS, Paul-confirmed 2026-09-11, at `onboarding/index.html:364`
+    //   (`#recover`): *"This page won't say whether it's on file, because that would tell anyone who
+    //   typed it."* Note what it does NOT say: *this page*, never *we never*. ⛔ The generalisation
+    //   *"we never reveal whether an account exists"* is FALSE — the three sites above publish it —
+    //   and the ruling names it as "the failure a build window will actually produce".
+    //   ⛔ A SECOND SENTENCE SAYING THE SAME THING IS THE HAZARD, not the absence of one: two copies
+    //   of one claim drift out of true while both look confirmed. If a surface needs the idea, it
+    //   reuses those words.
+    //   ⛔ AND NOT ON THE SIGN-IN DOOR AT ALL. The unsaid fact is created when a person CHOOSES a
+    //   name, not when they USE one; at the door it is not actionable — you cannot un-choose a name
+    //   you are typing to get back into your own house — and the seat would flag a sentence there as
+    //   NET-HARMFUL. Placement is ux-expert's and the words content-steward's; UNANSWERED, not built.
+    // ⚠️ UNRULED, carried not closed: at ONE origin usernames become globally unique, so "is this
+    //   name taken" converges on "does this named person have an account here" — a MEMBERSHIP
+    //   disclosure about a named individual, which costs INPUT rather than data. Lap-9 roster row.
     if (url.pathname === "/api/account/available" && request.method === "GET" && !authOk(request, env)) {
       const u = (url.searchParams.get("u") || "").trim();
       if (!/^[a-zA-Z0-9._-]{3,40}$/.test(u)) return json({ error: "bad-username" }, 400);
