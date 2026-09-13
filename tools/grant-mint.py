@@ -289,6 +289,7 @@ def hydrate(reg_path, person, estate, env, dry):
         return 0
     if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(new, separators=(",", ":")), dry=dry):
         raise Refuse("KV put failed — the grant is unchanged")
+    write_grant_edge(env, estate, person, dry=dry)
     write_route(env, estate, h, person=person, dry=dry)
     # ⛔ FIELD NAMES ONLY, NEVER VALUES. An address is the household's, not this log's.
     print("  hydrated (%s, %s) from %s · carried: %s · absent on the account: %s"
@@ -313,6 +314,30 @@ def hydrate(reg_path, person, estate, env, dry):
 # answer `grantFor()` must never give — the plan calls it out by name ("a 404, never a fall-back to
 # the deployment's estate"). Grant-then-route can only ever leave an unrouted grant, which still
 # resolves through the legacy path; route-then-grant leaves a dangling router row.
+# ⭐⭐ A6 · THE PERSON→ESTATE EDGE, WRITTEN AT THE MINT — for the same reason the route above is.
+# `grant:<personId>:<estateId>` is how `grantsFor()` (worker.js) lists a person's houses without
+# already knowing one, and A5 took the estate OFF the route row — so from A5 forward the edge is what
+# a rotated credential resolves through, and a mint that omits it puts a grant on nobody's shelf.
+# ⛔ THE FAILURE IS QUIETER THAN THE ROUTE'S AND THAT IS WHY IT IS EASY TO SKIP. A grant minted here
+# still RESOLVES without an edge, because this tool keeps writing an estate on the route and
+# `grantFor()` path 1 honours it. What breaks is everything that asks "which houses does this person
+# hold" — the shelf, `/api/session`'s array — and it breaks by ANSWERING SHORT, never by erroring.
+# ⚠️ WRITTEN BEFORE THE ROUTE, AFTER THE GRANT. Same ordering rule as everywhere: a pointer lands
+# after what it points at. Recoverable either way — `tools/grant-edge-backfill.py --env <env> --apply`
+# rebuilds any edge from the grant rows themselves — so a failure here REFUSES rather than guessing.
+def write_grant_edge(env, estate, person, dry=False):
+    # ⛔ NO PERSON, NO EDGE, AND SAY SO. The edge is keyed by personId; inventing one from the estate
+    # would be attribution from something other than the credential (`personFor`'s own rule).
+    if not person:
+        print("  ⚠️ no personId on this grant — NO EDGE WRITTEN. `grantsFor()` cannot list this "
+              "credential's estate; it resolves through the route row only.")
+        return
+    if not run_kv(env, "put", "grant:%s:%s" % (person, estate),
+                  json.dumps({"personId": person, "estateId": estate}, separators=(",", ":")), dry=dry):
+        raise Refuse("the grant was written but its PERSON→ESTATE EDGE was not — the credential will "
+                     "resolve, and the person's shelf will not list this house. Re-run "
+                     "`tools/grant-edge-backfill.py --env %s --apply`" % env)
+
 def write_route(env, estate, h, person=None, dry=False):
     # ⭐ personId rides on the route row: it is what `personFor()` reads to authenticate a caller who
     # holds an account and no household yet. An estateId alone cannot answer "who is this".
@@ -456,6 +481,7 @@ def mint(reg_path, person, estate, env, entry, vault, relationship, capability, 
         kv_row["fixture"] = True
     if not run_kv(env, "put", "%s:grant:%s" % (estate, h), json.dumps(kv_row, separators=(",", ":")), dry=dry):
         raise Refuse("KV put failed — register NOT written (a row with no store entry would be a credential nobody can present)")
+    write_grant_edge(env, estate, person, dry=dry)
     write_route(env, estate, h, person=person, dry=dry)
     save_register(reg_path, reg)
     # the token leaves exactly once, into a mode-600 file

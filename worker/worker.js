@@ -948,6 +948,17 @@ async function handleSession(request, env, scope, ctx) {
     const rr = await env.OBSERVATIONS.get(ROUTE_PREFIX + (acct.tokenHash || "none"));
     if (rr) { const p = JSON.parse(rr); if (p && p.estateId) priorEstate = p.estateId; }
   } catch (e) { /* a malformed route is a miss, never an outage */ }
+  // ⭐⭐ A6 — AND WHEN THE ROUTE CANNOT SAY, THE EDGE CAN. After A5 a rotated credential's route
+  // carries `{ personId }` alone, so this read finds no estate and the lookup below would fall to
+  // `scope` — the deployment's estate — which is the exact defect the route read was added to fix
+  // ("signing in re-pointed a founder's credential at the deployment's estate"). It would have come
+  // back the moment the field stopped being written, on the SAME path, with the fix still in place.
+  // ⚠️ THE ROUTE STILL WINS WHERE IT SPEAKS. A pre-A5 row naming an estate is honoured unchanged;
+  // the edge answers only for rows that no longer carry one. Same order as `grantFor`.
+  if (!priorEstate && acct.personId && acct.tokenHash) {
+    const byEdge = await resolveByEdge(env, acct.personId, acct.tokenHash);
+    if (byEdge && byEdge.estateId) priorEstate = byEdge.estateId;
+  }
   const priorScope = priorEstate ? scopeOfRoute(priorEstate, env) : scope;
   const prior = await env.OBSERVATIONS.get(keyFor(priorScope, "grant", acct.tokenHash || "none"));
   const grantRow = prior ? JSON.parse(prior) : {
@@ -1011,6 +1022,13 @@ async function handleSession(request, env, scope, ctx) {
   // one to belong to, and inventing `scope.id` here is the pre-seeding the signup ruling removed.
   if (grantRow.estateId) {
     await env.OBSERVATIONS.put(keyFor(scopeOfRoute(grantRow.estateId, env), "grant", tokenHash), JSON.stringify(grantRow));
+    // ⭐ A6 — THE EDGE, WRITTEN BEFORE THE ROUTE THAT WILL DEPEND ON IT. Ordering rule of this whole
+    // file: the thing a pointer points AT lands first. The route below no longer names the estate, so
+    // the edge is now the only way this credential can be resolved — a route written first would be a
+    // pointer at nothing for as long as the next write took.
+    // ⚠️ IT IS ALSO THE SELF-HEALING PATH. Any credential that signs in after this deploys gets its
+    // edge written here whether or not the backfill ever reached it.
+    await writeGrantEdge(env, grantRow.personId || acct.personId, grantRow.estateId);
   }
   // ⛔ THE ROTATED CREDENTIAL KEEPS ITS ROUTE. A sign-in mints a NEW token, so the old hash's
   // route is stale and the new one has none — leaving `personFor()` blind to anyone who has
@@ -1019,9 +1037,12 @@ async function handleSession(request, env, scope, ctx) {
   // same defect as the grant lookup above: it re-pointed a founder's new credential at the
   // deployment's estate. A person who has founded nothing gets a route naming only themselves,
   // which is exactly what `personFor()` needs in order to let them found one.
-  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash,
-    JSON.stringify(grantRow.estateId ? { estateId: grantRow.estateId, personId: acct.personId }
-                                     : { personId: acct.personId }));
+  // ⭐⭐ A5 — AND IT NAMES ONLY THE PERSON NOW. The estate came off this row deliberately: a
+  // credential says WHO is calling, and which of their houses a request means is the request's to
+  // name (A7 `X-Estate`), not the token's to have decided at sign-in. The estate it used to carry is
+  // resolved from the A6 edge written two lines up — so this row and that edge ship together, and
+  // splitting them is what would kill every credential at once.
+  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash, JSON.stringify({ personId: acct.personId }));
   // ⛔ B2 (lap 7) — REVOKED AT THE SCOPE THE OLD GRANT LIVES AT. This deleted at `scope` — the
   // deployment's estate — while the grant four lines up is written at the PERSON's estate. So for any
   // founder, signing in did not kill the previous credential: "sign out of this phone" (B8) would have
@@ -1574,8 +1595,16 @@ async function handleEstateFound(request, env) {
     } catch (e) { /* withheld, never invented */ }
   }
   await env.OBSERVATIONS.put(keyFor(scopeOfRoute(estateId, env), "grant", tokenHash), JSON.stringify(grantRow));
-  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash,
-                             JSON.stringify({ estateId, personId: person.personId }));
+  // ⭐⭐ A6 — THE EDGE IS WRITE 4 OF 5, AND THE ORDER IS STILL THE CONTROL. Place → grant → EDGE →
+  // route: each pointer lands after the thing it points at, so any prefix of this sequence is
+  // harmless. The route is now the only write that cannot stand alone, because after A5 it carries no
+  // estate and the edge is what supplies one.
+  // ⭐ AND THIS IS THE WRITE THAT PUTS A FOUNDED HOUSE ON THE SHELF. `grantsFor` is how a person's
+  // estates are ever listed; before it, the seven estates founded at dev were reachable ONLY through
+  // the route row of the one credential that founded them.
+  await writeGrantEdge(env, person.personId, estateId);
+  // ⭐⭐ A5 — the route names the PERSON, not the house they just founded. See handleSession.
+  await env.OBSERVATIONS.put(ROUTE_PREFIX + tokenHash, JSON.stringify({ personId: person.personId }));
   // ⭐ AND THE ACCOUNT — the row that outlives any credential and the one `/api/session` hydrates
   // FROM. Without this a sign-in on a second device rebuilds the grant from an account that never
   // learned where the place is (the condo defect in whoami's own comment), and the founded house
@@ -1610,6 +1639,135 @@ const GRANT_HEADER = "X-Grant";
 // already uses `credential` as a FIELD INSIDE the grant row, and one word meaning two things in one
 // corpus is the collision VOCABULARY.md exists to catch.
 const ROUTE_PREFIX = "route:";
+// ⭐⭐ A5 — THE ROUTE NO LONGER NAMES THE ESTATE. `route:<sha256(token)>` holds `{ personId }` alone.
+// IDENTITY AND AUTHORITY ARE TWO LOOKUPS (SCOPE R21): the credential says WHO is calling; what they
+// may reach, and where, is resolved from their grants. A route that also named one estate made the
+// credential the authority on WHICH HOUSE — which is exactly the thing a second household breaks.
+// ⚠️ ROWS WRITTEN BEFORE THIS STILL CARRY `estateId`, AND ARE STILL HONOURED (`grantFor` path 1).
+// Measured at dev before this shipped: 42 of 54 route rows carry both, 3 carry an estate and NO
+// person, 9 carry a person and no estate. Dropping the read would kill the 3 outright. The field is
+// no longer WRITTEN; it is not yet unread, and those are different migrations.
+
+// ⭐⭐ A6 — THE PERSON→ESTATE EDGE: `grant:<personId>:<estateId>` → `{ personId, estateId, at }`.
+// It answers the question `grantFor`'s own comment calls the harder half: find a person's houses
+// WITHOUT already knowing one. A grant row is keyed `<estate>:grant:<sha256(token)>`, so it can only
+// be found by an estate you already have — which is why the route had to carry one.
+//
+// ⭐ IT IS DELIBERATELY UNPREFIXED, AND THIS LOOKS LIKE A C5 6a/6b VIOLATION. It is not: the key is
+// a DEPLOYMENT-level index across estates, not a record belonging to one, and prefixing it by estate
+// would re-introduce the very thing it exists to remove. `route:` is unprefixed for exactly this
+// reason, so this follows the existing precedent rather than minting an exception. Someone will
+// challenge this; the answer is `route:`.
+// ⚠️ THE NOUN COLLIDES WITH THE LEGACY-ERA SHAPE BY CONSTRUCTION. `listBothEras(env, scope, kind)`
+// reads a bare `<kind>:` prefix as the pre-6a era, so `listBothEras(env, scope, "grant")` would sweep
+// these edges as if they were grant records. It is called for "conversation" and "zones-last-seen"
+// only — VERIFIED, not assumed — and there is no bare `grant:` key in ANY namespace (measured
+// 2026-09-12: legacy 0 · qa 0 · dev 0 · home 0 · paul 0, so nothing is being shadowed). Do not add a
+// third caller for "grant".
+// ⭐ THE EDGE IS CREDENTIAL-INDEPENDENT, and that is the point of keying it on personId rather than a
+// token hash: rotating a credential (every sign-in) must not disturb which houses a person holds. So
+// sign-in writes the edge and never deletes one; only losing the grant itself should.
+const GRANT_EDGE_PREFIX = "grant:";
+function grantEdgeKey(personId, estateId) { return GRANT_EDGE_PREFIX + personId + ":" + estateId; }
+
+// Write the edge beside a grant. Idempotent, and it never throws into the caller: a grant that
+// exists with no edge is recoverable by re-running the backfill, so instrumentation-grade failure
+// here must not be the reason a sign-in or a founding fails.
+async function writeGrantEdge(env, personId, estateId) {
+  if (!personId || !estateId) return false;
+  try {
+    await env.OBSERVATIONS.put(grantEdgeKey(personId, estateId),
+      JSON.stringify({ personId, estateId, at: new Date().toISOString() }));
+    return true;
+  } catch (e) { return false; }
+}
+
+// A person's estates, by KV prefix. ⛔ IT RETURNS CANDIDATES, NEVER AUTHORISATION: an edge says a
+// grant was written once, and the grant row is what says it still stands. Every caller resolves the
+// row before trusting the estate.
+// ⚠️ A LIST, NOT A GET, AND THAT IS A LATENCY SEAM A7 CLOSES. Once a request can NAME its house
+// (`X-Estate`), the edge is checked with a direct `get(grantEdgeKey(person, named))` and this listing
+// is needed only when no header arrives. Until then an authenticated request whose route carries no
+// estate costs one list. ⭐ KV list reads the authoritative key set rather than the edge cache, so —
+// unlike a `get` — it cannot serve a negative-cached miss for an edge just written at founding.
+async function grantsFor(env, personId) {
+  if (!personId) return [];
+  const prefix = GRANT_EDGE_PREFIX + personId + ":";
+  const out = [];
+  try {
+    let cursor = undefined;
+    while (true) {
+      const page = await env.OBSERVATIONS.list({ prefix, cursor });
+      for (const k of page.keys) {
+        const estateId = k.name.slice(prefix.length);
+        if (estateId && out.indexOf(estateId) === -1) out.push(estateId);
+      }
+      if (page.list_complete || !page.cursor) break;
+      cursor = page.cursor;
+    }
+  } catch (e) {
+    return [];                         // an unreadable index is a person with no houses TO THIS CALL
+  }
+  return out;
+}
+
+// ⭐ THE CREDENTIAL DISAMBIGUATES, AND THAT IS A MEASURED PROPERTY RATHER THAN A HOPE. A grant row is
+// keyed by (estate, token hash), and every writer writes ONE row per grant — so a hash resolves to
+// exactly one estate. Measured 2026-09-12 across both populated namespaces: dev 71 rows / 71 distinct
+// hashes / **0** hashes with rows at two estates; qa 247 / 247 / **0**. The two people at dev who hold
+// TWO estates (`p-7f3a2c`, `p-oykoxcdpfot`) hold them through two separate credentials, which is why
+// resolving person → candidates → the estate where THIS HASH has a live row is a lookup and not a
+// choice.
+// Returns { estateId, row, via, candidates } or null.
+async function resolveByEdge(env, personId, hash) {
+  const estates = await grantsFor(env, personId);
+  if (!estates.length) return null;
+  const live = [];
+  for (const estateId of estates) {
+    let raw;
+    try { raw = await env.OBSERVATIONS.get(keyFor(scopeOfRoute(estateId, env), "grant", hash)); }
+    catch (e) { continue; }
+    if (!raw) continue;                                  // an edge with no row for THIS credential
+    let row; try { row = JSON.parse(raw); } catch (e) { continue; }
+    // The row must agree with the edge that found it and must not be revoked — the same two
+    // guards the router path applies, for the same reason: a row that disagrees with its own
+    // index is a mis-keyed write, and hardening it is worse than refusing it.
+    if (!row || row.revokedAt || row.estateId !== estateId) continue;
+    live.push({ estateId, row });
+  }
+  if (live.length === 1) return { estateId: live[0].estateId, row: live[0].row, via: "edge", candidates: 1 };
+  if (!live.length) return null;
+  // ⛔⛔ TWO LIVE GRANTS UNDER ONE CREDENTIAL — UNREACHED TODAY (0 of 318 hashes, above) and handled
+  // anyway, because "unreachable" is a statement about today's data and this branch is where a wrong
+  // answer would be invisible. The request has not named a house, so the only honest answers are a
+  // row the caller provably holds HERE, or none.
+  // ⛔ IT IS NOT C1'S FORBIDDEN FALLBACK, and the predicates are what separate them: C1 refuses to
+  // hand back the deployment's estate for A ROUTE WITH NO GRANT BEHIND IT — inventing an
+  // authorisation. This fires only where two grants EXIST and belong to the caller, and it returns
+  // one of them.
+  // ⛔⛔ REMOVAL CONDITION, NOT A DESCRIPTION: **A7 deletes this branch.** Once `X-Estate` lets a
+  // request name its house, two live grants is a NAMED REFUSAL and never a tie-break. If A7 has
+  // shipped and this is still here, that is the bug — not a leftover.
+  const own = live.find(c => c.estateId === env.ESTATE_ID);
+  return own ? { estateId: own.estateId, row: own.row, via: "deployment-tie-break", candidates: live.length }
+             : { estateId: null, row: null, via: "ambiguous-refused", candidates: live.length };
+}
+
+// ⛔ AN EVENT WITH NO READER IS NOT INSTRUMENTATION (CLAUDE.md, ruled). The reader is
+// `tools/grant-edge-backfill.py --check`, which reports BOTH the population exposed to the branch
+// (people holding two live grants) and any fire recorded here.
+// ⚠️ OUTCOMES, NEVER PEOPLE — `storeGeocodeRecord`'s own rule, and the same daily-keyed shape so the
+// same tools can read it: the COUNT of candidate houses, never a personId, never an estate but the
+// one this deployment already declares in its own vars.
+async function storeResolveRecord(env, scope, outcome, candidates) {
+  try {
+    const key = dateKey(scope, "resolve", new Date().toISOString().slice(0, 10));
+    const existing = await env.OBSERVATIONS.get(key);
+    let arr = []; if (existing) { try { const a = JSON.parse(existing); if (Array.isArray(a)) arr = a; } catch (e) {} }
+    arr.push({ outcome, candidates, at: new Date().toISOString() });
+    await env.OBSERVATIONS.put(key, JSON.stringify(arr));
+  } catch (e) { /* instrumentation must never be the reason a credential fails to resolve */ }
+}
 // ⭐ A CREDENTIAL MUST FIND ITS ESTATE WITHOUT ALREADY KNOWING IT — plan change 1. This used to read
 // `keyFor(scopeOf(env), "grant", hash)`, so finding a grant required knowing its household first;
 // with many estates in one deployment you do not. A foreign grant failed TWICE — wrong namespace,
@@ -1654,15 +1812,20 @@ async function grantFor(request, env) {
   if (!presented || presented.length > 256) return null;
   const hash = await sha256Hex(presented);
 
-  let routed = null;
+  let routed = null, whom = null;
   try {
     const r = await env.OBSERVATIONS.get(ROUTE_PREFIX + hash);
     if (r) {
       const parsed = JSON.parse(r);
       if (parsed && typeof parsed.estateId === "string" && parsed.estateId) routed = parsed.estateId;
+      if (parsed && typeof parsed.personId === "string" && parsed.personId) whom = parsed.personId;
     }
   } catch (e) { /* a malformed router row is a miss, never an outage — fall through to the legacy read */ }
 
+  // ---- PATH 1 · THE ROUTE NAMES AN ESTATE (every row written before A5) ----
+  // ⛔ TERMINAL ON PURPOSE, AND C1 IS WHY. A route naming a house with no grant behind it MUST 404;
+  // falling through to the edge here would answer a dangling route out of a DIFFERENT house, which is
+  // the clause's own failure in a politer form. `falsifier-tenancy.py` C1 pins this.
   if (routed) {
     const raw = await env.OBSERVATIONS.get(keyFor(scopeOfRoute(routed, env), "grant", hash));
     if (!raw) return null;                                    // ⛔ 404. NEVER the deployment's estate.
@@ -1673,7 +1836,23 @@ async function grantFor(request, env) {
     return row;
   }
 
-  // ---- NO ROUTER ROW: exactly the behaviour that shipped before this change ----
+  // ---- PATH 2 · A6 · THE ROUTE NAMES ONLY A PERSON — resolve person → grants → this credential ----
+  // ⭐ THIS IS WHAT A5 TRADES FOR. Post-A5 every route written carries `{ personId }` alone, so the
+  // estate is recovered here instead: the person's edges are the candidates, and the credential's own
+  // hash picks which one it is a grant FOR. Nothing guesses.
+  if (whom) {
+    const resolved = await resolveByEdge(env, whom, hash);
+    if (resolved && resolved.via !== "edge") {
+      // The two branches that are not a plain lookup announce themselves — see storeResolveRecord.
+      await storeResolveRecord(env, scopeOf(env), resolved.via, resolved.candidates);
+    }
+    if (resolved && resolved.row) return resolved.row;
+    if (resolved && resolved.via === "ambiguous-refused") return null;   // named, never a guess
+    // ⚠️ NO EDGE AND NO ROW IS NOT AN ANSWER YET — it is an un-backfilled credential, and the legacy
+    // read below is exactly the non-breaking path the router rewrite used for the same reason.
+  }
+
+  // ---- PATH 3 · NO ROUTER ROW (or nothing resolved above): the behaviour that shipped before all this ----
   // ⭐ THIS IS WHY THE REWRITE IS NON-BREAKING. A credential the backfill missed — or one minted in
   // the gap between the backfill and this deploy — keeps working unchanged instead of dying.
   // ⭐⭐ AND IT IS SAFE EVEN ONCE ONE DEPLOYMENT SERVES MANY ESTATES, by key construction: the key
