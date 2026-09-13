@@ -71,6 +71,26 @@ address it. Do not guess it at 3am; it is worth ten minutes awake.
 ⚠️ A3's check also needs two **PLACED** households (`synthetic-identity.py --complete-setup <role>`),
 which is a different fixture from the falsifier's grant-only pair. Not run.
 
+### ⭐ A3 IS 3 SITES, NOT 4 — MEASURED, so the next lane does not re-derive it
+`/api/airnow` · `/api/drought` · `/api/today-line` all dispatch **BELOW** the capability gate and are
+named in `MEMBER_OK`, so every caller has a resolved grant and `scopeFor(request, env, grant)`
+converts them **meaningfully**. `/api/ambient` dispatches **ABOVE** that gate (deliberately ungated
+since 2026-08-02 so Mom's unpaired devices keep working), so it has no grant and the conversion is a
+**no-op** there.
+⛔⛔ **AND `/api/ambient` MUST BE LEFT *UNCLASSIFIED*, NOT DECLARED.** Declaring it in
+`worker/scope-sites.json` would assert *"this one stays on `scopeOf` BY DESIGN"* — which is exactly
+what nobody has ruled. Unclassified is the honest state for a site awaiting a ruling, and it has the
+right consequence: **A14's 0-unclassified clause holds the gate shut until someone answers.** That is
+the gate working, not the gate blocking.
+⭐ **The real question, framed so it can be answered in one sitting:** *should `/api/ambient` be gated
+at all?* It is a product-and-security call (the 2026-08-02 reasoning is Mom's access, and it is
+strong), not a conversion detail. **Paul's.**
+
+## 5b · ⛔ A FOURTH MORNING ITEM — `.plans/2026-09-10-OPEN-ITEMS.md` IS SUPERSEDED AND STILL IN PLACE
+Its ①·2 says the 409 workaround "is dead" with a same-commit `C2 retired by name`. The 09-11 plan row
+A10 says the opposite in four words. **It cost a near-miss tonight** (a behaviour change written,
+committed and reverted) and it will do it again to the next reader. Strike it or date-stamp it.
+
 ## 6 · Still owed
 - **A11** — copy is on disk (`.ux-reviews/2026-09-12-A11-signin-door-copy.md`, another lane's file,
   untracked). Gate LIFTED as a 2026-09-12 expedite exception with **Paul's review DEFERRED TO
