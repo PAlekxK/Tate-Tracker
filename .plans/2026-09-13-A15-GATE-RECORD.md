@@ -1,4 +1,4 @@
-# A15 — THE GATE BEFORE ROW B · ✅ **PASSED** at `9b7e4ba5`, 2026-09-13
+# A15 — THE GATE BEFORE ROW B · ✅ **PASSED** at `9b7e4ba5`, re-run green at `7d2a85cf`, 2026-09-13
 
 <!-- The record of one RUN, not a standing claim. Re-run `tools/falsifier-tenancy.py` at any later
      candidate sha; this file is evidence about the sha it names and about no other. -->
@@ -33,9 +33,11 @@ Estate B resolves to **itself** (200, `est-lab0002`) before any isolation clause
 
 ## 2 · ⛔ WHAT THIS DOES NOT CLEAR — read this before citing the pass
 
-- **A15 IS NOT A14.** A14 has two clauses and **its second is RED**: `check-scope-sites.py` reports
-  **20 unclassified** sites. They do not substitute for each other — ① is behaviour at a live
-  deployment, ② is source — and the plan says so in those words. See §3.
+- **A15 IS NOT A14**, and they still do not substitute for each other — ① is behaviour at a live
+  deployment, ② is source, and the plan says so in those words. ⚠️ This bullet read *"its second is
+  RED: 20 unclassified"* until `7d2a85cf`; **both clauses are green now** (§3). It is corrected rather
+  than deleted because the bullet was stale for four hours inside the very section headed *read this
+  before citing the pass* — the place where staleness costs the most.
 - **It is MECHANISM, never EXPERIENCE.** Every credential here is a fixture driven by curl. Nobody
   has signed in at a browser and seen two houses on a shelf.
 - **It is dev, and dev binds one estate id.** The second estate exists only because the fixture
@@ -46,7 +48,27 @@ Estate B resolves to **itself** (200, `est-lab0002`) before any isolation clause
   did not exercise. Three converted B-CACHE sites exist; **one** (`/api/drought`) was exercised
   end-to-end. `/api/airnow` and `/api/today-line` answer 503 at dev before building a key.
 
-## 3 · ⛔⛔ THE GATE IS NOT FULLY OPEN, AND THE BLOCKER IS THE PLAN, NOT THE BUILD
+## 3 · ✅ RESOLVED THE SAME DAY — A14 NOW PASSES TOO
+
+**Superseded at `7d2a85cf`.** The section below recorded A14's second clause as RED and the blocker
+as the plan. **Paul ruled it the same morning** `[paul-ruled 2026-09-13]`: **the gate's condition is
+RIGHT and row A's scope was INCOMPLETE** — writes must convert before row B opens whichever row they
+are filed under, because at the production origin a write would land under the deployment's own
+estate while reads resolved per household, silently. The writers' slice was then built: **8 sites
+converted, 1 split, 12 declared by class — `check-scope-sites.py` now reports 0 unclassified · 36
+converted · 22 declared**, and `migration-rehearsal.py` exits 0 with BOTH clauses green.
+
+⛔ **THE GATE IS OPEN AND ROW B IS STILL NOT STARTED.** B5 is Paul's call at the act, and row B moves
+Mom's real record. A15 passing is a precondition, never a trigger.
+
+⚠️ **The paragraph below is kept, struck, because what it got RIGHT is the reusable part:** the
+clause could have been turned green in ten minutes by declaring twenty pending sites, and it was not.
+The register had already made that mistake once — it recorded `handleFeedback`'s GET as
+"unattributable by construction" when the 2026-09-11 stage-note had ruled it a conversion into A2,
+and A2 closed without it. **A wrong reason is worse than no reason: an unclassified site gets looked
+at again, a declared one does not.**
+
+### ~~⛔⛔ THE GATE IS NOT FULLY OPEN, AND THE BLOCKER IS THE PLAN, NOT THE BUILD~~ (as it stood at `24055a03`)
 
 `8·2` rules that **row B comes after A15 passes**. A15 has passed. **A14 has not**, and A14 is the
 step that stands immediately before it.
