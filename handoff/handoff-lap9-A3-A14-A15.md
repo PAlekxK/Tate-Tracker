@@ -51,8 +51,9 @@ because that run's fixture file is gone and teardown keys on the file, never on 
 | ⭐⭐ `grant:p-fx-a-60f8f1:est-lab0001` | ⛔ **NO MARKER — and it points at dev's REAL estate** |
 | `account:p-fx-a-60f8f1:feedback:2026-09-10` | ⛔ no marker |
 
-⭐ **The last shape is the one to carry.** An **A6 person→estate edge, carrying no marker, giving a
-person who does not exist a house at `est-lab0001`** — sitting in the very index `estatesFor()`
+⭐ **The last shape is the one to carry** — ⚠️ **and read the CORRECTION below before citing this
+paragraph, which overstated it.** An **A6 person→estate edge, carrying no marker, naming a FIXTURE
+person at `est-lab0001`** — sitting in the very index `estatesFor()`
 reads to build the shelf and `resolveByEdge()` reads to route a request. Nothing distinguishes it
 from a real edge by inspection, because the edge shape is `{personId, estateId}` and that is all.
 
@@ -62,6 +63,28 @@ which swept the namespace and gave an orphaned fixture grant a real edge.** So t
 "67 edges, every one at a PROVEN estate" is TRUE and could not have told you this: it verified the
 ESTATE exists, which is a different question from whether the PERSON does. Sixth instance this lap
 of a control correct about its own question.
+
+### ⛔ CORRECTION, same day, before this reached a ruling — and it changes the disposal
+
+**The three edges do NOT point at people with no credential. All three have live grant rows behind
+them, and I said otherwise above.** Measured read-only across all five environments after the fact:
+
+| the question | the answer |
+|---|---|
+| does the `grant:` edge prefix exist anywhere but dev? | **NO — `prefix does not exist` at qa (9,029 keys) · paul (19) · home (27) · legacy (183).** Not "clean": absent. dev holds all 67 |
+| edges whose personId has **no account row** | **39 of 67 — AND THAT IS THE WRONG PREDICATE.** `worker.js:5145`: *"A GRANT-LINK READER HAS NO ACCOUNT ROW, AND HER NAME MUST STILL PERSIST."* It is how Mom arrives. Reporting 39 as residue would have manufactured an incident |
+| edges naming a (person, estate) with **no grant row behind it** — the right one | **2 of 67**, `p-1pffca7ehszg` and `p-gimuaje2scmj`, both at est-lab0001, **neither fixture-shaped and both older than this lap** (same family as the 09-12 handoff §3) |
+| fixture-MARKED credential rows surviving from 09-10 | **3** — `p-fx-a-60f8f1` at ⭐ **est-lab0001, dev's real estate** (member) · `p-fx-admin-0ca1d1` (administrator) and `p-fx-b-a84da4` at est-lab0002 |
+| fixture-person credential rows carrying **no** marker | **0** — marking on the ROWS works; only the derived index loses it |
+
+⭐ **So the sharp fact is not a dangling edge — it is a live fixture CREDENTIAL for dev's real
+estate**, whose token was written to `.private/falsifier-tenancy-lab.json` on 09-10 and that file is
+gone. **Unrecoverable by us is not the same as nonexistent.** That is the one item here that is not
+cosmetic. ⭐ **Verdict: a cleanup at dev, bounded to one environment — not an incident.**
+
+⚠️ **And the correction is itself the lesson**, pointed at me rather than at a tool: *no account row*
+is correct about whether an account row exists and silent about whether the person does, and those
+diverge exactly where this product is most careful about people who have no account yet.
 
 ⛔ **I DELETED NOTHING.** Removing an edge is a security act on a credential index, it is the same
 class the previous handoff's §3 says is Paul's, and the rows are not mine. **Two things follow and
