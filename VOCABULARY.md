@@ -173,13 +173,60 @@ constrains what an estate can be. Fine today, worth re-reading if that changes.
 > a caretaker, a family member. They are a guest at an estate, not a customer of a vehicle product.
 > Viewer-relative hierarchy therefore stands in full, and it costs this positioning nothing.
 
-⛔ **THE PRODUCT'S OWN NAME REMAINS OPEN — a greeting is not a brand — and "estate manager" is still rejected** — §4's reason holds and
-is aimed at exactly the reader who would meet this screen most. ⚠️ **But §4's premise moved:**
-`content-steward` held *call it nothing* on the grounds that the shell is invisible plumbing, with the
-falsifier *"the first time someone who is not Paul, Mom or Bob has to say the name out loud, it needs
-one."* **That has not fired as written** — no stranger has had to refer to it — **but a landing page
-met every open is not invisible plumbing.** The premise moved, not the rule. Open, and
-`content-steward`'s to settle.
+~~⛔ **THE PRODUCT'S OWN NAME REMAINS OPEN — a greeting is not a brand**~~ — ⛔ **STRUCK
+2026-09-12, SUPERSEDED by the ruling directly below. Kept struck rather than deleted because it read
+as current and told a reader the slot was theirs to fill.** Its reasoning is preserved for the record:
+`content-steward` held *call it nothing*, with the falsifier *"the first time someone who is not Paul,
+Mom or Bob has to say the name out loud, it needs one"* — which had not fired as written, though a
+landing page met every open is not invisible plumbing. ⭐ **"estate manager" is still rejected and that
+half is untouched** — §4's reason holds, and it is aimed at exactly the reader who would meet this
+screen most.
+
+### ✅ THE PRODUCT'S NAME IS NO LONGER OPEN `[paul-ruled 2026-09-12]`
+
+| term | means | why this word |
+|---|---|---|
+| ⭐ **My Home Place** | **the name of the PRODUCT and of the WEBSITE.** Wordmark **My <b>Home</b> Place**, said *"my home dot place"*, at `myhome.place`. ⭐ **And it is the GENERIC ENTRY in the top bar** — it stands until a person has their own **estate name** or **account name** to show there | `paul-ruled 2026-09-12`. ⭐ **The reason is LOW COLLISION, and it was DERIVED rather than asserted:** *"we're not going to see someone call their estate My Home Place, because that's in a way an awkward way of calling your home. So it kind of reinforces it being a decent product name."* ⭐⭐ **A name nobody would plausibly choose for their OWN home is exactly what makes it safe as everyone's default** — the awkwardness as a personal name IS the evidence it works as a product name. ⛔ Retires the bare **"My Home"** as the generic entry (§4) |
+
+⭐ **What makes this different from a brand decision:** it is not a claim that the name is good, it is
+a claim that **the name is SAFE in the generic slot** — nobody's own place will collide with it. It is
+settled, and not by `content-steward` — **by Paul, on the collision argument.**
+
+⛔ **IT DOES NOT RETIRE `your homes`.** That is the **greeting on the shelf**, a different slot with a
+different job. One names the product; the other addresses the person about what they hold. A build
+lane collapsing them would lose both.
+
+#### THE PRECEDENCE RULE — three rungs, most specific wins
+
+| # | state | the bar reads |
+|---|---|---|
+| 1 | **Inside an estate** | **that estate's name** — her word, verbatim, never title-cased |
+| 2 | **Signed in, NOT inside any estate** — the shelf, account settings | **the username** (`paul-confirmed 2026-09-05`: the username, not a display name; there is no display name and none is wanted) |
+| 3 | **Nobody signed in** — the door, the chooser, a dead link, the bare origin | ⭐ **My Home Place** |
+
+⭐⭐ **IF BOTH EXIST, THE ESTATE WINS — BUT ONLY WHILE YOU ARE INSIDE IT.** This is the clause a build
+lane will get wrong: **holding an estate is not being in one.** On `/homes/` a person may hold three
+estates and is inside none of them, so the bar reads **the username**, not any estate's name. The bar
+answers *where am I*, not *what do I own*. This chain does not change the 2026-09-05 one; it replaces
+only what sits on the bottom rung.
+
+⛔ **ENVIRONMENT IS NOT PART OF THE NAME.** `dev.myhome.place` and `qa.myhome.place` serve the same
+product; the name does **not** become "My Home Place (QA)". A walker who needs to know which
+environment they are in wants a separate marker (§3h: *a name a human reads and a value a machine
+stores are renamed on two clocks*).
+
+⚠️ **THREE ESTATES ARE LITERALLY NAMED "My Home" TODAY AND ONE OF THEM IS MOM'S** —
+`instance/home.json:12` · `instance/qa.json:12` · `instance/paul.json:12`. Paul's collision argument is
+that nobody would *choose* this name; **true, and nobody did — we defaulted it.** So the near-collision
+he reasoned was implausible **already exists in data, created by us.** ⛔ **Changing them renames a
+place, which is not a copy act — FLAGGED, NOT CHANGED.** The recommendation on the table is to stop
+defaulting an estate's name at all and let the chain fall through honestly. **Paul's call.**
+
+⚠️ **STILL OPEN, and a build lane must not invent an answer:** what a place with **no name** shows in
+the **PLACE** slot (`estate/index.html`, the shelf row, `settings/place`). ⛔ It is **not** "My Home
+Place" — that would make a house read as the product — and the bare "My Home" is retired above. Also
+open: a truncation rule, since truncating *"My Home Place on the Lake"* could **manufacture** the exact
+product name the ruling exists to keep unique.
 
 ⭐ **Personalising the landing page with a person's NAME is available and does not breach the
 name rule** — that rule governs **tracked files** (no name in a card, a commit, `viewer.html`). **A
@@ -790,6 +837,7 @@ rejected** — so the next reader re-proposes it.
 | rejected | why |
 |---|---|
 | **`property`** as the tenant noun | 433 hits; `property.json` already means *"facts about this place."* Use **`estateId`**, never `propertyId` |
+| ⛔ **"My Home"** as the generic top-bar entry | **RETIRED 2026-09-12** `[paul-ruled]`. It sat one word from the product name — *My Home* for an unnamed place beside *My Home Place* for the product — two near-identical strings on one 414px screen. ⭐ **The ruling removes the collision by making the generic slot the product name itself**, so there is no placeholder left to confuse with it (§3b). ⚠️ **NOT a ban on the words**: a person may name their own place anything they like, and *"which name does a PLACE with no name show"* is a **different, still-open question** |
 | **`tenant`** | Free, but it means the same as `estate` and adds a second word for one concept. Landlord connotation is wrong: Mom is not a tenant of Fernwood |
 | **`profile`** as a new noun | Paul used it naturally (*"Mom's profile"*). But it is exactly `person` + their `grants`, and **a third word for a thing that already has two is how a fork starts.** ⚠️ If a *surface* is built, `content-steward`'s verdict binds: **the shell is called nothing to a user** |
 | **`resident`** in the relationship enum | ⛔ **Already means a bird that does not migrate** — live in rendered strings (*"3 resident birds"*) plus three CSS classes. And no person holds it. **Strike it until someone does** |

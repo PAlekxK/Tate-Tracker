@@ -182,9 +182,27 @@ def main():
             login_bytes = r.read().decode("utf-8", "replace")
     except Exception as e:
         raise SystemExit("journey-logic: could not fetch the Access login page for path 13 (%s)" % e)
-    if "<title>My Home</title>" in login_bytes:
-        raise SystemExit("journey-logic: ⛔ the tokenless fetch returned the PRODUCT — Access is not gating QA. "
-                         "path 13 would be vacuous; refusing to run.")
+    # ⛔⛔ A11 (lap 9) — THIS NEEDLE IS DERIVED NOW, AND THE LITERAL IT REPLACES WOULD HAVE FAILED OPEN.
+    # It read `if "<title>My Home</title>" in login_bytes`. The 2026-09-12 wordmark ruling renames that
+    # title to "My Home Place", and `<title>My Home</title>` is NOT a substring of
+    # `<title>My Home Place</title>` — so the guard would simply have stopped matching and this check
+    # would have gone SILENTLY GREEN, never red. Two separate briefs predicted "it goes red the moment
+    # the rename lands"; the direction was wrong, and the wrong direction is the dangerous one — a guard
+    # that cannot fire reads exactly like a guard with nothing to report, and path 13 would have been
+    # vacuous with nothing saying so. This is the repo's own "a control can be entirely correct and
+    # still not cover the thing you rely on it for", arriving as a control we were about to blind.
+    # ⭐ So the needle is READ FROM THE DOCUMENT WE SERVE rather than typed here — the same rule
+    # check-config-derivation.py enforces on canon values. A rename can no longer outrun it.
+    # ⚠️ AND A SECOND, STRUCTURAL NEEDLE, because a title is copy and copy moves: `id="s-door"` is the
+    # sign-in chooser, which exists on our page and on no Cloudflare Access page. Either needle firing
+    # means we were handed the product. It also covers the case the derived needle cannot: QA serving a
+    # build whose title differs from the working tree's.
+    _m = re.search(r"<title>(.*?)</title>", doc_body, re.S)
+    _needles = [t for t in (("<title>%s</title>" % _m.group(1)) if _m else None, 'id="s-door"') if t]
+    _hit = next((t for t in _needles if t in login_bytes), None)
+    if _hit:
+        raise SystemExit("journey-logic: ⛔ the tokenless fetch returned the PRODUCT (matched %r) — Access is "
+                         "not gating QA. path 13 would be vacuous; refusing to run." % _hit)
 
     target = fix_target(head, allow_stale=a.allow_stale)
 

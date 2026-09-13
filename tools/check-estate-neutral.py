@@ -42,14 +42,16 @@ def _shipped_pages():
         pd = _ilu.module_from_spec(spec); spec.loader.exec_module(pd)
         allow = [a for a in pd.HOUSEHOLD_ALLOW if a.endswith((".html", ".md"))]
         # ⛔ `index.html` IS NOT SHIPPED AS WRITTEN — `pages-deploy.py` OVERWRITES it in the export
-        # with a generated "My Home" redirect, precisely because the tracked one points at
+        # with a generated redirect, precisely because the tracked one points at
         # viewer.html. Scanning the repo file therefore reports a leak that cannot reach a reader:
-        # measured 2026-09-06, the file says `<title>Fernwood</title>` while the origin serves
-        # `<title>My Home</title>`. ⭐ Excluded WITH ITS REASON rather than allow-listed as a token —
+        # measured 2026-09-06, the file says `<title>Fernwood</title>` while the origin serves the
+        # product's own name — `<title>My Home Place</title>` since the 2026-09-12 wordmark ruling
+        # (A11); it read `<title>My Home</title>` when this note was written.
+        # ⭐ Excluded WITH ITS REASON rather than allow-listed as a token —
         # the file is out of scope, the string is not forgiven. Use `--url` to check the real origin,
         # which is the only surface that can answer for a generated file.
         # ⛔ TWO SHIPPED FILES ARE GENERATED AT DEPLOY AND ARE NOT WHAT THE REPO HOLDS:
-        #   index.html   — pages-deploy OVERWRITES it with a "My Home" redirect.
+        #   index.html   — pages-deploy OVERWRITES it with a "My Home Place" redirect.
         #   viewer.html  — pages-deploy REBUILDS it from `instance/<env>.json`, so a household
         #                  origin serves ITS OWN app. The tracked file is FERNWOOD'S build and is
         #                  supposed to name Fernwood; scanning it reports 309 tokens that no

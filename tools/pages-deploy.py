@@ -295,7 +295,7 @@ def main():
                 f.write('<!DOCTYPE html>\n<html><head><meta charset="UTF-8">'
                         '<meta name="robots" content="noindex, nofollow">'
                         '<noscript><meta http-equiv="refresh" content="0; url=onboarding/"></noscript>'
-                        '<title>My Home</title></head><body>'
+                        '<title>My Home Place</title></head><body>'
                         '<script>(function(){var g=null;try{g=localStorage.getItem("fw-grant");}catch(e){}'
                         'window.location.replace(g?"viewer.html":"onboarding/");})();</script></body></html>\n')
             kept = sum(len(fs) for _, _, fs in os.walk(export))
