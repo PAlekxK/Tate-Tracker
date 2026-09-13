@@ -94,6 +94,28 @@ stay UNCLASSIFIED — declaring it would launder PENDING into BY DESIGN, the ins
 green, and the pass that owed the work would skip it because the tool said it was handled."*
 **A gate that cannot pass honestly today is information, not an obstacle.**
 
+## 3b · ⭐⭐ AN ARGUMENT IS NOT EVIDENCE — the rule this record was nearly filed under
+
+**Re-run at `7d2a85cf` after the writers' slice: all TEN clauses green, exit 0.** Verified against the
+origin first (`/health` → `build_sha 7d2a85cf`, `worker_blob b85a130bed64`) with
+`git diff 7d2a85cf..HEAD -- worker/` EMPTY, so the served bytes are HEAD's bytes.
+
+⭐ **It was re-run because the coordinator asked, and the asking was right even though the answer was
+yes.** The ten-clause gate HAD run against the slice's code twice. But the record on display showed
+**four** — `migration-rehearsal.py` gates on the falsifier's exit code (0 only when all ten pass) and
+printed only the four clauses A14's row names — **and a reader cannot tell that apart from a
+four-clause pass.**
+
+> ### THE RULE, and it generalises past this record
+> **The byte-identical `worker_blob` across the two deploys is a real argument — and it is still an
+> argument, where thirty seconds of re-running is evidence.**
+
+⛔ Every finding this lap made has this shape underneath it: a true thing believed for a reason that
+was not the thing itself. The blob comparison was sound, the inference was correct, and it was still
+the wrong instrument, because *a gate you cannot re-verify cheaply is not a gate.* ✅ The display
+defect is fixed at the tool (`§DISPLAY`) — every clause is now printed, and the roster is DERIVED
+from the run so a clause added tomorrow cannot be gated-on-and-invisible.
+
 ## 4 · How to reproduce, and what it costs
 
 ```bash

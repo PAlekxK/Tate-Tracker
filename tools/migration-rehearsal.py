@@ -14,13 +14,27 @@ which is what "rehearsal" has to mean when the build keeps moving. Its shape fol
 ⛔⛔ A14 HAS TWO CLAUSES AND NEITHER SUBSTITUTES FOR THE OTHER — the plan says so in those words, and
 this tool reports them SEPARATELY and refuses to average them:
 
-  ① `falsifier-tenancy.py` C1 · C2 · C3 · C5 green — does a credential stay inside its own house?
-     That is BEHAVIOUR, at a live deployment, against real KV rows.
+  ① `falsifier-tenancy.py` green — does a credential stay inside its own house? That is BEHAVIOUR,
+     at a live deployment, against real KV rows. A14's row NAMES C1 · C2 · C3 · C5; the falsifier
+     RUNS ten, and this gates on its EXIT CODE, which is 0 only when every one of them passes.
   ② `check-scope-sites.py` 0 unclassified — is every `scopeOf(env)` site converted or DECLARED?
      That is SOURCE. A file where every site is converted and every grant resolves to the WRONG
      household passes ② completely; a deployment that isolates perfectly today through code nobody
      has classified passes ① completely. Reporting one number would hide exactly the gap between
      them.
+
+⛔⛔ §DISPLAY — WHY EVERY CLAUSE IS PRINTED, AND NOT JUST THE FOUR A14 NAMES.
+This tool GATED on ten clauses and DISPLAYED four, and **a reader cannot tell that apart from a
+four-clause pass.** The coordinator read the four-clause line after a change to `worker.js` and
+asked, correctly, whether the ten-clause gate had been re-run — it had, and the record could not
+say so. **The person reading this output is the one deciding whether Mom's record moves**, so a
+control that gates on more than it shows is a control that has to be re-litigated by hand every
+time the build changes, which is the same as not having it.
+⭐ It is this lap's signature shape — *a control correct about its own question and silent about
+the one it is trusted for* — appearing INSIDE the instrument built to catch that shape. Written
+here rather than only in a commit because the next author meets the docstring, not the history.
+⛔ And the roster is DERIVED from the run, never typed here: a clause added to the falsifier
+tomorrow would otherwise be gated on and invisible, which is this same defect rebuilt one level up.
 
 ⛔⛔ WHAT THIS TOOL DOES NOT COVER, on its own face:
   · **It proves the MECHANISM, never the EXPERIENCE.** Its two-house person is a FIXTURE credential
@@ -37,7 +51,7 @@ this tool reports them SEPARATELY and refuses to average them:
 EXIT: 0 both clauses pass · 1 a clause FAILED · 2 a clause is BLOCKED (reported, not averaged) ·
 3 UNCHECKABLE (no fixture, or the store/Worker could not be reached — never green by absence).
 """
-import argparse, importlib.util, json, os, subprocess, sys, urllib.error, urllib.request
+import argparse, importlib.util, json, os, re, subprocess, sys, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIXTURE = os.path.join(ROOT, ".private", "falsifier-tenancy-lab.json")
@@ -81,16 +95,40 @@ def run(cmd):
     return r.returncode, (r.stdout or "") + (r.stderr or "")
 
 
+# A14's row names four clauses. The falsifier RUNS ten, and clause ① gates on its EXIT CODE, which
+# is 0 only when every one of them passes. ⛔ So the four are the row's WORDING, never the denominator.
+A14_NAMED = ("C1", "C2", "C3", "C5")
+# A clause id as the falsifier prints it: P1 · C1 · C2b · C10. Deliberately a SHAPE and not a roster —
+# see the docstring's §DISPLAY note. `FALSIFIER PASSES` does not match, which is the point.
+CLAUSE_ID = re.compile(r"^(✅|🔴|⬜)\s+([A-Z]{1,2}\d{1,2}[a-z]?)\s+(.*)$")
+
+
+def parse_clauses(out):
+    """EVERY clause the run printed, in the order it printed them — derived, never typed.
+
+    ⛔ THIS IS THE WHOLE FIX. A hardcoded list would put the displayed roster back under this file's
+    control, so a clause added to `falsifier-tenancy.py` tomorrow would be GATED ON (it moves the
+    exit code) and INVISIBLE here — which is the defect being repaired, rebuilt one level up.
+    """
+    rows = []
+    for line in out.split("\n"):
+        m = CLAUSE_ID.match(line.strip())
+        if m:
+            rows.append({"mark": m.group(1), "id": m.group(2), "text": m.group(3).strip(),
+                         "green": m.group(1) == "✅", "a14": m.group(2) in A14_NAMED})
+    return rows
+
+
 def clause_one():
-    """① the falsifier at dev — C1 · C2 · C3 · C5, by RUNNING it, never by citing its last run."""
+    """① the falsifier at dev — RUN, never cited from its last run, and reported IN FULL."""
     code, out = run([sys.executable, "tools/falsifier-tenancy.py"])
-    want = ["C1", "C2", "C3", "C5"]
-    green = {c: ("✅ %s " % c) in out for c in want}
+    rows = parse_clauses(out)
+    green = {c: any(r["id"] == c and r["green"] for r in rows) for c in A14_NAMED}
     if "no fixtures" in out:
         return {"state": "UNCHECKABLE", "detail": "no fixture — run `falsifier-tenancy.py --setup`",
-                "clauses": green, "exit": code}
+                "clauses": green, "rows": rows, "exit": code}
     state = "PASS" if (code == 0 and all(green.values())) else ("FAIL" if code == 1 else "UNPROVEN")
-    return {"state": state, "clauses": green, "exit": code}
+    return {"state": state, "clauses": green, "rows": rows, "exit": code}
 
 
 def clause_two():
@@ -177,10 +215,21 @@ def report(as_json=False):
                           "multi": multi, "cache": keys}, indent=2))
     else:
         print("🧪 A14 · the migration rehearsal — two estates in ONE deployment, before any real row moves\n")
-        print("  ① BEHAVIOUR — falsifier-tenancy at %s" % ENV)
-        print("     %s  C1 %s · C2 %s · C3 %s · C5 %s" % (
-            {"PASS": "✅", "FAIL": "🔴", "UNPROVEN": "⬜", "UNCHECKABLE": "⛔"}[c1["state"]],
-            *["✅" if c1["clauses"].get(c) else "🔴" for c in ("C1", "C2", "C3", "C5")]))
+        print("  ① BEHAVIOUR — falsifier-tenancy at %s   %s" % (
+            ENV, {"PASS": "✅ PASS", "FAIL": "🔴 FAIL", "UNPROVEN": "⬜ UNPROVEN",
+                  "UNCHECKABLE": "⛔ UNCHECKABLE"}[c1["state"]]))
+        # ⚠️ `clause_rows`, NOT `rows` — the surface walk already owns `rows` in this function, and
+        # the first draft of this block shadowed it and crashed the report AFTER printing a green
+        # clause ①. A display fix that breaks the thing below it is not a display fix.
+        clause_rows = c1.get("rows") or []
+        if not clause_rows:
+            print("     ⛔ the run printed NO clause lines — that is UNREADABLE, never a pass.")
+        for r in clause_rows:
+            # ⭐ EVERY CLAUSE THE RUN PRINTED, with A14's four marked. The gate is the exit code over
+            # ALL of them; the ★ says which ones A14's row happens to name.
+            print("     %s %-4s %s %s" % (r["mark"], r["id"], "★" if r["a14"] else " ", r["text"][:72]))
+        print("     gated on ALL %d clause(s) via exit %s; ★ = the 4 A14's row names"
+              % (len(clause_rows), c1.get("exit")))
         print("\n  ② SOURCE — check-scope-sites")
         print("     %s  %s unclassified · %s converted · %s declared" % (
             "✅" if c2["state"] == "PASS" else "🔴",
@@ -255,6 +304,43 @@ def selftest():
     FIXTURE = keep
     ok &= rc == 3
     print("  %s a MISSING fixture exits 3 UNCHECKABLE, never 0" % ("✅" if rc == 3 else "🔴"))
+
+    # ═══ §DISPLAY's own clauses — the gate must SHOW what it GATES ON ══════════════════════════
+    SAMPLE = ("  ✅ P1  estate A's credential resolves to A — 200 est-lab0001\n"
+              "  ✅ C2b a two-house credential naming B is answered as B — 200\n"
+              "  🔴 C3  B's credential is B's own row, not A's\n"
+              "✅ FALSIFIER PASSES — two estates in one deployment\n")
+    parsed = parse_clauses(SAMPLE)
+    got = [r["id"] for r in parsed]
+    ok &= got == ["P1", "C2b", "C3"]
+    print("  %s every clause line is parsed, and the summary line is NOT one (%s)"
+          % ("✅" if got == ["P1", "C2b", "C3"] else "🔴", got))
+
+    red = [r for r in parsed if not r["green"]]
+    ok &= len(red) == 1 and red[0]["id"] == "C3"
+    print("  %s a 🔴 clause is parsed as NOT green — the mark is read, not assumed"
+          % ("✅" if len(red) == 1 and red[0]["id"] == "C3" else "🔴"))
+
+    # ⭐⭐ THE CLAUSE THIS FIX EXISTS FOR. A clause the falsifier gains tomorrow must APPEAR here.
+    # If this goes red, the display has drifted back under this file's control and the tool is once
+    # again gating on more than it shows — the exact defect §DISPLAY describes.
+    future = parse_clauses("  ✅ D7  a clause nobody has written yet — 200\n")
+    ok &= len(future) == 1 and future[0]["id"] == "D7" and future[0]["a14"] is False
+    print("  %s a clause the falsifier gains LATER is displayed, and is not marked ★"
+          % ("✅" if len(future) == 1 and future[0]["id"] == "D7" else "🔴"))
+
+    marked = [r["id"] for r in parse_clauses(SAMPLE) if r["a14"]]
+    ok &= marked == ["C3"]
+    print("  %s ★ marks only the four A14's row names, and marks nothing else (%s)"
+          % ("✅" if marked == ["C3"] else "🔴", marked))
+
+    # ⛔ A RUN THAT PRINTS NO CLAUSES IS UNREADABLE, NEVER A PASS — the shape that would let a
+    # falsifier whose output format changed read as ten silent greens.
+    src_r = open(os.path.abspath(__file__), encoding="utf-8").read()
+    says = "the run printed NO clause lines" in src_r
+    ok &= says
+    print("  %s a run that prints no clause lines says UNREADABLE rather than nothing"
+          % ("✅" if says else "🔴"))
 
     # ⭐ an UNPROVEN clause ① cannot be rounded up to a pass by a green clause ②
     rounds_up = "if c1[\"state\"] in (\"UNPROVEN\", \"UNCHECKABLE\"):" in src
