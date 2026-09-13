@@ -117,9 +117,17 @@ def plan_for(w, env, meta):
         # ⛔ THE ROW'S OWN estateId IS THE AUTHORITY AND THE PREFIX IS A CLAIM. When they disagree an
         # edge cannot be written either way without hardening a mistake.
         if declared and declared != prefix:
-            conflict.append((h, prefix, "row says estateId=%s but it is keyed under %s — an edge would "
+            # ⭐ WHETHER COVERAGE IS ACTUALLY LOST IS A DIFFERENT FINDING FROM THE MIS-KEYING, and
+            # printing them identically is how a red becomes furniture. Measured at dev 2026-09-12:
+            # BOTH mis-keyed rows belong to the same person as a CORRECTLY keyed row at the estate
+            # they name, so the pair is written anyway and the refusal costs nothing. The rows are
+            # fossils of handleEstateFound's own documented defect — the route named the founded
+            # estate while the grant landed under the deployment's — and each is already dead at
+            # HEAD (path 1 finds nothing and returns null, which is C1 working).
+            # ⚠️ Resolved in a SECOND PASS below, because the answer depends on pairs not yet seen.
+            conflict.append([h, prefix, "row says estateId=%s but it is keyed under %s — an edge would "
                                         "harden a mis-keyed write; grantFor() already rejects it"
-                             % (declared, prefix)))
+                             % (declared, prefix), (row.get("personId"), declared)])
             continue
         if not person:
             # ⛔ NOT A CONFLICT AND NOT DONE. The edge is keyed by personId; inventing one from the
@@ -138,6 +146,16 @@ def plan_for(w, env, meta):
             already.append(pair)
         else:
             todo.append(pair)
+    # ⛔ SECOND PASS — a refusal that loses a person a house is a different severity from one that
+    # loses nothing, and only the complete pair set can tell them apart.
+    for c in conflict:
+        pair = c[3]
+        if pair in seen:
+            c[2] += " ⭐ COVERAGE NOT LOST — (%s, %s) is written anyway from a correctly-keyed row " \
+                    "at that estate. This row is a dead duplicate, not a missing edge." % pair
+        elif pair[0]:
+            c[2] += " ⛔⛔ AND COVERAGE IS LOST — nothing else writes (%s, %s), so this person's " \
+                    "house is on no shelf until a human decides which key is right." % pair
     ambiguous = {p: sorted(e) for p, e in by_person_estate.items() if len(e) > 1}
     return {"estate": estate, "rows": len(rows), "todo": todo, "already": already,
             "conflict": conflict, "orphan": orphan, "pairs": seen, "ambiguous": ambiguous}
@@ -249,11 +267,110 @@ def check(w, env, meta):
                      % (len(fires), ", ".join("%s×%d" % (k, v) for k, v in by.most_common())))
     else:
         lines.append("   ✅ no tie-break or refusal has been recorded (`%s:%s:<date>`)" % (p["estate"], RESOLVE_KIND))
-    for h, prefix, why in p["conflict"]:
+    for h, prefix, why, _pair in p["conflict"]:
         ok = False
         lines.append("   🔴 CONFLICT %s… @ %s — %s" % (h[:8], prefix, why))
     for h, prefix, why in p["orphan"]:
         lines.append("   ▫ %s… @ %s — %s" % (h[:8], prefix, why))
+    return ok, lines
+
+
+# ⭐⭐ `--resolvable` — CAN EVERY GRANT ROW STILL BE REACHED, AND BY WHICH PATH.
+# ⛔ IT EXISTS BECAUSE THE STEP'S OWN ACCEPTANCE SENTENCE CANNOT BE MET THE OBVIOUS WAY. "Confirm
+# every existing credential still resolves" cannot be done by presenting credentials: a token is
+# returned once and never stored, and the register holds only its hash. So the honest instrument is a
+# PROOF over the store — for every grant row, which of `grantFor()`'s three paths reaches it — plus
+# one real fixture token presented end-to-end, which is the behavioural half and is not this tool's.
+#
+# ⭐ THE READING THAT MATTERS IS BEFORE-vs-AFTER, not a green total. Path 2 is purely additive, so no
+# row reachable BEFORE can become unreachable AFTER — and "by construction" is exactly the class of
+# claim this lap has falsified three times, so it is measured rather than asserted.
+# ⚠️ IT MIRRORS `grantFor`'s CONTROL FLOW, INCLUDING THE PART THAT LOOKS WRONG: a route naming an
+# estate is TERMINAL. If that estate holds no row for this hash the answer is null and the edge is
+# never consulted — C1 — so such a row is UNREACHABLE and that is correct behaviour, not a defect
+# this migration introduced. Those rows were unreachable before it too, which is what the columns say.
+def resolvable(w, env, meta):
+    estate = meta.get("estate")
+    if not estate:
+        raise w.Unreadable("declares no ESTATE_ID")
+    w.destination_agrees(env)
+    rows = grant_rows(w, env)
+    edges = set(w.kv_list(env, EDGE_PREFIX))
+    routes = set(w.kv_list(env, "route:"))
+
+    verdicts, lost, gained = [], [], []
+    for prefix, h, key in rows:
+        try:
+            row = w.kv_get(env, key)
+        except Exception:
+            verdicts.append((h, prefix, "vanished", "vanished", "listed but not readable")); continue
+        if not isinstance(row, dict):
+            verdicts.append((h, prefix, "unreadable", "unreadable", "row is not an object")); continue
+        person, declared = row.get("personId"), row.get("estateId")
+        here = declared or prefix
+        agrees = (not declared) or declared == prefix
+        revoked = bool(row.get("revokedAt"))
+        route = None
+        if ("route:" + h) in routes:
+            try: route = w.kv_get(env, "route:" + h)
+            except Exception: route = None
+        r_est = (route or {}).get("estateId") if isinstance(route, dict) else None
+        r_person = (route or {}).get("personId") if isinstance(route, dict) else None
+
+        def verdict(edge_path_live):
+            """→ (path, why) for one credential, in grantFor's own order."""
+            if revoked:
+                return ("none", "revoked — resolving it would be the defect")
+            if r_est:                                   # PATH 1, and it is TERMINAL
+                if r_est == prefix and agrees:
+                    return ("route", "route names %s and the row is there" % r_est)
+                return ("none", "route names %s but this row is keyed under %s — terminal by C1, "
+                                "never the edge" % (r_est, prefix))
+            if r_person and edge_path_live:
+                return ("edge", "route names only %s; the edge + this hash pick %s" % (r_person, here))
+            if prefix == estate and agrees:
+                return ("legacy", "no estate on the route; the row is at the deployment's own estate")
+            return ("none", "no route estate, %s, and the row is not at the deployment's estate"
+                            % ("no edge" if r_person else "no personId on the route"))
+
+        after_edge = bool(person) and (EDGE_PREFIX + "%s:%s" % (person, here)) in edges and agrees
+        before, _ = verdict(False)          # the world before A6: no edge path at all
+        after, why = verdict(after_edge)
+        verdicts.append((h, prefix, before, after, why))
+        if before != "none" and after == "none":
+            lost.append((h, prefix, why))
+        if before == "none" and after != "none":
+            gained.append((h, prefix, why))
+    return {"estate": estate, "rows": len(rows), "verdicts": verdicts, "lost": lost, "gained": gained}
+
+
+def report_resolvable(r):
+    lines, ok = [], True
+    by = collections.Counter(v[3] for v in r["verdicts"])
+    lines.append("   %d grant row(s) · after: %s"
+                 % (r["rows"], " · ".join("%s %d" % (k, n) for k, n in by.most_common())))
+    before = collections.Counter(v[2] for v in r["verdicts"])
+    lines.append("   %sbefore A6: %s"
+                 % (" " * 0, " · ".join("%s %d" % (k, n) for k, n in before.most_common())))
+    if r["lost"]:
+        ok = False
+        lines.append("   🔴🔴 %d ROW(S) REACHABLE BEFORE AND NOT AFTER — this migration killed a "
+                     "credential. STOP." % len(r["lost"]))
+        for h, prefix, why in r["lost"]:
+            lines.append("        🔴 %s… @ %s — %s" % (h[:8], prefix, why))
+    else:
+        lines.append("   ✅ no row reachable before is unreachable after — measured, not asserted")
+    if r["gained"]:
+        lines.append("   ⭐ %d row(s) are reachable ONLY BECAUSE OF THE EDGE — unreachable before it:"
+                     % len(r["gained"]))
+        for h, prefix, why in r["gained"][:12]:
+            lines.append("        ⭐ %s… @ %s — %s" % (h[:8], prefix, why))
+    unreached = [v for v in r["verdicts"] if v[3] == "none"]
+    if unreached:
+        lines.append("   ⚠️ %d row(s) resolve by NO path, before or after. Each is a pre-existing dead "
+                     "credential, not something this step broke — the `why` says which:" % len(unreached))
+        for h, prefix, b, a, why in unreached:
+            lines.append("        ▫ %s… @ %s — %s" % (h[:8], prefix, why))
     return ok, lines
 
 
@@ -262,11 +379,13 @@ def main():
     ap.add_argument("--env", help="one deployment label; default every deployment in wrangler.toml")
     ap.add_argument("--apply", action="store_true", help="WRITE the edges (default is a dry run)")
     ap.add_argument("--check", action="store_true", help="VERIFY after applying — a different question")
+    ap.add_argument("--resolvable", action="store_true",
+                    help="can every grant row still be REACHED, and by which path (before vs after)")
     ap.add_argument("--selftest", action="store_true")
     a = ap.parse_args()
     if a.selftest:
         return selftest()
-    if a.apply and a.check:
+    if a.apply and (a.check or a.resolvable):
         print("🔴 --apply and --check are two acts. Run the write, then verify it.")
         return 1
 
@@ -277,10 +396,22 @@ def main():
         print("🔴 no such deployment %r — wrangler.toml declares %s" % (a.env, ", ".join(envs)))
         return 3
 
-    print("🔗 person→estate edge %s — %s · key noun `%s`\n"
-          % ("CHECK" if a.check else ("APPLY" if a.apply else "DRY RUN"), ", ".join(names), EDGE_PREFIX))
+    mode = "RESOLVABILITY" if a.resolvable else ("CHECK" if a.check else ("APPLY" if a.apply else "DRY RUN"))
+    print("🔗 person→estate edge %s — %s · key noun `%s`\n" % (mode, ", ".join(names), EDGE_PREFIX))
     worst, unreadable, wrote = 0, 0, 0
     for env in names:
+        if a.resolvable:
+            try:
+                r = resolvable(w, env, envs[env])
+            except Exception as e:
+                print("   ⛔ %-7s UNREADABLE — %s" % (env, e)); unreadable += 1; continue
+            ok, lines = report_resolvable(r)
+            print("   %s %-7s %s" % ("✅" if ok else "🔴", env, r["estate"]))
+            for l in lines:
+                print(l)
+            if not ok:
+                worst = max(worst, 1)
+            continue
         if a.check:
             try:
                 ok, lines = check(w, env, envs[env])
@@ -303,7 +434,7 @@ def main():
         est_seen = collections.Counter(e for _p, e in p["pairs"])
         if est_seen:
             print("        estates covered: %s" % ", ".join("%s×%d" % (e, n) for e, n in est_seen.most_common()))
-        for h, prefix, why in p["conflict"]:
+        for h, prefix, why, _pair in p["conflict"]:
             print("        🔴 REFUSED %s… @ %s — %s" % (h[:8], prefix, why)); worst = max(worst, 1)
         for h, prefix, why in p["orphan"]:
             print("        ▫ %s… @ %s — %s" % (h[:8], prefix, why))
@@ -326,7 +457,11 @@ def main():
     if worst:
         print("🔴 above needs a human. Nothing about a refused row was written.")
         return 1
-    if a.check:
+    if a.resolvable:
+        print("✅ resolvability audit clean — every row reachable before A6 is still reachable.")
+        print("⚠️ IT PROVES THE STORE, NOT THE WORKER. A deployed build is what actually resolves; "
+              "present a real fixture token to it for the behavioural half.")
+    elif a.check:
         print("✅ check clean.")
     elif a.apply:
         print("✅ backfill applied — %d edge(s) written. Now run --check: a second dry run proves "
@@ -342,8 +477,12 @@ def selftest():
     """Prove the classifier can FAIL, not merely that it runs. Every clause is a MUTATION."""
     class W:
         class Unreadable(Exception): pass
-        def __init__(s, rows, edges, estate="est-x"):
+        def __init__(s, rows, edges, estate="est-x", routes=None):
             s._rows, s._edges, s._estate = rows, edges, estate
+            # ⚠️ Route rows live in the SAME fake store, so `kv_list("route:")` finds them the way
+            # the real one does. Passed separately only so existing clauses need no rewrite.
+            for k, v in (routes or {}).items():
+                s._rows[k] = v
         def environments(s): return {"e": {"estate": s._estate}}
         def destination_agrees(s, env): return True
         def kv_list(s, env, prefix):
@@ -449,6 +588,54 @@ def selftest():
     # 17 · ...and an undeclared one with no keys is NOT
     exists, how = estate_proof(w, "e", "est-nowhere", {})
     expect("undeclared empty estate not proven", not exists)
+
+    # ---- `--resolvable`: a mode with no mutation coverage is what this repo forbids ----
+    G = lambda est, person=None, **kw: dict({"estateId": est, "personId": person}, **kw)
+
+    # 18 · a route naming the row's own estate resolves by PATH 1, before and after
+    w = W({"est-x:grant:aa": G(E, "p-1")}, ["grant:p-1:est-x"],
+          routes={"route:aa": {"estateId": E, "personId": "p-1"}})
+    r = resolvable(w, "e", {"estate": E})
+    expect("path 1 before and after", r["verdicts"][0][2] == "route" and r["verdicts"][0][3] == "route")
+
+    # 19 ⭐ THE WHOLE POINT: a row at a FOREIGN estate with a person-only route is unreachable before
+    #     and reachable AFTER, via the edge. This is the migration's own value, measured.
+    w = W({"est-founded:grant:bb": G(F, "p-2")}, ["grant:p-2:est-founded"],
+          routes={"route:bb": {"personId": "p-2"}})
+    r = resolvable(w, "e", {"estate": E})
+    expect("edge path GAINS a foreign-estate row",
+           r["verdicts"][0][2] == "none" and r["verdicts"][0][3] == "edge" and len(r["gained"]) == 1)
+
+    # 20 · ...and WITHOUT the edge it stays unreachable — so clause 19 measures the EDGE, not the mode
+    w = W({"est-founded:grant:bb": G(F, "p-2")}, [], routes={"route:bb": {"personId": "p-2"}})
+    r = resolvable(w, "e", {"estate": E})
+    expect("no edge, no gain", r["verdicts"][0][3] == "none" and not r["gained"] and not r["lost"])
+
+    # 21 · a mis-keyed row whose route names the OTHER estate is terminal by C1 — none/none, NOT lost
+    w = W({"est-x:grant:cc": G(F, "p-3")}, ["grant:p-3:est-founded"],
+          routes={"route:cc": {"estateId": F, "personId": "p-3"}})
+    r = resolvable(w, "e", {"estate": E})
+    expect("C1 terminal row is none/none and not lost",
+           r["verdicts"][0][2] == "none" and r["verdicts"][0][3] == "none" and not r["lost"])
+
+    # 22 · no route row at all + the deployment's own estate → the LEGACY path, unchanged
+    w = W({"est-x:grant:dd": G(E, "p-4")}, [])
+    r = resolvable(w, "e", {"estate": E})
+    expect("legacy path survives", r["verdicts"][0][2] == "legacy" and r["verdicts"][0][3] == "legacy")
+
+    # 23 · a revoked row resolves by NO path, and that is correct rather than a loss
+    w = W({"est-x:grant:ee": G(E, "p-5", revokedAt="2026-01-01")}, ["grant:p-5:est-x"],
+          routes={"route:ee": {"estateId": E, "personId": "p-5"}})
+    r = resolvable(w, "e", {"estate": E})
+    expect("revoked resolves by no path", r["verdicts"][0][3] == "none" and not r["lost"])
+
+    # 24 ⛔ THE LOSS DETECTOR MUST BE ABLE TO FIRE. The resolver cannot produce a loss (path 2 is purely
+    #     additive), so this covers the REPORTER on a synthetic loss rather than pretending to cover a
+    #     case the logic forbids — an honest test of half a thing beats a green test of nothing.
+    okr, lines = report_resolvable({"estate": E, "rows": 1,
+                                    "verdicts": [("aa", E, "route", "none", "synthetic")],
+                                    "lost": [("aa", E, "synthetic")], "gained": []})
+    expect("loss detector fires", (not okr) and any("killed a credential" in l for l in lines))
 
     print("selftest: %d passed, %d failed" % (ok, len(fail)))
     for f in fail:
